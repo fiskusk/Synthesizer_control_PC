@@ -1,5 +1,7 @@
 #include "format.h"
 
+extern float fout;
+
 const char * format_number(prefixes prefix, float *output)
 {
      switch (prefix) {
