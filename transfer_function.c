@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "format.h"
 
 #define FREF    10e6
 #define DBR     0      // when DBR is set (1) -> its active FREF*2
@@ -7,22 +8,20 @@
 
 float f1, fout;
 int n_counter, f_counter, m_counter, r_counter;
-/*
-typedef enum {
-    kilo, mega, giga,
-    k=kilo, M=mega, G=giga
-} prefixes;*/
 
 float compute_f1_frequency(int r_counter);
 float check_set_frequency(void);
 void ask_for_registers(void);
 void print_set_registers(void);
-//void number(prefixes prefix);
+
+void formated_print(prefixes prefix);
 
 int main(void)
 {
     ask_for_registers();
-    printf("Vysledna frekvence fout = %.3f MHz\n", check_set_frequency());
+    formated_print(kilo);
+    formated_print(M);
+    formated_print(G);
     return 0;
 }
 
@@ -60,13 +59,10 @@ void print_set_registers(void)
     printf("Hodnota registru Modulo-M je %d\n", m_counter);
     printf("Hodnota registru citace-R je %d\n", r_counter);
 }
-/*
-void number(prefixes prefix)
+
+void formated_print(prefixes prefix)
 {
-     switch (prefix) {
-         case kilo:
-            break;
-         default:
-            break;
-     }
- }*/
+    fout=check_set_frequency();
+    const char * prefix_text = format_number(prefix, &fout);
+    printf("Vysledna frekvence fout = %.3f %s\n", fout, prefix_text);
+}
