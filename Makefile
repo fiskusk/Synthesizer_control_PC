@@ -45,12 +45,20 @@ OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES)))
 
 # default action: build all
-all: $(BUILD_DIR)/$(TARGET).elf
+ifeq ($(OS),Windows_NT)
+all: $(BUILD_DIR)/$(TARGET).exe
+else
+all: $(BUILD_DIR)/$(TARGET)
+endif
+
 # create object files from C files
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
 	@$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
 # create aplication ELF file
-$(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
+$(BUILD_DIR)/$(TARGET): $(OBJECTS) Makefile
+	@$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+# create aplication EXE file
+$(BUILD_DIR)/$(TARGET).exe: $(OBJECTS) Makefile
 	@$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 # create build directory
 $(BUILD_DIR):
