@@ -335,6 +335,3 @@ ASALocalRun/
 
 # build dir
 build/
-
-# Visual Studio Code
-.vscode/
