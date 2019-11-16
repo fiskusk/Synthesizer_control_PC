@@ -13,15 +13,15 @@ float compute_f1_frequency(int r_counter);
 float check_set_frequency(void);
 void ask_for_registers(void);
 void print_set_registers(void);
+void preset_registers(void);
 
 void formated_print(prefixes prefix);
 
 int main(void)
 {
-    ask_for_registers();
-    formated_print(kilo);
+    //ask_for_registers();
+    preset_registers();
     formated_print(M);
-    formated_print(G);
     return 0;
 }
 
@@ -51,6 +51,14 @@ void ask_for_registers(void)
     scanf("%d", &r_counter);
 }
 
+void preset_registers(void)
+{
+    n_counter = 500;
+    f_counter = 70;
+    m_counter = 4095;
+    r_counter = 1;
+}
+
 void print_set_registers(void)
 {
     printf("\n\nAhoj svete.\n\nFrekvence f1 je %.3f MHz\n", compute_f1_frequency(r_counter));
@@ -64,5 +72,9 @@ void formated_print(prefixes prefix)
 {
     fout=check_set_frequency();
     const char * prefix_text = format_number(prefix, &fout);
-    printf("Vysledna frekvence fout = %.3f %s\n", fout, prefix_text);
+    int fout_integer = fout;
+    char fout_fractional[3];
+    sprintf(fout_fractional, "%d", (int)((fout-fout_integer)*1000));
+    printf("Prima fout = %.3f %s\n", fout, prefix_text);
+    printf("Vysledna frekvence fout = %d.%s %s\n", fout_integer, fout_fractional, prefix_text);
 }
