@@ -6,6 +6,6 @@ typedef enum {
     k=kilo, M=mega, G=giga
 } prefixes;
 
-const char * format_number(prefixes prefix, float *output);
+const char *format_number(prefixes prefix, float input, float *output, char *formated_output);
 
 #endif // FORMAT_H_INCLUDED

@@ -6,7 +6,6 @@
 #define RDIV2   0      // when RDIV2 is set (1) -> its active FREF/2
 #define DIVA    1
 
-float f1, fout;
 int n_counter, f_counter, m_counter, r_counter;
 
 float compute_f1_frequency(int r_counter);
@@ -27,15 +26,16 @@ int main(void)
 
 float check_set_frequency(void)
 {
-    float f_out;
+    float f_out, f1;
     print_set_registers();
-    f_out = f1*(n_counter+(f_counter/m_counter)/DIVA);
+    f1 = compute_f1_frequency(r_counter);
+    f_out = (f1)*(n_counter+(f_counter/(m_counter*1.0))/(DIVA));
     return f_out;
 }
 
 float compute_f1_frequency(int r_counter)
 {
-    f1 = (FREF*(1+DBR))/(r_counter*(1+RDIV2));
+    float f1 = (FREF*(1+DBR))/(r_counter*(1+RDIV2));
     return f1;
 }
 
@@ -61,7 +61,11 @@ void preset_registers(void)
 
 void print_set_registers(void)
 {
-    printf("\n\nAhoj svete.\n\nFrekvence f1 je %.3f MHz\n", compute_f1_frequency(r_counter));
+    float f1 = compute_f1_frequency(r_counter);
+    float f1_formated;
+    char *formated[10];
+    format_number(M, f1, &f1_formated, &formated);
+    printf("\n\nAhoj svete.\n\nFrekvence f1 je %.3f MHz\n", f1_formated);
     printf("Hodnota registru Integer-N je %d\n", n_counter);
     printf("Hodnota registru Fractional-F je %d\n", f_counter);
     printf("Hodnota registru Modulo-M je %d\n", m_counter);
@@ -70,11 +74,10 @@ void print_set_registers(void)
 
 void formated_print(prefixes prefix)
 {
-    fout=check_set_frequency();
-    const char * prefix_text = format_number(prefix, &fout);
-    int fout_integer = fout;
-    char fout_fractional[3];
-    sprintf(fout_fractional, "%d", (int)((fout-fout_integer)*1000));
+    float fout=check_set_frequency();
+    char fout_formated[10];
+    const char * prefix_text = format_number(prefix, fout, &fout, &fout_formated);
+    
     printf("Prima fout = %.3f %s\n", fout, prefix_text);
     printf("Vysledna frekvence fout = %d.%s %s\n", fout_integer, fout_fractional, prefix_text);
 }

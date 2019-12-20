@@ -1,9 +1,8 @@
 #include "format.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-extern float fout;
-
-const char *format_number(prefixes prefix, float *output)
+const char *format_number(prefixes prefix, float input, float *output, char *formated_output)
 {
     char *str_k = "kHz";
     char *str_m = "MHz";
@@ -13,19 +12,21 @@ const char *format_number(prefixes prefix, float *output)
     switch (prefix)
     {
     case kilo:
-        *output = (float)(fout / 1e3);
+        *output = (float)(input / 1e3);
         str_return = str_k;
         break;
     case mega:
-        *output = (float)(fout / 1e6);
+        *output = (float)(input / 1e6);
         str_return = str_m;
         break;
     case giga:
-        *output = (float)(fout / 1e9);
+        *output = (float)(input / 1e9);
         str_return = str_g;
         break;
     default:
         break;
     }
+    gcvt(output, 3, *formated_output);
+
     return str_return;
 }
