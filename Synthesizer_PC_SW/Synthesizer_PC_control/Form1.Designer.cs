@@ -30,9 +30,9 @@
         {
             this.OpenPortButton = new System.Windows.Forms.Button();
             this.ClosePortButton = new System.Windows.Forms.Button();
-            this.out1Button = new System.Windows.Forms.Button();
-            this.out2Button = new System.Windows.Forms.Button();
-            this.ploInitButton = new System.Windows.Forms.Button();
+            this.Out1Button = new System.Windows.Forms.Button();
+            this.Out2Button = new System.Windows.Forms.Button();
+            this.PloInitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // OpenPortButton
@@ -54,47 +54,51 @@
             this.ClosePortButton.Size = new System.Drawing.Size(100, 28);
             this.ClosePortButton.TabIndex = 0;
             this.ClosePortButton.Text = "Close Port";
+            this.ClosePortButton.Enabled = false;
             this.ClosePortButton.UseVisualStyleBackColor = true;
             this.ClosePortButton.Click += new System.EventHandler(this.ClosePortButton_Click);
             // 
-            // out1Button
+            // Out1Button
             // 
-            this.out1Button.Location = new System.Drawing.Point(16, 61);
-            this.out1Button.Name = "out1Button";
-            this.out1Button.Size = new System.Drawing.Size(100, 28);
-            this.out1Button.TabIndex = 1;
-            this.out1Button.Text = "Out 1 Off";
-            this.out1Button.UseVisualStyleBackColor = true;
-            this.out1Button.Click += new System.EventHandler(this.out1Button_Click);
+            this.Out1Button.Location = new System.Drawing.Point(16, 61);
+            this.Out1Button.Name = "Out1Button";
+            this.Out1Button.Size = new System.Drawing.Size(100, 28);
+            this.Out1Button.TabIndex = 1;
+            this.Out1Button.Text = "Out 1 Off";
+            this.Out1Button.Enabled = false;
+            this.Out1Button.UseVisualStyleBackColor = true;
+            this.Out1Button.Click += new System.EventHandler(this.Out1Button_Click);
             // 
-            // out2Button
+            // Out2Button
             // 
-            this.out2Button.Location = new System.Drawing.Point(167, 61);
-            this.out2Button.Name = "out2Button";
-            this.out2Button.Size = new System.Drawing.Size(100, 28);
-            this.out2Button.TabIndex = 1;
-            this.out2Button.Text = "Out 2 Off";
-            this.out2Button.UseVisualStyleBackColor = true;
-            this.out2Button.Click += new System.EventHandler(this.out2Button_Click);
+            this.Out2Button.Location = new System.Drawing.Point(167, 61);
+            this.Out2Button.Name = "Out2Button";
+            this.Out2Button.Size = new System.Drawing.Size(100, 28);
+            this.Out2Button.TabIndex = 1;
+            this.Out2Button.Text = "Out 2 Off";
+            this.Out2Button.Enabled = false;
+            this.Out2Button.UseVisualStyleBackColor = true;
+            this.Out2Button.Click += new System.EventHandler(this.Out2Button_Click);
             // 
-            // ploInitButton
+            // PloInitButton
             // 
-            this.ploInitButton.Location = new System.Drawing.Point(16, 124);
-            this.ploInitButton.Name = "ploInitButton";
-            this.ploInitButton.Size = new System.Drawing.Size(100, 28);
-            this.ploInitButton.TabIndex = 2;
-            this.ploInitButton.Text = "PLO Initialize";
-            this.ploInitButton.UseVisualStyleBackColor = true;
-            this.ploInitButton.Click += new System.EventHandler(this.ploInitButton_Click);
+            this.PloInitButton.Location = new System.Drawing.Point(16, 124);
+            this.PloInitButton.Name = "PloInitButton";
+            this.PloInitButton.Size = new System.Drawing.Size(100, 28);
+            this.PloInitButton.TabIndex = 2;
+            this.PloInitButton.Text = "PLO Init";
+            this.PloInitButton.Enabled = false;
+            this.PloInitButton.UseVisualStyleBackColor = true;
+            this.PloInitButton.Click += new System.EventHandler(this.PloInitButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
-            this.Controls.Add(this.ploInitButton);
-            this.Controls.Add(this.out2Button);
-            this.Controls.Add(this.out1Button);
+            this.Controls.Add(this.PloInitButton);
+            this.Controls.Add(this.Out2Button);
+            this.Controls.Add(this.Out1Button);
             this.Controls.Add(this.ClosePortButton);
             this.Controls.Add(this.OpenPortButton);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -108,9 +112,9 @@
 
         private System.Windows.Forms.Button OpenPortButton;
         private System.Windows.Forms.Button ClosePortButton;
-        private System.Windows.Forms.Button out1Button;
-        private System.Windows.Forms.Button out2Button;
-        private System.Windows.Forms.Button ploInitButton;
+        private System.Windows.Forms.Button Out1Button;
+        private System.Windows.Forms.Button Out2Button;
+        private System.Windows.Forms.Button PloInitButton;
     }
 }
 

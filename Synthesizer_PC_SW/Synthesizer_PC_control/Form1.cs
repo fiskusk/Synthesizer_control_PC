@@ -22,6 +22,12 @@ namespace Synthesizer_PC_control
 
         private void OpenPortButton_Click(object sender, EventArgs e)
         {
+            ClosePortButton.Enabled = true;
+            OpenPortButton.Enabled = false;
+            Out1Button.Enabled = true;
+            Out2Button.Enabled = true;
+            PloInitButton.Enabled = true;
+
             _serialPort = new SerialPort("COM3", 115200);
             _serialPort.Open();
             _serialPort.NewLine = "\r";
@@ -29,38 +35,43 @@ namespace Synthesizer_PC_control
 
         private void ClosePortButton_Click(object sender, EventArgs e)
         {
+            ClosePortButton.Enabled = false;
+            OpenPortButton.Enabled = true;
+            Out1Button.Enabled = false;
+            Out2Button.Enabled = false;
+            PloInitButton.Enabled = false;
             _serialPort.Close();
         }
 
-        private void out1Button_Click(object sender, EventArgs e)
+        private void Out1Button_Click(object sender, EventArgs e)
         {
-            if (out1Button.Text == "Out 1 Off")
+            if (Out1Button.Text == "Out 1 Off")
             {
-                out1Button.Text = "Out 1 On";
+                Out1Button.Text = "Out 1 On";
                 _serialPort.WriteLine("out 1 on");
             }
-            else if (out1Button.Text == "Out 1 On")
+            else if (Out1Button.Text == "Out 1 On")
             {
-                out1Button.Text = "Out 1 Off";
+                Out1Button.Text = "Out 1 Off";
                 _serialPort.WriteLine("out 1 off");
             }
         }
 
-        private void out2Button_Click(object sender, EventArgs e)
+        private void Out2Button_Click(object sender, EventArgs e)
         {
-            if (out2Button.Text == "Out 2 Off")
+            if (Out2Button.Text == "Out 2 Off")
             {
-                out2Button.Text = "Out 2 On";
+                Out2Button.Text = "Out 2 On";
                 _serialPort.WriteLine("out 2 on");
             }
-            else if (out2Button.Text == "Out 2 On")
+            else if (Out2Button.Text == "Out 2 On")
             {
-                out2Button.Text = "Out 2 Off";
+                Out2Button.Text = "Out 2 Off";
                 _serialPort.WriteLine("out 2 off");
             }
         }
 
-        private void ploInitButton_Click(object sender, EventArgs e)
+        private void PloInitButton_Click(object sender, EventArgs e)
         {
             _serialPort.WriteLine("PLO init");
         }
