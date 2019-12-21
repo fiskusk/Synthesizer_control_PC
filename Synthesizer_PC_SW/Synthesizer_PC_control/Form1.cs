@@ -64,6 +64,7 @@ namespace Synthesizer_PC_control
                 Out2Button.Text = "Out 2 On";
                 _serialPort.WriteLine("out 2 on");
             }
+            
             else if (Out2Button.Text == "Out 2 On")
             {
                 Out2Button.Text = "Out 2 Off";
