@@ -171,8 +171,9 @@ namespace Synthesizer_PC_control
         private void ChangeReg1()
         {
             string data = String.Format("plo set_register {0}", Reg1TextBox.Text);
-            old_reg1 = Reg0TextBox.Text;
+            old_reg1 = Reg1TextBox.Text;
             _serialPort.WriteLine(data);
         }
-    }
+
+     }
 }
