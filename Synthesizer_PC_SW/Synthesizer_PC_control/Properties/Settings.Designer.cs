@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Synthesizer_PC_SW.Properties
+namespace Synthesizer_PC_control.Properties
 {
 
 
