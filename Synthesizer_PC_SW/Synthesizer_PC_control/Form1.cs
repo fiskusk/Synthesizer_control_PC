@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using System.IO.Ports;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Synthesizer_PC_control
 {
@@ -381,7 +383,29 @@ namespace Synthesizer_PC_control
 
         private void SetAsDefaultRegButton_Click(object sender, EventArgs e)
         {
-            _serialPort.WriteLine("PLO init");  // TODO naucit se ukladat nastaveni
+            // _serialPort.WriteLine("PLO init");  // TODO naucit se ukladat nastaveni
+            string actual_dir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+            if (!Directory.Exists(actual_dir + @"\conf\"))
+                Directory.CreateDirectory(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\conf\");
+            string folder = actual_dir + @"\conf\";
+            string fileName = folder + @"defaults.txt";    
+     
+            // Check if file already exists. If yes, delete it.     
+            if (File.Exists(fileName))    
+            {    
+                File.Delete(fileName);    
+            }    
+            
+            // Create a new file     
+            using (StreamWriter sw = File.CreateText(fileName))
+            {
+                sw.WriteLine(Reg0TextBox.Text);
+                sw.WriteLine(Reg1TextBox.Text);
+                sw.WriteLine(Reg2TextBox.Text);
+                sw.WriteLine(Reg3TextBox.Text);
+                sw.WriteLine(Reg4TextBox.Text);
+                sw.WriteLine(Reg5TextBox.Text);
+            }
         }
 
         private void ForceLoadRegButton_Click(object sender, EventArgs e)
