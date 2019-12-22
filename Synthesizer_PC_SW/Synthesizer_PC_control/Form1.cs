@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Threading;
 
 namespace Synthesizer_PC_control
 {
@@ -386,11 +387,17 @@ namespace Synthesizer_PC_control
         private void ForceLoadRegButton_Click(object sender, EventArgs e)
         {
             ChangeReg5();
+            Thread.Sleep(1);
             ChangeReg4();
+            Thread.Sleep(1);
             ChangeReg3();
+            Thread.Sleep(1);
             ChangeReg2();
+            Thread.Sleep(1);
             ChangeReg1();
+            Thread.Sleep(1);
             ChangeReg0();
+            Thread.Sleep(1);
         }
      }
 }
