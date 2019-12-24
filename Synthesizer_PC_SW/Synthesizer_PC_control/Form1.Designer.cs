@@ -48,11 +48,19 @@
             this.RefButton = new System.Windows.Forms.Button();
             this.SetAsDefaultRegButton = new System.Windows.Forms.Button();
             this.ForceLoadRegButton = new System.Windows.Forms.Button();
+            this.LoadDefRegButton = new System.Windows.Forms.Button();
+            this.AvaibleCOMsComBox = new System.Windows.Forms.ComboBox();
+            this.WriteR0Button = new System.Windows.Forms.Button();
+            this.WriteR1Button = new System.Windows.Forms.Button();
+            this.WriteR2Button = new System.Windows.Forms.Button();
+            this.WriteR3Button = new System.Windows.Forms.Button();
+            this.WriteR4Button = new System.Windows.Forms.Button();
+            this.WriteR5Button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // OpenPortButton
             // 
-            this.OpenPortButton.Location = new System.Drawing.Point(16, 15);
+            this.OpenPortButton.Location = new System.Drawing.Point(16, 11);
             this.OpenPortButton.Margin = new System.Windows.Forms.Padding(4);
             this.OpenPortButton.Name = "OpenPortButton";
             this.OpenPortButton.Size = new System.Drawing.Size(100, 28);
@@ -64,7 +72,7 @@
             // ClosePortButton
             // 
             this.ClosePortButton.Enabled = false;
-            this.ClosePortButton.Location = new System.Drawing.Point(167, 15);
+            this.ClosePortButton.Location = new System.Drawing.Point(16, 47);
             this.ClosePortButton.Margin = new System.Windows.Forms.Padding(4);
             this.ClosePortButton.Name = "ClosePortButton";
             this.ClosePortButton.Size = new System.Drawing.Size(100, 28);
@@ -76,7 +84,7 @@
             // Out1Button
             // 
             this.Out1Button.Enabled = false;
-            this.Out1Button.Location = new System.Drawing.Point(16, 61);
+            this.Out1Button.Location = new System.Drawing.Point(12, 127);
             this.Out1Button.Name = "Out1Button";
             this.Out1Button.Size = new System.Drawing.Size(100, 28);
             this.Out1Button.TabIndex = 1;
@@ -87,7 +95,7 @@
             // Out2Button
             // 
             this.Out2Button.Enabled = false;
-            this.Out2Button.Location = new System.Drawing.Point(167, 61);
+            this.Out2Button.Location = new System.Drawing.Point(12, 161);
             this.Out2Button.Name = "Out2Button";
             this.Out2Button.Size = new System.Drawing.Size(100, 28);
             this.Out2Button.TabIndex = 1;
@@ -98,24 +106,13 @@
             // PloInitButton
             // 
             this.PloInitButton.Enabled = false;
-            this.PloInitButton.Location = new System.Drawing.Point(16, 124);
+            this.PloInitButton.Location = new System.Drawing.Point(158, 127);
             this.PloInitButton.Name = "PloInitButton";
             this.PloInitButton.Size = new System.Drawing.Size(100, 28);
             this.PloInitButton.TabIndex = 2;
             this.PloInitButton.Text = "PLO Init";
             this.PloInitButton.UseVisualStyleBackColor = true;
             this.PloInitButton.Click += new System.EventHandler(this.PloInitButton_Click);
-            // 
-            // RefButton
-            // 
-            this.RefButton.Enabled = false;
-            this.RefButton.Location = new System.Drawing.Point(316, 61);
-            this.RefButton.Name = "RefButton";
-            this.RefButton.Size = new System.Drawing.Size(100, 28);
-            this.RefButton.TabIndex = 1;
-            this.RefButton.Text = "Ext Ref";
-            this.RefButton.UseVisualStyleBackColor = true;
-            this.RefButton.Click += new System.EventHandler(this.RefButton_Click);
             // 
             // Reg0TextBox
             // 
@@ -267,6 +264,17 @@
             this.Reg5TextBox.TextChanged += new System.EventHandler(this.Reg5TextBox_TextChanged);
             this.Reg5TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reg5TextBox_KeyDown);
             // 
+            // RefButton
+            // 
+            this.RefButton.Enabled = false;
+            this.RefButton.Location = new System.Drawing.Point(12, 195);
+            this.RefButton.Name = "RefButton";
+            this.RefButton.Size = new System.Drawing.Size(100, 28);
+            this.RefButton.TabIndex = 1;
+            this.RefButton.Text = "Ext Ref";
+            this.RefButton.UseVisualStyleBackColor = true;
+            this.RefButton.Click += new System.EventHandler(this.RefButton_Click);
+            // 
             // SetAsDefaultRegButton
             // 
             this.SetAsDefaultRegButton.Enabled = false;
@@ -289,12 +297,107 @@
             this.ForceLoadRegButton.UseVisualStyleBackColor = true;
             this.ForceLoadRegButton.Click += new System.EventHandler(this.ForceLoadRegButton_Click);
             // 
+            // LoadDefRegButton
+            // 
+            this.LoadDefRegButton.Enabled = false;
+            this.LoadDefRegButton.Location = new System.Drawing.Point(627, 216);
+            this.LoadDefRegButton.Name = "LoadDefRegButton";
+            this.LoadDefRegButton.Size = new System.Drawing.Size(99, 23);
+            this.LoadDefRegButton.TabIndex = 9;
+            this.LoadDefRegButton.Text = "Load Def";
+            this.LoadDefRegButton.UseVisualStyleBackColor = true;
+            this.LoadDefRegButton.Click += new System.EventHandler(this.LoadDefRegButton_Click);
+            // 
+            // AvaibleCOMsComBox
+            // 
+            this.AvaibleCOMsComBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AvaibleCOMsComBox.FormattingEnabled = true;
+            this.AvaibleCOMsComBox.Location = new System.Drawing.Point(143, 11);
+            this.AvaibleCOMsComBox.Name = "AvaibleCOMsComBox";
+            this.AvaibleCOMsComBox.Size = new System.Drawing.Size(87, 24);
+            this.AvaibleCOMsComBox.TabIndex = 10;
+            this.AvaibleCOMsComBox.DropDown += new System.EventHandler(this.AvaibleCOMsComBox_DropDown);
+            // 
+            // WriteR0Button
+            // 
+            this.WriteR0Button.Enabled = false;
+            this.WriteR0Button.Location = new System.Drawing.Point(838, 14);
+            this.WriteR0Button.Name = "WriteR0Button";
+            this.WriteR0Button.Size = new System.Drawing.Size(84, 23);
+            this.WriteR0Button.TabIndex = 11;
+            this.WriteR0Button.Text = "Write R0";
+            this.WriteR0Button.UseVisualStyleBackColor = true;
+            this.WriteR0Button.Click += new System.EventHandler(this.WriteR0Button_Click);
+            // 
+            // WriteR1Button
+            // 
+            this.WriteR1Button.Enabled = false;
+            this.WriteR1Button.Location = new System.Drawing.Point(838, 42);
+            this.WriteR1Button.Name = "WriteR1Button";
+            this.WriteR1Button.Size = new System.Drawing.Size(84, 23);
+            this.WriteR1Button.TabIndex = 11;
+            this.WriteR1Button.Text = "Write R1";
+            this.WriteR1Button.UseVisualStyleBackColor = true;
+            this.WriteR1Button.Click += new System.EventHandler(this.WriteR1Button_Click);
+            // 
+            // WriteR2Button
+            // 
+            this.WriteR2Button.Enabled = false;
+            this.WriteR2Button.Location = new System.Drawing.Point(838, 70);
+            this.WriteR2Button.Name = "WriteR2Button";
+            this.WriteR2Button.Size = new System.Drawing.Size(84, 23);
+            this.WriteR2Button.TabIndex = 11;
+            this.WriteR2Button.Text = "Write R2";
+            this.WriteR2Button.UseVisualStyleBackColor = true;
+            this.WriteR2Button.Click += new System.EventHandler(this.WriteR2Button_Click);
+            // 
+            // WriteR3Button
+            // 
+            this.WriteR3Button.Enabled = false;
+            this.WriteR3Button.Location = new System.Drawing.Point(838, 98);
+            this.WriteR3Button.Name = "WriteR3Button";
+            this.WriteR3Button.Size = new System.Drawing.Size(84, 23);
+            this.WriteR3Button.TabIndex = 11;
+            this.WriteR3Button.Text = "Write R3";
+            this.WriteR3Button.UseVisualStyleBackColor = true;
+            this.WriteR3Button.Click += new System.EventHandler(this.WriteR3Button_Click);
+            // 
+            // WriteR4Button
+            // 
+            this.WriteR4Button.Enabled = false;
+            this.WriteR4Button.Location = new System.Drawing.Point(838, 124);
+            this.WriteR4Button.Name = "WriteR4Button";
+            this.WriteR4Button.Size = new System.Drawing.Size(84, 23);
+            this.WriteR4Button.TabIndex = 11;
+            this.WriteR4Button.Text = "Write R4";
+            this.WriteR4Button.UseVisualStyleBackColor = true;
+            this.WriteR4Button.Click += new System.EventHandler(this.WriteR4Button_Click);
+            // 
+            // WriteR5Button
+            // 
+            this.WriteR5Button.Enabled = false;
+            this.WriteR5Button.Location = new System.Drawing.Point(838, 152);
+            this.WriteR5Button.Name = "WriteR5Button";
+            this.WriteR5Button.Size = new System.Drawing.Size(84, 23);
+            this.WriteR5Button.TabIndex = 11;
+            this.WriteR5Button.Text = "Write R5";
+            this.WriteR5Button.UseVisualStyleBackColor = true;
+            this.WriteR5Button.Click += new System.EventHandler(this.WriteR5Button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.WriteR5Button);
+            this.Controls.Add(this.WriteR4Button);
+            this.Controls.Add(this.WriteR3Button);
+            this.Controls.Add(this.WriteR1Button);
+            this.Controls.Add(this.WriteR2Button);
+            this.Controls.Add(this.WriteR0Button);
+            this.Controls.Add(this.AvaibleCOMsComBox);
             this.Controls.Add(this.ForceLoadRegButton);
+            this.Controls.Add(this.LoadDefRegButton);
             this.Controls.Add(this.SetAsDefaultRegButton);
             this.Controls.Add(this.Reg5TextBox);
             this.Controls.Add(this.Reg5Label);
@@ -317,7 +420,8 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Synthesizer Control Program by OK2FKU";
-            this.Click += new System.EventHandler(this.Form1_Click);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Click += new System.EventHandler(this.CheckAndApllyChangesForm1_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -345,6 +449,14 @@
         private System.Windows.Forms.Button RefButton;
         private System.Windows.Forms.Button SetAsDefaultRegButton;
         private System.Windows.Forms.Button ForceLoadRegButton;
+        private System.Windows.Forms.Button LoadDefRegButton;
+        private System.Windows.Forms.ComboBox AvaibleCOMsComBox;
+        private System.Windows.Forms.Button WriteR0Button;
+        private System.Windows.Forms.Button WriteR1Button;
+        private System.Windows.Forms.Button WriteR2Button;
+        private System.Windows.Forms.Button WriteR3Button;
+        private System.Windows.Forms.Button WriteR4Button;
+        private System.Windows.Forms.Button WriteR5Button;
     }
 }
 

@@ -11,6 +11,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Threading;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace Synthesizer_PC_control
 {
@@ -30,51 +31,170 @@ namespace Synthesizer_PC_control
         static string old_reg4 = "63BE80E4";
         static string old_reg5 = "00400005";
 
+        public class Defaults
+        {
+            public IList<string> Registers { get; set; }
+        }
+
+        public class SaveWindow
+        {
+            public IList<string> Registers { get; set; }
+            public string COM_port { get; set; }
+        }
+
         public Form1()
         {
             InitializeComponent();
+            this.Load += Form1_Load;
+
+        }
+
+        private void SendStringSerialPort(string text)
+        {
+            try
+                {
+                    _serialPort.WriteLine(text);
+                }
+            catch
+            {
+                MessageBox.Show("Device doesn't work", "COM Port Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                ClosePortButton_Click(this, new EventArgs());
+            }
+        }
+        private string GetFileNamePath(string fileName)
+        {
+            string actual_dir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+            if (!Directory.Exists(actual_dir + @"\conf\"))
+                Directory.CreateDirectory(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\conf\");
+            string folder = actual_dir + @"\conf\";
+            return folder + fileName;
+        }
+
+        private void LoadSavedWorkspaceData()
+        {   
+            string fileName = GetFileNamePath(@"saved_workspace.json");
+            // if saved data doesn't exist, create it from default textboxes data
+            if (!File.Exists(fileName))
+            {
+                SaveWindow saved = new SaveWindow
+                {
+                    Registers = new List<string>
+                    {
+                        Reg0TextBox.Text,
+                        Reg1TextBox.Text,
+                        Reg2TextBox.Text,
+                        Reg3TextBox.Text,
+                        Reg4TextBox.Text,
+                        Reg5TextBox.Text
+                    },
+                    COM_port = AvaibleCOMsComBox.Text
+                };
+                // serialize JSON to a string and then write string to a file
+                File.WriteAllText(fileName, JsonConvert.SerializeObject(saved, Formatting.Indented));
+            }
+            // if exist, load it into workspace
+            else
+            {
+                SaveWindow settings_loaded = JsonConvert.DeserializeObject<SaveWindow>(File.ReadAllText(fileName));
+                AvaibleCOMsComBox.Text = settings_loaded.COM_port;
+                Reg0TextBox.Text = settings_loaded.Registers[0]; 
+                Reg1TextBox.Text = settings_loaded.Registers[1];
+                Reg2TextBox.Text = settings_loaded.Registers[2];
+                Reg3TextBox.Text = settings_loaded.Registers[3];
+                Reg4TextBox.Text = settings_loaded.Registers[4];
+                Reg5TextBox.Text = settings_loaded.Registers[5];
+            }
+        }
+
+        private void SaveWorkspaceData()
+        {
+            try   
+            {   
+                string fileName = GetFileNamePath(@"saved_workspace.json");
+
+                SaveWindow saved = new SaveWindow
+                {
+                    Registers = new List<string>
+                    {
+                        Reg0TextBox.Text,
+                        Reg1TextBox.Text,
+                        Reg2TextBox.Text,
+                        Reg3TextBox.Text,
+                        Reg4TextBox.Text,
+                        Reg5TextBox.Text
+                    },
+                    COM_port = AvaibleCOMsComBox.Text
+                };
+
+                // serialize JSON to a string and then write string to a file
+                File.WriteAllText(fileName, JsonConvert.SerializeObject(saved, Formatting.Indented));
+            }
+            catch
+            {
+                MessageBox.Show("When saving worskspace data occurs error!", "Error Catch", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        void Form1_Load(object sender, EventArgs e)
+        {   
+            // load avaible com ports into combbox
+            var ports = SerialPort.GetPortNames();
+            AvaibleCOMsComBox.DataSource = ports;
+
+            // load last used COM port, if exist
+            LoadSavedWorkspaceData();
+        }
+
+        private void EnableControls(bool command)
+        {
+            ClosePortButton.Enabled = command;
+            OpenPortButton.Enabled = !command;
+            AvaibleCOMsComBox.Enabled = !command;
+            Out1Button.Enabled = command;
+            Out2Button.Enabled = command;
+            RefButton.Enabled = command;
+            PloInitButton.Enabled = command;
+            Reg0TextBox.Enabled = command;
+            Reg1TextBox.Enabled = command;
+            Reg2TextBox.Enabled = command;
+            Reg3TextBox.Enabled = command;
+            Reg4TextBox.Enabled = command;
+            Reg5TextBox.Enabled = command;
+            SetAsDefaultRegButton.Enabled = command;
+            ForceLoadRegButton.Enabled = command;
+            LoadDefRegButton.Enabled = command;
+            WriteR0Button.Enabled = command;
+            WriteR1Button.Enabled = command;
+            WriteR2Button.Enabled = command;
+            WriteR3Button.Enabled = command;
+            WriteR4Button.Enabled = command;
+            WriteR5Button.Enabled = command;
         }
 
         private void OpenPortButton_Click(object sender, EventArgs e)
         {
-            ClosePortButton.Enabled = true;
-            OpenPortButton.Enabled = false;
-            Out1Button.Enabled = true;
-            Out2Button.Enabled = true;
-            RefButton.Enabled = true;
-            PloInitButton.Enabled = true;
-            Reg0TextBox.Enabled = true;
-            Reg1TextBox.Enabled = true;
-            Reg2TextBox.Enabled = true;
-            Reg3TextBox.Enabled = true;
-            Reg4TextBox.Enabled = true;
-            Reg5TextBox.Enabled = true;
-            SetAsDefaultRegButton.Enabled = true;
-            ForceLoadRegButton.Enabled = true;
+            try
+            {
+                _serialPort = new SerialPort(AvaibleCOMsComBox.Text, 115200);
+                _serialPort.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data
+                _serialPort.NewLine = "\r";
 
-
-            _serialPort = new SerialPort("COM3", 115200);   // TODO udelat rozeviraci nabidku pro vyber COM portu
-            _serialPort.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data
-            _serialPort.NewLine = "\r";
+                SaveWorkspaceData();
+                EnableControls(true);
+            }
+            catch
+            {
+                MessageBox.Show("Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void ClosePortButton_Click(object sender, EventArgs e)
         {
-            ClosePortButton.Enabled = false;
-            OpenPortButton.Enabled = true;
-            Out1Button.Enabled = false;
-            Out2Button.Enabled = false;
-            RefButton.Enabled = false;
-            PloInitButton.Enabled = false;
-            Reg0TextBox.Enabled = false;
-            Reg1TextBox.Enabled = false;
-            Reg2TextBox.Enabled = false;
-            Reg3TextBox.Enabled = false;
-            Reg4TextBox.Enabled = false;
-            Reg5TextBox.Enabled = false;
-            SetAsDefaultRegButton.Enabled = false;
-            ForceLoadRegButton.Enabled = false;
-
+            EnableControls(false);
             _serialPort.Close();
         }
 
@@ -83,12 +203,12 @@ namespace Synthesizer_PC_control
             if (Out1Button.Text == "Out 1 On")
             {
                 Out1Button.Text = "Out 1 Off";
-                _serialPort.WriteLine("out 1 on");
+                SendStringSerialPort("out 1 on");
             }
             else if (Out1Button.Text == "Out 1 Off")
             {
                 Out1Button.Text = "Out 1 On";
-                _serialPort.WriteLine("out 1 off");
+                SendStringSerialPort("out 1 off");
             }
         }
 
@@ -97,13 +217,13 @@ namespace Synthesizer_PC_control
             if (Out2Button.Text == "Out 2 On")
             {
                 Out2Button.Text = "Out 2 Off";
-                _serialPort.WriteLine("out 2 on");
+                SendStringSerialPort("out 2 on");
             }
 
             else if (Out2Button.Text == "Out 2 Off")
             {
                 Out2Button.Text = "Out 2 On";
-                _serialPort.WriteLine("out 2 off");
+                SendStringSerialPort("out 2 off");
             }
         }
 
@@ -112,19 +232,19 @@ namespace Synthesizer_PC_control
             if (RefButton.Text == "Ext Ref")
             {
                 RefButton.Text = "Int Ref";
-                _serialPort.WriteLine("ref ext");
+                SendStringSerialPort("ref ext");
             }
 
             else if (RefButton.Text == "Int Ref")
             {
                 RefButton.Text = "Ext Ref";
-                _serialPort.WriteLine("ref int");
+                SendStringSerialPort("ref int");
             }
         }
 
         private void PloInitButton_Click(object sender, EventArgs e)
         {
-            _serialPort.WriteLine("PLO init");
+            SendStringSerialPort("PLO init");
         }
 
         private void Reg0TextBox_Click(object sender, EventArgs e)
@@ -153,7 +273,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Form1_Click(this, new EventArgs());
+                CheckAndApllyChangesForm1_Click(this, new EventArgs());
             }
         }
 
@@ -182,7 +302,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Form1_Click(this, new EventArgs());
+                CheckAndApllyChangesForm1_Click(this, new EventArgs());
             }
         }
 
@@ -211,7 +331,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Form1_Click(this, new EventArgs());
+                CheckAndApllyChangesForm1_Click(this, new EventArgs());
             }
         }
 
@@ -240,7 +360,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Form1_Click(this, new EventArgs());
+                CheckAndApllyChangesForm1_Click(this, new EventArgs());
             }
         }
 
@@ -269,7 +389,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Form1_Click(this, new EventArgs());
+                CheckAndApllyChangesForm1_Click(this, new EventArgs());
             }
         }
 
@@ -298,11 +418,13 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                Form1_Click(this, new EventArgs());
+                CheckAndApllyChangesForm1_Click(this, new EventArgs());
             }
         }
 
-        private void Form1_Click(object sender, EventArgs e)
+
+
+        private void CheckAndApllyChangesForm1_Click(object sender, EventArgs e)
         {
             Reg0Label.Focus();
             Reg0TextBox_was_focused = false;
@@ -343,85 +465,164 @@ namespace Synthesizer_PC_control
         {
             string data = String.Format("plo set_register {0}", Reg0TextBox.Text);
             old_reg0 = Reg0TextBox.Text;
-            _serialPort.WriteLine(data);
+            SendStringSerialPort(data);
         }
 
         private void ChangeReg1()
         {
             string data = String.Format("plo set_register {0}", Reg1TextBox.Text);
             old_reg1 = Reg1TextBox.Text;
-            _serialPort.WriteLine(data);
+            SendStringSerialPort(data);
         }
 
         private void ChangeReg2()
         {
             string data = String.Format("plo set_register {0}", Reg2TextBox.Text);
             old_reg2 = Reg2TextBox.Text;
-            _serialPort.WriteLine(data);
+            SendStringSerialPort(data);
         }
 
         private void ChangeReg3()
         {
             string data = String.Format("plo set_register {0}", Reg3TextBox.Text);
             old_reg3 = Reg3TextBox.Text;
-            _serialPort.WriteLine(data);
+            SendStringSerialPort(data);
         }
 
         private void ChangeReg4()
         {
             string data = String.Format("plo set_register {0}", Reg4TextBox.Text);
             old_reg4 = Reg4TextBox.Text;
-            _serialPort.WriteLine(data);
+            SendStringSerialPort(data);
         }
 
         private void ChangeReg5()
         {
             string data = String.Format("plo set_register {0}", Reg5TextBox.Text);
             old_reg5 = Reg5TextBox.Text;
-            _serialPort.WriteLine(data);
+            SendStringSerialPort(data);
         }
 
         private void SetAsDefaultRegButton_Click(object sender, EventArgs e)
         {
-            // _serialPort.WriteLine("PLO init");  // TODO naucit se ukladat nastaveni
-            string actual_dir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-            if (!Directory.Exists(actual_dir + @"\conf\"))
-                Directory.CreateDirectory(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\conf\");
-            string folder = actual_dir + @"\conf\";
-            string fileName = folder + @"defaults.txt";    
+            string fileName = GetFileNamePath(@"default.json");  
      
-            // Check if file already exists. If yes, delete it.     
-            if (File.Exists(fileName))    
-            {    
-                File.Delete(fileName);    
-            }    
-            
-            // Create a new file     
-            using (StreamWriter sw = File.CreateText(fileName))
+            Defaults defaults = new Defaults
             {
-                sw.WriteLine(Reg0TextBox.Text);
-                sw.WriteLine(Reg1TextBox.Text);
-                sw.WriteLine(Reg2TextBox.Text);
-                sw.WriteLine(Reg3TextBox.Text);
-                sw.WriteLine(Reg4TextBox.Text);
-                sw.WriteLine(Reg5TextBox.Text);
+                Registers = new List<string>
+                {
+                    Reg0TextBox.Text,
+                    Reg1TextBox.Text,
+                    Reg2TextBox.Text,
+                    Reg3TextBox.Text,
+                    Reg4TextBox.Text,
+                    Reg5TextBox.Text
+                }
+            };
+
+            // serialize JSON to a string and then write string to a file
+            File.WriteAllText(fileName, JsonConvert.SerializeObject(defaults, Formatting.Indented));
+        }
+
+        private void LoadDefRegButton_Click(object sender, EventArgs e)
+        {
+            try   
+            {   
+                string fileName = GetFileNamePath(@"default.json");
+
+                Defaults settings_loaded = JsonConvert.DeserializeObject<Defaults>(File.ReadAllText(fileName));
+
+                Reg0TextBox.Text = settings_loaded.Registers[0]; 
+                Reg1TextBox.Text = settings_loaded.Registers[1];
+                Reg2TextBox.Text = settings_loaded.Registers[2];
+                Reg3TextBox.Text = settings_loaded.Registers[3];
+                Reg4TextBox.Text = settings_loaded.Registers[4];
+                Reg5TextBox.Text = settings_loaded.Registers[5];    
+                ForceLoadRegButton_Click(this, new EventArgs());
+
+            }
+            catch
+            {
+                MessageBox.Show("File default.json with include settings for registers, doesn't exist. First create it by click to Set As Def Button", "File defaults.txt doesn't exist", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void ForceLoadRegButton_Click(object sender, EventArgs e)
         {
             ChangeReg5();
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
             ChangeReg4();
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
             ChangeReg3();
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
             ChangeReg2();
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
             ChangeReg1();
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
             ChangeReg0();
-            Thread.Sleep(1);
+            //Thread.Sleep(1);
         }
-     }
+
+        private void AvaibleCOMsComBox_DropDown(object sender, EventArgs e)
+        {
+            var ports = SerialPort.GetPortNames();
+            AvaibleCOMsComBox.DataSource = ports;
+        }
+
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveWorkspaceData();
+        }
+
+        private void WriteR0Button_Click(object sender, EventArgs e)
+        {
+            ChangeReg0();
+        }
+
+        private void WriteR1Button_Click(object sender, EventArgs e)
+        {
+            ChangeReg1();
+        }
+
+        private void WriteR2Button_Click(object sender, EventArgs e)
+        {
+            ChangeReg2();
+        }
+
+        private void WriteR3Button_Click(object sender, EventArgs e)
+        {
+            ChangeReg3();
+        }
+
+        private void WriteR4Button_Click(object sender, EventArgs e)
+        {
+            ChangeReg4();
+        }
+
+        private void WriteR5Button_Click(object sender, EventArgs e)
+        {
+            ChangeReg5();
+        }
+
+        private void CycleWriteButton_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                ChangeReg5();
+                Thread.Sleep(1);
+                ChangeReg4();
+                Thread.Sleep(1);
+                ChangeReg3();
+                Thread.Sleep(1);
+                ChangeReg2();
+                Thread.Sleep(1);
+                ChangeReg1();
+                Thread.Sleep(1);
+                ChangeReg0();
+                Thread.Sleep(1);
+            }
+        }
+    }
 }
