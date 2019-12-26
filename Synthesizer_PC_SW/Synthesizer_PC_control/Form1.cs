@@ -31,11 +31,6 @@ namespace Synthesizer_PC_control
         static string old_reg4 = "63BE80E4";
         static string old_reg5 = "00400005";
 
-        public class Defaults
-        {
-            public IList<string> Registers { get; set; }
-        }
-
         public class SaveWindow
         {
             public IList<string> Registers { get; set; }
@@ -54,6 +49,7 @@ namespace Synthesizer_PC_control
             try
                 {
                     _serialPort.WriteLine(text);
+                    //_serialPort.ReadLine();
                 }
             catch
             {
@@ -98,13 +94,71 @@ namespace Synthesizer_PC_control
             {
                 SaveWindow settings_loaded = JsonConvert.DeserializeObject<SaveWindow>(File.ReadAllText(fileName));
                 AvaibleCOMsComBox.Text = settings_loaded.COM_port;
-                Reg0TextBox.Text = settings_loaded.Registers[0]; 
-                Reg1TextBox.Text = settings_loaded.Registers[1];
-                Reg2TextBox.Text = settings_loaded.Registers[2];
-                Reg3TextBox.Text = settings_loaded.Registers[3];
-                Reg4TextBox.Text = settings_loaded.Registers[4];
-                Reg5TextBox.Text = settings_loaded.Registers[5];
+                LoadRegistersFromFile(settings_loaded);
             }
+        }
+
+        private void LoadRegistersFromFile(SaveWindow data)
+        {
+            Reg0TextBox.Text = data.Registers[0]; 
+            Reg1TextBox.Text = data.Registers[1];
+            Reg2TextBox.Text = data.Registers[2];
+            Reg3TextBox.Text = data.Registers[3];
+            Reg4TextBox.Text = data.Registers[4];
+            CheckOutAENStatus(data.Registers[4]);
+            CheckOutAPwrStatus(data.Registers[4]);
+            Reg5TextBox.Text = data.Registers[5];
+        }
+
+        private void CheckOutAENStatus(string data)
+        {
+            int intValue = int.Parse(data, System.Globalization.NumberStyles.HexNumber);
+            RF_A_EN_ComboBox.SelectedIndex = (intValue & 0b100000)>>5;
+        }
+
+        private void CheckOutAPwrStatus(string data)
+        {
+            int intValue = int.Parse(data, System.Globalization.NumberStyles.HexNumber);
+            RF_A_PWR_ComboBox.SelectedIndex = (intValue & 0b11000)>>3;
+        }
+
+        private void ChangeReg4OutAEn()
+        {
+            int intValue = int.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            if (RF_A_EN_ComboBox.SelectedIndex == 0)
+            {
+                intValue &= ~(1<<5);
+            }
+            else if (RF_A_EN_ComboBox.SelectedIndex == 1)
+            {
+                intValue |= (1<<5);
+            }
+            Reg4TextBox.Text = Convert.ToString(intValue, 16);
+            ChangeReg4();
+        }
+
+        private void ChangeReg4OutAPwr()
+        {
+            int intValue = int.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            switch (RF_A_PWR_ComboBox.SelectedIndex)
+            {
+                case 0:
+                    intValue &= ~((1<<4) | (1<<3));
+                    break;
+                case 1:
+                    intValue &= ~(1<<4);
+                    intValue |= 1<<3;
+                    break;
+                case 2:
+                    intValue |= 1<<4;
+                    intValue &= ~(1<<3);
+                    break;
+                case 3:
+                    intValue |= (1<<4) | (1<<3);
+                    break;
+            }
+            Reg4TextBox.Text = Convert.ToString(intValue, 16);
+            ChangeReg4();
         }
 
         private void SaveWorkspaceData()
@@ -143,6 +197,8 @@ namespace Synthesizer_PC_control
             var ports = SerialPort.GetPortNames();
             AvaibleCOMsComBox.DataSource = ports;
 
+            EnableControls(false);
+
             // load last used COM port, if exist
             LoadSavedWorkspaceData();
         }
@@ -171,6 +227,34 @@ namespace Synthesizer_PC_control
             WriteR3Button.Enabled = command;
             WriteR4Button.Enabled = command;
             WriteR5Button.Enabled = command;
+            R0M1.Enabled = command;
+            R1M1.Enabled = command;
+            R2M1.Enabled = command;
+            R3M1.Enabled = command;
+            R4M1.Enabled = command;
+            R5M1.Enabled = command;
+            R0M2.Enabled = command;
+            R1M2.Enabled = command;
+            R2M2.Enabled = command;
+            R3M2.Enabled = command;
+            R4M2.Enabled = command;
+            R5M2.Enabled = command;
+            R0M3.Enabled = command;
+            R1M3.Enabled = command;
+            R2M3.Enabled = command;
+            R3M3.Enabled = command;
+            R4M3.Enabled = command;
+            R5M3.Enabled = command;
+            R0M4.Enabled = command;
+            R1M4.Enabled = command;
+            R2M4.Enabled = command;
+            R3M4.Enabled = command;
+            R4M4.Enabled = command;
+            R5M4.Enabled = command;
+            LoadRegMemory.Enabled = command;
+            SaveRegMemory.Enabled = command;
+            RF_A_EN_ComboBox.Enabled = command;
+            RF_A_PWR_ComboBox.Enabled = command;
         }
 
         private void OpenPortButton_Click(object sender, EventArgs e)
@@ -180,6 +264,7 @@ namespace Synthesizer_PC_control
                 _serialPort = new SerialPort(AvaibleCOMsComBox.Text, 115200);
                 _serialPort.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data
                 _serialPort.NewLine = "\r";
+                _serialPort.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler);
 
                 SaveWorkspaceData();
                 EnableControls(true);
@@ -188,6 +273,25 @@ namespace Synthesizer_PC_control
             {
                 MessageBox.Show("Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port", 
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+        }
+
+        void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                string text = _serialPort.ReadLine();
+                if (text == "plo locked")
+                    toolStripStatusLabel1.Text = "plo is locked";
+                else if (text == "plo isn't locked")
+                    toolStripStatusLabel1.Text = "plo isn't locked!";
+                else if (text == "plo state is not known")
+                    toolStripStatusLabel1.Text = "plo state is not known";
+            }
+            catch
+            {
+                
             }
             
         }
@@ -453,7 +557,9 @@ namespace Synthesizer_PC_control
             }
             if ((Reg4TextBox.Enabled == true) && (!Reg4TextBox.Text.Equals(old_reg4)))
             {
-                ChangeReg4();;
+                ChangeReg4();
+                CheckOutAENStatus(Reg4TextBox.Text);
+                CheckOutAPwrStatus(Reg4TextBox.Text);
             }
             if ((Reg5TextBox.Enabled == true) && (!Reg5TextBox.Text.Equals(old_reg5)))
             {
@@ -503,11 +609,49 @@ namespace Synthesizer_PC_control
             SendStringSerialPort(data);
         }
 
+        private void SaveRegsMemory1()
+        {
+            string data = String.Format("plo data 1 {0} {1} {2} {3} {4} {5}", 
+                    R0M1.Text, R1M1.Text, R2M1.Text, 
+                    R3M1.Text, R4M1.Text, R5M1.Text);
+            SendStringSerialPort(data);
+        }
+
+        private void SaveRegsMemory2()
+        {
+            string data = String.Format("plo data 2 {0} {1} {2} {3} {4} {5}", 
+                    R0M2.Text, R1M2.Text, R2M2.Text, 
+                    R3M2.Text, R4M2.Text, R5M2.Text);
+            SendStringSerialPort(data);
+        }
+
+        private void SaveRegsMemory3()
+        {
+            string data = String.Format("plo data 3 {0} {1} {2} {3} {4} {5}", 
+                    R0M3.Text, R1M3.Text, R2M3.Text, 
+                    R3M3.Text, R4M3.Text, R5M3.Text);
+            SendStringSerialPort(data);
+        }
+
+        private void SaveRegsMemory4()
+        {
+            string data = String.Format("plo data 4 {0} {1} {2} {3} {4} {5}", 
+                    R0M4.Text, R1M4.Text, R2M4.Text, 
+                    R3M4.Text, R4M4.Text, R5M4.Text);
+            SendStringSerialPort(data);
+        }
+
+        private void CleanSavedRegisters()
+        {
+            string data = String.Format("plo data clean");
+            SendStringSerialPort(data);
+        }
+
         private void SetAsDefaultRegButton_Click(object sender, EventArgs e)
         {
             string fileName = GetFileNamePath(@"default.json");  
      
-            Defaults defaults = new Defaults
+            SaveWindow defaults = new SaveWindow
             {
                 Registers = new List<string>
                 {
@@ -530,14 +674,8 @@ namespace Synthesizer_PC_control
             {   
                 string fileName = GetFileNamePath(@"default.json");
 
-                Defaults settings_loaded = JsonConvert.DeserializeObject<Defaults>(File.ReadAllText(fileName));
-
-                Reg0TextBox.Text = settings_loaded.Registers[0]; 
-                Reg1TextBox.Text = settings_loaded.Registers[1];
-                Reg2TextBox.Text = settings_loaded.Registers[2];
-                Reg3TextBox.Text = settings_loaded.Registers[3];
-                Reg4TextBox.Text = settings_loaded.Registers[4];
-                Reg5TextBox.Text = settings_loaded.Registers[5];    
+                SaveWindow settings_loaded = JsonConvert.DeserializeObject<SaveWindow>(File.ReadAllText(fileName));
+                LoadRegistersFromFile(settings_loaded);
                 ForceLoadRegButton_Click(this, new EventArgs());
 
             }
@@ -606,23 +744,30 @@ namespace Synthesizer_PC_control
             ChangeReg5();
         }
 
-        private void CycleWriteButton_Click(object sender, EventArgs e)
+        private void LoadRegMemory_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 10; i++)
-            {
-                ChangeReg5();
-                Thread.Sleep(1);
-                ChangeReg4();
-                Thread.Sleep(1);
-                ChangeReg3();
-                Thread.Sleep(1);
-                ChangeReg2();
-                Thread.Sleep(1);
-                ChangeReg1();
-                Thread.Sleep(1);
-                ChangeReg0();
-                Thread.Sleep(1);
-            }
+
+        }
+
+        private void SaveRegMemory_Click(object sender, EventArgs e)
+        {
+            CleanSavedRegisters();
+            SaveRegsMemory1();
+            SaveRegsMemory2();
+            SaveRegsMemory3();
+            SaveRegsMemory4();
+        }
+
+        private void RF_A_EN_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Reg1TextBox.Enabled == true)
+                ChangeReg4OutAEn();
+        }
+
+        private void RF_A_PWR_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Reg1TextBox.Enabled == true)
+                ChangeReg4OutAPwr();
         }
     }
 }

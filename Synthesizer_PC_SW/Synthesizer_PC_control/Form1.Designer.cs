@@ -56,6 +56,57 @@
             this.WriteR3Button = new System.Windows.Forms.Button();
             this.WriteR4Button = new System.Windows.Forms.Button();
             this.WriteR5Button = new System.Windows.Forms.Button();
+            this.RegistersTabControl = new System.Windows.Forms.TabControl();
+            this.RegistersPage = new System.Windows.Forms.TabPage();
+            this.RF_A_PWR_ComboBox = new System.Windows.Forms.ComboBox();
+            this.RF_A_EN_ComboBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SavedRegistersPage = new System.Windows.Forms.TabPage();
+            this.SavReg3Label = new System.Windows.Forms.Label();
+            this.R0M4 = new System.Windows.Forms.TextBox();
+            this.R0M3 = new System.Windows.Forms.TextBox();
+            this.LoadRegMemory = new System.Windows.Forms.Button();
+            this.SaveRegMemory = new System.Windows.Forms.Button();
+            this.R0M2 = new System.Windows.Forms.TextBox();
+            this.R0M1 = new System.Windows.Forms.TextBox();
+            this.Mem4Label = new System.Windows.Forms.Label();
+            this.Mem3Label = new System.Windows.Forms.Label();
+            this.Mem2Label = new System.Windows.Forms.Label();
+            this.Mem1Label = new System.Windows.Forms.Label();
+            this.SavReg0Label = new System.Windows.Forms.Label();
+            this.SavReg1Label = new System.Windows.Forms.Label();
+            this.R1M4 = new System.Windows.Forms.TextBox();
+            this.R1M3 = new System.Windows.Forms.TextBox();
+            this.R1M2 = new System.Windows.Forms.TextBox();
+            this.R1M1 = new System.Windows.Forms.TextBox();
+            this.SavReg2Label = new System.Windows.Forms.Label();
+            this.R2M4 = new System.Windows.Forms.TextBox();
+            this.R2M3 = new System.Windows.Forms.TextBox();
+            this.R2M2 = new System.Windows.Forms.TextBox();
+            this.R2M1 = new System.Windows.Forms.TextBox();
+            this.R3M4 = new System.Windows.Forms.TextBox();
+            this.R3M3 = new System.Windows.Forms.TextBox();
+            this.R3M2 = new System.Windows.Forms.TextBox();
+            this.R3M1 = new System.Windows.Forms.TextBox();
+            this.SavReg4Label = new System.Windows.Forms.Label();
+            this.R4M4 = new System.Windows.Forms.TextBox();
+            this.R4M3 = new System.Windows.Forms.TextBox();
+            this.R5M4 = new System.Windows.Forms.TextBox();
+            this.R4M2 = new System.Windows.Forms.TextBox();
+            this.R5M3 = new System.Windows.Forms.TextBox();
+            this.R4M1 = new System.Windows.Forms.TextBox();
+            this.R5M2 = new System.Windows.Forms.TextBox();
+            this.SavReg5Label = new System.Windows.Forms.Label();
+            this.R5M1 = new System.Windows.Forms.TextBox();
+            this.RegistersGroupBox = new System.Windows.Forms.GroupBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.RegistersTabControl.SuspendLayout();
+            this.RegistersPage.SuspendLayout();
+            this.SavedRegistersPage.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // OpenPortButton
@@ -71,7 +122,6 @@
             // 
             // ClosePortButton
             // 
-            this.ClosePortButton.Enabled = false;
             this.ClosePortButton.Location = new System.Drawing.Point(16, 47);
             this.ClosePortButton.Margin = new System.Windows.Forms.Padding(4);
             this.ClosePortButton.Name = "ClosePortButton";
@@ -83,7 +133,6 @@
             // 
             // Out1Button
             // 
-            this.Out1Button.Enabled = false;
             this.Out1Button.Location = new System.Drawing.Point(12, 127);
             this.Out1Button.Name = "Out1Button";
             this.Out1Button.Size = new System.Drawing.Size(100, 28);
@@ -94,7 +143,6 @@
             // 
             // Out2Button
             // 
-            this.Out2Button.Enabled = false;
             this.Out2Button.Location = new System.Drawing.Point(12, 161);
             this.Out2Button.Name = "Out2Button";
             this.Out2Button.Size = new System.Drawing.Size(100, 28);
@@ -105,7 +153,6 @@
             // 
             // PloInitButton
             // 
-            this.PloInitButton.Enabled = false;
             this.PloInitButton.Location = new System.Drawing.Point(158, 127);
             this.PloInitButton.Name = "PloInitButton";
             this.PloInitButton.Size = new System.Drawing.Size(100, 28);
@@ -118,8 +165,7 @@
             // 
             this.Reg0TextBox.BackColor = System.Drawing.Color.White;
             this.Reg0TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg0TextBox.Enabled = false;
-            this.Reg0TextBox.Location = new System.Drawing.Point(732, 14);
+            this.Reg0TextBox.Location = new System.Drawing.Point(95, 14);
             this.Reg0TextBox.MaxLength = 8;
             this.Reg0TextBox.Name = "Reg0TextBox";
             this.Reg0TextBox.Size = new System.Drawing.Size(100, 22);
@@ -133,7 +179,7 @@
             // Reg0Label
             // 
             this.Reg0Label.AutoSize = true;
-            this.Reg0Label.Location = new System.Drawing.Point(653, 17);
+            this.Reg0Label.Location = new System.Drawing.Point(16, 17);
             this.Reg0Label.Name = "Reg0Label";
             this.Reg0Label.Size = new System.Drawing.Size(73, 17);
             this.Reg0Label.TabIndex = 4;
@@ -142,7 +188,7 @@
             // Reg1Label
             // 
             this.Reg1Label.AutoSize = true;
-            this.Reg1Label.Location = new System.Drawing.Point(653, 45);
+            this.Reg1Label.Location = new System.Drawing.Point(16, 45);
             this.Reg1Label.Name = "Reg1Label";
             this.Reg1Label.Size = new System.Drawing.Size(73, 17);
             this.Reg1Label.TabIndex = 5;
@@ -152,8 +198,7 @@
             // 
             this.Reg1TextBox.BackColor = System.Drawing.Color.White;
             this.Reg1TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg1TextBox.Enabled = false;
-            this.Reg1TextBox.Location = new System.Drawing.Point(732, 42);
+            this.Reg1TextBox.Location = new System.Drawing.Point(95, 42);
             this.Reg1TextBox.MaxLength = 8;
             this.Reg1TextBox.Name = "Reg1TextBox";
             this.Reg1TextBox.Size = new System.Drawing.Size(100, 22);
@@ -167,7 +212,7 @@
             // Reg2Label
             // 
             this.Reg2Label.AutoSize = true;
-            this.Reg2Label.Location = new System.Drawing.Point(653, 73);
+            this.Reg2Label.Location = new System.Drawing.Point(16, 73);
             this.Reg2Label.Name = "Reg2Label";
             this.Reg2Label.Size = new System.Drawing.Size(73, 17);
             this.Reg2Label.TabIndex = 7;
@@ -177,8 +222,7 @@
             // 
             this.Reg2TextBox.BackColor = System.Drawing.Color.White;
             this.Reg2TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg2TextBox.Enabled = false;
-            this.Reg2TextBox.Location = new System.Drawing.Point(732, 70);
+            this.Reg2TextBox.Location = new System.Drawing.Point(95, 70);
             this.Reg2TextBox.MaxLength = 8;
             this.Reg2TextBox.Name = "Reg2TextBox";
             this.Reg2TextBox.Size = new System.Drawing.Size(100, 22);
@@ -192,7 +236,7 @@
             // Reg3Label
             // 
             this.Reg3Label.AutoSize = true;
-            this.Reg3Label.Location = new System.Drawing.Point(653, 101);
+            this.Reg3Label.Location = new System.Drawing.Point(16, 101);
             this.Reg3Label.Name = "Reg3Label";
             this.Reg3Label.Size = new System.Drawing.Size(73, 17);
             this.Reg3Label.TabIndex = 7;
@@ -202,8 +246,7 @@
             // 
             this.Reg3TextBox.BackColor = System.Drawing.Color.White;
             this.Reg3TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg3TextBox.Enabled = false;
-            this.Reg3TextBox.Location = new System.Drawing.Point(732, 98);
+            this.Reg3TextBox.Location = new System.Drawing.Point(95, 98);
             this.Reg3TextBox.MaxLength = 8;
             this.Reg3TextBox.Name = "Reg3TextBox";
             this.Reg3TextBox.Size = new System.Drawing.Size(100, 22);
@@ -217,7 +260,7 @@
             // Reg4Label
             // 
             this.Reg4Label.AutoSize = true;
-            this.Reg4Label.Location = new System.Drawing.Point(653, 127);
+            this.Reg4Label.Location = new System.Drawing.Point(16, 127);
             this.Reg4Label.Name = "Reg4Label";
             this.Reg4Label.Size = new System.Drawing.Size(73, 17);
             this.Reg4Label.TabIndex = 7;
@@ -227,8 +270,7 @@
             // 
             this.Reg4TextBox.BackColor = System.Drawing.Color.White;
             this.Reg4TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg4TextBox.Enabled = false;
-            this.Reg4TextBox.Location = new System.Drawing.Point(732, 124);
+            this.Reg4TextBox.Location = new System.Drawing.Point(95, 124);
             this.Reg4TextBox.MaxLength = 8;
             this.Reg4TextBox.Name = "Reg4TextBox";
             this.Reg4TextBox.Size = new System.Drawing.Size(100, 22);
@@ -242,7 +284,7 @@
             // Reg5Label
             // 
             this.Reg5Label.AutoSize = true;
-            this.Reg5Label.Location = new System.Drawing.Point(653, 155);
+            this.Reg5Label.Location = new System.Drawing.Point(16, 155);
             this.Reg5Label.Name = "Reg5Label";
             this.Reg5Label.Size = new System.Drawing.Size(73, 17);
             this.Reg5Label.TabIndex = 7;
@@ -252,8 +294,7 @@
             // 
             this.Reg5TextBox.BackColor = System.Drawing.Color.White;
             this.Reg5TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg5TextBox.Enabled = false;
-            this.Reg5TextBox.Location = new System.Drawing.Point(732, 152);
+            this.Reg5TextBox.Location = new System.Drawing.Point(95, 152);
             this.Reg5TextBox.MaxLength = 8;
             this.Reg5TextBox.Name = "Reg5TextBox";
             this.Reg5TextBox.Size = new System.Drawing.Size(100, 22);
@@ -266,7 +307,6 @@
             // 
             // RefButton
             // 
-            this.RefButton.Enabled = false;
             this.RefButton.Location = new System.Drawing.Point(12, 195);
             this.RefButton.Name = "RefButton";
             this.RefButton.Size = new System.Drawing.Size(100, 28);
@@ -277,8 +317,7 @@
             // 
             // SetAsDefaultRegButton
             // 
-            this.SetAsDefaultRegButton.Enabled = false;
-            this.SetAsDefaultRegButton.Location = new System.Drawing.Point(627, 187);
+            this.SetAsDefaultRegButton.Location = new System.Drawing.Point(330, 13);
             this.SetAsDefaultRegButton.Name = "SetAsDefaultRegButton";
             this.SetAsDefaultRegButton.Size = new System.Drawing.Size(99, 23);
             this.SetAsDefaultRegButton.TabIndex = 9;
@@ -288,8 +327,7 @@
             // 
             // ForceLoadRegButton
             // 
-            this.ForceLoadRegButton.Enabled = false;
-            this.ForceLoadRegButton.Location = new System.Drawing.Point(733, 187);
+            this.ForceLoadRegButton.Location = new System.Drawing.Point(330, 71);
             this.ForceLoadRegButton.Name = "ForceLoadRegButton";
             this.ForceLoadRegButton.Size = new System.Drawing.Size(99, 23);
             this.ForceLoadRegButton.TabIndex = 9;
@@ -299,8 +337,7 @@
             // 
             // LoadDefRegButton
             // 
-            this.LoadDefRegButton.Enabled = false;
-            this.LoadDefRegButton.Location = new System.Drawing.Point(627, 216);
+            this.LoadDefRegButton.Location = new System.Drawing.Point(330, 42);
             this.LoadDefRegButton.Name = "LoadDefRegButton";
             this.LoadDefRegButton.Size = new System.Drawing.Size(99, 23);
             this.LoadDefRegButton.TabIndex = 9;
@@ -320,8 +357,7 @@
             // 
             // WriteR0Button
             // 
-            this.WriteR0Button.Enabled = false;
-            this.WriteR0Button.Location = new System.Drawing.Point(838, 14);
+            this.WriteR0Button.Location = new System.Drawing.Point(201, 14);
             this.WriteR0Button.Name = "WriteR0Button";
             this.WriteR0Button.Size = new System.Drawing.Size(84, 23);
             this.WriteR0Button.TabIndex = 11;
@@ -331,8 +367,7 @@
             // 
             // WriteR1Button
             // 
-            this.WriteR1Button.Enabled = false;
-            this.WriteR1Button.Location = new System.Drawing.Point(838, 42);
+            this.WriteR1Button.Location = new System.Drawing.Point(201, 42);
             this.WriteR1Button.Name = "WriteR1Button";
             this.WriteR1Button.Size = new System.Drawing.Size(84, 23);
             this.WriteR1Button.TabIndex = 11;
@@ -342,8 +377,7 @@
             // 
             // WriteR2Button
             // 
-            this.WriteR2Button.Enabled = false;
-            this.WriteR2Button.Location = new System.Drawing.Point(838, 70);
+            this.WriteR2Button.Location = new System.Drawing.Point(201, 70);
             this.WriteR2Button.Name = "WriteR2Button";
             this.WriteR2Button.Size = new System.Drawing.Size(84, 23);
             this.WriteR2Button.TabIndex = 11;
@@ -353,8 +387,7 @@
             // 
             // WriteR3Button
             // 
-            this.WriteR3Button.Enabled = false;
-            this.WriteR3Button.Location = new System.Drawing.Point(838, 98);
+            this.WriteR3Button.Location = new System.Drawing.Point(201, 98);
             this.WriteR3Button.Name = "WriteR3Button";
             this.WriteR3Button.Size = new System.Drawing.Size(84, 23);
             this.WriteR3Button.TabIndex = 11;
@@ -364,8 +397,7 @@
             // 
             // WriteR4Button
             // 
-            this.WriteR4Button.Enabled = false;
-            this.WriteR4Button.Location = new System.Drawing.Point(838, 124);
+            this.WriteR4Button.Location = new System.Drawing.Point(201, 124);
             this.WriteR4Button.Name = "WriteR4Button";
             this.WriteR4Button.Size = new System.Drawing.Size(84, 23);
             this.WriteR4Button.TabIndex = 11;
@@ -375,8 +407,7 @@
             // 
             // WriteR5Button
             // 
-            this.WriteR5Button.Enabled = false;
-            this.WriteR5Button.Location = new System.Drawing.Point(838, 152);
+            this.WriteR5Button.Location = new System.Drawing.Point(201, 152);
             this.WriteR5Button.Name = "WriteR5Button";
             this.WriteR5Button.Size = new System.Drawing.Size(84, 23);
             this.WriteR5Button.TabIndex = 11;
@@ -384,33 +415,587 @@
             this.WriteR5Button.UseVisualStyleBackColor = true;
             this.WriteR5Button.Click += new System.EventHandler(this.WriteR5Button_Click);
             // 
+            // RegistersTabControl
+            // 
+            this.RegistersTabControl.Controls.Add(this.RegistersPage);
+            this.RegistersTabControl.Controls.Add(this.SavedRegistersPage);
+            this.RegistersTabControl.Location = new System.Drawing.Point(585, 32);
+            this.RegistersTabControl.Name = "RegistersTabControl";
+            this.RegistersTabControl.SelectedIndex = 0;
+            this.RegistersTabControl.Size = new System.Drawing.Size(474, 426);
+            this.RegistersTabControl.TabIndex = 12;
+            // 
+            // RegistersPage
+            // 
+            this.RegistersPage.Controls.Add(this.RF_A_PWR_ComboBox);
+            this.RegistersPage.Controls.Add(this.RF_A_EN_ComboBox);
+            this.RegistersPage.Controls.Add(this.Reg3Label);
+            this.RegistersPage.Controls.Add(this.WriteR5Button);
+            this.RegistersPage.Controls.Add(this.Reg0TextBox);
+            this.RegistersPage.Controls.Add(this.WriteR4Button);
+            this.RegistersPage.Controls.Add(this.Reg0Label);
+            this.RegistersPage.Controls.Add(this.WriteR3Button);
+            this.RegistersPage.Controls.Add(this.Reg1Label);
+            this.RegistersPage.Controls.Add(this.WriteR1Button);
+            this.RegistersPage.Controls.Add(this.Reg1TextBox);
+            this.RegistersPage.Controls.Add(this.WriteR2Button);
+            this.RegistersPage.Controls.Add(this.Reg2Label);
+            this.RegistersPage.Controls.Add(this.WriteR0Button);
+            this.RegistersPage.Controls.Add(this.Reg2TextBox);
+            this.RegistersPage.Controls.Add(this.Reg3TextBox);
+            this.RegistersPage.Controls.Add(this.ForceLoadRegButton);
+            this.RegistersPage.Controls.Add(this.Reg4Label);
+            this.RegistersPage.Controls.Add(this.LoadDefRegButton);
+            this.RegistersPage.Controls.Add(this.Reg4TextBox);
+            this.RegistersPage.Controls.Add(this.SetAsDefaultRegButton);
+            this.RegistersPage.Controls.Add(this.label2);
+            this.RegistersPage.Controls.Add(this.label1);
+            this.RegistersPage.Controls.Add(this.Reg5Label);
+            this.RegistersPage.Controls.Add(this.Reg5TextBox);
+            this.RegistersPage.Location = new System.Drawing.Point(4, 25);
+            this.RegistersPage.Name = "RegistersPage";
+            this.RegistersPage.Padding = new System.Windows.Forms.Padding(3);
+            this.RegistersPage.Size = new System.Drawing.Size(466, 397);
+            this.RegistersPage.TabIndex = 0;
+            this.RegistersPage.Text = "Registers";
+            this.RegistersPage.UseVisualStyleBackColor = true;
+            // 
+            // RF_A_PWR_ComboBox
+            // 
+            this.RF_A_PWR_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.RF_A_PWR_ComboBox.FormattingEnabled = true;
+            this.RF_A_PWR_ComboBox.Items.AddRange(new object[] {
+            "-4 dBm",
+            "-1 dBm",
+            "+2 dBm",
+            "+5 dBm"});
+            this.RF_A_PWR_ComboBox.Location = new System.Drawing.Point(125, 217);
+            this.RF_A_PWR_ComboBox.Name = "RF_A_PWR_ComboBox";
+            this.RF_A_PWR_ComboBox.Size = new System.Drawing.Size(121, 24);
+            this.RF_A_PWR_ComboBox.TabIndex = 16;
+            this.RF_A_PWR_ComboBox.SelectedIndexChanged += new System.EventHandler(this.RF_A_PWR_ComboBox_SelectedIndexChanged);
+            // 
+            // RF_A_EN_ComboBox
+            // 
+            this.RF_A_EN_ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.RF_A_EN_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.RF_A_EN_ComboBox.FormattingEnabled = true;
+            this.RF_A_EN_ComboBox.Items.AddRange(new object[] {
+            "0. Disabled",
+            "1. Enabled"});
+            this.RF_A_EN_ComboBox.Location = new System.Drawing.Point(125, 188);
+            this.RF_A_EN_ComboBox.Name = "RF_A_EN_ComboBox";
+            this.RF_A_EN_ComboBox.Size = new System.Drawing.Size(121, 24);
+            this.RF_A_EN_ComboBox.TabIndex = 16;
+            this.RF_A_EN_ComboBox.SelectedIndexChanged += new System.EventHandler(this.RF_A_EN_ComboBox_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(6, 220);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(113, 17);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "RFoutA Power:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(6, 191);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(113, 17);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "RFoutA Enable:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // SavedRegistersPage
+            // 
+            this.SavedRegistersPage.Controls.Add(this.SavReg3Label);
+            this.SavedRegistersPage.Controls.Add(this.R0M4);
+            this.SavedRegistersPage.Controls.Add(this.R0M3);
+            this.SavedRegistersPage.Controls.Add(this.LoadRegMemory);
+            this.SavedRegistersPage.Controls.Add(this.SaveRegMemory);
+            this.SavedRegistersPage.Controls.Add(this.R0M2);
+            this.SavedRegistersPage.Controls.Add(this.R0M1);
+            this.SavedRegistersPage.Controls.Add(this.Mem4Label);
+            this.SavedRegistersPage.Controls.Add(this.Mem3Label);
+            this.SavedRegistersPage.Controls.Add(this.Mem2Label);
+            this.SavedRegistersPage.Controls.Add(this.Mem1Label);
+            this.SavedRegistersPage.Controls.Add(this.SavReg0Label);
+            this.SavedRegistersPage.Controls.Add(this.SavReg1Label);
+            this.SavedRegistersPage.Controls.Add(this.R1M4);
+            this.SavedRegistersPage.Controls.Add(this.R1M3);
+            this.SavedRegistersPage.Controls.Add(this.R1M2);
+            this.SavedRegistersPage.Controls.Add(this.R1M1);
+            this.SavedRegistersPage.Controls.Add(this.SavReg2Label);
+            this.SavedRegistersPage.Controls.Add(this.R2M4);
+            this.SavedRegistersPage.Controls.Add(this.R2M3);
+            this.SavedRegistersPage.Controls.Add(this.R2M2);
+            this.SavedRegistersPage.Controls.Add(this.R2M1);
+            this.SavedRegistersPage.Controls.Add(this.R3M4);
+            this.SavedRegistersPage.Controls.Add(this.R3M3);
+            this.SavedRegistersPage.Controls.Add(this.R3M2);
+            this.SavedRegistersPage.Controls.Add(this.R3M1);
+            this.SavedRegistersPage.Controls.Add(this.SavReg4Label);
+            this.SavedRegistersPage.Controls.Add(this.R4M4);
+            this.SavedRegistersPage.Controls.Add(this.R4M3);
+            this.SavedRegistersPage.Controls.Add(this.R5M4);
+            this.SavedRegistersPage.Controls.Add(this.R4M2);
+            this.SavedRegistersPage.Controls.Add(this.R5M3);
+            this.SavedRegistersPage.Controls.Add(this.R4M1);
+            this.SavedRegistersPage.Controls.Add(this.R5M2);
+            this.SavedRegistersPage.Controls.Add(this.SavReg5Label);
+            this.SavedRegistersPage.Controls.Add(this.R5M1);
+            this.SavedRegistersPage.Location = new System.Drawing.Point(4, 25);
+            this.SavedRegistersPage.Name = "SavedRegistersPage";
+            this.SavedRegistersPage.Padding = new System.Windows.Forms.Padding(3);
+            this.SavedRegistersPage.Size = new System.Drawing.Size(466, 397);
+            this.SavedRegistersPage.TabIndex = 1;
+            this.SavedRegistersPage.Text = "Saved Registers";
+            this.SavedRegistersPage.UseVisualStyleBackColor = true;
+            // 
+            // SavReg3Label
+            // 
+            this.SavReg3Label.AutoSize = true;
+            this.SavReg3Label.Location = new System.Drawing.Point(16, 124);
+            this.SavReg3Label.Name = "SavReg3Label";
+            this.SavReg3Label.Size = new System.Drawing.Size(73, 17);
+            this.SavReg3Label.TabIndex = 13;
+            this.SavReg3Label.Text = "Register 3";
+            // 
+            // R0M4
+            // 
+            this.R0M4.BackColor = System.Drawing.Color.White;
+            this.R0M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R0M4.Location = new System.Drawing.Point(365, 37);
+            this.R0M4.MaxLength = 8;
+            this.R0M4.Name = "R0M4";
+            this.R0M4.Size = new System.Drawing.Size(84, 22);
+            this.R0M4.TabIndex = 9;
+            this.R0M4.Text = "80C90000";
+            this.R0M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R0M3
+            // 
+            this.R0M3.BackColor = System.Drawing.Color.White;
+            this.R0M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R0M3.Location = new System.Drawing.Point(275, 37);
+            this.R0M3.MaxLength = 8;
+            this.R0M3.Name = "R0M3";
+            this.R0M3.Size = new System.Drawing.Size(84, 22);
+            this.R0M3.TabIndex = 9;
+            this.R0M3.Text = "80C90000";
+            this.R0M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // LoadRegMemory
+            // 
+            this.LoadRegMemory.Location = new System.Drawing.Point(174, 283);
+            this.LoadRegMemory.Name = "LoadRegMemory";
+            this.LoadRegMemory.Size = new System.Drawing.Size(114, 43);
+            this.LoadRegMemory.TabIndex = 2;
+            this.LoadRegMemory.Text = "Load registers from memory";
+            this.LoadRegMemory.UseVisualStyleBackColor = true;
+            this.LoadRegMemory.Click += new System.EventHandler(this.LoadRegMemory_Click);
+            // 
+            // SaveRegMemory
+            // 
+            this.SaveRegMemory.Location = new System.Drawing.Point(174, 234);
+            this.SaveRegMemory.Name = "SaveRegMemory";
+            this.SaveRegMemory.Size = new System.Drawing.Size(114, 43);
+            this.SaveRegMemory.TabIndex = 2;
+            this.SaveRegMemory.Text = "Save registers into memory";
+            this.SaveRegMemory.UseVisualStyleBackColor = true;
+            this.SaveRegMemory.Click += new System.EventHandler(this.SaveRegMemory_Click);
+            // 
+            // R0M2
+            // 
+            this.R0M2.BackColor = System.Drawing.Color.White;
+            this.R0M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R0M2.Location = new System.Drawing.Point(185, 37);
+            this.R0M2.MaxLength = 8;
+            this.R0M2.Name = "R0M2";
+            this.R0M2.Size = new System.Drawing.Size(84, 22);
+            this.R0M2.TabIndex = 9;
+            this.R0M2.Text = "80C90000";
+            this.R0M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R0M1
+            // 
+            this.R0M1.BackColor = System.Drawing.Color.White;
+            this.R0M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R0M1.Location = new System.Drawing.Point(95, 37);
+            this.R0M1.MaxLength = 8;
+            this.R0M1.Name = "R0M1";
+            this.R0M1.Size = new System.Drawing.Size(84, 22);
+            this.R0M1.TabIndex = 9;
+            this.R0M1.Text = "80C90000";
+            this.R0M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Mem4Label
+            // 
+            this.Mem4Label.Location = new System.Drawing.Point(365, 15);
+            this.Mem4Label.Name = "Mem4Label";
+            this.Mem4Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem4Label.TabIndex = 10;
+            this.Mem4Label.Text = "Memory 4";
+            this.Mem4Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem3Label
+            // 
+            this.Mem3Label.Location = new System.Drawing.Point(275, 15);
+            this.Mem3Label.Name = "Mem3Label";
+            this.Mem3Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem3Label.TabIndex = 10;
+            this.Mem3Label.Text = "Memory 3";
+            this.Mem3Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem2Label
+            // 
+            this.Mem2Label.Location = new System.Drawing.Point(185, 15);
+            this.Mem2Label.Name = "Mem2Label";
+            this.Mem2Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem2Label.TabIndex = 10;
+            this.Mem2Label.Text = "Memory 2";
+            this.Mem2Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem1Label
+            // 
+            this.Mem1Label.Location = new System.Drawing.Point(95, 15);
+            this.Mem1Label.Name = "Mem1Label";
+            this.Mem1Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem1Label.TabIndex = 10;
+            this.Mem1Label.Text = "Memory 1";
+            this.Mem1Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // SavReg0Label
+            // 
+            this.SavReg0Label.AutoSize = true;
+            this.SavReg0Label.Location = new System.Drawing.Point(16, 40);
+            this.SavReg0Label.Name = "SavReg0Label";
+            this.SavReg0Label.Size = new System.Drawing.Size(73, 17);
+            this.SavReg0Label.TabIndex = 10;
+            this.SavReg0Label.Text = "Register 0";
+            // 
+            // SavReg1Label
+            // 
+            this.SavReg1Label.AutoSize = true;
+            this.SavReg1Label.Location = new System.Drawing.Point(16, 68);
+            this.SavReg1Label.Name = "SavReg1Label";
+            this.SavReg1Label.Size = new System.Drawing.Size(73, 17);
+            this.SavReg1Label.TabIndex = 11;
+            this.SavReg1Label.Text = "Register 1";
+            // 
+            // R1M4
+            // 
+            this.R1M4.BackColor = System.Drawing.Color.White;
+            this.R1M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R1M4.Location = new System.Drawing.Point(365, 65);
+            this.R1M4.MaxLength = 8;
+            this.R1M4.Name = "R1M4";
+            this.R1M4.Size = new System.Drawing.Size(84, 22);
+            this.R1M4.TabIndex = 12;
+            this.R1M4.Text = "800103E9";
+            this.R1M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R1M3
+            // 
+            this.R1M3.BackColor = System.Drawing.Color.White;
+            this.R1M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R1M3.Location = new System.Drawing.Point(275, 65);
+            this.R1M3.MaxLength = 8;
+            this.R1M3.Name = "R1M3";
+            this.R1M3.Size = new System.Drawing.Size(84, 22);
+            this.R1M3.TabIndex = 12;
+            this.R1M3.Text = "800103E9";
+            this.R1M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R1M2
+            // 
+            this.R1M2.BackColor = System.Drawing.Color.White;
+            this.R1M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R1M2.Location = new System.Drawing.Point(185, 65);
+            this.R1M2.MaxLength = 8;
+            this.R1M2.Name = "R1M2";
+            this.R1M2.Size = new System.Drawing.Size(84, 22);
+            this.R1M2.TabIndex = 12;
+            this.R1M2.Text = "800103E9";
+            this.R1M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R1M1
+            // 
+            this.R1M1.BackColor = System.Drawing.Color.White;
+            this.R1M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R1M1.Location = new System.Drawing.Point(95, 65);
+            this.R1M1.MaxLength = 8;
+            this.R1M1.Name = "R1M1";
+            this.R1M1.Size = new System.Drawing.Size(84, 22);
+            this.R1M1.TabIndex = 12;
+            this.R1M1.Text = "800103E9";
+            this.R1M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // SavReg2Label
+            // 
+            this.SavReg2Label.AutoSize = true;
+            this.SavReg2Label.Location = new System.Drawing.Point(16, 96);
+            this.SavReg2Label.Name = "SavReg2Label";
+            this.SavReg2Label.Size = new System.Drawing.Size(73, 17);
+            this.SavReg2Label.TabIndex = 14;
+            this.SavReg2Label.Text = "Register 2";
+            // 
+            // R2M4
+            // 
+            this.R2M4.BackColor = System.Drawing.Color.White;
+            this.R2M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R2M4.Location = new System.Drawing.Point(365, 93);
+            this.R2M4.MaxLength = 8;
+            this.R2M4.Name = "R2M4";
+            this.R2M4.Size = new System.Drawing.Size(84, 22);
+            this.R2M4.TabIndex = 17;
+            this.R2M4.Text = "00005F42";
+            this.R2M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R2M3
+            // 
+            this.R2M3.BackColor = System.Drawing.Color.White;
+            this.R2M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R2M3.Location = new System.Drawing.Point(275, 93);
+            this.R2M3.MaxLength = 8;
+            this.R2M3.Name = "R2M3";
+            this.R2M3.Size = new System.Drawing.Size(84, 22);
+            this.R2M3.TabIndex = 17;
+            this.R2M3.Text = "00005F42";
+            this.R2M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R2M2
+            // 
+            this.R2M2.BackColor = System.Drawing.Color.White;
+            this.R2M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R2M2.Location = new System.Drawing.Point(185, 93);
+            this.R2M2.MaxLength = 8;
+            this.R2M2.Name = "R2M2";
+            this.R2M2.Size = new System.Drawing.Size(84, 22);
+            this.R2M2.TabIndex = 17;
+            this.R2M2.Text = "00005F42";
+            this.R2M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R2M1
+            // 
+            this.R2M1.BackColor = System.Drawing.Color.White;
+            this.R2M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R2M1.Location = new System.Drawing.Point(95, 93);
+            this.R2M1.MaxLength = 8;
+            this.R2M1.Name = "R2M1";
+            this.R2M1.Size = new System.Drawing.Size(84, 22);
+            this.R2M1.TabIndex = 17;
+            this.R2M1.Text = "00005F42";
+            this.R2M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R3M4
+            // 
+            this.R3M4.BackColor = System.Drawing.Color.White;
+            this.R3M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R3M4.Location = new System.Drawing.Point(365, 121);
+            this.R3M4.MaxLength = 8;
+            this.R3M4.Name = "R3M4";
+            this.R3M4.Size = new System.Drawing.Size(84, 22);
+            this.R3M4.TabIndex = 18;
+            this.R3M4.Text = "00001F23";
+            this.R3M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R3M3
+            // 
+            this.R3M3.BackColor = System.Drawing.Color.White;
+            this.R3M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R3M3.Location = new System.Drawing.Point(275, 121);
+            this.R3M3.MaxLength = 8;
+            this.R3M3.Name = "R3M3";
+            this.R3M3.Size = new System.Drawing.Size(84, 22);
+            this.R3M3.TabIndex = 18;
+            this.R3M3.Text = "00001F23";
+            this.R3M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R3M2
+            // 
+            this.R3M2.BackColor = System.Drawing.Color.White;
+            this.R3M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R3M2.Location = new System.Drawing.Point(185, 121);
+            this.R3M2.MaxLength = 8;
+            this.R3M2.Name = "R3M2";
+            this.R3M2.Size = new System.Drawing.Size(84, 22);
+            this.R3M2.TabIndex = 18;
+            this.R3M2.Text = "00001F23";
+            this.R3M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R3M1
+            // 
+            this.R3M1.BackColor = System.Drawing.Color.White;
+            this.R3M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R3M1.Location = new System.Drawing.Point(95, 121);
+            this.R3M1.MaxLength = 8;
+            this.R3M1.Name = "R3M1";
+            this.R3M1.Size = new System.Drawing.Size(84, 22);
+            this.R3M1.TabIndex = 18;
+            this.R3M1.Text = "00001F23";
+            this.R3M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // SavReg4Label
+            // 
+            this.SavReg4Label.AutoSize = true;
+            this.SavReg4Label.Location = new System.Drawing.Point(16, 150);
+            this.SavReg4Label.Name = "SavReg4Label";
+            this.SavReg4Label.Size = new System.Drawing.Size(73, 17);
+            this.SavReg4Label.TabIndex = 15;
+            this.SavReg4Label.Text = "Register 4";
+            // 
+            // R4M4
+            // 
+            this.R4M4.BackColor = System.Drawing.Color.White;
+            this.R4M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R4M4.Location = new System.Drawing.Point(365, 147);
+            this.R4M4.MaxLength = 8;
+            this.R4M4.Name = "R4M4";
+            this.R4M4.Size = new System.Drawing.Size(84, 22);
+            this.R4M4.TabIndex = 19;
+            this.R4M4.Text = "63BE80E4";
+            this.R4M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R4M3
+            // 
+            this.R4M3.BackColor = System.Drawing.Color.White;
+            this.R4M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R4M3.Location = new System.Drawing.Point(275, 147);
+            this.R4M3.MaxLength = 8;
+            this.R4M3.Name = "R4M3";
+            this.R4M3.Size = new System.Drawing.Size(84, 22);
+            this.R4M3.TabIndex = 19;
+            this.R4M3.Text = "63BE80E4";
+            this.R4M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R5M4
+            // 
+            this.R5M4.BackColor = System.Drawing.Color.White;
+            this.R5M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R5M4.Location = new System.Drawing.Point(365, 175);
+            this.R5M4.MaxLength = 8;
+            this.R5M4.Name = "R5M4";
+            this.R5M4.Size = new System.Drawing.Size(84, 22);
+            this.R5M4.TabIndex = 20;
+            this.R5M4.Text = "00400005";
+            this.R5M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R4M2
+            // 
+            this.R4M2.BackColor = System.Drawing.Color.White;
+            this.R4M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R4M2.Location = new System.Drawing.Point(185, 147);
+            this.R4M2.MaxLength = 8;
+            this.R4M2.Name = "R4M2";
+            this.R4M2.Size = new System.Drawing.Size(84, 22);
+            this.R4M2.TabIndex = 19;
+            this.R4M2.Text = "63BE80E4";
+            this.R4M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R5M3
+            // 
+            this.R5M3.BackColor = System.Drawing.Color.White;
+            this.R5M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R5M3.Location = new System.Drawing.Point(275, 175);
+            this.R5M3.MaxLength = 8;
+            this.R5M3.Name = "R5M3";
+            this.R5M3.Size = new System.Drawing.Size(84, 22);
+            this.R5M3.TabIndex = 20;
+            this.R5M3.Text = "00400005";
+            this.R5M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R4M1
+            // 
+            this.R4M1.BackColor = System.Drawing.Color.White;
+            this.R4M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R4M1.Location = new System.Drawing.Point(95, 147);
+            this.R4M1.MaxLength = 8;
+            this.R4M1.Name = "R4M1";
+            this.R4M1.Size = new System.Drawing.Size(84, 22);
+            this.R4M1.TabIndex = 19;
+            this.R4M1.Text = "63BE80E4";
+            this.R4M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R5M2
+            // 
+            this.R5M2.BackColor = System.Drawing.Color.White;
+            this.R5M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R5M2.Location = new System.Drawing.Point(185, 175);
+            this.R5M2.MaxLength = 8;
+            this.R5M2.Name = "R5M2";
+            this.R5M2.Size = new System.Drawing.Size(84, 22);
+            this.R5M2.TabIndex = 20;
+            this.R5M2.Text = "00400005";
+            this.R5M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // SavReg5Label
+            // 
+            this.SavReg5Label.AutoSize = true;
+            this.SavReg5Label.Location = new System.Drawing.Point(16, 178);
+            this.SavReg5Label.Name = "SavReg5Label";
+            this.SavReg5Label.Size = new System.Drawing.Size(73, 17);
+            this.SavReg5Label.TabIndex = 16;
+            this.SavReg5Label.Text = "Register 5";
+            // 
+            // R5M1
+            // 
+            this.R5M1.BackColor = System.Drawing.Color.White;
+            this.R5M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R5M1.Location = new System.Drawing.Point(95, 175);
+            this.R5M1.MaxLength = 8;
+            this.R5M1.Name = "R5M1";
+            this.R5M1.Size = new System.Drawing.Size(84, 22);
+            this.R5M1.TabIndex = 20;
+            this.R5M1.Text = "00400005";
+            this.R5M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // RegistersGroupBox
+            // 
+            this.RegistersGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.RegistersGroupBox.Location = new System.Drawing.Point(585, 11);
+            this.RegistersGroupBox.Name = "RegistersGroupBox";
+            this.RegistersGroupBox.Size = new System.Drawing.Size(470, 443);
+            this.RegistersGroupBox.TabIndex = 13;
+            this.RegistersGroupBox.TabStop = false;
+            this.RegistersGroupBox.Text = "Registers Settings";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 532);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1067, 22);
+            this.statusStrip1.TabIndex = 14;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 16);
+            // 
+            // statusStrip2
+            // 
+            this.statusStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip2.Location = new System.Drawing.Point(0, 510);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(1067, 22);
+            this.statusStrip2.TabIndex = 15;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
-            this.Controls.Add(this.WriteR5Button);
-            this.Controls.Add(this.WriteR4Button);
-            this.Controls.Add(this.WriteR3Button);
-            this.Controls.Add(this.WriteR1Button);
-            this.Controls.Add(this.WriteR2Button);
-            this.Controls.Add(this.WriteR0Button);
+            this.Controls.Add(this.statusStrip2);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.RegistersTabControl);
+            this.Controls.Add(this.RegistersGroupBox);
             this.Controls.Add(this.AvaibleCOMsComBox);
-            this.Controls.Add(this.ForceLoadRegButton);
-            this.Controls.Add(this.LoadDefRegButton);
-            this.Controls.Add(this.SetAsDefaultRegButton);
-            this.Controls.Add(this.Reg5TextBox);
-            this.Controls.Add(this.Reg5Label);
-            this.Controls.Add(this.Reg4TextBox);
-            this.Controls.Add(this.Reg4Label);
-            this.Controls.Add(this.Reg3TextBox);
-            this.Controls.Add(this.Reg3Label);
-            this.Controls.Add(this.Reg2TextBox);
-            this.Controls.Add(this.Reg2Label);
-            this.Controls.Add(this.Reg1TextBox);
-            this.Controls.Add(this.Reg1Label);
-            this.Controls.Add(this.Reg0Label);
-            this.Controls.Add(this.Reg0TextBox);
             this.Controls.Add(this.PloInitButton);
             this.Controls.Add(this.RefButton);
             this.Controls.Add(this.Out2Button);
@@ -422,6 +1007,13 @@
             this.Text = "Synthesizer Control Program by OK2FKU";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Click += new System.EventHandler(this.CheckAndApllyChangesForm1_Click);
+            this.RegistersTabControl.ResumeLayout(false);
+            this.RegistersPage.ResumeLayout(false);
+            this.RegistersPage.PerformLayout();
+            this.SavedRegistersPage.ResumeLayout(false);
+            this.SavedRegistersPage.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -457,6 +1049,53 @@
         private System.Windows.Forms.Button WriteR3Button;
         private System.Windows.Forms.Button WriteR4Button;
         private System.Windows.Forms.Button WriteR5Button;
+        private System.Windows.Forms.TabControl RegistersTabControl;
+        private System.Windows.Forms.TabPage RegistersPage;
+        private System.Windows.Forms.TabPage SavedRegistersPage;
+        private System.Windows.Forms.Label SavReg3Label;
+        private System.Windows.Forms.TextBox R0M4;
+        private System.Windows.Forms.TextBox R0M3;
+        private System.Windows.Forms.TextBox R0M2;
+        private System.Windows.Forms.TextBox R0M1;
+        private System.Windows.Forms.Label Mem1Label;
+        private System.Windows.Forms.Label SavReg0Label;
+        private System.Windows.Forms.Label SavReg1Label;
+        private System.Windows.Forms.TextBox R1M4;
+        private System.Windows.Forms.TextBox R1M3;
+        private System.Windows.Forms.TextBox R1M2;
+        private System.Windows.Forms.TextBox R1M1;
+        private System.Windows.Forms.Label SavReg2Label;
+        private System.Windows.Forms.TextBox R2M4;
+        private System.Windows.Forms.TextBox R2M3;
+        private System.Windows.Forms.TextBox R2M2;
+        private System.Windows.Forms.TextBox R2M1;
+        private System.Windows.Forms.TextBox R3M4;
+        private System.Windows.Forms.TextBox R3M3;
+        private System.Windows.Forms.TextBox R3M2;
+        private System.Windows.Forms.TextBox R3M1;
+        private System.Windows.Forms.Label SavReg4Label;
+        private System.Windows.Forms.TextBox R4M4;
+        private System.Windows.Forms.TextBox R4M3;
+        private System.Windows.Forms.TextBox R5M4;
+        private System.Windows.Forms.TextBox R4M2;
+        private System.Windows.Forms.TextBox R5M3;
+        private System.Windows.Forms.TextBox R4M1;
+        private System.Windows.Forms.TextBox R5M2;
+        private System.Windows.Forms.Label SavReg5Label;
+        private System.Windows.Forms.TextBox R5M1;
+        private System.Windows.Forms.Label Mem4Label;
+        private System.Windows.Forms.Label Mem3Label;
+        private System.Windows.Forms.Label Mem2Label;
+        private System.Windows.Forms.GroupBox RegistersGroupBox;
+        private System.Windows.Forms.Button SaveRegMemory;
+        private System.Windows.Forms.Button LoadRegMemory;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ComboBox RF_A_EN_ComboBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox RF_A_PWR_ComboBox;
     }
 }
 
