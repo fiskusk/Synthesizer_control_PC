@@ -130,14 +130,14 @@ namespace Synthesizer_PC_control
 
         private void ChangeReg4OutAEn()
         {
-            int intValue = int.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 intValue = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             if (RF_A_EN_ComboBox.SelectedIndex == 0)
             {
-                intValue &= ~(1<<5);
+                intValue &= ~((UInt32)(1<<5));
             }
             else if (RF_A_EN_ComboBox.SelectedIndex == 1)
             {
-                intValue |= (1<<5);
+                intValue |= (UInt32)(1<<5);
             }
             Reg4TextBox.Text = Convert.ToString(intValue, 16);
             ChangeReg4();
@@ -145,26 +145,46 @@ namespace Synthesizer_PC_control
 
         private void ChangeReg4OutAPwr()
         {
-            int intValue = int.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 intValue = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             switch (RF_A_PWR_ComboBox.SelectedIndex)
             {
                 case 0:
-                    intValue &= ~((1<<4) | (1<<3));
+                    intValue &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
                     break;
                 case 1:
-                    intValue &= ~(1<<4);
-                    intValue |= 1<<3;
+                    intValue &= ~(UInt32)(1<<4);
+                    intValue |= (UInt32)(1<<3);
                     break;
                 case 2:
-                    intValue |= 1<<4;
-                    intValue &= ~(1<<3);
+                    intValue |= (UInt32)(1<<4);
+                    intValue &= ~(UInt32)(1<<3);
                     break;
                 case 3:
-                    intValue |= (1<<4) | (1<<3);
+                    intValue |= (UInt32)(1<<4) | (UInt32)(1<<3);
                     break;
             }
             Reg4TextBox.Text = Convert.ToString(intValue, 16);
             ChangeReg4();
+        }
+
+        private void ChangeReg0IntFracMode()
+        {
+            UInt32 Reg0Value = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 Reg2Value = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            if (ModeIntFracComboBox.SelectedIndex == 0)
+            {
+                Reg0Value &= ~unchecked((UInt32)(1<<31));
+                Reg2Value &= ~unchecked((UInt32)(1<<8));
+            }
+            else if (RF_A_EN_ComboBox.SelectedIndex == 1)
+            {
+                Reg0Value |= unchecked((UInt32)(1<<31));
+                Reg2Value |= unchecked((UInt32)(1<<8));
+            }
+            Reg0TextBox.Text = Convert.ToString(Reg0Value, 16);
+            Reg2TextBox.Text = Convert.ToString(Reg2Value, 16);
+            ChangeReg2();
+            ChangeReg0();
         }
 
         private void SaveWorkspaceData()
@@ -773,14 +793,20 @@ namespace Synthesizer_PC_control
 
         private void RF_A_EN_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Reg1TextBox.Enabled == true)
+            if (Reg4TextBox.Enabled == true)
                 ChangeReg4OutAEn();
         }
 
         private void RF_A_PWR_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Reg1TextBox.Enabled == true)
+            if (Reg4TextBox.Enabled == true)
                 ChangeReg4OutAPwr();
+        }
+
+        private void ModeIntFracComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true)
+                ChangeReg0IntFracMode();
         }
     }
 }

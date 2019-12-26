@@ -1142,7 +1142,7 @@
             this.ModeIntFracComboBox.Name = "ModeIntFracComboBox";
             this.ModeIntFracComboBox.Size = new System.Drawing.Size(69, 21);
             this.ModeIntFracComboBox.TabIndex = 16;
-            this.ModeIntFracComboBox.SelectedIndexChanged += new System.EventHandler(this.RF_A_EN_ComboBox_SelectedIndexChanged);
+            this.ModeIntFracComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
             // 
             // Form1
             // 
