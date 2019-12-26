@@ -105,21 +105,25 @@ namespace Synthesizer_PC_control
             Reg2TextBox.Text = data.Registers[2];
             Reg3TextBox.Text = data.Registers[3];
             Reg4TextBox.Text = data.Registers[4];
-            CheckOutAENStatus(data.Registers[4]);
-            CheckOutAPwrStatus(data.Registers[4]);
+            int intValue = int.Parse(data.Registers[4], System.Globalization.NumberStyles.HexNumber);
+            CheckOutAENStatus(intValue);
+            CheckOutAPwrStatus(intValue);
             Reg5TextBox.Text = data.Registers[5];
         }
 
-        private void CheckOutAENStatus(string data)
+        private void CheckOutAENStatus(int data)
         {
-            int intValue = int.Parse(data, System.Globalization.NumberStyles.HexNumber);
-            RF_A_EN_ComboBox.SelectedIndex = (intValue & 0b100000)>>5;
+            RF_A_EN_ComboBox.SelectedIndex = (data & (1<<5) )>>5;
         }
 
-        private void CheckOutAPwrStatus(string data)
+        private void CheckOutAPwrStatus(int data)
         {
-            int intValue = int.Parse(data, System.Globalization.NumberStyles.HexNumber);
-            RF_A_PWR_ComboBox.SelectedIndex = (intValue & 0b11000)>>3;
+            RF_A_PWR_ComboBox.SelectedIndex = (data & 0b11000)>>3;
+        }
+
+        private void CheckFracIntModeStatus(int data)
+        {
+
         }
 
         private void ChangeReg4OutAEn()
@@ -558,8 +562,6 @@ namespace Synthesizer_PC_control
             if ((Reg4TextBox.Enabled == true) && (!Reg4TextBox.Text.Equals(old_reg4)))
             {
                 ChangeReg4();
-                CheckOutAENStatus(Reg4TextBox.Text);
-                CheckOutAPwrStatus(Reg4TextBox.Text);
             }
             if ((Reg5TextBox.Enabled == true) && (!Reg5TextBox.Text.Equals(old_reg5)))
             {
@@ -599,6 +601,9 @@ namespace Synthesizer_PC_control
         {
             string data = String.Format("plo set_register {0}", Reg4TextBox.Text);
             old_reg4 = Reg4TextBox.Text;
+            int intValue = int.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            CheckOutAENStatus(intValue);
+            CheckOutAPwrStatus(intValue);
             SendStringSerialPort(data);
         }
 
@@ -670,8 +675,8 @@ namespace Synthesizer_PC_control
 
         private void LoadDefRegButton_Click(object sender, EventArgs e)
         {
-            try   
-            {   
+            try
+            {
                 string fileName = GetFileNamePath(@"default.json");
 
                 SaveWindow settings_loaded = JsonConvert.DeserializeObject<SaveWindow>(File.ReadAllText(fileName));
