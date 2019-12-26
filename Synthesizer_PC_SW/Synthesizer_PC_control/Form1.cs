@@ -100,30 +100,32 @@ namespace Synthesizer_PC_control
 
         private void LoadRegistersFromFile(SaveWindow data)
         {
-            Reg0TextBox.Text = data.Registers[0]; 
+            Reg0TextBox.Text = data.Registers[0];
+            UInt32 intValue = UInt32.Parse(data.Registers[0], System.Globalization.NumberStyles.HexNumber);
+            CheckFracIntModeStatus(intValue);
             Reg1TextBox.Text = data.Registers[1];
             Reg2TextBox.Text = data.Registers[2];
             Reg3TextBox.Text = data.Registers[3];
             Reg4TextBox.Text = data.Registers[4];
-            int intValue = int.Parse(data.Registers[4], System.Globalization.NumberStyles.HexNumber);
-            CheckOutAENStatus(intValue);
-            CheckOutAPwrStatus(intValue);
+            UInt32 intValue2 = UInt32.Parse(data.Registers[4], System.Globalization.NumberStyles.HexNumber);
+            CheckOutAENStatus(intValue2);
+            CheckOutAPwrStatus(intValue2);
             Reg5TextBox.Text = data.Registers[5];
         }
 
-        private void CheckOutAENStatus(int data)
+        private void CheckOutAENStatus(UInt32 data)
         {
-            RF_A_EN_ComboBox.SelectedIndex = (data & (1<<5) )>>5;
+            RF_A_EN_ComboBox.SelectedIndex = (int)((data & (1<<5)) >> 5);
         }
 
-        private void CheckOutAPwrStatus(int data)
+        private void CheckOutAPwrStatus(UInt32 data)
         {
-            RF_A_PWR_ComboBox.SelectedIndex = (data & 0b11000)>>3;
+            RF_A_PWR_ComboBox.SelectedIndex = (int)((data & 0b11000) >> 3);
         }
 
-        private void CheckFracIntModeStatus(int data)
+        private void CheckFracIntModeStatus(UInt32 data)
         {
-
+            ModeIntFracComboBox.SelectedIndex = (int)((data & (1 << 31)) >> 31);
         }
 
         private void ChangeReg4OutAEn()
@@ -259,6 +261,10 @@ namespace Synthesizer_PC_control
             SaveRegMemory.Enabled = command;
             RF_A_EN_ComboBox.Enabled = command;
             RF_A_PWR_ComboBox.Enabled = command;
+            IntNdomainUpDown.Enabled = command;
+            FracNdomainUpDown.Enabled = command;
+            MODdomainUpDown.Enabled = command;
+            ModeIntFracComboBox.Enabled = command;
         }
 
         private void OpenPortButton_Click(object sender, EventArgs e)
@@ -573,6 +579,8 @@ namespace Synthesizer_PC_control
         {
             string data = String.Format("plo set_register {0}", Reg0TextBox.Text);
             old_reg0 = Reg0TextBox.Text;
+            UInt32 intValue = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            CheckFracIntModeStatus(intValue);
             SendStringSerialPort(data);
         }
 
@@ -601,7 +609,7 @@ namespace Synthesizer_PC_control
         {
             string data = String.Format("plo set_register {0}", Reg4TextBox.Text);
             old_reg4 = Reg4TextBox.Text;
-            int intValue = int.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 intValue = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             CheckOutAENStatus(intValue);
             CheckOutAPwrStatus(intValue);
             SendStringSerialPort(data);

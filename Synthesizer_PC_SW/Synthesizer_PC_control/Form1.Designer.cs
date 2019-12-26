@@ -58,9 +58,9 @@
             this.WriteR5Button = new System.Windows.Forms.Button();
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
-            this.domainUpDown3 = new System.Windows.Forms.DomainUpDown();
-            this.domainUpDown2 = new System.Windows.Forms.DomainUpDown();
-            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
+            this.MODdomainUpDown = new System.Windows.Forms.DomainUpDown();
+            this.FracNdomainUpDown = new System.Windows.Forms.DomainUpDown();
+            this.IntNdomainUpDown = new System.Windows.Forms.DomainUpDown();
             this.ModLabel = new System.Windows.Forms.Label();
             this.FracNLabel = new System.Windows.Forms.Label();
             this.IntNLabel = new System.Windows.Forms.Label();
@@ -459,9 +459,9 @@
             // 
             // RegistersPage
             // 
-            this.RegistersPage.Controls.Add(this.domainUpDown3);
-            this.RegistersPage.Controls.Add(this.domainUpDown2);
-            this.RegistersPage.Controls.Add(this.domainUpDown1);
+            this.RegistersPage.Controls.Add(this.MODdomainUpDown);
+            this.RegistersPage.Controls.Add(this.FracNdomainUpDown);
+            this.RegistersPage.Controls.Add(this.IntNdomainUpDown);
             this.RegistersPage.Controls.Add(this.ModLabel);
             this.RegistersPage.Controls.Add(this.FracNLabel);
             this.RegistersPage.Controls.Add(this.ModeIntFracLabel);
@@ -501,32 +501,32 @@
             this.RegistersPage.Text = "Registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
             // 
-            // domainUpDown3
+            // MODdomainUpDown
             // 
-            this.domainUpDown3.Location = new System.Drawing.Point(58, 206);
-            this.domainUpDown3.Name = "domainUpDown3";
-            this.domainUpDown3.Size = new System.Drawing.Size(76, 20);
-            this.domainUpDown3.TabIndex = 18;
-            this.domainUpDown3.Text = "125";
-            this.domainUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.MODdomainUpDown.Location = new System.Drawing.Point(58, 206);
+            this.MODdomainUpDown.Name = "MODdomainUpDown";
+            this.MODdomainUpDown.Size = new System.Drawing.Size(76, 20);
+            this.MODdomainUpDown.TabIndex = 18;
+            this.MODdomainUpDown.Text = "125";
+            this.MODdomainUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // domainUpDown2
+            // FracNdomainUpDown
             // 
-            this.domainUpDown2.Location = new System.Drawing.Point(59, 183);
-            this.domainUpDown2.Name = "domainUpDown2";
-            this.domainUpDown2.Size = new System.Drawing.Size(76, 20);
-            this.domainUpDown2.TabIndex = 18;
-            this.domainUpDown2.Text = "0";
-            this.domainUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.FracNdomainUpDown.Location = new System.Drawing.Point(59, 183);
+            this.FracNdomainUpDown.Name = "FracNdomainUpDown";
+            this.FracNdomainUpDown.Size = new System.Drawing.Size(76, 20);
+            this.FracNdomainUpDown.TabIndex = 18;
+            this.FracNdomainUpDown.Text = "0";
+            this.FracNdomainUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // domainUpDown1
+            // IntNdomainUpDown
             // 
-            this.domainUpDown1.Location = new System.Drawing.Point(59, 160);
-            this.domainUpDown1.Name = "domainUpDown1";
-            this.domainUpDown1.Size = new System.Drawing.Size(76, 20);
-            this.domainUpDown1.TabIndex = 18;
-            this.domainUpDown1.Text = "400";
-            this.domainUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.IntNdomainUpDown.Location = new System.Drawing.Point(59, 160);
+            this.IntNdomainUpDown.Name = "IntNdomainUpDown";
+            this.IntNdomainUpDown.Size = new System.Drawing.Size(76, 20);
+            this.IntNdomainUpDown.TabIndex = 18;
+            this.IntNdomainUpDown.Text = "400";
+            this.IntNdomainUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ModLabel
             // 
@@ -1135,8 +1135,8 @@
             this.ModeIntFracComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ModeIntFracComboBox.FormattingEnabled = true;
             this.ModeIntFracComboBox.Items.AddRange(new object[] {
-            "Integer",
-            "Fractional"});
+            "Fractional",
+            "Integer"});
             this.ModeIntFracComboBox.Location = new System.Drawing.Point(191, 159);
             this.ModeIntFracComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.ModeIntFracComboBox.Name = "ModeIntFracComboBox";
@@ -1251,9 +1251,9 @@
         private System.Windows.Forms.ComboBox RF_A_EN_ComboBox;
         private System.Windows.Forms.Label RF_A_PWR_Label;
         private System.Windows.Forms.ComboBox RF_A_PWR_ComboBox;
-        private System.Windows.Forms.DomainUpDown domainUpDown3;
-        private System.Windows.Forms.DomainUpDown domainUpDown2;
-        private System.Windows.Forms.DomainUpDown domainUpDown1;
+        private System.Windows.Forms.DomainUpDown MODdomainUpDown;
+        private System.Windows.Forms.DomainUpDown FracNdomainUpDown;
+        private System.Windows.Forms.DomainUpDown IntNdomainUpDown;
         private System.Windows.Forms.Label ModLabel;
         private System.Windows.Forms.Label FracNLabel;
         private System.Windows.Forms.Label IntNLabel;
