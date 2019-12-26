@@ -58,10 +58,16 @@
             this.WriteR5Button = new System.Windows.Forms.Button();
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
+            this.domainUpDown3 = new System.Windows.Forms.DomainUpDown();
+            this.domainUpDown2 = new System.Windows.Forms.DomainUpDown();
+            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
+            this.ModLabel = new System.Windows.Forms.Label();
+            this.FracNLabel = new System.Windows.Forms.Label();
+            this.IntNLabel = new System.Windows.Forms.Label();
             this.RF_A_PWR_ComboBox = new System.Windows.Forms.ComboBox();
             this.RF_A_EN_ComboBox = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.RF_A_PWR_Label = new System.Windows.Forms.Label();
+            this.RF_A_EN_Label = new System.Windows.Forms.Label();
             this.SavedRegistersPage = new System.Windows.Forms.TabPage();
             this.SavReg3Label = new System.Windows.Forms.Label();
             this.R0M4 = new System.Windows.Forms.TextBox();
@@ -102,6 +108,8 @@
             this.RegistersGroupBox = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ModeIntFracLabel = new System.Windows.Forms.Label();
+            this.ModeIntFracComboBox = new System.Windows.Forms.ComboBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.SavedRegistersPage.SuspendLayout();
@@ -131,7 +139,7 @@
             // Out1Button
             // 
             this.Out1Button.Location = new System.Drawing.Point(9, 103);
-            this.Out1Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Out1Button.Margin = new System.Windows.Forms.Padding(2);
             this.Out1Button.Name = "Out1Button";
             this.Out1Button.Size = new System.Drawing.Size(75, 23);
             this.Out1Button.TabIndex = 1;
@@ -142,7 +150,7 @@
             // Out2Button
             // 
             this.Out2Button.Location = new System.Drawing.Point(9, 131);
-            this.Out2Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Out2Button.Margin = new System.Windows.Forms.Padding(2);
             this.Out2Button.Name = "Out2Button";
             this.Out2Button.Size = new System.Drawing.Size(75, 23);
             this.Out2Button.TabIndex = 1;
@@ -153,7 +161,7 @@
             // PloInitButton
             // 
             this.PloInitButton.Location = new System.Drawing.Point(118, 103);
-            this.PloInitButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PloInitButton.Margin = new System.Windows.Forms.Padding(2);
             this.PloInitButton.Name = "PloInitButton";
             this.PloInitButton.Size = new System.Drawing.Size(75, 23);
             this.PloInitButton.TabIndex = 2;
@@ -166,7 +174,7 @@
             this.Reg0TextBox.BackColor = System.Drawing.Color.White;
             this.Reg0TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.Reg0TextBox.Location = new System.Drawing.Point(71, 11);
-            this.Reg0TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Reg0TextBox.Margin = new System.Windows.Forms.Padding(2);
             this.Reg0TextBox.MaxLength = 8;
             this.Reg0TextBox.Name = "Reg0TextBox";
             this.Reg0TextBox.Size = new System.Drawing.Size(76, 20);
@@ -183,9 +191,9 @@
             this.Reg0Label.Location = new System.Drawing.Point(12, 14);
             this.Reg0Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg0Label.Name = "Reg0Label";
-            this.Reg0Label.Size = new System.Drawing.Size(55, 13);
+            this.Reg0Label.Size = new System.Drawing.Size(58, 13);
             this.Reg0Label.TabIndex = 4;
-            this.Reg0Label.Text = "Register 0";
+            this.Reg0Label.Text = "Register 0:";
             // 
             // Reg1Label
             // 
@@ -193,16 +201,16 @@
             this.Reg1Label.Location = new System.Drawing.Point(12, 37);
             this.Reg1Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg1Label.Name = "Reg1Label";
-            this.Reg1Label.Size = new System.Drawing.Size(55, 13);
+            this.Reg1Label.Size = new System.Drawing.Size(58, 13);
             this.Reg1Label.TabIndex = 5;
-            this.Reg1Label.Text = "Register 1";
+            this.Reg1Label.Text = "Register 1:";
             // 
             // Reg1TextBox
             // 
             this.Reg1TextBox.BackColor = System.Drawing.Color.White;
             this.Reg1TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.Reg1TextBox.Location = new System.Drawing.Point(71, 34);
-            this.Reg1TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Reg1TextBox.Margin = new System.Windows.Forms.Padding(2);
             this.Reg1TextBox.MaxLength = 8;
             this.Reg1TextBox.Name = "Reg1TextBox";
             this.Reg1TextBox.Size = new System.Drawing.Size(76, 20);
@@ -219,16 +227,16 @@
             this.Reg2Label.Location = new System.Drawing.Point(12, 59);
             this.Reg2Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg2Label.Name = "Reg2Label";
-            this.Reg2Label.Size = new System.Drawing.Size(55, 13);
+            this.Reg2Label.Size = new System.Drawing.Size(58, 13);
             this.Reg2Label.TabIndex = 7;
-            this.Reg2Label.Text = "Register 2";
+            this.Reg2Label.Text = "Register 2:";
             // 
             // Reg2TextBox
             // 
             this.Reg2TextBox.BackColor = System.Drawing.Color.White;
             this.Reg2TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.Reg2TextBox.Location = new System.Drawing.Point(71, 57);
-            this.Reg2TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Reg2TextBox.Margin = new System.Windows.Forms.Padding(2);
             this.Reg2TextBox.MaxLength = 8;
             this.Reg2TextBox.Name = "Reg2TextBox";
             this.Reg2TextBox.Size = new System.Drawing.Size(76, 20);
@@ -245,16 +253,16 @@
             this.Reg3Label.Location = new System.Drawing.Point(12, 82);
             this.Reg3Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg3Label.Name = "Reg3Label";
-            this.Reg3Label.Size = new System.Drawing.Size(55, 13);
+            this.Reg3Label.Size = new System.Drawing.Size(58, 13);
             this.Reg3Label.TabIndex = 7;
-            this.Reg3Label.Text = "Register 3";
+            this.Reg3Label.Text = "Register 3:";
             // 
             // Reg3TextBox
             // 
             this.Reg3TextBox.BackColor = System.Drawing.Color.White;
             this.Reg3TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.Reg3TextBox.Location = new System.Drawing.Point(71, 80);
-            this.Reg3TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Reg3TextBox.Margin = new System.Windows.Forms.Padding(2);
             this.Reg3TextBox.MaxLength = 8;
             this.Reg3TextBox.Name = "Reg3TextBox";
             this.Reg3TextBox.Size = new System.Drawing.Size(76, 20);
@@ -271,16 +279,16 @@
             this.Reg4Label.Location = new System.Drawing.Point(12, 103);
             this.Reg4Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg4Label.Name = "Reg4Label";
-            this.Reg4Label.Size = new System.Drawing.Size(55, 13);
+            this.Reg4Label.Size = new System.Drawing.Size(58, 13);
             this.Reg4Label.TabIndex = 7;
-            this.Reg4Label.Text = "Register 4";
+            this.Reg4Label.Text = "Register 4:";
             // 
             // Reg4TextBox
             // 
             this.Reg4TextBox.BackColor = System.Drawing.Color.White;
             this.Reg4TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.Reg4TextBox.Location = new System.Drawing.Point(71, 101);
-            this.Reg4TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Reg4TextBox.Margin = new System.Windows.Forms.Padding(2);
             this.Reg4TextBox.MaxLength = 8;
             this.Reg4TextBox.Name = "Reg4TextBox";
             this.Reg4TextBox.Size = new System.Drawing.Size(76, 20);
@@ -297,16 +305,16 @@
             this.Reg5Label.Location = new System.Drawing.Point(12, 126);
             this.Reg5Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg5Label.Name = "Reg5Label";
-            this.Reg5Label.Size = new System.Drawing.Size(55, 13);
+            this.Reg5Label.Size = new System.Drawing.Size(58, 13);
             this.Reg5Label.TabIndex = 7;
-            this.Reg5Label.Text = "Register 5";
+            this.Reg5Label.Text = "Register 5:";
             // 
             // Reg5TextBox
             // 
             this.Reg5TextBox.BackColor = System.Drawing.Color.White;
             this.Reg5TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.Reg5TextBox.Location = new System.Drawing.Point(71, 124);
-            this.Reg5TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Reg5TextBox.Margin = new System.Windows.Forms.Padding(2);
             this.Reg5TextBox.MaxLength = 8;
             this.Reg5TextBox.Name = "Reg5TextBox";
             this.Reg5TextBox.Size = new System.Drawing.Size(76, 20);
@@ -320,7 +328,7 @@
             // RefButton
             // 
             this.RefButton.Location = new System.Drawing.Point(9, 158);
-            this.RefButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RefButton.Margin = new System.Windows.Forms.Padding(2);
             this.RefButton.Name = "RefButton";
             this.RefButton.Size = new System.Drawing.Size(75, 23);
             this.RefButton.TabIndex = 1;
@@ -331,7 +339,7 @@
             // SetAsDefaultRegButton
             // 
             this.SetAsDefaultRegButton.Location = new System.Drawing.Point(248, 11);
-            this.SetAsDefaultRegButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SetAsDefaultRegButton.Margin = new System.Windows.Forms.Padding(2);
             this.SetAsDefaultRegButton.Name = "SetAsDefaultRegButton";
             this.SetAsDefaultRegButton.Size = new System.Drawing.Size(74, 19);
             this.SetAsDefaultRegButton.TabIndex = 9;
@@ -342,7 +350,7 @@
             // ForceLoadRegButton
             // 
             this.ForceLoadRegButton.Location = new System.Drawing.Point(248, 58);
-            this.ForceLoadRegButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ForceLoadRegButton.Margin = new System.Windows.Forms.Padding(2);
             this.ForceLoadRegButton.Name = "ForceLoadRegButton";
             this.ForceLoadRegButton.Size = new System.Drawing.Size(74, 19);
             this.ForceLoadRegButton.TabIndex = 9;
@@ -353,7 +361,7 @@
             // LoadDefRegButton
             // 
             this.LoadDefRegButton.Location = new System.Drawing.Point(248, 34);
-            this.LoadDefRegButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LoadDefRegButton.Margin = new System.Windows.Forms.Padding(2);
             this.LoadDefRegButton.Name = "LoadDefRegButton";
             this.LoadDefRegButton.Size = new System.Drawing.Size(74, 19);
             this.LoadDefRegButton.TabIndex = 9;
@@ -366,7 +374,7 @@
             this.AvaibleCOMsComBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AvaibleCOMsComBox.FormattingEnabled = true;
             this.AvaibleCOMsComBox.Location = new System.Drawing.Point(107, 9);
-            this.AvaibleCOMsComBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AvaibleCOMsComBox.Margin = new System.Windows.Forms.Padding(2);
             this.AvaibleCOMsComBox.Name = "AvaibleCOMsComBox";
             this.AvaibleCOMsComBox.Size = new System.Drawing.Size(66, 21);
             this.AvaibleCOMsComBox.TabIndex = 10;
@@ -375,7 +383,7 @@
             // WriteR0Button
             // 
             this.WriteR0Button.Location = new System.Drawing.Point(151, 11);
-            this.WriteR0Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.WriteR0Button.Margin = new System.Windows.Forms.Padding(2);
             this.WriteR0Button.Name = "WriteR0Button";
             this.WriteR0Button.Size = new System.Drawing.Size(63, 19);
             this.WriteR0Button.TabIndex = 11;
@@ -386,7 +394,7 @@
             // WriteR1Button
             // 
             this.WriteR1Button.Location = new System.Drawing.Point(151, 34);
-            this.WriteR1Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.WriteR1Button.Margin = new System.Windows.Forms.Padding(2);
             this.WriteR1Button.Name = "WriteR1Button";
             this.WriteR1Button.Size = new System.Drawing.Size(63, 19);
             this.WriteR1Button.TabIndex = 11;
@@ -397,7 +405,7 @@
             // WriteR2Button
             // 
             this.WriteR2Button.Location = new System.Drawing.Point(151, 57);
-            this.WriteR2Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.WriteR2Button.Margin = new System.Windows.Forms.Padding(2);
             this.WriteR2Button.Name = "WriteR2Button";
             this.WriteR2Button.Size = new System.Drawing.Size(63, 19);
             this.WriteR2Button.TabIndex = 11;
@@ -408,7 +416,7 @@
             // WriteR3Button
             // 
             this.WriteR3Button.Location = new System.Drawing.Point(151, 80);
-            this.WriteR3Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.WriteR3Button.Margin = new System.Windows.Forms.Padding(2);
             this.WriteR3Button.Name = "WriteR3Button";
             this.WriteR3Button.Size = new System.Drawing.Size(63, 19);
             this.WriteR3Button.TabIndex = 11;
@@ -419,7 +427,7 @@
             // WriteR4Button
             // 
             this.WriteR4Button.Location = new System.Drawing.Point(151, 101);
-            this.WriteR4Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.WriteR4Button.Margin = new System.Windows.Forms.Padding(2);
             this.WriteR4Button.Name = "WriteR4Button";
             this.WriteR4Button.Size = new System.Drawing.Size(63, 19);
             this.WriteR4Button.TabIndex = 11;
@@ -430,7 +438,7 @@
             // WriteR5Button
             // 
             this.WriteR5Button.Location = new System.Drawing.Point(151, 124);
-            this.WriteR5Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.WriteR5Button.Margin = new System.Windows.Forms.Padding(2);
             this.WriteR5Button.Name = "WriteR5Button";
             this.WriteR5Button.Size = new System.Drawing.Size(63, 19);
             this.WriteR5Button.TabIndex = 11;
@@ -443,7 +451,7 @@
             this.RegistersTabControl.Controls.Add(this.RegistersPage);
             this.RegistersTabControl.Controls.Add(this.SavedRegistersPage);
             this.RegistersTabControl.Location = new System.Drawing.Point(439, 26);
-            this.RegistersTabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegistersTabControl.Margin = new System.Windows.Forms.Padding(2);
             this.RegistersTabControl.Name = "RegistersTabControl";
             this.RegistersTabControl.SelectedIndex = 0;
             this.RegistersTabControl.Size = new System.Drawing.Size(356, 346);
@@ -451,7 +459,15 @@
             // 
             // RegistersPage
             // 
+            this.RegistersPage.Controls.Add(this.domainUpDown3);
+            this.RegistersPage.Controls.Add(this.domainUpDown2);
+            this.RegistersPage.Controls.Add(this.domainUpDown1);
+            this.RegistersPage.Controls.Add(this.ModLabel);
+            this.RegistersPage.Controls.Add(this.FracNLabel);
+            this.RegistersPage.Controls.Add(this.ModeIntFracLabel);
+            this.RegistersPage.Controls.Add(this.IntNLabel);
             this.RegistersPage.Controls.Add(this.RF_A_PWR_ComboBox);
+            this.RegistersPage.Controls.Add(this.ModeIntFracComboBox);
             this.RegistersPage.Controls.Add(this.RF_A_EN_ComboBox);
             this.RegistersPage.Controls.Add(this.Reg3Label);
             this.RegistersPage.Controls.Add(this.WriteR5Button);
@@ -472,18 +488,75 @@
             this.RegistersPage.Controls.Add(this.LoadDefRegButton);
             this.RegistersPage.Controls.Add(this.Reg4TextBox);
             this.RegistersPage.Controls.Add(this.SetAsDefaultRegButton);
-            this.RegistersPage.Controls.Add(this.label2);
-            this.RegistersPage.Controls.Add(this.label1);
+            this.RegistersPage.Controls.Add(this.RF_A_PWR_Label);
+            this.RegistersPage.Controls.Add(this.RF_A_EN_Label);
             this.RegistersPage.Controls.Add(this.Reg5Label);
             this.RegistersPage.Controls.Add(this.Reg5TextBox);
             this.RegistersPage.Location = new System.Drawing.Point(4, 22);
-            this.RegistersPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegistersPage.Margin = new System.Windows.Forms.Padding(2);
             this.RegistersPage.Name = "RegistersPage";
-            this.RegistersPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegistersPage.Padding = new System.Windows.Forms.Padding(2);
             this.RegistersPage.Size = new System.Drawing.Size(348, 320);
             this.RegistersPage.TabIndex = 0;
             this.RegistersPage.Text = "Registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
+            // 
+            // domainUpDown3
+            // 
+            this.domainUpDown3.Location = new System.Drawing.Point(58, 206);
+            this.domainUpDown3.Name = "domainUpDown3";
+            this.domainUpDown3.Size = new System.Drawing.Size(76, 20);
+            this.domainUpDown3.TabIndex = 18;
+            this.domainUpDown3.Text = "125";
+            this.domainUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // domainUpDown2
+            // 
+            this.domainUpDown2.Location = new System.Drawing.Point(59, 183);
+            this.domainUpDown2.Name = "domainUpDown2";
+            this.domainUpDown2.Size = new System.Drawing.Size(76, 20);
+            this.domainUpDown2.TabIndex = 18;
+            this.domainUpDown2.Text = "0";
+            this.domainUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // domainUpDown1
+            // 
+            this.domainUpDown1.Location = new System.Drawing.Point(59, 160);
+            this.domainUpDown1.Name = "domainUpDown1";
+            this.domainUpDown1.Size = new System.Drawing.Size(76, 20);
+            this.domainUpDown1.TabIndex = 18;
+            this.domainUpDown1.Text = "400";
+            this.domainUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ModLabel
+            // 
+            this.ModLabel.Location = new System.Drawing.Point(15, 208);
+            this.ModLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.ModLabel.Name = "ModLabel";
+            this.ModLabel.Size = new System.Drawing.Size(39, 14);
+            this.ModLabel.TabIndex = 17;
+            this.ModLabel.Text = "MOD:";
+            this.ModLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // FracNLabel
+            // 
+            this.FracNLabel.Location = new System.Drawing.Point(15, 185);
+            this.FracNLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.FracNLabel.Name = "FracNLabel";
+            this.FracNLabel.Size = new System.Drawing.Size(39, 14);
+            this.FracNLabel.TabIndex = 17;
+            this.FracNLabel.Text = "FracN:";
+            this.FracNLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // IntNLabel
+            // 
+            this.IntNLabel.Location = new System.Drawing.Point(15, 162);
+            this.IntNLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.IntNLabel.Name = "IntNLabel";
+            this.IntNLabel.Size = new System.Drawing.Size(39, 14);
+            this.IntNLabel.TabIndex = 17;
+            this.IntNLabel.Text = "IntN:";
+            this.IntNLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // RF_A_PWR_ComboBox
             // 
@@ -494,10 +567,10 @@
             "-1 dBm",
             "+2 dBm",
             "+5 dBm"});
-            this.RF_A_PWR_ComboBox.Location = new System.Drawing.Point(94, 176);
-            this.RF_A_PWR_ComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RF_A_PWR_ComboBox.Location = new System.Drawing.Point(94, 290);
+            this.RF_A_PWR_ComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.RF_A_PWR_ComboBox.Name = "RF_A_PWR_ComboBox";
-            this.RF_A_PWR_ComboBox.Size = new System.Drawing.Size(92, 21);
+            this.RF_A_PWR_ComboBox.Size = new System.Drawing.Size(76, 21);
             this.RF_A_PWR_ComboBox.TabIndex = 16;
             this.RF_A_PWR_ComboBox.SelectedIndexChanged += new System.EventHandler(this.RF_A_PWR_ComboBox_SelectedIndexChanged);
             // 
@@ -509,32 +582,32 @@
             this.RF_A_EN_ComboBox.Items.AddRange(new object[] {
             "0. Disabled",
             "1. Enabled"});
-            this.RF_A_EN_ComboBox.Location = new System.Drawing.Point(94, 153);
-            this.RF_A_EN_ComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RF_A_EN_ComboBox.Location = new System.Drawing.Point(94, 267);
+            this.RF_A_EN_ComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.RF_A_EN_ComboBox.Name = "RF_A_EN_ComboBox";
-            this.RF_A_EN_ComboBox.Size = new System.Drawing.Size(92, 21);
+            this.RF_A_EN_ComboBox.Size = new System.Drawing.Size(76, 21);
             this.RF_A_EN_ComboBox.TabIndex = 16;
             this.RF_A_EN_ComboBox.SelectedIndexChanged += new System.EventHandler(this.RF_A_EN_ComboBox_SelectedIndexChanged);
             // 
-            // label2
+            // RF_A_PWR_Label
             // 
-            this.label2.Location = new System.Drawing.Point(4, 179);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 14);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "RFoutA Power:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.RF_A_PWR_Label.Location = new System.Drawing.Point(4, 293);
+            this.RF_A_PWR_Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.RF_A_PWR_Label.Name = "RF_A_PWR_Label";
+            this.RF_A_PWR_Label.Size = new System.Drawing.Size(85, 14);
+            this.RF_A_PWR_Label.TabIndex = 7;
+            this.RF_A_PWR_Label.Text = "RFoutA Power:";
+            this.RF_A_PWR_Label.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label1
+            // RF_A_EN_Label
             // 
-            this.label1.Location = new System.Drawing.Point(4, 155);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 14);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "RFoutA Enable:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.RF_A_EN_Label.Location = new System.Drawing.Point(4, 269);
+            this.RF_A_EN_Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.RF_A_EN_Label.Name = "RF_A_EN_Label";
+            this.RF_A_EN_Label.Size = new System.Drawing.Size(85, 14);
+            this.RF_A_EN_Label.TabIndex = 7;
+            this.RF_A_EN_Label.Text = "RFoutA Enable:";
+            this.RF_A_EN_Label.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // SavedRegistersPage
             // 
@@ -575,9 +648,9 @@
             this.SavedRegistersPage.Controls.Add(this.SavReg5Label);
             this.SavedRegistersPage.Controls.Add(this.R5M1);
             this.SavedRegistersPage.Location = new System.Drawing.Point(4, 22);
-            this.SavedRegistersPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SavedRegistersPage.Margin = new System.Windows.Forms.Padding(2);
             this.SavedRegistersPage.Name = "SavedRegistersPage";
-            this.SavedRegistersPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SavedRegistersPage.Padding = new System.Windows.Forms.Padding(2);
             this.SavedRegistersPage.Size = new System.Drawing.Size(348, 320);
             this.SavedRegistersPage.TabIndex = 1;
             this.SavedRegistersPage.Text = "Saved Registers";
@@ -598,7 +671,7 @@
             this.R0M4.BackColor = System.Drawing.Color.White;
             this.R0M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R0M4.Location = new System.Drawing.Point(274, 30);
-            this.R0M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R0M4.Margin = new System.Windows.Forms.Padding(2);
             this.R0M4.MaxLength = 8;
             this.R0M4.Name = "R0M4";
             this.R0M4.Size = new System.Drawing.Size(64, 20);
@@ -611,7 +684,7 @@
             this.R0M3.BackColor = System.Drawing.Color.White;
             this.R0M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R0M3.Location = new System.Drawing.Point(206, 30);
-            this.R0M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R0M3.Margin = new System.Windows.Forms.Padding(2);
             this.R0M3.MaxLength = 8;
             this.R0M3.Name = "R0M3";
             this.R0M3.Size = new System.Drawing.Size(64, 20);
@@ -622,7 +695,7 @@
             // LoadRegMemory
             // 
             this.LoadRegMemory.Location = new System.Drawing.Point(130, 230);
-            this.LoadRegMemory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LoadRegMemory.Margin = new System.Windows.Forms.Padding(2);
             this.LoadRegMemory.Name = "LoadRegMemory";
             this.LoadRegMemory.Size = new System.Drawing.Size(86, 35);
             this.LoadRegMemory.TabIndex = 2;
@@ -633,7 +706,7 @@
             // SaveRegMemory
             // 
             this.SaveRegMemory.Location = new System.Drawing.Point(130, 190);
-            this.SaveRegMemory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SaveRegMemory.Margin = new System.Windows.Forms.Padding(2);
             this.SaveRegMemory.Name = "SaveRegMemory";
             this.SaveRegMemory.Size = new System.Drawing.Size(86, 35);
             this.SaveRegMemory.TabIndex = 2;
@@ -646,7 +719,7 @@
             this.R0M2.BackColor = System.Drawing.Color.White;
             this.R0M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R0M2.Location = new System.Drawing.Point(139, 30);
-            this.R0M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R0M2.Margin = new System.Windows.Forms.Padding(2);
             this.R0M2.MaxLength = 8;
             this.R0M2.Name = "R0M2";
             this.R0M2.Size = new System.Drawing.Size(64, 20);
@@ -659,7 +732,7 @@
             this.R0M1.BackColor = System.Drawing.Color.White;
             this.R0M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R0M1.Location = new System.Drawing.Point(71, 30);
-            this.R0M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R0M1.Margin = new System.Windows.Forms.Padding(2);
             this.R0M1.MaxLength = 8;
             this.R0M1.Name = "R0M1";
             this.R0M1.Size = new System.Drawing.Size(64, 20);
@@ -732,7 +805,7 @@
             this.R1M4.BackColor = System.Drawing.Color.White;
             this.R1M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R1M4.Location = new System.Drawing.Point(274, 53);
-            this.R1M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R1M4.Margin = new System.Windows.Forms.Padding(2);
             this.R1M4.MaxLength = 8;
             this.R1M4.Name = "R1M4";
             this.R1M4.Size = new System.Drawing.Size(64, 20);
@@ -745,7 +818,7 @@
             this.R1M3.BackColor = System.Drawing.Color.White;
             this.R1M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R1M3.Location = new System.Drawing.Point(206, 53);
-            this.R1M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R1M3.Margin = new System.Windows.Forms.Padding(2);
             this.R1M3.MaxLength = 8;
             this.R1M3.Name = "R1M3";
             this.R1M3.Size = new System.Drawing.Size(64, 20);
@@ -758,7 +831,7 @@
             this.R1M2.BackColor = System.Drawing.Color.White;
             this.R1M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R1M2.Location = new System.Drawing.Point(139, 53);
-            this.R1M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R1M2.Margin = new System.Windows.Forms.Padding(2);
             this.R1M2.MaxLength = 8;
             this.R1M2.Name = "R1M2";
             this.R1M2.Size = new System.Drawing.Size(64, 20);
@@ -771,7 +844,7 @@
             this.R1M1.BackColor = System.Drawing.Color.White;
             this.R1M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R1M1.Location = new System.Drawing.Point(71, 53);
-            this.R1M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R1M1.Margin = new System.Windows.Forms.Padding(2);
             this.R1M1.MaxLength = 8;
             this.R1M1.Name = "R1M1";
             this.R1M1.Size = new System.Drawing.Size(64, 20);
@@ -794,7 +867,7 @@
             this.R2M4.BackColor = System.Drawing.Color.White;
             this.R2M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R2M4.Location = new System.Drawing.Point(274, 76);
-            this.R2M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R2M4.Margin = new System.Windows.Forms.Padding(2);
             this.R2M4.MaxLength = 8;
             this.R2M4.Name = "R2M4";
             this.R2M4.Size = new System.Drawing.Size(64, 20);
@@ -807,7 +880,7 @@
             this.R2M3.BackColor = System.Drawing.Color.White;
             this.R2M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R2M3.Location = new System.Drawing.Point(206, 76);
-            this.R2M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R2M3.Margin = new System.Windows.Forms.Padding(2);
             this.R2M3.MaxLength = 8;
             this.R2M3.Name = "R2M3";
             this.R2M3.Size = new System.Drawing.Size(64, 20);
@@ -820,7 +893,7 @@
             this.R2M2.BackColor = System.Drawing.Color.White;
             this.R2M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R2M2.Location = new System.Drawing.Point(139, 76);
-            this.R2M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R2M2.Margin = new System.Windows.Forms.Padding(2);
             this.R2M2.MaxLength = 8;
             this.R2M2.Name = "R2M2";
             this.R2M2.Size = new System.Drawing.Size(64, 20);
@@ -833,7 +906,7 @@
             this.R2M1.BackColor = System.Drawing.Color.White;
             this.R2M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R2M1.Location = new System.Drawing.Point(71, 76);
-            this.R2M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R2M1.Margin = new System.Windows.Forms.Padding(2);
             this.R2M1.MaxLength = 8;
             this.R2M1.Name = "R2M1";
             this.R2M1.Size = new System.Drawing.Size(64, 20);
@@ -846,7 +919,7 @@
             this.R3M4.BackColor = System.Drawing.Color.White;
             this.R3M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R3M4.Location = new System.Drawing.Point(274, 98);
-            this.R3M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R3M4.Margin = new System.Windows.Forms.Padding(2);
             this.R3M4.MaxLength = 8;
             this.R3M4.Name = "R3M4";
             this.R3M4.Size = new System.Drawing.Size(64, 20);
@@ -859,7 +932,7 @@
             this.R3M3.BackColor = System.Drawing.Color.White;
             this.R3M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R3M3.Location = new System.Drawing.Point(206, 98);
-            this.R3M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R3M3.Margin = new System.Windows.Forms.Padding(2);
             this.R3M3.MaxLength = 8;
             this.R3M3.Name = "R3M3";
             this.R3M3.Size = new System.Drawing.Size(64, 20);
@@ -872,7 +945,7 @@
             this.R3M2.BackColor = System.Drawing.Color.White;
             this.R3M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R3M2.Location = new System.Drawing.Point(139, 98);
-            this.R3M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R3M2.Margin = new System.Windows.Forms.Padding(2);
             this.R3M2.MaxLength = 8;
             this.R3M2.Name = "R3M2";
             this.R3M2.Size = new System.Drawing.Size(64, 20);
@@ -885,7 +958,7 @@
             this.R3M1.BackColor = System.Drawing.Color.White;
             this.R3M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R3M1.Location = new System.Drawing.Point(71, 98);
-            this.R3M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R3M1.Margin = new System.Windows.Forms.Padding(2);
             this.R3M1.MaxLength = 8;
             this.R3M1.Name = "R3M1";
             this.R3M1.Size = new System.Drawing.Size(64, 20);
@@ -908,7 +981,7 @@
             this.R4M4.BackColor = System.Drawing.Color.White;
             this.R4M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R4M4.Location = new System.Drawing.Point(274, 119);
-            this.R4M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R4M4.Margin = new System.Windows.Forms.Padding(2);
             this.R4M4.MaxLength = 8;
             this.R4M4.Name = "R4M4";
             this.R4M4.Size = new System.Drawing.Size(64, 20);
@@ -921,7 +994,7 @@
             this.R4M3.BackColor = System.Drawing.Color.White;
             this.R4M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R4M3.Location = new System.Drawing.Point(206, 119);
-            this.R4M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R4M3.Margin = new System.Windows.Forms.Padding(2);
             this.R4M3.MaxLength = 8;
             this.R4M3.Name = "R4M3";
             this.R4M3.Size = new System.Drawing.Size(64, 20);
@@ -934,7 +1007,7 @@
             this.R5M4.BackColor = System.Drawing.Color.White;
             this.R5M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R5M4.Location = new System.Drawing.Point(274, 142);
-            this.R5M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R5M4.Margin = new System.Windows.Forms.Padding(2);
             this.R5M4.MaxLength = 8;
             this.R5M4.Name = "R5M4";
             this.R5M4.Size = new System.Drawing.Size(64, 20);
@@ -947,7 +1020,7 @@
             this.R4M2.BackColor = System.Drawing.Color.White;
             this.R4M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R4M2.Location = new System.Drawing.Point(139, 119);
-            this.R4M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R4M2.Margin = new System.Windows.Forms.Padding(2);
             this.R4M2.MaxLength = 8;
             this.R4M2.Name = "R4M2";
             this.R4M2.Size = new System.Drawing.Size(64, 20);
@@ -960,7 +1033,7 @@
             this.R5M3.BackColor = System.Drawing.Color.White;
             this.R5M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R5M3.Location = new System.Drawing.Point(206, 142);
-            this.R5M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R5M3.Margin = new System.Windows.Forms.Padding(2);
             this.R5M3.MaxLength = 8;
             this.R5M3.Name = "R5M3";
             this.R5M3.Size = new System.Drawing.Size(64, 20);
@@ -973,7 +1046,7 @@
             this.R4M1.BackColor = System.Drawing.Color.White;
             this.R4M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R4M1.Location = new System.Drawing.Point(71, 119);
-            this.R4M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R4M1.Margin = new System.Windows.Forms.Padding(2);
             this.R4M1.MaxLength = 8;
             this.R4M1.Name = "R4M1";
             this.R4M1.Size = new System.Drawing.Size(64, 20);
@@ -986,7 +1059,7 @@
             this.R5M2.BackColor = System.Drawing.Color.White;
             this.R5M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R5M2.Location = new System.Drawing.Point(139, 142);
-            this.R5M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R5M2.Margin = new System.Windows.Forms.Padding(2);
             this.R5M2.MaxLength = 8;
             this.R5M2.Name = "R5M2";
             this.R5M2.Size = new System.Drawing.Size(64, 20);
@@ -1009,7 +1082,7 @@
             this.R5M1.BackColor = System.Drawing.Color.White;
             this.R5M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.R5M1.Location = new System.Drawing.Point(71, 142);
-            this.R5M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.R5M1.Margin = new System.Windows.Forms.Padding(2);
             this.R5M1.MaxLength = 8;
             this.R5M1.Name = "R5M1";
             this.R5M1.Size = new System.Drawing.Size(64, 20);
@@ -1021,9 +1094,9 @@
             // 
             this.RegistersGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.RegistersGroupBox.Location = new System.Drawing.Point(439, 9);
-            this.RegistersGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegistersGroupBox.Margin = new System.Windows.Forms.Padding(2);
             this.RegistersGroupBox.Name = "RegistersGroupBox";
-            this.RegistersGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegistersGroupBox.Padding = new System.Windows.Forms.Padding(2);
             this.RegistersGroupBox.Size = new System.Drawing.Size(352, 360);
             this.RegistersGroupBox.TabIndex = 13;
             this.RegistersGroupBox.TabStop = false;
@@ -1045,6 +1118,31 @@
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
+            // ModeIntFracLabel
+            // 
+            this.ModeIntFracLabel.Location = new System.Drawing.Point(148, 162);
+            this.ModeIntFracLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.ModeIntFracLabel.Name = "ModeIntFracLabel";
+            this.ModeIntFracLabel.Size = new System.Drawing.Size(39, 14);
+            this.ModeIntFracLabel.TabIndex = 17;
+            this.ModeIntFracLabel.Text = "Mode:";
+            this.ModeIntFracLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // ModeIntFracComboBox
+            // 
+            this.ModeIntFracComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.ModeIntFracComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ModeIntFracComboBox.FormattingEnabled = true;
+            this.ModeIntFracComboBox.Items.AddRange(new object[] {
+            "Integer",
+            "Fractional"});
+            this.ModeIntFracComboBox.Location = new System.Drawing.Point(191, 159);
+            this.ModeIntFracComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.ModeIntFracComboBox.Name = "ModeIntFracComboBox";
+            this.ModeIntFracComboBox.Size = new System.Drawing.Size(69, 21);
+            this.ModeIntFracComboBox.TabIndex = 16;
+            this.ModeIntFracComboBox.SelectedIndexChanged += new System.EventHandler(this.RF_A_EN_ComboBox_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -1149,10 +1247,18 @@
         private System.Windows.Forms.Button LoadRegMemory;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label RF_A_EN_Label;
         private System.Windows.Forms.ComboBox RF_A_EN_ComboBox;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label RF_A_PWR_Label;
         private System.Windows.Forms.ComboBox RF_A_PWR_ComboBox;
+        private System.Windows.Forms.DomainUpDown domainUpDown3;
+        private System.Windows.Forms.DomainUpDown domainUpDown2;
+        private System.Windows.Forms.DomainUpDown domainUpDown1;
+        private System.Windows.Forms.Label ModLabel;
+        private System.Windows.Forms.Label FracNLabel;
+        private System.Windows.Forms.Label IntNLabel;
+        private System.Windows.Forms.Label ModeIntFracLabel;
+        private System.Windows.Forms.ComboBox ModeIntFracComboBox;
     }
 }
 
