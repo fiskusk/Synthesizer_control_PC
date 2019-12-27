@@ -101,31 +101,117 @@ namespace Synthesizer_PC_control
         private void LoadRegistersFromFile(SaveWindow data)
         {
             Reg0TextBox.Text = data.Registers[0];
-            UInt32 intValue = UInt32.Parse(data.Registers[0], System.Globalization.NumberStyles.HexNumber);
-            CheckFracIntModeStatus(intValue);
             Reg1TextBox.Text = data.Registers[1];
             Reg2TextBox.Text = data.Registers[2];
             Reg3TextBox.Text = data.Registers[3];
             Reg4TextBox.Text = data.Registers[4];
-            UInt32 intValue2 = UInt32.Parse(data.Registers[4], System.Globalization.NumberStyles.HexNumber);
-            CheckOutAENStatus(intValue2);
-            CheckOutAPwrStatus(intValue2);
             Reg5TextBox.Text = data.Registers[5];
+            GetAllFromRegisters();
         }
 
-        private void CheckOutAENStatus(UInt32 data)
+         private void GetAllFromRegisters()
+        {
+            GetAllFromReg0();
+            GetAllFromReg1();
+            GetAllFromReg4();
+            GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber)); // TODO predelat to pro NDIV zadavane z policka, ne ctenim z registru
+        }
+
+        private void GetAllFromReg0()
+        {
+            UInt32 reg0 = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            GetFracIntModeStatusFromRegister(reg0);
+            GetIntNValueFromRegister(reg0);
+            GetFracNValueFromRegister(reg0);
+
+        }
+
+        private void GetAllFromReg1()
+        {
+            UInt32 reg1 = UInt32.Parse(Reg1TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            GetModValueFromRegister(reg1);
+
+        }
+
+        private void GetAllFromReg4()
+        {
+            UInt32 reg4 = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            GetOutAENStatusFromRegister(reg4);
+            GetOutAPwrStatusFromRegister(reg4);
+
+        }
+
+        private void GetOutAENStatusFromRegister(UInt32 data)
         {
             RF_A_EN_ComboBox.SelectedIndex = (int)((data & (1<<5)) >> 5);
         }
 
-        private void CheckOutAPwrStatus(UInt32 data)
+        private void GetOutAPwrStatusFromRegister(UInt32 data)
         {
             RF_A_PWR_ComboBox.SelectedIndex = (int)((data & 0b11000) >> 3);
         }
 
-        private void CheckFracIntModeStatus(UInt32 data)
+        private void GetFracIntModeStatusFromRegister(UInt32 data)
         {
-            ModeIntFracComboBox.SelectedIndex = (int)((data & (1 << 31)) >> 31);
+            data = (UInt32)((data & (1 << 31)) >> 31);
+            ModeIntFracComboBox.SelectedIndex = (int)(data);
+            if (data == 1)
+            {
+                IntNNumUpDown.Minimum = 16;
+                IntNNumUpDown.Maximum = 65535;
+            }
+            else
+            {
+                IntNNumUpDown.Minimum = 19;
+                IntNNumUpDown.Maximum = 4091;
+            }
+        }
+
+        private void GetCalcFreq(UInt32 dataReg4)
+        {
+            UInt16 DIVA = (UInt16)((dataReg4 & ((1<<22) | (1<<21) | (1<<20))) >> 20);
+            DIVA = (UInt16)(1 << DIVA);
+
+            decimal f_pfd = 10; // MHz
+            decimal f_out_A = 0;
+            decimal f_vco = 0;
+
+            if (ModeIntFracComboBox.SelectedIndex == 1)
+            {
+                f_out_A = ((f_pfd*IntNNumUpDown.Value)/(DIVA));
+            }
+            else
+            {
+                f_out_A = ((f_pfd*IntNNumUpDown.Value+(FracNNumUpDown.Value/(ModNumUpDown.Value*1.0M)))/(DIVA));
+            }
+            f_vco = f_out_A*DIVA;
+            fOutAScreenLabel.Text = string.Format((f_vco*1000)%1 == 0 ? "{0:0.000}" : "{0:0.000000}", f_out_A);
+            fVcoScreenLabel.Text = Convert.ToString(f_vco);
+        }
+
+        private void GetIntNValueFromRegister(UInt32 dataReg0)
+        {
+            UInt16 IntN = (UInt16)((dataReg0 & 0b01111111111111111000000000000000) >> 15);
+
+            if (IntN < IntNNumUpDown.Minimum)
+                IntN = Convert.ToUInt16(IntNNumUpDown.Minimum);
+            else if (IntN > IntNNumUpDown.Maximum)
+                IntN = Convert.ToUInt16(IntNNumUpDown.Maximum);
+
+            IntNNumUpDown.Value = IntN;
+        }
+
+        private void GetFracNValueFromRegister(UInt32 dataReg0)
+        {
+            UInt16 FracN = (UInt16)((dataReg0 & 0b111111111111000) >> 3);
+            FracNNumUpDown.Value = FracN;
+        }
+
+        private void GetModValueFromRegister(UInt32 dataReg1)
+        {
+            UInt16 Mod = (UInt16)((dataReg1 & 0b111111111111000)>> 3);
+            ModNumUpDown.Value = Mod;
+            FracNNumUpDown.Maximum = ModNumUpDown.Value-1;
         }
 
         private void ChangeReg4OutAEn()
@@ -140,7 +226,6 @@ namespace Synthesizer_PC_control
                 intValue |= (UInt32)(1<<5);
             }
             Reg4TextBox.Text = Convert.ToString(intValue, 16);
-            ChangeReg4();
         }
 
         private void ChangeReg4OutAPwr()
@@ -164,7 +249,6 @@ namespace Synthesizer_PC_control
                     break;
             }
             Reg4TextBox.Text = Convert.ToString(intValue, 16);
-            ChangeReg4();
         }
 
         private void ChangeReg0IntFracMode()
@@ -175,16 +259,45 @@ namespace Synthesizer_PC_control
             {
                 Reg0Value &= ~unchecked((UInt32)(1<<31));
                 Reg2Value &= ~unchecked((UInt32)(1<<8));
+                IntNNumUpDown.Minimum = 19;
+                IntNNumUpDown.Maximum = 4091;
+
             }
             else if (RF_A_EN_ComboBox.SelectedIndex == 1)
             {
                 Reg0Value |= unchecked((UInt32)(1<<31));
                 Reg2Value |= unchecked((UInt32)(1<<8));
+                IntNNumUpDown.Minimum = 16;
+                IntNNumUpDown.Maximum = 65535;
             }
             Reg0TextBox.Text = Convert.ToString(Reg0Value, 16);
             Reg2TextBox.Text = Convert.ToString(Reg2Value, 16);
-            ChangeReg2();
-            ChangeReg0();
+        }
+
+        private void ChangeReg0IntNValue()
+        {
+            UInt32 Reg0Value = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            Reg0Value &= ~(UInt32)(0b01111111111111111000000000000000);
+            Reg0Value += Convert.ToUInt32(IntNNumUpDown.Value) << 15;
+            Reg0TextBox.Text = Convert.ToString(Reg0Value, 16);
+        }
+
+        private void ChangeReg0FracNValue()
+        {
+
+            UInt32 Reg0Value = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            Reg0Value &= ~(UInt32)(0b00000000000000000111111111111000);
+            Reg0Value += Convert.ToUInt32(FracNNumUpDown.Value) << 3;
+            Reg0TextBox.Text = Convert.ToString(Reg0Value, 16);
+        }
+
+        private void ChangeReg1ModValue()
+        {
+            UInt32 Reg1Value = UInt32.Parse(Reg1TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            Reg1Value &= ~(UInt32)(0b00000000000000000111111111111000);
+            Reg1Value += Convert.ToUInt32(ModNumUpDown.Value) << 3;
+            Reg1TextBox.Text = Convert.ToString(Reg1Value, 16);
+            FracNNumUpDown.Maximum = ModNumUpDown.Value - 1;
         }
 
         private void SaveWorkspaceData()
@@ -281,9 +394,9 @@ namespace Synthesizer_PC_control
             SaveRegMemory.Enabled = command;
             RF_A_EN_ComboBox.Enabled = command;
             RF_A_PWR_ComboBox.Enabled = command;
-            IntNdomainUpDown.Enabled = command;
-            FracNdomainUpDown.Enabled = command;
-            MODdomainUpDown.Enabled = command;
+            IntNNumUpDown.Enabled = command;
+            FracNNumUpDown.Enabled = command;
+            ModNumUpDown.Enabled = command;
             ModeIntFracComboBox.Enabled = command;
         }
 
@@ -556,8 +669,6 @@ namespace Synthesizer_PC_control
             }
         }
 
-
-
         private void CheckAndApllyChangesForm1_Click(object sender, EventArgs e)
         {
             Reg0Label.Focus();
@@ -569,73 +680,76 @@ namespace Synthesizer_PC_control
             Reg5TextBox_was_focused = false;
             if ((Reg0TextBox.Enabled == true) && (!Reg0TextBox.Text.Equals(old_reg0)))
             {
-                ChangeReg0();
+                GetAllFromReg0();
+                ApplyChangeReg0();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                
             }
             if ((Reg1TextBox.Enabled == true) && (!Reg1TextBox.Text.Equals(old_reg1)))
             {
-                ChangeReg1();
-                ChangeReg0();
+                GetAllFromReg1();
+                ApplyChangeReg1();
+                ApplyChangeReg0();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
             }
             if ((Reg2TextBox.Enabled == true) && (!Reg2TextBox.Text.Equals(old_reg2)))
             {
-                ChangeReg2();
-                ChangeReg0();
+                ApplyChangeReg2();
+                ApplyChangeReg0();
             }
             if ((Reg3TextBox.Enabled == true) && (!Reg3TextBox.Text.Equals(old_reg3)))
             {
-                ChangeReg3();
+                ApplyChangeReg3();
             }
             if ((Reg4TextBox.Enabled == true) && (!Reg4TextBox.Text.Equals(old_reg4)))
             {
-                ChangeReg4();
+                GetAllFromReg4();
+                ApplyChangeReg4();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
             }
             if ((Reg5TextBox.Enabled == true) && (!Reg5TextBox.Text.Equals(old_reg5)))
             {
-                ChangeReg5();
+                ApplyChangeReg5();
             }
         }
 
-        private void ChangeReg0()
+
+        private void ApplyChangeReg0()
         {
             string data = String.Format("plo set_register {0}", Reg0TextBox.Text);
             old_reg0 = Reg0TextBox.Text;
-            UInt32 intValue = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            CheckFracIntModeStatus(intValue);
             SendStringSerialPort(data);
         }
 
-        private void ChangeReg1()
+        private void ApplyChangeReg1()
         {
             string data = String.Format("plo set_register {0}", Reg1TextBox.Text);
             old_reg1 = Reg1TextBox.Text;
             SendStringSerialPort(data);
         }
 
-        private void ChangeReg2()
+        private void ApplyChangeReg2()
         {
             string data = String.Format("plo set_register {0}", Reg2TextBox.Text);
             old_reg2 = Reg2TextBox.Text;
             SendStringSerialPort(data);
         }
 
-        private void ChangeReg3()
+        private void ApplyChangeReg3()
         {
             string data = String.Format("plo set_register {0}", Reg3TextBox.Text);
             old_reg3 = Reg3TextBox.Text;
             SendStringSerialPort(data);
         }
 
-        private void ChangeReg4()
+        private void ApplyChangeReg4()
         {
             string data = String.Format("plo set_register {0}", Reg4TextBox.Text);
             old_reg4 = Reg4TextBox.Text;
-            UInt32 intValue = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            CheckOutAENStatus(intValue);
-            CheckOutAPwrStatus(intValue);
             SendStringSerialPort(data);
         }
 
-        private void ChangeReg5()
+        private void ApplyChangeReg5()
         {
             string data = String.Format("plo set_register {0}", Reg5TextBox.Text);
             old_reg5 = Reg5TextBox.Text;
@@ -721,17 +835,19 @@ namespace Synthesizer_PC_control
 
         private void ForceLoadRegButton_Click(object sender, EventArgs e)
         {
-            ChangeReg5();
+            GetAllFromRegisters();
+
+            ApplyChangeReg5();
             //Thread.Sleep(1);
-            ChangeReg4();
+            ApplyChangeReg4();
             //Thread.Sleep(1);
-            ChangeReg3();
+            ApplyChangeReg3();
             //Thread.Sleep(1);
-            ChangeReg2();
+            ApplyChangeReg2();
             //Thread.Sleep(1);
-            ChangeReg1();
+            ApplyChangeReg1();
             //Thread.Sleep(1);
-            ChangeReg0();
+            ApplyChangeReg0();
             //Thread.Sleep(1);
         }
 
@@ -749,32 +865,35 @@ namespace Synthesizer_PC_control
 
         private void WriteR0Button_Click(object sender, EventArgs e)
         {
-            ChangeReg0();
+            GetAllFromReg0();
+            ApplyChangeReg0();
         }
 
         private void WriteR1Button_Click(object sender, EventArgs e)
         {
-            ChangeReg1();
+            GetAllFromReg1();
+            ApplyChangeReg1();
         }
 
         private void WriteR2Button_Click(object sender, EventArgs e)
         {
-            ChangeReg2();
+            ApplyChangeReg2();
         }
 
         private void WriteR3Button_Click(object sender, EventArgs e)
         {
-            ChangeReg3();
+            ApplyChangeReg3();
         }
 
         private void WriteR4Button_Click(object sender, EventArgs e)
         {
-            ChangeReg4();
+            GetAllFromReg4();
+            ApplyChangeReg4();
         }
 
         private void WriteR5Button_Click(object sender, EventArgs e)
         {
-            ChangeReg5();
+            ApplyChangeReg5();
         }
 
         private void LoadRegMemory_Click(object sender, EventArgs e)
@@ -794,19 +913,76 @@ namespace Synthesizer_PC_control
         private void RF_A_EN_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (Reg4TextBox.Enabled == true)
+            {
                 ChangeReg4OutAEn();
+                ApplyChangeReg4();
+            }
         }
 
         private void RF_A_PWR_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (Reg4TextBox.Enabled == true)
+            {
                 ChangeReg4OutAPwr();
+                ApplyChangeReg4();
+            }
         }
 
         private void ModeIntFracComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (Reg0TextBox.Enabled == true)
+            {
                 ChangeReg0IntFracMode();
+                ApplyChangeReg2();
+                ApplyChangeReg0();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            }
+        }
+
+        private void IntNNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true)
+            {
+                ChangeReg0IntNValue();
+                ApplyChangeReg0();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            }
+        }
+
+        private void FracNNumUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true)
+            {
+                ChangeReg0FracNValue();
+                ApplyChangeReg0();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            }
+        }
+
+        private void ModNumUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true)
+            {
+                ChangeReg1ModValue();
+                ApplyChangeReg1();
+                ApplyChangeReg0();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            }
+        }
+
+        private void ScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
+            handledArgs.Handled = true;
+            try{
+                FracNNumUpDown.Value += (handledArgs.Delta > 0) ? 1 : -1;
+            }
+            catch{
+                if (FracNNumUpDown.Value < FracNNumUpDown.Minimum)
+                    FracNNumUpDown.Value = FracNNumUpDown.Minimum;
+                else if (FracNNumUpDown.Value > FracNNumUpDown.Maximum)
+                    FracNNumUpDown.Value = FracNNumUpDown.Maximum;
+            }
         }
     }
 }

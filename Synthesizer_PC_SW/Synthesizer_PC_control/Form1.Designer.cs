@@ -1,4 +1,6 @@
-﻿namespace Synthesizer_PC_control
+﻿using System.Windows.Forms;
+
+namespace Synthesizer_PC_control
 {
     partial class Form1
     {
@@ -58,13 +60,17 @@
             this.WriteR5Button = new System.Windows.Forms.Button();
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
-            this.MODdomainUpDown = new System.Windows.Forms.DomainUpDown();
-            this.FracNdomainUpDown = new System.Windows.Forms.DomainUpDown();
-            this.IntNdomainUpDown = new System.Windows.Forms.DomainUpDown();
+            this.fOutALabel = new System.Windows.Forms.Label();
+            this.fOutAScreenLabel = new System.Windows.Forms.Label();
+            this.ModNumUpDown = new System.Windows.Forms.NumericUpDown();
+            this.FracNNumUpDown = new System.Windows.Forms.NumericUpDown();
+            this.IntNNumUpDown = new System.Windows.Forms.NumericUpDown();
             this.ModLabel = new System.Windows.Forms.Label();
             this.FracNLabel = new System.Windows.Forms.Label();
+            this.ModeIntFracLabel = new System.Windows.Forms.Label();
             this.IntNLabel = new System.Windows.Forms.Label();
             this.RF_A_PWR_ComboBox = new System.Windows.Forms.ComboBox();
+            this.ModeIntFracComboBox = new System.Windows.Forms.ComboBox();
             this.RF_A_EN_ComboBox = new System.Windows.Forms.ComboBox();
             this.RF_A_PWR_Label = new System.Windows.Forms.Label();
             this.RF_A_EN_Label = new System.Windows.Forms.Label();
@@ -108,10 +114,15 @@
             this.RegistersGroupBox = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ModeIntFracLabel = new System.Windows.Forms.Label();
-            this.ModeIntFracComboBox = new System.Windows.Forms.ComboBox();
+            this.MHzLabel1 = new System.Windows.Forms.Label();
+            this.MHzLabel2 = new System.Windows.Forms.Label();
+            this.fVcoScreenLabel = new System.Windows.Forms.Label();
+            this.fVcoLabel = new System.Windows.Forms.Label();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ModNumUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FracNNumUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IntNNumUpDown)).BeginInit();
             this.SavedRegistersPage.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -459,9 +470,15 @@
             // 
             // RegistersPage
             // 
-            this.RegistersPage.Controls.Add(this.MODdomainUpDown);
-            this.RegistersPage.Controls.Add(this.FracNdomainUpDown);
-            this.RegistersPage.Controls.Add(this.IntNdomainUpDown);
+            this.RegistersPage.Controls.Add(this.fVcoLabel);
+            this.RegistersPage.Controls.Add(this.fOutALabel);
+            this.RegistersPage.Controls.Add(this.fVcoScreenLabel);
+            this.RegistersPage.Controls.Add(this.fOutAScreenLabel);
+            this.RegistersPage.Controls.Add(this.ModNumUpDown);
+            this.RegistersPage.Controls.Add(this.FracNNumUpDown);
+            this.RegistersPage.Controls.Add(this.MHzLabel2);
+            this.RegistersPage.Controls.Add(this.IntNNumUpDown);
+            this.RegistersPage.Controls.Add(this.MHzLabel1);
             this.RegistersPage.Controls.Add(this.ModLabel);
             this.RegistersPage.Controls.Add(this.FracNLabel);
             this.RegistersPage.Controls.Add(this.ModeIntFracLabel);
@@ -501,32 +518,86 @@
             this.RegistersPage.Text = "Registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
             // 
-            // MODdomainUpDown
+            // fOutALabel
             // 
-            this.MODdomainUpDown.Location = new System.Drawing.Point(58, 206);
-            this.MODdomainUpDown.Name = "MODdomainUpDown";
-            this.MODdomainUpDown.Size = new System.Drawing.Size(76, 20);
-            this.MODdomainUpDown.TabIndex = 18;
-            this.MODdomainUpDown.Text = "125";
-            this.MODdomainUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fOutALabel.Location = new System.Drawing.Point(8, 232);
+            this.fOutALabel.Name = "fOutALabel";
+            this.fOutALabel.Size = new System.Drawing.Size(46, 13);
+            this.fOutALabel.TabIndex = 20;
+            this.fOutALabel.Text = "fOUT A:";
+            this.fOutALabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // FracNdomainUpDown
+            // fOutAScreenLabel
             // 
-            this.FracNdomainUpDown.Location = new System.Drawing.Point(59, 183);
-            this.FracNdomainUpDown.Name = "FracNdomainUpDown";
-            this.FracNdomainUpDown.Size = new System.Drawing.Size(76, 20);
-            this.FracNdomainUpDown.TabIndex = 18;
-            this.FracNdomainUpDown.Text = "0";
-            this.FracNdomainUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.fOutAScreenLabel.Location = new System.Drawing.Point(55, 232);
+            this.fOutAScreenLabel.Name = "fOutAScreenLabel";
+            this.fOutAScreenLabel.Size = new System.Drawing.Size(73, 13);
+            this.fOutAScreenLabel.TabIndex = 20;
+            this.fOutAScreenLabel.Text = "6000.000000";
+            this.fOutAScreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // IntNdomainUpDown
+            // ModNumUpDown
             // 
-            this.IntNdomainUpDown.Location = new System.Drawing.Point(59, 160);
-            this.IntNdomainUpDown.Name = "IntNdomainUpDown";
-            this.IntNdomainUpDown.Size = new System.Drawing.Size(76, 20);
-            this.IntNdomainUpDown.TabIndex = 18;
-            this.IntNdomainUpDown.Text = "400";
-            this.IntNdomainUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ModNumUpDown.Location = new System.Drawing.Point(58, 206);
+            this.ModNumUpDown.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.ModNumUpDown.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.ModNumUpDown.Name = "ModNumUpDown";
+            this.ModNumUpDown.Size = new System.Drawing.Size(62, 20);
+            this.ModNumUpDown.TabIndex = 19;
+            this.ModNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ModNumUpDown.Value = new decimal(new int[] {
+            125,
+            0,
+            0,
+            0});
+            this.ModNumUpDown.ValueChanged += new System.EventHandler(this.ModNumUpDown_ValueChanged);
+            // 
+            // FracNNumUpDown
+            // 
+            this.FracNNumUpDown.Location = new System.Drawing.Point(58, 183);
+            this.FracNNumUpDown.Maximum = new decimal(new int[] {
+            4095,
+            0,
+            0,
+            0});
+            this.FracNNumUpDown.Name = "FracNNumUpDown";
+            this.FracNNumUpDown.Size = new System.Drawing.Size(62, 20);
+            this.FracNNumUpDown.TabIndex = 19;
+            this.FracNNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.FracNNumUpDown.ValueChanged += new System.EventHandler(this.FracNNumUpDown_ValueChanged);
+            this.FracNNumUpDown.MouseWheel += new MouseEventHandler(this.ScrollHandlerFunction);
+            // 
+            // IntNNumUpDown
+            // 
+            this.IntNNumUpDown.Location = new System.Drawing.Point(58, 160);
+            this.IntNNumUpDown.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.IntNNumUpDown.Minimum = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.IntNNumUpDown.Name = "IntNNumUpDown";
+            this.IntNNumUpDown.Size = new System.Drawing.Size(62, 20);
+            this.IntNNumUpDown.TabIndex = 19;
+            this.IntNNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.IntNNumUpDown.Value = new decimal(new int[] {
+            400,
+            0,
+            0,
+            0});
+            this.IntNNumUpDown.ValueChanged += new System.EventHandler(this.IntNNumericUpDown_ValueChanged);
             // 
             // ModLabel
             // 
@@ -547,6 +618,16 @@
             this.FracNLabel.TabIndex = 17;
             this.FracNLabel.Text = "FracN:";
             this.FracNLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // ModeIntFracLabel
+            // 
+            this.ModeIntFracLabel.Location = new System.Drawing.Point(148, 162);
+            this.ModeIntFracLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.ModeIntFracLabel.Name = "ModeIntFracLabel";
+            this.ModeIntFracLabel.Size = new System.Drawing.Size(39, 14);
+            this.ModeIntFracLabel.TabIndex = 17;
+            this.ModeIntFracLabel.Text = "Mode:";
+            this.ModeIntFracLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // IntNLabel
             // 
@@ -573,6 +654,21 @@
             this.RF_A_PWR_ComboBox.Size = new System.Drawing.Size(76, 21);
             this.RF_A_PWR_ComboBox.TabIndex = 16;
             this.RF_A_PWR_ComboBox.SelectedIndexChanged += new System.EventHandler(this.RF_A_PWR_ComboBox_SelectedIndexChanged);
+            // 
+            // ModeIntFracComboBox
+            // 
+            this.ModeIntFracComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.ModeIntFracComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ModeIntFracComboBox.FormattingEnabled = true;
+            this.ModeIntFracComboBox.Items.AddRange(new object[] {
+            "Fractional",
+            "Integer"});
+            this.ModeIntFracComboBox.Location = new System.Drawing.Point(191, 159);
+            this.ModeIntFracComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.ModeIntFracComboBox.Name = "ModeIntFracComboBox";
+            this.ModeIntFracComboBox.Size = new System.Drawing.Size(69, 21);
+            this.ModeIntFracComboBox.TabIndex = 16;
+            this.ModeIntFracComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
             // 
             // RF_A_EN_ComboBox
             // 
@@ -1119,30 +1215,43 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
-            // ModeIntFracLabel
+            // MHzLabel1
             // 
-            this.ModeIntFracLabel.Location = new System.Drawing.Point(148, 162);
-            this.ModeIntFracLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.ModeIntFracLabel.Name = "ModeIntFracLabel";
-            this.ModeIntFracLabel.Size = new System.Drawing.Size(39, 14);
-            this.ModeIntFracLabel.TabIndex = 17;
-            this.ModeIntFracLabel.Text = "Mode:";
-            this.ModeIntFracLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.MHzLabel1.Location = new System.Drawing.Point(133, 232);
+            this.MHzLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.MHzLabel1.Name = "MHzLabel1";
+            this.MHzLabel1.Size = new System.Drawing.Size(30, 14);
+            this.MHzLabel1.TabIndex = 17;
+            this.MHzLabel1.Text = "MHz";
+            this.MHzLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // ModeIntFracComboBox
+            // MHzLabel2
             // 
-            this.ModeIntFracComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.ModeIntFracComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ModeIntFracComboBox.FormattingEnabled = true;
-            this.ModeIntFracComboBox.Items.AddRange(new object[] {
-            "Fractional",
-            "Integer"});
-            this.ModeIntFracComboBox.Location = new System.Drawing.Point(191, 159);
-            this.ModeIntFracComboBox.Margin = new System.Windows.Forms.Padding(2);
-            this.ModeIntFracComboBox.Name = "ModeIntFracComboBox";
-            this.ModeIntFracComboBox.Size = new System.Drawing.Size(69, 21);
-            this.ModeIntFracComboBox.TabIndex = 16;
-            this.ModeIntFracComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
+            this.MHzLabel2.Location = new System.Drawing.Point(133, 245);
+            this.MHzLabel2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.MHzLabel2.Name = "MHzLabel2";
+            this.MHzLabel2.Size = new System.Drawing.Size(30, 14);
+            this.MHzLabel2.TabIndex = 17;
+            this.MHzLabel2.Text = "MHz";
+            this.MHzLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // fVcoScreenLabel
+            // 
+            this.fVcoScreenLabel.Location = new System.Drawing.Point(55, 245);
+            this.fVcoScreenLabel.Name = "fVcoScreenLabel";
+            this.fVcoScreenLabel.Size = new System.Drawing.Size(73, 13);
+            this.fVcoScreenLabel.TabIndex = 20;
+            this.fVcoScreenLabel.Text = "6000.000000";
+            this.fVcoScreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // fVcoLabel
+            // 
+            this.fVcoLabel.Location = new System.Drawing.Point(8, 245);
+            this.fVcoLabel.Name = "fVcoLabel";
+            this.fVcoLabel.Size = new System.Drawing.Size(46, 13);
+            this.fVcoLabel.TabIndex = 20;
+            this.fVcoLabel.Text = "fVCO:";
+            this.fVcoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Form1
             // 
@@ -1166,6 +1275,9 @@
             this.RegistersTabControl.ResumeLayout(false);
             this.RegistersPage.ResumeLayout(false);
             this.RegistersPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ModNumUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FracNNumUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IntNNumUpDown)).EndInit();
             this.SavedRegistersPage.ResumeLayout(false);
             this.SavedRegistersPage.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -1251,14 +1363,22 @@
         private System.Windows.Forms.ComboBox RF_A_EN_ComboBox;
         private System.Windows.Forms.Label RF_A_PWR_Label;
         private System.Windows.Forms.ComboBox RF_A_PWR_ComboBox;
-        private System.Windows.Forms.DomainUpDown MODdomainUpDown;
-        private System.Windows.Forms.DomainUpDown FracNdomainUpDown;
-        private System.Windows.Forms.DomainUpDown IntNdomainUpDown;
         private System.Windows.Forms.Label ModLabel;
         private System.Windows.Forms.Label FracNLabel;
         private System.Windows.Forms.Label IntNLabel;
         private System.Windows.Forms.Label ModeIntFracLabel;
         private System.Windows.Forms.ComboBox ModeIntFracComboBox;
+        private System.Windows.Forms.NumericUpDown IntNNumUpDown;
+        private System.Windows.Forms.NumericUpDown ModNumUpDown;
+        private System.Windows.Forms.NumericUpDown FracNNumUpDown;
+        private System.Windows.Forms.Label fOutAScreenLabel;
+        private System.Windows.Forms.Label fOutALabel;
+        private System.Windows.Forms.Label MHzLabel1;
+        private System.Windows.Forms.Label fVcoLabel;
+        private System.Windows.Forms.Label fVcoScreenLabel;
+        private System.Windows.Forms.Label MHzLabel2;
+
+
     }
 }
 
