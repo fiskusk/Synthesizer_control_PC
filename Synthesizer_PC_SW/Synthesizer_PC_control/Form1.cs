@@ -12,18 +12,14 @@ using System.IO.Ports;
 using System.Threading;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace Synthesizer_PC_control
 {
     public partial class Form1 : Form
     {
         static SerialPort _serialPort;
-        static bool Reg0TextBox_was_focused = false;
-        static bool Reg1TextBox_was_focused = false;
-        static bool Reg2TextBox_was_focused = false;
-        static bool Reg3TextBox_was_focused = false;
-        static bool Reg4TextBox_was_focused = false;
-        static bool Reg5TextBox_was_focused = false;
+
         static string old_reg0 = "80C90000";
         static string old_reg1 = "800103E9";
         static string old_reg2 = "00005F42";
@@ -172,7 +168,7 @@ namespace Synthesizer_PC_control
             UInt16 DIVA = (UInt16)((dataReg4 & ((1<<22) | (1<<21) | (1<<20))) >> 20);
             DIVA = (UInt16)(1 << DIVA);
 
-            decimal f_pfd = 10; // MHz
+            decimal f_pfd = Convert.ToDecimal(RefFTextBox.Text); // MHz
             decimal f_out_A = 0;
             decimal f_vco = 0;
 
@@ -185,8 +181,41 @@ namespace Synthesizer_PC_control
                 f_out_A = ((f_pfd*IntNNumUpDown.Value+(FracNNumUpDown.Value/(ModNumUpDown.Value*1.0M)))/(DIVA));
             }
             f_vco = f_out_A*DIVA;
-            fOutAScreenLabel.Text = string.Format((f_vco*1000)%1 == 0 ? "{0:0.000}" : "{0:0.000000}", f_out_A);
-            fVcoScreenLabel.Text = Convert.ToString(f_vco);
+            if ((f_vco < 3000) || (f_vco > 6000))
+            {
+                fVcoScreenLabel.ForeColor = System.Drawing.Color.Red;
+                IntNNumUpDown.BackColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                fVcoScreenLabel.ForeColor = System.Drawing.Color.Black;
+                IntNNumUpDown.BackColor = System.Drawing.Color.White;
+            }
+                
+
+            UInt16 f_out_A_MHz = (UInt16)(f_out_A);
+            UInt32 f_out_A_kHz = (UInt32)(f_out_A*1000);
+            UInt64 f_out_A_Hz = (UInt64)(f_out_A*1000000);
+            UInt64 f_out_A_mHz = (UInt64)(f_out_A*1000000000);
+            UInt16 thousandths = (UInt16)(f_out_A_kHz - f_out_A_MHz*1000);
+            UInt16 millionths = (UInt16)(f_out_A_Hz - (UInt64)(f_out_A_MHz)*1000000-(UInt64)(thousandths)*1000);
+            UInt16 billionths = (UInt16)(f_out_A_mHz - (UInt64)(f_out_A_Hz)*1000);
+            float bill_f = (float)((billionths)/100.0);
+            double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
+
+            fOutAScreenLabel.Text = string.Format("{0:000},{1:000} {2:000} {3:0}", f_out_A_MHz, thousandths, millionths, rounding);
+
+            UInt16 f_vco_MHz = (UInt16)(f_vco);
+            UInt32 f_vco_kHz = (UInt32)(f_vco*1000);
+            UInt64 f_vco_Hz = (UInt64)(f_vco*1000000);
+            UInt64 f_vco_mHz = (UInt64)(f_vco*1000000000);
+            thousandths = (UInt16)(f_vco_kHz - f_vco_MHz*1000);
+            millionths = (UInt16)(f_vco_Hz - (UInt64)(f_vco_MHz)*1000000-(UInt64)(thousandths)*1000);
+            billionths = (UInt16)(f_vco_mHz - (UInt64)(f_vco_Hz)*1000);
+            bill_f = (float)((billionths)/100.0);
+            rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
+
+            fVcoScreenLabel.Text = string.Format("{0:000},{1:000} {2:000} {3:0}", f_vco_MHz, thousandths, millionths, rounding);
         }
 
         private void GetIntNValueFromRegister(UInt32 dataReg0)
@@ -344,8 +373,6 @@ namespace Synthesizer_PC_control
 
         private void EnableControls(bool command)
         {
-            ClosePortButton.Enabled = command;
-            OpenPortButton.Enabled = !command;
             AvaibleCOMsComBox.Enabled = !command;
             Out1Button.Enabled = command;
             Out2Button.Enabled = command;
@@ -393,30 +420,39 @@ namespace Synthesizer_PC_control
             LoadRegMemory.Enabled = command;
             SaveRegMemory.Enabled = command;
             RF_A_EN_ComboBox.Enabled = command;
+            RF_B_EN_ComboBox.Enabled = command;
             RF_A_PWR_ComboBox.Enabled = command;
+            RF_B_PWR_ComboBox.Enabled = command;
             IntNNumUpDown.Enabled = command;
             FracNNumUpDown.Enabled = command;
             ModNumUpDown.Enabled = command;
             ModeIntFracComboBox.Enabled = command;
+            RefFTextBox.Enabled = command;
+            RDivUpDown.Enabled = command;
+            DoubleRefFCheckBox.Enabled = command;
+            DivedeBy2CheckBox.Enabled = command;
+            fPfdScreenLabel.Enabled = command;
+            fVcoScreenLabel.Enabled = command;
+            fOutAScreenLabel.Enabled = command;
+            fOutBScreenLabel.Enabled = command;
+            ADivUpDown.Enabled = command;
+            PhasePNumericUpDown.Enabled = command;
         }
 
-        private void OpenPortButton_Click(object sender, EventArgs e)
+        private void PortButton_Click(object sender, EventArgs e)
         {
-            try
+            if (PortButton.Text == "Open Port")
             {
-                _serialPort = new SerialPort(AvaibleCOMsComBox.Text, 115200);
-                _serialPort.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data
-                _serialPort.NewLine = "\r";
-                _serialPort.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler);
+                PortButton.Text = "Close Port";
+                OpenPort();
 
-                SaveWorkspaceData();
-                EnableControls(true);
             }
-            catch
+            else if (PortButton.Text == "Close Port")
             {
-                MessageBox.Show("Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port", 
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PortButton.Text = "Open Port";
+                ClosePort();
             }
+            
             
         }
 
@@ -437,6 +473,31 @@ namespace Synthesizer_PC_control
                 
             }
             
+        }
+
+        private void ClosePort()
+        {
+            EnableControls(false);
+            _serialPort.Close();
+        }
+
+        private  void OpenPort()
+        {
+            try
+            {
+                _serialPort = new SerialPort(AvaibleCOMsComBox.Text, 115200);
+                _serialPort.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data
+                _serialPort.NewLine = "\r";
+                _serialPort.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler);
+
+                SaveWorkspaceData();
+                EnableControls(true);
+            }
+            catch
+            {
+                MessageBox.Show("Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ClosePortButton_Click(object sender, EventArgs e)
@@ -494,18 +555,9 @@ namespace Synthesizer_PC_control
             SendStringSerialPort("PLO init");
         }
 
-        private void Reg0TextBox_Click(object sender, EventArgs e)
-        {
-            if (Reg0TextBox_was_focused == false)
-            {
-                Reg0TextBox.Focus();
-                Reg0TextBox.SelectAll();
-                Reg0TextBox_was_focused = true;
-            }
-        }
-
         private void Reg0TextBox_TextChanged(object sender, EventArgs e)
         {
+            // check, if hex number is input
             string item = Reg0TextBox.Text;
             int n = 0;
             if (!int.TryParse(item, System.Globalization.NumberStyles.HexNumber, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
@@ -520,17 +572,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                CheckAndApllyChangesForm1_Click(this, new EventArgs());
-            }
-        }
-
-        private void Reg1TextBox_Click(object sender, EventArgs e)
-        {
-            if (Reg1TextBox_was_focused == false)
-            {
-                Reg1TextBox.Focus();
-                Reg1TextBox.SelectAll();
-                Reg1TextBox_was_focused = true;
+                CheckAndApplyReg0Changes();
             }
         }
 
@@ -549,17 +591,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                CheckAndApllyChangesForm1_Click(this, new EventArgs());
-            }
-        }
-
-        private void Reg2TextBox_Click(object sender, EventArgs e)
-        {
-            if (Reg2TextBox_was_focused == false)
-            {
-                Reg2TextBox.Focus();
-                Reg2TextBox.SelectAll();
-                Reg2TextBox_was_focused = true;
+                CheckAndApplyReg1Changes();
             }
         }
 
@@ -578,17 +610,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                CheckAndApllyChangesForm1_Click(this, new EventArgs());
-            }
-        }
-
-        private void Reg3TextBox_Click(object sender, EventArgs e)
-        {
-            if (Reg3TextBox_was_focused == false)
-            {
-                Reg3TextBox.Focus();
-                Reg3TextBox.SelectAll();
-                Reg3TextBox_was_focused = true;
+                CheckAndApplyReg2Changes();
             }
         }
 
@@ -607,19 +629,10 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                CheckAndApllyChangesForm1_Click(this, new EventArgs());
+                CheckAndApplyReg3Changes();
             }
         }
 
-        private void Reg4TextBox_Click(object sender, EventArgs e)
-        {
-            if (Reg4TextBox_was_focused == false)
-            {
-                Reg4TextBox.Focus();
-                Reg4TextBox.SelectAll();
-                Reg4TextBox_was_focused = true;
-            }
-        }
 
         private void Reg4TextBox_TextChanged(object sender, EventArgs e)
         {
@@ -636,17 +649,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                CheckAndApllyChangesForm1_Click(this, new EventArgs());
-            }
-        }
-
-        private void Reg5TextBox_Click(object sender, EventArgs e)
-        {
-            if (Reg5TextBox_was_focused == false)
-            {
-                Reg5TextBox.Focus();
-                Reg5TextBox.SelectAll();
-                Reg5TextBox_was_focused = true;
+                CheckAndApplyReg4Changes();
             }
         }
 
@@ -665,19 +668,12 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                CheckAndApllyChangesForm1_Click(this, new EventArgs());
+                CheckAndApplyReg5Changes();
             }
         }
 
-        private void CheckAndApllyChangesForm1_Click(object sender, EventArgs e)
+        private void CheckAndApplyReg0Changes()
         {
-            Reg0Label.Focus();
-            Reg0TextBox_was_focused = false;
-            Reg1TextBox_was_focused = false;
-            Reg2TextBox_was_focused = false;
-            Reg3TextBox_was_focused = false;
-            Reg4TextBox_was_focused = false;
-            Reg5TextBox_was_focused = false;
             if ((Reg0TextBox.Enabled == true) && (!Reg0TextBox.Text.Equals(old_reg0)))
             {
                 GetAllFromReg0();
@@ -685,6 +681,10 @@ namespace Synthesizer_PC_control
                 GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
                 
             }
+        }
+
+        private void CheckAndApplyReg1Changes()
+        {
             if ((Reg1TextBox.Enabled == true) && (!Reg1TextBox.Text.Equals(old_reg1)))
             {
                 GetAllFromReg1();
@@ -692,25 +692,46 @@ namespace Synthesizer_PC_control
                 ApplyChangeReg0();
                 GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
             }
+        }
+
+        private void CheckAndApplyReg2Changes()
+        {
             if ((Reg2TextBox.Enabled == true) && (!Reg2TextBox.Text.Equals(old_reg2)))
             {
                 ApplyChangeReg2();
                 ApplyChangeReg0();
             }
+        }
+
+        private void CheckAndApplyReg3Changes()
+        {
             if ((Reg3TextBox.Enabled == true) && (!Reg3TextBox.Text.Equals(old_reg3)))
             {
                 ApplyChangeReg3();
             }
+        }
+
+        private void CheckAndApplyReg4Changes()
+        {
             if ((Reg4TextBox.Enabled == true) && (!Reg4TextBox.Text.Equals(old_reg4)))
             {
                 GetAllFromReg4();
                 ApplyChangeReg4();
                 GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
             }
+        }
+
+        private void CheckAndApplyReg5Changes()
+        {
             if ((Reg5TextBox.Enabled == true) && (!Reg5TextBox.Text.Equals(old_reg5)))
             {
                 ApplyChangeReg5();
             }
+        }
+
+        private void CheckAndApllyChangesForm1_Click(object sender, EventArgs e)
+        {
+            Reg0Label.Focus();
         }
 
 
@@ -970,7 +991,7 @@ namespace Synthesizer_PC_control
             }
         }
 
-        private void ScrollHandlerFunction(object sender, MouseEventArgs e)
+        private void FracNScrollHandlerFunction(object sender, MouseEventArgs e)
         {
             HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
             handledArgs.Handled = true;
@@ -983,6 +1004,84 @@ namespace Synthesizer_PC_control
                 else if (FracNNumUpDown.Value > FracNNumUpDown.Maximum)
                     FracNNumUpDown.Value = FracNNumUpDown.Maximum;
             }
+        }
+
+        private void IntNScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
+            handledArgs.Handled = true;
+            try{
+                IntNNumUpDown.Value += (handledArgs.Delta > 0) ? 1 : -1;
+            }
+            catch{
+                if (IntNNumUpDown.Value < IntNNumUpDown.Minimum)
+                    IntNNumUpDown.Value = IntNNumUpDown.Minimum;
+                else if (IntNNumUpDown.Value > IntNNumUpDown.Maximum)
+                    IntNNumUpDown.Value = IntNNumUpDown.Maximum;
+            }
+        }
+
+        private void ModScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
+            handledArgs.Handled = true;
+            try{
+                ModNumUpDown.Value += (handledArgs.Delta > 0) ? 1 : -1;
+            }
+            catch{
+                if (ModNumUpDown.Value < ModNumUpDown.Minimum)
+                    ModNumUpDown.Value = ModNumUpDown.Minimum;
+                else if (ModNumUpDown.Value > ModNumUpDown.Maximum)
+                    ModNumUpDown.Value = ModNumUpDown.Maximum;
+            }
+        }
+
+        private void RefFTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            }
+        }
+
+        private void RefFTextBox_LostFocus(object sender, EventArgs e)
+        {
+            GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+        }
+
+        private void Reg0TextBox_LostFocus(object sender, EventArgs e)
+        {
+            CheckAndApplyReg0Changes();
+        }
+
+        private void Reg1TextBox_LostFocus(object sender, EventArgs e)
+        {
+            CheckAndApplyReg1Changes();
+        }
+
+        private void Reg2TextBox_LostFocus(object sender, EventArgs e)
+        {
+            CheckAndApplyReg2Changes();
+        }
+
+        private void Reg3TextBox_LostFocus(object sender, EventArgs e)
+        {
+            CheckAndApplyReg3Changes();
+        }
+
+        private void Reg4TextBox_LostFocus(object sender, EventArgs e)
+        {
+            CheckAndApplyReg4Changes();
+        }
+
+        private void Reg5TextBox_LostFocus(object sender, EventArgs e)
+        {
+            CheckAndApplyReg5Changes();
+        }
+
+        private void RegistersPage_Click(object sender, EventArgs e)
+        {
+            Reg0Label.Focus();
         }
     }
 }
