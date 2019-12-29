@@ -116,7 +116,7 @@ namespace Synthesizer_PC_control
             fVcoScreenLabel.Enabled = command;
             fOutAScreenLabel.Enabled = command;
             fOutBScreenLabel.Enabled = command;
-            ADivUpDown.Enabled = command;
+            ADivComboBox.Enabled = command;
             PhasePNumericUpDown.Enabled = command;
         }
 
@@ -393,18 +393,18 @@ namespace Synthesizer_PC_control
         private void GetADividerValueFromRegister(UInt32 dataReg4)
         {
             UInt16 ADiv = (UInt16)((dataReg4 & ((1<<22) | (1<<21) | (1<<20))) >> 20);
-            
+            ADivComboBox.SelectedIndex = ADiv;
         }
 
         private void GetCalcFreq(UInt32 dataReg4)
         {
-            UInt16 DIVA = (UInt16)((dataReg4 & ((1<<22) | (1<<21) | (1<<20))) >> 20);
-            DIVA = (UInt16)(1 << DIVA);
+            UInt16 DIVA = (UInt16)(1 << ADivComboBox.SelectedIndex);
 
             string f_pfd_string = fPfdScreenLabel.Text;
             f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
             f_pfd_string = f_pfd_string.Replace(".", ",");
             decimal f_pfd = Convert.ToDecimal(f_pfd_string);
+
             decimal f_out_A = 0;
             decimal f_vco = 0;
 
@@ -613,6 +613,14 @@ namespace Synthesizer_PC_control
             Reg2Value &= ~(UInt32)(0b111111111100000000000000);
             Reg2Value += Convert.ToUInt32(RDivUpDown.Value) << 14;
             Reg2TextBox.Text = Convert.ToString(Reg2Value, 16);
+        }
+
+        private void ChangeReg4ADiv()
+        {
+            UInt32 Reg4Value = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            Reg4Value &= ~(UInt32)( (1<<22) | (1<<21) | (1<<20) );
+            Reg4Value += Convert.ToUInt32(ADivComboBox.SelectedIndex) << 20;
+            Reg4TextBox.Text = Convert.ToString(Reg4Value, 16);
         }
 
         private void ClosePortButton_Click(object sender, EventArgs e)
@@ -1250,6 +1258,14 @@ namespace Synthesizer_PC_control
                 GetFPfdFreq();
                 GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
             }
+        }
+
+        private void ADivComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ChangeReg4ADiv();
+            ApplyChangeReg4();
+            GetFPfdFreq();
+            GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
         }
     }
 }

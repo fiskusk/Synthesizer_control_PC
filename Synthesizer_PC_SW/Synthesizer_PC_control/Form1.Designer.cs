@@ -103,7 +103,6 @@ namespace Synthesizer_PC_control
             this.ModNumUpDown = new System.Windows.Forms.NumericUpDown();
             this.FracNNumUpDown = new System.Windows.Forms.NumericUpDown();
             this.PhasePNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.ADivUpDown = new System.Windows.Forms.NumericUpDown();
             this.RefFreqGroupBox = new System.Windows.Forms.GroupBox();
             this.RDivUpDown = new System.Windows.Forms.NumericUpDown();
             this.RefFTextBox = new System.Windows.Forms.TextBox();
@@ -155,6 +154,7 @@ namespace Synthesizer_PC_control
             this.RegistersGroupBox = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ADivComboBox = new System.Windows.Forms.ComboBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -165,7 +165,6 @@ namespace Synthesizer_PC_control
             ((System.ComponentModel.ISupportInitialize)(this.ModNumUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FracNNumUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PhasePNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ADivUpDown)).BeginInit();
             this.RefFreqGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RDivUpDown)).BeginInit();
             this.SavedRegistersPage.SuspendLayout();
@@ -931,6 +930,7 @@ namespace Synthesizer_PC_control
             // 
             // FreqControlGroupBox
             // 
+            this.FreqControlGroupBox.Controls.Add(this.ADivComboBox);
             this.FreqControlGroupBox.Controls.Add(this.FracNLabel);
             this.FreqControlGroupBox.Controls.Add(this.ModeIntFracComboBox);
             this.FreqControlGroupBox.Controls.Add(this.IntNLabel);
@@ -942,12 +942,11 @@ namespace Synthesizer_PC_control
             this.FreqControlGroupBox.Controls.Add(this.ModNumUpDown);
             this.FreqControlGroupBox.Controls.Add(this.FracNNumUpDown);
             this.FreqControlGroupBox.Controls.Add(this.PhasePNumericUpDown);
-            this.FreqControlGroupBox.Controls.Add(this.ADivUpDown);
-            this.FreqControlGroupBox.Location = new System.Drawing.Point(7, 302);
+            this.FreqControlGroupBox.Location = new System.Drawing.Point(9, 302);
             this.FreqControlGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.FreqControlGroupBox.Name = "FreqControlGroupBox";
             this.FreqControlGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.FreqControlGroupBox.Size = new System.Drawing.Size(324, 111);
+            this.FreqControlGroupBox.Size = new System.Drawing.Size(339, 111);
             this.FreqControlGroupBox.TabIndex = 23;
             this.FreqControlGroupBox.TabStop = false;
             this.FreqControlGroupBox.Text = "Output Frequency Control";
@@ -969,10 +968,10 @@ namespace Synthesizer_PC_control
             this.ModeIntFracComboBox.Items.AddRange(new object[] {
             "Fractional",
             "Integer"});
-            this.ModeIntFracComboBox.Location = new System.Drawing.Point(220, 21);
+            this.ModeIntFracComboBox.Location = new System.Drawing.Point(226, 21);
             this.ModeIntFracComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ModeIntFracComboBox.Name = "ModeIntFracComboBox";
-            this.ModeIntFracComboBox.Size = new System.Drawing.Size(91, 24);
+            this.ModeIntFracComboBox.Size = new System.Drawing.Size(106, 24);
             this.ModeIntFracComboBox.TabIndex = 16;
             this.ModeIntFracComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
             // 
@@ -987,7 +986,7 @@ namespace Synthesizer_PC_control
             // 
             // ModeIntFracLabel
             // 
-            this.ModeIntFracLabel.Location = new System.Drawing.Point(163, 25);
+            this.ModeIntFracLabel.Location = new System.Drawing.Point(170, 24);
             this.ModeIntFracLabel.Name = "ModeIntFracLabel";
             this.ModeIntFracLabel.Size = new System.Drawing.Size(52, 17);
             this.ModeIntFracLabel.TabIndex = 17;
@@ -1005,7 +1004,7 @@ namespace Synthesizer_PC_control
             // 
             // ADivLabel
             // 
-            this.ADivLabel.Location = new System.Drawing.Point(153, 53);
+            this.ADivLabel.Location = new System.Drawing.Point(151, 53);
             this.ADivLabel.Name = "ADivLabel";
             this.ADivLabel.Size = new System.Drawing.Size(71, 17);
             this.ADivLabel.TabIndex = 17;
@@ -1014,7 +1013,7 @@ namespace Synthesizer_PC_control
             // 
             // PhasePLabel
             // 
-            this.PhasePLabel.Location = new System.Drawing.Point(153, 81);
+            this.PhasePLabel.Location = new System.Drawing.Point(151, 81);
             this.PhasePLabel.Name = "PhasePLabel";
             this.PhasePLabel.Size = new System.Drawing.Size(71, 17);
             this.PhasePLabel.TabIndex = 17;
@@ -1091,7 +1090,7 @@ namespace Synthesizer_PC_control
             // 
             // PhasePNumericUpDown
             // 
-            this.PhasePNumericUpDown.Location = new System.Drawing.Point(229, 79);
+            this.PhasePNumericUpDown.Location = new System.Drawing.Point(226, 79);
             this.PhasePNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.PhasePNumericUpDown.Maximum = new decimal(new int[] {
             4095,
@@ -1104,22 +1103,6 @@ namespace Synthesizer_PC_control
             this.PhasePNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.PhasePNumericUpDown.ValueChanged += new System.EventHandler(this.FracNNumUpDown_ValueChanged);
             this.PhasePNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.FracNScrollHandlerFunction);
-            // 
-            // ADivUpDown
-            // 
-            this.ADivUpDown.Location = new System.Drawing.Point(229, 50);
-            this.ADivUpDown.Margin = new System.Windows.Forms.Padding(4);
-            this.ADivUpDown.Maximum = new decimal(new int[] {
-            4095,
-            0,
-            0,
-            0});
-            this.ADivUpDown.Name = "ADivUpDown";
-            this.ADivUpDown.Size = new System.Drawing.Size(83, 22);
-            this.ADivUpDown.TabIndex = 19;
-            this.ADivUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ADivUpDown.ValueChanged += new System.EventHandler(this.FracNNumUpDown_ValueChanged);
-            this.ADivUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.FracNScrollHandlerFunction);
             // 
             // RefFreqGroupBox
             // 
@@ -1767,6 +1750,26 @@ namespace Synthesizer_PC_control
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 16);
             // 
+            // ADivComboBox
+            // 
+            this.ADivComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.ADivComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ADivComboBox.FormattingEnabled = true;
+            this.ADivComboBox.Items.AddRange(new object[] {
+            "OUTA/1",
+            "OUTA/2",
+            "OUTA/4",
+            "OUTA/8",
+            "OUTA/16",
+            "OUTA/32",
+            "OUTA/64",
+            "OUTA/128"});
+            this.ADivComboBox.Location = new System.Drawing.Point(226, 50);
+            this.ADivComboBox.Name = "ADivComboBox";
+            this.ADivComboBox.Size = new System.Drawing.Size(106, 24);
+            this.ADivComboBox.TabIndex = 20;
+            this.ADivComboBox.SelectedIndexChanged += new System.EventHandler(this.ADivComboBox_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1798,7 +1801,6 @@ namespace Synthesizer_PC_control
             ((System.ComponentModel.ISupportInitialize)(this.ModNumUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FracNNumUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PhasePNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ADivUpDown)).EndInit();
             this.RefFreqGroupBox.ResumeLayout(false);
             this.RefFreqGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RDivUpDown)).EndInit();
@@ -1910,7 +1912,6 @@ namespace Synthesizer_PC_control
         private Label fPfdLabel;
         private Label fPfdScreenLabel;
         private NumericUpDown PhasePNumericUpDown;
-        private NumericUpDown ADivUpDown;
         private Label MHzLabel4;
         private Label PhasePLabel;
         private Label ADivLabel;
@@ -1938,6 +1939,7 @@ namespace Synthesizer_PC_control
         private CheckBox checkBox1;
         private CheckBox checkBox3;
         private CheckBox checkBox4;
+        private ComboBox ADivComboBox;
     }
 }
 
