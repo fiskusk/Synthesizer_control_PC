@@ -59,19 +59,19 @@ namespace Synthesizer_PC_control
             this.WriteR5Button = new System.Windows.Forms.Button();
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.ChargePumpGroupBox = new System.Windows.Forms.GroupBox();
+            this.PosPFDCheckBox = new System.Windows.Forms.CheckBox();
+            this.CPCycleSlipCheckBox = new System.Windows.Forms.CheckBox();
+            this.CPTriStateOutCheckBox = new System.Windows.Forms.CheckBox();
+            this.CPFastLockCheckBox = new System.Windows.Forms.CheckBox();
+            this.RSetTextBox = new System.Windows.Forms.TextBox();
+            this.CPTestComboBox = new System.Windows.Forms.ComboBox();
+            this.CPLinearityComboBox = new System.Windows.Forms.ComboBox();
+            this.CPTestLabel = new System.Windows.Forms.Label();
+            this.CPCurrentComboBox = new System.Windows.Forms.ComboBox();
+            this.CPlinearityLabel = new System.Windows.Forms.Label();
+            this.RSetLabel = new System.Windows.Forms.Label();
+            this.CPCurrentLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.RF_A_EN_Label = new System.Windows.Forms.Label();
             this.RF_A_PWR_Label = new System.Windows.Forms.Label();
@@ -92,6 +92,7 @@ namespace Synthesizer_PC_control
             this.fOutBScreenLabel = new System.Windows.Forms.Label();
             this.fVcoScreenLabel = new System.Windows.Forms.Label();
             this.FreqControlGroupBox = new System.Windows.Forms.GroupBox();
+            this.ADivComboBox = new System.Windows.Forms.ComboBox();
             this.FracNLabel = new System.Windows.Forms.Label();
             this.ModeIntFracComboBox = new System.Windows.Forms.ComboBox();
             this.IntNLabel = new System.Windows.Forms.Label();
@@ -154,10 +155,9 @@ namespace Synthesizer_PC_control
             this.RegistersGroupBox = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ADivComboBox = new System.Windows.Forms.ComboBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.ChargePumpGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.OutInfoGroupBox.SuspendLayout();
             this.FreqControlGroupBox.SuspendLayout();
@@ -499,7 +499,7 @@ namespace Synthesizer_PC_control
             // 
             // RegistersPage
             // 
-            this.RegistersPage.Controls.Add(this.groupBox2);
+            this.RegistersPage.Controls.Add(this.ChargePumpGroupBox);
             this.RegistersPage.Controls.Add(this.groupBox1);
             this.RegistersPage.Controls.Add(this.OutInfoGroupBox);
             this.RegistersPage.Controls.Add(this.FreqControlGroupBox);
@@ -535,176 +535,176 @@ namespace Synthesizer_PC_control
             this.RegistersPage.UseVisualStyleBackColor = true;
             this.RegistersPage.Click += new System.EventHandler(this.RegistersPage_Click);
             // 
-            // groupBox2
+            // ChargePumpGroupBox
             // 
-            this.groupBox2.Controls.Add(this.checkBox4);
-            this.groupBox2.Controls.Add(this.checkBox3);
-            this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.comboBox3);
-            this.groupBox2.Controls.Add(this.comboBox2);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(348, 256);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(331, 158);
-            this.groupBox2.TabIndex = 26;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Charge Pump";
+            this.ChargePumpGroupBox.Controls.Add(this.PosPFDCheckBox);
+            this.ChargePumpGroupBox.Controls.Add(this.CPCycleSlipCheckBox);
+            this.ChargePumpGroupBox.Controls.Add(this.CPTriStateOutCheckBox);
+            this.ChargePumpGroupBox.Controls.Add(this.CPFastLockCheckBox);
+            this.ChargePumpGroupBox.Controls.Add(this.RSetTextBox);
+            this.ChargePumpGroupBox.Controls.Add(this.CPTestComboBox);
+            this.ChargePumpGroupBox.Controls.Add(this.CPLinearityComboBox);
+            this.ChargePumpGroupBox.Controls.Add(this.CPTestLabel);
+            this.ChargePumpGroupBox.Controls.Add(this.CPCurrentComboBox);
+            this.ChargePumpGroupBox.Controls.Add(this.CPlinearityLabel);
+            this.ChargePumpGroupBox.Controls.Add(this.RSetLabel);
+            this.ChargePumpGroupBox.Controls.Add(this.CPCurrentLabel);
+            this.ChargePumpGroupBox.Location = new System.Drawing.Point(348, 256);
+            this.ChargePumpGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ChargePumpGroupBox.Name = "ChargePumpGroupBox";
+            this.ChargePumpGroupBox.Padding = new System.Windows.Forms.Padding(4);
+            this.ChargePumpGroupBox.Size = new System.Drawing.Size(331, 158);
+            this.ChargePumpGroupBox.TabIndex = 26;
+            this.ChargePumpGroupBox.TabStop = false;
+            this.ChargePumpGroupBox.Text = "Charge Pump";
             // 
-            // checkBox4
+            // PosPFDCheckBox
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox4.Location = new System.Drawing.Point(195, 116);
-            this.checkBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(110, 21);
-            this.checkBox4.TabIndex = 18;
-            this.checkBox4.Text = "Positive PFD";
-            this.checkBox4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.PosPFDCheckBox.AutoSize = true;
+            this.PosPFDCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.PosPFDCheckBox.Location = new System.Drawing.Point(195, 116);
+            this.PosPFDCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.PosPFDCheckBox.Name = "PosPFDCheckBox";
+            this.PosPFDCheckBox.Size = new System.Drawing.Size(110, 21);
+            this.PosPFDCheckBox.TabIndex = 18;
+            this.PosPFDCheckBox.Text = "Positive PFD";
+            this.PosPFDCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PosPFDCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // CPCycleSlipCheckBox
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox3.Location = new System.Drawing.Point(211, 87);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(95, 21);
-            this.checkBox3.TabIndex = 18;
-            this.checkBox3.Text = "Cycle Slip:";
-            this.checkBox3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.CPCycleSlipCheckBox.AutoSize = true;
+            this.CPCycleSlipCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(211, 87);
+            this.CPCycleSlipCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CPCycleSlipCheckBox.Name = "CPCycleSlipCheckBox";
+            this.CPCycleSlipCheckBox.Size = new System.Drawing.Size(95, 21);
+            this.CPCycleSlipCheckBox.TabIndex = 18;
+            this.CPCycleSlipCheckBox.Text = "Cycle Slip:";
+            this.CPCycleSlipCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CPCycleSlipCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // CPTriStateOutCheckBox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox2.Location = new System.Drawing.Point(180, 59);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(129, 21);
-            this.checkBox2.TabIndex = 18;
-            this.checkBox2.Text = "Tristate Output:";
-            this.checkBox2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.CPTriStateOutCheckBox.AutoSize = true;
+            this.CPTriStateOutCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CPTriStateOutCheckBox.Location = new System.Drawing.Point(180, 59);
+            this.CPTriStateOutCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CPTriStateOutCheckBox.Name = "CPTriStateOutCheckBox";
+            this.CPTriStateOutCheckBox.Size = new System.Drawing.Size(129, 21);
+            this.CPTriStateOutCheckBox.TabIndex = 18;
+            this.CPTriStateOutCheckBox.Text = "Tristate Output:";
+            this.CPTriStateOutCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CPTriStateOutCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // CPFastLockCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox1.Location = new System.Drawing.Point(211, 31);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(95, 21);
-            this.checkBox1.TabIndex = 18;
-            this.checkBox1.Text = "Fast Lock:";
-            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.CPFastLockCheckBox.AutoSize = true;
+            this.CPFastLockCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CPFastLockCheckBox.Location = new System.Drawing.Point(211, 31);
+            this.CPFastLockCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CPFastLockCheckBox.Name = "CPFastLockCheckBox";
+            this.CPFastLockCheckBox.Size = new System.Drawing.Size(95, 21);
+            this.CPFastLockCheckBox.TabIndex = 18;
+            this.CPFastLockCheckBox.Text = "Fast Lock:";
+            this.CPFastLockCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CPFastLockCheckBox.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // RSetTextBox
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBox1.Location = new System.Drawing.Point(80, 22);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox1.MaxLength = 8;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(53, 22);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "4700";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.TextChanged += new System.EventHandler(this.Reg0TextBox_TextChanged);
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reg0TextBox_KeyDown);
+            this.RSetTextBox.BackColor = System.Drawing.Color.White;
+            this.RSetTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.RSetTextBox.Location = new System.Drawing.Point(80, 22);
+            this.RSetTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RSetTextBox.MaxLength = 8;
+            this.RSetTextBox.Name = "RSetTextBox";
+            this.RSetTextBox.Size = new System.Drawing.Size(53, 22);
+            this.RSetTextBox.TabIndex = 3;
+            this.RSetTextBox.Text = "4700";
+            this.RSetTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.RSetTextBox.TextChanged += new System.EventHandler(this.Reg0TextBox_TextChanged);
+            this.RSetTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reg0TextBox_KeyDown);
             // 
-            // comboBox3
+            // CPTestComboBox
             // 
-            this.comboBox3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.CPTestComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CPTestComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CPTestComboBox.FormattingEnabled = true;
+            this.CPTestComboBox.Items.AddRange(new object[] {
             "Fractional",
             "Integer"});
-            this.comboBox3.Location = new System.Drawing.Point(80, 113);
-            this.comboBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(91, 24);
-            this.comboBox3.TabIndex = 16;
-            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
+            this.CPTestComboBox.Location = new System.Drawing.Point(80, 113);
+            this.CPTestComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CPTestComboBox.Name = "CPTestComboBox";
+            this.CPTestComboBox.Size = new System.Drawing.Size(91, 24);
+            this.CPTestComboBox.TabIndex = 16;
+            this.CPTestComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
             // 
-            // comboBox2
+            // CPLinearityComboBox
             // 
-            this.comboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.CPLinearityComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CPLinearityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CPLinearityComboBox.FormattingEnabled = true;
+            this.CPLinearityComboBox.Items.AddRange(new object[] {
             "Fractional",
             "Integer"});
-            this.comboBox2.Location = new System.Drawing.Point(80, 82);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(91, 24);
-            this.comboBox2.TabIndex = 16;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
+            this.CPLinearityComboBox.Location = new System.Drawing.Point(80, 82);
+            this.CPLinearityComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CPLinearityComboBox.Name = "CPLinearityComboBox";
+            this.CPLinearityComboBox.Size = new System.Drawing.Size(91, 24);
+            this.CPLinearityComboBox.TabIndex = 16;
+            this.CPLinearityComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
             // 
-            // label4
+            // CPTestLabel
             // 
-            this.label4.Location = new System.Drawing.Point(7, 117);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 17);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Test:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CPTestLabel.Location = new System.Drawing.Point(7, 117);
+            this.CPTestLabel.Name = "CPTestLabel";
+            this.CPTestLabel.Size = new System.Drawing.Size(68, 17);
+            this.CPTestLabel.TabIndex = 17;
+            this.CPTestLabel.Text = "Test:";
+            this.CPTestLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // comboBox1
+            // CPCurrentComboBox
             // 
-            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.CPCurrentComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CPCurrentComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CPCurrentComboBox.FormattingEnabled = true;
+            this.CPCurrentComboBox.Items.AddRange(new object[] {
             "Fractional",
             "Integer"});
-            this.comboBox1.Location = new System.Drawing.Point(80, 52);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(91, 24);
-            this.comboBox1.TabIndex = 16;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
+            this.CPCurrentComboBox.Location = new System.Drawing.Point(80, 52);
+            this.CPCurrentComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CPCurrentComboBox.Name = "CPCurrentComboBox";
+            this.CPCurrentComboBox.Size = new System.Drawing.Size(91, 24);
+            this.CPCurrentComboBox.TabIndex = 16;
+            this.CPCurrentComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
             // 
-            // label3
+            // CPlinearityLabel
             // 
-            this.label3.Location = new System.Drawing.Point(7, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 17);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Linearity:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CPlinearityLabel.Location = new System.Drawing.Point(7, 86);
+            this.CPlinearityLabel.Name = "CPlinearityLabel";
+            this.CPlinearityLabel.Size = new System.Drawing.Size(68, 17);
+            this.CPlinearityLabel.TabIndex = 17;
+            this.CPlinearityLabel.Text = "Linearity:";
+            this.CPlinearityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label1
+            // RSetLabel
             // 
-            this.label1.Location = new System.Drawing.Point(7, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 17);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "R set:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.RSetLabel.Location = new System.Drawing.Point(7, 26);
+            this.RSetLabel.Name = "RSetLabel";
+            this.RSetLabel.Size = new System.Drawing.Size(68, 17);
+            this.RSetLabel.TabIndex = 17;
+            this.RSetLabel.Text = "R set:";
+            this.RSetLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label2
+            // CPCurrentLabel
             // 
-            this.label2.Location = new System.Drawing.Point(11, 55);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 17);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "Current:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CPCurrentLabel.Location = new System.Drawing.Point(11, 55);
+            this.CPCurrentLabel.Name = "CPCurrentLabel";
+            this.CPCurrentLabel.Size = new System.Drawing.Size(64, 17);
+            this.CPCurrentLabel.TabIndex = 17;
+            this.CPCurrentLabel.Text = "Current:";
+            this.CPCurrentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox1
             // 
@@ -950,6 +950,26 @@ namespace Synthesizer_PC_control
             this.FreqControlGroupBox.TabIndex = 23;
             this.FreqControlGroupBox.TabStop = false;
             this.FreqControlGroupBox.Text = "Output Frequency Control";
+            // 
+            // ADivComboBox
+            // 
+            this.ADivComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.ADivComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ADivComboBox.FormattingEnabled = true;
+            this.ADivComboBox.Items.AddRange(new object[] {
+            "OUTA/1",
+            "OUTA/2",
+            "OUTA/4",
+            "OUTA/8",
+            "OUTA/16",
+            "OUTA/32",
+            "OUTA/64",
+            "OUTA/128"});
+            this.ADivComboBox.Location = new System.Drawing.Point(226, 50);
+            this.ADivComboBox.Name = "ADivComboBox";
+            this.ADivComboBox.Size = new System.Drawing.Size(106, 24);
+            this.ADivComboBox.TabIndex = 20;
+            this.ADivComboBox.SelectedIndexChanged += new System.EventHandler(this.ADivComboBox_SelectedIndexChanged);
             // 
             // FracNLabel
             // 
@@ -1750,26 +1770,6 @@ namespace Synthesizer_PC_control
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 16);
             // 
-            // ADivComboBox
-            // 
-            this.ADivComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.ADivComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ADivComboBox.FormattingEnabled = true;
-            this.ADivComboBox.Items.AddRange(new object[] {
-            "OUTA/1",
-            "OUTA/2",
-            "OUTA/4",
-            "OUTA/8",
-            "OUTA/16",
-            "OUTA/32",
-            "OUTA/64",
-            "OUTA/128"});
-            this.ADivComboBox.Location = new System.Drawing.Point(226, 50);
-            this.ADivComboBox.Name = "ADivComboBox";
-            this.ADivComboBox.Size = new System.Drawing.Size(106, 24);
-            this.ADivComboBox.TabIndex = 20;
-            this.ADivComboBox.SelectedIndexChanged += new System.EventHandler(this.ADivComboBox_SelectedIndexChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1792,8 +1792,8 @@ namespace Synthesizer_PC_control
             this.RegistersTabControl.ResumeLayout(false);
             this.RegistersPage.ResumeLayout(false);
             this.RegistersPage.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.ChargePumpGroupBox.ResumeLayout(false);
+            this.ChargePumpGroupBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.OutInfoGroupBox.ResumeLayout(false);
             this.FreqControlGroupBox.ResumeLayout(false);
@@ -1926,19 +1926,19 @@ namespace Synthesizer_PC_control
         private GroupBox FreqControlGroupBox;
         private GroupBox OutInfoGroupBox;
         private GroupBox groupBox1;
-        private GroupBox groupBox2;
-        private TextBox textBox1;
-        private Label label1;
-        private ComboBox comboBox1;
-        private Label label2;
-        private ComboBox comboBox3;
-        private ComboBox comboBox2;
-        private Label label4;
-        private Label label3;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
-        private CheckBox checkBox3;
-        private CheckBox checkBox4;
+        private GroupBox ChargePumpGroupBox;
+        private TextBox RSetTextBox;
+        private Label RSetLabel;
+        private ComboBox CPCurrentComboBox;
+        private Label CPCurrentLabel;
+        private ComboBox CPTestComboBox;
+        private ComboBox CPLinearityComboBox;
+        private Label CPTestLabel;
+        private Label CPlinearityLabel;
+        private CheckBox CPTriStateOutCheckBox;
+        private CheckBox CPFastLockCheckBox;
+        private CheckBox CPCycleSlipCheckBox;
+        private CheckBox PosPFDCheckBox;
         private ComboBox ADivComboBox;
     }
 }
