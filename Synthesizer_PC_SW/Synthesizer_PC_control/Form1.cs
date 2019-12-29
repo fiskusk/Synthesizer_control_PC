@@ -40,6 +40,86 @@ namespace Synthesizer_PC_control
 
         }
 
+        void Form1_Load(object sender, EventArgs e)
+        {   
+            // load avaible com ports into combbox
+            var ports = SerialPort.GetPortNames();
+            AvaibleCOMsComBox.DataSource = ports;
+
+            EnableControls(false);
+
+            // load last used COM port, if exist
+            LoadSavedWorkspaceData();
+        }
+
+        private void EnableControls(bool command)
+        {
+            AvaibleCOMsComBox.Enabled = !command;
+            Out1Button.Enabled = command;
+            Out2Button.Enabled = command;
+            RefButton.Enabled = command;
+            PloInitButton.Enabled = command;
+            Reg0TextBox.Enabled = command;
+            Reg1TextBox.Enabled = command;
+            Reg2TextBox.Enabled = command;
+            Reg3TextBox.Enabled = command;
+            Reg4TextBox.Enabled = command;
+            Reg5TextBox.Enabled = command;
+            SetAsDefaultRegButton.Enabled = command;
+            ForceLoadRegButton.Enabled = command;
+            LoadDefRegButton.Enabled = command;
+            WriteR0Button.Enabled = command;
+            WriteR1Button.Enabled = command;
+            WriteR2Button.Enabled = command;
+            WriteR3Button.Enabled = command;
+            WriteR4Button.Enabled = command;
+            WriteR5Button.Enabled = command;
+            R0M1.Enabled = command;
+            R1M1.Enabled = command;
+            R2M1.Enabled = command;
+            R3M1.Enabled = command;
+            R4M1.Enabled = command;
+            R5M1.Enabled = command;
+            R0M2.Enabled = command;
+            R1M2.Enabled = command;
+            R2M2.Enabled = command;
+            R3M2.Enabled = command;
+            R4M2.Enabled = command;
+            R5M2.Enabled = command;
+            R0M3.Enabled = command;
+            R1M3.Enabled = command;
+            R2M3.Enabled = command;
+            R3M3.Enabled = command;
+            R4M3.Enabled = command;
+            R5M3.Enabled = command;
+            R0M4.Enabled = command;
+            R1M4.Enabled = command;
+            R2M4.Enabled = command;
+            R3M4.Enabled = command;
+            R4M4.Enabled = command;
+            R5M4.Enabled = command;
+            LoadRegMemory.Enabled = command;
+            SaveRegMemory.Enabled = command;
+            RF_A_EN_ComboBox.Enabled = command;
+            RF_B_EN_ComboBox.Enabled = command;
+            RF_A_PWR_ComboBox.Enabled = command;
+            RF_B_PWR_ComboBox.Enabled = command;
+            IntNNumUpDown.Enabled = command;
+            FracNNumUpDown.Enabled = command;
+            ModNumUpDown.Enabled = command;
+            ModeIntFracComboBox.Enabled = command;
+            RefFTextBox.Enabled = command;
+            RDivUpDown.Enabled = command;
+            DoubleRefFCheckBox.Enabled = command;
+            DivideBy2CheckBox.Enabled = command;
+            fPfdScreenLabel.Enabled = command;
+            fVcoScreenLabel.Enabled = command;
+            fOutAScreenLabel.Enabled = command;
+            fOutBScreenLabel.Enabled = command;
+            ADivUpDown.Enabled = command;
+            PhasePNumericUpDown.Enabled = command;
+        }
+
         private void SendStringSerialPort(string text)
         {
             try
@@ -51,7 +131,71 @@ namespace Synthesizer_PC_control
             {
                 MessageBox.Show("Device doesn't work", "COM Port Error",
                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                ClosePortButton_Click(this, new EventArgs());
+                PortButton_Click(this, new EventArgs());
+            }
+        }
+
+        private void PortButton_Click(object sender, EventArgs e)
+        {
+            if (PortButton.Text == "Open Port")
+            {
+                PortButton.Text = "Close Port";
+                OpenPort();
+
+            }
+            else if (PortButton.Text == "Close Port")
+            {
+                PortButton.Text = "Open Port";
+                ClosePort();
+            }
+            
+            
+        }
+
+        void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            { // TODO zde si zjistovat na zacasku jestli je ID max2871, jinak vyhodit hlasku a zavrit port. 
+                // TODO vycitat info o tom, jestli je int/ext ref, out1, out2 on/off
+                // TODO a asi vycist pekne test register a ten soupnout do okna
+                string text = _serialPort.ReadLine();
+                if (text == "plo locked")
+                    toolStripStatusLabel1.Text = "plo is locked";
+                else if (text == "plo isn't locked")
+                    toolStripStatusLabel1.Text = "plo isn't locked!";
+                else if (text == "plo state is not known")
+                    toolStripStatusLabel1.Text = "plo state is not known";
+            }
+            catch
+            {
+                
+            }
+            
+        }
+
+        private void ClosePort()
+        {
+            EnableControls(false);
+            _serialPort.Close();
+        }
+
+        private  void OpenPort()
+        {
+            try
+            {
+                _serialPort = new SerialPort(AvaibleCOMsComBox.Text, 115200);
+                _serialPort.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data
+                _serialPort.NewLine = "\r";
+                _serialPort.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler);
+
+                SaveWorkspaceData();
+                EnableControls(true);
+            }
+            catch
+            {
+                MessageBox.Show("Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PortButton_Click(this, new EventArgs());    // TODO dodelat overeni, jestli se jedna o syntezator. Odesilat z modulu nejaky string ID treba MAX2871byFKU. Kdyz takovy tvar neprijde, napsat, ze takove zarizeni nelze pouzit.
             }
         }
         private string GetFileNamePath(string fileName)
@@ -61,6 +205,36 @@ namespace Synthesizer_PC_control
                 Directory.CreateDirectory(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\conf\");
             string folder = actual_dir + @"\conf\";
             return folder + fileName;
+        }
+
+        private void SaveWorkspaceData()
+        {
+            try   
+            {   
+                string fileName = GetFileNamePath(@"saved_workspace.json");
+
+                SaveWindow saved = new SaveWindow
+                {
+                    Registers = new List<string>
+                    {
+                        Reg0TextBox.Text,
+                        Reg1TextBox.Text,
+                        Reg2TextBox.Text,
+                        Reg3TextBox.Text,
+                        Reg4TextBox.Text,
+                        Reg5TextBox.Text
+                    },
+                    COM_port = AvaibleCOMsComBox.Text
+                };
+
+                // serialize JSON to a string and then write string to a file
+                File.WriteAllText(fileName, JsonConvert.SerializeObject(saved, Formatting.Indented));
+            }
+            catch
+            {
+                MessageBox.Show("When saving worskspace data occurs error!", "Error Catch", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadSavedWorkspaceData()
@@ -145,24 +319,15 @@ namespace Synthesizer_PC_control
             UInt32 reg4 = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             GetOutAENStatusFromRegister(reg4);
             GetOutAPwrStatusFromRegister(reg4);
+            GetADividerValueFromRegister(reg4);
 
         }
 
-        private void GetOutAENStatusFromRegister(UInt32 data)
+        private void GetFracIntModeStatusFromRegister(UInt32 dataReg0)
         {
-            RF_A_EN_ComboBox.SelectedIndex = (int)((data & (1<<5)) >> 5);
-        }
-
-        private void GetOutAPwrStatusFromRegister(UInt32 data)
-        {
-            RF_A_PWR_ComboBox.SelectedIndex = (int)((data & 0b11000) >> 3);
-        }
-
-        private void GetFracIntModeStatusFromRegister(UInt32 data)
-        {
-            data = (UInt32)((data & (1 << 31)) >> 31);
-            ModeIntFracComboBox.SelectedIndex = (int)(data);
-            if (data == 1)
+            dataReg0 = (UInt32)((dataReg0 & (1 << 31)) >> 31);
+            ModeIntFracComboBox.SelectedIndex = (int)(dataReg0);
+            if (dataReg0 == 1)
             {
                 IntNNumUpDown.Minimum = 16;
                 IntNNumUpDown.Maximum = 65535;
@@ -174,6 +339,63 @@ namespace Synthesizer_PC_control
             }
         }
 
+        private void GetIntNValueFromRegister(UInt32 dataReg0)
+        {
+            UInt16 IntN = (UInt16)((dataReg0 & 0b01111111111111111000000000000000) >> 15);
+
+            if (IntN < IntNNumUpDown.Minimum)
+                IntN = Convert.ToUInt16(IntNNumUpDown.Minimum);
+            else if (IntN > IntNNumUpDown.Maximum)
+                IntN = Convert.ToUInt16(IntNNumUpDown.Maximum);
+
+            IntNNumUpDown.Value = IntN;
+        }
+
+        private void GetFracNValueFromRegister(UInt32 dataReg0)
+        {
+            UInt16 FracN = (UInt16)((dataReg0 & 0b111111111111000) >> 3);
+            FracNNumUpDown.Value = FracN;
+        }
+
+        private void GetModValueFromRegister(UInt32 dataReg1)
+        {
+            UInt16 Mod = (UInt16)((dataReg1 & 0b111111111111000) >> 3);
+            ModNumUpDown.Value = Mod;
+            FracNNumUpDown.Maximum = ModNumUpDown.Value-1;
+        }
+
+        private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
+        {
+            DoubleRefFCheckBox.Checked = Convert.ToBoolean((dataReg2 & (1 << 25)) >> 25);
+        }
+        
+        private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
+        {
+            DivideBy2CheckBox.Checked = Convert.ToBoolean((dataReg2 & (1 << 24)) >> 24);
+        }
+
+        private void GetRDivValueFromRegister(UInt32 dataReg2)
+        {
+            UInt16 RDiv = (UInt16)((dataReg2 & 0b111111111100000000000000) >> 14);
+            RDivUpDown.Value = RDiv;
+        }
+
+        private void GetOutAENStatusFromRegister(UInt32 dataReg4)
+        {
+            RF_A_EN_ComboBox.SelectedIndex = (int)((dataReg4 & (1<<5)) >> 5);
+        }
+
+        private void GetOutAPwrStatusFromRegister(UInt32 dataReg4)
+        {
+            RF_A_PWR_ComboBox.SelectedIndex = (int)((dataReg4 & 0b11000) >> 3);
+        }
+
+        private void GetADividerValueFromRegister(UInt32 dataReg4)
+        {
+            UInt16 ADiv = (UInt16)((dataReg4 & ((1<<22) | (1<<21) | (1<<20))) >> 20);
+            
+        }
+
         private void GetCalcFreq(UInt32 dataReg4)
         {
             UInt16 DIVA = (UInt16)((dataReg4 & ((1<<22) | (1<<21) | (1<<20))) >> 20);
@@ -182,8 +404,8 @@ namespace Synthesizer_PC_control
             string f_pfd_string = fPfdScreenLabel.Text;
             f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
             f_pfd_string = f_pfd_string.Replace(".", ",");
-            decimal f_pfd = Convert.ToDecimal(f_pfd_string); // TODO prevzit ho ze screenlabelu 
-            decimal f_out_A = 0;        // TODO nejdriv ale sehnat hodnoty divide
+            decimal f_pfd = Convert.ToDecimal(f_pfd_string);
+            decimal f_out_A = 0;
             decimal f_vco = 0;
 
             if (ModeIntFracComboBox.SelectedIndex == 1)
@@ -250,47 +472,6 @@ namespace Synthesizer_PC_control
             double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
 
             fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
-        }
-
-        private void GetIntNValueFromRegister(UInt32 dataReg0)
-        {
-            UInt16 IntN = (UInt16)((dataReg0 & 0b01111111111111111000000000000000) >> 15);
-
-            if (IntN < IntNNumUpDown.Minimum)
-                IntN = Convert.ToUInt16(IntNNumUpDown.Minimum);
-            else if (IntN > IntNNumUpDown.Maximum)
-                IntN = Convert.ToUInt16(IntNNumUpDown.Maximum);
-
-            IntNNumUpDown.Value = IntN;
-        }
-
-        private void GetFracNValueFromRegister(UInt32 dataReg0)
-        {
-            UInt16 FracN = (UInt16)((dataReg0 & 0b111111111111000) >> 3);
-            FracNNumUpDown.Value = FracN;
-        }
-
-        private void GetModValueFromRegister(UInt32 dataReg1)
-        {
-            UInt16 Mod = (UInt16)((dataReg1 & 0b111111111111000) >> 3);
-            ModNumUpDown.Value = Mod;
-            FracNNumUpDown.Maximum = ModNumUpDown.Value-1;
-        }
-
-        private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
-        {
-            DoubleRefFCheckBox.Checked = Convert.ToBoolean((dataReg2 & (1 << 25)) >> 25);
-        }
-        
-        private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
-        {
-            DivideBy2CheckBox.Checked = Convert.ToBoolean((dataReg2 & (1 << 24)) >> 24);
-        }
-
-        private void GetRDivValueFromRegister(UInt32 dataReg2)
-        {
-            UInt16 RDiv = (UInt16)((dataReg2 & 0b111111111100000000000000) >> 14);
-            RDivUpDown.Value = RDiv;
         }
 
         private void ChangeReg4OutAEn()
@@ -432,177 +613,6 @@ namespace Synthesizer_PC_control
             Reg2Value &= ~(UInt32)(0b111111111100000000000000);
             Reg2Value += Convert.ToUInt32(RDivUpDown.Value) << 14;
             Reg2TextBox.Text = Convert.ToString(Reg2Value, 16);
-        }
-
-        private void SaveWorkspaceData()
-        {
-            try   
-            {   
-                string fileName = GetFileNamePath(@"saved_workspace.json");
-
-                SaveWindow saved = new SaveWindow
-                {
-                    Registers = new List<string>
-                    {
-                        Reg0TextBox.Text,
-                        Reg1TextBox.Text,
-                        Reg2TextBox.Text,
-                        Reg3TextBox.Text,
-                        Reg4TextBox.Text,
-                        Reg5TextBox.Text
-                    },
-                    COM_port = AvaibleCOMsComBox.Text
-                };
-
-                // serialize JSON to a string and then write string to a file
-                File.WriteAllText(fileName, JsonConvert.SerializeObject(saved, Formatting.Indented));
-            }
-            catch
-            {
-                MessageBox.Show("When saving worskspace data occurs error!", "Error Catch", 
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        void Form1_Load(object sender, EventArgs e)
-        {   
-            // load avaible com ports into combbox
-            var ports = SerialPort.GetPortNames();
-            AvaibleCOMsComBox.DataSource = ports;
-
-            EnableControls(false);
-
-            // load last used COM port, if exist
-            LoadSavedWorkspaceData();
-        }
-
-        private void EnableControls(bool command)
-        {
-            AvaibleCOMsComBox.Enabled = !command;
-            Out1Button.Enabled = command;
-            Out2Button.Enabled = command;
-            RefButton.Enabled = command;
-            PloInitButton.Enabled = command;
-            Reg0TextBox.Enabled = command;
-            Reg1TextBox.Enabled = command;
-            Reg2TextBox.Enabled = command;
-            Reg3TextBox.Enabled = command;
-            Reg4TextBox.Enabled = command;
-            Reg5TextBox.Enabled = command;
-            SetAsDefaultRegButton.Enabled = command;
-            ForceLoadRegButton.Enabled = command;
-            LoadDefRegButton.Enabled = command;
-            WriteR0Button.Enabled = command;
-            WriteR1Button.Enabled = command;
-            WriteR2Button.Enabled = command;
-            WriteR3Button.Enabled = command;
-            WriteR4Button.Enabled = command;
-            WriteR5Button.Enabled = command;
-            R0M1.Enabled = command;
-            R1M1.Enabled = command;
-            R2M1.Enabled = command;
-            R3M1.Enabled = command;
-            R4M1.Enabled = command;
-            R5M1.Enabled = command;
-            R0M2.Enabled = command;
-            R1M2.Enabled = command;
-            R2M2.Enabled = command;
-            R3M2.Enabled = command;
-            R4M2.Enabled = command;
-            R5M2.Enabled = command;
-            R0M3.Enabled = command;
-            R1M3.Enabled = command;
-            R2M3.Enabled = command;
-            R3M3.Enabled = command;
-            R4M3.Enabled = command;
-            R5M3.Enabled = command;
-            R0M4.Enabled = command;
-            R1M4.Enabled = command;
-            R2M4.Enabled = command;
-            R3M4.Enabled = command;
-            R4M4.Enabled = command;
-            R5M4.Enabled = command;
-            LoadRegMemory.Enabled = command;
-            SaveRegMemory.Enabled = command;
-            RF_A_EN_ComboBox.Enabled = command;
-            RF_B_EN_ComboBox.Enabled = command;
-            RF_A_PWR_ComboBox.Enabled = command;
-            RF_B_PWR_ComboBox.Enabled = command;
-            IntNNumUpDown.Enabled = command;
-            FracNNumUpDown.Enabled = command;
-            ModNumUpDown.Enabled = command;
-            ModeIntFracComboBox.Enabled = command;
-            RefFTextBox.Enabled = command;
-            RDivUpDown.Enabled = command;
-            DoubleRefFCheckBox.Enabled = command;
-            DivideBy2CheckBox.Enabled = command;
-            fPfdScreenLabel.Enabled = command;
-            fVcoScreenLabel.Enabled = command;
-            fOutAScreenLabel.Enabled = command;
-            fOutBScreenLabel.Enabled = command;
-            ADivUpDown.Enabled = command;
-            PhasePNumericUpDown.Enabled = command;
-        }
-
-        private void PortButton_Click(object sender, EventArgs e)
-        {
-            if (PortButton.Text == "Open Port")
-            {
-                PortButton.Text = "Close Port";
-                OpenPort();
-
-            }
-            else if (PortButton.Text == "Close Port")
-            {
-                PortButton.Text = "Open Port";
-                ClosePort();
-            }
-            
-            
-        }
-
-        void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
-        {
-            try
-            {
-                string text = _serialPort.ReadLine();
-                if (text == "plo locked")
-                    toolStripStatusLabel1.Text = "plo is locked";
-                else if (text == "plo isn't locked")
-                    toolStripStatusLabel1.Text = "plo isn't locked!";
-                else if (text == "plo state is not known")
-                    toolStripStatusLabel1.Text = "plo state is not known";
-            }
-            catch
-            {
-                
-            }
-            
-        }
-
-        private void ClosePort()
-        {
-            EnableControls(false);
-            _serialPort.Close();
-        }
-
-        private  void OpenPort()
-        {
-            try
-            {
-                _serialPort = new SerialPort(AvaibleCOMsComBox.Text, 115200);
-                _serialPort.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data
-                _serialPort.NewLine = "\r";
-                _serialPort.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler);
-
-                SaveWorkspaceData();
-                EnableControls(true);
-            }
-            catch
-            {
-                MessageBox.Show("Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port", 
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void ClosePortButton_Click(object sender, EventArgs e)
