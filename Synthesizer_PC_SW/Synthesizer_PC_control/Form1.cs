@@ -118,6 +118,14 @@ namespace Synthesizer_PC_control
             fOutBScreenLabel.Enabled = command;
             ADivComboBox.Enabled = command;
             PhasePNumericUpDown.Enabled = command;
+            RSetTextBox.Enabled = command;
+            CPCurrentComboBox.Enabled = command;
+            CPLinearityComboBox.Enabled = command;
+            CPTestComboBox.Enabled = command;
+            CPFastLockCheckBox.Enabled = command;
+            CPTriStateOutCheckBox.Enabled = command;
+            CPCycleSlipCheckBox.Enabled = command;
+            PosPFDCheckBox.Enabled = command;
         }
 
         private void SendStringSerialPort(string text)
@@ -312,7 +320,7 @@ namespace Synthesizer_PC_control
             GetRefDoublerStatusFromRegister(reg2);
             GetRefDividerStatusFromRegister(reg2);
             GetRDivValueFromRegister(reg2);
-            GetCPCurrentFromRegister(reg2);
+            GetCPCurrentFromTextBox(reg2);
         }
 
         private void GetAllFromReg4()
@@ -386,10 +394,19 @@ namespace Synthesizer_PC_control
             RDivUpDown.Value = RDiv;
         }
 
-        private void GetCPCurrentFromRegister(UInt32 dataReg2)
+        private void GetCPCurrentFromTextBox(UInt32 dataReg2)
         {
             // TODO ulozit hodnotu RSET do defaults a saved_workspace, pri startu ji nacist
-            
+            UInt16 R_set = Convert.ToUInt16(RSetTextBox.Text);
+            IList<string> list = new List<string>();
+            decimal I_cp;
+            for (UInt16 cp = 0; cp < 16; cp++)
+            {
+                I_cp = (decimal)(1.63*1000)/(decimal)(R_set) * (1 + cp);
+                I_cp = Math.Round(I_cp, 3, MidpointRounding.AwayFromZero);
+                list.Add(Convert.ToString(I_cp) + " mA");
+            }
+            CPCurrentComboBox.DataSource = list;
 
         }
 
@@ -469,7 +486,10 @@ namespace Synthesizer_PC_control
 
         private void GetFPfdFreq()
         {
-            decimal f_ref = decimal.Parse(RefFTextBox.Text);
+            string f_pfd_string = RefFTextBox.Text;
+            f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
+            f_pfd_string = f_pfd_string.Replace(".", ",");
+            decimal f_ref = decimal.Parse(f_pfd_string);
             UInt16 doubler = Convert.ToUInt16(DoubleRefFCheckBox.Checked);
             UInt16 divider2 = Convert.ToUInt16(DivideBy2CheckBox.Checked);
             decimal f_pfd = f_ref * ((1 + doubler) / (RDivUpDown.Value * (1 + divider2)));
@@ -1210,13 +1230,28 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetFPfdFreq();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber)); // TODO přepsat vstupni nepotrebny arg.
             }
         }
 
         private void RefFTextBox_LostFocus(object sender, EventArgs e)
         {
+            GetFPfdFreq();
             GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+        }
+
+        private void RefFTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string item = RefFTextBox.Text;
+            decimal n = 0;
+            if (!decimal.TryParse(item, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
+                !decimal.TryParse(item, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out n) &&
+                item != String.Empty)
+            {
+                RefFTextBox.Text = item.Remove(item.Length - 1, 1);
+                RefFTextBox.SelectionStart = RefFTextBox.Text.Length;
+            }
         }
 
         private void Reg0TextBox_LostFocus(object sender, EventArgs e)
@@ -1307,6 +1342,31 @@ namespace Synthesizer_PC_control
             {
                 ChangeReg1PhaseP();
                 ApplyChangeReg1();
+            }
+        }
+
+        private void RSetTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            }
+        }
+
+        private void RSetTextBox_LostFocus(object sender, EventArgs e)
+        {
+            GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+        }
+
+        private void RSetTextBox_TextChanged(object sender, EventArgs e)
+        {
+            string item = RSetTextBox.Text;
+            int n = 0;
+            if (!int.TryParse(item, System.Globalization.NumberStyles.Integer, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
+                item != String.Empty)
+            {
+                RSetTextBox.Text = item.Remove(item.Length - 1, 1);
+                RSetTextBox.SelectionStart = RSetTextBox.Text.Length;
             }
         }
     }

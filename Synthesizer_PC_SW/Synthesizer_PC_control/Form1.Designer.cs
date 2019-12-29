@@ -490,11 +490,11 @@ namespace Synthesizer_PC_control
             // 
             this.RegistersTabControl.Controls.Add(this.RegistersPage);
             this.RegistersTabControl.Controls.Add(this.SavedRegistersPage);
-            this.RegistersTabControl.Location = new System.Drawing.Point(356, 32);
+            this.RegistersTabControl.Location = new System.Drawing.Point(352, 32);
             this.RegistersTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersTabControl.Name = "RegistersTabControl";
             this.RegistersTabControl.SelectedIndex = 0;
-            this.RegistersTabControl.Size = new System.Drawing.Size(704, 539);
+            this.RegistersTabControl.Size = new System.Drawing.Size(708, 539);
             this.RegistersTabControl.TabIndex = 12;
             // 
             // RegistersPage
@@ -529,7 +529,7 @@ namespace Synthesizer_PC_control
             this.RegistersPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersPage.Name = "RegistersPage";
             this.RegistersPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersPage.Size = new System.Drawing.Size(696, 510);
+            this.RegistersPage.Size = new System.Drawing.Size(700, 510);
             this.RegistersPage.TabIndex = 0;
             this.RegistersPage.Text = "Registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
@@ -549,11 +549,11 @@ namespace Synthesizer_PC_control
             this.ChargePumpGroupBox.Controls.Add(this.CPlinearityLabel);
             this.ChargePumpGroupBox.Controls.Add(this.RSetLabel);
             this.ChargePumpGroupBox.Controls.Add(this.CPCurrentLabel);
-            this.ChargePumpGroupBox.Location = new System.Drawing.Point(348, 256);
+            this.ChargePumpGroupBox.Location = new System.Drawing.Point(355, 255);
             this.ChargePumpGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.ChargePumpGroupBox.Name = "ChargePumpGroupBox";
             this.ChargePumpGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.ChargePumpGroupBox.Size = new System.Drawing.Size(331, 158);
+            this.ChargePumpGroupBox.Size = new System.Drawing.Size(335, 158);
             this.ChargePumpGroupBox.TabIndex = 26;
             this.ChargePumpGroupBox.TabStop = false;
             this.ChargePumpGroupBox.Text = "Charge Pump";
@@ -562,52 +562,52 @@ namespace Synthesizer_PC_control
             // 
             this.PosPFDCheckBox.AutoSize = true;
             this.PosPFDCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PosPFDCheckBox.Location = new System.Drawing.Point(195, 116);
+            this.PosPFDCheckBox.Location = new System.Drawing.Point(212, 116);
             this.PosPFDCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.PosPFDCheckBox.Name = "PosPFDCheckBox";
             this.PosPFDCheckBox.Size = new System.Drawing.Size(110, 21);
             this.PosPFDCheckBox.TabIndex = 18;
             this.PosPFDCheckBox.Text = "Positive PFD";
-            this.PosPFDCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PosPFDCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.PosPFDCheckBox.UseVisualStyleBackColor = true;
             // 
             // CPCycleSlipCheckBox
             // 
             this.CPCycleSlipCheckBox.AutoSize = true;
             this.CPCycleSlipCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(211, 87);
+            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(227, 87);
             this.CPCycleSlipCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPCycleSlipCheckBox.Name = "CPCycleSlipCheckBox";
             this.CPCycleSlipCheckBox.Size = new System.Drawing.Size(95, 21);
             this.CPCycleSlipCheckBox.TabIndex = 18;
             this.CPCycleSlipCheckBox.Text = "Cycle Slip:";
-            this.CPCycleSlipCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CPCycleSlipCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.CPCycleSlipCheckBox.UseVisualStyleBackColor = true;
             // 
             // CPTriStateOutCheckBox
             // 
             this.CPTriStateOutCheckBox.AutoSize = true;
             this.CPTriStateOutCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPTriStateOutCheckBox.Location = new System.Drawing.Point(180, 59);
+            this.CPTriStateOutCheckBox.Location = new System.Drawing.Point(196, 59);
             this.CPTriStateOutCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPTriStateOutCheckBox.Name = "CPTriStateOutCheckBox";
             this.CPTriStateOutCheckBox.Size = new System.Drawing.Size(129, 21);
             this.CPTriStateOutCheckBox.TabIndex = 18;
             this.CPTriStateOutCheckBox.Text = "Tristate Output:";
-            this.CPTriStateOutCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CPTriStateOutCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.CPTriStateOutCheckBox.UseVisualStyleBackColor = true;
             // 
             // CPFastLockCheckBox
             // 
             this.CPFastLockCheckBox.AutoSize = true;
             this.CPFastLockCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPFastLockCheckBox.Location = new System.Drawing.Point(211, 31);
+            this.CPFastLockCheckBox.Location = new System.Drawing.Point(227, 30);
             this.CPFastLockCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPFastLockCheckBox.Name = "CPFastLockCheckBox";
             this.CPFastLockCheckBox.Size = new System.Drawing.Size(95, 21);
             this.CPFastLockCheckBox.TabIndex = 18;
             this.CPFastLockCheckBox.Text = "Fast Lock:";
-            this.CPFastLockCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CPFastLockCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.CPFastLockCheckBox.UseVisualStyleBackColor = true;
             // 
             // RSetTextBox
@@ -622,17 +622,15 @@ namespace Synthesizer_PC_control
             this.RSetTextBox.TabIndex = 3;
             this.RSetTextBox.Text = "4700";
             this.RSetTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.RSetTextBox.TextChanged += new System.EventHandler(this.Reg0TextBox_TextChanged);
-            this.RSetTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reg0TextBox_KeyDown);
+            this.RSetTextBox.TextChanged += new System.EventHandler(this.RSetTextBox_TextChanged);
+            this.RSetTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RSetTextBox_KeyDown);
+            this.Reg0TextBox.LostFocus += new System.EventHandler(this.RSetTextBox_LostFocus);
             // 
             // CPTestComboBox
             // 
             this.CPTestComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CPTestComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CPTestComboBox.FormattingEnabled = true;
-            this.CPTestComboBox.Items.AddRange(new object[] {
-            "Fractional",
-            "Integer"});
             this.CPTestComboBox.Location = new System.Drawing.Point(80, 113);
             this.CPTestComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPTestComboBox.Name = "CPTestComboBox";
@@ -645,9 +643,6 @@ namespace Synthesizer_PC_control
             this.CPLinearityComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CPLinearityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CPLinearityComboBox.FormattingEnabled = true;
-            this.CPLinearityComboBox.Items.AddRange(new object[] {
-            "Fractional",
-            "Integer"});
             this.CPLinearityComboBox.Location = new System.Drawing.Point(80, 82);
             this.CPLinearityComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPLinearityComboBox.Name = "CPLinearityComboBox";
@@ -669,9 +664,6 @@ namespace Synthesizer_PC_control
             this.CPCurrentComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CPCurrentComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CPCurrentComboBox.FormattingEnabled = true;
-            this.CPCurrentComboBox.Items.AddRange(new object[] {
-            "Fractional",
-            "Integer"});
             this.CPCurrentComboBox.Location = new System.Drawing.Point(80, 52);
             this.CPCurrentComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPCurrentComboBox.Name = "CPCurrentComboBox";
@@ -1185,6 +1177,7 @@ namespace Synthesizer_PC_control
             this.RefFTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RefFTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RefFTextBox_KeyDown);
             this.RefFTextBox.LostFocus += new System.EventHandler(this.RefFTextBox_LostFocus);
+            this.RefFTextBox.TextChanged += new System.EventHandler(this.RefFTextBox_TextChanged);
             // 
             // DivideBy2CheckBox
             // 
@@ -1744,11 +1737,11 @@ namespace Synthesizer_PC_control
             // RegistersGroupBox
             // 
             this.RegistersGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RegistersGroupBox.Location = new System.Drawing.Point(356, 11);
+            this.RegistersGroupBox.Location = new System.Drawing.Point(352, 11);
             this.RegistersGroupBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersGroupBox.Name = "RegistersGroupBox";
             this.RegistersGroupBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersGroupBox.Size = new System.Drawing.Size(699, 556);
+            this.RegistersGroupBox.Size = new System.Drawing.Size(703, 556);
             this.RegistersGroupBox.TabIndex = 13;
             this.RegistersGroupBox.TabStop = false;
             this.RegistersGroupBox.Text = "Registers Settings";
