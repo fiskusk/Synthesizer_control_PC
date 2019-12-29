@@ -294,6 +294,7 @@ namespace Synthesizer_PC_control
             GetAllFromReg2();
             GetAllFromReg4();
             GetFPfdFreq();
+            GetCPCurrentFromTextBox();
             GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber)); // TODO predelat to pro NDIV zadavane z policka, ne ctenim z registru
             
         }
@@ -320,7 +321,6 @@ namespace Synthesizer_PC_control
             GetRefDoublerStatusFromRegister(reg2);
             GetRefDividerStatusFromRegister(reg2);
             GetRDivValueFromRegister(reg2);
-            GetCPCurrentFromTextBox(reg2);
         }
 
         private void GetAllFromReg4()
@@ -394,7 +394,7 @@ namespace Synthesizer_PC_control
             RDivUpDown.Value = RDiv;
         }
 
-        private void GetCPCurrentFromTextBox(UInt32 dataReg2)
+        private void GetCPCurrentFromTextBox()
         {
             // TODO ulozit hodnotu RSET do defaults a saved_workspace, pri startu ji nacist
             UInt16 R_set = Convert.ToUInt16(RSetTextBox.Text);
@@ -1291,7 +1291,7 @@ namespace Synthesizer_PC_control
 
         private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (Reg0TextBox.Enabled == true)
+            if (Reg0TextBox.Enabled == true) // TODO prefdelat na stav port otevren tlacitko
             {
                 ChangeReg2RefDoubler();
                 ApplyChangeReg2();
@@ -1349,12 +1349,30 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
+                int value;
+                if (int.TryParse(RSetTextBox.Text, out value))
+                {
+                    if (value > 10000)
+                        RSetTextBox.Text = "10000";
+                    else if (value < 2700)
+                        RSetTextBox.Text = "2700";
+                }
+                GetCPCurrentFromTextBox();
                 GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
             }
         }
 
         private void RSetTextBox_LostFocus(object sender, EventArgs e)
         {
+            int value;
+            if (int.TryParse(RSetTextBox.Text, out value))
+            {
+                if (value > 10000)
+                    RSetTextBox.Text = "10000";
+                else if (value < 2700)
+                    RSetTextBox.Text = "2700";
+            }
+            GetCPCurrentFromTextBox();
             GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
         }
 

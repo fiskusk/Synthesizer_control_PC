@@ -624,7 +624,7 @@ namespace Synthesizer_PC_control
             this.RSetTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RSetTextBox.TextChanged += new System.EventHandler(this.RSetTextBox_TextChanged);
             this.RSetTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RSetTextBox_KeyDown);
-            this.Reg0TextBox.LostFocus += new System.EventHandler(this.RSetTextBox_LostFocus);
+            this.RSetTextBox.LostFocus += new System.EventHandler(this.RSetTextBox_LostFocus);
             // 
             // CPTestComboBox
             // 
