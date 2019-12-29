@@ -106,8 +106,8 @@ namespace Synthesizer_PC_control
             this.ADivUpDown = new System.Windows.Forms.NumericUpDown();
             this.RefFreqGroupBox = new System.Windows.Forms.GroupBox();
             this.RDivUpDown = new System.Windows.Forms.NumericUpDown();
-            this.DivedeBy2CheckBox = new System.Windows.Forms.CheckBox();
             this.RefFTextBox = new System.Windows.Forms.TextBox();
+            this.DivideBy2CheckBox = new System.Windows.Forms.CheckBox();
             this.DoubleRefFCheckBox = new System.Windows.Forms.CheckBox();
             this.RefFLabel = new System.Windows.Forms.Label();
             this.fPfdLabel = new System.Windows.Forms.Label();
@@ -265,7 +265,6 @@ namespace Synthesizer_PC_control
             this.Reg1TextBox.TextChanged += new System.EventHandler(this.Reg1TextBox_TextChanged);
             this.Reg1TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reg1TextBox_KeyDown);
             this.Reg1TextBox.LostFocus += new System.EventHandler(this.Reg1TextBox_LostFocus);
-
             // 
             // Reg2Label
             // 
@@ -366,7 +365,6 @@ namespace Synthesizer_PC_control
             this.Reg5TextBox.TextChanged += new System.EventHandler(this.Reg5TextBox_TextChanged);
             this.Reg5TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reg5TextBox_KeyDown);
             this.Reg5TextBox.LostFocus += new System.EventHandler(this.Reg5TextBox_LostFocus);
-
             // 
             // RefButton
             // 
@@ -1127,7 +1125,7 @@ namespace Synthesizer_PC_control
             // 
             this.RefFreqGroupBox.Controls.Add(this.RDivUpDown);
             this.RefFreqGroupBox.Controls.Add(this.RefFTextBox);
-            this.RefFreqGroupBox.Controls.Add(this.DivedeBy2CheckBox);
+            this.RefFreqGroupBox.Controls.Add(this.DivideBy2CheckBox);
             this.RefFreqGroupBox.Controls.Add(this.DoubleRefFCheckBox);
             this.RefFreqGroupBox.Controls.Add(this.RefFLabel);
             this.RefFreqGroupBox.Controls.Add(this.fPfdLabel);
@@ -1149,12 +1147,12 @@ namespace Synthesizer_PC_control
             this.RDivUpDown.Location = new System.Drawing.Point(87, 55);
             this.RDivUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.RDivUpDown.Maximum = new decimal(new int[] {
-            65535,
+            1023,
             0,
             0,
             0});
             this.RDivUpDown.Minimum = new decimal(new int[] {
-            16,
+            1,
             0,
             0,
             0});
@@ -1167,21 +1165,8 @@ namespace Synthesizer_PC_control
             0,
             0,
             0});
-            this.RDivUpDown.ValueChanged += new System.EventHandler(this.IntNNumericUpDown_ValueChanged);
-            this.RDivUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IntNScrollHandlerFunction);
-            // 
-            // DivedeBy2CheckBox
-            // 
-            this.DivedeBy2CheckBox.AutoSize = true;
-            this.DivedeBy2CheckBox.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.DivedeBy2CheckBox.Location = new System.Drawing.Point(267, 14);
-            this.DivedeBy2CheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.DivedeBy2CheckBox.Name = "DivedeBy2CheckBox";
-            this.DivedeBy2CheckBox.Size = new System.Drawing.Size(28, 38);
-            this.DivedeBy2CheckBox.TabIndex = 21;
-            this.DivedeBy2CheckBox.Text = "÷2";
-            this.DivedeBy2CheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.DivedeBy2CheckBox.UseVisualStyleBackColor = true;
+            this.RDivUpDown.ValueChanged += new System.EventHandler(this.RDivUpDown_ValueChanged);
+            this.RDivUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.RDivScrollHandlerFunction);
             // 
             // RefFTextBox
             // 
@@ -1198,6 +1183,20 @@ namespace Synthesizer_PC_control
             this.RefFTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RefFTextBox_KeyDown);
             this.RefFTextBox.LostFocus += new System.EventHandler(this.RefFTextBox_LostFocus);
             // 
+            // DivideBy2CheckBox
+            // 
+            this.DivideBy2CheckBox.AutoSize = true;
+            this.DivideBy2CheckBox.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.DivideBy2CheckBox.Location = new System.Drawing.Point(267, 14);
+            this.DivideBy2CheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.DivideBy2CheckBox.Name = "DivideBy2CheckBox";
+            this.DivideBy2CheckBox.Size = new System.Drawing.Size(28, 38);
+            this.DivideBy2CheckBox.TabIndex = 21;
+            this.DivideBy2CheckBox.Text = "÷2";
+            this.DivideBy2CheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.DivideBy2CheckBox.UseVisualStyleBackColor = true;
+            this.DivideBy2CheckBox.CheckedChanged += new System.EventHandler(this.DivideBy2CheckBox_CheckedChanged);
+            // 
             // DoubleRefFCheckBox
             // 
             this.DoubleRefFCheckBox.AutoSize = true;
@@ -1210,6 +1209,7 @@ namespace Synthesizer_PC_control
             this.DoubleRefFCheckBox.Text = "x2";
             this.DoubleRefFCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.DoubleRefFCheckBox.UseVisualStyleBackColor = true;
+            this.DoubleRefFCheckBox.CheckedChanged += new System.EventHandler(this.DoubleRefFCheckBox_CheckedChanged);
             // 
             // RefFLabel
             // 
@@ -1264,7 +1264,7 @@ namespace Synthesizer_PC_control
             this.fPfdScreenLabel.Name = "fPfdScreenLabel";
             this.fPfdScreenLabel.Size = new System.Drawing.Size(109, 16);
             this.fPfdScreenLabel.TabIndex = 20;
-            this.fPfdScreenLabel.Text = "100.000 000";
+            this.fPfdScreenLabel.Text = "10.000 000";
             this.fPfdScreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // SavedRegistersPage
@@ -1900,7 +1900,7 @@ namespace Synthesizer_PC_control
         private System.Windows.Forms.Label fVcoLabel;
         private System.Windows.Forms.Label fVcoScreenLabel;
         private System.Windows.Forms.Label MHzLabel2;
-        private CheckBox DivedeBy2CheckBox;
+        private CheckBox DivideBy2CheckBox;
         private CheckBox DoubleRefFCheckBox;
         private Label MHzLabel3;
         private Label RefFLabel;

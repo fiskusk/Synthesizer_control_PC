@@ -109,8 +109,11 @@ namespace Synthesizer_PC_control
         {
             GetAllFromReg0();
             GetAllFromReg1();
+            GetAllFromReg2();
             GetAllFromReg4();
+            GetFPfdFreq();
             GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber)); // TODO predelat to pro NDIV zadavane z policka, ne ctenim z registru
+            
         }
 
         private void GetAllFromReg0()
@@ -127,6 +130,14 @@ namespace Synthesizer_PC_control
             UInt32 reg1 = UInt32.Parse(Reg1TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             GetModValueFromRegister(reg1);
 
+        }
+
+        private void GetAllFromReg2()
+        {
+            UInt32 reg2 = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            GetRefDoublerStatusFromRegister(reg2);
+            GetRefDividerStatusFromRegister(reg2);
+            GetRDivValueFromRegister(reg2);
         }
 
         private void GetAllFromReg4()
@@ -168,8 +179,11 @@ namespace Synthesizer_PC_control
             UInt16 DIVA = (UInt16)((dataReg4 & ((1<<22) | (1<<21) | (1<<20))) >> 20);
             DIVA = (UInt16)(1 << DIVA);
 
-            decimal f_pfd = Convert.ToDecimal(RefFTextBox.Text); // MHz
-            decimal f_out_A = 0;
+            string f_pfd_string = fPfdScreenLabel.Text;
+            f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
+            f_pfd_string = f_pfd_string.Replace(".", ",");
+            decimal f_pfd = Convert.ToDecimal(f_pfd_string); // TODO prevzit ho ze screenlabelu 
+            decimal f_out_A = 0;        // TODO nejdriv ale sehnat hodnoty divide
             decimal f_vco = 0;
 
             if (ModeIntFracComboBox.SelectedIndex == 1)
@@ -218,6 +232,26 @@ namespace Synthesizer_PC_control
             fVcoScreenLabel.Text = string.Format("{0:000},{1:000} {2:000} {3:0}", f_vco_MHz, thousandths, millionths, rounding);
         }
 
+        private void GetFPfdFreq()
+        {
+            decimal f_ref = decimal.Parse(RefFTextBox.Text);
+            UInt16 doubler = Convert.ToUInt16(DoubleRefFCheckBox.Checked);
+            UInt16 divider2 = Convert.ToUInt16(DivideBy2CheckBox.Checked);
+            decimal f_pfd = f_ref * ((1 + doubler) / (RDivUpDown.Value * (1 + divider2)));
+
+            UInt16 f_pfd_MHz = (UInt16)(f_pfd);
+            UInt32 f_pfd_kHz = (UInt32)(f_pfd*1000);
+            UInt64 f_pfd_Hz = (UInt64)(f_pfd*1000000);
+            UInt64 f_vco_mHz = (UInt64)(f_pfd*1000000000);
+            UInt16 thousandths = (UInt16)(f_pfd_kHz - f_pfd_MHz*1000);
+            UInt16 millionths = (UInt16)(f_pfd_Hz - (UInt64)(f_pfd_MHz)*1000000-(UInt64)(thousandths)*1000);
+            UInt16 billionths = (UInt16)(f_vco_mHz - (UInt64)(f_pfd_Hz)*1000);
+            float bill_f = (float)((billionths)/100.0);
+            double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
+
+            fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
+        }
+
         private void GetIntNValueFromRegister(UInt32 dataReg0)
         {
             UInt16 IntN = (UInt16)((dataReg0 & 0b01111111111111111000000000000000) >> 15);
@@ -238,9 +272,25 @@ namespace Synthesizer_PC_control
 
         private void GetModValueFromRegister(UInt32 dataReg1)
         {
-            UInt16 Mod = (UInt16)((dataReg1 & 0b111111111111000)>> 3);
+            UInt16 Mod = (UInt16)((dataReg1 & 0b111111111111000) >> 3);
             ModNumUpDown.Value = Mod;
             FracNNumUpDown.Maximum = ModNumUpDown.Value-1;
+        }
+
+        private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
+        {
+            DoubleRefFCheckBox.Checked = Convert.ToBoolean((dataReg2 & (1 << 25)) >> 25);
+        }
+        
+        private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
+        {
+            DivideBy2CheckBox.Checked = Convert.ToBoolean((dataReg2 & (1 << 24)) >> 24);
+        }
+
+        private void GetRDivValueFromRegister(UInt32 dataReg2)
+        {
+            UInt16 RDiv = (UInt16)((dataReg2 & 0b111111111100000000000000) >> 14);
+            RDivUpDown.Value = RDiv;
         }
 
         private void ChangeReg4OutAEn()
@@ -327,6 +377,61 @@ namespace Synthesizer_PC_control
             Reg1Value += Convert.ToUInt32(ModNumUpDown.Value) << 3;
             Reg1TextBox.Text = Convert.ToString(Reg1Value, 16);
             FracNNumUpDown.Maximum = ModNumUpDown.Value - 1;
+        }
+
+        private void ChangeReg2RefDoubler()
+        {
+            UInt32 Reg2Value = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            if (DoubleRefFCheckBox.Checked == true)
+            {
+                Reg2Value |= unchecked((UInt32)(1<<25));
+                if ((IntNNumUpDown.Value / 2) < IntNNumUpDown.Minimum)
+                    IntNNumUpDown.Value = IntNNumUpDown.Minimum;
+                else
+                    IntNNumUpDown.Value = IntNNumUpDown.Value/2;
+
+            }
+            else
+            {
+                Reg2Value &= ~unchecked((UInt32)(1<<25));
+                if ((IntNNumUpDown.Value * 2) > IntNNumUpDown.Maximum)
+                    IntNNumUpDown.Value = IntNNumUpDown.Maximum;
+                else
+                    IntNNumUpDown.Value = IntNNumUpDown.Value*2;
+
+            }
+            Reg2TextBox.Text = Convert.ToString(Reg2Value,16);
+        }
+
+        private void ChangeReg2RefDivider()
+        {
+            UInt32 Reg2Value = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            if (DivideBy2CheckBox.Checked == true)
+            {
+                Reg2Value |= unchecked((UInt32)(1<<24));
+                if ((IntNNumUpDown.Value * 2) > IntNNumUpDown.Maximum)
+                    IntNNumUpDown.Value = IntNNumUpDown.Maximum;
+                else
+                    IntNNumUpDown.Value = IntNNumUpDown.Value*2;
+            }
+            else
+            {
+                Reg2Value &= ~unchecked((UInt32)(1<<24));
+                if ((IntNNumUpDown.Value / 2) < IntNNumUpDown.Minimum)
+                    IntNNumUpDown.Value = IntNNumUpDown.Minimum;
+                else
+                    IntNNumUpDown.Value = IntNNumUpDown.Value/2;
+
+            }
+            Reg2TextBox.Text = Convert.ToString(Reg2Value,16);
+        }
+
+        private void ChangeReg2RDiv()
+        {
+            UInt32 Reg2Value = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            Reg2Value &= ~(UInt32)(0b111111111100000000000000);
+            Reg2Value += Convert.ToUInt32(RDivUpDown.Value) << 14;
+            Reg2TextBox.Text = Convert.ToString(Reg2Value, 16);
         }
 
         private void SaveWorkspaceData()
@@ -430,7 +535,7 @@ namespace Synthesizer_PC_control
             RefFTextBox.Enabled = command;
             RDivUpDown.Enabled = command;
             DoubleRefFCheckBox.Enabled = command;
-            DivedeBy2CheckBox.Enabled = command;
+            DivideBy2CheckBox.Enabled = command;
             fPfdScreenLabel.Enabled = command;
             fVcoScreenLabel.Enabled = command;
             fOutAScreenLabel.Enabled = command;
@@ -698,8 +803,10 @@ namespace Synthesizer_PC_control
         {
             if ((Reg2TextBox.Enabled == true) && (!Reg2TextBox.Text.Equals(old_reg2)))
             {
+                GetAllFromReg2();
                 ApplyChangeReg2();
                 ApplyChangeReg0();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
             }
         }
 
@@ -1036,6 +1143,21 @@ namespace Synthesizer_PC_control
             }
         }
 
+        private void RDivScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
+            handledArgs.Handled = true;
+            try{
+                RDivUpDown.Value += (handledArgs.Delta > 0) ? 1 : -1;
+            }
+            catch{
+                if (RDivUpDown.Value < RDivUpDown.Minimum)
+                    RDivUpDown.Value = RDivUpDown.Minimum;
+                else if (RDivUpDown.Value > RDivUpDown.Maximum)
+                    RDivUpDown.Value = RDivUpDown.Maximum;
+            }
+        }
+
         private void RefFTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -1082,6 +1204,42 @@ namespace Synthesizer_PC_control
         private void RegistersPage_Click(object sender, EventArgs e)
         {
             Reg0Label.Focus();
+        }
+
+        private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true)
+            {
+                ChangeReg2RefDoubler();
+                ApplyChangeReg2();
+                ApplyChangeReg0();
+                GetFPfdFreq();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            }
+        }
+
+        private void DivideBy2CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true)
+            {
+                ChangeReg2RefDivider();
+                ApplyChangeReg2();
+                ApplyChangeReg0();
+                GetFPfdFreq();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            }
+        }
+
+        private void RDivUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true)
+            {
+                ChangeReg2RDiv();
+                ApplyChangeReg2();
+                ApplyChangeReg0();
+                GetFPfdFreq();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            }
         }
     }
 }
