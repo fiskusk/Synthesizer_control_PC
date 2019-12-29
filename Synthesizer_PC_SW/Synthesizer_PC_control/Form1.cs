@@ -27,6 +27,8 @@ namespace Synthesizer_PC_control
         static string old_reg4 = "63BE80E4";
         static string old_reg5 = "00400005";
 
+        private MyRegister[] registers;
+
         public class SaveWindow
         {
             public IList<string> Registers { get; set; }
@@ -38,6 +40,26 @@ namespace Synthesizer_PC_control
             InitializeComponent();
             this.Load += Form1_Load;
 
+            InitRegisters();
+        }
+
+        private void InitRegisters()
+        {
+            // TODO If config file does not exist
+            var reg0 = new MyRegister(Reg0TextBox.Text, Reg0TextBox);
+            var reg1 = new MyRegister(Reg1TextBox.Text, Reg1TextBox);
+            var reg2 = new MyRegister(Reg2TextBox.Text, Reg2TextBox);
+            var reg3 = new MyRegister(Reg3TextBox.Text, Reg3TextBox);
+            var reg4 = new MyRegister(Reg4TextBox.Text, Reg4TextBox);
+            var reg5 = new MyRegister(Reg5TextBox.Text, Reg5TextBox);
+
+            registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
+        }
+
+        private void UI_UpdateAllRegs()
+        {
+            Reg0TextBox.Text = registers[0].string_GetValue();
+            
         }
 
         void Form1_Load(object sender, EventArgs e)
@@ -301,34 +323,38 @@ namespace Synthesizer_PC_control
 
         private void GetAllFromReg0()
         {
-            UInt32 reg0 = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            GetFracIntModeStatusFromRegister(reg0);
-            GetIntNValueFromRegister(reg0);
-            GetFracNValueFromRegister(reg0);
-
+            //UInt32 reg0 = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 reg = registers[0].uint32_GetValue();
+            GetFracIntModeStatusFromRegister(reg);
+            GetIntNValueFromRegister(reg);
+            GetFracNValueFromRegister(reg);
         }
 
         private void GetAllFromReg1()
         {
-            UInt32 reg1 = UInt32.Parse(Reg1TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            GetModValueFromRegister(reg1);
-            GetPhasePValueFromRegister(reg1);
+            //UInt32 reg1 = UInt32.Parse(Reg1TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 reg = registers[1].uint32_GetValue();
+            
+            GetModValueFromRegister(reg);
+            GetPhasePValueFromRegister(reg);
         }
 
         private void GetAllFromReg2()
         {
-            UInt32 reg2 = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            GetRefDoublerStatusFromRegister(reg2);
-            GetRefDividerStatusFromRegister(reg2);
-            GetRDivValueFromRegister(reg2);
+            //UInt32 reg2 = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 reg = registers[2].uint32_GetValue();
+            GetRefDoublerStatusFromRegister(reg);
+            GetRefDividerStatusFromRegister(reg);
+            GetRDivValueFromRegister(reg);
         }
 
         private void GetAllFromReg4()
         {
-            UInt32 reg4 = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            GetOutAENStatusFromRegister(reg4);
-            GetOutAPwrStatusFromRegister(reg4);
-            GetADividerValueFromRegister(reg4);
+            //UInt32 reg4 = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 reg = registers[4].uint32_GetValue();
+            GetOutAENStatusFromRegister(reg);
+            GetOutAPwrStatusFromRegister(reg);
+            GetADividerValueFromRegister(reg);
         }
 
         private void GetFracIntModeStatusFromRegister(UInt32 dataReg0)
@@ -530,12 +556,26 @@ namespace Synthesizer_PC_control
             Reg2TextBox.Text = Convert.ToString(Reg2Value, 16);
         }
 
+        // Zapise a prevede hodnotu IntN do Reg0
         private void ChangeReg0IntNValue()
         {
+            /*
             UInt32 Reg0Value = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             Reg0Value &= ~(UInt32)(0b01111111111111111000000000000000);
             Reg0Value += Convert.ToUInt32(IntNNumUpDown.Value) << 15;
             Reg0TextBox.Text = Convert.ToString(Reg0Value, 16);
+            */
+
+
+            // Get value of register as UInt32
+            UInt32 reg = registers[0].uint32_GetValue();
+            // Conversion
+            reg &= ~(UInt32)(0b01111111111111111000000000000000);
+            reg += Convert.ToUInt32(IntNNumUpDown.Value) << 15;
+            // Write new value back
+            registers[0].SetValue(reg);
+
+            // TODO transfer this all to the register code
         }
 
         private void ChangeReg0FracNValue()
