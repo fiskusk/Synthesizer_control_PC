@@ -1101,8 +1101,8 @@ namespace Synthesizer_PC_control
             this.PhasePNumericUpDown.Size = new System.Drawing.Size(83, 22);
             this.PhasePNumericUpDown.TabIndex = 19;
             this.PhasePNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.PhasePNumericUpDown.ValueChanged += new System.EventHandler(this.FracNNumUpDown_ValueChanged);
-            this.PhasePNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.FracNScrollHandlerFunction);
+            this.PhasePNumericUpDown.ValueChanged += new System.EventHandler(this.PhasePNumUpDown_ValueChanged);
+            this.PhasePNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.PhasePScrollHandlerFunction);
             // 
             // RefFreqGroupBox
             // 

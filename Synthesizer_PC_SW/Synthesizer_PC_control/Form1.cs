@@ -303,7 +303,7 @@ namespace Synthesizer_PC_control
         {
             UInt32 reg1 = UInt32.Parse(Reg1TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             GetModValueFromRegister(reg1);
-
+            GetPhasePValueFromRegister(reg1);
         }
 
         private void GetAllFromReg2()
@@ -312,6 +312,7 @@ namespace Synthesizer_PC_control
             GetRefDoublerStatusFromRegister(reg2);
             GetRefDividerStatusFromRegister(reg2);
             GetRDivValueFromRegister(reg2);
+            GetCPCurrentFromRegister(reg2);
         }
 
         private void GetAllFromReg4()
@@ -320,7 +321,6 @@ namespace Synthesizer_PC_control
             GetOutAENStatusFromRegister(reg4);
             GetOutAPwrStatusFromRegister(reg4);
             GetADividerValueFromRegister(reg4);
-
         }
 
         private void GetFracIntModeStatusFromRegister(UInt32 dataReg0)
@@ -364,6 +364,12 @@ namespace Synthesizer_PC_control
             FracNNumUpDown.Maximum = ModNumUpDown.Value-1;
         }
 
+        private void GetPhasePValueFromRegister(UInt32 dataReg1)
+        {
+            UInt16 PhaseP = (UInt16)((dataReg1 & 0b111111111111000000000000000) >> 15);
+            PhasePNumericUpDown.Value = PhaseP;
+        }
+
         private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
         {
             DoubleRefFCheckBox.Checked = Convert.ToBoolean((dataReg2 & (1 << 25)) >> 25);
@@ -378,6 +384,13 @@ namespace Synthesizer_PC_control
         {
             UInt16 RDiv = (UInt16)((dataReg2 & 0b111111111100000000000000) >> 14);
             RDivUpDown.Value = RDiv;
+        }
+
+        private void GetCPCurrentFromRegister(UInt32 dataReg2)
+        {
+            // TODO ulozit hodnotu RSET do defaults a saved_workspace, pri startu ji nacist
+            
+
         }
 
         private void GetOutAENStatusFromRegister(UInt32 dataReg4)
@@ -474,43 +487,6 @@ namespace Synthesizer_PC_control
             fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
         }
 
-        private void ChangeReg4OutAEn()
-        {
-            UInt32 intValue = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            if (RF_A_EN_ComboBox.SelectedIndex == 0)
-            {
-                intValue &= ~((UInt32)(1<<5));
-            }
-            else if (RF_A_EN_ComboBox.SelectedIndex == 1)
-            {
-                intValue |= (UInt32)(1<<5);
-            }
-            Reg4TextBox.Text = Convert.ToString(intValue, 16);
-        }
-
-        private void ChangeReg4OutAPwr()
-        {
-            UInt32 intValue = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            switch (RF_A_PWR_ComboBox.SelectedIndex)
-            {
-                case 0:
-                    intValue &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
-                    break;
-                case 1:
-                    intValue &= ~(UInt32)(1<<4);
-                    intValue |= (UInt32)(1<<3);
-                    break;
-                case 2:
-                    intValue |= (UInt32)(1<<4);
-                    intValue &= ~(UInt32)(1<<3);
-                    break;
-                case 3:
-                    intValue |= (UInt32)(1<<4) | (UInt32)(1<<3);
-                    break;
-            }
-            Reg4TextBox.Text = Convert.ToString(intValue, 16);
-        }
-
         private void ChangeReg0IntFracMode()
         {
             UInt32 Reg0Value = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
@@ -558,6 +534,14 @@ namespace Synthesizer_PC_control
             Reg1Value += Convert.ToUInt32(ModNumUpDown.Value) << 3;
             Reg1TextBox.Text = Convert.ToString(Reg1Value, 16);
             FracNNumUpDown.Maximum = ModNumUpDown.Value - 1;
+        }
+
+        private void ChangeReg1PhaseP()
+        {
+            UInt32 Reg1Value = UInt32.Parse(Reg1TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            Reg1Value &= ~(UInt32)(0b1111111111111000000000000000);
+            Reg1Value += Convert.ToUInt32(PhasePNumericUpDown.Value) << 15;
+            Reg1TextBox.Text = Convert.ToString(Reg1Value, 16);
         }
 
         private void ChangeReg2RefDoubler()
@@ -615,18 +599,49 @@ namespace Synthesizer_PC_control
             Reg2TextBox.Text = Convert.ToString(Reg2Value, 16);
         }
 
+        private void ChangeReg4OutAEn()
+        {
+            UInt32 intValue = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            if (RF_A_EN_ComboBox.SelectedIndex == 0)
+            {
+                intValue &= ~((UInt32)(1<<5));
+            }
+            else if (RF_A_EN_ComboBox.SelectedIndex == 1)
+            {
+                intValue |= (UInt32)(1<<5);
+            }
+            Reg4TextBox.Text = Convert.ToString(intValue, 16);
+        }
+
+        private void ChangeReg4OutAPwr()
+        {
+            UInt32 intValue = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            switch (RF_A_PWR_ComboBox.SelectedIndex)
+            {
+                case 0:
+                    intValue &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
+                    break;
+                case 1:
+                    intValue &= ~(UInt32)(1<<4);
+                    intValue |= (UInt32)(1<<3);
+                    break;
+                case 2:
+                    intValue |= (UInt32)(1<<4);
+                    intValue &= ~(UInt32)(1<<3);
+                    break;
+                case 3:
+                    intValue |= (UInt32)(1<<4) | (UInt32)(1<<3);
+                    break;
+            }
+            Reg4TextBox.Text = Convert.ToString(intValue, 16);
+        }
+
         private void ChangeReg4ADiv()
         {
             UInt32 Reg4Value = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             Reg4Value &= ~(UInt32)( (1<<22) | (1<<21) | (1<<20) );
             Reg4Value += Convert.ToUInt32(ADivComboBox.SelectedIndex) << 20;
             Reg4TextBox.Text = Convert.ToString(Reg4Value, 16);
-        }
-
-        private void ClosePortButton_Click(object sender, EventArgs e)
-        {
-            EnableControls(false);
-            _serialPort.Close();
         }
 
         private void Out1Button_Click(object sender, EventArgs e)
@@ -1176,6 +1191,21 @@ namespace Synthesizer_PC_control
             }
         }
 
+        private void PhasePScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
+            handledArgs.Handled = true;
+            try{
+                PhasePNumericUpDown.Value += (handledArgs.Delta > 0) ? 1 : -1;
+            }
+            catch{
+                if (PhasePNumericUpDown.Value < PhasePNumericUpDown.Minimum)
+                    PhasePNumericUpDown.Value = PhasePNumericUpDown.Minimum;
+                else if (PhasePNumericUpDown.Value > PhasePNumericUpDown.Maximum)
+                    PhasePNumericUpDown.Value = PhasePNumericUpDown.Maximum;
+            }
+        }
+
         private void RefFTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -1262,10 +1292,22 @@ namespace Synthesizer_PC_control
 
         private void ADivComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ChangeReg4ADiv();
-            ApplyChangeReg4();
-            GetFPfdFreq();
-            GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            if (Reg0TextBox.Enabled == true)
+            {
+                ChangeReg4ADiv();
+                ApplyChangeReg4();
+                GetFPfdFreq();
+                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            }
+        }
+
+        private void PhasePNumUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if(Reg0TextBox.Enabled == true)
+            {
+                ChangeReg1PhaseP();
+                ApplyChangeReg1();
+            }
         }
     }
 }
