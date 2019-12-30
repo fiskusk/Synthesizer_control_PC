@@ -241,12 +241,12 @@ namespace Synthesizer_PC_control
                 {
                     Registers = new List<string>
                     {
-                        Reg0TextBox.Text,
-                        Reg1TextBox.Text,
-                        Reg2TextBox.Text,
-                        Reg3TextBox.Text,
-                        Reg4TextBox.Text,
-                        Reg5TextBox.Text
+                        registers[0].string_GetValue(),
+                        registers[1].string_GetValue(),
+                        registers[2].string_GetValue(),
+                        registers[3].string_GetValue(),
+                        registers[4].string_GetValue(),
+                        registers[5].string_GetValue()
                     },
                     COM_port = AvaibleCOMsComBox.Text
                 };
@@ -271,12 +271,12 @@ namespace Synthesizer_PC_control
                 {
                     Registers = new List<string>
                     {
-                        Reg0TextBox.Text,
-                        Reg1TextBox.Text,
-                        Reg2TextBox.Text,
-                        Reg3TextBox.Text,
-                        Reg4TextBox.Text,
-                        Reg5TextBox.Text
+                        registers[0].string_GetValue(),
+                        registers[1].string_GetValue(),
+                        registers[2].string_GetValue(),
+                        registers[3].string_GetValue(),
+                        registers[4].string_GetValue(),
+                        registers[5].string_GetValue()
                     },
                     COM_port = AvaibleCOMsComBox.Text
                 };
@@ -294,12 +294,12 @@ namespace Synthesizer_PC_control
 
         private void LoadRegistersFromFile(SaveWindow data)
         {
-            Reg0TextBox.Text = data.Registers[0];
-            Reg1TextBox.Text = data.Registers[1];
-            Reg2TextBox.Text = data.Registers[2];
-            Reg3TextBox.Text = data.Registers[3];
-            Reg4TextBox.Text = data.Registers[4];
-            Reg5TextBox.Text = data.Registers[5];
+            registers[0].SetValue(data.Registers[0]);
+            registers[1].SetValue(data.Registers[1]);
+            registers[2].SetValue(data.Registers[2]);
+            registers[3].SetValue(data.Registers[3]);
+            registers[4].SetValue(data.Registers[4]);
+            registers[5].SetValue(data.Registers[5]);
             GetAllFromRegisters();
         }
 
@@ -953,12 +953,12 @@ namespace Synthesizer_PC_control
             {
                 Registers = new List<string>
                 {
-                    Reg0TextBox.Text,
-                    Reg1TextBox.Text,
-                    Reg2TextBox.Text,
-                    Reg3TextBox.Text,
-                    Reg4TextBox.Text,
-                    Reg5TextBox.Text
+                    registers[0].string_GetValue(),
+                    registers[1].string_GetValue(),
+                    registers[2].string_GetValue(),
+                    registers[3].string_GetValue(),
+                    registers[4].string_GetValue(),
+                    registers[5].string_GetValue()
                 }
             };
 
@@ -1023,33 +1023,33 @@ namespace Synthesizer_PC_control
 
         private void WriteR1Button_Click(object sender, EventArgs e)
         {
-            registers[1].SetValue(Reg0TextBox.Text);
+            registers[1].SetValue(Reg1TextBox.Text);
             GetAllFromReg1();
             ApplyChangeReg1();
         }
 
         private void WriteR2Button_Click(object sender, EventArgs e)
         {
-            registers[2].SetValue(Reg0TextBox.Text);
+            registers[2].SetValue(Reg2TextBox.Text);
             ApplyChangeReg2();
         }
 
         private void WriteR3Button_Click(object sender, EventArgs e)
         {
-            registers[3].SetValue(Reg0TextBox.Text);
+            registers[3].SetValue(Reg3TextBox.Text);
             ApplyChangeReg3();
         }
 
         private void WriteR4Button_Click(object sender, EventArgs e)
         {
-            registers[4].SetValue(Reg0TextBox.Text);
+            registers[4].SetValue(Reg4TextBox.Text);
             GetAllFromReg4();
             ApplyChangeReg4();
         }
 
         private void WriteR5Button_Click(object sender, EventArgs e)
         {
-            registers[5].SetValue(Reg0TextBox.Text);
+            registers[5].SetValue(Reg5TextBox.Text);
             ApplyChangeReg5();
         }
 
