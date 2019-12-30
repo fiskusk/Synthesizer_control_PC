@@ -311,7 +311,7 @@ namespace Synthesizer_PC_control
             GetAllFromReg4();
             GetFPfdFreq();
             GetCPCurrentFromTextBox();
-            GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber)); // TODO predelat to pro NDIV zadavane z policka, ne ctenim z registru
+            GetCalcFreq(); 
             
         }
 
@@ -441,7 +441,7 @@ namespace Synthesizer_PC_control
             ADivComboBox.SelectedIndex = ADiv;
         }
 
-        private void GetCalcFreq(UInt32 dataReg4)
+        private void GetCalcFreq()
         {
             UInt16 DIVA = (UInt16)(1 << ADivComboBox.SelectedIndex);
 
@@ -452,6 +452,8 @@ namespace Synthesizer_PC_control
 
             decimal f_out_A = 0;
             decimal f_vco = 0;
+
+            // TODO pohlidat f_vco
 
             if (ModeIntFracComboBox.SelectedIndex == 1)
             {
@@ -501,6 +503,7 @@ namespace Synthesizer_PC_control
 
         private void GetFPfdFreq()
         {
+            // TODO osetrit fpfd
             string f_pfd_string = RefFTextBox.Text;
             f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
             f_pfd_string = f_pfd_string.Replace(".", ",");
@@ -789,7 +792,7 @@ namespace Synthesizer_PC_control
             {
                 GetAllFromReg0();
                 ApplyChangeReg0();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
                 
             }
         }
@@ -802,7 +805,7 @@ namespace Synthesizer_PC_control
                 GetAllFromReg1();
                 ApplyChangeReg1();
                 ApplyChangeReg0();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -814,7 +817,7 @@ namespace Synthesizer_PC_control
                 GetAllFromReg2();
                 ApplyChangeReg2();
                 ApplyChangeReg0();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -834,7 +837,7 @@ namespace Synthesizer_PC_control
             {
                 GetAllFromReg4();
                 ApplyChangeReg4();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -1071,7 +1074,7 @@ namespace Synthesizer_PC_control
                 ChangeReg0IntFracMode();
                 ApplyChangeReg2();
                 ApplyChangeReg0();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -1081,7 +1084,7 @@ namespace Synthesizer_PC_control
             {
                 ChangeReg0IntNValue();
                 ApplyChangeReg0();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -1091,7 +1094,7 @@ namespace Synthesizer_PC_control
             {
                 ChangeReg0FracNValue();
                 ApplyChangeReg0();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -1102,83 +1105,33 @@ namespace Synthesizer_PC_control
                 ChangeReg1ModValue();
                 ApplyChangeReg1();
                 ApplyChangeReg0();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
         private void FracNScrollHandlerFunction(object sender, MouseEventArgs e)
         {
-            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
-            handledArgs.Handled = true;
-            try{
-                FracNNumUpDown.Value += (handledArgs.Delta > 0) ? 1 : -1;
-            }
-            catch{
-                if (FracNNumUpDown.Value < FracNNumUpDown.Minimum)
-                    FracNNumUpDown.Value = FracNNumUpDown.Minimum;
-                else if (FracNNumUpDown.Value > FracNNumUpDown.Maximum)
-                    FracNNumUpDown.Value = FracNNumUpDown.Maximum;
-            }
+            MyFormat.ScrollHandlerFunction(FracNNumUpDown, e);
         }
 
         private void IntNScrollHandlerFunction(object sender, MouseEventArgs e)
         {
-            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
-            handledArgs.Handled = true;
-            try{
-                IntNNumUpDown.Value += (handledArgs.Delta > 0) ? 1 : -1;
-            }
-            catch{
-                if (IntNNumUpDown.Value < IntNNumUpDown.Minimum)
-                    IntNNumUpDown.Value = IntNNumUpDown.Minimum;
-                else if (IntNNumUpDown.Value > IntNNumUpDown.Maximum)
-                    IntNNumUpDown.Value = IntNNumUpDown.Maximum;
-            }
+            MyFormat.ScrollHandlerFunction(IntNNumUpDown, e);
         }
 
         private void ModScrollHandlerFunction(object sender, MouseEventArgs e)
         {
-            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
-            handledArgs.Handled = true;
-            try{
-                ModNumUpDown.Value += (handledArgs.Delta > 0) ? 1 : -1;
-            }
-            catch{
-                if (ModNumUpDown.Value < ModNumUpDown.Minimum)
-                    ModNumUpDown.Value = ModNumUpDown.Minimum;
-                else if (ModNumUpDown.Value > ModNumUpDown.Maximum)
-                    ModNumUpDown.Value = ModNumUpDown.Maximum;
-            }
+            MyFormat.ScrollHandlerFunction(ModNumUpDown, e);
         }
 
         private void RDivScrollHandlerFunction(object sender, MouseEventArgs e)
         {
-            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
-            handledArgs.Handled = true;
-            try{
-                RDivUpDown.Value += (handledArgs.Delta > 0) ? 1 : -1;
-            }
-            catch{
-                if (RDivUpDown.Value < RDivUpDown.Minimum)
-                    RDivUpDown.Value = RDivUpDown.Minimum;
-                else if (RDivUpDown.Value > RDivUpDown.Maximum)
-                    RDivUpDown.Value = RDivUpDown.Maximum;
-            }
+            MyFormat.ScrollHandlerFunction(RDivUpDown, e);
         }
 
         private void PhasePScrollHandlerFunction(object sender, MouseEventArgs e)
         {
-            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
-            handledArgs.Handled = true;
-            try{
-                PhasePNumericUpDown.Value += (handledArgs.Delta > 0) ? 1 : -1;
-            }
-            catch{
-                if (PhasePNumericUpDown.Value < PhasePNumericUpDown.Minimum)
-                    PhasePNumericUpDown.Value = PhasePNumericUpDown.Minimum;
-                else if (PhasePNumericUpDown.Value > PhasePNumericUpDown.Maximum)
-                    PhasePNumericUpDown.Value = PhasePNumericUpDown.Maximum;
-            }
+            MyFormat.ScrollHandlerFunction(PhasePNumericUpDown, e);
         }
 
         private void RefFTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -1186,27 +1139,19 @@ namespace Synthesizer_PC_control
             if (e.KeyCode == Keys.Enter)
             {
                 GetFPfdFreq();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber)); // TODO přepsat vstupni nepotrebny arg.
+                GetCalcFreq();
             }
         }
 
         private void RefFTextBox_LostFocus(object sender, EventArgs e)
         {
             GetFPfdFreq();
-            GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            GetCalcFreq();
         }
 
         private void RefFTextBox_TextChanged(object sender, EventArgs e)
         {
-            string item = RefFTextBox.Text;
-            decimal n = 0;
-            if (!decimal.TryParse(item, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                !decimal.TryParse(item, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out n) &&
-                item != String.Empty)
-            {
-                RefFTextBox.Text = item.Remove(item.Length - 1, 1);
-                RefFTextBox.SelectionStart = RefFTextBox.Text.Length;
-            }
+            MyFormat.CheckIfHasDecimalInput(RefFTextBox);
         }
 
         private void Reg0TextBox_LostFocus(object sender, EventArgs e)
@@ -1252,7 +1197,7 @@ namespace Synthesizer_PC_control
                 ApplyChangeReg2();
                 ApplyChangeReg0();
                 GetFPfdFreq();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -1264,7 +1209,7 @@ namespace Synthesizer_PC_control
                 ApplyChangeReg2();
                 ApplyChangeReg0();
                 GetFPfdFreq();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -1276,7 +1221,7 @@ namespace Synthesizer_PC_control
                 ApplyChangeReg2();
                 ApplyChangeReg0();
                 GetFPfdFreq();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -1287,7 +1232,7 @@ namespace Synthesizer_PC_control
                 ChangeReg4ADiv();
                 ApplyChangeReg4();
                 GetFPfdFreq();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -1313,7 +1258,7 @@ namespace Synthesizer_PC_control
                         RSetTextBox.Text = "2700";
                 }
                 GetCPCurrentFromTextBox();
-                GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+                GetCalcFreq();
             }
         }
 
@@ -1328,7 +1273,7 @@ namespace Synthesizer_PC_control
                     RSetTextBox.Text = "2700";
             }
             GetCPCurrentFromTextBox();
-            GetCalcFreq(UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber));
+            GetCalcFreq();
         }
 
         private void RSetTextBox_TextChanged(object sender, EventArgs e)
