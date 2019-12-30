@@ -317,7 +317,6 @@ namespace Synthesizer_PC_control
 
         private void GetAllFromReg0()
         {
-            //UInt32 reg0 = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             UInt32 reg = registers[0].uint32_GetValue();
             GetFracIntModeStatusFromRegister(reg);
             GetIntNValueFromRegister(reg);
@@ -326,16 +325,13 @@ namespace Synthesizer_PC_control
 
         private void GetAllFromReg1()
         {
-            //UInt32 reg1 = UInt32.Parse(Reg1TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             UInt32 reg = registers[1].uint32_GetValue();
-            
             GetModValueFromRegister(reg);
             GetPhasePValueFromRegister(reg);
         }
 
         private void GetAllFromReg2()
         {
-            //UInt32 reg2 = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             UInt32 reg = registers[2].uint32_GetValue();
             GetRefDoublerStatusFromRegister(reg);
             GetRefDividerStatusFromRegister(reg);
@@ -344,7 +340,6 @@ namespace Synthesizer_PC_control
 
         private void GetAllFromReg4()
         {
-            //UInt32 reg4 = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
             UInt32 reg = registers[4].uint32_GetValue();
             GetOutAENStatusFromRegister(reg);
             GetOutAPwrStatusFromRegister(reg);
@@ -554,23 +549,10 @@ namespace Synthesizer_PC_control
         // Zapise a prevede hodnotu IntN do Reg0
         private void ChangeReg0IntNValue()
         {
-            /*
-            UInt32 Reg0Value = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            Reg0Value &= ~(UInt32)(0b01111111111111111000000000000000);
-            Reg0Value += Convert.ToUInt32(IntNNumUpDown.Value) << 15;
-            Reg0TextBox.Text = Convert.ToString(Reg0Value, 16);
-            */
-
-
-            // Get value of register as UInt32
             UInt32 reg = registers[0].uint32_GetValue();
-            // Conversion
             reg &= ~(UInt32)(0b01111111111111111000000000000000);
             reg += Convert.ToUInt32(IntNNumUpDown.Value) << 15;
-            // Write new value back
             registers[0].SetValue(reg);
-
-            // TODO transfer this all to the register code
         }
 
         private void ChangeReg0FracNValue()
@@ -802,7 +784,8 @@ namespace Synthesizer_PC_control
 
         private void CheckAndApplyReg0Changes()
         {
-            if ((Reg0TextBox.Enabled == true) && (!Reg0TextBox.Text.Equals(old_reg0)))
+            registers[0].SetValue(Reg0TextBox.Text);
+            if ((Reg0TextBox.Enabled == true) && (!registers[0].string_GetValue().Equals(old_reg0)))
             {
                 GetAllFromReg0();
                 ApplyChangeReg0();
@@ -813,7 +796,8 @@ namespace Synthesizer_PC_control
 
         private void CheckAndApplyReg1Changes()
         {
-            if ((Reg1TextBox.Enabled == true) && (!Reg1TextBox.Text.Equals(old_reg1)))
+            registers[1].SetValue(Reg1TextBox.Text);
+            if ((Reg1TextBox.Enabled == true) && (!registers[1].string_GetValue().Equals(old_reg1)))
             {
                 GetAllFromReg1();
                 ApplyChangeReg1();
@@ -824,7 +808,8 @@ namespace Synthesizer_PC_control
 
         private void CheckAndApplyReg2Changes()
         {
-            if ((Reg2TextBox.Enabled == true) && (!Reg2TextBox.Text.Equals(old_reg2)))
+            registers[2].SetValue(Reg2TextBox.Text);
+            if ((Reg2TextBox.Enabled == true) && (!registers[2].string_GetValue().Equals(old_reg2)))
             {
                 GetAllFromReg2();
                 ApplyChangeReg2();
@@ -835,7 +820,8 @@ namespace Synthesizer_PC_control
 
         private void CheckAndApplyReg3Changes()
         {
-            if ((Reg3TextBox.Enabled == true) && (!Reg3TextBox.Text.Equals(old_reg3)))
+            registers[3].SetValue(Reg3TextBox.Text);
+            if ((Reg3TextBox.Enabled == true) && (!registers[3].string_GetValue().Equals(old_reg3)))
             {
                 ApplyChangeReg3();
             }
@@ -843,7 +829,8 @@ namespace Synthesizer_PC_control
 
         private void CheckAndApplyReg4Changes()
         {
-            if ((Reg4TextBox.Enabled == true) && (!Reg4TextBox.Text.Equals(old_reg4)))
+            registers[4].SetValue(Reg4TextBox.Text);
+            if ((Reg4TextBox.Enabled == true) && (!registers[4].string_GetValue().Equals(old_reg4)))
             {
                 GetAllFromReg4();
                 ApplyChangeReg4();
@@ -853,7 +840,8 @@ namespace Synthesizer_PC_control
 
         private void CheckAndApplyReg5Changes()
         {
-            if ((Reg5TextBox.Enabled == true) && (!Reg5TextBox.Text.Equals(old_reg5)))
+            registers[5].SetValue(Reg5TextBox.Text);
+            if ((Reg5TextBox.Enabled == true) && (!registers[5].string_GetValue().Equals(old_reg5)))
             {
                 ApplyChangeReg5();
             }
@@ -867,43 +855,43 @@ namespace Synthesizer_PC_control
 
         private void ApplyChangeReg0()
         {
-            string data = String.Format("plo set_register {0}", Reg0TextBox.Text);
-            old_reg0 = Reg0TextBox.Text;
+            string data = String.Format("plo set_register {0}", registers[0].string_GetValue());
+            old_reg0 = registers[0].string_GetValue();
             SendStringSerialPort(data);
         }
 
         private void ApplyChangeReg1()
         {
-            string data = String.Format("plo set_register {0}", Reg1TextBox.Text);
-            old_reg1 = Reg1TextBox.Text;
+            string data = String.Format("plo set_register {0}", registers[1].string_GetValue());
+            old_reg1 = registers[1].string_GetValue();
             SendStringSerialPort(data);
         }
 
         private void ApplyChangeReg2()
         {
-            string data = String.Format("plo set_register {0}", Reg2TextBox.Text);
-            old_reg2 = Reg2TextBox.Text;
+            string data = String.Format("plo set_register {0}", registers[2].string_GetValue());
+            old_reg2 = registers[2].string_GetValue();
             SendStringSerialPort(data);
         }
 
         private void ApplyChangeReg3()
         {
-            string data = String.Format("plo set_register {0}", Reg3TextBox.Text);
-            old_reg3 = Reg3TextBox.Text;
+            string data = String.Format("plo set_register {0}", registers[3].string_GetValue());
+            old_reg3 = registers[3].string_GetValue();
             SendStringSerialPort(data);
         }
 
         private void ApplyChangeReg4()
         {
-            string data = String.Format("plo set_register {0}", Reg4TextBox.Text);
-            old_reg4 = Reg4TextBox.Text;
+            string data = String.Format("plo set_register {0}", registers[4].string_GetValue());
+            old_reg4 = registers[4].string_GetValue();
             SendStringSerialPort(data);
         }
 
         private void ApplyChangeReg5()
         {
-            string data = String.Format("plo set_register {0}", Reg5TextBox.Text);
-            old_reg5 = Reg5TextBox.Text;
+            string data = String.Format("plo set_register {0}", registers[5].string_GetValue());
+            old_reg5 = registers[5].string_GetValue();
             SendStringSerialPort(data);
         }
 
@@ -1016,41 +1004,32 @@ namespace Synthesizer_PC_control
 
         private void WriteR0Button_Click(object sender, EventArgs e)
         {
-            registers[0].SetValue(Reg0TextBox.Text);
-            GetAllFromReg0();
-            ApplyChangeReg0();
+            CheckAndApplyReg0Changes();
         }
 
         private void WriteR1Button_Click(object sender, EventArgs e)
         {
-            registers[1].SetValue(Reg1TextBox.Text);
-            GetAllFromReg1();
-            ApplyChangeReg1();
+            CheckAndApplyReg1Changes();
         }
 
         private void WriteR2Button_Click(object sender, EventArgs e)
         {
-            registers[2].SetValue(Reg2TextBox.Text);
-            ApplyChangeReg2();
+            CheckAndApplyReg2Changes();
         }
 
         private void WriteR3Button_Click(object sender, EventArgs e)
         {
-            registers[3].SetValue(Reg3TextBox.Text);
-            ApplyChangeReg3();
+            CheckAndApplyReg3Changes();
         }
 
         private void WriteR4Button_Click(object sender, EventArgs e)
         {
-            registers[4].SetValue(Reg4TextBox.Text);
-            GetAllFromReg4();
-            ApplyChangeReg4();
+            CheckAndApplyReg4Changes();
         }
 
         private void WriteR5Button_Click(object sender, EventArgs e)
         {
-            registers[5].SetValue(Reg5TextBox.Text);
-            ApplyChangeReg5();
+            CheckAndApplyReg5Changes();
         }
 
         private void LoadRegMemory_Click(object sender, EventArgs e)
