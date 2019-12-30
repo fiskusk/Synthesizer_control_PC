@@ -22,7 +22,7 @@ namespace Synthesizer_PC_control
             uiElement.Text = value;
         }
 
-
+        #region Getters
         //UInt32 reg0 = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
         public UInt32 uint32_GetValue()
         {
@@ -34,6 +34,7 @@ namespace Synthesizer_PC_control
         {
             return value;
         }
+        #endregion
 
         #region Setters
 
@@ -50,6 +51,8 @@ namespace Synthesizer_PC_control
         }
 
         #endregion 
+
+
 
     }
 }

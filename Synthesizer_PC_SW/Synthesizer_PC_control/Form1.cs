@@ -56,12 +56,6 @@ namespace Synthesizer_PC_control
             registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
         }
 
-        private void UI_UpdateAllRegs()
-        {
-            Reg0TextBox.Text = registers[0].string_GetValue();
-            
-        }
-
         void Form1_Load(object sender, EventArgs e)
         {   
             // load avaible com ports into combbox
@@ -535,25 +529,26 @@ namespace Synthesizer_PC_control
 
         private void ChangeReg0IntFracMode()
         {
-            UInt32 Reg0Value = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            UInt32 Reg2Value = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 reg0 = registers[0].uint32_GetValue();
+            UInt32 reg2 = registers[2].uint32_GetValue();
+            
             if (ModeIntFracComboBox.SelectedIndex == 0)
             {
-                Reg0Value &= ~unchecked((UInt32)(1<<31));
-                Reg2Value &= ~unchecked((UInt32)(1<<8));
+                reg0 &= ~unchecked((UInt32)(1<<31));
+                reg2 &= ~unchecked((UInt32)(1<<8));
                 IntNNumUpDown.Minimum = 19;
                 IntNNumUpDown.Maximum = 4091;
 
             }
             else if (RF_A_EN_ComboBox.SelectedIndex == 1)
             {
-                Reg0Value |= unchecked((UInt32)(1<<31));
-                Reg2Value |= unchecked((UInt32)(1<<8));
+                reg0 |= unchecked((UInt32)(1<<31));
+                reg2 |= unchecked((UInt32)(1<<8));
                 IntNNumUpDown.Minimum = 16;
                 IntNNumUpDown.Maximum = 65535;
             }
-            Reg0TextBox.Text = Convert.ToString(Reg0Value, 16);
-            Reg2TextBox.Text = Convert.ToString(Reg2Value, 16);
+            registers[0].SetValue(reg0);
+            registers[2].SetValue(reg2);
         }
 
         // Zapise a prevede hodnotu IntN do Reg0
@@ -580,60 +575,58 @@ namespace Synthesizer_PC_control
 
         private void ChangeReg0FracNValue()
         {
-
-            UInt32 Reg0Value = UInt32.Parse(Reg0TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            Reg0Value &= ~(UInt32)(0b00000000000000000111111111111000);
-            Reg0Value += Convert.ToUInt32(FracNNumUpDown.Value) << 3;
-            Reg0TextBox.Text = Convert.ToString(Reg0Value, 16);
+            UInt32 reg = registers[0].uint32_GetValue();
+            reg &= ~(UInt32)(0b00000000000000000111111111111000);
+            reg += Convert.ToUInt32(FracNNumUpDown.Value) << 3;
+            registers[0].SetValue(reg);
         }
 
         private void ChangeReg1ModValue()
         {
-            UInt32 Reg1Value = UInt32.Parse(Reg1TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            Reg1Value &= ~(UInt32)(0b00000000000000000111111111111000);
-            Reg1Value += Convert.ToUInt32(ModNumUpDown.Value) << 3;
-            Reg1TextBox.Text = Convert.ToString(Reg1Value, 16);
+            UInt32 reg = registers[1].uint32_GetValue();
+            reg &= ~(UInt32)(0b00000000000000000111111111111000);
+            reg += Convert.ToUInt32(ModNumUpDown.Value) << 3;
+            registers[1].SetValue(reg);
             FracNNumUpDown.Maximum = ModNumUpDown.Value - 1;
         }
 
         private void ChangeReg1PhaseP()
         {
-            UInt32 Reg1Value = UInt32.Parse(Reg1TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            Reg1Value &= ~(UInt32)(0b1111111111111000000000000000);
-            Reg1Value += Convert.ToUInt32(PhasePNumericUpDown.Value) << 15;
-            Reg1TextBox.Text = Convert.ToString(Reg1Value, 16);
+            UInt32 reg = registers[1].uint32_GetValue();
+            reg &= ~(UInt32)(0b1111111111111000000000000000);
+            reg += Convert.ToUInt32(PhasePNumericUpDown.Value) << 15;
+            registers[1].SetValue(reg);
         }
 
         private void ChangeReg2RefDoubler()
         {
-            UInt32 Reg2Value = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 reg = registers[2].uint32_GetValue();
             if (DoubleRefFCheckBox.Checked == true)
             {
-                Reg2Value |= unchecked((UInt32)(1<<25));
+                reg |= unchecked((UInt32)(1<<25));
                 if ((IntNNumUpDown.Value / 2) < IntNNumUpDown.Minimum)
                     IntNNumUpDown.Value = IntNNumUpDown.Minimum;
                 else
                     IntNNumUpDown.Value = IntNNumUpDown.Value/2;
-
             }
             else
             {
-                Reg2Value &= ~unchecked((UInt32)(1<<25));
+                reg &= ~unchecked((UInt32)(1<<25));
                 if ((IntNNumUpDown.Value * 2) > IntNNumUpDown.Maximum)
                     IntNNumUpDown.Value = IntNNumUpDown.Maximum;
                 else
                     IntNNumUpDown.Value = IntNNumUpDown.Value*2;
 
             }
-            Reg2TextBox.Text = Convert.ToString(Reg2Value,16);
+            registers[2].SetValue(reg);
         }
 
         private void ChangeReg2RefDivider()
         {
-            UInt32 Reg2Value = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 reg = registers[2].uint32_GetValue();
             if (DivideBy2CheckBox.Checked == true)
             {
-                Reg2Value |= unchecked((UInt32)(1<<24));
+                reg |= unchecked((UInt32)(1<<24));
                 if ((IntNNumUpDown.Value * 2) > IntNNumUpDown.Maximum)
                     IntNNumUpDown.Value = IntNNumUpDown.Maximum;
                 else
@@ -641,67 +634,67 @@ namespace Synthesizer_PC_control
             }
             else
             {
-                Reg2Value &= ~unchecked((UInt32)(1<<24));
+                reg &= ~unchecked((UInt32)(1<<24));
                 if ((IntNNumUpDown.Value / 2) < IntNNumUpDown.Minimum)
                     IntNNumUpDown.Value = IntNNumUpDown.Minimum;
                 else
                     IntNNumUpDown.Value = IntNNumUpDown.Value/2;
 
             }
-            Reg2TextBox.Text = Convert.ToString(Reg2Value,16);
+            registers[2].SetValue(reg);
         }
 
         private void ChangeReg2RDiv()
         {
-            UInt32 Reg2Value = UInt32.Parse(Reg2TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            Reg2Value &= ~(UInt32)(0b111111111100000000000000);
-            Reg2Value += Convert.ToUInt32(RDivUpDown.Value) << 14;
-            Reg2TextBox.Text = Convert.ToString(Reg2Value, 16);
+            UInt32 reg = registers[2].uint32_GetValue();
+            reg &= ~(UInt32)(0b111111111100000000000000);
+            reg += Convert.ToUInt32(RDivUpDown.Value) << 14;
+            registers[2].SetValue(reg);
         }
 
         private void ChangeReg4OutAEn()
         {
-            UInt32 intValue = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 reg = registers[4].uint32_GetValue();
             if (RF_A_EN_ComboBox.SelectedIndex == 0)
             {
-                intValue &= ~((UInt32)(1<<5));
+                reg &= ~((UInt32)(1<<5));
             }
             else if (RF_A_EN_ComboBox.SelectedIndex == 1)
             {
-                intValue |= (UInt32)(1<<5);
+                reg |= (UInt32)(1<<5);
             }
-            Reg4TextBox.Text = Convert.ToString(intValue, 16);
+            registers[4].SetValue(reg);
         }
 
         private void ChangeReg4OutAPwr()
         {
-            UInt32 intValue = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
+            UInt32 reg = registers[4].uint32_GetValue();
             switch (RF_A_PWR_ComboBox.SelectedIndex)
             {
                 case 0:
-                    intValue &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
+                    reg &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
                     break;
                 case 1:
-                    intValue &= ~(UInt32)(1<<4);
-                    intValue |= (UInt32)(1<<3);
+                    reg &= ~(UInt32)(1<<4);
+                    reg |= (UInt32)(1<<3);
                     break;
                 case 2:
-                    intValue |= (UInt32)(1<<4);
-                    intValue &= ~(UInt32)(1<<3);
+                    reg |= (UInt32)(1<<4);
+                    reg &= ~(UInt32)(1<<3);
                     break;
                 case 3:
-                    intValue |= (UInt32)(1<<4) | (UInt32)(1<<3);
+                    reg |= (UInt32)(1<<4) | (UInt32)(1<<3);
                     break;
             }
-            Reg4TextBox.Text = Convert.ToString(intValue, 16);
+            registers[4].SetValue(reg);
         }
 
         private void ChangeReg4ADiv()
         {
-            UInt32 Reg4Value = UInt32.Parse(Reg4TextBox.Text, System.Globalization.NumberStyles.HexNumber);
-            Reg4Value &= ~(UInt32)( (1<<22) | (1<<21) | (1<<20) );
-            Reg4Value += Convert.ToUInt32(ADivComboBox.SelectedIndex) << 20;
-            Reg4TextBox.Text = Convert.ToString(Reg4Value, 16);
+            UInt32 reg = registers[4].uint32_GetValue();
+            reg &= ~(UInt32)( (1<<22) | (1<<21) | (1<<20) );
+            reg += Convert.ToUInt32(ADivComboBox.SelectedIndex) << 20;
+            registers[4].SetValue(reg);
         }
 
         private void Out1Button_Click(object sender, EventArgs e)
@@ -753,118 +746,55 @@ namespace Synthesizer_PC_control
             SendStringSerialPort("PLO init");
         }
 
-        private void Reg0TextBox_TextChanged(object sender, EventArgs e)
+        private void Reg0TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // check, if hex number is input
-            string item = Reg0TextBox.Text;
-            int n = 0;
-            if (!int.TryParse(item, System.Globalization.NumberStyles.HexNumber, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                item != String.Empty)
-            {
-                Reg0TextBox.Text = item.Remove(item.Length - 1, 1);
-                Reg0TextBox.SelectionStart = Reg0TextBox.Text.Length;
-            }
-        }
-
-        private void Reg0TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            MyFormat.CheckIfHasHexInput(e);
+            if (e.KeyChar == (char)13)
             {
                 CheckAndApplyReg0Changes();
             }
         }
 
-        private void Reg1TextBox_TextChanged(object sender, EventArgs e)
+        private void Reg1TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string item = Reg1TextBox.Text;
-            int n = 0;
-            if (!int.TryParse(item, System.Globalization.NumberStyles.HexNumber, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                item != String.Empty)
-            {
-                Reg1TextBox.Text = item.Remove(item.Length - 1, 1);
-                Reg1TextBox.SelectionStart = Reg1TextBox.Text.Length;
-            }
-        }
-        private void Reg1TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            MyFormat.CheckIfHasHexInput(e);
+            if (e.KeyChar == (char)13)
             {
                 CheckAndApplyReg1Changes();
             }
         }
 
-        private void Reg2TextBox_TextChanged(object sender, EventArgs e)
+        private void Reg2TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string item = Reg2TextBox.Text;
-            int n = 0;
-            if (!int.TryParse(item, System.Globalization.NumberStyles.HexNumber, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                item != String.Empty)
-            {
-                Reg2TextBox.Text = item.Remove(item.Length - 1, 1);
-                Reg2TextBox.SelectionStart = Reg2TextBox.Text.Length;
-            }
-        }
-        private void Reg2TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            MyFormat.CheckIfHasHexInput(e);
+            if (e.KeyChar == (char)13)
             {
                 CheckAndApplyReg2Changes();
             }
         }
 
-        private void Reg3TextBox_TextChanged(object sender, EventArgs e)
+        private void Reg3TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string item = Reg3TextBox.Text;
-            int n = 0;
-            if (!int.TryParse(item, System.Globalization.NumberStyles.HexNumber, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                item != String.Empty)
-            {
-                Reg3TextBox.Text = item.Remove(item.Length - 1, 1);
-                Reg3TextBox.SelectionStart = Reg3TextBox.Text.Length;
-            }
-        }
-        private void Reg3TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            MyFormat.CheckIfHasHexInput(e);
+            if (e.KeyChar == (char)13)
             {
                 CheckAndApplyReg3Changes();
             }
         }
 
-
-        private void Reg4TextBox_TextChanged(object sender, EventArgs e)
+        private void Reg4TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string item = Reg4TextBox.Text;
-            int n = 0;
-            if (!int.TryParse(item, System.Globalization.NumberStyles.HexNumber, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                item != String.Empty)
-            {
-                Reg4TextBox.Text = item.Remove(item.Length - 1, 1);
-                Reg4TextBox.SelectionStart = Reg4TextBox.Text.Length;
-            }
-        }
-        private void Reg4TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            MyFormat.CheckIfHasHexInput(e);
+            if (e.KeyChar == (char)13)
             {
                 CheckAndApplyReg4Changes();
             }
         }
 
-        private void Reg5TextBox_TextChanged(object sender, EventArgs e)
+        private void Reg5TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string item = Reg5TextBox.Text;
-            int n = 0;
-            if (!int.TryParse(item, System.Globalization.NumberStyles.HexNumber, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                item != String.Empty)
-            {
-                Reg5TextBox.Text = item.Remove(item.Length - 1, 1);
-                Reg5TextBox.SelectionStart = Reg5TextBox.Text.Length;
-            }
-        }
-        private void Reg5TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            MyFormat.CheckIfHasHexInput(e);
+            if (e.KeyChar == (char)13)
             {
                 CheckAndApplyReg5Changes();
             }
@@ -1086,34 +1016,40 @@ namespace Synthesizer_PC_control
 
         private void WriteR0Button_Click(object sender, EventArgs e)
         {
+            registers[0].SetValue(Reg0TextBox.Text);
             GetAllFromReg0();
             ApplyChangeReg0();
         }
 
         private void WriteR1Button_Click(object sender, EventArgs e)
         {
+            registers[1].SetValue(Reg0TextBox.Text);
             GetAllFromReg1();
             ApplyChangeReg1();
         }
 
         private void WriteR2Button_Click(object sender, EventArgs e)
         {
+            registers[2].SetValue(Reg0TextBox.Text);
             ApplyChangeReg2();
         }
 
         private void WriteR3Button_Click(object sender, EventArgs e)
         {
+            registers[3].SetValue(Reg0TextBox.Text);
             ApplyChangeReg3();
         }
 
         private void WriteR4Button_Click(object sender, EventArgs e)
         {
+            registers[4].SetValue(Reg0TextBox.Text);
             GetAllFromReg4();
             ApplyChangeReg4();
         }
 
         private void WriteR5Button_Click(object sender, EventArgs e)
         {
+            registers[5].SetValue(Reg0TextBox.Text);
             ApplyChangeReg5();
         }
 
