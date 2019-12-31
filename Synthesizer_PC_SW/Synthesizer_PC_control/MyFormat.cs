@@ -35,9 +35,9 @@ namespace Synthesizer_PC_control
             string item = sender.Text;
             decimal n = 0;
             if ((!decimal.TryParse(item, NumberStyles.AllowDecimalPoint, new NumberFormatInfo() {
-                NumberDecimalSeparator = ".", NumberGroupSeparator = " " },  out n) &&
+                NumberDecimalSeparator = ".", NumberGroupSeparator = "" },  out n) &&
                 !decimal.TryParse(item, NumberStyles.AllowDecimalPoint, new NumberFormatInfo() {
-                NumberDecimalSeparator = ",", NumberGroupSeparator = " " }, out n)) &&
+                NumberDecimalSeparator = ",", NumberGroupSeparator = "" }, out n)) &&
                 item != String.Empty)
             {
                 int position = sender.SelectionStart-1;

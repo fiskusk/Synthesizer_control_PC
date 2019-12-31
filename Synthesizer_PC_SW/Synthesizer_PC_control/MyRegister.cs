@@ -51,8 +51,5 @@ namespace Synthesizer_PC_control
         }
 
         #endregion 
-
-
-
     }
 }
