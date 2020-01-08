@@ -59,6 +59,11 @@ namespace Synthesizer_PC_control
             this.WriteR5Button = new System.Windows.Forms.Button();
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
+            this.MoveRegsIntoMemsGroupBox = new System.Windows.Forms.GroupBox();
+            this.MoveRegsIntoMem1Button = new System.Windows.Forms.Button();
+            this.MoveRegsIntoMem2Button = new System.Windows.Forms.Button();
+            this.MoveRegsIntoMem3Button = new System.Windows.Forms.Button();
+            this.MoveRegsIntoMem4Button = new System.Windows.Forms.Button();
             this.ChargePumpGroupBox = new System.Windows.Forms.GroupBox();
             this.PosPFDCheckBox = new System.Windows.Forms.CheckBox();
             this.CPCycleSlipCheckBox = new System.Windows.Forms.CheckBox();
@@ -116,6 +121,10 @@ namespace Synthesizer_PC_control
             this.MHzLabel3 = new System.Windows.Forms.Label();
             this.fPfdScreenLabel = new System.Windows.Forms.Label();
             this.SavedRegistersPage = new System.Windows.Forms.TabPage();
+            this.ImportMem4Button = new System.Windows.Forms.Button();
+            this.ImportMem3Button = new System.Windows.Forms.Button();
+            this.ImportMem2Button = new System.Windows.Forms.Button();
+            this.ImportMem1Button = new System.Windows.Forms.Button();
             this.SavReg3Label = new System.Windows.Forms.Label();
             this.R0M4 = new System.Windows.Forms.TextBox();
             this.R0M3 = new System.Windows.Forms.TextBox();
@@ -155,8 +164,16 @@ namespace Synthesizer_PC_control
             this.RegistersGroupBox = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.InputFreqTextBox = new System.Windows.Forms.TextBox();
+            this.MHzLabel6 = new System.Windows.Forms.Label();
+            this.DeltaShowLabel = new System.Windows.Forms.Label();
+            this.HzLabel = new System.Windows.Forms.Label();
+            this.DeltaLabel = new System.Windows.Forms.Label();
+            this.InputFreqLabel = new System.Windows.Forms.Label();
+            this.textBox = new System.Windows.Forms.TextBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
+            this.MoveRegsIntoMemsGroupBox.SuspendLayout();
             this.ChargePumpGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.OutInfoGroupBox.SuspendLayout();
@@ -493,6 +510,7 @@ namespace Synthesizer_PC_control
             // 
             // RegistersPage
             // 
+            this.RegistersPage.Controls.Add(this.MoveRegsIntoMemsGroupBox);
             this.RegistersPage.Controls.Add(this.ChargePumpGroupBox);
             this.RegistersPage.Controls.Add(this.groupBox1);
             this.RegistersPage.Controls.Add(this.OutInfoGroupBox);
@@ -528,6 +546,63 @@ namespace Synthesizer_PC_control
             this.RegistersPage.Text = "Registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
             this.RegistersPage.Click += new System.EventHandler(this.RegistersPage_Click);
+            // 
+            // MoveRegsIntoMemsGroupBox
+            // 
+            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem1Button);
+            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem2Button);
+            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem3Button);
+            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem4Button);
+            this.MoveRegsIntoMemsGroupBox.Location = new System.Drawing.Point(469, 13);
+            this.MoveRegsIntoMemsGroupBox.Name = "MoveRegsIntoMemsGroupBox";
+            this.MoveRegsIntoMemsGroupBox.Size = new System.Drawing.Size(214, 159);
+            this.MoveRegsIntoMemsGroupBox.TabIndex = 27;
+            this.MoveRegsIntoMemsGroupBox.TabStop = false;
+            this.MoveRegsIntoMemsGroupBox.Text = "Move actual registers into saved registers window:";
+            // 
+            // MoveRegsIntoMem1Button
+            // 
+            this.MoveRegsIntoMem1Button.Location = new System.Drawing.Point(11, 41);
+            this.MoveRegsIntoMem1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MoveRegsIntoMem1Button.Name = "MoveRegsIntoMem1Button";
+            this.MoveRegsIntoMem1Button.Size = new System.Drawing.Size(99, 23);
+            this.MoveRegsIntoMem1Button.TabIndex = 9;
+            this.MoveRegsIntoMem1Button.Text = "Memory 1";
+            this.MoveRegsIntoMem1Button.UseVisualStyleBackColor = true;
+            this.MoveRegsIntoMem1Button.Click += new System.EventHandler(this.MoveRegsIntoMem1Button_Click);
+            // 
+            // MoveRegsIntoMem2Button
+            // 
+            this.MoveRegsIntoMem2Button.Location = new System.Drawing.Point(11, 69);
+            this.MoveRegsIntoMem2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MoveRegsIntoMem2Button.Name = "MoveRegsIntoMem2Button";
+            this.MoveRegsIntoMem2Button.Size = new System.Drawing.Size(99, 23);
+            this.MoveRegsIntoMem2Button.TabIndex = 9;
+            this.MoveRegsIntoMem2Button.Text = "Memory 2";
+            this.MoveRegsIntoMem2Button.UseVisualStyleBackColor = true;
+            this.MoveRegsIntoMem2Button.Click += new System.EventHandler(this.MoveRegsIntoMem2Button_Click);
+            // 
+            // MoveRegsIntoMem3Button
+            // 
+            this.MoveRegsIntoMem3Button.Location = new System.Drawing.Point(11, 97);
+            this.MoveRegsIntoMem3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MoveRegsIntoMem3Button.Name = "MoveRegsIntoMem3Button";
+            this.MoveRegsIntoMem3Button.Size = new System.Drawing.Size(99, 23);
+            this.MoveRegsIntoMem3Button.TabIndex = 9;
+            this.MoveRegsIntoMem3Button.Text = "Memory 3";
+            this.MoveRegsIntoMem3Button.UseVisualStyleBackColor = true;
+            this.MoveRegsIntoMem3Button.Click += new System.EventHandler(this.MoveRegsIntoMem3Button_Click);
+            // 
+            // MoveRegsIntoMem4Button
+            // 
+            this.MoveRegsIntoMem4Button.Location = new System.Drawing.Point(11, 125);
+            this.MoveRegsIntoMem4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MoveRegsIntoMem4Button.Name = "MoveRegsIntoMem4Button";
+            this.MoveRegsIntoMem4Button.Size = new System.Drawing.Size(99, 23);
+            this.MoveRegsIntoMem4Button.TabIndex = 9;
+            this.MoveRegsIntoMem4Button.Text = "Memory 4";
+            this.MoveRegsIntoMem4Button.UseVisualStyleBackColor = true;
+            this.MoveRegsIntoMem4Button.Click += new System.EventHandler(this.MoveRegsIntoMem4Button_Click);
             // 
             // ChargePumpGroupBox
             // 
@@ -637,12 +712,17 @@ namespace Synthesizer_PC_control
             this.CPLinearityComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CPLinearityComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CPLinearityComboBox.FormattingEnabled = true;
+            this.CPLinearityComboBox.Items.AddRange(new object[] {
+            "0% extra",
+            "10% extra",
+            "20% extra",
+            "30% extra"});
             this.CPLinearityComboBox.Location = new System.Drawing.Point(80, 82);
             this.CPLinearityComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPLinearityComboBox.Name = "CPLinearityComboBox";
             this.CPLinearityComboBox.Size = new System.Drawing.Size(91, 24);
             this.CPLinearityComboBox.TabIndex = 16;
-            this.CPLinearityComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
+            this.CPLinearityComboBox.SelectedIndexChanged += new System.EventHandler(this.CPLinearityComboBox_SelectedIndexChanged);
             // 
             // CPTestLabel
             // 
@@ -663,7 +743,7 @@ namespace Synthesizer_PC_control
             this.CPCurrentComboBox.Name = "CPCurrentComboBox";
             this.CPCurrentComboBox.Size = new System.Drawing.Size(91, 24);
             this.CPCurrentComboBox.TabIndex = 16;
-            this.CPCurrentComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
+            this.CPCurrentComboBox.SelectedIndexChanged += new System.EventHandler(this.CPCurrentComboBox_SelectedIndexChanged);
             // 
             // CPlinearityLabel
             // 
@@ -1169,9 +1249,9 @@ namespace Synthesizer_PC_control
             this.RefFTextBox.TabIndex = 3;
             this.RefFTextBox.Text = "10,000000";
             this.RefFTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.RefFTextBox.TextChanged += new System.EventHandler(this.RefFTextBox_TextChanged);
             this.RefFTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RefFTextBox_KeyDown);
             this.RefFTextBox.LostFocus += new System.EventHandler(this.RefFTextBox_LostFocus);
-            this.RefFTextBox.TextChanged += new System.EventHandler(this.RefFTextBox_TextChanged);
             // 
             // DivideBy2CheckBox
             // 
@@ -1259,6 +1339,10 @@ namespace Synthesizer_PC_control
             // 
             // SavedRegistersPage
             // 
+            this.SavedRegistersPage.Controls.Add(this.ImportMem4Button);
+            this.SavedRegistersPage.Controls.Add(this.ImportMem3Button);
+            this.SavedRegistersPage.Controls.Add(this.ImportMem2Button);
+            this.SavedRegistersPage.Controls.Add(this.ImportMem1Button);
             this.SavedRegistersPage.Controls.Add(this.SavReg3Label);
             this.SavedRegistersPage.Controls.Add(this.R0M4);
             this.SavedRegistersPage.Controls.Add(this.R0M3);
@@ -1299,10 +1383,50 @@ namespace Synthesizer_PC_control
             this.SavedRegistersPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SavedRegistersPage.Name = "SavedRegistersPage";
             this.SavedRegistersPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SavedRegistersPage.Size = new System.Drawing.Size(696, 510);
+            this.SavedRegistersPage.Size = new System.Drawing.Size(700, 510);
             this.SavedRegistersPage.TabIndex = 1;
             this.SavedRegistersPage.Text = "Saved Registers";
             this.SavedRegistersPage.UseVisualStyleBackColor = true;
+            // 
+            // ImportMem4Button
+            // 
+            this.ImportMem4Button.Location = new System.Drawing.Point(365, 203);
+            this.ImportMem4Button.Name = "ImportMem4Button";
+            this.ImportMem4Button.Size = new System.Drawing.Size(84, 49);
+            this.ImportMem4Button.TabIndex = 21;
+            this.ImportMem4Button.Text = "Import Memory 4";
+            this.ImportMem4Button.UseVisualStyleBackColor = true;
+            this.ImportMem4Button.Click += new System.EventHandler(this.ImportMem4Button_Click);
+            // 
+            // ImportMem3Button
+            // 
+            this.ImportMem3Button.Location = new System.Drawing.Point(275, 203);
+            this.ImportMem3Button.Name = "ImportMem3Button";
+            this.ImportMem3Button.Size = new System.Drawing.Size(84, 49);
+            this.ImportMem3Button.TabIndex = 21;
+            this.ImportMem3Button.Text = "Import Memory 3";
+            this.ImportMem3Button.UseVisualStyleBackColor = true;
+            this.ImportMem3Button.Click += new System.EventHandler(this.ImportMem3Button_Click);
+            // 
+            // ImportMem2Button
+            // 
+            this.ImportMem2Button.Location = new System.Drawing.Point(185, 203);
+            this.ImportMem2Button.Name = "ImportMem2Button";
+            this.ImportMem2Button.Size = new System.Drawing.Size(84, 49);
+            this.ImportMem2Button.TabIndex = 21;
+            this.ImportMem2Button.Text = "Import Memory 2";
+            this.ImportMem2Button.UseVisualStyleBackColor = true;
+            this.ImportMem2Button.Click += new System.EventHandler(this.ImportMem2Button_Click);
+            // 
+            // ImportMem1Button
+            // 
+            this.ImportMem1Button.Location = new System.Drawing.Point(95, 203);
+            this.ImportMem1Button.Name = "ImportMem1Button";
+            this.ImportMem1Button.Size = new System.Drawing.Size(84, 49);
+            this.ImportMem1Button.TabIndex = 21;
+            this.ImportMem1Button.Text = "Import Memory 1";
+            this.ImportMem1Button.UseVisualStyleBackColor = true;
+            this.ImportMem1Button.Click += new System.EventHandler(this.ImportMem1Button_Click);
             // 
             // SavReg3Label
             // 
@@ -1341,7 +1465,7 @@ namespace Synthesizer_PC_control
             // 
             // LoadRegMemory
             // 
-            this.LoadRegMemory.Location = new System.Drawing.Point(173, 283);
+            this.LoadRegMemory.Location = new System.Drawing.Point(185, 346);
             this.LoadRegMemory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LoadRegMemory.Name = "LoadRegMemory";
             this.LoadRegMemory.Size = new System.Drawing.Size(115, 43);
@@ -1352,7 +1476,7 @@ namespace Synthesizer_PC_control
             // 
             // SaveRegMemory
             // 
-            this.SaveRegMemory.Location = new System.Drawing.Point(173, 234);
+            this.SaveRegMemory.Location = new System.Drawing.Point(185, 297);
             this.SaveRegMemory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SaveRegMemory.Name = "SaveRegMemory";
             this.SaveRegMemory.Size = new System.Drawing.Size(115, 43);
@@ -1757,18 +1881,100 @@ namespace Synthesizer_PC_control
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 16);
             // 
+            // InputFreqTextBox
+            // 
+            this.InputFreqTextBox.BackColor = System.Drawing.Color.White;
+            this.InputFreqTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.InputFreqTextBox.Location = new System.Drawing.Point(75, 290);
+            this.InputFreqTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.InputFreqTextBox.MaxLength = 12;
+            this.InputFreqTextBox.Name = "InputFreqTextBox";
+            this.InputFreqTextBox.Size = new System.Drawing.Size(109, 22);
+            this.InputFreqTextBox.TabIndex = 3;
+            this.InputFreqTextBox.Text = "2851.750000";
+            this.InputFreqTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.InputFreqTextBox.TextChanged += new System.EventHandler(this.InputFreqTextBox_TextChanged);
+            this.InputFreqTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputFreqTextBox_KeyDown);
+            this.InputFreqTextBox.LostFocus += new System.EventHandler(this.RefFTextBox_LostFocus);
+            this.InputFreqTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.InputFreqHandlerFunction);
+            // 
+            // MHzLabel6
+            // 
+            this.MHzLabel6.Location = new System.Drawing.Point(190, 293);
+            this.MHzLabel6.Name = "MHzLabel6";
+            this.MHzLabel6.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel6.TabIndex = 17;
+            this.MHzLabel6.Text = "MHz";
+            this.MHzLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // DeltaShowLabel
+            // 
+            this.DeltaShowLabel.Location = new System.Drawing.Point(75, 320);
+            this.DeltaShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DeltaShowLabel.Name = "DeltaShowLabel";
+            this.DeltaShowLabel.Size = new System.Drawing.Size(109, 16);
+            this.DeltaShowLabel.TabIndex = 20;
+            this.DeltaShowLabel.Text = "0";
+            this.DeltaShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // HzLabel
+            // 
+            this.HzLabel.Location = new System.Drawing.Point(190, 320);
+            this.HzLabel.Name = "HzLabel";
+            this.HzLabel.Size = new System.Drawing.Size(40, 17);
+            this.HzLabel.TabIndex = 17;
+            this.HzLabel.Text = "Hz";
+            this.HzLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // DeltaLabel
+            // 
+            this.DeltaLabel.Location = new System.Drawing.Point(13, 319);
+            this.DeltaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DeltaLabel.Name = "DeltaLabel";
+            this.DeltaLabel.Size = new System.Drawing.Size(61, 16);
+            this.DeltaLabel.TabIndex = 20;
+            this.DeltaLabel.Text = "Delta:";
+            this.DeltaLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // InputFreqLabel
+            // 
+            this.InputFreqLabel.Location = new System.Drawing.Point(13, 293);
+            this.InputFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.InputFreqLabel.Name = "InputFreqLabel";
+            this.InputFreqLabel.Size = new System.Drawing.Size(61, 16);
+            this.InputFreqLabel.TabIndex = 20;
+            this.InputFreqLabel.Text = "Input f:";
+            this.InputFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBox
+            // 
+            this.textBox.Location = new System.Drawing.Point(16, 406);
+            this.textBox.Multiline = true;
+            this.textBox.Name = "textBox";
+            this.textBox.ReadOnly = true;
+            this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox.Size = new System.Drawing.Size(318, 161);
+            this.textBox.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 601);
+            this.Controls.Add(this.textBox);
+            this.Controls.Add(this.InputFreqLabel);
+            this.Controls.Add(this.DeltaLabel);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.HzLabel);
+            this.Controls.Add(this.InputFreqTextBox);
             this.Controls.Add(this.RegistersTabControl);
             this.Controls.Add(this.RegistersGroupBox);
             this.Controls.Add(this.AvaibleCOMsComBox);
             this.Controls.Add(this.PloInitButton);
+            this.Controls.Add(this.DeltaShowLabel);
             this.Controls.Add(this.RefButton);
             this.Controls.Add(this.Out2Button);
+            this.Controls.Add(this.MHzLabel6);
             this.Controls.Add(this.Out1Button);
             this.Controls.Add(this.PortButton);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -1779,6 +1985,7 @@ namespace Synthesizer_PC_control
             this.RegistersTabControl.ResumeLayout(false);
             this.RegistersPage.ResumeLayout(false);
             this.RegistersPage.PerformLayout();
+            this.MoveRegsIntoMemsGroupBox.ResumeLayout(false);
             this.ChargePumpGroupBox.ResumeLayout(false);
             this.ChargePumpGroupBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1927,6 +2134,22 @@ namespace Synthesizer_PC_control
         private CheckBox CPCycleSlipCheckBox;
         private CheckBox PosPFDCheckBox;
         private ComboBox ADivComboBox;
+        private TextBox InputFreqTextBox;
+        private Label MHzLabel6;
+        private Label DeltaShowLabel;
+        private Label HzLabel;
+        private Label DeltaLabel;
+        private Label InputFreqLabel;
+        private GroupBox MoveRegsIntoMemsGroupBox;
+        private Button MoveRegsIntoMem1Button;
+        private Button MoveRegsIntoMem2Button;
+        private Button MoveRegsIntoMem3Button;
+        private Button MoveRegsIntoMem4Button;
+        private Button ImportMem4Button;
+        private Button ImportMem3Button;
+        private Button ImportMem2Button;
+        private Button ImportMem1Button;
+        private TextBox textBox;
     }
 }
 

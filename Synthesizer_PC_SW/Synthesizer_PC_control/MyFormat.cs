@@ -47,6 +47,20 @@ namespace Synthesizer_PC_control
             }
         }
 
+        public static void CheckIfHasIntegerInput(TextBox sender)
+        {
+            string item = sender.Text;
+            int n = 0;
+            if (!int.TryParse(item, System.Globalization.NumberStyles.Integer, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
+                item != String.Empty)
+            {
+                int position = sender.SelectionStart-1;
+                item = item.Remove(position, 1);
+                sender.Text = item;
+                sender.SelectionStart = position;
+            }
+        }
+
         public static void ScrollHandlerFunction(NumericUpDown sender, MouseEventArgs e)
         {
             HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;

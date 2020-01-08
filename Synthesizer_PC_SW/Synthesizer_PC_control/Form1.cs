@@ -29,9 +29,15 @@ namespace Synthesizer_PC_control
 
         private MyRegister[] registers;
 
+        delegate void MojDelegat(object MojObjekt);
+
         public class SaveWindow
         {
             public IList<string> Registers { get; set; }
+            public IList<string> Mem1 { get; set; }
+            public IList<string> Mem2 { get; set; }
+            public IList<string> Mem3 { get; set; }
+            public IList<string> Mem4 { get; set; }
             public string COM_port { get; set; }
         }
 
@@ -142,6 +148,8 @@ namespace Synthesizer_PC_control
             CPTriStateOutCheckBox.Enabled = command;
             CPCycleSlipCheckBox.Enabled = command;
             PosPFDCheckBox.Enabled = command;
+            InputFreqTextBox.Enabled = command;
+            DeltaShowLabel.Enabled = command;
         }
 
         private void SendStringSerialPort(string text)
@@ -178,23 +186,68 @@ namespace Synthesizer_PC_control
 
         void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
+            Invoke(new MojDelegat(Spracovanie), e);
+        }
+
+        void Spracovanie(object Objekt)
+        {
             try
             { // TODO zde si zjistovat na zacasku jestli je ID max2871, jinak vyhodit hlasku a zavrit port. 
                 // TODO vycitat info o tom, jestli je int/ext ref, out1, out2 on/off
                 // TODO a asi vycist pekne test register a ten soupnout do okna
                 string text = _serialPort.ReadLine();
+                textBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
                 if (text == "plo locked")
                     toolStripStatusLabel1.Text = "plo is locked";
                 else if (text == "plo isn't locked")
                     toolStripStatusLabel1.Text = "plo isn't locked!";
                 else if (text == "plo state is not known")
                     toolStripStatusLabel1.Text = "plo state is not known";
+                else
+                {
+                    string[] separrated = text.Split(' ');
+                    if (separrated[0] == "stored_data_1")
+                    {
+                        R0M1.Text = separrated[1];
+                        R1M1.Text = separrated[2];
+                        R2M1.Text = separrated[3];
+                        R3M1.Text = separrated[4];
+                        R4M1.Text = separrated[5];
+                        R5M1.Text = separrated[6];
+                    }
+                    else if (separrated[0] == "stored_data_2")
+                    {
+                        R0M2.Text = separrated[1];
+                        R1M2.Text = separrated[2];
+                        R2M2.Text = separrated[3];
+                        R3M2.Text = separrated[4];
+                        R4M2.Text = separrated[5];
+                        R5M2.Text = separrated[6];
+                    }
+                    else if (separrated[0] == "stored_data_3")
+                    {
+                        R0M3.Text = separrated[1];
+                        R1M3.Text = separrated[2];
+                        R2M3.Text = separrated[3];
+                        R3M3.Text = separrated[4];
+                        R4M3.Text = separrated[5];
+                        R5M3.Text = separrated[6];
+                    }
+                    else if (separrated[0] == "stored_data_4")
+                    {
+                        R0M4.Text = separrated[1];
+                        R1M4.Text = separrated[2];
+                        R2M4.Text = separrated[3];
+                        R3M4.Text = separrated[4];
+                        R4M4.Text = separrated[5];
+                        R5M4.Text = separrated[6];
+                    }
+                }
             }
             catch
             {
                 
             }
-            
         }
 
         private void ClosePort()
@@ -248,6 +301,42 @@ namespace Synthesizer_PC_control
                         registers[4].string_GetValue(),
                         registers[5].string_GetValue()
                     },
+                    Mem1 = new List<string>
+                    {
+                        R0M1.Text,
+                        R1M1.Text,
+                        R2M1.Text,
+                        R3M1.Text,
+                        R4M1.Text,
+                        R5M1.Text,
+                    },
+                    Mem2 = new List<string>
+                    {
+                        R0M2.Text,
+                        R1M2.Text,
+                        R2M2.Text,
+                        R3M2.Text,
+                        R4M2.Text,
+                        R5M2.Text,
+                    },
+                    Mem3 = new List<string>
+                    {
+                        R0M3.Text,
+                        R1M3.Text,
+                        R2M3.Text,
+                        R3M3.Text,
+                        R4M3.Text,
+                        R5M3.Text,
+                    },
+                    Mem4 = new List<string>
+                    {
+                        R0M4.Text,
+                        R1M4.Text,
+                        R2M4.Text,
+                        R3M4.Text,
+                        R4M4.Text,
+                        R5M4.Text,
+                    },
                     COM_port = AvaibleCOMsComBox.Text
                 };
 
@@ -278,6 +367,42 @@ namespace Synthesizer_PC_control
                         registers[4].string_GetValue(),
                         registers[5].string_GetValue()
                     },
+                    Mem1 = new List<string>
+                    {
+                        R0M1.Text,
+                        R1M1.Text,
+                        R2M1.Text,
+                        R3M1.Text,
+                        R4M1.Text,
+                        R5M1.Text,
+                    },
+                    Mem2 = new List<string>
+                    {
+                        R0M2.Text,
+                        R1M2.Text,
+                        R2M2.Text,
+                        R3M2.Text,
+                        R4M2.Text,
+                        R5M2.Text,
+                    },
+                    Mem3 = new List<string>
+                    {
+                        R0M3.Text,
+                        R1M3.Text,
+                        R2M3.Text,
+                        R3M3.Text,
+                        R4M3.Text,
+                        R5M3.Text,
+                    },
+                    Mem4 = new List<string>
+                    {
+                        R0M4.Text,
+                        R1M4.Text,
+                        R2M4.Text,
+                        R3M4.Text,
+                        R4M4.Text,
+                        R5M4.Text,
+                    },
                     COM_port = AvaibleCOMsComBox.Text
                 };
                 // serialize JSON to a string and then write string to a file
@@ -300,17 +425,41 @@ namespace Synthesizer_PC_control
             registers[3].SetValue(data.Registers[3]);
             registers[4].SetValue(data.Registers[4]);
             registers[5].SetValue(data.Registers[5]);
+            R0M1.Text = data.Mem1[0];
+            R1M1.Text = data.Mem1[1];
+            R2M1.Text = data.Mem1[2];
+            R3M1.Text = data.Mem1[3];
+            R4M1.Text = data.Mem1[4];
+            R5M1.Text = data.Mem1[5];
+            R0M2.Text = data.Mem2[0];
+            R1M2.Text = data.Mem2[1];
+            R2M2.Text = data.Mem2[2];
+            R3M2.Text = data.Mem2[3];
+            R4M2.Text = data.Mem2[4];
+            R5M2.Text = data.Mem2[5];
+            R0M3.Text = data.Mem3[0];
+            R1M3.Text = data.Mem3[1];
+            R2M3.Text = data.Mem3[2];
+            R3M3.Text = data.Mem3[3];
+            R4M3.Text = data.Mem3[4];
+            R5M3.Text = data.Mem3[5];
+            R0M4.Text = data.Mem4[0];
+            R1M4.Text = data.Mem4[1];
+            R2M4.Text = data.Mem4[2];
+            R3M4.Text = data.Mem4[3];
+            R4M4.Text = data.Mem4[4];
+            R5M4.Text = data.Mem4[5];
             GetAllFromRegisters();
         }
 
          private void GetAllFromRegisters()
         {
-            GetAllFromReg0();
-            GetAllFromReg1();
-            GetAllFromReg2();
-            GetAllFromReg4();
-            GetFPfdFreq();
             GetCPCurrentFromTextBox();
+            GetAllFromReg4();
+            GetAllFromReg2();
+            GetAllFromReg1();
+            GetAllFromReg0();
+            GetFPfdFreq();
             GetCalcFreq(); 
             
         }
@@ -328,6 +477,7 @@ namespace Synthesizer_PC_control
             UInt32 reg = registers[1].uint32_GetValue();
             GetModValueFromRegister(reg);
             GetPhasePValueFromRegister(reg);
+            GetCPLinearityFromRegister(reg);
         }
 
         private void GetAllFromReg2()
@@ -336,6 +486,7 @@ namespace Synthesizer_PC_control
             GetRefDoublerStatusFromRegister(reg);
             GetRefDividerStatusFromRegister(reg);
             GetRDivValueFromRegister(reg);
+            GetCPCurrentIndexFromRegister(reg);
         }
 
         private void GetAllFromReg4()
@@ -393,6 +544,12 @@ namespace Synthesizer_PC_control
             PhasePNumericUpDown.Value = PhaseP;
         }
 
+        private void GetCPLinearityFromRegister(UInt32 dataReg1)
+        {
+            UInt16 CPLinearity = (UInt16)((dataReg1 & ((1<<30) | (1<<29))) >> 29);
+            CPLinearityComboBox.SelectedIndex = (int)CPLinearity;
+        }
+
         private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
         {
             DoubleRefFCheckBox.Checked = Convert.ToBoolean((dataReg2 & (1 << 25)) >> 25);
@@ -407,6 +564,12 @@ namespace Synthesizer_PC_control
         {
             UInt16 RDiv = (UInt16)((dataReg2 & 0b111111111100000000000000) >> 14);
             RDivUpDown.Value = RDiv;
+        }
+
+        private void GetCPCurrentIndexFromRegister(UInt32 dataReg2)
+        {
+            UInt16 CPCurrentIndex = (UInt16)((dataReg2 & ((1<<12) | (1<<11) | (1<<10) | (1<<9))) >> 9);
+            CPCurrentComboBox.SelectedIndex = (int)CPCurrentIndex;
         }
 
         private void GetCPCurrentFromTextBox()
@@ -461,7 +624,7 @@ namespace Synthesizer_PC_control
             }
             else
             {
-                f_out_A = ((f_pfd*IntNNumUpDown.Value+(FracNNumUpDown.Value/(ModNumUpDown.Value*1.0M)))/(DIVA));
+                f_out_A = (f_pfd/DIVA)*(IntNNumUpDown.Value+(FracNNumUpDown.Value/(ModNumUpDown.Value*1.0M)));
             }
             f_vco = f_out_A*DIVA;
             if ((f_vco < 3000) || (f_vco > 6000))
@@ -583,6 +746,14 @@ namespace Synthesizer_PC_control
             registers[1].SetValue(reg);
         }
 
+        private void ChangeReg1CPLinearity()
+        {
+            UInt32 reg = registers[1].uint32_GetValue();
+            reg &= ~(UInt32)((1<<30) | (1<<29));
+            reg += Convert.ToUInt32(CPLinearityComboBox.SelectedIndex) << 29;
+            registers[1].SetValue(reg);
+        }
+
         private void ChangeReg2RefDoubler()
         {
             UInt32 reg = registers[2].uint32_GetValue();
@@ -634,6 +805,14 @@ namespace Synthesizer_PC_control
             UInt32 reg = registers[2].uint32_GetValue();
             reg &= ~(UInt32)(0b111111111100000000000000);
             reg += Convert.ToUInt32(RDivUpDown.Value) << 14;
+            registers[2].SetValue(reg);
+        }
+
+        private void ChangeReg2CPCurrent()
+        {
+            UInt32 reg = registers[2].uint32_GetValue();
+            reg &= ~(UInt32)((1<<12) | (1<<11) | (1<<10) | (1<<9));
+            reg += Convert.ToUInt32(CPCurrentComboBox.SelectedIndex) << 9;
             registers[2].SetValue(reg);
         }
 
@@ -1037,7 +1216,7 @@ namespace Synthesizer_PC_control
 
         private void LoadRegMemory_Click(object sender, EventArgs e)
         {
-
+            SendStringSerialPort("plo storedData");
         }
 
         private void SaveRegMemory_Click(object sender, EventArgs e)
@@ -1249,16 +1428,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                int value;
-                if (int.TryParse(RSetTextBox.Text, out value))
-                {
-                    if (value > 10000)
-                        RSetTextBox.Text = "10000";
-                    else if (value < 2700)
-                        RSetTextBox.Text = "2700";
-                }
-                GetCPCurrentFromTextBox();
-                GetCalcFreq();
+                RSetTextBox_LostFocus(sender, e);
             }
         }
 
@@ -1278,14 +1448,339 @@ namespace Synthesizer_PC_control
 
         private void RSetTextBox_TextChanged(object sender, EventArgs e)
         {
-            string item = RSetTextBox.Text;
-            int n = 0;
-            if (!int.TryParse(item, System.Globalization.NumberStyles.Integer, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                item != String.Empty)
+            MyFormat.CheckIfHasIntegerInput(RSetTextBox);
+        }
+
+        private void CPCurrentComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Reg0TextBox.Enabled == true)
             {
-                RSetTextBox.Text = item.Remove(item.Length - 1, 1);
-                RSetTextBox.SelectionStart = RSetTextBox.Text.Length;
+                ChangeReg2CPCurrent();
+                ApplyChangeReg2();
+                ApplyChangeReg0();
             }
+        }
+
+        private void CPLinearityComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Reg0TextBox.Enabled == true)
+            {
+                ChangeReg1CPLinearity();
+                ApplyChangeReg1();
+            }
+        }
+
+        private void InputFreqTextBox_TextChanged(object sender, EventArgs e)
+        {
+            MyFormat.CheckIfHasDecimalInput(RefFTextBox);
+        }
+
+        private void CalcSynthesizerRegValuesFromInpFreq()
+        {
+            string f_ref_string = RefFTextBox.Text;
+            f_ref_string = f_ref_string.Replace(" ", string.Empty);
+            f_ref_string = f_ref_string.Replace(".", ",");
+
+            string f_input_string = InputFreqTextBox.Text;
+            f_input_string = f_input_string.Replace(" ", string.Empty);
+            f_input_string = f_input_string.Replace(".", ",");
+
+            decimal f_ref = decimal.Parse(f_ref_string);
+            decimal f_input = decimal.Parse(f_input_string);
+
+            RDivUpDown.Value = 1;
+
+            if (f_input >= 3000 && f_input <= 6000)
+            {
+                ADivComboBox.SelectedIndex = 0;
+            }
+            else if (f_input >= 1500 && f_input < 3000)
+            {
+                ADivComboBox.SelectedIndex = 1;
+            }
+            else if (f_input >= 750 && f_input < 1500)
+            {
+                ADivComboBox.SelectedIndex = 2;
+            }
+            else if (f_input >= 375 && f_input < 750)
+            {
+                ADivComboBox.SelectedIndex = 3;
+            }
+            else if (f_input >= 187.5M && f_input < 375)
+            {
+                ADivComboBox.SelectedIndex = 4;
+            }
+            else if (f_input >= 93.75M && f_input < 187.5M)
+            {
+                ADivComboBox.SelectedIndex = 5;
+            }
+            else if (f_input >= 46.875M && f_input < 93.75M)
+            {
+                ADivComboBox.SelectedIndex = 6;
+            }
+            else if (f_input >= 23.5M && f_input < 46.875M)
+            {
+                ADivComboBox.SelectedIndex = 7;
+            }
+            else if (f_input >= 1500 && f_input < 3000)
+            {
+                ADivComboBox.SelectedIndex = 8;
+            }
+
+            UInt16 DIVA = (UInt16)(1 << ADivComboBox.SelectedIndex);
+            decimal IntN = (f_input*DIVA/(f_ref/RDivUpDown.Value));
+            decimal zbytek = IntN-(UInt16)IntN;
+
+            if (zbytek>0)
+            {
+                Fraction pokus = new Fraction();
+                //Fraction[] zaloha;
+                double accuracy;
+                int correction=1;
+                //zaloha = new Fraction[500];
+                UInt16 cnt = 0;
+                do
+                {
+                    accuracy = 0.000001;
+                    do
+                    {
+                        pokus = RealToFraction((double)zbytek, accuracy);
+                        //zaloha[cnt] = pokus;
+                        cnt++;
+                        accuracy = accuracy*10;
+                    } while ((pokus.D < 2 || pokus.D > 4095) && accuracy <= 0.00001*correction);
+                    if ((pokus.D < 2 || pokus.D > 4095))
+                    {
+
+                        RDivUpDown.Value = RDivUpDown.Value + 1;
+                        IntN = (f_input*DIVA/(f_ref/RDivUpDown.Value));
+                        zbytek = IntN-(UInt16)IntN;
+                        if (IntN > 4091)
+                        {
+                            correction = correction * 10;
+                            RDivUpDown.Value = RDivUpDown.Value - 1;
+                            IntN = (f_input*DIVA/(f_ref/RDivUpDown.Value));
+                            zbytek = IntN-(UInt16)IntN;
+                        }
+                    }
+                } while((pokus.D < 2 || pokus.D > 4095) && accuracy < 1);
+                if ((pokus.D < 2 || pokus.D > 4095))
+                {
+                    ModeIntFracComboBox.SelectedIndex = 0;
+                    pokus = new Fraction (1, 4095);
+                }
+                ModeIntFracComboBox.SelectedIndex = 0;
+                ModNumUpDown.Value = pokus.D;
+                FracNNumUpDown.Value = pokus.N;
+            }
+            else
+            {
+                ModeIntFracComboBox.SelectedIndex = 1;
+            }
+            IntNNumUpDown.Value = (UInt16)IntN;
+
+            string f_outA_string = fOutAScreenLabel.Text;
+            f_outA_string = f_outA_string.Replace(" ", string.Empty);
+            f_outA_string = f_outA_string.Replace(".", ",");
+
+            double f_out_A = double.Parse(f_outA_string);
+
+            double delta = ((double)f_input - f_out_A) * 1e6;
+            delta  = Math.Round(delta, 3, MidpointRounding.AwayFromZero);
+            if (Math.Abs(delta) > 10)
+                DeltaShowLabel.ForeColor = System.Drawing.Color.Red;
+            else
+                DeltaShowLabel.ForeColor = System.Drawing.Color.Black;
+
+            DeltaShowLabel.Text = delta.ToString ("0.###");
+
+        }
+
+        public Fraction RealToFraction(double value, double accuracy)
+        {
+            if (accuracy <= 0.0 || accuracy >= 1.0)
+            {
+                throw new ArgumentOutOfRangeException("accuracy", "Must be > 0 and < 1.");
+            }
+
+            int sign = Math.Sign(value);
+
+            if (sign == -1)
+            {
+                value = Math.Abs(value);
+            }
+
+            // Accuracy is the maximum relative error; convert to absolute maxError
+            double maxError = sign == 0 ? accuracy : value * accuracy;
+
+            int n = (int) Math.Floor(value);
+            value -= n;
+
+            if (value < maxError)
+            {
+                return new Fraction(sign * n, 1);
+            }
+
+            if (1 - maxError < value)
+            {
+                return new Fraction(sign * (n + 1), 1);
+            }
+
+            // The lower fraction is 0/1
+            int lower_n = 0;
+            int lower_d = 1;
+
+            // The upper fraction is 1/1
+            int upper_n = 1;
+            int upper_d = 1;
+
+            while (true)
+            {
+                // The middle fraction is (lower_n + upper_n) / (lower_d + upper_d)
+                int middle_n = lower_n + upper_n;
+                int middle_d = lower_d + upper_d;
+
+                if (middle_d * (value + maxError) < middle_n)
+                {
+                    // real + error < middle : middle is our new upper
+                    upper_n = middle_n;
+                    upper_d = middle_d;
+                }
+                else if (middle_n < (value - maxError) * middle_d)
+                {
+                    // middle < real - error : middle is our new lower
+                    lower_n = middle_n;
+                    lower_d = middle_d;
+                }
+                else
+                {
+                    // Middle is our best fraction
+                    return new Fraction((n * middle_d + middle_n) * sign, middle_d);
+                }
+            }
+        }
+
+        public struct Fraction
+        {
+            public Fraction(int n, int d)
+            {
+                N = n;
+                D = d;
+            }
+
+            public int N { get; private set; }
+            public int D { get; private set; }
+        }
+
+        private void InputFreqTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                CalcSynthesizerRegValuesFromInpFreq();
+            }
+        }
+
+        private void InputFreqHandlerFunction(object sender, MouseEventArgs e)
+        {
+            string f_input_string = InputFreqTextBox.Text;
+            f_input_string = f_input_string.Replace(" ", string.Empty);
+            f_input_string = f_input_string.Replace(".", ",");
+
+            double f_input = double.Parse(f_input_string);
+
+            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
+            handledArgs.Handled = true;
+            try{
+                InputFreqTextBox.Text = Convert.ToString((handledArgs.Delta > 0) ? f_input += 0.000001 : f_input -= 0.000001);
+                CalcSynthesizerRegValuesFromInpFreq();
+            }
+            catch{
+                
+            }
+        }
+
+        private void MoveRegsIntoMem1Button_Click(object sender, EventArgs e)
+        {
+            R0M1.Text = registers[0].string_GetValue();
+            R1M1.Text = registers[1].string_GetValue();
+            R2M1.Text = registers[2].string_GetValue();
+            R3M1.Text = registers[3].string_GetValue();
+            R4M1.Text = registers[4].string_GetValue();
+            R5M1.Text = registers[5].string_GetValue();
+        }
+
+        private void MoveRegsIntoMem2Button_Click(object sender, EventArgs e)
+        {
+            R0M2.Text = registers[0].string_GetValue();
+            R1M2.Text = registers[1].string_GetValue();
+            R2M2.Text = registers[2].string_GetValue();
+            R3M2.Text = registers[3].string_GetValue();
+            R4M2.Text = registers[4].string_GetValue();
+            R5M2.Text = registers[5].string_GetValue();
+        }
+
+        private void MoveRegsIntoMem3Button_Click(object sender, EventArgs e)
+        {
+            R0M3.Text = registers[0].string_GetValue();
+            R1M3.Text = registers[1].string_GetValue();
+            R2M3.Text = registers[2].string_GetValue();
+            R3M3.Text = registers[3].string_GetValue();
+            R4M3.Text = registers[4].string_GetValue();
+            R5M3.Text = registers[5].string_GetValue();
+        }
+
+        private void MoveRegsIntoMem4Button_Click(object sender, EventArgs e)
+        {
+            R0M4.Text = registers[0].string_GetValue();
+            R1M4.Text = registers[1].string_GetValue();
+            R2M4.Text = registers[2].string_GetValue();
+            R3M4.Text = registers[3].string_GetValue();
+            R4M4.Text = registers[4].string_GetValue();
+            R5M4.Text = registers[5].string_GetValue();
+        }
+
+        private void ImportMem1Button_Click(object sender, EventArgs e)
+        {
+            registers[0].SetValue(R0M1.Text);
+            registers[1].SetValue(R1M1.Text);
+            registers[2].SetValue(R2M1.Text);
+            registers[3].SetValue(R3M1.Text);
+            registers[4].SetValue(R4M1.Text);
+            registers[5].SetValue(R5M1.Text);
+            GetAllFromRegisters();
+        }
+
+        private void ImportMem2Button_Click(object sender, EventArgs e)
+        {
+            registers[0].SetValue(R0M2.Text);
+            registers[1].SetValue(R1M2.Text);
+            registers[2].SetValue(R2M2.Text);
+            registers[3].SetValue(R3M2.Text);
+            registers[4].SetValue(R4M2.Text);
+            registers[5].SetValue(R5M2.Text);
+            GetAllFromRegisters();
+        }
+
+        private void ImportMem3Button_Click(object sender, EventArgs e)
+        {
+            registers[0].SetValue(R0M3.Text);
+            registers[1].SetValue(R1M3.Text);
+            registers[2].SetValue(R2M3.Text);
+            registers[3].SetValue(R3M3.Text);
+            registers[4].SetValue(R4M3.Text);
+            registers[5].SetValue(R5M3.Text);
+            GetAllFromRegisters();
+        }
+
+        private void ImportMem4Button_Click(object sender, EventArgs e)
+        {
+            registers[0].SetValue(R0M4.Text);
+            registers[1].SetValue(R1M4.Text);
+            registers[2].SetValue(R2M4.Text);
+            registers[3].SetValue(R3M4.Text);
+            registers[4].SetValue(R4M4.Text);
+            registers[5].SetValue(R5M4.Text);
+            GetAllFromRegisters();
         }
     }
 }
