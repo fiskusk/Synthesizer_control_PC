@@ -261,6 +261,7 @@ namespace Synthesizer_PC_control
             try
             {
                 _serialPort = new SerialPort(AvaibleCOMsComBox.Text, 115200);
+                _serialPort.DtrEnable = true;
                 _serialPort.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data
                 _serialPort.NewLine = "\r";
                 _serialPort.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler);
@@ -1077,35 +1078,63 @@ namespace Synthesizer_PC_control
             SendStringSerialPort(data);
         }
 
+        private string GetControlRegister()
+        {
+            UInt32 control_register = 0;
+
+            if (Out1Button.Text == "Out 1 On")
+                control_register &= unchecked((UInt32)(~(1<<0)));
+            else
+                control_register |= (1<<0);
+
+            if (Out2Button.Text == "Out 2 On")
+                control_register &= unchecked((UInt32)(~(1<<1)));
+            else
+                control_register |= (1<<1);
+
+            if (RefButton.Text == "Ext Ref")
+                control_register &= unchecked((UInt32)(~(1<<2)));
+            else
+                control_register |= (1<<2);
+
+            return Convert.ToString(control_register, 16);
+        }
+
         private void SaveRegsMemory1()
         {
-            string data = String.Format("plo data 1 {0} {1} {2} {3} {4} {5}", 
+            
+
+            string data = String.Format("plo data 1 {0} {1} {2} {3} {4} {5} {6}", 
                     R0M1.Text, R1M1.Text, R2M1.Text, 
-                    R3M1.Text, R4M1.Text, R5M1.Text);
+                    R3M1.Text, R4M1.Text, R5M1.Text,
+                    GetControlRegister() );
             SendStringSerialPort(data);
         }
 
         private void SaveRegsMemory2()
         {
-            string data = String.Format("plo data 2 {0} {1} {2} {3} {4} {5}", 
+            string data = String.Format("plo data 2 {0} {1} {2} {3} {4} {5} {6}", 
                     R0M2.Text, R1M2.Text, R2M2.Text, 
-                    R3M2.Text, R4M2.Text, R5M2.Text);
+                    R3M2.Text, R4M2.Text, R5M2.Text,
+                    GetControlRegister() );
             SendStringSerialPort(data);
         }
 
         private void SaveRegsMemory3()
         {
-            string data = String.Format("plo data 3 {0} {1} {2} {3} {4} {5}", 
+            string data = String.Format("plo data 3 {0} {1} {2} {3} {4} {5} {6}", 
                     R0M3.Text, R1M3.Text, R2M3.Text, 
-                    R3M3.Text, R4M3.Text, R5M3.Text);
+                    R3M3.Text, R4M3.Text, R5M3.Text,
+                    GetControlRegister() );
             SendStringSerialPort(data);
         }
 
         private void SaveRegsMemory4()
         {
-            string data = String.Format("plo data 4 {0} {1} {2} {3} {4} {5}", 
+            string data = String.Format("plo data 4 {0} {1} {2} {3} {4} {5} {6}", 
                     R0M4.Text, R1M4.Text, R2M4.Text, 
-                    R3M4.Text, R4M4.Text, R5M4.Text);
+                    R3M4.Text, R4M4.Text, R5M4.Text,
+                    GetControlRegister() );
             SendStringSerialPort(data);
         }
 
