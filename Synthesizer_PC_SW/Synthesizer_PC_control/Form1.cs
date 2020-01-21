@@ -185,8 +185,6 @@ namespace Synthesizer_PC_control
                 PortButton.Text = "Open Port";
                 ClosePort();
             }
-            
-            
         }
 
         void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
