@@ -19,6 +19,7 @@ namespace Synthesizer_PC_control
     public partial class Form1 : Form
     {
         static SerialPort _serialPort;
+        bool dontRunHandler = false;
 
         static string old_reg0 = "80C90000";
         static string old_reg1 = "800103E9";
@@ -156,7 +157,11 @@ namespace Synthesizer_PC_control
         {
             try
                 {
+                    dontRunHandler = true;
                     _serialPort.WriteLine(text);
+                    while(_serialPort.ReadLine() != "OK"){}
+                    dontRunHandler = false;
+                    textBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + "command: '" + text + "' sended");
                     //_serialPort.ReadLine();
                 }
             catch
@@ -186,6 +191,7 @@ namespace Synthesizer_PC_control
 
         void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
+            if (dontRunHandler) return;
             Invoke(new MojDelegat(Spracovanie), e);
         }
 
@@ -262,6 +268,7 @@ namespace Synthesizer_PC_control
             {
                 _serialPort = new SerialPort(AvaibleCOMsComBox.Text, 115200);
                 _serialPort.DtrEnable = true;
+                _serialPort.ReadTimeout = 500;
                 _serialPort.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data
                 _serialPort.NewLine = "\r";
                 _serialPort.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler);
@@ -1102,8 +1109,6 @@ namespace Synthesizer_PC_control
 
         private void SaveRegsMemory1()
         {
-            
-
             string data = String.Format("plo data 1 {0} {1} {2} {3} {4} {5} {6}", 
                     R0M1.Text, R1M1.Text, R2M1.Text, 
                     R3M1.Text, R4M1.Text, R5M1.Text,
@@ -1245,7 +1250,7 @@ namespace Synthesizer_PC_control
 
         private void LoadRegMemory_Click(object sender, EventArgs e)
         {
-            SendStringSerialPort("plo storedData");
+            SendStringSerialPort("plo data stored?");
         }
 
         private void SaveRegMemory_Click(object sender, EventArgs e)
