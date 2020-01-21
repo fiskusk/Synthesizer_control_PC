@@ -201,7 +201,7 @@ namespace Synthesizer_PC_control
             // 
             // Out1Button
             // 
-            this.Out1Button.Location = new System.Drawing.Point(12, 127);
+            this.Out1Button.Location = new System.Drawing.Point(16, 72);
             this.Out1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Out1Button.Name = "Out1Button";
             this.Out1Button.Size = new System.Drawing.Size(100, 28);
@@ -212,7 +212,7 @@ namespace Synthesizer_PC_control
             // 
             // Out2Button
             // 
-            this.Out2Button.Location = new System.Drawing.Point(12, 161);
+            this.Out2Button.Location = new System.Drawing.Point(16, 106);
             this.Out2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Out2Button.Name = "Out2Button";
             this.Out2Button.Size = new System.Drawing.Size(100, 28);
@@ -223,7 +223,7 @@ namespace Synthesizer_PC_control
             // 
             // PloInitButton
             // 
-            this.PloInitButton.Location = new System.Drawing.Point(157, 127);
+            this.PloInitButton.Location = new System.Drawing.Point(161, 72);
             this.PloInitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PloInitButton.Name = "PloInitButton";
             this.PloInitButton.Size = new System.Drawing.Size(100, 28);
@@ -378,7 +378,7 @@ namespace Synthesizer_PC_control
             // 
             // RefButton
             // 
-            this.RefButton.Location = new System.Drawing.Point(12, 194);
+            this.RefButton.Location = new System.Drawing.Point(16, 139);
             this.RefButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RefButton.Name = "RefButton";
             this.RefButton.Size = new System.Drawing.Size(100, 28);
@@ -1885,7 +1885,7 @@ namespace Synthesizer_PC_control
             // 
             this.InputFreqTextBox.BackColor = System.Drawing.Color.White;
             this.InputFreqTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.InputFreqTextBox.Location = new System.Drawing.Point(75, 290);
+            this.InputFreqTextBox.Location = new System.Drawing.Point(80, 192);
             this.InputFreqTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.InputFreqTextBox.MaxLength = 12;
             this.InputFreqTextBox.Name = "InputFreqTextBox";
@@ -1900,7 +1900,7 @@ namespace Synthesizer_PC_control
             // 
             // MHzLabel6
             // 
-            this.MHzLabel6.Location = new System.Drawing.Point(190, 293);
+            this.MHzLabel6.Location = new System.Drawing.Point(195, 195);
             this.MHzLabel6.Name = "MHzLabel6";
             this.MHzLabel6.Size = new System.Drawing.Size(40, 17);
             this.MHzLabel6.TabIndex = 17;
@@ -1909,7 +1909,7 @@ namespace Synthesizer_PC_control
             // 
             // DeltaShowLabel
             // 
-            this.DeltaShowLabel.Location = new System.Drawing.Point(75, 320);
+            this.DeltaShowLabel.Location = new System.Drawing.Point(80, 222);
             this.DeltaShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DeltaShowLabel.Name = "DeltaShowLabel";
             this.DeltaShowLabel.Size = new System.Drawing.Size(109, 16);
@@ -1919,7 +1919,7 @@ namespace Synthesizer_PC_control
             // 
             // HzLabel
             // 
-            this.HzLabel.Location = new System.Drawing.Point(190, 320);
+            this.HzLabel.Location = new System.Drawing.Point(195, 222);
             this.HzLabel.Name = "HzLabel";
             this.HzLabel.Size = new System.Drawing.Size(40, 17);
             this.HzLabel.TabIndex = 17;
@@ -1928,7 +1928,7 @@ namespace Synthesizer_PC_control
             // 
             // DeltaLabel
             // 
-            this.DeltaLabel.Location = new System.Drawing.Point(13, 319);
+            this.DeltaLabel.Location = new System.Drawing.Point(18, 221);
             this.DeltaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DeltaLabel.Name = "DeltaLabel";
             this.DeltaLabel.Size = new System.Drawing.Size(61, 16);
@@ -1938,7 +1938,7 @@ namespace Synthesizer_PC_control
             // 
             // InputFreqLabel
             // 
-            this.InputFreqLabel.Location = new System.Drawing.Point(13, 293);
+            this.InputFreqLabel.Location = new System.Drawing.Point(18, 195);
             this.InputFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.InputFreqLabel.Name = "InputFreqLabel";
             this.InputFreqLabel.Size = new System.Drawing.Size(61, 16);
@@ -1948,12 +1948,12 @@ namespace Synthesizer_PC_control
             // 
             // textBox
             // 
-            this.textBox.Location = new System.Drawing.Point(16, 406);
+            this.textBox.Location = new System.Drawing.Point(16, 260);
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox.Size = new System.Drawing.Size(318, 161);
+            this.textBox.Size = new System.Drawing.Size(318, 307);
             this.textBox.TabIndex = 21;
             // 
             // Form1
