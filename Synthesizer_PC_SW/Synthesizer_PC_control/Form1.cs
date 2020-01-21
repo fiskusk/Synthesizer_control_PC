@@ -28,9 +28,10 @@ namespace Synthesizer_PC_control
         static string old_reg4 = "63BE80E4";
         static string old_reg5 = "00400005";
 
-        private MyRegister[] registers;
+        //private MyRegister[] registers;
+        private Controller controller;
 
-        delegate void MojDelegat(object MojObjekt);
+        delegate void SerialComDelegate(object Object);
 
         public class SaveWindow
         {
@@ -47,27 +48,16 @@ namespace Synthesizer_PC_control
             InitializeComponent();
             this.Load += Form1_Load;
 
-            InitRegisters();
-        }
-
-        private void InitRegisters()
-        {
-            // TODO If config file does not exist
-            var reg0 = new MyRegister(Reg0TextBox.Text, Reg0TextBox);
-            var reg1 = new MyRegister(Reg1TextBox.Text, Reg1TextBox);
-            var reg2 = new MyRegister(Reg2TextBox.Text, Reg2TextBox);
-            var reg3 = new MyRegister(Reg3TextBox.Text, Reg3TextBox);
-            var reg4 = new MyRegister(Reg4TextBox.Text, Reg4TextBox);
-            var reg5 = new MyRegister(Reg5TextBox.Text, Reg5TextBox);
-
-            registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
+            TextBox[] ui_registers = new TextBox[] {Reg0TextBox, Reg1TextBox, Reg2TextBox, Reg3TextBox, Reg4TextBox, Reg5TextBox};
+            controller = new Controller(ui_registers);
         }
 
         void Form1_Load(object sender, EventArgs e)
         {   
             // load avaible com ports into combbox
-            var ports = SerialPort.GetPortNames();
-            AvaibleCOMsComBox.DataSource = ports;
+            MySerialPort.GetAvaliablePorts();
+            //var ports = SerialPort.GetPortNames();
+            //AvaibleCOMsComBox.DataSource = ports;
 
             EnableControls(false);
 
@@ -174,26 +164,16 @@ namespace Synthesizer_PC_control
 
         private void PortButton_Click(object sender, EventArgs e)
         {
-            if (PortButton.Text == "Open Port")
-            {
-                PortButton.Text = "Close Port";
-                OpenPort();
-
-            }
-            else if (PortButton.Text == "Close Port")
-            {
-                PortButton.Text = "Open Port";
-                ClosePort();
-            }
+            ChangePort();
         }
 
         void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             if (dontRunHandler) return;
-            Invoke(new MojDelegat(Spracovanie), e);
+            Invoke(new SerialComDelegate(ProccesReceivedData), e);
         }
 
-        void Spracovanie(object Objekt)
+        void ProccesReceivedData(object Object)
         {
             try
             { // TODO zde si zjistovat na zacasku jestli je ID max2871, jinak vyhodit hlasku a zavrit port. 
@@ -254,32 +234,32 @@ namespace Synthesizer_PC_control
             }
         }
 
-        private void ClosePort()
+        private  void ChangePort()
         {
-            EnableControls(false);
-            _serialPort.Close();
-        }
-
-        private  void OpenPort()
-        {
-            try
+            if(controller.IsPortOpen())
             {
-                _serialPort = new SerialPort(AvaibleCOMsComBox.Text, 115200);
-                _serialPort.DtrEnable = true;
-                _serialPort.ReadTimeout = 500;
-                _serialPort.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data
-                _serialPort.NewLine = "\r";
-                _serialPort.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler);
+                EnableControls(false);
 
-                SaveWorkspaceData();
-                EnableControls(true);
+                controller.ClosePort();
+                PortButton.Text = "Open Port";
             }
-            catch
+            else
             {
-                MessageBox.Show("Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port", 
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                PortButton_Click(this, new EventArgs());    // TODO dodelat overeni, jestli se jedna o syntezator. Odesilat z modulu nejaky string ID treba MAX2871byFKU. Kdyz takovy tvar neprijde, napsat, ze takove zarizeni nelze pouzit.
+                if(controller.OpenPort())
+                {
+                    SaveWorkspaceData();
+                    EnableControls(true);
+
+                    PortButton.Text = "Close Port";
+                }
+                else
+                {   //FIXME por controllere, bvsechna hlaseni budou pod kontrolerem
+                    MessageBox.Show("Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //PortButton_Click(this, new EventArgs());    // TODO dodelat overeni, jestli se jedna o syntezator. Odesilat z modulu nejaky string ID treba MAX2871byFKU. Kdyz takovy tvar neprijde, napsat, ze takove zarizeni nelze pouzit.
+                }
             }
+            
         }
         private string GetFileNamePath(string fileName)
         {
@@ -466,7 +446,7 @@ namespace Synthesizer_PC_control
             GetAllFromReg1();
             GetAllFromReg0();
             GetFPfdFreq();
-            GetCalcFreq(); 
+            RecalcFreqInfo(); 
             
         }
 
@@ -610,7 +590,7 @@ namespace Synthesizer_PC_control
             ADivComboBox.SelectedIndex = ADiv;
         }
 
-        private void GetCalcFreq()
+        private void RecalcFreqInfo()
         {
             UInt16 DIVA = (UInt16)(1 << ADivComboBox.SelectedIndex);
 
@@ -692,30 +672,6 @@ namespace Synthesizer_PC_control
             double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
 
             fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
-        }
-
-        private void ChangeReg0IntFracMode()
-        {
-            UInt32 reg0 = registers[0].uint32_GetValue();
-            UInt32 reg2 = registers[2].uint32_GetValue();
-            
-            if (ModeIntFracComboBox.SelectedIndex == 0)
-            {
-                reg0 &= ~unchecked((UInt32)(1<<31));
-                reg2 &= ~unchecked((UInt32)(1<<8));
-                IntNNumUpDown.Minimum = 19;
-                IntNNumUpDown.Maximum = 4091;
-
-            }
-            else if (RF_A_EN_ComboBox.SelectedIndex == 1)
-            {
-                reg0 |= unchecked((UInt32)(1<<31));
-                reg2 |= unchecked((UInt32)(1<<8));
-                IntNNumUpDown.Minimum = 16;
-                IntNNumUpDown.Maximum = 65535;
-            }
-            registers[0].SetValue(reg0);
-            registers[2].SetValue(reg2);
         }
 
         // Zapise a prevede hodnotu IntN do Reg0
@@ -977,7 +933,7 @@ namespace Synthesizer_PC_control
             {
                 GetAllFromReg0();
                 ApplyChangeReg0();
-                GetCalcFreq();
+                RecalcFreqInfo();
                 
             }
         }
@@ -990,19 +946,19 @@ namespace Synthesizer_PC_control
                 GetAllFromReg1();
                 ApplyChangeReg1();
                 ApplyChangeReg0();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
         private void CheckAndApplyReg2Changes()
         {
-            registers[2].SetValue(Reg2TextBox.Text);
+            registers[].SetValue(Reg2TextBox.Text);
             if ((Reg2TextBox.Enabled == true) && (!registers[2].string_GetValue().Equals(old_reg2)))
             {
                 GetAllFromReg2();
                 ApplyChangeReg2();
                 ApplyChangeReg0();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
@@ -1022,7 +978,7 @@ namespace Synthesizer_PC_control
             {
                 GetAllFromReg4();
                 ApplyChangeReg4();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
@@ -1031,7 +987,7 @@ namespace Synthesizer_PC_control
             registers[5].SetValue(Reg5TextBox.Text);
             if ((Reg5TextBox.Enabled == true) && (!registers[5].string_GetValue().Equals(old_reg5)))
             {
-                ApplyChangeReg5();
+                ApplyChangeReg(5);
             }
         }
 
@@ -1040,46 +996,11 @@ namespace Synthesizer_PC_control
             Reg0Label.Focus();
         }
 
-
-        private void ApplyChangeReg0()
+        //TODO prenest do controlleru!!!
+        private void ApplyChangeReg(int index)
         {
-            string data = String.Format("plo set_register {0}", registers[0].string_GetValue());
-            old_reg0 = registers[0].string_GetValue();
-            SendStringSerialPort(data);
-        }
-
-        private void ApplyChangeReg1()
-        {
-            string data = String.Format("plo set_register {0}", registers[1].string_GetValue());
-            old_reg1 = registers[1].string_GetValue();
-            SendStringSerialPort(data);
-        }
-
-        private void ApplyChangeReg2()
-        {
-            string data = String.Format("plo set_register {0}", registers[2].string_GetValue());
-            old_reg2 = registers[2].string_GetValue();
-            SendStringSerialPort(data);
-        }
-
-        private void ApplyChangeReg3()
-        {
-            string data = String.Format("plo set_register {0}", registers[3].string_GetValue());
-            old_reg3 = registers[3].string_GetValue();
-            SendStringSerialPort(data);
-        }
-
-        private void ApplyChangeReg4()
-        {
-            string data = String.Format("plo set_register {0}", registers[4].string_GetValue());
-            old_reg4 = registers[4].string_GetValue();
-            SendStringSerialPort(data);
-        }
-
-        private void ApplyChangeReg5()
-        {
-            string data = String.Format("plo set_register {0}", registers[5].string_GetValue());
-            old_reg5 = registers[5].string_GetValue();
+            string data = String.Format("plo set_register {0}", controller.registers[index].string_GetValue());
+            old_reg5 = controller.registers[index].string_GetValue();
             SendStringSerialPort(data);
         }
 
@@ -1206,10 +1127,8 @@ namespace Synthesizer_PC_control
 
         private void AvaibleCOMsComBox_DropDown(object sender, EventArgs e)
         {
-            var ports = SerialPort.GetPortNames();
-            AvaibleCOMsComBox.DataSource = ports;
+            controller.serialPort.GetAvaliablePorts();
         }
-
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -1282,10 +1201,10 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true)
             {
-                ChangeReg0IntFracMode();
-                ApplyChangeReg2();
-                ApplyChangeReg0();
-                GetCalcFreq();
+                controller.ChangeIntFracMode(ModeIntFracComboBox.SelectedIndex);
+                ApplyChangeReg(2);
+                ApplyChangeReg(0);
+                RecalcFreqInfo();
             }
         }
 
@@ -1295,7 +1214,7 @@ namespace Synthesizer_PC_control
             {
                 ChangeReg0IntNValue();
                 ApplyChangeReg0();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
@@ -1305,7 +1224,7 @@ namespace Synthesizer_PC_control
             {
                 ChangeReg0FracNValue();
                 ApplyChangeReg0();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
@@ -1316,7 +1235,7 @@ namespace Synthesizer_PC_control
                 ChangeReg1ModValue();
                 ApplyChangeReg1();
                 ApplyChangeReg0();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
@@ -1350,14 +1269,14 @@ namespace Synthesizer_PC_control
             if (e.KeyCode == Keys.Enter)
             {
                 GetFPfdFreq();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
         private void RefFTextBox_LostFocus(object sender, EventArgs e)
         {
             GetFPfdFreq();
-            GetCalcFreq();
+            RecalcFreqInfo();
         }
 
         private void RefFTextBox_TextChanged(object sender, EventArgs e)
@@ -1408,7 +1327,7 @@ namespace Synthesizer_PC_control
                 ApplyChangeReg2();
                 ApplyChangeReg0();
                 GetFPfdFreq();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
@@ -1420,7 +1339,7 @@ namespace Synthesizer_PC_control
                 ApplyChangeReg2();
                 ApplyChangeReg0();
                 GetFPfdFreq();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
@@ -1432,7 +1351,7 @@ namespace Synthesizer_PC_control
                 ApplyChangeReg2();
                 ApplyChangeReg0();
                 GetFPfdFreq();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
@@ -1443,7 +1362,7 @@ namespace Synthesizer_PC_control
                 ChangeReg4ADiv();
                 ApplyChangeReg4();
                 GetFPfdFreq();
-                GetCalcFreq();
+                RecalcFreqInfo();
             }
         }
 
@@ -1475,7 +1394,7 @@ namespace Synthesizer_PC_control
                     RSetTextBox.Text = "2700";
             }
             GetCPCurrentFromTextBox();
-            GetCalcFreq();
+            RecalcFreqInfo();
         }
 
         private void RSetTextBox_TextChanged(object sender, EventArgs e)

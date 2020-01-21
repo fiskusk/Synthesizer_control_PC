@@ -7,7 +7,7 @@ namespace Synthesizer_PC_control
     {
         private TextBox uiElement;
 
-        private string value; // FIXME private
+        private string value;
 
         public MyRegister(string value, TextBox uiElement)
         {

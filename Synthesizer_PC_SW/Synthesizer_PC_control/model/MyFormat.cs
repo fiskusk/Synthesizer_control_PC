@@ -17,7 +17,7 @@ using System.Globalization;
 
 namespace Synthesizer_PC_control
 {
-    class MyFormat
+    static class MyFormat
     {
         public static void CheckIfHasHexInput(KeyPressEventArgs e)
         {
