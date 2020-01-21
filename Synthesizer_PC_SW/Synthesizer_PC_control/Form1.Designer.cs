@@ -2009,7 +2009,7 @@ namespace Synthesizer_PC_control
 
         #endregion
 
-        private System.Windows.Forms.Button PortButton;
+        public System.Windows.Forms.Button PortButton;
         private System.Windows.Forms.Button Out1Button;
         private System.Windows.Forms.Button Out2Button;
         private System.Windows.Forms.Button PloInitButton;
@@ -2029,7 +2029,7 @@ namespace Synthesizer_PC_control
         private System.Windows.Forms.Button SetAsDefaultRegButton;
         private System.Windows.Forms.Button ForceLoadRegButton;
         private System.Windows.Forms.Button LoadDefRegButton;
-        private System.Windows.Forms.ComboBox AvaibleCOMsComBox;
+        public System.Windows.Forms.ComboBox AvaibleCOMsComBox;
         private System.Windows.Forms.Button WriteR0Button;
         private System.Windows.Forms.Button WriteR1Button;
         private System.Windows.Forms.Button WriteR2Button;
@@ -2149,7 +2149,7 @@ namespace Synthesizer_PC_control
         private Button ImportMem3Button;
         private Button ImportMem2Button;
         private Button ImportMem1Button;
-        private TextBox textBox;
+        public TextBox textBox; // Hello there!, Rename me
     }
 }
 
