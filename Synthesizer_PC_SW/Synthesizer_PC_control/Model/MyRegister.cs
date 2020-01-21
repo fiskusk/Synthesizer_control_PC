@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Synthesizer_PC_control
+namespace Synthesizer_PC_control.Model
 {
-    class MyRegister
+    class MyRegister : I_UiLinked
     {
         private TextBox uiElement;
 
@@ -14,10 +14,10 @@ namespace Synthesizer_PC_control
             this.value = value;
             this.uiElement = uiElement;
 
-            UpdateUiElement();
+            UpdateUiElements();
         }
 
-        private void UpdateUiElement()
+        public void UpdateUiElements()
         {
             uiElement.Text = value;
         }
@@ -41,15 +41,14 @@ namespace Synthesizer_PC_control
         public void SetValue(string value)
         {
             this.value = value;
-            UpdateUiElement();
+            UpdateUiElements();
         }
 
         public void SetValue(UInt32 value)
         {
             this.value = Convert.ToString(value, 16);
-            UpdateUiElement();
+            UpdateUiElements();
         }
-
-        #endregion 
+        #endregion
     }
 }

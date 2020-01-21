@@ -14,6 +14,8 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Globalization;
 
+using Synthesizer_PC_control.Model;
+
 namespace Synthesizer_PC_control
 {
     public partial class Form1 : Form
@@ -32,6 +34,8 @@ namespace Synthesizer_PC_control
 
         delegate void MojDelegat(object MojObjekt);
 
+        private Controller controller;
+
         public class SaveWindow
         {
             public IList<string> Registers { get; set; }
@@ -46,6 +50,8 @@ namespace Synthesizer_PC_control
         {
             InitializeComponent();
             this.Load += Form1_Load;
+
+            controller = new Controller(this);
 
             InitRegisters();
         }
