@@ -720,29 +720,6 @@ namespace Synthesizer_PC_control
             controller.registers[4].SetValue(reg);
         }
 
-        private void ChangeReg4OutAPwr()
-        {
-            UInt32 reg = controller.registers[4].uint32_GetValue();
-            switch (RF_A_PWR_ComboBox.SelectedIndex)
-            {
-                case 0:
-                    reg &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
-                    break;
-                case 1:
-                    reg &= ~(UInt32)(1<<4);
-                    reg |= (UInt32)(1<<3);
-                    break;
-                case 2:
-                    reg |= (UInt32)(1<<4);
-                    reg &= ~(UInt32)(1<<3);
-                    break;
-                case 3:
-                    reg |= (UInt32)(1<<4) | (UInt32)(1<<3);
-                    break;
-            }
-            controller.registers[4].SetValue(reg);
-        }
-
         private void ChangeReg4ADiv()
         {
             UInt32 reg = controller.registers[4].uint32_GetValue();
@@ -1106,7 +1083,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg4TextBox.Enabled == true)
             {
-                ChangeReg4OutAPwr();
+                controller.ChangeOutAPwr(RF_A_PWR_ComboBox.SelectedIndex);
                 controller.ApplyChangeReg(4);
             }
         }

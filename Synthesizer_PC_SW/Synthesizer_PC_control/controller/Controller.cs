@@ -46,6 +46,29 @@ namespace Synthesizer_PC_control
             registers[0].SetValue(reg);
         }
 
+        public void ChangeOutAPwr(int sellectedIndex)
+        {
+            UInt32 reg = registers[4].uint32_GetValue();
+            switch (sellectedIndex)
+            {
+                case 0:
+                    reg &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
+                    break;
+                case 1:
+                    reg &= ~(UInt32)(1<<4);
+                    reg |= (UInt32)(1<<3);
+                    break;
+                case 2:
+                    reg |= (UInt32)(1<<4);
+                    reg &= ~(UInt32)(1<<3);
+                    break;
+                case 3:
+                    reg |= (UInt32)(1<<4) | (UInt32)(1<<3);
+                    break;
+            }
+            registers[4].SetValue(reg);
+        }
+
         public void ChangeIntFracMode(int selectedIndex)
         {
             UInt32 reg0 = registers[0].uint32_GetValue();
