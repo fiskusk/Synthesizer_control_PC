@@ -35,7 +35,6 @@ namespace Synthesizer_PC_control.Model
  
             dontRunHandler = false; 
  
-            GetAvaliablePorts(); 
             UpdateUiElements(); 
         } 
  

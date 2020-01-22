@@ -23,6 +23,7 @@ namespace Synthesizer_PC_control
             this.view = view;
 
             serialPort = new MySerialPort(view, view.textBox, view.PortButton, view.AvaibleCOMsComBox);
+            serialPort.GetAvaliablePorts();
 
             var reg0 = new MyRegister(view.Reg0TextBox.Text, view.Reg0TextBox);
             var reg1 = new MyRegister(view.Reg1TextBox.Text, view.Reg1TextBox);

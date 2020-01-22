@@ -8,17 +8,27 @@ namespace Synthesizer_PC_control.Model
         private TextBox uiElement;
 
         private string value; // FIXME private
+        private readonly bool updateUI;
 
+        public MyRegister(string value)
+        {
+            this.value = value;
+            updateUI = false;
+        }
         public MyRegister(string value, TextBox uiElement)
         {
             this.value = value;
             this.uiElement = uiElement;
 
+            updateUI = true;
+
             UpdateUiElements();
         }
 
-        public void UpdateUiElements()
-        {
+        public void UpdateUiElements()
+        {            if (!updateUI)
+                return;
+
             uiElement.Text = value;
         }
 
