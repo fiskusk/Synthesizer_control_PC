@@ -44,9 +44,6 @@ namespace Synthesizer_PC_control
 
         void Form1_Load(object sender, EventArgs e)
         {
-            // load avaible com ports into combbox
-            controller.serialPort.GetAvaliablePorts();
-
             EnableControls(false);
 
             // load last used COM port, if exist
