@@ -611,7 +611,7 @@ namespace Synthesizer_PC_control
             fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
         }
 
-        private void ChangeReg1PhaseP()
+        private void ChangePhaseP()
         {
             UInt32 reg = controller.registers[1].uint32_GetValue();
             reg &= ~(UInt32)(0b1111111111111000000000000000);
@@ -619,7 +619,7 @@ namespace Synthesizer_PC_control
             controller.registers[1].SetValue(reg);
         }
 
-        private void ChangeReg1CPLinearity()
+        private void ChangeCPLinearity()
         {
             UInt32 reg = controller.registers[1].uint32_GetValue();
             reg &= ~(UInt32)((1<<30) | (1<<29));
@@ -627,7 +627,7 @@ namespace Synthesizer_PC_control
             controller.registers[1].SetValue(reg);
         }
 
-        private void ChangeReg2RefDoubler()
+        private void ChangeRefDoubler()
         {
             UInt32 reg = controller.registers[2].uint32_GetValue();
             if (DoubleRefFCheckBox.Checked == true)
@@ -650,7 +650,7 @@ namespace Synthesizer_PC_control
             controller.registers[2].SetValue(reg);
         }
 
-        private void ChangeReg2RefDivider()
+        private void ChangeRefDivider()
         {
             UInt32 reg = controller.registers[2].uint32_GetValue();
             if (DivideBy2CheckBox.Checked == true)
@@ -673,7 +673,7 @@ namespace Synthesizer_PC_control
             controller.registers[2].SetValue(reg);
         }
 
-        private void ChangeReg2RDiv()
+        private void ChangeRDiv()
         {
             UInt32 reg = controller.registers[2].uint32_GetValue();
             reg &= ~(UInt32)(0b111111111100000000000000);
@@ -681,7 +681,7 @@ namespace Synthesizer_PC_control
             controller.registers[2].SetValue(reg);
         }
 
-        private void ChangeReg2CPCurrent()
+        private void ChangeCPCurrent()
         {
             UInt32 reg = controller.registers[2].uint32_GetValue();
             reg &= ~(UInt32)((1<<12) | (1<<11) | (1<<10) | (1<<9));
@@ -689,7 +689,7 @@ namespace Synthesizer_PC_control
             controller.registers[2].SetValue(reg);
         }
 
-        private void ChangeReg4ADiv()
+        private void ChangeADiv()
         {
             UInt32 reg = controller.registers[4].uint32_GetValue();
             reg &= ~(UInt32)( (1<<22) | (1<<21) | (1<<20) );
@@ -1103,7 +1103,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true) // TODO prefdelat na stav port otevren tlacitko
             {
-                ChangeReg2RefDoubler();
+                ChangeRefDoubler();
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
                 GetFPfdFreq();
@@ -1115,7 +1115,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true)
             {
-                ChangeReg2RefDivider();
+                ChangeRefDivider();
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
                 GetFPfdFreq();
@@ -1127,7 +1127,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true)
             {
-                ChangeReg2RDiv();
+                ChangeRDiv();
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
                 GetFPfdFreq();
@@ -1139,7 +1139,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true)
             {
-                ChangeReg4ADiv();
+                ChangeADiv();
                 controller.ApplyChangeReg(4);
                 GetFPfdFreq();
                 RecalcFreqInfo();
@@ -1150,7 +1150,7 @@ namespace Synthesizer_PC_control
         {
             if(Reg0TextBox.Enabled == true)
             {
-                ChangeReg1PhaseP();
+                ChangePhaseP();
                 controller.ApplyChangeReg(1);
             }
         }
@@ -1159,7 +1159,7 @@ namespace Synthesizer_PC_control
         {
             if(Reg0TextBox.Enabled == true)
             {
-                ChangeReg2CPCurrent();
+                ChangeCPCurrent();
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
             }
@@ -1169,7 +1169,7 @@ namespace Synthesizer_PC_control
         {
             if(Reg0TextBox.Enabled == true)
             {
-                ChangeReg1CPLinearity();
+                ChangeCPLinearity();
                 controller.ApplyChangeReg(1);
             }
         }
