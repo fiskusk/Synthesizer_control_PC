@@ -1099,6 +1099,86 @@ namespace Synthesizer_PC_control
             }
         }
 
+        private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true) // TODO prefdelat na stav port otevren tlacitko
+            {
+                ChangeReg2RefDoubler();
+                controller.ApplyChangeReg(2);
+                controller.ApplyChangeReg(0);
+                GetFPfdFreq();
+                RecalcFreqInfo();
+            }
+        }
+
+        private void DivideBy2CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true)
+            {
+                ChangeReg2RefDivider();
+                controller.ApplyChangeReg(2);
+                controller.ApplyChangeReg(0);
+                GetFPfdFreq();
+                RecalcFreqInfo();
+            }
+        }
+
+        private void RDivUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true)
+            {
+                ChangeReg2RDiv();
+                controller.ApplyChangeReg(2);
+                controller.ApplyChangeReg(0);
+                GetFPfdFreq();
+                RecalcFreqInfo();
+            }
+        }
+
+        private void ADivComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Reg0TextBox.Enabled == true)
+            {
+                ChangeReg4ADiv();
+                controller.ApplyChangeReg(4);
+                GetFPfdFreq();
+                RecalcFreqInfo();
+            }
+        }
+
+        private void PhasePNumUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if(Reg0TextBox.Enabled == true)
+            {
+                ChangeReg1PhaseP();
+                controller.ApplyChangeReg(1);
+            }
+        }
+
+        private void CPCurrentComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Reg0TextBox.Enabled == true)
+            {
+                ChangeReg2CPCurrent();
+                controller.ApplyChangeReg(2);
+                controller.ApplyChangeReg(0);
+            }
+        }
+
+        private void CPLinearityComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Reg0TextBox.Enabled == true)
+            {
+                ChangeReg1CPLinearity();
+                controller.ApplyChangeReg(1);
+            }
+        }
+
+        private void InputFreqTextBox_TextChanged(object sender, EventArgs e)
+        {
+            MyFormat.CheckIfHasDecimalInput(RefFTextBox);
+        }
+
         private void FracNScrollHandlerFunction(object sender, MouseEventArgs e)
         {
             MyFormat.ScrollHandlerFunction(FracNNumUpDown, e);
@@ -1179,62 +1259,6 @@ namespace Synthesizer_PC_control
             Reg0Label.Focus();
         }
 
-        private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Reg0TextBox.Enabled == true) // TODO prefdelat na stav port otevren tlacitko
-            {
-                ChangeReg2RefDoubler();
-                controller.ApplyChangeReg(2);
-                controller.ApplyChangeReg(0);
-                GetFPfdFreq();
-                RecalcFreqInfo();
-            }
-        }
-
-        private void DivideBy2CheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Reg0TextBox.Enabled == true)
-            {
-                ChangeReg2RefDivider();
-                controller.ApplyChangeReg(2);
-                controller.ApplyChangeReg(0);
-                GetFPfdFreq();
-                RecalcFreqInfo();
-            }
-        }
-
-        private void RDivUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (Reg0TextBox.Enabled == true)
-            {
-                ChangeReg2RDiv();
-                controller.ApplyChangeReg(2);
-                controller.ApplyChangeReg(0);
-                GetFPfdFreq();
-                RecalcFreqInfo();
-            }
-        }
-
-        private void ADivComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (Reg0TextBox.Enabled == true)
-            {
-                ChangeReg4ADiv();
-                controller.ApplyChangeReg(4);
-                GetFPfdFreq();
-                RecalcFreqInfo();
-            }
-        }
-
-        private void PhasePNumUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if(Reg0TextBox.Enabled == true)
-            {
-                ChangeReg1PhaseP();
-                controller.ApplyChangeReg(1);
-            }
-        }
-
         private void RSetTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -1260,30 +1284,6 @@ namespace Synthesizer_PC_control
         private void RSetTextBox_TextChanged(object sender, EventArgs e)
         {
             MyFormat.CheckIfHasIntegerInput(RSetTextBox);
-        }
-
-        private void CPCurrentComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(Reg0TextBox.Enabled == true)
-            {
-                ChangeReg2CPCurrent();
-                controller.ApplyChangeReg(2);
-                controller.ApplyChangeReg(0);
-            }
-        }
-
-        private void CPLinearityComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(Reg0TextBox.Enabled == true)
-            {
-                ChangeReg1CPLinearity();
-                controller.ApplyChangeReg(1);
-            }
-        }
-
-        private void InputFreqTextBox_TextChanged(object sender, EventArgs e)
-        {
-            MyFormat.CheckIfHasDecimalInput(RefFTextBox);
         }
 
         private void CalcSynthesizerRegValuesFromInpFreq()
