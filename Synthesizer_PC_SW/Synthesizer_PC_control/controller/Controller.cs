@@ -63,10 +63,10 @@ namespace Synthesizer_PC_control
             view.FracNNumUpDown.Maximum = ModValue - 1;
         }
 
-        public void ChangeOutAPwr(int sellectedIndex)
+        public void ChangeOutAPwr(int selectedIndex)
         {
             UInt32 reg = registers[4].uint32_GetValue();
-            switch (sellectedIndex)
+            switch (selectedIndex)
             {
                 case 0:
                     reg &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
@@ -125,6 +125,93 @@ namespace Synthesizer_PC_control
             registers[0].SetValue(reg0);
             registers[2].SetValue(reg2);
         }
+
+        public void ChangePhaseP(decimal PhasePValue)
+        {
+            UInt32 reg = registers[1].uint32_GetValue();
+            reg &= ~(UInt32)(0b1111111111111000000000000000);
+            reg += Convert.ToUInt32(PhasePValue) << 15;
+            registers[1].SetValue(reg);
+        }
+
+        public void ChangeCPLinearity(int selectedIndex)
+        {
+            UInt32 reg = registers[1].uint32_GetValue();
+            reg &= ~(UInt32)((1<<30) | (1<<29));
+            reg += Convert.ToUInt32(selectedIndex) << 29;
+            registers[1].SetValue(reg);
+        }
+
+        public void ChangeRefDoubler(bool IsActive)
+        {
+            UInt32 reg = registers[2].uint32_GetValue();
+            if (IsActive == true)
+            {
+                reg |= unchecked((UInt32)(1<<25));
+                if ((view.IntNNumUpDown.Value / 2) < view.IntNNumUpDown.Minimum)
+                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Minimum;
+                else
+                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Value/2;
+            }
+            else
+            {
+                reg &= ~unchecked((UInt32)(1<<25));
+                if ((view.IntNNumUpDown.Value * 2) > view.IntNNumUpDown.Maximum)
+                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Maximum;
+                else
+                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Value*2;
+
+            }
+            registers[2].SetValue(reg);
+        }
+
+        public void ChangeRefDivider(bool IsActive)
+        {
+            UInt32 reg = registers[2].uint32_GetValue();
+            if (IsActive == true)
+            {
+                reg |= unchecked((UInt32)(1<<24));
+                if ((view.IntNNumUpDown.Value * 2) > view.IntNNumUpDown.Maximum)
+                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Maximum;
+                else
+                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Value*2;
+            }
+            else
+            {
+                reg &= ~unchecked((UInt32)(1<<24));
+                if ((view.IntNNumUpDown.Value / 2) < view.IntNNumUpDown.Minimum)
+                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Minimum;
+                else
+                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Value/2;
+
+            }
+            registers[2].SetValue(reg);
+        }
+
+        public void ChangeRDiv(decimal RDividerValue)
+        {
+            UInt32 reg = registers[2].uint32_GetValue();
+            reg &= ~(UInt32)(0b111111111100000000000000);
+            reg += Convert.ToUInt32(RDividerValue) << 14;
+            registers[2].SetValue(reg);
+        }
+
+        public void ChangeCPCurrent(int selectedIndex)
+        {
+            UInt32 reg = registers[2].uint32_GetValue();
+            reg &= ~(UInt32)((1<<12) | (1<<11) | (1<<10) | (1<<9));
+            reg += Convert.ToUInt32(selectedIndex) << 9;
+            registers[2].SetValue(reg);
+        }
+
+        public void ChangeADiv(int selectedIndex)
+        {
+            UInt32 reg = registers[4].uint32_GetValue();
+            reg &= ~(UInt32)( (1<<22) | (1<<21) | (1<<20) );
+            reg += Convert.ToUInt32(selectedIndex) << 20;
+            registers[4].SetValue(reg);
+        }
+
 #endregion
 
 #region Serial port

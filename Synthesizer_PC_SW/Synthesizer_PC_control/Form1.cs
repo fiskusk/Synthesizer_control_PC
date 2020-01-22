@@ -611,92 +611,6 @@ namespace Synthesizer_PC_control
             fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
         }
 
-        private void ChangePhaseP()
-        {
-            UInt32 reg = controller.registers[1].uint32_GetValue();
-            reg &= ~(UInt32)(0b1111111111111000000000000000);
-            reg += Convert.ToUInt32(PhasePNumericUpDown.Value) << 15;
-            controller.registers[1].SetValue(reg);
-        }
-
-        private void ChangeCPLinearity()
-        {
-            UInt32 reg = controller.registers[1].uint32_GetValue();
-            reg &= ~(UInt32)((1<<30) | (1<<29));
-            reg += Convert.ToUInt32(CPLinearityComboBox.SelectedIndex) << 29;
-            controller.registers[1].SetValue(reg);
-        }
-
-        private void ChangeRefDoubler()
-        {
-            UInt32 reg = controller.registers[2].uint32_GetValue();
-            if (DoubleRefFCheckBox.Checked == true)
-            {
-                reg |= unchecked((UInt32)(1<<25));
-                if ((IntNNumUpDown.Value / 2) < IntNNumUpDown.Minimum)
-                    IntNNumUpDown.Value = IntNNumUpDown.Minimum;
-                else
-                    IntNNumUpDown.Value = IntNNumUpDown.Value/2;
-            }
-            else
-            {
-                reg &= ~unchecked((UInt32)(1<<25));
-                if ((IntNNumUpDown.Value * 2) > IntNNumUpDown.Maximum)
-                    IntNNumUpDown.Value = IntNNumUpDown.Maximum;
-                else
-                    IntNNumUpDown.Value = IntNNumUpDown.Value*2;
-
-            }
-            controller.registers[2].SetValue(reg);
-        }
-
-        private void ChangeRefDivider()
-        {
-            UInt32 reg = controller.registers[2].uint32_GetValue();
-            if (DivideBy2CheckBox.Checked == true)
-            {
-                reg |= unchecked((UInt32)(1<<24));
-                if ((IntNNumUpDown.Value * 2) > IntNNumUpDown.Maximum)
-                    IntNNumUpDown.Value = IntNNumUpDown.Maximum;
-                else
-                    IntNNumUpDown.Value = IntNNumUpDown.Value*2;
-            }
-            else
-            {
-                reg &= ~unchecked((UInt32)(1<<24));
-                if ((IntNNumUpDown.Value / 2) < IntNNumUpDown.Minimum)
-                    IntNNumUpDown.Value = IntNNumUpDown.Minimum;
-                else
-                    IntNNumUpDown.Value = IntNNumUpDown.Value/2;
-
-            }
-            controller.registers[2].SetValue(reg);
-        }
-
-        private void ChangeRDiv()
-        {
-            UInt32 reg = controller.registers[2].uint32_GetValue();
-            reg &= ~(UInt32)(0b111111111100000000000000);
-            reg += Convert.ToUInt32(RDivUpDown.Value) << 14;
-            controller.registers[2].SetValue(reg);
-        }
-
-        private void ChangeCPCurrent()
-        {
-            UInt32 reg = controller.registers[2].uint32_GetValue();
-            reg &= ~(UInt32)((1<<12) | (1<<11) | (1<<10) | (1<<9));
-            reg += Convert.ToUInt32(CPCurrentComboBox.SelectedIndex) << 9;
-            controller.registers[2].SetValue(reg);
-        }
-
-        private void ChangeADiv()
-        {
-            UInt32 reg = controller.registers[4].uint32_GetValue();
-            reg &= ~(UInt32)( (1<<22) | (1<<21) | (1<<20) );
-            reg += Convert.ToUInt32(ADivComboBox.SelectedIndex) << 20;
-            controller.registers[4].SetValue(reg);
-        }
-
         private void Out1Button_Click(object sender, EventArgs e)
         {
             if (Out1Button.Text == "Out 1 On")
@@ -1103,7 +1017,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true) // TODO prefdelat na stav port otevren tlacitko
             {
-                ChangeRefDoubler();
+                controller.ChangeRefDoubler(DoubleRefFCheckBox.Checked);
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
                 GetFPfdFreq();
@@ -1115,7 +1029,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true)
             {
-                ChangeRefDivider();
+                controller.ChangeRefDivider(DivideBy2CheckBox.Checked);
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
                 GetFPfdFreq();
@@ -1127,7 +1041,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true)
             {
-                ChangeRDiv();
+                controller.ChangeRDiv(RDivUpDown.Value);
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
                 GetFPfdFreq();
@@ -1139,7 +1053,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true)
             {
-                ChangeADiv();
+                controller.ChangeADiv(ADivComboBox.SelectedIndex);
                 controller.ApplyChangeReg(4);
                 GetFPfdFreq();
                 RecalcFreqInfo();
@@ -1150,7 +1064,7 @@ namespace Synthesizer_PC_control
         {
             if(Reg0TextBox.Enabled == true)
             {
-                ChangePhaseP();
+                controller.ChangePhaseP(PhasePNumericUpDown.Value);
                 controller.ApplyChangeReg(1);
             }
         }
@@ -1159,7 +1073,7 @@ namespace Synthesizer_PC_control
         {
             if(Reg0TextBox.Enabled == true)
             {
-                ChangeCPCurrent();
+                controller.ChangeCPCurrent(CPCurrentComboBox.SelectedIndex);
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
             }
@@ -1169,7 +1083,7 @@ namespace Synthesizer_PC_control
         {
             if(Reg0TextBox.Enabled == true)
             {
-                ChangeCPLinearity();
+                controller.ChangeCPLinearity(CPLinearityComboBox.SelectedIndex);
                 controller.ApplyChangeReg(1);
             }
         }
