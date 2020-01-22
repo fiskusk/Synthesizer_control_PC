@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Synthesizer_PC_control
+namespace Synthesizer_PC_control.Model
 {
-    class MyRegister
+    class MyRegister : I_UiLinked
     {
         private TextBox uiElement;
 
-        private string value;
+        private string value; // FIXME private
 
         public MyRegister(string value, TextBox uiElement)
         {
             this.value = value;
             this.uiElement = uiElement;
 
-            UpdateUiElement();
+            UpdateUiElements();
         }
 
-        private void UpdateUiElement()
-        {
-            uiElement.Text = value;
+        public void UpdateUiElements()
+        {
+            uiElement.Text = value;
         }
 
         #region Getters
@@ -41,15 +41,14 @@ namespace Synthesizer_PC_control
         public void SetValue(string value)
         {
             this.value = value;
-            UpdateUiElement();
+            UpdateUiElements();
         }
 
         public void SetValue(UInt32 value)
         {
             this.value = Convert.ToString(value, 16);
-            UpdateUiElement();
-        }
-
-        #endregion 
+            UpdateUiElements();
+        }
+        #endregion
     }
 }

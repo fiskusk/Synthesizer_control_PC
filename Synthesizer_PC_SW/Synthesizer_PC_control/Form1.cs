@@ -14,13 +14,12 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System.Globalization;
 
+using Synthesizer_PC_control.Model;
+
 namespace Synthesizer_PC_control
 {
     public partial class Form1 : Form
     {
-        static SerialPort _serialPort;
-        bool dontRunHandler = false;
-
         static string old_reg0 = "80C90000";
         static string old_reg1 = "800103E9";
         static string old_reg2 = "00005F42";
@@ -49,15 +48,13 @@ namespace Synthesizer_PC_control
             this.Load += Form1_Load;
 
             TextBox[] ui_registers = new TextBox[] {Reg0TextBox, Reg1TextBox, Reg2TextBox, Reg3TextBox, Reg4TextBox, Reg5TextBox};
-            controller = new Controller(ui_registers);
+            controller = new Controller(this);
         }
 
         void Form1_Load(object sender, EventArgs e)
-        {   
+        {
             // load avaible com ports into combbox
-            MySerialPort.GetAvaliablePorts();
-            //var ports = SerialPort.GetPortNames();
-            //AvaibleCOMsComBox.DataSource = ports;
+            controller.serialPort.GetAvaliablePorts();
 
             EnableControls(false);
 
@@ -65,7 +62,7 @@ namespace Synthesizer_PC_control
             LoadSavedWorkspaceData();
         }
 
-        private void EnableControls(bool command)
+        public void EnableControls(bool command)
         {
             AvaibleCOMsComBox.Enabled = !command;
             Out1Button.Enabled = command;
@@ -143,43 +140,21 @@ namespace Synthesizer_PC_control
             DeltaShowLabel.Enabled = command;
         }
 
-        private void SendStringSerialPort(string text)
-        {
-            try
-                {
-                    dontRunHandler = true;
-                    _serialPort.WriteLine(text);
-                    while(_serialPort.ReadLine() != "OK"){}
-                    dontRunHandler = false;
-                    textBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + "command: '" + text + "' sended");
-                    //_serialPort.ReadLine();
-                }
-            catch
-            {
-                MessageBox.Show("Device doesn't work", "COM Port Error",
-                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                PortButton_Click(this, new EventArgs());
-            }
-        }
-
         private void PortButton_Click(object sender, EventArgs e)
         {
-            ChangePort();
+            controller.SwitchPort();
         }
 
-        void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        public void Spracovanie(object Objekt) // FIXME anglicky nazev
         {
-            if (dontRunHandler) return;
-            Invoke(new SerialComDelegate(ProccesReceivedData), e);
-        }
-
         void ProccesReceivedData(object Object)
         {
             try
             { // TODO zde si zjistovat na zacasku jestli je ID max2871, jinak vyhodit hlasku a zavrit port. 
                 // TODO vycitat info o tom, jestli je int/ext ref, out1, out2 on/off
                 // TODO a asi vycist pekne test register a ten soupnout do okna
-                string text = _serialPort.ReadLine();
+                //string text = _serialPort.ReadLine();
+                string text = controller.serialPort.ReadLine();
                 textBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
                 if (text == "plo locked")
                     toolStripStatusLabel1.Text = "plo is locked";
@@ -233,34 +208,7 @@ namespace Synthesizer_PC_control
                 
             }
         }
-
-        private  void ChangePort()
-        {
-            if(controller.IsPortOpen())
-            {
-                EnableControls(false);
-
-                controller.ClosePort();
-                PortButton.Text = "Open Port";
-            }
-            else
-            {
-                if(controller.OpenPort())
-                {
-                    SaveWorkspaceData();
-                    EnableControls(true);
-
-                    PortButton.Text = "Close Port";
-                }
-                else
-                {   //FIXME por controllere, bvsechna hlaseni budou pod kontrolerem
-                    MessageBox.Show("Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //PortButton_Click(this, new EventArgs());    // TODO dodelat overeni, jestli se jedna o syntezator. Odesilat z modulu nejaky string ID treba MAX2871byFKU. Kdyz takovy tvar neprijde, napsat, ze takove zarizeni nelze pouzit.
-                }
-            }
-            
-        }
+        
         private string GetFileNamePath(string fileName)
         {
             string actual_dir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
@@ -270,7 +218,7 @@ namespace Synthesizer_PC_control
             return folder + fileName;
         }
 
-        private void SaveWorkspaceData()
+        public void SaveWorkspaceData()
         {
             try   
             {   
@@ -828,12 +776,12 @@ namespace Synthesizer_PC_control
             if (Out1Button.Text == "Out 1 On")
             {
                 Out1Button.Text = "Out 1 Off";
-                SendStringSerialPort("out 1 on");
+                controller.serialPort.SendStringSerialPort("out 1 on");
             }
             else if (Out1Button.Text == "Out 1 Off")
             {
                 Out1Button.Text = "Out 1 On";
-                SendStringSerialPort("out 1 off");
+                controller.serialPort.SendStringSerialPort("out 1 off");
             }
         }
 
@@ -842,13 +790,13 @@ namespace Synthesizer_PC_control
             if (Out2Button.Text == "Out 2 On")
             {
                 Out2Button.Text = "Out 2 Off";
-                SendStringSerialPort("out 2 on");
+                controller.serialPort.SendStringSerialPort("out 2 on");
             }
 
             else if (Out2Button.Text == "Out 2 Off")
             {
                 Out2Button.Text = "Out 2 On";
-                SendStringSerialPort("out 2 off");
+                controller.serialPort.SendStringSerialPort("out 2 off");
             }
         }
 
@@ -857,19 +805,19 @@ namespace Synthesizer_PC_control
             if (RefButton.Text == "Ext Ref")
             {
                 RefButton.Text = "Int Ref";
-                SendStringSerialPort("ref ext");
+                controller.serialPort.SendStringSerialPort("ref ext");
             }
 
             else if (RefButton.Text == "Int Ref")
             {
                 RefButton.Text = "Ext Ref";
-                SendStringSerialPort("ref int");
+                controller.serialPort.SendStringSerialPort("ref int");
             }
         }
 
         private void PloInitButton_Click(object sender, EventArgs e)
         {
-            SendStringSerialPort("PLO init");
+            controller.serialPort.SendStringSerialPort("PLO init");
         }
 
         private void Reg0TextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -1032,7 +980,7 @@ namespace Synthesizer_PC_control
                     R0M1.Text, R1M1.Text, R2M1.Text, 
                     R3M1.Text, R4M1.Text, R5M1.Text,
                     GetControlRegister() );
-            SendStringSerialPort(data);
+            controller.serialPort.SendStringSerialPort(data);
         }
 
         private void SaveRegsMemory2()
@@ -1041,7 +989,7 @@ namespace Synthesizer_PC_control
                     R0M2.Text, R1M2.Text, R2M2.Text, 
                     R3M2.Text, R4M2.Text, R5M2.Text,
                     GetControlRegister() );
-            SendStringSerialPort(data);
+            controller.serialPort.SendStringSerialPort(data);
         }
 
         private void SaveRegsMemory3()
@@ -1050,7 +998,7 @@ namespace Synthesizer_PC_control
                     R0M3.Text, R1M3.Text, R2M3.Text, 
                     R3M3.Text, R4M3.Text, R5M3.Text,
                     GetControlRegister() );
-            SendStringSerialPort(data);
+            controller.serialPort.SendStringSerialPort(data);
         }
 
         private void SaveRegsMemory4()
@@ -1059,13 +1007,13 @@ namespace Synthesizer_PC_control
                     R0M4.Text, R1M4.Text, R2M4.Text, 
                     R3M4.Text, R4M4.Text, R5M4.Text,
                     GetControlRegister() );
-            SendStringSerialPort(data);
+            controller.serialPort.SendStringSerialPort(data);
         }
 
         private void CleanSavedRegisters()
         {
             string data = String.Format("plo data clean");
-            SendStringSerialPort(data);
+            controller.serialPort.SendStringSerialPort(data);
         }
 
         private void SetAsDefaultRegButton_Click(object sender, EventArgs e)
@@ -1167,7 +1115,7 @@ namespace Synthesizer_PC_control
 
         private void LoadRegMemory_Click(object sender, EventArgs e)
         {
-            SendStringSerialPort("plo data stored?");
+            controller.serialPort.SendStringSerialPort("plo data stored?");
         }
 
         private void SaveRegMemory_Click(object sender, EventArgs e)
