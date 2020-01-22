@@ -19,14 +19,7 @@ using Synthesizer_PC_control.Model;
 namespace Synthesizer_PC_control
 {
     public partial class Form1 : Form
-    {
-        static string old_reg0 = "80C90000";
-        static string old_reg1 = "800103E9";
-        static string old_reg2 = "00005F42";
-        static string old_reg3 = "00001F23";
-        static string old_reg4 = "63BE80E4";
-        static string old_reg5 = "00400005";
-
+        {
         //private MyRegister[] registers;
         private Controller controller;
 
@@ -873,10 +866,10 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg0Changes()
         {
             controller.registers[0].SetValue(Reg0TextBox.Text);
-            if ((Reg0TextBox.Enabled == true) && (!controller.registers[0].string_GetValue().Equals(old_reg0)))
+            if ((Reg0TextBox.Enabled == true) && (!controller.registers[0].string_GetValue().Equals(controller.old_regs[0])))
             {
                 GetAllFromReg0();
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
                 
             }
@@ -885,11 +878,11 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg1Changes()
         {
             controller.registers[1].SetValue(Reg1TextBox.Text);
-            if ((Reg1TextBox.Enabled == true) && (!controller.registers[1].string_GetValue().Equals(old_reg1)))
+            if ((Reg1TextBox.Enabled == true) && (!controller.registers[1].string_GetValue().Equals(controller.old_regs[1])))
             {
                 GetAllFromReg1();
-                ApplyChangeReg(1);
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(1);
+                controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
@@ -897,11 +890,11 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg2Changes()
         {
             controller.registers[2].SetValue(Reg2TextBox.Text);
-            if ((Reg2TextBox.Enabled == true) && (!controller.registers[2].string_GetValue().Equals(old_reg2)))
+            if ((Reg2TextBox.Enabled == true) && (!controller.registers[2].string_GetValue().Equals(controller.old_regs[2])))
             {
                 GetAllFromReg2();
-                ApplyChangeReg(2);
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(2);
+                controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
@@ -909,19 +902,19 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg3Changes()
         {
             controller.registers[3].SetValue(Reg3TextBox.Text);
-            if ((Reg3TextBox.Enabled == true) && (!controller.registers[3].string_GetValue().Equals(old_reg3)))
+            if ((Reg3TextBox.Enabled == true) && (!controller.registers[3].string_GetValue().Equals(controller.old_regs[3])))
             {
-                ApplyChangeReg(3);
+                controller.ApplyChangeReg(3);
             }
         }
 
         private void CheckAndApplyReg4Changes()
         {
             controller.registers[4].SetValue(Reg4TextBox.Text);
-            if ((Reg4TextBox.Enabled == true) && (!controller.registers[4].string_GetValue().Equals(old_reg4)))
+            if ((Reg4TextBox.Enabled == true) && (!controller.registers[4].string_GetValue().Equals(controller.old_regs[4])))
             {
                 GetAllFromReg4();
-                ApplyChangeReg(4);
+                controller.ApplyChangeReg(4);
                 RecalcFreqInfo();
             }
         }
@@ -929,24 +922,16 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg5Changes()
         {
             controller.registers[5].SetValue(Reg5TextBox.Text);
-            if ((Reg5TextBox.Enabled == true) && (!controller.registers[5].string_GetValue().Equals(old_reg5)))
+            if ((Reg5TextBox.Enabled == true) && (!controller.registers[5].string_GetValue().Equals(controller.old_regs[5])))
             {
-                ApplyChangeReg(5);
+                controller.ApplyChangeReg(5);
             }
         }
 
         private void CheckAndApllyChangesForm1_Click(object sender, EventArgs e)
         {
             Reg0Label.Focus();
-        }
-
-        //TODO prenest do controlleru!!!
-        private void ApplyChangeReg(int index)
-        {
-            string data = String.Format("plo set_register {0}", controller.registers[index].string_GetValue());
-            old_reg5 = controller.registers[index].string_GetValue();
-            controller.serialPort.SendStringSerialPort(data);
-        }
+        }        
 
         private string GetControlRegister()
         {
@@ -1055,12 +1040,12 @@ namespace Synthesizer_PC_control
         {
             GetAllFromRegisters();
 
-            ApplyChangeReg(5);
-            ApplyChangeReg(4);
-            ApplyChangeReg(3);
-            ApplyChangeReg(2);
-            ApplyChangeReg(1);
-            ApplyChangeReg(0);
+            controller.ApplyChangeReg(5);
+            controller.ApplyChangeReg(4);
+            controller.ApplyChangeReg(3);
+            controller.ApplyChangeReg(2);
+            controller.ApplyChangeReg(1);
+            controller.ApplyChangeReg(0);
         }
 
         private void AvaibleCOMsComBox_DropDown(object sender, EventArgs e)
@@ -1122,7 +1107,7 @@ namespace Synthesizer_PC_control
             if (Reg4TextBox.Enabled == true)
             {
                 ChangeReg4OutAEn();
-                ApplyChangeReg(4);
+                controller.ApplyChangeReg(4);
             }
         }
 
@@ -1131,7 +1116,7 @@ namespace Synthesizer_PC_control
             if (Reg4TextBox.Enabled == true)
             {
                 ChangeReg4OutAPwr();
-                ApplyChangeReg(4);
+                controller.ApplyChangeReg(4);
             }
         }
 
@@ -1140,8 +1125,8 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 controller.ChangeIntFracMode(ModeIntFracComboBox.SelectedIndex);
-                ApplyChangeReg(2);
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(2);
+                controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
@@ -1151,7 +1136,7 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg0IntNValue();
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
@@ -1161,7 +1146,7 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg0FracNValue();
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
@@ -1171,8 +1156,8 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg1ModValue();
-                ApplyChangeReg(1);
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(1);
+                controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
@@ -1262,8 +1247,8 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true) // TODO prefdelat na stav port otevren tlacitko
             {
                 ChangeReg2RefDoubler();
-                ApplyChangeReg(2);
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(2);
+                controller.ApplyChangeReg(0);
                 GetFPfdFreq();
                 RecalcFreqInfo();
             }
@@ -1274,8 +1259,8 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg2RefDivider();
-                ApplyChangeReg(2);
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(2);
+                controller.ApplyChangeReg(0);
                 GetFPfdFreq();
                 RecalcFreqInfo();
             }
@@ -1286,8 +1271,8 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg2RDiv();
-                ApplyChangeReg(2);
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(2);
+                controller.ApplyChangeReg(0);
                 GetFPfdFreq();
                 RecalcFreqInfo();
             }
@@ -1298,7 +1283,7 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg4ADiv();
-                ApplyChangeReg(4);
+                controller.ApplyChangeReg(4);
                 GetFPfdFreq();
                 RecalcFreqInfo();
             }
@@ -1309,7 +1294,7 @@ namespace Synthesizer_PC_control
             if(Reg0TextBox.Enabled == true)
             {
                 ChangeReg1PhaseP();
-                ApplyChangeReg(1);
+                controller.ApplyChangeReg(1);
             }
         }
 
@@ -1345,8 +1330,8 @@ namespace Synthesizer_PC_control
             if(Reg0TextBox.Enabled == true)
             {
                 ChangeReg2CPCurrent();
-                ApplyChangeReg(2);
-                ApplyChangeReg(0);
+                controller.ApplyChangeReg(2);
+                controller.ApplyChangeReg(0);
             }
         }
 
@@ -1355,7 +1340,7 @@ namespace Synthesizer_PC_control
             if(Reg0TextBox.Enabled == true)
             {
                 ChangeReg1CPLinearity();
-                ApplyChangeReg(1);
+                controller.ApplyChangeReg(1);
             }
         }
 

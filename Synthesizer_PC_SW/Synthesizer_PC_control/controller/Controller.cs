@@ -16,6 +16,8 @@ namespace Synthesizer_PC_control
 
         public MyRegister[] registers;
 
+        public string[] old_regs;
+
         public Controller(Form1 view)
         {
             this.view = view;
@@ -30,6 +32,8 @@ namespace Synthesizer_PC_control
             var reg5 = new MyRegister(view.Reg5TextBox.Text, view.Reg5TextBox);
 
             registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
+
+            old_regs = new string[6] {"80C90000", "800103E9", "00005F42", "00001F23", "63BE80E4", "00400005"};
         }
 
 #region nejakeRozumneJmenoProSekci
@@ -62,6 +66,13 @@ namespace Synthesizer_PC_control
 #endregion
 
 #region Serial port
+
+        public void ApplyChangeReg(int index)
+        {
+            string data = String.Format("plo set_register {0}", registers[index].string_GetValue());
+            old_regs[index] = registers[index].string_GetValue();
+            serialPort.SendStringSerialPort(data);
+        }
 
         public void SwitchPort()
         {
