@@ -37,6 +37,14 @@ namespace Synthesizer_PC_control
         }
 
 #region nejakeRozumneJmenoProSekci
+        // Zapise a prevede hodnotu IntN do Reg0
+        public void ChangeIntNValue(decimal IntNValue)
+        {
+            UInt32 reg = registers[0].uint32_GetValue();
+            reg &= ~(UInt32)(0b01111111111111111000000000000000);
+            reg += Convert.ToUInt32(IntNValue) << 15;
+            registers[0].SetValue(reg);
+        }
 
         public void ChangeIntFracMode(int selectedIndex)
         {

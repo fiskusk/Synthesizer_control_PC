@@ -611,15 +611,6 @@ namespace Synthesizer_PC_control
             fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
         }
 
-        // Zapise a prevede hodnotu IntN do Reg0
-        private void ChangeReg0IntNValue()
-        {
-            UInt32 reg = controller.registers[0].uint32_GetValue();
-            reg &= ~(UInt32)(0b01111111111111111000000000000000);
-            reg += Convert.ToUInt32(IntNNumUpDown.Value) << 15;
-            controller.registers[0].SetValue(reg);
-        }
-
         private void ChangeReg0FracNValue()
         {
             UInt32 reg = controller.registers[0].uint32_GetValue();
@@ -1135,7 +1126,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true)
             {
-                ChangeReg0IntNValue();
+                controller.ChangeIntNValue(IntNNumUpDown.Value);
                 controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
