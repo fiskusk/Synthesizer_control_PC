@@ -36,110 +36,15 @@ namespace Synthesizer_PC_control
             old_regs = new string[6] {"80C90000", "800103E9", "00005F42", "00001F23", "63BE80E4", "00400005"};
         }
 
-#region nejakeRozumneJmenoProSekci
-        // Zapise a prevede hodnotu IntN do Reg0
-        public void ChangeIntNValue(decimal IntNValue)
-        {
-            UInt32 reg = registers[0].uint32_GetValue();
-            reg &= ~(UInt32)(0b01111111111111111000000000000000);
-            reg += Convert.ToUInt32(IntNValue) << 15;
-            registers[0].SetValue(reg);
-        }
+#region Register Change Functions for individual controls
 
-        public void ChangeFracNValue(decimal FracNNumValue)
+#region Reference Frequency Part
+        public void ChangeRDiv(decimal RDividerValue)
         {
-            UInt32 reg = registers[0].uint32_GetValue();
-            reg &= ~(UInt32)(0b00000000000000000111111111111000);
-            reg += Convert.ToUInt32(FracNNumValue) << 3;
-            registers[0].SetValue(reg);
-        }
-
-        public void ChangeModValue(decimal ModValue)
-        {
-            UInt32 reg = registers[1].uint32_GetValue();
-            reg &= ~(UInt32)(0b00000000000000000111111111111000);
-            reg += Convert.ToUInt32(ModValue) << 3;
-            registers[1].SetValue(reg);
-            view.FracNNumUpDown.Maximum = ModValue - 1;
-        }
-
-        public void ChangeOutAPwr(int selectedIndex)
-        {
-            UInt32 reg = registers[4].uint32_GetValue();
-            switch (selectedIndex)
-            {
-                case 0:
-                    reg &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
-                    break;
-                case 1:
-                    reg &= ~(UInt32)(1<<4);
-                    reg |= (UInt32)(1<<3);
-                    break;
-                case 2:
-                    reg |= (UInt32)(1<<4);
-                    reg &= ~(UInt32)(1<<3);
-                    break;
-                case 3:
-                    reg |= (UInt32)(1<<4) | (UInt32)(1<<3);
-                    break;
-            }
-            registers[4].SetValue(reg);
-        }
-
-        public void ChangeOutAEn(int selectedIndex)
-        {
-            UInt32 reg = registers[4].uint32_GetValue();
-            if (selectedIndex == 0)
-            {
-                reg &= ~((UInt32)(1<<5));
-            }
-            else if (selectedIndex == 1)
-            {
-                reg |= (UInt32)(1<<5);
-            }
-            registers[4].SetValue(reg);
-        }
-
-        public void ChangeIntFracMode(int selectedIndex)
-        {
-            UInt32 reg0 = registers[0].uint32_GetValue();
-            UInt32 reg2 = registers[2].uint32_GetValue();
-            
-            if (selectedIndex == 0)
-            //if (ModeIntFracComboBox.SelectedIndex == 0)
-            {
-                reg0 &= ~unchecked((UInt32)(1<<31));
-                reg2 &= ~unchecked((UInt32)(1<<8));
-                view.IntNNumUpDown.Minimum = 19;
-                view.IntNNumUpDown.Maximum = 4091;
-
-            }
-            else if (selectedIndex == 1)
-            //else if (RF_A_EN_ComboBox.SelectedIndex == 1)
-            {
-                reg0 |= unchecked((UInt32)(1<<31));
-                reg2 |= unchecked((UInt32)(1<<8));
-                view.IntNNumUpDown.Minimum = 16;
-                view.IntNNumUpDown.Maximum = 65535;
-            }
-            registers[0].SetValue(reg0);
-            registers[2].SetValue(reg2);
-        }
-
-        public void ChangePhaseP(decimal PhasePValue)
-        {
-            UInt32 reg = registers[1].uint32_GetValue();
-            reg &= ~(UInt32)(0b1111111111111000000000000000);
-            reg += Convert.ToUInt32(PhasePValue) << 15;
-            registers[1].SetValue(reg);
-        }
-
-        public void ChangeCPLinearity(int selectedIndex)
-        {
-            UInt32 reg = registers[1].uint32_GetValue();
-            reg &= ~(UInt32)((1<<30) | (1<<29));
-            reg += Convert.ToUInt32(selectedIndex) << 29;
-            registers[1].SetValue(reg);
+            UInt32 reg = registers[2].uint32_GetValue();
+            reg &= ~(UInt32)(0b111111111100000000000000);
+            reg += Convert.ToUInt32(RDividerValue) << 14;
+            registers[2].SetValue(reg);
         }
 
         public void ChangeRefDoubler(bool IsActive)
@@ -188,20 +93,59 @@ namespace Synthesizer_PC_control
             registers[2].SetValue(reg);
         }
 
-        public void ChangeRDiv(decimal RDividerValue)
+#endregion
+        
+#region Output Frequency Control Part
+        // Zapise a prevede hodnotu IntN do Reg0
+        public void ChangeIntNValue(decimal IntNValue)
         {
-            UInt32 reg = registers[2].uint32_GetValue();
-            reg &= ~(UInt32)(0b111111111100000000000000);
-            reg += Convert.ToUInt32(RDividerValue) << 14;
-            registers[2].SetValue(reg);
+            UInt32 reg = registers[0].uint32_GetValue();
+            reg &= ~(UInt32)(0b01111111111111111000000000000000);
+            reg += Convert.ToUInt32(IntNValue) << 15;
+            registers[0].SetValue(reg);
         }
 
-        public void ChangeCPCurrent(int selectedIndex)
+        public void ChangeFracNValue(decimal FracNNumValue)
         {
-            UInt32 reg = registers[2].uint32_GetValue();
-            reg &= ~(UInt32)((1<<12) | (1<<11) | (1<<10) | (1<<9));
-            reg += Convert.ToUInt32(selectedIndex) << 9;
-            registers[2].SetValue(reg);
+            UInt32 reg = registers[0].uint32_GetValue();
+            reg &= ~(UInt32)(0b00000000000000000111111111111000);
+            reg += Convert.ToUInt32(FracNNumValue) << 3;
+            registers[0].SetValue(reg);
+        }
+
+        public void ChangeModValue(decimal ModValue)
+        {
+            UInt32 reg = registers[1].uint32_GetValue();
+            reg &= ~(UInt32)(0b00000000000000000111111111111000);
+            reg += Convert.ToUInt32(ModValue) << 3;
+            registers[1].SetValue(reg);
+            view.FracNNumUpDown.Maximum = ModValue - 1;
+        }
+
+        public void ChangeIntFracMode(int selectedIndex)
+        {
+            UInt32 reg0 = registers[0].uint32_GetValue();
+            UInt32 reg2 = registers[2].uint32_GetValue();
+            
+            if (selectedIndex == 0)
+            //if (ModeIntFracComboBox.SelectedIndex == 0)
+            {
+                reg0 &= ~unchecked((UInt32)(1<<31));
+                reg2 &= ~unchecked((UInt32)(1<<8));
+                view.IntNNumUpDown.Minimum = 19;
+                view.IntNNumUpDown.Maximum = 4091;
+
+            }
+            else if (selectedIndex == 1)
+            //else if (RF_A_EN_ComboBox.SelectedIndex == 1)
+            {
+                reg0 |= unchecked((UInt32)(1<<31));
+                reg2 |= unchecked((UInt32)(1<<8));
+                view.IntNNumUpDown.Minimum = 16;
+                view.IntNNumUpDown.Maximum = 65535;
+            }
+            registers[0].SetValue(reg0);
+            registers[2].SetValue(reg2);
         }
 
         public void ChangeADiv(int selectedIndex)
@@ -211,6 +155,77 @@ namespace Synthesizer_PC_control
             reg += Convert.ToUInt32(selectedIndex) << 20;
             registers[4].SetValue(reg);
         }
+
+        public void ChangePhaseP(decimal PhasePValue)
+        {
+            UInt32 reg = registers[1].uint32_GetValue();
+            reg &= ~(UInt32)(0b1111111111111000000000000000);
+            reg += Convert.ToUInt32(PhasePValue) << 15;
+            registers[1].SetValue(reg);
+        }
+
+#endregion
+
+#region Charge Pump Section
+
+        public void ChangeCPCurrent(int selectedIndex)
+        {
+            UInt32 reg = registers[2].uint32_GetValue();
+            reg &= ~(UInt32)((1<<12) | (1<<11) | (1<<10) | (1<<9));
+            reg += Convert.ToUInt32(selectedIndex) << 9;
+            registers[2].SetValue(reg);
+        }
+
+        public void ChangeCPLinearity(int selectedIndex)
+        {
+            UInt32 reg = registers[1].uint32_GetValue();
+            reg &= ~(UInt32)((1<<30) | (1<<29));
+            reg += Convert.ToUInt32(selectedIndex) << 29;
+            registers[1].SetValue(reg);
+        }
+
+#endregion
+
+#region Output Controls
+
+        public void ChangeOutAPwr(int selectedIndex)
+        {
+            UInt32 reg = registers[4].uint32_GetValue();
+            switch (selectedIndex)
+            {
+                case 0:
+                    reg &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
+                    break;
+                case 1:
+                    reg &= ~(UInt32)(1<<4);
+                    reg |= (UInt32)(1<<3);
+                    break;
+                case 2:
+                    reg |= (UInt32)(1<<4);
+                    reg &= ~(UInt32)(1<<3);
+                    break;
+                case 3:
+                    reg |= (UInt32)(1<<4) | (UInt32)(1<<3);
+                    break;
+            }
+            registers[4].SetValue(reg);
+        }
+
+        public void ChangeOutAEn(int selectedIndex)
+        {
+            UInt32 reg = registers[4].uint32_GetValue();
+            if (selectedIndex == 0)
+            {
+                reg &= ~((UInt32)(1<<5));
+            }
+            else if (selectedIndex == 1)
+            {
+                reg |= (UInt32)(1<<5);
+            }
+            registers[4].SetValue(reg);
+        }
+
+#endregion
 
 #endregion
 
