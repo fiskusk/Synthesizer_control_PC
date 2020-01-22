@@ -46,6 +46,23 @@ namespace Synthesizer_PC_control
             registers[0].SetValue(reg);
         }
 
+        public void ChangeFracNValue(decimal FracNNumValue)
+        {
+            UInt32 reg = registers[0].uint32_GetValue();
+            reg &= ~(UInt32)(0b00000000000000000111111111111000);
+            reg += Convert.ToUInt32(FracNNumValue) << 3;
+            registers[0].SetValue(reg);
+        }
+
+        public void ChangeModValue(decimal ModValue)
+        {
+            UInt32 reg = registers[1].uint32_GetValue();
+            reg &= ~(UInt32)(0b00000000000000000111111111111000);
+            reg += Convert.ToUInt32(ModValue) << 3;
+            registers[1].SetValue(reg);
+            view.FracNNumUpDown.Maximum = ModValue - 1;
+        }
+
         public void ChangeOutAPwr(int sellectedIndex)
         {
             UInt32 reg = registers[4].uint32_GetValue();
@@ -65,6 +82,20 @@ namespace Synthesizer_PC_control
                 case 3:
                     reg |= (UInt32)(1<<4) | (UInt32)(1<<3);
                     break;
+            }
+            registers[4].SetValue(reg);
+        }
+
+        public void ChangeOutAEn(int selectedIndex)
+        {
+            UInt32 reg = registers[4].uint32_GetValue();
+            if (selectedIndex == 0)
+            {
+                reg &= ~((UInt32)(1<<5));
+            }
+            else if (selectedIndex == 1)
+            {
+                reg |= (UInt32)(1<<5);
             }
             registers[4].SetValue(reg);
         }

@@ -2089,7 +2089,7 @@ namespace Synthesizer_PC_control
         private System.Windows.Forms.ComboBox ModeIntFracComboBox;
         public System.Windows.Forms.NumericUpDown IntNNumUpDown;
         private System.Windows.Forms.NumericUpDown ModNumUpDown;
-        private System.Windows.Forms.NumericUpDown FracNNumUpDown;
+        public System.Windows.Forms.NumericUpDown FracNNumUpDown;
         private System.Windows.Forms.Label fOutAScreenLabel;
         private System.Windows.Forms.Label fOutALabel;
         private System.Windows.Forms.Label MHzLabel1;

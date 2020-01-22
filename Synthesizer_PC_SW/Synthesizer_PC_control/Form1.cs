@@ -611,23 +611,6 @@ namespace Synthesizer_PC_control
             fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
         }
 
-        private void ChangeReg0FracNValue()
-        {
-            UInt32 reg = controller.registers[0].uint32_GetValue();
-            reg &= ~(UInt32)(0b00000000000000000111111111111000);
-            reg += Convert.ToUInt32(FracNNumUpDown.Value) << 3;
-            controller.registers[0].SetValue(reg);
-        }
-
-        private void ChangeReg1ModValue()
-        {
-            UInt32 reg = controller.registers[1].uint32_GetValue();
-            reg &= ~(UInt32)(0b00000000000000000111111111111000);
-            reg += Convert.ToUInt32(ModNumUpDown.Value) << 3;
-            controller.registers[1].SetValue(reg);
-            FracNNumUpDown.Maximum = ModNumUpDown.Value - 1;
-        }
-
         private void ChangeReg1PhaseP()
         {
             UInt32 reg = controller.registers[1].uint32_GetValue();
@@ -704,20 +687,6 @@ namespace Synthesizer_PC_control
             reg &= ~(UInt32)((1<<12) | (1<<11) | (1<<10) | (1<<9));
             reg += Convert.ToUInt32(CPCurrentComboBox.SelectedIndex) << 9;
             controller.registers[2].SetValue(reg);
-        }
-
-        private void ChangeReg4OutAEn()
-        {
-            UInt32 reg = controller.registers[4].uint32_GetValue();
-            if (RF_A_EN_ComboBox.SelectedIndex == 0)
-            {
-                reg &= ~((UInt32)(1<<5));
-            }
-            else if (RF_A_EN_ComboBox.SelectedIndex == 1)
-            {
-                reg |= (UInt32)(1<<5);
-            }
-            controller.registers[4].SetValue(reg);
         }
 
         private void ChangeReg4ADiv()
@@ -1074,7 +1043,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg4TextBox.Enabled == true)
             {
-                ChangeReg4OutAEn();
+                controller.ChangeOutAEn(RF_A_EN_ComboBox.SelectedIndex);
                 controller.ApplyChangeReg(4);
             }
         }
@@ -1113,7 +1082,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true)
             {
-                ChangeReg0FracNValue();
+                controller.ChangeFracNValue(FracNNumUpDown.Value);
                 controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
@@ -1123,7 +1092,7 @@ namespace Synthesizer_PC_control
         {
             if (Reg0TextBox.Enabled == true)
             {
-                ChangeReg1ModValue();
+                controller.ChangeModValue(ModNumUpDown.Value);
                 controller.ApplyChangeReg(1);
                 controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
