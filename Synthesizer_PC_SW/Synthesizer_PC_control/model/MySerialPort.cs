@@ -136,7 +136,7 @@ namespace Synthesizer_PC_control.Model
         private void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e) 
         { 
             if (dontRunHandler) return; 
-            viewHandle.Invoke(new MyDelegate(viewHandle.Spracovanie), e); 
+            viewHandle.Invoke(new MyDelegate(viewHandle.ProccesReceivedData), e); 
         } 
  
         public void UpdateUiElements() 

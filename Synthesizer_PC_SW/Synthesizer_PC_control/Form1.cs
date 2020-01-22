@@ -30,8 +30,6 @@ namespace Synthesizer_PC_control
         //private MyRegister[] registers;
         private Controller controller;
 
-        delegate void SerialComDelegate(object Object);
-
         public class SaveWindow
         {
             public IList<string> Registers { get; set; }
@@ -145,9 +143,7 @@ namespace Synthesizer_PC_control
             controller.SwitchPort();
         }
 
-        public void Spracovanie(object Objekt) // FIXME anglicky nazev
-        {
-        void ProccesReceivedData(object Object)
+        public void ProccesReceivedData(object Object)
         {
             try
             { // TODO zde si zjistovat na zacasku jestli je ID max2871, jinak vyhodit hlasku a zavrit port. 
@@ -228,12 +224,12 @@ namespace Synthesizer_PC_control
                 {
                     Registers = new List<string>
                     {
-                        registers[0].string_GetValue(),
-                        registers[1].string_GetValue(),
-                        registers[2].string_GetValue(),
-                        registers[3].string_GetValue(),
-                        registers[4].string_GetValue(),
-                        registers[5].string_GetValue()
+                        controller.registers[0].string_GetValue(),
+                        controller.registers[1].string_GetValue(),
+                        controller.registers[2].string_GetValue(),
+                        controller.registers[3].string_GetValue(),
+                        controller.registers[4].string_GetValue(),
+                        controller.registers[5].string_GetValue()
                     },
                     Mem1 = new List<string>
                     {
@@ -294,12 +290,12 @@ namespace Synthesizer_PC_control
                 {
                     Registers = new List<string>
                     {
-                        registers[0].string_GetValue(),
-                        registers[1].string_GetValue(),
-                        registers[2].string_GetValue(),
-                        registers[3].string_GetValue(),
-                        registers[4].string_GetValue(),
-                        registers[5].string_GetValue()
+                        controller.registers[0].string_GetValue(),
+                        controller.registers[1].string_GetValue(),
+                        controller.registers[2].string_GetValue(),
+                        controller.registers[3].string_GetValue(),
+                        controller.registers[4].string_GetValue(),
+                        controller.registers[5].string_GetValue()
                     },
                     Mem1 = new List<string>
                     {
@@ -353,12 +349,12 @@ namespace Synthesizer_PC_control
 
         private void LoadRegistersFromFile(SaveWindow data)
         {
-            registers[0].SetValue(data.Registers[0]);
-            registers[1].SetValue(data.Registers[1]);
-            registers[2].SetValue(data.Registers[2]);
-            registers[3].SetValue(data.Registers[3]);
-            registers[4].SetValue(data.Registers[4]);
-            registers[5].SetValue(data.Registers[5]);
+            controller.registers[0].SetValue(data.Registers[0]);
+            controller.registers[1].SetValue(data.Registers[1]);
+            controller.registers[2].SetValue(data.Registers[2]);
+            controller.registers[3].SetValue(data.Registers[3]);
+            controller.registers[4].SetValue(data.Registers[4]);
+            controller.registers[5].SetValue(data.Registers[5]);
             R0M1.Text = data.Mem1[0];
             R1M1.Text = data.Mem1[1];
             R2M1.Text = data.Mem1[2];
@@ -400,7 +396,7 @@ namespace Synthesizer_PC_control
 
         private void GetAllFromReg0()
         {
-            UInt32 reg = registers[0].uint32_GetValue();
+            UInt32 reg = controller.registers[0].uint32_GetValue();
             GetFracIntModeStatusFromRegister(reg);
             GetIntNValueFromRegister(reg);
             GetFracNValueFromRegister(reg);
@@ -408,7 +404,7 @@ namespace Synthesizer_PC_control
 
         private void GetAllFromReg1()
         {
-            UInt32 reg = registers[1].uint32_GetValue();
+            UInt32 reg = controller.registers[1].uint32_GetValue();
             GetModValueFromRegister(reg);
             GetPhasePValueFromRegister(reg);
             GetCPLinearityFromRegister(reg);
@@ -416,7 +412,7 @@ namespace Synthesizer_PC_control
 
         private void GetAllFromReg2()
         {
-            UInt32 reg = registers[2].uint32_GetValue();
+            UInt32 reg = controller.registers[2].uint32_GetValue();
             GetRefDoublerStatusFromRegister(reg);
             GetRefDividerStatusFromRegister(reg);
             GetRDivValueFromRegister(reg);
@@ -425,7 +421,7 @@ namespace Synthesizer_PC_control
 
         private void GetAllFromReg4()
         {
-            UInt32 reg = registers[4].uint32_GetValue();
+            UInt32 reg = controller.registers[4].uint32_GetValue();
             GetOutAENStatusFromRegister(reg);
             GetOutAPwrStatusFromRegister(reg);
             GetADividerValueFromRegister(reg);
@@ -625,48 +621,48 @@ namespace Synthesizer_PC_control
         // Zapise a prevede hodnotu IntN do Reg0
         private void ChangeReg0IntNValue()
         {
-            UInt32 reg = registers[0].uint32_GetValue();
+            UInt32 reg = controller.registers[0].uint32_GetValue();
             reg &= ~(UInt32)(0b01111111111111111000000000000000);
             reg += Convert.ToUInt32(IntNNumUpDown.Value) << 15;
-            registers[0].SetValue(reg);
+            controller.registers[0].SetValue(reg);
         }
 
         private void ChangeReg0FracNValue()
         {
-            UInt32 reg = registers[0].uint32_GetValue();
+            UInt32 reg = controller.registers[0].uint32_GetValue();
             reg &= ~(UInt32)(0b00000000000000000111111111111000);
             reg += Convert.ToUInt32(FracNNumUpDown.Value) << 3;
-            registers[0].SetValue(reg);
+            controller.registers[0].SetValue(reg);
         }
 
         private void ChangeReg1ModValue()
         {
-            UInt32 reg = registers[1].uint32_GetValue();
+            UInt32 reg = controller.registers[1].uint32_GetValue();
             reg &= ~(UInt32)(0b00000000000000000111111111111000);
             reg += Convert.ToUInt32(ModNumUpDown.Value) << 3;
-            registers[1].SetValue(reg);
+            controller.registers[1].SetValue(reg);
             FracNNumUpDown.Maximum = ModNumUpDown.Value - 1;
         }
 
         private void ChangeReg1PhaseP()
         {
-            UInt32 reg = registers[1].uint32_GetValue();
+            UInt32 reg = controller.registers[1].uint32_GetValue();
             reg &= ~(UInt32)(0b1111111111111000000000000000);
             reg += Convert.ToUInt32(PhasePNumericUpDown.Value) << 15;
-            registers[1].SetValue(reg);
+            controller.registers[1].SetValue(reg);
         }
 
         private void ChangeReg1CPLinearity()
         {
-            UInt32 reg = registers[1].uint32_GetValue();
+            UInt32 reg = controller.registers[1].uint32_GetValue();
             reg &= ~(UInt32)((1<<30) | (1<<29));
             reg += Convert.ToUInt32(CPLinearityComboBox.SelectedIndex) << 29;
-            registers[1].SetValue(reg);
+            controller.registers[1].SetValue(reg);
         }
 
         private void ChangeReg2RefDoubler()
         {
-            UInt32 reg = registers[2].uint32_GetValue();
+            UInt32 reg = controller.registers[2].uint32_GetValue();
             if (DoubleRefFCheckBox.Checked == true)
             {
                 reg |= unchecked((UInt32)(1<<25));
@@ -684,12 +680,12 @@ namespace Synthesizer_PC_control
                     IntNNumUpDown.Value = IntNNumUpDown.Value*2;
 
             }
-            registers[2].SetValue(reg);
+            controller.registers[2].SetValue(reg);
         }
 
         private void ChangeReg2RefDivider()
         {
-            UInt32 reg = registers[2].uint32_GetValue();
+            UInt32 reg = controller.registers[2].uint32_GetValue();
             if (DivideBy2CheckBox.Checked == true)
             {
                 reg |= unchecked((UInt32)(1<<24));
@@ -707,28 +703,28 @@ namespace Synthesizer_PC_control
                     IntNNumUpDown.Value = IntNNumUpDown.Value/2;
 
             }
-            registers[2].SetValue(reg);
+            controller.registers[2].SetValue(reg);
         }
 
         private void ChangeReg2RDiv()
         {
-            UInt32 reg = registers[2].uint32_GetValue();
+            UInt32 reg = controller.registers[2].uint32_GetValue();
             reg &= ~(UInt32)(0b111111111100000000000000);
             reg += Convert.ToUInt32(RDivUpDown.Value) << 14;
-            registers[2].SetValue(reg);
+            controller.registers[2].SetValue(reg);
         }
 
         private void ChangeReg2CPCurrent()
         {
-            UInt32 reg = registers[2].uint32_GetValue();
+            UInt32 reg = controller.registers[2].uint32_GetValue();
             reg &= ~(UInt32)((1<<12) | (1<<11) | (1<<10) | (1<<9));
             reg += Convert.ToUInt32(CPCurrentComboBox.SelectedIndex) << 9;
-            registers[2].SetValue(reg);
+            controller.registers[2].SetValue(reg);
         }
 
         private void ChangeReg4OutAEn()
         {
-            UInt32 reg = registers[4].uint32_GetValue();
+            UInt32 reg = controller.registers[4].uint32_GetValue();
             if (RF_A_EN_ComboBox.SelectedIndex == 0)
             {
                 reg &= ~((UInt32)(1<<5));
@@ -737,12 +733,12 @@ namespace Synthesizer_PC_control
             {
                 reg |= (UInt32)(1<<5);
             }
-            registers[4].SetValue(reg);
+            controller.registers[4].SetValue(reg);
         }
 
         private void ChangeReg4OutAPwr()
         {
-            UInt32 reg = registers[4].uint32_GetValue();
+            UInt32 reg = controller.registers[4].uint32_GetValue();
             switch (RF_A_PWR_ComboBox.SelectedIndex)
             {
                 case 0:
@@ -760,15 +756,15 @@ namespace Synthesizer_PC_control
                     reg |= (UInt32)(1<<4) | (UInt32)(1<<3);
                     break;
             }
-            registers[4].SetValue(reg);
+            controller.registers[4].SetValue(reg);
         }
 
         private void ChangeReg4ADiv()
         {
-            UInt32 reg = registers[4].uint32_GetValue();
+            UInt32 reg = controller.registers[4].uint32_GetValue();
             reg &= ~(UInt32)( (1<<22) | (1<<21) | (1<<20) );
             reg += Convert.ToUInt32(ADivComboBox.SelectedIndex) << 20;
-            registers[4].SetValue(reg);
+            controller.registers[4].SetValue(reg);
         }
 
         private void Out1Button_Click(object sender, EventArgs e)
@@ -876,11 +872,11 @@ namespace Synthesizer_PC_control
 
         private void CheckAndApplyReg0Changes()
         {
-            registers[0].SetValue(Reg0TextBox.Text);
-            if ((Reg0TextBox.Enabled == true) && (!registers[0].string_GetValue().Equals(old_reg0)))
+            controller.registers[0].SetValue(Reg0TextBox.Text);
+            if ((Reg0TextBox.Enabled == true) && (!controller.registers[0].string_GetValue().Equals(old_reg0)))
             {
                 GetAllFromReg0();
-                ApplyChangeReg0();
+                ApplyChangeReg(0);
                 RecalcFreqInfo();
                 
             }
@@ -888,52 +884,52 @@ namespace Synthesizer_PC_control
 
         private void CheckAndApplyReg1Changes()
         {
-            registers[1].SetValue(Reg1TextBox.Text);
-            if ((Reg1TextBox.Enabled == true) && (!registers[1].string_GetValue().Equals(old_reg1)))
+            controller.registers[1].SetValue(Reg1TextBox.Text);
+            if ((Reg1TextBox.Enabled == true) && (!controller.registers[1].string_GetValue().Equals(old_reg1)))
             {
                 GetAllFromReg1();
-                ApplyChangeReg1();
-                ApplyChangeReg0();
+                ApplyChangeReg(1);
+                ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
 
         private void CheckAndApplyReg2Changes()
         {
-            registers[].SetValue(Reg2TextBox.Text);
-            if ((Reg2TextBox.Enabled == true) && (!registers[2].string_GetValue().Equals(old_reg2)))
+            controller.registers[2].SetValue(Reg2TextBox.Text);
+            if ((Reg2TextBox.Enabled == true) && (!controller.registers[2].string_GetValue().Equals(old_reg2)))
             {
                 GetAllFromReg2();
-                ApplyChangeReg2();
-                ApplyChangeReg0();
+                ApplyChangeReg(2);
+                ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
 
         private void CheckAndApplyReg3Changes()
         {
-            registers[3].SetValue(Reg3TextBox.Text);
-            if ((Reg3TextBox.Enabled == true) && (!registers[3].string_GetValue().Equals(old_reg3)))
+            controller.registers[3].SetValue(Reg3TextBox.Text);
+            if ((Reg3TextBox.Enabled == true) && (!controller.registers[3].string_GetValue().Equals(old_reg3)))
             {
-                ApplyChangeReg3();
+                ApplyChangeReg(3);
             }
         }
 
         private void CheckAndApplyReg4Changes()
         {
-            registers[4].SetValue(Reg4TextBox.Text);
-            if ((Reg4TextBox.Enabled == true) && (!registers[4].string_GetValue().Equals(old_reg4)))
+            controller.registers[4].SetValue(Reg4TextBox.Text);
+            if ((Reg4TextBox.Enabled == true) && (!controller.registers[4].string_GetValue().Equals(old_reg4)))
             {
                 GetAllFromReg4();
-                ApplyChangeReg4();
+                ApplyChangeReg(4);
                 RecalcFreqInfo();
             }
         }
 
         private void CheckAndApplyReg5Changes()
         {
-            registers[5].SetValue(Reg5TextBox.Text);
-            if ((Reg5TextBox.Enabled == true) && (!registers[5].string_GetValue().Equals(old_reg5)))
+            controller.registers[5].SetValue(Reg5TextBox.Text);
+            if ((Reg5TextBox.Enabled == true) && (!controller.registers[5].string_GetValue().Equals(old_reg5)))
             {
                 ApplyChangeReg(5);
             }
@@ -949,7 +945,7 @@ namespace Synthesizer_PC_control
         {
             string data = String.Format("plo set_register {0}", controller.registers[index].string_GetValue());
             old_reg5 = controller.registers[index].string_GetValue();
-            SendStringSerialPort(data);
+            controller.serialPort.SendStringSerialPort(data);
         }
 
         private string GetControlRegister()
@@ -1024,12 +1020,12 @@ namespace Synthesizer_PC_control
             {
                 Registers = new List<string>
                 {
-                    registers[0].string_GetValue(),
-                    registers[1].string_GetValue(),
-                    registers[2].string_GetValue(),
-                    registers[3].string_GetValue(),
-                    registers[4].string_GetValue(),
-                    registers[5].string_GetValue()
+                    controller.registers[0].string_GetValue(),
+                    controller.registers[1].string_GetValue(),
+                    controller.registers[2].string_GetValue(),
+                    controller.registers[3].string_GetValue(),
+                    controller.registers[4].string_GetValue(),
+                    controller.registers[5].string_GetValue()
                 }
             };
 
@@ -1059,18 +1055,12 @@ namespace Synthesizer_PC_control
         {
             GetAllFromRegisters();
 
-            ApplyChangeReg5();
-            //Thread.Sleep(1);
-            ApplyChangeReg4();
-            //Thread.Sleep(1);
-            ApplyChangeReg3();
-            //Thread.Sleep(1);
-            ApplyChangeReg2();
-            //Thread.Sleep(1);
-            ApplyChangeReg1();
-            //Thread.Sleep(1);
-            ApplyChangeReg0();
-            //Thread.Sleep(1);
+            ApplyChangeReg(5);
+            ApplyChangeReg(4);
+            ApplyChangeReg(3);
+            ApplyChangeReg(2);
+            ApplyChangeReg(1);
+            ApplyChangeReg(0);
         }
 
         private void AvaibleCOMsComBox_DropDown(object sender, EventArgs e)
@@ -1132,7 +1122,7 @@ namespace Synthesizer_PC_control
             if (Reg4TextBox.Enabled == true)
             {
                 ChangeReg4OutAEn();
-                ApplyChangeReg4();
+                ApplyChangeReg(4);
             }
         }
 
@@ -1141,7 +1131,7 @@ namespace Synthesizer_PC_control
             if (Reg4TextBox.Enabled == true)
             {
                 ChangeReg4OutAPwr();
-                ApplyChangeReg4();
+                ApplyChangeReg(4);
             }
         }
 
@@ -1161,7 +1151,7 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg0IntNValue();
-                ApplyChangeReg0();
+                ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
@@ -1171,7 +1161,7 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg0FracNValue();
-                ApplyChangeReg0();
+                ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
@@ -1181,8 +1171,8 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg1ModValue();
-                ApplyChangeReg1();
-                ApplyChangeReg0();
+                ApplyChangeReg(1);
+                ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
         }
@@ -1272,8 +1262,8 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true) // TODO prefdelat na stav port otevren tlacitko
             {
                 ChangeReg2RefDoubler();
-                ApplyChangeReg2();
-                ApplyChangeReg0();
+                ApplyChangeReg(2);
+                ApplyChangeReg(0);
                 GetFPfdFreq();
                 RecalcFreqInfo();
             }
@@ -1284,8 +1274,8 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg2RefDivider();
-                ApplyChangeReg2();
-                ApplyChangeReg0();
+                ApplyChangeReg(2);
+                ApplyChangeReg(0);
                 GetFPfdFreq();
                 RecalcFreqInfo();
             }
@@ -1296,8 +1286,8 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg2RDiv();
-                ApplyChangeReg2();
-                ApplyChangeReg0();
+                ApplyChangeReg(2);
+                ApplyChangeReg(0);
                 GetFPfdFreq();
                 RecalcFreqInfo();
             }
@@ -1308,7 +1298,7 @@ namespace Synthesizer_PC_control
             if (Reg0TextBox.Enabled == true)
             {
                 ChangeReg4ADiv();
-                ApplyChangeReg4();
+                ApplyChangeReg(4);
                 GetFPfdFreq();
                 RecalcFreqInfo();
             }
@@ -1319,7 +1309,7 @@ namespace Synthesizer_PC_control
             if(Reg0TextBox.Enabled == true)
             {
                 ChangeReg1PhaseP();
-                ApplyChangeReg1();
+                ApplyChangeReg(1);
             }
         }
 
@@ -1355,8 +1345,8 @@ namespace Synthesizer_PC_control
             if(Reg0TextBox.Enabled == true)
             {
                 ChangeReg2CPCurrent();
-                ApplyChangeReg2();
-                ApplyChangeReg0();
+                ApplyChangeReg(2);
+                ApplyChangeReg(0);
             }
         }
 
@@ -1365,7 +1355,7 @@ namespace Synthesizer_PC_control
             if(Reg0TextBox.Enabled == true)
             {
                 ChangeReg1CPLinearity();
-                ApplyChangeReg1();
+                ApplyChangeReg(1);
             }
         }
 
@@ -1600,85 +1590,85 @@ namespace Synthesizer_PC_control
 
         private void MoveRegsIntoMem1Button_Click(object sender, EventArgs e)
         {
-            R0M1.Text = registers[0].string_GetValue();
-            R1M1.Text = registers[1].string_GetValue();
-            R2M1.Text = registers[2].string_GetValue();
-            R3M1.Text = registers[3].string_GetValue();
-            R4M1.Text = registers[4].string_GetValue();
-            R5M1.Text = registers[5].string_GetValue();
+            R0M1.Text = controller.registers[0].string_GetValue();
+            R1M1.Text = controller.registers[1].string_GetValue();
+            R2M1.Text = controller.registers[2].string_GetValue();
+            R3M1.Text = controller.registers[3].string_GetValue();
+            R4M1.Text = controller.registers[4].string_GetValue();
+            R5M1.Text = controller.registers[5].string_GetValue();
         }
 
         private void MoveRegsIntoMem2Button_Click(object sender, EventArgs e)
         {
-            R0M2.Text = registers[0].string_GetValue();
-            R1M2.Text = registers[1].string_GetValue();
-            R2M2.Text = registers[2].string_GetValue();
-            R3M2.Text = registers[3].string_GetValue();
-            R4M2.Text = registers[4].string_GetValue();
-            R5M2.Text = registers[5].string_GetValue();
+            R0M2.Text = controller.registers[0].string_GetValue();
+            R1M2.Text = controller.registers[1].string_GetValue();
+            R2M2.Text = controller.registers[2].string_GetValue();
+            R3M2.Text = controller.registers[3].string_GetValue();
+            R4M2.Text = controller.registers[4].string_GetValue();
+            R5M2.Text = controller.registers[5].string_GetValue();
         }
 
         private void MoveRegsIntoMem3Button_Click(object sender, EventArgs e)
         {
-            R0M3.Text = registers[0].string_GetValue();
-            R1M3.Text = registers[1].string_GetValue();
-            R2M3.Text = registers[2].string_GetValue();
-            R3M3.Text = registers[3].string_GetValue();
-            R4M3.Text = registers[4].string_GetValue();
-            R5M3.Text = registers[5].string_GetValue();
+            R0M3.Text = controller.registers[0].string_GetValue();
+            R1M3.Text = controller.registers[1].string_GetValue();
+            R2M3.Text = controller.registers[2].string_GetValue();
+            R3M3.Text = controller.registers[3].string_GetValue();
+            R4M3.Text = controller.registers[4].string_GetValue();
+            R5M3.Text = controller.registers[5].string_GetValue();
         }
 
         private void MoveRegsIntoMem4Button_Click(object sender, EventArgs e)
         {
-            R0M4.Text = registers[0].string_GetValue();
-            R1M4.Text = registers[1].string_GetValue();
-            R2M4.Text = registers[2].string_GetValue();
-            R3M4.Text = registers[3].string_GetValue();
-            R4M4.Text = registers[4].string_GetValue();
-            R5M4.Text = registers[5].string_GetValue();
+            R0M4.Text = controller.registers[0].string_GetValue();
+            R1M4.Text = controller.registers[1].string_GetValue();
+            R2M4.Text = controller.registers[2].string_GetValue();
+            R3M4.Text = controller.registers[3].string_GetValue();
+            R4M4.Text = controller.registers[4].string_GetValue();
+            R5M4.Text = controller.registers[5].string_GetValue();
         }
 
         private void ImportMem1Button_Click(object sender, EventArgs e)
         {
-            registers[0].SetValue(R0M1.Text);
-            registers[1].SetValue(R1M1.Text);
-            registers[2].SetValue(R2M1.Text);
-            registers[3].SetValue(R3M1.Text);
-            registers[4].SetValue(R4M1.Text);
-            registers[5].SetValue(R5M1.Text);
+            controller.registers[0].SetValue(R0M1.Text);
+            controller.registers[1].SetValue(R1M1.Text);
+            controller.registers[2].SetValue(R2M1.Text);
+            controller.registers[3].SetValue(R3M1.Text);
+            controller.registers[4].SetValue(R4M1.Text);
+            controller.registers[5].SetValue(R5M1.Text);
             GetAllFromRegisters();
         }
 
         private void ImportMem2Button_Click(object sender, EventArgs e)
         {
-            registers[0].SetValue(R0M2.Text);
-            registers[1].SetValue(R1M2.Text);
-            registers[2].SetValue(R2M2.Text);
-            registers[3].SetValue(R3M2.Text);
-            registers[4].SetValue(R4M2.Text);
-            registers[5].SetValue(R5M2.Text);
+            controller.registers[0].SetValue(R0M2.Text);
+            controller.registers[1].SetValue(R1M2.Text);
+            controller.registers[2].SetValue(R2M2.Text);
+            controller.registers[3].SetValue(R3M2.Text);
+            controller.registers[4].SetValue(R4M2.Text);
+            controller.registers[5].SetValue(R5M2.Text);
             GetAllFromRegisters();
         }
 
         private void ImportMem3Button_Click(object sender, EventArgs e)
         {
-            registers[0].SetValue(R0M3.Text);
-            registers[1].SetValue(R1M3.Text);
-            registers[2].SetValue(R2M3.Text);
-            registers[3].SetValue(R3M3.Text);
-            registers[4].SetValue(R4M3.Text);
-            registers[5].SetValue(R5M3.Text);
+            controller.registers[0].SetValue(R0M3.Text);
+            controller.registers[1].SetValue(R1M3.Text);
+            controller.registers[2].SetValue(R2M3.Text);
+            controller.registers[3].SetValue(R3M3.Text);
+            controller.registers[4].SetValue(R4M3.Text);
+            controller.registers[5].SetValue(R5M3.Text);
             GetAllFromRegisters();
         }
 
         private void ImportMem4Button_Click(object sender, EventArgs e)
         {
-            registers[0].SetValue(R0M4.Text);
-            registers[1].SetValue(R1M4.Text);
-            registers[2].SetValue(R2M4.Text);
-            registers[3].SetValue(R3M4.Text);
-            registers[4].SetValue(R4M4.Text);
-            registers[5].SetValue(R5M4.Text);
+            controller.registers[0].SetValue(R0M4.Text);
+            controller.registers[1].SetValue(R1M4.Text);
+            controller.registers[2].SetValue(R2M4.Text);
+            controller.registers[3].SetValue(R3M4.Text);
+            controller.registers[4].SetValue(R4M4.Text);
+            controller.registers[5].SetValue(R5M4.Text);
             GetAllFromRegisters();
         }
     }
