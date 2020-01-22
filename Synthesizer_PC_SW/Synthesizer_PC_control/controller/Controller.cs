@@ -71,7 +71,8 @@ namespace Synthesizer_PC_control
         {
             string data = String.Format("plo set_register {0}", registers[index].string_GetValue());
             old_regs[index] = registers[index].string_GetValue();
-            serialPort.SendStringSerialPort(data);
+            if(!serialPort.SendStringSerialPort(data))
+                view.EnableControls(false);
         }
 
         public void SwitchPort()

@@ -63,7 +63,7 @@ namespace Synthesizer_PC_control.Model
  
                 ClosePort(); 
  
-                UpdateUiElements(); 
+                UpdateUiElements();
                 return false; 
             } 
         } 
@@ -110,8 +110,8 @@ namespace Synthesizer_PC_control.Model
             } 
         } 
  
-        public void SendStringSerialPort(string text) 
-        { 
+        public bool SendStringSerialPort(string text) 
+        {
             try 
             { 
                 dontRunHandler = true; 
@@ -122,6 +122,7 @@ namespace Synthesizer_PC_control.Model
                 dontRunHandler = false; 
  
                 ui_NAME_ME_BETTER.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + "command: '" + text + "' sended"); 
+                return true;
                 //_serialPort.ReadLine(); 
             } 
             catch 
@@ -130,8 +131,9 @@ namespace Synthesizer_PC_control.Model
                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk); 
                 //PortButton_Click(this, new EventArgs()); 
                 ClosePort(); 
+                return false;
             } 
-        } 
+        }
  
         private void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e) 
         { 
