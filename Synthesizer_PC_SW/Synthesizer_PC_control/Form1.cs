@@ -1415,7 +1415,11 @@ namespace Synthesizer_PC_control
             try{
                 int comma_position = f_input_string.IndexOf(",");
                 int position = InputFreqTextBox.SelectionStart-1;
-                double delenec = Math.Pow(10, position - comma_position);
+                double delenec;
+                if ((position-comma_position) < 0)
+                    delenec = Math.Pow(10, position + 1 - comma_position);
+                else
+                    delenec = Math.Pow(10, position - comma_position);
                 double increment = 1/(delenec);
                 f_input = (handledArgs.Delta > 0) ? f_input += increment : f_input -= increment;
                 f_input_string = string.Format("{0:f8}", f_input);
