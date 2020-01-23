@@ -16,7 +16,22 @@ namespace Synthesizer_PC_control
 
         public MyRegister[] registers;
 
+        /*
+            TODO FILIP
+            Třída Memory, která drží všechny registersMemory1 - registersMemory4 (nový soubor Memory.cs)
+            V kontroktoru ZATÍM může dostat view aby si zjistila hodnoty (jak to delat je v controller.cs, ten ma referenci na view)
+            => napsat todo pro změnu na hodnoty z kontrolleru
+            => Případně může Memory.cs znát ZATÍM nějaké defoult hardcoded hodnoty
+
+            Memory bude mít funkce na vrácení registru podle čísla paměti a indexu
+            např. public MyRegister(int memory, int regIndex)
+            => pozor na větší číslo než je paměť => vrátit null?
+        */
+        public MyRegister[] registersMemory1;
+        // TODO FILIP other memories
+
         public string[] old_regs;
+        // TODO ... FILIP MyRegister without UI element
 
         public Controller(Form1 view)
         {
@@ -34,7 +49,15 @@ namespace Synthesizer_PC_control
 
             registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
 
+            var mem1Reg0 = new MyRegister(view.R0M1.Text, view.Reg0TextBox);
+            // TODO FILIP ...
+
+            // TODO FILIP ... registersMemory1 = new MyRegister[] {mem1Reg0, ...}
+
             old_regs = new string[6] {"80C90000", "800103E9", "00005F42", "00001F23", "63BE80E4", "00400005"};
+
+            // Memory registers
+            var testRegister = new MyRegister("00000000");
         }
 
 #region Register Change Functions for individual controls
@@ -42,18 +65,14 @@ namespace Synthesizer_PC_control
 #region Reference Frequency Part
         public void ChangeRDiv(decimal RDividerValue)
         {
-            UInt32 reg = registers[2].uint32_GetValue();
-            reg &= ~(UInt32)(0b111111111100000000000000);
-            reg += Convert.ToUInt32(RDividerValue) << 14;
-            registers[2].SetValue(reg);
+            registers[2].ChangeNBits(Convert.ToUInt32(RDividerValue), 10, 14);
         }
 
         public void ChangeRefDoubler(bool IsActive)
         {
-            UInt32 reg = registers[2].uint32_GetValue();
             if (IsActive == true)
             {
-                reg |= unchecked((UInt32)(1<<25));
+                registers[2].SetResetOneBit(25, BitState.SET);
                 if ((view.IntNNumUpDown.Value / 2) < view.IntNNumUpDown.Minimum)
                     view.IntNNumUpDown.Value = view.IntNNumUpDown.Minimum;
                 else
@@ -61,22 +80,19 @@ namespace Synthesizer_PC_control
             }
             else
             {
-                reg &= ~unchecked((UInt32)(1<<25));
+                registers[2].SetResetOneBit(25, BitState.RESET);
                 if ((view.IntNNumUpDown.Value * 2) > view.IntNNumUpDown.Maximum)
                     view.IntNNumUpDown.Value = view.IntNNumUpDown.Maximum;
                 else
                     view.IntNNumUpDown.Value = view.IntNNumUpDown.Value*2;
-
             }
-            registers[2].SetValue(reg);
         }
 
         public void ChangeRefDivider(bool IsActive)
         {
-            UInt32 reg = registers[2].uint32_GetValue();
             if (IsActive == true)
             {
-                reg |= unchecked((UInt32)(1<<24));
+                registers[2].SetResetOneBit(24, BitState.SET);
                 if ((view.IntNNumUpDown.Value * 2) > view.IntNNumUpDown.Maximum)
                     view.IntNNumUpDown.Value = view.IntNNumUpDown.Maximum;
                 else
@@ -84,85 +100,69 @@ namespace Synthesizer_PC_control
             }
             else
             {
-                reg &= ~unchecked((UInt32)(1<<24));
+                registers[2].SetResetOneBit(24, BitState.RESET);
                 if ((view.IntNNumUpDown.Value / 2) < view.IntNNumUpDown.Minimum)
                     view.IntNNumUpDown.Value = view.IntNNumUpDown.Minimum;
                 else
                     view.IntNNumUpDown.Value = view.IntNNumUpDown.Value/2;
-
             }
-            registers[2].SetValue(reg);
         }
 
 #endregion
         
 #region Output Frequency Control Part
         // Zapise a prevede hodnotu IntN do Reg0
-        public void ChangeIntNValue(decimal IntNValue)
+        public void ChangeIntNValue(decimal intNValue)
         {
-            UInt32 reg = registers[0].uint32_GetValue();
-            reg &= ~(UInt32)(0b01111111111111111000000000000000);
-            reg += Convert.ToUInt32(IntNValue) << 15;
-            registers[0].SetValue(reg);
+            registers[0].ChangeNBits(Convert.ToUInt32(intNValue), 16, 15);
         }
 
-        public void ChangeFracNValue(decimal FracNNumValue)
+        public void ChangeFracNValue(decimal fracNNumValue)
         {
-            UInt32 reg = registers[0].uint32_GetValue();
-            reg &= ~(UInt32)(0b00000000000000000111111111111000);
-            reg += Convert.ToUInt32(FracNNumValue) << 3;
-            registers[0].SetValue(reg);
+            registers[0].ChangeNBits(Convert.ToUInt32(fracNNumValue), 12, 3);
         }
 
-        public void ChangeModValue(decimal ModValue)
+        public void ChangeModValue(decimal modValue)
         {
-            UInt32 reg = registers[1].uint32_GetValue();
-            reg &= ~(UInt32)(0b00000000000000000111111111111000);
-            reg += Convert.ToUInt32(ModValue) << 3;
-            registers[1].SetValue(reg);
-            view.FracNNumUpDown.Maximum = ModValue - 1;
+            registers[1].ChangeNBits(Convert.ToUInt32(modValue), 12, 3);
+            view.FracNNumUpDown.Maximum = modValue - 1;
         }
+
 
         public void ChangeIntFracMode(int selectedIndex)
         {
-            UInt32 reg0 = registers[0].uint32_GetValue();
-            UInt32 reg2 = registers[2].uint32_GetValue();
-            
             if (selectedIndex == 0)
-            //if (ModeIntFracComboBox.SelectedIndex == 0)
             {
-                reg0 &= ~unchecked((UInt32)(1<<31));
-                reg2 &= ~unchecked((UInt32)(1<<8));
+                registers[2].SetResetOneBit(8, BitState.RESET);
+                registers[0].SetResetOneBit(31, BitState.RESET);
                 view.IntNNumUpDown.Minimum = 19;
                 view.IntNNumUpDown.Maximum = 4091;
-
             }
             else if (selectedIndex == 1)
-            //else if (RF_A_EN_ComboBox.SelectedIndex == 1)
             {
-                reg0 |= unchecked((UInt32)(1<<31));
-                reg2 |= unchecked((UInt32)(1<<8));
+                registers[2].SetResetOneBit(8, BitState.SET);
+                registers[0].SetResetOneBit(31, BitState.SET);
                 view.IntNNumUpDown.Minimum = 16;
                 view.IntNNumUpDown.Maximum = 65535;
             }
-            registers[0].SetValue(reg0);
-            registers[2].SetValue(reg2);
         }
 
         public void ChangeADiv(int selectedIndex)
         {
-            UInt32 reg = registers[4].uint32_GetValue();
-            reg &= ~(UInt32)( (1<<22) | (1<<21) | (1<<20) );
-            reg += Convert.ToUInt32(selectedIndex) << 20;
-            registers[4].SetValue(reg);
+            registers[4].ChangeNBits(Convert.ToUInt32(selectedIndex), 3, 20);
         }
+
+        // TODO FILIP controller.Cha... -> registers
+        /*public void ChangePhaseP(decimal val)
+        {
+            registers[0]
+            registers[1].ChangePhaseP(val);
+            controller.ApplyChangeReg(1);   // TODO FILIP, kde má byt to ApplyChangeReg
+        }*/
 
         public void ChangePhaseP(decimal PhasePValue)
         {
-            UInt32 reg = registers[1].uint32_GetValue();
-            reg &= ~(UInt32)(0b1111111111111000000000000000);
-            reg += Convert.ToUInt32(PhasePValue) << 15;
-            registers[1].SetValue(reg);
+            registers[1].ChangeNBits(Convert.ToUInt32(PhasePValue), 12, 15);
         }
 
 #endregion
@@ -171,18 +171,12 @@ namespace Synthesizer_PC_control
 
         public void ChangeCPCurrent(int selectedIndex)
         {
-            UInt32 reg = registers[2].uint32_GetValue();
-            reg &= ~(UInt32)((1<<12) | (1<<11) | (1<<10) | (1<<9));
-            reg += Convert.ToUInt32(selectedIndex) << 9;
-            registers[2].SetValue(reg);
+            registers[2].ChangeNBits(Convert.ToUInt32(selectedIndex), 4, 9);
         }
 
         public void ChangeCPLinearity(int selectedIndex)
         {
-            UInt32 reg = registers[1].uint32_GetValue();
-            reg &= ~(UInt32)((1<<30) | (1<<29));
-            reg += Convert.ToUInt32(selectedIndex) << 29;
-            registers[1].SetValue(reg);
+            registers[1].ChangeNBits(Convert.ToUInt32(selectedIndex), 2, 29);
         }
 
 #endregion
@@ -191,39 +185,19 @@ namespace Synthesizer_PC_control
 
         public void ChangeOutAPwr(int selectedIndex)
         {
-            UInt32 reg = registers[4].uint32_GetValue();
-            switch (selectedIndex)
-            {
-                case 0:
-                    reg &= ~((UInt32)(1<<4) | (UInt32)(1<<3));
-                    break;
-                case 1:
-                    reg &= ~(UInt32)(1<<4);
-                    reg |= (UInt32)(1<<3);
-                    break;
-                case 2:
-                    reg |= (UInt32)(1<<4);
-                    reg &= ~(UInt32)(1<<3);
-                    break;
-                case 3:
-                    reg |= (UInt32)(1<<4) | (UInt32)(1<<3);
-                    break;
-            }
-            registers[4].SetValue(reg);
+            registers[4].ChangeNBits(Convert.ToUInt32(selectedIndex), 2, 3);
         }
 
         public void ChangeOutAEn(int selectedIndex)
         {
-            UInt32 reg = registers[4].uint32_GetValue();
             if (selectedIndex == 0)
             {
-                reg &= ~((UInt32)(1<<5));
+                registers[4].SetResetOneBit(5, BitState.RESET);
             }
             else if (selectedIndex == 1)
             {
-                reg |= (UInt32)(1<<5);
+                registers[4].SetResetOneBit(5, BitState.SET);
             }
-            registers[4].SetValue(reg);
         }
 
 #endregion

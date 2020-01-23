@@ -26,10 +26,11 @@ namespace Synthesizer_PC_control.Model
         }
 
         public void UpdateUiElements()
-        {            if (!updateUI)
+        {
+            if (!updateUI)
                 return;
 
-            uiElement.Text = value;
+            uiElement.Text = value;
         }
 
         #region Getters
@@ -58,7 +59,30 @@ namespace Synthesizer_PC_control.Model
         {
             this.value = Convert.ToString(value, 16);
             UpdateUiElements();
-        }
+        }
+
         #endregion
+
+        #region Bit Operations functions
+
+        public void ChangeNBits(UInt32 changingValue, int N, int startingBit)
+        {
+            UInt32 reg = this.uint32_GetValue();
+            reg =  BitOperations.ChangeNBits(reg, changingValue, N, startingBit);
+            this.SetValue(reg);
+            
+        }
+
+        public void SetResetOneBit(UInt16 bit, BitState bitState)
+        {
+            UInt32 reg = this.uint32_GetValue();
+            reg = BitOperations.SetResetOneBit(reg, bit, bitState);
+            this.SetValue(reg);
+        }
+        
+        #endregion
+
+
+        
     }
 }
