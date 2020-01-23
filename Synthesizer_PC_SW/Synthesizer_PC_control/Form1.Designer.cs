@@ -2040,36 +2040,36 @@ namespace Synthesizer_PC_control
         private System.Windows.Forms.TabPage RegistersPage;
         private System.Windows.Forms.TabPage SavedRegistersPage;
         private System.Windows.Forms.Label SavReg3Label;
-        private System.Windows.Forms.TextBox R0M4;
-        private System.Windows.Forms.TextBox R0M3;
-        private System.Windows.Forms.TextBox R0M2;
-        private System.Windows.Forms.TextBox R0M1;
+        public System.Windows.Forms.TextBox R0M4;
+        public System.Windows.Forms.TextBox R0M3;
+        public System.Windows.Forms.TextBox R0M2;
+        public System.Windows.Forms.TextBox R0M1;
         private System.Windows.Forms.Label Mem1Label;
         private System.Windows.Forms.Label SavReg0Label;
         private System.Windows.Forms.Label SavReg1Label;
-        private System.Windows.Forms.TextBox R1M4;
-        private System.Windows.Forms.TextBox R1M3;
-        private System.Windows.Forms.TextBox R1M2;
-        private System.Windows.Forms.TextBox R1M1;
+        public System.Windows.Forms.TextBox R1M4;
+        public System.Windows.Forms.TextBox R1M3;
+        public System.Windows.Forms.TextBox R1M2;
+        public System.Windows.Forms.TextBox R1M1;
         private System.Windows.Forms.Label SavReg2Label;
-        private System.Windows.Forms.TextBox R2M4;
-        private System.Windows.Forms.TextBox R2M3;
-        private System.Windows.Forms.TextBox R2M2;
-        private System.Windows.Forms.TextBox R2M1;
-        private System.Windows.Forms.TextBox R3M4;
-        private System.Windows.Forms.TextBox R3M3;
-        private System.Windows.Forms.TextBox R3M2;
-        private System.Windows.Forms.TextBox R3M1;
+        public System.Windows.Forms.TextBox R2M4;
+        public System.Windows.Forms.TextBox R2M3;
+        public System.Windows.Forms.TextBox R2M2;
+        public System.Windows.Forms.TextBox R2M1;
+        public System.Windows.Forms.TextBox R3M4;
+        public System.Windows.Forms.TextBox R3M3;
+        public System.Windows.Forms.TextBox R3M2;
+        public System.Windows.Forms.TextBox R3M1;
         private System.Windows.Forms.Label SavReg4Label;
-        private System.Windows.Forms.TextBox R4M4;
-        private System.Windows.Forms.TextBox R4M3;
-        private System.Windows.Forms.TextBox R5M4;
-        private System.Windows.Forms.TextBox R4M2;
-        private System.Windows.Forms.TextBox R5M3;
-        private System.Windows.Forms.TextBox R4M1;
-        private System.Windows.Forms.TextBox R5M2;
+        public System.Windows.Forms.TextBox R4M4;
+        public System.Windows.Forms.TextBox R4M3;
+        public System.Windows.Forms.TextBox R5M4;
+        public System.Windows.Forms.TextBox R4M2;
+        public System.Windows.Forms.TextBox R5M3;
+        public System.Windows.Forms.TextBox R4M1;
+        public System.Windows.Forms.TextBox R5M2;
         private System.Windows.Forms.Label SavReg5Label;
-        private System.Windows.Forms.TextBox R5M1;
+        public System.Windows.Forms.TextBox R5M1;
         private System.Windows.Forms.Label Mem4Label;
         private System.Windows.Forms.Label Mem3Label;
         private System.Windows.Forms.Label Mem2Label;
@@ -2149,6 +2149,8 @@ namespace Synthesizer_PC_control
         private Button ImportMem3Button;
         private Button ImportMem2Button;
         private Button ImportMem1Button;
+
+        // TODO console reneme textbox.
         public TextBox textBox; // Hello there!, Rename me
     }
 }
