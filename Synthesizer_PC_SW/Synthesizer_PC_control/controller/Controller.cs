@@ -56,12 +56,12 @@ namespace Synthesizer_PC_control
             // Memory registers
             var testRegister = new MyRegister("00000000");
 
-            var old_reg0 = new MyRegister("80C90000");
-            var old_reg1 = new MyRegister("800103E9");
-            var old_reg2 = new MyRegister("00005F42");
-            var old_reg3 = new MyRegister("00001F23");
-            var old_reg4 = new MyRegister("63BE80E4");
-            var old_reg5 = new MyRegister("00400005");
+            var old_reg0 = new MyRegister(null);
+            var old_reg1 = new MyRegister(null);
+            var old_reg2 = new MyRegister(null);
+            var old_reg3 = new MyRegister(null);
+            var old_reg4 = new MyRegister(null);
+            var old_reg5 = new MyRegister(null);
 
             old_registers = new MyRegister[] {old_reg0, old_reg1, old_reg2, old_reg3, old_reg4, old_reg5};
         }
