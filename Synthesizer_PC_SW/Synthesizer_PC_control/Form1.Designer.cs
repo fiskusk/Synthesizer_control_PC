@@ -59,6 +59,7 @@ namespace Synthesizer_PC_control
             this.WriteR5Button = new System.Windows.Forms.Button();
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
+            this.RegistersControlsGroupBox = new System.Windows.Forms.GroupBox();
             this.MoveRegsIntoMemsGroupBox = new System.Windows.Forms.GroupBox();
             this.MoveRegsIntoMem1Button = new System.Windows.Forms.Button();
             this.MoveRegsIntoMem2Button = new System.Windows.Forms.Button();
@@ -120,7 +121,7 @@ namespace Synthesizer_PC_control
             this.MHzLabel4 = new System.Windows.Forms.Label();
             this.MHzLabel3 = new System.Windows.Forms.Label();
             this.fPfdScreenLabel = new System.Windows.Forms.Label();
-            this.SavedRegistersPage = new System.Windows.Forms.TabPage();
+            this.RegistersMemoryPage = new System.Windows.Forms.TabPage();
             this.ImportMem4Button = new System.Windows.Forms.Button();
             this.ImportMem3Button = new System.Windows.Forms.Button();
             this.ImportMem2Button = new System.Windows.Forms.Button();
@@ -170,9 +171,11 @@ namespace Synthesizer_PC_control
             this.HzLabel = new System.Windows.Forms.Label();
             this.DeltaLabel = new System.Windows.Forms.Label();
             this.InputFreqLabel = new System.Windows.Forms.Label();
-            this.textBox = new System.Windows.Forms.TextBox();
+            this.ConsoleTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
+            this.RegistersControlsGroupBox.SuspendLayout();
             this.MoveRegsIntoMemsGroupBox.SuspendLayout();
             this.ChargePumpGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -184,8 +187,9 @@ namespace Synthesizer_PC_control
             ((System.ComponentModel.ISupportInitialize)(this.PhasePNumericUpDown)).BeginInit();
             this.RefFreqGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RDivUpDown)).BeginInit();
-            this.SavedRegistersPage.SuspendLayout();
+            this.RegistersMemoryPage.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // PortButton
@@ -201,7 +205,7 @@ namespace Synthesizer_PC_control
             // 
             // Out1Button
             // 
-            this.Out1Button.Location = new System.Drawing.Point(16, 72);
+            this.Out1Button.Location = new System.Drawing.Point(16, 48);
             this.Out1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Out1Button.Name = "Out1Button";
             this.Out1Button.Size = new System.Drawing.Size(100, 28);
@@ -212,7 +216,7 @@ namespace Synthesizer_PC_control
             // 
             // Out2Button
             // 
-            this.Out2Button.Location = new System.Drawing.Point(16, 106);
+            this.Out2Button.Location = new System.Drawing.Point(16, 82);
             this.Out2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Out2Button.Name = "Out2Button";
             this.Out2Button.Size = new System.Drawing.Size(100, 28);
@@ -223,7 +227,7 @@ namespace Synthesizer_PC_control
             // 
             // PloInitButton
             // 
-            this.PloInitButton.Location = new System.Drawing.Point(161, 72);
+            this.PloInitButton.Location = new System.Drawing.Point(161, 48);
             this.PloInitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PloInitButton.Name = "PloInitButton";
             this.PloInitButton.Size = new System.Drawing.Size(100, 28);
@@ -236,7 +240,7 @@ namespace Synthesizer_PC_control
             // 
             this.Reg0TextBox.BackColor = System.Drawing.Color.White;
             this.Reg0TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg0TextBox.Location = new System.Drawing.Point(95, 14);
+            this.Reg0TextBox.Location = new System.Drawing.Point(88, 20);
             this.Reg0TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Reg0TextBox.MaxLength = 8;
             this.Reg0TextBox.Name = "Reg0TextBox";
@@ -249,7 +253,7 @@ namespace Synthesizer_PC_control
             // Reg0Label
             // 
             this.Reg0Label.AutoSize = true;
-            this.Reg0Label.Location = new System.Drawing.Point(16, 17);
+            this.Reg0Label.Location = new System.Drawing.Point(9, 23);
             this.Reg0Label.Name = "Reg0Label";
             this.Reg0Label.Size = new System.Drawing.Size(77, 17);
             this.Reg0Label.TabIndex = 4;
@@ -258,7 +262,7 @@ namespace Synthesizer_PC_control
             // Reg1Label
             // 
             this.Reg1Label.AutoSize = true;
-            this.Reg1Label.Location = new System.Drawing.Point(16, 46);
+            this.Reg1Label.Location = new System.Drawing.Point(9, 52);
             this.Reg1Label.Name = "Reg1Label";
             this.Reg1Label.Size = new System.Drawing.Size(77, 17);
             this.Reg1Label.TabIndex = 5;
@@ -268,7 +272,7 @@ namespace Synthesizer_PC_control
             // 
             this.Reg1TextBox.BackColor = System.Drawing.Color.White;
             this.Reg1TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg1TextBox.Location = new System.Drawing.Point(95, 42);
+            this.Reg1TextBox.Location = new System.Drawing.Point(88, 48);
             this.Reg1TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Reg1TextBox.MaxLength = 8;
             this.Reg1TextBox.Name = "Reg1TextBox";
@@ -281,7 +285,7 @@ namespace Synthesizer_PC_control
             // Reg2Label
             // 
             this.Reg2Label.AutoSize = true;
-            this.Reg2Label.Location = new System.Drawing.Point(16, 73);
+            this.Reg2Label.Location = new System.Drawing.Point(9, 79);
             this.Reg2Label.Name = "Reg2Label";
             this.Reg2Label.Size = new System.Drawing.Size(77, 17);
             this.Reg2Label.TabIndex = 7;
@@ -291,7 +295,7 @@ namespace Synthesizer_PC_control
             // 
             this.Reg2TextBox.BackColor = System.Drawing.Color.White;
             this.Reg2TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg2TextBox.Location = new System.Drawing.Point(95, 70);
+            this.Reg2TextBox.Location = new System.Drawing.Point(88, 76);
             this.Reg2TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Reg2TextBox.MaxLength = 8;
             this.Reg2TextBox.Name = "Reg2TextBox";
@@ -304,7 +308,7 @@ namespace Synthesizer_PC_control
             // Reg3Label
             // 
             this.Reg3Label.AutoSize = true;
-            this.Reg3Label.Location = new System.Drawing.Point(16, 101);
+            this.Reg3Label.Location = new System.Drawing.Point(9, 107);
             this.Reg3Label.Name = "Reg3Label";
             this.Reg3Label.Size = new System.Drawing.Size(77, 17);
             this.Reg3Label.TabIndex = 7;
@@ -314,7 +318,7 @@ namespace Synthesizer_PC_control
             // 
             this.Reg3TextBox.BackColor = System.Drawing.Color.White;
             this.Reg3TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg3TextBox.Location = new System.Drawing.Point(95, 98);
+            this.Reg3TextBox.Location = new System.Drawing.Point(88, 104);
             this.Reg3TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Reg3TextBox.MaxLength = 8;
             this.Reg3TextBox.Name = "Reg3TextBox";
@@ -327,7 +331,7 @@ namespace Synthesizer_PC_control
             // Reg4Label
             // 
             this.Reg4Label.AutoSize = true;
-            this.Reg4Label.Location = new System.Drawing.Point(16, 127);
+            this.Reg4Label.Location = new System.Drawing.Point(9, 133);
             this.Reg4Label.Name = "Reg4Label";
             this.Reg4Label.Size = new System.Drawing.Size(77, 17);
             this.Reg4Label.TabIndex = 7;
@@ -337,7 +341,7 @@ namespace Synthesizer_PC_control
             // 
             this.Reg4TextBox.BackColor = System.Drawing.Color.White;
             this.Reg4TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg4TextBox.Location = new System.Drawing.Point(95, 124);
+            this.Reg4TextBox.Location = new System.Drawing.Point(88, 130);
             this.Reg4TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Reg4TextBox.MaxLength = 8;
             this.Reg4TextBox.Name = "Reg4TextBox";
@@ -350,7 +354,7 @@ namespace Synthesizer_PC_control
             // Reg5Label
             // 
             this.Reg5Label.AutoSize = true;
-            this.Reg5Label.Location = new System.Drawing.Point(16, 155);
+            this.Reg5Label.Location = new System.Drawing.Point(9, 161);
             this.Reg5Label.Name = "Reg5Label";
             this.Reg5Label.Size = new System.Drawing.Size(77, 17);
             this.Reg5Label.TabIndex = 7;
@@ -360,7 +364,7 @@ namespace Synthesizer_PC_control
             // 
             this.Reg5TextBox.BackColor = System.Drawing.Color.White;
             this.Reg5TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg5TextBox.Location = new System.Drawing.Point(95, 153);
+            this.Reg5TextBox.Location = new System.Drawing.Point(88, 159);
             this.Reg5TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Reg5TextBox.MaxLength = 8;
             this.Reg5TextBox.Name = "Reg5TextBox";
@@ -372,7 +376,7 @@ namespace Synthesizer_PC_control
             // 
             // RefButton
             // 
-            this.RefButton.Location = new System.Drawing.Point(16, 139);
+            this.RefButton.Location = new System.Drawing.Point(16, 115);
             this.RefButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RefButton.Name = "RefButton";
             this.RefButton.Size = new System.Drawing.Size(100, 28);
@@ -383,7 +387,7 @@ namespace Synthesizer_PC_control
             // 
             // SetAsDefaultRegButton
             // 
-            this.SetAsDefaultRegButton.Location = new System.Drawing.Point(331, 14);
+            this.SetAsDefaultRegButton.Location = new System.Drawing.Point(295, 21);
             this.SetAsDefaultRegButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SetAsDefaultRegButton.Name = "SetAsDefaultRegButton";
             this.SetAsDefaultRegButton.Size = new System.Drawing.Size(99, 23);
@@ -394,7 +398,7 @@ namespace Synthesizer_PC_control
             // 
             // ForceLoadRegButton
             // 
-            this.ForceLoadRegButton.Location = new System.Drawing.Point(331, 71);
+            this.ForceLoadRegButton.Location = new System.Drawing.Point(295, 78);
             this.ForceLoadRegButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ForceLoadRegButton.Name = "ForceLoadRegButton";
             this.ForceLoadRegButton.Size = new System.Drawing.Size(99, 23);
@@ -405,7 +409,7 @@ namespace Synthesizer_PC_control
             // 
             // LoadDefRegButton
             // 
-            this.LoadDefRegButton.Location = new System.Drawing.Point(331, 42);
+            this.LoadDefRegButton.Location = new System.Drawing.Point(295, 49);
             this.LoadDefRegButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LoadDefRegButton.Name = "LoadDefRegButton";
             this.LoadDefRegButton.Size = new System.Drawing.Size(99, 23);
@@ -427,7 +431,7 @@ namespace Synthesizer_PC_control
             // 
             // WriteR0Button
             // 
-            this.WriteR0Button.Location = new System.Drawing.Point(201, 14);
+            this.WriteR0Button.Location = new System.Drawing.Point(194, 20);
             this.WriteR0Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR0Button.Name = "WriteR0Button";
             this.WriteR0Button.Size = new System.Drawing.Size(84, 23);
@@ -438,7 +442,7 @@ namespace Synthesizer_PC_control
             // 
             // WriteR1Button
             // 
-            this.WriteR1Button.Location = new System.Drawing.Point(201, 42);
+            this.WriteR1Button.Location = new System.Drawing.Point(194, 48);
             this.WriteR1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR1Button.Name = "WriteR1Button";
             this.WriteR1Button.Size = new System.Drawing.Size(84, 23);
@@ -449,7 +453,7 @@ namespace Synthesizer_PC_control
             // 
             // WriteR2Button
             // 
-            this.WriteR2Button.Location = new System.Drawing.Point(201, 70);
+            this.WriteR2Button.Location = new System.Drawing.Point(194, 76);
             this.WriteR2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR2Button.Name = "WriteR2Button";
             this.WriteR2Button.Size = new System.Drawing.Size(84, 23);
@@ -460,7 +464,7 @@ namespace Synthesizer_PC_control
             // 
             // WriteR3Button
             // 
-            this.WriteR3Button.Location = new System.Drawing.Point(201, 98);
+            this.WriteR3Button.Location = new System.Drawing.Point(194, 104);
             this.WriteR3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR3Button.Name = "WriteR3Button";
             this.WriteR3Button.Size = new System.Drawing.Size(84, 23);
@@ -471,7 +475,7 @@ namespace Synthesizer_PC_control
             // 
             // WriteR4Button
             // 
-            this.WriteR4Button.Location = new System.Drawing.Point(201, 124);
+            this.WriteR4Button.Location = new System.Drawing.Point(194, 130);
             this.WriteR4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR4Button.Name = "WriteR4Button";
             this.WriteR4Button.Size = new System.Drawing.Size(84, 23);
@@ -482,7 +486,7 @@ namespace Synthesizer_PC_control
             // 
             // WriteR5Button
             // 
-            this.WriteR5Button.Location = new System.Drawing.Point(201, 153);
+            this.WriteR5Button.Location = new System.Drawing.Point(194, 159);
             this.WriteR5Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR5Button.Name = "WriteR5Button";
             this.WriteR5Button.Size = new System.Drawing.Size(84, 23);
@@ -494,52 +498,62 @@ namespace Synthesizer_PC_control
             // RegistersTabControl
             // 
             this.RegistersTabControl.Controls.Add(this.RegistersPage);
-            this.RegistersTabControl.Controls.Add(this.SavedRegistersPage);
-            this.RegistersTabControl.Location = new System.Drawing.Point(352, 32);
+            this.RegistersTabControl.Controls.Add(this.RegistersMemoryPage);
+            this.RegistersTabControl.Location = new System.Drawing.Point(352, 23);
             this.RegistersTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersTabControl.Name = "RegistersTabControl";
             this.RegistersTabControl.SelectedIndex = 0;
-            this.RegistersTabControl.Size = new System.Drawing.Size(708, 539);
+            this.RegistersTabControl.Size = new System.Drawing.Size(708, 548);
             this.RegistersTabControl.TabIndex = 12;
             // 
             // RegistersPage
             // 
+            this.RegistersPage.Controls.Add(this.RegistersControlsGroupBox);
             this.RegistersPage.Controls.Add(this.MoveRegsIntoMemsGroupBox);
             this.RegistersPage.Controls.Add(this.ChargePumpGroupBox);
             this.RegistersPage.Controls.Add(this.groupBox1);
             this.RegistersPage.Controls.Add(this.OutInfoGroupBox);
             this.RegistersPage.Controls.Add(this.FreqControlGroupBox);
-            this.RegistersPage.Controls.Add(this.Reg3Label);
-            this.RegistersPage.Controls.Add(this.WriteR5Button);
-            this.RegistersPage.Controls.Add(this.Reg0TextBox);
-            this.RegistersPage.Controls.Add(this.WriteR4Button);
-            this.RegistersPage.Controls.Add(this.Reg0Label);
-            this.RegistersPage.Controls.Add(this.WriteR3Button);
-            this.RegistersPage.Controls.Add(this.Reg1Label);
-            this.RegistersPage.Controls.Add(this.WriteR1Button);
-            this.RegistersPage.Controls.Add(this.Reg1TextBox);
-            this.RegistersPage.Controls.Add(this.WriteR2Button);
-            this.RegistersPage.Controls.Add(this.Reg2Label);
-            this.RegistersPage.Controls.Add(this.WriteR0Button);
-            this.RegistersPage.Controls.Add(this.Reg2TextBox);
-            this.RegistersPage.Controls.Add(this.Reg3TextBox);
-            this.RegistersPage.Controls.Add(this.ForceLoadRegButton);
-            this.RegistersPage.Controls.Add(this.Reg4Label);
-            this.RegistersPage.Controls.Add(this.LoadDefRegButton);
-            this.RegistersPage.Controls.Add(this.Reg4TextBox);
-            this.RegistersPage.Controls.Add(this.SetAsDefaultRegButton);
-            this.RegistersPage.Controls.Add(this.Reg5Label);
-            this.RegistersPage.Controls.Add(this.Reg5TextBox);
             this.RegistersPage.Controls.Add(this.RefFreqGroupBox);
             this.RegistersPage.Location = new System.Drawing.Point(4, 25);
             this.RegistersPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersPage.Name = "RegistersPage";
             this.RegistersPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersPage.Size = new System.Drawing.Size(700, 510);
+            this.RegistersPage.Size = new System.Drawing.Size(700, 519);
             this.RegistersPage.TabIndex = 0;
-            this.RegistersPage.Text = "Registers";
+            this.RegistersPage.Text = "Direct Control Of Registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
             this.RegistersPage.Click += new System.EventHandler(this.RegistersPage_Click);
+            // 
+            // RegistersControlsGroupBox
+            // 
+            this.RegistersControlsGroupBox.Controls.Add(this.WriteR0Button);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg5TextBox);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg5Label);
+            this.RegistersControlsGroupBox.Controls.Add(this.SetAsDefaultRegButton);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg4TextBox);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg3Label);
+            this.RegistersControlsGroupBox.Controls.Add(this.LoadDefRegButton);
+            this.RegistersControlsGroupBox.Controls.Add(this.WriteR5Button);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg4Label);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg0TextBox);
+            this.RegistersControlsGroupBox.Controls.Add(this.ForceLoadRegButton);
+            this.RegistersControlsGroupBox.Controls.Add(this.WriteR4Button);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg3TextBox);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg0Label);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg2TextBox);
+            this.RegistersControlsGroupBox.Controls.Add(this.WriteR3Button);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg2Label);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg1Label);
+            this.RegistersControlsGroupBox.Controls.Add(this.WriteR2Button);
+            this.RegistersControlsGroupBox.Controls.Add(this.WriteR1Button);
+            this.RegistersControlsGroupBox.Controls.Add(this.Reg1TextBox);
+            this.RegistersControlsGroupBox.Location = new System.Drawing.Point(7, 5);
+            this.RegistersControlsGroupBox.Name = "RegistersControlsGroupBox";
+            this.RegistersControlsGroupBox.Size = new System.Drawing.Size(400, 187);
+            this.RegistersControlsGroupBox.TabIndex = 22;
+            this.RegistersControlsGroupBox.TabStop = false;
+            this.RegistersControlsGroupBox.Text = "Registers controls";
             // 
             // MoveRegsIntoMemsGroupBox
             // 
@@ -547,16 +561,16 @@ namespace Synthesizer_PC_control
             this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem2Button);
             this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem3Button);
             this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem4Button);
-            this.MoveRegsIntoMemsGroupBox.Location = new System.Drawing.Point(469, 13);
+            this.MoveRegsIntoMemsGroupBox.Location = new System.Drawing.Point(413, 5);
             this.MoveRegsIntoMemsGroupBox.Name = "MoveRegsIntoMemsGroupBox";
-            this.MoveRegsIntoMemsGroupBox.Size = new System.Drawing.Size(214, 159);
+            this.MoveRegsIntoMemsGroupBox.Size = new System.Drawing.Size(175, 187);
             this.MoveRegsIntoMemsGroupBox.TabIndex = 27;
             this.MoveRegsIntoMemsGroupBox.TabStop = false;
-            this.MoveRegsIntoMemsGroupBox.Text = "Move actual registers into saved registers window:";
+            this.MoveRegsIntoMemsGroupBox.Text = "Move the currently set registers to the register memory tab:";
             // 
             // MoveRegsIntoMem1Button
             // 
-            this.MoveRegsIntoMem1Button.Location = new System.Drawing.Point(11, 41);
+            this.MoveRegsIntoMem1Button.Location = new System.Drawing.Point(39, 63);
             this.MoveRegsIntoMem1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MoveRegsIntoMem1Button.Name = "MoveRegsIntoMem1Button";
             this.MoveRegsIntoMem1Button.Size = new System.Drawing.Size(99, 23);
@@ -567,7 +581,7 @@ namespace Synthesizer_PC_control
             // 
             // MoveRegsIntoMem2Button
             // 
-            this.MoveRegsIntoMem2Button.Location = new System.Drawing.Point(11, 69);
+            this.MoveRegsIntoMem2Button.Location = new System.Drawing.Point(39, 91);
             this.MoveRegsIntoMem2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MoveRegsIntoMem2Button.Name = "MoveRegsIntoMem2Button";
             this.MoveRegsIntoMem2Button.Size = new System.Drawing.Size(99, 23);
@@ -578,7 +592,7 @@ namespace Synthesizer_PC_control
             // 
             // MoveRegsIntoMem3Button
             // 
-            this.MoveRegsIntoMem3Button.Location = new System.Drawing.Point(11, 97);
+            this.MoveRegsIntoMem3Button.Location = new System.Drawing.Point(39, 119);
             this.MoveRegsIntoMem3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MoveRegsIntoMem3Button.Name = "MoveRegsIntoMem3Button";
             this.MoveRegsIntoMem3Button.Size = new System.Drawing.Size(99, 23);
@@ -589,7 +603,7 @@ namespace Synthesizer_PC_control
             // 
             // MoveRegsIntoMem4Button
             // 
-            this.MoveRegsIntoMem4Button.Location = new System.Drawing.Point(11, 125);
+            this.MoveRegsIntoMem4Button.Location = new System.Drawing.Point(39, 147);
             this.MoveRegsIntoMem4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MoveRegsIntoMem4Button.Name = "MoveRegsIntoMem4Button";
             this.MoveRegsIntoMem4Button.Size = new System.Drawing.Size(99, 23);
@@ -612,7 +626,7 @@ namespace Synthesizer_PC_control
             this.ChargePumpGroupBox.Controls.Add(this.CPlinearityLabel);
             this.ChargePumpGroupBox.Controls.Add(this.RSetLabel);
             this.ChargePumpGroupBox.Controls.Add(this.CPCurrentLabel);
-            this.ChargePumpGroupBox.Location = new System.Drawing.Point(355, 255);
+            this.ChargePumpGroupBox.Location = new System.Drawing.Point(355, 269);
             this.ChargePumpGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.ChargePumpGroupBox.Name = "ChargePumpGroupBox";
             this.ChargePumpGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -776,7 +790,7 @@ namespace Synthesizer_PC_control
             this.groupBox1.Controls.Add(this.RF_A_EN_ComboBox);
             this.groupBox1.Controls.Add(this.RF_A_PWR_ComboBox);
             this.groupBox1.Controls.Add(this.RF_B_EN_ComboBox);
-            this.groupBox1.Location = new System.Drawing.Point(231, 421);
+            this.groupBox1.Location = new System.Drawing.Point(231, 437);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -892,7 +906,7 @@ namespace Synthesizer_PC_control
             this.OutInfoGroupBox.Controls.Add(this.fOutAScreenLabel);
             this.OutInfoGroupBox.Controls.Add(this.fOutBScreenLabel);
             this.OutInfoGroupBox.Controls.Add(this.fVcoScreenLabel);
-            this.OutInfoGroupBox.Location = new System.Drawing.Point(7, 423);
+            this.OutInfoGroupBox.Location = new System.Drawing.Point(7, 437);
             this.OutInfoGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.OutInfoGroupBox.Name = "OutInfoGroupBox";
             this.OutInfoGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -1002,7 +1016,7 @@ namespace Synthesizer_PC_control
             this.FreqControlGroupBox.Controls.Add(this.ModNumUpDown);
             this.FreqControlGroupBox.Controls.Add(this.FracNNumUpDown);
             this.FreqControlGroupBox.Controls.Add(this.PhasePNumericUpDown);
-            this.FreqControlGroupBox.Location = new System.Drawing.Point(9, 302);
+            this.FreqControlGroupBox.Location = new System.Drawing.Point(9, 316);
             this.FreqControlGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.FreqControlGroupBox.Name = "FreqControlGroupBox";
             this.FreqControlGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -1196,7 +1210,7 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.Controls.Add(this.MHzLabel4);
             this.RefFreqGroupBox.Controls.Add(this.MHzLabel3);
             this.RefFreqGroupBox.Controls.Add(this.fPfdScreenLabel);
-            this.RefFreqGroupBox.Location = new System.Drawing.Point(7, 183);
+            this.RefFreqGroupBox.Location = new System.Drawing.Point(7, 197);
             this.RefFreqGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.RefFreqGroupBox.Name = "RefFreqGroupBox";
             this.RefFreqGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -1331,56 +1345,56 @@ namespace Synthesizer_PC_control
             this.fPfdScreenLabel.Text = "10.000 000";
             this.fPfdScreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // SavedRegistersPage
+            // RegistersMemoryPage
             // 
-            this.SavedRegistersPage.Controls.Add(this.ImportMem4Button);
-            this.SavedRegistersPage.Controls.Add(this.ImportMem3Button);
-            this.SavedRegistersPage.Controls.Add(this.ImportMem2Button);
-            this.SavedRegistersPage.Controls.Add(this.ImportMem1Button);
-            this.SavedRegistersPage.Controls.Add(this.SavReg3Label);
-            this.SavedRegistersPage.Controls.Add(this.R0M4);
-            this.SavedRegistersPage.Controls.Add(this.R0M3);
-            this.SavedRegistersPage.Controls.Add(this.LoadRegMemory);
-            this.SavedRegistersPage.Controls.Add(this.SaveRegMemory);
-            this.SavedRegistersPage.Controls.Add(this.R0M2);
-            this.SavedRegistersPage.Controls.Add(this.R0M1);
-            this.SavedRegistersPage.Controls.Add(this.Mem4Label);
-            this.SavedRegistersPage.Controls.Add(this.Mem3Label);
-            this.SavedRegistersPage.Controls.Add(this.Mem2Label);
-            this.SavedRegistersPage.Controls.Add(this.Mem1Label);
-            this.SavedRegistersPage.Controls.Add(this.SavReg0Label);
-            this.SavedRegistersPage.Controls.Add(this.SavReg1Label);
-            this.SavedRegistersPage.Controls.Add(this.R1M4);
-            this.SavedRegistersPage.Controls.Add(this.R1M3);
-            this.SavedRegistersPage.Controls.Add(this.R1M2);
-            this.SavedRegistersPage.Controls.Add(this.R1M1);
-            this.SavedRegistersPage.Controls.Add(this.SavReg2Label);
-            this.SavedRegistersPage.Controls.Add(this.R2M4);
-            this.SavedRegistersPage.Controls.Add(this.R2M3);
-            this.SavedRegistersPage.Controls.Add(this.R2M2);
-            this.SavedRegistersPage.Controls.Add(this.R2M1);
-            this.SavedRegistersPage.Controls.Add(this.R3M4);
-            this.SavedRegistersPage.Controls.Add(this.R3M3);
-            this.SavedRegistersPage.Controls.Add(this.R3M2);
-            this.SavedRegistersPage.Controls.Add(this.R3M1);
-            this.SavedRegistersPage.Controls.Add(this.SavReg4Label);
-            this.SavedRegistersPage.Controls.Add(this.R4M4);
-            this.SavedRegistersPage.Controls.Add(this.R4M3);
-            this.SavedRegistersPage.Controls.Add(this.R5M4);
-            this.SavedRegistersPage.Controls.Add(this.R4M2);
-            this.SavedRegistersPage.Controls.Add(this.R5M3);
-            this.SavedRegistersPage.Controls.Add(this.R4M1);
-            this.SavedRegistersPage.Controls.Add(this.R5M2);
-            this.SavedRegistersPage.Controls.Add(this.SavReg5Label);
-            this.SavedRegistersPage.Controls.Add(this.R5M1);
-            this.SavedRegistersPage.Location = new System.Drawing.Point(4, 25);
-            this.SavedRegistersPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SavedRegistersPage.Name = "SavedRegistersPage";
-            this.SavedRegistersPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SavedRegistersPage.Size = new System.Drawing.Size(700, 510);
-            this.SavedRegistersPage.TabIndex = 1;
-            this.SavedRegistersPage.Text = "Saved Registers";
-            this.SavedRegistersPage.UseVisualStyleBackColor = true;
+            this.RegistersMemoryPage.Controls.Add(this.ImportMem4Button);
+            this.RegistersMemoryPage.Controls.Add(this.ImportMem3Button);
+            this.RegistersMemoryPage.Controls.Add(this.ImportMem2Button);
+            this.RegistersMemoryPage.Controls.Add(this.ImportMem1Button);
+            this.RegistersMemoryPage.Controls.Add(this.SavReg3Label);
+            this.RegistersMemoryPage.Controls.Add(this.R0M4);
+            this.RegistersMemoryPage.Controls.Add(this.R0M3);
+            this.RegistersMemoryPage.Controls.Add(this.LoadRegMemory);
+            this.RegistersMemoryPage.Controls.Add(this.SaveRegMemory);
+            this.RegistersMemoryPage.Controls.Add(this.R0M2);
+            this.RegistersMemoryPage.Controls.Add(this.R0M1);
+            this.RegistersMemoryPage.Controls.Add(this.Mem4Label);
+            this.RegistersMemoryPage.Controls.Add(this.Mem3Label);
+            this.RegistersMemoryPage.Controls.Add(this.Mem2Label);
+            this.RegistersMemoryPage.Controls.Add(this.Mem1Label);
+            this.RegistersMemoryPage.Controls.Add(this.SavReg0Label);
+            this.RegistersMemoryPage.Controls.Add(this.SavReg1Label);
+            this.RegistersMemoryPage.Controls.Add(this.R1M4);
+            this.RegistersMemoryPage.Controls.Add(this.R1M3);
+            this.RegistersMemoryPage.Controls.Add(this.R1M2);
+            this.RegistersMemoryPage.Controls.Add(this.R1M1);
+            this.RegistersMemoryPage.Controls.Add(this.SavReg2Label);
+            this.RegistersMemoryPage.Controls.Add(this.R2M4);
+            this.RegistersMemoryPage.Controls.Add(this.R2M3);
+            this.RegistersMemoryPage.Controls.Add(this.R2M2);
+            this.RegistersMemoryPage.Controls.Add(this.R2M1);
+            this.RegistersMemoryPage.Controls.Add(this.R3M4);
+            this.RegistersMemoryPage.Controls.Add(this.R3M3);
+            this.RegistersMemoryPage.Controls.Add(this.R3M2);
+            this.RegistersMemoryPage.Controls.Add(this.R3M1);
+            this.RegistersMemoryPage.Controls.Add(this.SavReg4Label);
+            this.RegistersMemoryPage.Controls.Add(this.R4M4);
+            this.RegistersMemoryPage.Controls.Add(this.R4M3);
+            this.RegistersMemoryPage.Controls.Add(this.R5M4);
+            this.RegistersMemoryPage.Controls.Add(this.R4M2);
+            this.RegistersMemoryPage.Controls.Add(this.R5M3);
+            this.RegistersMemoryPage.Controls.Add(this.R4M1);
+            this.RegistersMemoryPage.Controls.Add(this.R5M2);
+            this.RegistersMemoryPage.Controls.Add(this.SavReg5Label);
+            this.RegistersMemoryPage.Controls.Add(this.R5M1);
+            this.RegistersMemoryPage.Location = new System.Drawing.Point(4, 25);
+            this.RegistersMemoryPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RegistersMemoryPage.Name = "RegistersMemoryPage";
+            this.RegistersMemoryPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RegistersMemoryPage.Size = new System.Drawing.Size(700, 519);
+            this.RegistersMemoryPage.TabIndex = 1;
+            this.RegistersMemoryPage.Text = "Registers Memory";
+            this.RegistersMemoryPage.UseVisualStyleBackColor = true;
             // 
             // ImportMem4Button
             // 
@@ -1459,23 +1473,23 @@ namespace Synthesizer_PC_control
             // 
             // LoadRegMemory
             // 
-            this.LoadRegMemory.Location = new System.Drawing.Point(185, 346);
+            this.LoadRegMemory.Location = new System.Drawing.Point(489, 86);
             this.LoadRegMemory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LoadRegMemory.Name = "LoadRegMemory";
-            this.LoadRegMemory.Size = new System.Drawing.Size(115, 43);
+            this.LoadRegMemory.Size = new System.Drawing.Size(174, 43);
             this.LoadRegMemory.TabIndex = 2;
-            this.LoadRegMemory.Text = "Load registers from memory";
+            this.LoadRegMemory.Text = "Read stored registers from synthesizer memory";
             this.LoadRegMemory.UseVisualStyleBackColor = true;
             this.LoadRegMemory.Click += new System.EventHandler(this.LoadRegMemory_Click);
             // 
             // SaveRegMemory
             // 
-            this.SaveRegMemory.Location = new System.Drawing.Point(185, 297);
+            this.SaveRegMemory.Location = new System.Drawing.Point(489, 37);
             this.SaveRegMemory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SaveRegMemory.Name = "SaveRegMemory";
-            this.SaveRegMemory.Size = new System.Drawing.Size(115, 43);
+            this.SaveRegMemory.Size = new System.Drawing.Size(174, 43);
             this.SaveRegMemory.TabIndex = 2;
-            this.SaveRegMemory.Text = "Save registers into memory";
+            this.SaveRegMemory.Text = "Load the registers into the synthesizer memory";
             this.SaveRegMemory.UseVisualStyleBackColor = true;
             this.SaveRegMemory.Click += new System.EventHandler(this.SaveRegMemory_Click);
             // 
@@ -1849,14 +1863,14 @@ namespace Synthesizer_PC_control
             // RegistersGroupBox
             // 
             this.RegistersGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RegistersGroupBox.Location = new System.Drawing.Point(352, 11);
+            this.RegistersGroupBox.Location = new System.Drawing.Point(352, 4);
             this.RegistersGroupBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersGroupBox.Name = "RegistersGroupBox";
             this.RegistersGroupBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersGroupBox.Size = new System.Drawing.Size(703, 556);
+            this.RegistersGroupBox.Size = new System.Drawing.Size(703, 563);
             this.RegistersGroupBox.TabIndex = 13;
             this.RegistersGroupBox.TabStop = false;
-            this.RegistersGroupBox.Text = "Registers Settings";
+            this.RegistersGroupBox.Text = "PLO MAX2871 Registers Settings";
             // 
             // statusStrip1
             // 
@@ -1879,7 +1893,7 @@ namespace Synthesizer_PC_control
             // 
             this.InputFreqTextBox.BackColor = System.Drawing.Color.White;
             this.InputFreqTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.InputFreqTextBox.Location = new System.Drawing.Point(80, 192);
+            this.InputFreqTextBox.Location = new System.Drawing.Point(147, 20);
             this.InputFreqTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.InputFreqTextBox.MaxLength = 12;
             this.InputFreqTextBox.Name = "InputFreqTextBox";
@@ -1894,7 +1908,7 @@ namespace Synthesizer_PC_control
             // 
             // MHzLabel6
             // 
-            this.MHzLabel6.Location = new System.Drawing.Point(195, 195);
+            this.MHzLabel6.Location = new System.Drawing.Point(262, 23);
             this.MHzLabel6.Name = "MHzLabel6";
             this.MHzLabel6.Size = new System.Drawing.Size(40, 17);
             this.MHzLabel6.TabIndex = 17;
@@ -1903,7 +1917,7 @@ namespace Synthesizer_PC_control
             // 
             // DeltaShowLabel
             // 
-            this.DeltaShowLabel.Location = new System.Drawing.Point(80, 222);
+            this.DeltaShowLabel.Location = new System.Drawing.Point(147, 50);
             this.DeltaShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DeltaShowLabel.Name = "DeltaShowLabel";
             this.DeltaShowLabel.Size = new System.Drawing.Size(109, 16);
@@ -1913,7 +1927,7 @@ namespace Synthesizer_PC_control
             // 
             // HzLabel
             // 
-            this.HzLabel.Location = new System.Drawing.Point(195, 222);
+            this.HzLabel.Location = new System.Drawing.Point(262, 50);
             this.HzLabel.Name = "HzLabel";
             this.HzLabel.Size = new System.Drawing.Size(40, 17);
             this.HzLabel.TabIndex = 17;
@@ -1922,53 +1936,63 @@ namespace Synthesizer_PC_control
             // 
             // DeltaLabel
             // 
-            this.DeltaLabel.Location = new System.Drawing.Point(18, 221);
+            this.DeltaLabel.Location = new System.Drawing.Point(2, 49);
             this.DeltaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DeltaLabel.Name = "DeltaLabel";
-            this.DeltaLabel.Size = new System.Drawing.Size(61, 16);
+            this.DeltaLabel.Size = new System.Drawing.Size(138, 18);
             this.DeltaLabel.TabIndex = 20;
-            this.DeltaLabel.Text = "Delta:";
+            this.DeltaLabel.Text = "Delta frequency:";
             this.DeltaLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // InputFreqLabel
             // 
-            this.InputFreqLabel.Location = new System.Drawing.Point(18, 195);
+            this.InputFreqLabel.Location = new System.Drawing.Point(2, 23);
             this.InputFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.InputFreqLabel.Name = "InputFreqLabel";
-            this.InputFreqLabel.Size = new System.Drawing.Size(61, 16);
+            this.InputFreqLabel.Size = new System.Drawing.Size(138, 16);
             this.InputFreqLabel.TabIndex = 20;
-            this.InputFreqLabel.Text = "Input f:";
+            this.InputFreqLabel.Text = "Output frequency:";
             this.InputFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBox
+            // ConsoleTextBox
             // 
-            this.textBox.Location = new System.Drawing.Point(16, 260);
-            this.textBox.Multiline = true;
-            this.textBox.Name = "textBox";
-            this.textBox.ReadOnly = true;
-            this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox.Size = new System.Drawing.Size(318, 307);
-            this.textBox.TabIndex = 21;
+            this.ConsoleTextBox.Location = new System.Drawing.Point(16, 260);
+            this.ConsoleTextBox.Multiline = true;
+            this.ConsoleTextBox.Name = "ConsoleTextBox";
+            this.ConsoleTextBox.ReadOnly = true;
+            this.ConsoleTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ConsoleTextBox.Size = new System.Drawing.Size(318, 307);
+            this.ConsoleTextBox.TabIndex = 21;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.InputFreqTextBox);
+            this.groupBox3.Controls.Add(this.MHzLabel6);
+            this.groupBox3.Controls.Add(this.InputFreqLabel);
+            this.groupBox3.Controls.Add(this.DeltaShowLabel);
+            this.groupBox3.Controls.Add(this.DeltaLabel);
+            this.groupBox3.Controls.Add(this.HzLabel);
+            this.groupBox3.Location = new System.Drawing.Point(16, 149);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(318, 74);
+            this.groupBox3.TabIndex = 22;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Direct output frequency control";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 601);
-            this.Controls.Add(this.textBox);
-            this.Controls.Add(this.InputFreqLabel);
-            this.Controls.Add(this.DeltaLabel);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.ConsoleTextBox);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.HzLabel);
-            this.Controls.Add(this.InputFreqTextBox);
             this.Controls.Add(this.RegistersTabControl);
             this.Controls.Add(this.RegistersGroupBox);
             this.Controls.Add(this.AvaibleCOMsComBox);
             this.Controls.Add(this.PloInitButton);
-            this.Controls.Add(this.DeltaShowLabel);
             this.Controls.Add(this.RefButton);
             this.Controls.Add(this.Out2Button);
-            this.Controls.Add(this.MHzLabel6);
             this.Controls.Add(this.Out1Button);
             this.Controls.Add(this.PortButton);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -1978,7 +2002,8 @@ namespace Synthesizer_PC_control
             this.Click += new System.EventHandler(this.CheckAndApllyChangesForm1_Click);
             this.RegistersTabControl.ResumeLayout(false);
             this.RegistersPage.ResumeLayout(false);
-            this.RegistersPage.PerformLayout();
+            this.RegistersControlsGroupBox.ResumeLayout(false);
+            this.RegistersControlsGroupBox.PerformLayout();
             this.MoveRegsIntoMemsGroupBox.ResumeLayout(false);
             this.ChargePumpGroupBox.ResumeLayout(false);
             this.ChargePumpGroupBox.PerformLayout();
@@ -1992,10 +2017,12 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.ResumeLayout(false);
             this.RefFreqGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RDivUpDown)).EndInit();
-            this.SavedRegistersPage.ResumeLayout(false);
-            this.SavedRegistersPage.PerformLayout();
+            this.RegistersMemoryPage.ResumeLayout(false);
+            this.RegistersMemoryPage.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2032,7 +2059,7 @@ namespace Synthesizer_PC_control
         private System.Windows.Forms.Button WriteR5Button;
         private System.Windows.Forms.TabControl RegistersTabControl;
         private System.Windows.Forms.TabPage RegistersPage;
-        private System.Windows.Forms.TabPage SavedRegistersPage;
+        private System.Windows.Forms.TabPage RegistersMemoryPage;
         private System.Windows.Forms.Label SavReg3Label;
         public System.Windows.Forms.TextBox R0M4;
         public System.Windows.Forms.TextBox R0M3;
@@ -2144,8 +2171,9 @@ namespace Synthesizer_PC_control
         private Button ImportMem2Button;
         private Button ImportMem1Button;
 
-        // TODO console reneme textbox.
-        public TextBox textBox; // Hello there!, Rename me
+        public TextBox ConsoleTextBox;
+        private GroupBox RegistersControlsGroupBox;
+        private GroupBox groupBox3;
     }
 }
 

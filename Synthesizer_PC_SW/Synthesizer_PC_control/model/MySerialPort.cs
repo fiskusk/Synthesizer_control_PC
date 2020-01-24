@@ -20,18 +20,18 @@ namespace Synthesizer_PC_control.Model
  
         private Button ui_openClosed; 
         private ComboBox ui_avaliablePorts; 
-        private TextBox ui_NAME_ME_BETTER; 
+        private TextBox ui_ConsoleTextBox; 
  
         private bool dontRunHandler; 
  
-        public MySerialPort(Form1 viewHandle, TextBox ui_NAME_ME_BETTER, Button ui_openClosed, ComboBox ui_avaliablePorts) 
+        public MySerialPort(Form1 viewHandle, TextBox ui_ConsoleTextBox, Button ui_openClosed, ComboBox ui_avaliablePorts) 
         { 
  
             this.viewHandle = viewHandle; 
  
             this.ui_openClosed = ui_openClosed; 
             this.ui_avaliablePorts = ui_avaliablePorts; 
-            this.ui_NAME_ME_BETTER = ui_NAME_ME_BETTER; 
+            this.ui_ConsoleTextBox = ui_ConsoleTextBox; 
  
             dontRunHandler = false; 
  
@@ -119,15 +119,13 @@ namespace Synthesizer_PC_control.Model
                 } 
                 dontRunHandler = false; 
  
-                ui_NAME_ME_BETTER.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + "command: '" + text + "' sended"); 
+                ui_ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + "command: '" + text + "' sended"); 
                 return true;
-                //_serialPort.ReadLine(); 
             } 
             catch 
             { 
                 MessageBox.Show("Device doesn't work", "COM Port Error", 
                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk); 
-                //PortButton_Click(this, new EventArgs()); 
                 ClosePort(); 
                 return false;
             } 

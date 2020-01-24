@@ -138,7 +138,7 @@ namespace Synthesizer_PC_control
                 // TODO a asi vycist pekne test register a ten soupnout do okna
                 //string text = _serialPort.ReadLine();
                 string text = controller.serialPort.ReadLine();
-                textBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
                 if (text == "plo locked")
                     toolStripStatusLabel1.Text = "plo is locked";
                 else if (text == "plo isn't locked")
@@ -717,7 +717,7 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg0Changes()
         {
             controller.registers[0].SetValue(Reg0TextBox.Text);
-            if ((Reg0TextBox.Enabled == true) && 
+            if ((controller.serialPort.IsPortOpen()) && 
                 (!string.Equals(controller.registers[0].string_GetValue(), 
                                 controller.old_registers[0].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
@@ -731,7 +731,7 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg1Changes()
         {
             controller.registers[1].SetValue(Reg1TextBox.Text);
-            if ((Reg1TextBox.Enabled == true) && 
+            if ((controller.serialPort.IsPortOpen()) && 
                 (!string.Equals(controller.registers[1].string_GetValue(), 
                                 controller.old_registers[1].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
@@ -746,7 +746,7 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg2Changes()
         {
             controller.registers[2].SetValue(Reg2TextBox.Text);
-            if ((Reg2TextBox.Enabled == true) && 
+            if ((controller.serialPort.IsPortOpen()) && 
                 (!string.Equals(controller.registers[2].string_GetValue(), 
                                 controller.old_registers[2].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
@@ -761,7 +761,7 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg3Changes()
         {
             controller.registers[3].SetValue(Reg3TextBox.Text);
-            if ((Reg3TextBox.Enabled == true) && 
+            if ((controller.serialPort.IsPortOpen()) && 
                 (!string.Equals(controller.registers[3].string_GetValue(), 
                                 controller.old_registers[3].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
@@ -773,7 +773,7 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg4Changes()
         {
             controller.registers[4].SetValue(Reg4TextBox.Text);
-            if ((Reg4TextBox.Enabled == true) && 
+            if ((controller.serialPort.IsPortOpen()) && 
                 (!string.Equals(controller.registers[4].string_GetValue(), 
                                 controller.old_registers[4].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
@@ -787,7 +787,7 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg5Changes()
         {
             controller.registers[5].SetValue(Reg5TextBox.Text);
-            if ((Reg5TextBox.Enabled == true) && 
+            if ((controller.serialPort.IsPortOpen()) && 
                 (!string.Equals(controller.registers[5].string_GetValue(), 
                                 controller.old_registers[5].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
@@ -904,7 +904,7 @@ namespace Synthesizer_PC_control
             }
         }
 
-        private void ForceLoadRegButton_Click(object sender, EventArgs e)
+        public void ForceLoadRegButton_Click(object sender, EventArgs e)
         {
             controller.ApplyChangeReg(5);
             controller.ApplyChangeReg(4);
@@ -972,7 +972,7 @@ namespace Synthesizer_PC_control
 
         private void RF_A_EN_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Reg4TextBox.Enabled == true)
+            if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeOutAEn(RF_A_EN_ComboBox.SelectedIndex);
                 controller.ApplyChangeReg(4);
@@ -981,7 +981,7 @@ namespace Synthesizer_PC_control
 
         private void RF_A_PWR_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Reg4TextBox.Enabled == true)
+            if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeOutAPwr(RF_A_PWR_ComboBox.SelectedIndex);
                 controller.ApplyChangeReg(4);
@@ -990,7 +990,7 @@ namespace Synthesizer_PC_control
 
         private void ModeIntFracComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Reg0TextBox.Enabled == true)
+            if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeIntFracMode(ModeIntFracComboBox.SelectedIndex);
                 controller.ApplyChangeReg(2);
@@ -1001,7 +1001,7 @@ namespace Synthesizer_PC_control
 
         private void IntNNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (Reg0TextBox.Enabled == true)
+            if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeIntNValue(IntNNumUpDown.Value);
                 controller.ApplyChangeReg(0);
@@ -1011,7 +1011,7 @@ namespace Synthesizer_PC_control
 
         private void FracNNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (Reg0TextBox.Enabled == true)
+            if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeFracNValue(FracNNumUpDown.Value);
                 controller.ApplyChangeReg(0);
@@ -1021,7 +1021,7 @@ namespace Synthesizer_PC_control
 
         private void ModNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (Reg0TextBox.Enabled == true)
+            if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeModValue(ModNumUpDown.Value);
                 controller.ApplyChangeReg(1);
@@ -1032,7 +1032,7 @@ namespace Synthesizer_PC_control
 
         private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (Reg0TextBox.Enabled == true) // TODO prefdelat na stav port otevren tlacitko
+            if (controller.serialPort.IsPortOpen()) // TODO prefdelat na stav port otevren tlacitko
             {
                 controller.ChangeRefDoubler(DoubleRefFCheckBox.Checked);
                 controller.ApplyChangeReg(2);
@@ -1044,7 +1044,7 @@ namespace Synthesizer_PC_control
 
         private void DivideBy2CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (Reg0TextBox.Enabled == true)
+            if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeRefDivider(DivideBy2CheckBox.Checked);
                 controller.ApplyChangeReg(2);
@@ -1056,7 +1056,7 @@ namespace Synthesizer_PC_control
 
         private void RDivUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (Reg0TextBox.Enabled == true)
+            if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeRDiv(RDivUpDown.Value);
                 controller.ApplyChangeReg(2);
@@ -1068,7 +1068,7 @@ namespace Synthesizer_PC_control
 
         private void ADivComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Reg0TextBox.Enabled == true)
+            if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeADiv(ADivComboBox.SelectedIndex);
                 controller.ApplyChangeReg(4);
@@ -1079,7 +1079,7 @@ namespace Synthesizer_PC_control
 
         private void PhasePNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if(Reg0TextBox.Enabled == true)
+            if(controller.serialPort.IsPortOpen())
             {
                 controller.ChangePhaseP(PhasePNumericUpDown.Value);
                 controller.ApplyChangeReg(1);
@@ -1088,7 +1088,7 @@ namespace Synthesizer_PC_control
 
         private void CPCurrentComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(Reg0TextBox.Enabled == true)
+            if(controller.serialPort.IsPortOpen())
             {
                 controller.ChangeCPCurrent(CPCurrentComboBox.SelectedIndex);
                 controller.ApplyChangeReg(2);
@@ -1098,7 +1098,7 @@ namespace Synthesizer_PC_control
 
         private void CPLinearityComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(Reg0TextBox.Enabled == true)
+            if(controller.serialPort.IsPortOpen())
             {
                 controller.ChangeCPLinearity(CPLinearityComboBox.SelectedIndex);
                 controller.ApplyChangeReg(1);

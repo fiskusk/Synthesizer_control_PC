@@ -15,20 +15,7 @@ namespace Synthesizer_PC_control
         public readonly MySerialPort serialPort;
 
         public MyRegister[] registers;
-
-        /*
-            TODO FILIP
-            Třída Memory, která drží všechny registersMemory1 - registersMemory4 (nový soubor Memory.cs)
-            V kontroktoru ZATÍM může dostat view aby si zjistila hodnoty (jak to delat je v controller.cs, ten ma referenci na view)
-            => napsat todo pro změnu na hodnoty z kontrolleru
-            => Případně může Memory.cs znát ZATÍM nějaké defoult hardcoded hodnoty
-
-            Memory bude mít funkce na vrácení registru podle čísla paměti a indexu
-            např. public MyRegister(int memory, int regIndex)
-            => pozor na větší číslo než je paměť => vrátit null?
-        */
-        public MyRegister[] registersMemory1;
-        // TODO FILIP other memories
+        
 
         public MyRegister[] old_registers;
         // TODO ... FILIP MyRegister without UI element
@@ -37,7 +24,7 @@ namespace Synthesizer_PC_control
         {
             this.view = view;
 
-            serialPort = new MySerialPort(view, view.textBox, view.PortButton, view.AvaibleCOMsComBox);
+            serialPort = new MySerialPort(view, view.ConsoleTextBox, view.PortButton, view.AvaibleCOMsComBox);
             serialPort.GetAvaliablePorts();
 
             var reg0 = new MyRegister(view.Reg0TextBox.Text, view.Reg0TextBox);
@@ -48,13 +35,6 @@ namespace Synthesizer_PC_control
             var reg5 = new MyRegister(view.Reg5TextBox.Text, view.Reg5TextBox);
 
             registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
-
-            var mem1Reg0 = new MyRegister(view.R0M1.Text, view.Reg0TextBox);
-            // TODO FILIP ...
-
-            // TODO FILIP ... registersMemory1 = new MyRegister[] {mem1Reg0, ...}
-            // Memory registers
-            var testRegister = new MyRegister("00000000");
 
             var old_reg0 = new MyRegister(null);
             var old_reg1 = new MyRegister(null);
@@ -235,12 +215,12 @@ namespace Synthesizer_PC_control
 
         private bool OpenPort()
         {
-            // TODO Use AvaibleCOMsComBox.selectedIndex ?
             bool success = serialPort.OpenPort(view.AvaibleCOMsComBox.Text);
 
             if (success)
             {
                 view.SaveWorkspaceData();   // FIXME Not OOD
+                view.ForceLoadRegButton_Click(this, new EventArgs());
                 view.EnableControls(true);
                 return true;
             }
