@@ -714,19 +714,24 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg0Changes()
         {
             controller.registers[0].SetValue(Reg0TextBox.Text);
-            if ((Reg0TextBox.Enabled == true) && (!controller.registers[0].string_GetValue().Equals(controller.old_regs[0])))
+            if ((Reg0TextBox.Enabled == true) && 
+                (!string.Equals(controller.registers[0].string_GetValue(), 
+                                controller.old_registers[0].string_GetValue(),
+                                StringComparison.CurrentCultureIgnoreCase)))
             {
                 GetAllFromReg0();
                 controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
-                
             }
         }
 
         private void CheckAndApplyReg1Changes()
         {
             controller.registers[1].SetValue(Reg1TextBox.Text);
-            if ((Reg1TextBox.Enabled == true) && (!controller.registers[1].string_GetValue().Equals(controller.old_regs[1])))
+            if ((Reg1TextBox.Enabled == true) && 
+                (!string.Equals(controller.registers[1].string_GetValue(), 
+                                controller.old_registers[1].string_GetValue(),
+                                StringComparison.CurrentCultureIgnoreCase)))
             {
                 GetAllFromReg1();
                 controller.ApplyChangeReg(1);
@@ -738,7 +743,10 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg2Changes()
         {
             controller.registers[2].SetValue(Reg2TextBox.Text);
-            if ((Reg2TextBox.Enabled == true) && (!controller.registers[2].string_GetValue().Equals(controller.old_regs[2])))
+            if ((Reg2TextBox.Enabled == true) && 
+                (!string.Equals(controller.registers[2].string_GetValue(), 
+                                controller.old_registers[2].string_GetValue(),
+                                StringComparison.CurrentCultureIgnoreCase)))
             {
                 GetAllFromReg2();
                 controller.ApplyChangeReg(2);
@@ -750,7 +758,10 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg3Changes()
         {
             controller.registers[3].SetValue(Reg3TextBox.Text);
-            if ((Reg3TextBox.Enabled == true) && (!controller.registers[3].string_GetValue().Equals(controller.old_regs[3])))
+            if ((Reg3TextBox.Enabled == true) && 
+                (!string.Equals(controller.registers[3].string_GetValue(), 
+                                controller.old_registers[3].string_GetValue(),
+                                StringComparison.CurrentCultureIgnoreCase)))
             {
                 controller.ApplyChangeReg(3);
             }
@@ -759,7 +770,10 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg4Changes()
         {
             controller.registers[4].SetValue(Reg4TextBox.Text);
-            if ((Reg4TextBox.Enabled == true) && (!controller.registers[4].string_GetValue().Equals(controller.old_regs[4])))
+            if ((Reg4TextBox.Enabled == true) && 
+                (!string.Equals(controller.registers[4].string_GetValue(), 
+                                controller.old_registers[4].string_GetValue(),
+                                StringComparison.CurrentCultureIgnoreCase)))
             {
                 GetAllFromReg4();
                 controller.ApplyChangeReg(4);
@@ -770,7 +784,10 @@ namespace Synthesizer_PC_control
         private void CheckAndApplyReg5Changes()
         {
             controller.registers[5].SetValue(Reg5TextBox.Text);
-            if ((Reg5TextBox.Enabled == true) && (!controller.registers[5].string_GetValue().Equals(controller.old_regs[5])))
+            if ((Reg5TextBox.Enabled == true) && 
+                (!string.Equals(controller.registers[5].string_GetValue(), 
+                                controller.old_registers[5].string_GetValue(),
+                                StringComparison.CurrentCultureIgnoreCase)))
             {
                 controller.ApplyChangeReg(5);
             }

@@ -30,7 +30,7 @@ namespace Synthesizer_PC_control
         public MyRegister[] registersMemory1;
         // TODO FILIP other memories
 
-        public string[] old_regs;
+        public MyRegister[] old_registers;
         // TODO ... FILIP MyRegister without UI element
 
         public Controller(Form1 view)
@@ -53,11 +53,17 @@ namespace Synthesizer_PC_control
             // TODO FILIP ...
 
             // TODO FILIP ... registersMemory1 = new MyRegister[] {mem1Reg0, ...}
-
-            old_regs = new string[6] {"80C90000", "800103E9", "00005F42", "00001F23", "63BE80E4", "00400005"};
-
             // Memory registers
             var testRegister = new MyRegister("00000000");
+
+            var old_reg0 = new MyRegister("80C90000");
+            var old_reg1 = new MyRegister("800103E9");
+            var old_reg2 = new MyRegister("00005F42");
+            var old_reg3 = new MyRegister("00001F23");
+            var old_reg4 = new MyRegister("63BE80E4");
+            var old_reg5 = new MyRegister("00400005");
+
+            old_registers = new MyRegister[] {old_reg0, old_reg1, old_reg2, old_reg3, old_reg4, old_reg5};
         }
 
 #region Register Change Functions for individual controls
@@ -209,7 +215,7 @@ namespace Synthesizer_PC_control
         public void ApplyChangeReg(int index)
         {
             string data = String.Format("plo set_register {0}", registers[index].string_GetValue());
-            old_regs[index] = registers[index].string_GetValue();
+            old_registers[index].SetValue(registers[index].string_GetValue());
             if(!serialPort.SendStringSerialPort(data))
                 view.EnableControls(false);
         }
