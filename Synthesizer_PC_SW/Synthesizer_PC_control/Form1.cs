@@ -37,16 +37,13 @@ namespace Synthesizer_PC_control
         {
             InitializeComponent();
             this.Load += Form1_Load;
-
-            TextBox[] ui_registers = new TextBox[] {Reg0TextBox, Reg1TextBox, Reg2TextBox, Reg3TextBox, Reg4TextBox, Reg5TextBox};
+        
             controller = new Controller(this);
         }
 
         void Form1_Load(object sender, EventArgs e)
         {
             EnableControls(false);
-
-            // load last used COM port, if exist
             LoadSavedWorkspaceData();
         }
 
@@ -345,6 +342,12 @@ namespace Synthesizer_PC_control
             controller.registers[3].SetValue(data.Registers[3]);
             controller.registers[4].SetValue(data.Registers[4]);
             controller.registers[5].SetValue(data.Registers[5]);
+            controller.old_registers[0].SetValue(data.Registers[0]);
+            controller.old_registers[1].SetValue(data.Registers[1]);
+            controller.old_registers[2].SetValue(data.Registers[2]);
+            controller.old_registers[3].SetValue(data.Registers[3]);
+            controller.old_registers[4].SetValue(data.Registers[4]);
+            controller.old_registers[5].SetValue(data.Registers[5]);
             R0M1.Text = data.Mem1[0];
             R1M1.Text = data.Mem1[1];
             R2M1.Text = data.Mem1[2];
@@ -903,14 +906,14 @@ namespace Synthesizer_PC_control
 
         private void ForceLoadRegButton_Click(object sender, EventArgs e)
         {
-            GetAllFromRegisters();
-
             controller.ApplyChangeReg(5);
             controller.ApplyChangeReg(4);
             controller.ApplyChangeReg(3);
             controller.ApplyChangeReg(2);
             controller.ApplyChangeReg(1);
             controller.ApplyChangeReg(0);
+
+            GetAllFromRegisters();
         }
 
         private void AvaibleCOMsComBox_DropDown(object sender, EventArgs e)
