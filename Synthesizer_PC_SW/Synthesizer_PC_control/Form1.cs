@@ -26,6 +26,7 @@ namespace Synthesizer_PC_control
         public class SaveWindow
         {
             public IList<string> Registers { get; set; }
+            public UInt16 RSetValue { get; set; }
             public IList<string> Mem1 { get; set; }
             public IList<string> Mem2 { get; set; }
             public IList<string> Mem3 { get; set; }
@@ -218,6 +219,7 @@ namespace Synthesizer_PC_control
                         controller.registers[4].string_GetValue(),
                         controller.registers[5].string_GetValue()
                     },
+                    RSetValue = Convert.ToUInt16(RSetTextBox.Text),
                     Mem1 = new List<string>
                     {
                         R0M1.Text,
@@ -284,6 +286,7 @@ namespace Synthesizer_PC_control
                         controller.registers[4].string_GetValue(),
                         controller.registers[5].string_GetValue()
                     },
+                    RSetValue = Convert.ToUInt16(RSetTextBox.Text),
                     Mem1 = new List<string>
                     {
                         R0M1.Text,
@@ -348,6 +351,7 @@ namespace Synthesizer_PC_control
             controller.old_registers[3].SetValue(data.Registers[3]);
             controller.old_registers[4].SetValue(data.Registers[4]);
             controller.old_registers[5].SetValue(data.Registers[5]);
+            RSetTextBox.Text = Convert.ToString(data.RSetValue);
             R0M1.Text = data.Mem1[0];
             R1M1.Text = data.Mem1[1];
             R2M1.Text = data.Mem1[2];
@@ -372,12 +376,13 @@ namespace Synthesizer_PC_control
             R3M4.Text = data.Mem4[3];
             R4M4.Text = data.Mem4[4];
             R5M4.Text = data.Mem4[5];
+            controller.GetCPCurrentFromTextBox();
             GetAllFromRegisters();
         }
 
          private void GetAllFromRegisters()
         {
-            GetCPCurrentFromTextBox();
+            
             controller.GetAllFromReg(5);
             controller.GetAllFromReg(4);
             controller.GetAllFromReg(3);
@@ -386,22 +391,6 @@ namespace Synthesizer_PC_control
             controller.GetAllFromReg(0);
             GetFPfdFreq();
             RecalcFreqInfo(); 
-        }
-    
-        private void GetCPCurrentFromTextBox()
-        {
-            // TODO ulozit hodnotu RSET do defaults a saved_workspace, pri startu ji nacist
-            UInt16 R_set = Convert.ToUInt16(RSetTextBox.Text);
-            IList<string> list = new List<string>();
-            decimal I_cp;
-            for (UInt16 cp = 0; cp < 16; cp++)
-            {
-                I_cp = (decimal)(1.63*1000)/(decimal)(R_set) * (1 + cp);
-                I_cp = Math.Round(I_cp, 3, MidpointRounding.AwayFromZero);
-                list.Add(Convert.ToString(I_cp) + " mA");
-            }
-            CPCurrentComboBox.DataSource = list;
-
         }
         
         private void RecalcFreqInfo()
@@ -1085,7 +1074,7 @@ namespace Synthesizer_PC_control
                 else if (value < 2700)
                     RSetTextBox.Text = "2700";
             }
-            GetCPCurrentFromTextBox();
+            controller.GetCPCurrentFromTextBox();
             RecalcFreqInfo();
         }
 

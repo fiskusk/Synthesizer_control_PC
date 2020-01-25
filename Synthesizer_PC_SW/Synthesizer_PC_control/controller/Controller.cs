@@ -332,6 +332,21 @@ namespace Synthesizer_PC_control
 
 #endregion
 
+        public void GetCPCurrentFromTextBox()
+        {
+            // TODO ulozit hodnotu RSET do defaults a saved_workspace, pri startu ji nacist
+            UInt16 R_set = Convert.ToUInt16(view.RSetTextBox.Text);
+            IList<string> list = new List<string>();
+            decimal I_cp;
+            for (UInt16 cp = 0; cp < 16; cp++)
+            {
+                I_cp = (decimal)(1.63*1000)/(decimal)(R_set) * (1 + cp);
+                I_cp = Math.Round(I_cp, 3, MidpointRounding.AwayFromZero);
+                list.Add(Convert.ToString(I_cp) + " mA");
+            }
+            view.CPCurrentComboBox.DataSource = list;
+        }
+
 #region Serial port
 
         public void ApplyChangeReg(int index)
@@ -340,8 +355,7 @@ namespace Synthesizer_PC_control
             {
                 string data = String.Format("plo set_register {0}", registers[index].string_GetValue());
                 old_registers[index].SetValue(registers[index].string_GetValue());
-                if(!serialPort.SendStringSerialPort(data))
-                    view.EnableControls(false);
+                serialPort.SendStringSerialPort(data);
             }
         }
 
@@ -366,8 +380,13 @@ namespace Synthesizer_PC_control
             {
                 view.SaveWorkspaceData();   // FIXME Not OOD
                 view.ForceLoadRegButton_Click(this, new EventArgs());
-                view.EnableControls(true);
-                return true;
+                bool isOpen;
+                if (serialPort.IsPortOpen())
+                    isOpen = true;
+                else
+                    isOpen = false;
+                view.EnableControls(isOpen);
+                return isOpen;
             }
             else
             {
