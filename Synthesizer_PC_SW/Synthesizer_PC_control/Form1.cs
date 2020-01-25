@@ -378,123 +378,16 @@ namespace Synthesizer_PC_control
          private void GetAllFromRegisters()
         {
             GetCPCurrentFromTextBox();
-            GetAllFromReg4();
-            GetAllFromReg2();
-            GetAllFromReg1();
-            GetAllFromReg0();
+            controller.GetAllFromReg(5);
+            controller.GetAllFromReg(4);
+            controller.GetAllFromReg(3);
+            controller.GetAllFromReg(2);
+            controller.GetAllFromReg(1);
+            controller.GetAllFromReg(0);
             GetFPfdFreq();
             RecalcFreqInfo(); 
-            
         }
-
-        private void GetAllFromReg0()
-        {
-            UInt32 reg = controller.registers[0].uint32_GetValue();
-            GetFracIntModeStatusFromRegister(reg);
-            GetIntNValueFromRegister(reg);
-            GetFracNValueFromRegister(reg);
-        }
-
-        private void GetAllFromReg1()
-        {
-            UInt32 reg = controller.registers[1].uint32_GetValue();
-            GetModValueFromRegister(reg);
-            GetPhasePValueFromRegister(reg);
-            GetCPLinearityFromRegister(reg);
-        }
-
-        private void GetAllFromReg2()
-        {
-            UInt32 reg = controller.registers[2].uint32_GetValue();
-            GetRefDoublerStatusFromRegister(reg);
-            GetRefDividerStatusFromRegister(reg);
-            GetRDivValueFromRegister(reg);
-            GetCPCurrentIndexFromRegister(reg);
-        }
-
-        private void GetAllFromReg4()
-        {
-            UInt32 reg = controller.registers[4].uint32_GetValue();
-            GetOutAENStatusFromRegister(reg);
-            GetOutAPwrStatusFromRegister(reg);
-            GetADividerValueFromRegister(reg);
-        }
-
-        private void GetFracIntModeStatusFromRegister(UInt32 dataReg0)
-        {
-            dataReg0 = (UInt32)((dataReg0 & (1 << 31)) >> 31);
-            ModeIntFracComboBox.SelectedIndex = (int)(dataReg0);
-            if (dataReg0 == 1)
-            {
-                IntNNumUpDown.Minimum = 16;
-                IntNNumUpDown.Maximum = 65535;
-            }
-            else
-            {
-                IntNNumUpDown.Minimum = 19;
-                IntNNumUpDown.Maximum = 4091;
-            }
-        }
-
-        private void GetIntNValueFromRegister(UInt32 dataReg0)
-        {
-            UInt16 IntN = (UInt16)((dataReg0 & 0b01111111111111111000000000000000) >> 15);
-
-            if (IntN < IntNNumUpDown.Minimum)
-                IntN = Convert.ToUInt16(IntNNumUpDown.Minimum);
-            else if (IntN > IntNNumUpDown.Maximum)
-                IntN = Convert.ToUInt16(IntNNumUpDown.Maximum);
-
-            IntNNumUpDown.Value = IntN;
-        }
-
-        private void GetFracNValueFromRegister(UInt32 dataReg0)
-        {
-            UInt16 FracN = (UInt16)((dataReg0 & 0b111111111111000) >> 3);
-            FracNNumUpDown.Value = FracN;
-        }
-
-        private void GetModValueFromRegister(UInt32 dataReg1)
-        {
-            UInt16 Mod = (UInt16)((dataReg1 & 0b111111111111000) >> 3);
-            ModNumUpDown.Value = Mod;
-            FracNNumUpDown.Maximum = ModNumUpDown.Value-1;
-        }
-
-        private void GetPhasePValueFromRegister(UInt32 dataReg1)
-        {
-            UInt16 PhaseP = (UInt16)((dataReg1 & 0b111111111111000000000000000) >> 15);
-            PhasePNumericUpDown.Value = PhaseP;
-        }
-
-        private void GetCPLinearityFromRegister(UInt32 dataReg1)
-        {
-            UInt16 CPLinearity = (UInt16)((dataReg1 & ((1<<30) | (1<<29))) >> 29);
-            CPLinearityComboBox.SelectedIndex = (int)CPLinearity;
-        }
-
-        private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
-        {
-            DoubleRefFCheckBox.Checked = Convert.ToBoolean((dataReg2 & (1 << 25)) >> 25);
-        }
-        
-        private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
-        {
-            DivideBy2CheckBox.Checked = Convert.ToBoolean((dataReg2 & (1 << 24)) >> 24);
-        }
-
-        private void GetRDivValueFromRegister(UInt32 dataReg2)
-        {
-            UInt16 RDiv = (UInt16)((dataReg2 & 0b111111111100000000000000) >> 14);
-            RDivUpDown.Value = RDiv;
-        }
-
-        private void GetCPCurrentIndexFromRegister(UInt32 dataReg2)
-        {
-            UInt16 CPCurrentIndex = (UInt16)((dataReg2 & ((1<<12) | (1<<11) | (1<<10) | (1<<9))) >> 9);
-            CPCurrentComboBox.SelectedIndex = (int)CPCurrentIndex;
-        }
-
+    
         private void GetCPCurrentFromTextBox()
         {
             // TODO ulozit hodnotu RSET do defaults a saved_workspace, pri startu ji nacist
@@ -510,23 +403,7 @@ namespace Synthesizer_PC_control
             CPCurrentComboBox.DataSource = list;
 
         }
-
-        private void GetOutAENStatusFromRegister(UInt32 dataReg4)
-        {
-            RF_A_EN_ComboBox.SelectedIndex = (int)((dataReg4 & (1<<5)) >> 5);
-        }
-
-        private void GetOutAPwrStatusFromRegister(UInt32 dataReg4)
-        {
-            RF_A_PWR_ComboBox.SelectedIndex = (int)((dataReg4 & 0b11000) >> 3);
-        }
-
-        private void GetADividerValueFromRegister(UInt32 dataReg4)
-        {
-            UInt16 ADiv = (UInt16)((dataReg4 & ((1<<22) | (1<<21) | (1<<20))) >> 20);
-            ADivComboBox.SelectedIndex = ADiv;
-        }
-
+        
         private void RecalcFreqInfo()
         {
             UInt16 DIVA = (UInt16)(1 << ADivComboBox.SelectedIndex);
@@ -722,7 +599,7 @@ namespace Synthesizer_PC_control
                                 controller.old_registers[0].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
             {
-                GetAllFromReg0();
+                controller.GetAllFromReg(0);
                 controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
             }
@@ -736,7 +613,7 @@ namespace Synthesizer_PC_control
                                 controller.old_registers[1].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
             {
-                GetAllFromReg1();
+                controller.GetAllFromReg(1);
                 controller.ApplyChangeReg(1);
                 controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
@@ -751,7 +628,7 @@ namespace Synthesizer_PC_control
                                 controller.old_registers[2].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
             {
-                GetAllFromReg2();
+                controller.GetAllFromReg(2);
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
                 RecalcFreqInfo();
@@ -778,7 +655,7 @@ namespace Synthesizer_PC_control
                                 controller.old_registers[4].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
             {
-                GetAllFromReg4();
+                controller.GetAllFromReg(4);
                 controller.ApplyChangeReg(4);
                 RecalcFreqInfo();
             }
