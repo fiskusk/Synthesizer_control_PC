@@ -246,6 +246,7 @@ namespace Synthesizer_PC_control
             this.Reg0TextBox.Name = "Reg0TextBox";
             this.Reg0TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg0TextBox.TabIndex = 3;
+            this.Reg0TextBox.Text = "00980318";
             this.Reg0TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg0TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg0TextBox_KeyPress);
             this.Reg0TextBox.LostFocus += new System.EventHandler(this.Reg0TextBox_LostFocus);
@@ -278,6 +279,7 @@ namespace Synthesizer_PC_control
             this.Reg1TextBox.Name = "Reg1TextBox";
             this.Reg1TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg1TextBox.TabIndex = 6;
+            this.Reg1TextBox.Text = "A00107D1";
             this.Reg1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg1TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg1TextBox_KeyPress);
             this.Reg1TextBox.LostFocus += new System.EventHandler(this.Reg1TextBox_LostFocus);
@@ -301,6 +303,7 @@ namespace Synthesizer_PC_control
             this.Reg2TextBox.Name = "Reg2TextBox";
             this.Reg2TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg2TextBox.TabIndex = 8;
+            this.Reg2TextBox.Text = "78004042";
             this.Reg2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg2TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg2TextBox_KeyPress);
             this.Reg2TextBox.LostFocus += new System.EventHandler(this.Reg2TextBox_LostFocus);
@@ -324,6 +327,7 @@ namespace Synthesizer_PC_control
             this.Reg3TextBox.Name = "Reg3TextBox";
             this.Reg3TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg3TextBox.TabIndex = 8;
+            this.Reg3TextBox.Text = "00001F23";
             this.Reg3TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg3TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg3TextBox_KeyPress);
             this.Reg3TextBox.LostFocus += new System.EventHandler(this.Reg3TextBox_LostFocus);
@@ -347,6 +351,7 @@ namespace Synthesizer_PC_control
             this.Reg4TextBox.Name = "Reg4TextBox";
             this.Reg4TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg4TextBox.TabIndex = 8;
+            this.Reg4TextBox.Text = "63AE80FC";
             this.Reg4TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg4TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg4TextBox_KeyPress);
             this.Reg4TextBox.LostFocus += new System.EventHandler(this.Reg4TextBox_LostFocus);
@@ -2142,7 +2147,7 @@ namespace Synthesizer_PC_control
         private GroupBox OutInfoGroupBox;
         private GroupBox groupBox1;
         private GroupBox ChargePumpGroupBox;
-        private TextBox RSetTextBox;
+        public TextBox RSetTextBox;
         private Label RSetLabel;
         public ComboBox CPCurrentComboBox;
         private Label CPCurrentLabel;
