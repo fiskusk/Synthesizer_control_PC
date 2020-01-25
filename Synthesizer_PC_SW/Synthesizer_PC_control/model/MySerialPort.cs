@@ -46,6 +46,7 @@ namespace Synthesizer_PC_control.Model
                 port = new SerialPort(portName, 115200); 
                 port.DtrEnable = true; 
                 port.ReadTimeout = 500; 
+                port.WriteTimeout = 500; 
                 port.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data 
                 port.NewLine = "\r"; 
                 port.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler); 
@@ -108,7 +109,7 @@ namespace Synthesizer_PC_control.Model
             } 
         } 
  
-        public bool SendStringSerialPort(string text) 
+        public void SendStringSerialPort(string text) 
         {
             try 
             { 
@@ -120,14 +121,13 @@ namespace Synthesizer_PC_control.Model
                 dontRunHandler = false; 
  
                 ui_ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + "command: '" + text + "' sended"); 
-                return true;
             } 
             catch 
             { 
                 MessageBox.Show("Device doesn't work", "COM Port Error", 
                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk); 
                 ClosePort(); 
-                return false;
+                viewHandle.EnableControls(false);
             } 
         }
  
