@@ -34,6 +34,11 @@ namespace Synthesizer_PC_control
             public string COM_port { get; set; }
         }
 
+        public class SaveAsDefaultRegisters
+        {
+            public IList<string> Registers { get; set; }
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -377,104 +382,17 @@ namespace Synthesizer_PC_control
             R4M4.Text = data.Mem4[4];
             R5M4.Text = data.Mem4[5];
             controller.GetCPCurrentFromTextBox();
-            GetAllFromRegisters();
+            controller.GetAllFromRegisters();
         }
 
-         private void GetAllFromRegisters()
+        private void LoadRegistersFromFile(SaveAsDefaultRegisters data)
         {
-            
-            controller.GetAllFromReg(5);
-            controller.GetAllFromReg(4);
-            controller.GetAllFromReg(3);
-            controller.GetAllFromReg(2);
-            controller.GetAllFromReg(1);
-            controller.GetAllFromReg(0);
-            GetFPfdFreq();
-            RecalcFreqInfo(); 
-        }
-        
-        private void RecalcFreqInfo()
-        {
-            UInt16 DIVA = (UInt16)(1 << ADivComboBox.SelectedIndex);
-
-            string f_pfd_string = fPfdScreenLabel.Text;
-            f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
-            f_pfd_string = f_pfd_string.Replace(".", ",");
-            decimal f_pfd = Convert.ToDecimal(f_pfd_string);
-
-            decimal f_out_A = 0;
-            decimal f_vco = 0;
-
-            // TODO pohlidat f_vco
-
-            if (ModeIntFracComboBox.SelectedIndex == 1)
-            {
-                f_out_A = ((f_pfd*IntNNumUpDown.Value)/(DIVA));
-            }
-            else
-            {
-                f_out_A = (f_pfd/DIVA)*(IntNNumUpDown.Value+(FracNNumUpDown.Value/(ModNumUpDown.Value*1.0M)));
-            }
-            f_vco = f_out_A*DIVA;
-            if ((f_vco < 3000) || (f_vco > 6000))
-            {
-                fVcoScreenLabel.ForeColor = System.Drawing.Color.Red;
-                IntNNumUpDown.BackColor = System.Drawing.Color.Red;
-            }
-            else
-            {
-                fVcoScreenLabel.ForeColor = System.Drawing.Color.Black;
-                IntNNumUpDown.BackColor = System.Drawing.Color.White;
-            }
-                
-
-            UInt16 f_out_A_MHz = (UInt16)(f_out_A);
-            UInt32 f_out_A_kHz = (UInt32)(f_out_A*1000);
-            UInt64 f_out_A_Hz = (UInt64)(f_out_A*1000000);
-            UInt64 f_out_A_mHz = (UInt64)(f_out_A*1000000000);
-            UInt16 thousandths = (UInt16)(f_out_A_kHz - f_out_A_MHz*1000);
-            UInt16 millionths = (UInt16)(f_out_A_Hz - (UInt64)(f_out_A_MHz)*1000000-(UInt64)(thousandths)*1000);
-            UInt16 billionths = (UInt16)(f_out_A_mHz - (UInt64)(f_out_A_Hz)*1000);
-            float bill_f = (float)((billionths)/100.0);
-            double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
-
-            fOutAScreenLabel.Text = string.Format("{0:000},{1:000} {2:000} {3:0}", f_out_A_MHz, thousandths, millionths, rounding);
-
-            UInt16 f_vco_MHz = (UInt16)(f_vco);
-            UInt32 f_vco_kHz = (UInt32)(f_vco*1000);
-            UInt64 f_vco_Hz = (UInt64)(f_vco*1000000);
-            UInt64 f_vco_mHz = (UInt64)(f_vco*1000000000);
-            thousandths = (UInt16)(f_vco_kHz - f_vco_MHz*1000);
-            millionths = (UInt16)(f_vco_Hz - (UInt64)(f_vco_MHz)*1000000-(UInt64)(thousandths)*1000);
-            billionths = (UInt16)(f_vco_mHz - (UInt64)(f_vco_Hz)*1000);
-            bill_f = (float)((billionths)/100.0);
-            rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
-
-            fVcoScreenLabel.Text = string.Format("{0:000},{1:000} {2:000} {3:0}", f_vco_MHz, thousandths, millionths, rounding);
-        }
-
-        private void GetFPfdFreq()
-        {
-            // TODO osetrit fpfd
-            string f_pfd_string = RefFTextBox.Text;
-            f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
-            f_pfd_string = f_pfd_string.Replace(".", ",");
-            decimal f_ref = decimal.Parse(f_pfd_string);
-            UInt16 doubler = Convert.ToUInt16(DoubleRefFCheckBox.Checked);
-            UInt16 divider2 = Convert.ToUInt16(DivideBy2CheckBox.Checked);
-            decimal f_pfd = f_ref * ((1 + doubler) / (RDivUpDown.Value * (1 + divider2)));
-
-            UInt16 f_pfd_MHz = (UInt16)(f_pfd);
-            UInt32 f_pfd_kHz = (UInt32)(f_pfd*1000);
-            UInt64 f_pfd_Hz = (UInt64)(f_pfd*1000000);
-            UInt64 f_vco_mHz = (UInt64)(f_pfd*1000000000);
-            UInt16 thousandths = (UInt16)(f_pfd_kHz - f_pfd_MHz*1000);
-            UInt16 millionths = (UInt16)(f_pfd_Hz - (UInt64)(f_pfd_MHz)*1000000-(UInt64)(thousandths)*1000);
-            UInt16 billionths = (UInt16)(f_vco_mHz - (UInt64)(f_pfd_Hz)*1000);
-            float bill_f = (float)((billionths)/100.0);
-            double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
-
-            fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
+            controller.registers[0].SetValue(data.Registers[0]);
+            controller.registers[1].SetValue(data.Registers[1]);
+            controller.registers[2].SetValue(data.Registers[2]);
+            controller.registers[3].SetValue(data.Registers[3]);
+            controller.registers[4].SetValue(data.Registers[4]);
+            controller.registers[5].SetValue(data.Registers[5]);
         }
 
         private void Out1Button_Click(object sender, EventArgs e)
@@ -590,7 +508,7 @@ namespace Synthesizer_PC_control
             {
                 controller.GetAllFromReg(0);
                 controller.ApplyChangeReg(0);
-                RecalcFreqInfo();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -605,7 +523,7 @@ namespace Synthesizer_PC_control
                 controller.GetAllFromReg(1);
                 controller.ApplyChangeReg(1);
                 controller.ApplyChangeReg(0);
-                RecalcFreqInfo();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -620,7 +538,7 @@ namespace Synthesizer_PC_control
                 controller.GetAllFromReg(2);
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
-                RecalcFreqInfo();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -646,7 +564,7 @@ namespace Synthesizer_PC_control
             {
                 controller.GetAllFromReg(4);
                 controller.ApplyChangeReg(4);
-                RecalcFreqInfo();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -735,7 +653,7 @@ namespace Synthesizer_PC_control
         {
             string fileName = GetFileNamePath(@"default.json");  
      
-            SaveWindow defaults = new SaveWindow
+            SaveAsDefaultRegisters defaults = new SaveAsDefaultRegisters
             {
                 Registers = new List<string>
                 {
@@ -758,7 +676,7 @@ namespace Synthesizer_PC_control
             {
                 string fileName = GetFileNamePath(@"default.json");
 
-                SaveWindow settings_loaded = JsonConvert.DeserializeObject<SaveWindow>(File.ReadAllText(fileName));
+                SaveAsDefaultRegisters settings_loaded = JsonConvert.DeserializeObject<SaveAsDefaultRegisters>(File.ReadAllText(fileName));
                 LoadRegistersFromFile(settings_loaded);
                 ForceLoadRegButton_Click(this, new EventArgs());
 
@@ -779,7 +697,7 @@ namespace Synthesizer_PC_control
             controller.ApplyChangeReg(1);
             controller.ApplyChangeReg(0);
 
-            GetAllFromRegisters();
+            controller.GetAllFromRegisters();
         }
 
         private void AvaibleCOMsComBox_DropDown(object sender, EventArgs e)
@@ -861,7 +779,7 @@ namespace Synthesizer_PC_control
                 controller.ChangeIntFracMode(ModeIntFracComboBox.SelectedIndex);
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
-                RecalcFreqInfo();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -871,7 +789,7 @@ namespace Synthesizer_PC_control
             {
                 controller.ChangeIntNValue(IntNNumUpDown.Value);
                 controller.ApplyChangeReg(0);
-                RecalcFreqInfo();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -881,7 +799,7 @@ namespace Synthesizer_PC_control
             {
                 controller.ChangeFracNValue(FracNNumUpDown.Value);
                 controller.ApplyChangeReg(0);
-                RecalcFreqInfo();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -892,7 +810,7 @@ namespace Synthesizer_PC_control
                 controller.ChangeModValue(ModNumUpDown.Value);
                 controller.ApplyChangeReg(1);
                 controller.ApplyChangeReg(0);
-                RecalcFreqInfo();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -903,8 +821,8 @@ namespace Synthesizer_PC_control
                 controller.ChangeRefDoubler(DoubleRefFCheckBox.Checked);
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
-                GetFPfdFreq();
-                RecalcFreqInfo();
+                controller.GetFPfdFreq();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -915,8 +833,8 @@ namespace Synthesizer_PC_control
                 controller.ChangeRefDivider(DivideBy2CheckBox.Checked);
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
-                GetFPfdFreq();
-                RecalcFreqInfo();
+                controller.GetFPfdFreq();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -927,8 +845,8 @@ namespace Synthesizer_PC_control
                 controller.ChangeRDiv(RDivUpDown.Value);
                 controller.ApplyChangeReg(2);
                 controller.ApplyChangeReg(0);
-                GetFPfdFreq();
-                RecalcFreqInfo();
+                controller.GetFPfdFreq();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -938,8 +856,8 @@ namespace Synthesizer_PC_control
             {
                 controller.ChangeADiv(ADivComboBox.SelectedIndex);
                 controller.ApplyChangeReg(4);
-                GetFPfdFreq();
-                RecalcFreqInfo();
+                controller.GetFPfdFreq();
+                controller.RecalcFreqInfo();
             }
         }
 
@@ -1005,15 +923,15 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                GetFPfdFreq();
-                RecalcFreqInfo();
+                controller.GetFPfdFreq();
+                controller.RecalcFreqInfo();
             }
         }
 
         private void RefFTextBox_LostFocus(object sender, EventArgs e)
         {
-            GetFPfdFreq();
-            RecalcFreqInfo();
+            controller.GetFPfdFreq();
+            controller.RecalcFreqInfo();
         }
 
         private void RefFTextBox_TextChanged(object sender, EventArgs e)
@@ -1075,7 +993,7 @@ namespace Synthesizer_PC_control
                     RSetTextBox.Text = "2700";
             }
             controller.GetCPCurrentFromTextBox();
-            RecalcFreqInfo();
+            controller.RecalcFreqInfo();
         }
 
         private void RSetTextBox_TextChanged(object sender, EventArgs e)
@@ -1366,7 +1284,7 @@ namespace Synthesizer_PC_control
             controller.registers[3].SetValue(R3M1.Text);
             controller.registers[4].SetValue(R4M1.Text);
             controller.registers[5].SetValue(R5M1.Text);
-            GetAllFromRegisters();
+            controller.GetAllFromRegisters();
         }
 
         private void ImportMem2Button_Click(object sender, EventArgs e)
@@ -1377,7 +1295,7 @@ namespace Synthesizer_PC_control
             controller.registers[3].SetValue(R3M2.Text);
             controller.registers[4].SetValue(R4M2.Text);
             controller.registers[5].SetValue(R5M2.Text);
-            GetAllFromRegisters();
+            controller.GetAllFromRegisters();
         }
 
         private void ImportMem3Button_Click(object sender, EventArgs e)
@@ -1388,7 +1306,7 @@ namespace Synthesizer_PC_control
             controller.registers[3].SetValue(R3M3.Text);
             controller.registers[4].SetValue(R4M3.Text);
             controller.registers[5].SetValue(R5M3.Text);
-            GetAllFromRegisters();
+            controller.GetAllFromRegisters();
         }
 
         private void ImportMem4Button_Click(object sender, EventArgs e)
@@ -1399,7 +1317,7 @@ namespace Synthesizer_PC_control
             controller.registers[3].SetValue(R3M4.Text);
             controller.registers[4].SetValue(R4M4.Text);
             controller.registers[5].SetValue(R5M4.Text);
-            GetAllFromRegisters();
+            controller.GetAllFromRegisters();
         }
     }
 }

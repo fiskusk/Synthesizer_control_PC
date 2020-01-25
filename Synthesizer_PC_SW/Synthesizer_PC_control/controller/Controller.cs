@@ -326,12 +326,25 @@ namespace Synthesizer_PC_control
                 case 5:
                     break;
             }
+        }
+
+        public void GetAllFromRegisters()
+        {
             
+            GetAllFromReg(5);
+            GetAllFromReg(4);
+            GetAllFromReg(3);
+            GetAllFromReg(2);
+            GetAllFromReg(1);
+            GetAllFromReg(0);
+            GetFPfdFreq();
+            RecalcFreqInfo(); 
         }
         #endregion
 
 #endregion
 
+#region Some magic calculations
         public void GetCPCurrentFromTextBox()
         {
             // TODO ulozit hodnotu RSET do defaults a saved_workspace, pri startu ji nacist
@@ -346,6 +359,91 @@ namespace Synthesizer_PC_control
             }
             view.CPCurrentComboBox.DataSource = list;
         }
+
+        public void RecalcFreqInfo()
+        {
+            UInt16 DIVA = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
+
+            string f_pfd_string = view.fPfdScreenLabel.Text;
+            f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
+            f_pfd_string = f_pfd_string.Replace(".", ",");
+            decimal f_pfd = Convert.ToDecimal(f_pfd_string);
+
+            decimal f_out_A = 0;
+            decimal f_vco = 0;
+
+            // TODO pohlidat f_vco
+
+            if (view.ModeIntFracComboBox.SelectedIndex == 1)
+            {
+                f_out_A = ((f_pfd*view.IntNNumUpDown.Value)/(DIVA));
+            }
+            else
+            {
+                f_out_A = (f_pfd/DIVA)*(view.IntNNumUpDown.Value+(view.FracNNumUpDown.Value/(view.ModNumUpDown.Value*1.0M)));
+            }
+            f_vco = f_out_A*DIVA;
+            if ((f_vco < 3000) || (f_vco > 6000))
+            {
+                view.fVcoScreenLabel.ForeColor = System.Drawing.Color.Red;
+                view.IntNNumUpDown.BackColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                view.fVcoScreenLabel.ForeColor = System.Drawing.Color.Black;
+                view.IntNNumUpDown.BackColor = System.Drawing.Color.White;
+            }
+                
+
+            UInt16 f_out_A_MHz = (UInt16)(f_out_A);
+            UInt32 f_out_A_kHz = (UInt32)(f_out_A*1000);
+            UInt64 f_out_A_Hz = (UInt64)(f_out_A*1000000);
+            UInt64 f_out_A_mHz = (UInt64)(f_out_A*1000000000);
+            UInt16 thousandths = (UInt16)(f_out_A_kHz - f_out_A_MHz*1000);
+            UInt16 millionths = (UInt16)(f_out_A_Hz - (UInt64)(f_out_A_MHz)*1000000-(UInt64)(thousandths)*1000);
+            UInt16 billionths = (UInt16)(f_out_A_mHz - (UInt64)(f_out_A_Hz)*1000);
+            float bill_f = (float)((billionths)/100.0);
+            double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
+
+            view.fOutAScreenLabel.Text = string.Format("{0:000},{1:000} {2:000} {3:0}", f_out_A_MHz, thousandths, millionths, rounding);
+
+            UInt16 f_vco_MHz = (UInt16)(f_vco);
+            UInt32 f_vco_kHz = (UInt32)(f_vco*1000);
+            UInt64 f_vco_Hz = (UInt64)(f_vco*1000000);
+            UInt64 f_vco_mHz = (UInt64)(f_vco*1000000000);
+            thousandths = (UInt16)(f_vco_kHz - f_vco_MHz*1000);
+            millionths = (UInt16)(f_vco_Hz - (UInt64)(f_vco_MHz)*1000000-(UInt64)(thousandths)*1000);
+            billionths = (UInt16)(f_vco_mHz - (UInt64)(f_vco_Hz)*1000);
+            bill_f = (float)((billionths)/100.0);
+            rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
+
+            view.fVcoScreenLabel.Text = string.Format("{0:000},{1:000} {2:000} {3:0}", f_vco_MHz, thousandths, millionths, rounding);
+        }
+
+        public void GetFPfdFreq()
+        {
+            // TODO osetrit fpfd
+            string f_pfd_string = view.RefFTextBox.Text;
+            f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
+            f_pfd_string = f_pfd_string.Replace(".", ",");
+            decimal f_ref = decimal.Parse(f_pfd_string);
+            UInt16 doubler = Convert.ToUInt16(view.DoubleRefFCheckBox.Checked);
+            UInt16 divider2 = Convert.ToUInt16(view.DivideBy2CheckBox.Checked);
+            decimal f_pfd = f_ref * ((1 + doubler) / (view.RDivUpDown.Value * (1 + divider2)));
+
+            UInt16 f_pfd_MHz = (UInt16)(f_pfd);
+            UInt32 f_pfd_kHz = (UInt32)(f_pfd*1000);
+            UInt64 f_pfd_Hz = (UInt64)(f_pfd*1000000);
+            UInt64 f_vco_mHz = (UInt64)(f_pfd*1000000000);
+            UInt16 thousandths = (UInt16)(f_pfd_kHz - f_pfd_MHz*1000);
+            UInt16 millionths = (UInt16)(f_pfd_Hz - (UInt64)(f_pfd_MHz)*1000000-(UInt64)(thousandths)*1000);
+            UInt16 billionths = (UInt16)(f_vco_mHz - (UInt64)(f_pfd_Hz)*1000);
+            float bill_f = (float)((billionths)/100.0);
+            double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
+
+            view.fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
+        }
+#endregion
 
 #region Serial port
 
@@ -395,6 +493,5 @@ namespace Synthesizer_PC_control
         }
 
 #endregion
-
     }
 }
