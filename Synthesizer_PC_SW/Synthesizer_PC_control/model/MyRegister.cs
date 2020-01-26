@@ -62,6 +62,17 @@ namespace Synthesizer_PC_control.Model
             UpdateUiElements();
         }
 
+        public static void SetValues(MyRegister[] registers, string[] values)
+        {
+            if (registers.Length != values.Length)
+                return;
+
+            for (int i = 0; i < registers.Length; i++)
+            {
+                registers[i].SetValue(values[i]);
+            }
+        }
+
         #endregion
 
         #region Bit Operations functions

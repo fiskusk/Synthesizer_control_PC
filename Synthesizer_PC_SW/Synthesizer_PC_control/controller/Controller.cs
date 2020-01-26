@@ -499,7 +499,7 @@ namespace Synthesizer_PC_control
 
         #endregion
 
-        #region Load and Save Data
+#region Load and Save Data
 
         public void LoadSavedWorkspaceData()
         {
@@ -511,9 +511,8 @@ namespace Synthesizer_PC_control
                 string text = "Workspace data succesfuly loaded.";
                 view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
 
-                // TODO Lukas ... Set data
-                //AvaibleCOMsComBox.Text = settings_loaded.COM_port;
-                //LoadRegistersFromFile(settings_loaded);
+                view.AvaibleCOMsComBox.Text = loadedData.COM_port;
+                LoadRegistersFromFile(loadedData);
             }
             else
             {
@@ -524,7 +523,8 @@ namespace Synthesizer_PC_control
 
         public void SaveWorkspaceData()
         {
-            bool succes = FilesManager.SaveWorkspaceData(null);
+
+            bool succes = FilesManager.SaveWorkspaceData(CreateSaveWindow());
 
             if(succes)
             {
@@ -540,47 +540,104 @@ namespace Synthesizer_PC_control
 
         public void LoadRegistersFromFile(SaveWindow data)
         {
-            //controller.registers[0].SetValue(data.Registers[0]);
-            //controller.registers[1].SetValue(data.Registers[1]);
-            //controller.registers[2].SetValue(data.Registers[2]);
-            //controller.registers[3].SetValue(data.Registers[3]);
-            //controller.registers[4].SetValue(data.Registers[4]);
-            //controller.registers[5].SetValue(data.Registers[5]);
-            //controller.old_registers[0].SetValue(data.Registers[0]);
-            //controller.old_registers[1].SetValue(data.Registers[1]);
-            //controller.old_registers[2].SetValue(data.Registers[2]);
-            //controller.old_registers[3].SetValue(data.Registers[3]);
-            //controller.old_registers[4].SetValue(data.Registers[4]);
-            //controller.old_registers[5].SetValue(data.Registers[5]);
-            //RSetTextBox.Text = Convert.ToString(data.RSetValue);
-            //R0M1.Text = data.Mem1[0];
-            //R1M1.Text = data.Mem1[1];
-            //R2M1.Text = data.Mem1[2];
-            //R3M1.Text = data.Mem1[3];
-            //R4M1.Text = data.Mem1[4];
-            //R5M1.Text = data.Mem1[5];
-            //R0M2.Text = data.Mem2[0];
-            //R1M2.Text = data.Mem2[1];
-            //R2M2.Text = data.Mem2[2];
-            //R3M2.Text = data.Mem2[3];
-            //R4M2.Text = data.Mem2[4];
-            //R5M2.Text = data.Mem2[5];
-            //R0M3.Text = data.Mem3[0];
-            //R1M3.Text = data.Mem3[1];
-            //R2M3.Text = data.Mem3[2];
-            //R3M3.Text = data.Mem3[3];
-            //R4M3.Text = data.Mem3[4];
-            //R5M3.Text = data.Mem3[5];
-            //R0M4.Text = data.Mem4[0];
-            //R1M4.Text = data.Mem4[1];
-            //R2M4.Text = data.Mem4[2];
-            //R3M4.Text = data.Mem4[3];
-            //R4M4.Text = data.Mem4[4];
-            //R5M4.Text = data.Mem4[5];
-            //controller.GetCPCurrentFromTextBox();
-            //controller.GetAllFromRegisters();
+            // registers
+            MyRegister.SetValues(registers, data.Registers.ToArray());
+            // old registers
+            MyRegister.SetValues(old_registers, data.Registers.ToArray());
+
+            view.RSetTextBox.Text = Convert.ToString(data.RSetValue);
+
+            view.R0M1.Text = data.Mem1[0];
+            view.R1M1.Text = data.Mem1[1];
+            view.R2M1.Text = data.Mem1[2];
+            view.R3M1.Text = data.Mem1[3];
+            view.R4M1.Text = data.Mem1[4];
+            view.R5M1.Text = data.Mem1[5];
+
+            view.R0M2.Text = data.Mem2[0];
+            view.R1M2.Text = data.Mem2[1];
+            view.R2M2.Text = data.Mem2[2];
+            view.R3M2.Text = data.Mem2[3];
+            view.R4M2.Text = data.Mem2[4];
+            view.R5M2.Text = data.Mem2[5];
+
+            view.R0M3.Text = data.Mem3[0];
+            view.R1M3.Text = data.Mem3[1];
+            view.R2M3.Text = data.Mem3[2];
+            view.R3M3.Text = data.Mem3[3];
+            view.R4M3.Text = data.Mem3[4];
+            view.R5M3.Text = data.Mem3[5];
+
+            view.R0M4.Text = data.Mem4[0];
+            view.R1M4.Text = data.Mem4[1];
+            view.R2M4.Text = data.Mem4[2];
+            view.R3M4.Text = data.Mem4[3];
+            view.R4M4.Text = data.Mem4[4];
+            view.R5M4.Text = data.Mem4[5];
+
+            this.GetCPCurrentFromTextBox();
+            this.GetAllFromRegisters();
         }
 
-        #endregion
+        private SaveWindow CreateSaveWindow()
+        {
+            SaveWindow saved = new SaveWindow
+            {
+                Registers = new List<string>
+                {
+                    this.registers[0].string_GetValue(),
+                    this.registers[1].string_GetValue(),
+                    this.registers[2].string_GetValue(),
+                    this.registers[3].string_GetValue(),
+                    this.registers[4].string_GetValue(),
+                    this.registers[5].string_GetValue()
+                },
+                RSetValue = Convert.ToUInt16(view.RSetTextBox.Text),
+                Mem1 = new List<string>
+                {
+                    view.R0M1.Text,
+                    view.R1M1.Text,
+                    view.R2M1.Text,
+                    view.R3M1.Text,
+                    view.R4M1.Text,
+                    view.R5M1.Text,
+                },
+                Mem2 = new List<string>
+                {
+                    view.R0M2.Text,
+                    view.R1M2.Text,
+                    view.R2M2.Text,
+                    view.R3M2.Text,
+                    view.R4M2.Text,
+                    view.R5M2.Text,
+                },
+                Mem3 = new List<string>
+                {
+                    view.R0M3.Text,
+                    view.R1M3.Text,
+                    view.R2M3.Text,
+                    view.R3M3.Text,
+                    view.R4M3.Text,
+                    view.R5M3.Text,
+                },
+                Mem4 = new List<string>
+                {
+                    view.R0M4.Text,
+                    view.R1M4.Text,
+                    view.R2M4.Text,
+                    view.R3M4.Text,
+                    view.R4M4.Text,
+                    view.R5M4.Text,
+                },
+                COM_port = view.AvaibleCOMsComBox.Text
+            };
+
+            return saved;
+        }
+
+#endregion
+
+
+
     }
 }
