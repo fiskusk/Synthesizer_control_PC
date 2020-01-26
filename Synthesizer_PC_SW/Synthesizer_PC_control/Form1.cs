@@ -624,7 +624,7 @@ namespace Synthesizer_PC_control
 
         private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen()) // TODO prefdelat na stav port otevren tlacitko
+            if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeRefDoubler(DoubleRefFCheckBox.Checked);
                 controller.ApplyChangeReg(2);

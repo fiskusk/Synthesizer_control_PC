@@ -23,7 +23,7 @@ namespace Synthesizer_PC_control
 
         public Controller(Form1 view)
         {
-            // TODO FILIP ... Hey, try this!
+            // TODO FILIP ... Hey, try this! Hey! It works! :)
             /*string test = null;
             FilesManager.LoadFile(out test);*/
 
@@ -352,7 +352,6 @@ namespace Synthesizer_PC_control
 #region Some magic calculations
         public void GetCPCurrentFromTextBox()
         {
-            // TODO ulozit hodnotu RSET do defaults a saved_workspace, pri startu ji nacist
             UInt16 R_set = Convert.ToUInt16(view.RSetTextBox.Text);
             IList<string> list = new List<string>();
             decimal I_cp;
