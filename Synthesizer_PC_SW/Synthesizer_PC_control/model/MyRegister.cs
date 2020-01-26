@@ -7,7 +7,7 @@ namespace Synthesizer_PC_control.Model
     {
         private TextBox uiElement;
 
-        private string value; // FIXME private
+        private string value;
         private readonly bool updateUI;
 
         public MyRegister(string value)
@@ -70,7 +70,6 @@ namespace Synthesizer_PC_control.Model
             UInt32 reg = this.uint32_GetValue();
             reg =  BitOperations.ChangeNBits(reg, changingValue, N, startingBit);
             this.SetValue(reg);
-            
         }
 
         public void SetResetOneBit(UInt16 bit, BitState bitState)
@@ -81,8 +80,6 @@ namespace Synthesizer_PC_control.Model
         }
         
         #endregion
-
-
         
     }
 }

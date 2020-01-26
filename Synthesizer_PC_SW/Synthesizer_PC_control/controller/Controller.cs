@@ -36,12 +36,12 @@ namespace Synthesizer_PC_control
 
             registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
 
-            var old_reg0 = new MyRegister(null);
-            var old_reg1 = new MyRegister(null);
-            var old_reg2 = new MyRegister(null);
-            var old_reg3 = new MyRegister(null);
-            var old_reg4 = new MyRegister(null);
-            var old_reg5 = new MyRegister(null);
+            var old_reg0 = new MyRegister(String.Empty);
+            var old_reg1 = new MyRegister(String.Empty);
+            var old_reg2 = new MyRegister(String.Empty);
+            var old_reg3 = new MyRegister(String.Empty);
+            var old_reg4 = new MyRegister(String.Empty);
+            var old_reg5 = new MyRegister(String.Empty);
 
             old_registers = new MyRegister[] {old_reg0, old_reg1, old_reg2, old_reg3, old_reg4, old_reg5};
         }
