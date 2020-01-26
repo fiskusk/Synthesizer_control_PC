@@ -61,6 +61,7 @@
     <Compile Include="model\MyFormat.cs" />
     <Compile Include="model\MyRegister.cs" />
     <Compile Include="model\MySerialPort.cs" />
+    <Compile Include="model\Memory.cs" />
     <Compile Include="utilities\BitOperations.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
