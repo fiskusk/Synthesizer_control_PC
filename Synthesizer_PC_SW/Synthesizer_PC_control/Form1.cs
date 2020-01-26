@@ -395,6 +395,7 @@ namespace Synthesizer_PC_control
             controller.registers[5].SetValue(data.Registers[5]);
         }
 
+        // TODO FILIP_NOW out1 Butt as switch (inpiruj se comportem)
         private void Out1Button_Click(object sender, EventArgs e)
         {
             if (Out1Button.Text == "Out 1 On")
