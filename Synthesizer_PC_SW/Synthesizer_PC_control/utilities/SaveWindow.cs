@@ -32,42 +32,42 @@ namespace Synthesizer_PC_control.Utilities
                 RSetValue = 4700,
                 Mem1 = new List<string>
                 {
-                    "80C90000",
-                    "800103E9",
-                    "00005F42",
+                    "80C80018",
+                    "800003E9",
+                    "18005F42",
                     "00001F23",
-                    "63BE80E4",
+                    "63BE80FC",
                     "00400005"
                 },
                 Mem2 = new List<string>
                 {
-                    "80C90000",
-                    "800103E9",
-                    "00005F42",
+                    "00C80008",
+                    "A00003E9",
+                    "18005E42",
                     "00001F23",
-                    "63BE80E4",
+                    "63BE80FC",
                     "00400005"
                 },
                 Mem3 = new List<string>
                 {
-                    "80C90000",
-                    "800103E9",
-                    "00005F42",
+                    "00C80018",
+                    "A00007D1",
+                    "18005E42",
                     "00001F23",
-                    "63BE80E4",
+                    "63BE80FC",
                     "00400005"
                 },
                 Mem4 = new List<string>
                 {
-                    "80C90000",
-                    "800103E9",
-                    "00005F42",
+                    "00C80038",
+                    "A0000FA1",
+                    "18005E42",
                     "00001F23",
-                    "63BE80E4",
+                    "63BE80FC",
                     "00400005"
                 },
                 //COM_port = AvaibleCOMsComBox.Text
-                COM_port = ""
+                COM_port = "COM3"
             };
 
             return saved;
