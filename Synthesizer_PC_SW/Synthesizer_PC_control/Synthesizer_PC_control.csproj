@@ -61,10 +61,11 @@
     <Compile Include="model\MyFormat.cs" />
     <Compile Include="model\MyRegister.cs" />
     <Compile Include="model\MySerialPort.cs" />
-    <Compile Include="model\BitOperations.cs" />
+    <Compile Include="utilities\BitOperations.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializerPort.cs" />
+    <Compile Include="utilities\FilesManager.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

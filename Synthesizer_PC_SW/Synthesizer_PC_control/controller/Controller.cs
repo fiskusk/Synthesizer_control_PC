@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Synthesizer_PC_control.Model;
+using Synthesizer_PC_control.Utilities;
 
 namespace Synthesizer_PC_control
 {

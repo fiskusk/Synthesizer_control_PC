@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Synthesizer_PC_control.Utilities;
 
 namespace Synthesizer_PC_control.Model
 {

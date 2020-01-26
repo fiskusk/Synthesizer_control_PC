@@ -1,6 +1,6 @@
 using System;
 
-namespace Synthesizer_PC_control
+namespace Synthesizer_PC_control.Utilities
 {
     public enum BitState
     {
