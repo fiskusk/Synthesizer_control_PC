@@ -246,7 +246,6 @@ namespace Synthesizer_PC_control
             this.Reg0TextBox.Name = "Reg0TextBox";
             this.Reg0TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg0TextBox.TabIndex = 3;
-            this.Reg0TextBox.Text = "00980318";
             this.Reg0TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg0TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg0TextBox_KeyPress);
             this.Reg0TextBox.LostFocus += new System.EventHandler(this.Reg0TextBox_LostFocus);
@@ -279,7 +278,6 @@ namespace Synthesizer_PC_control
             this.Reg1TextBox.Name = "Reg1TextBox";
             this.Reg1TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg1TextBox.TabIndex = 6;
-            this.Reg1TextBox.Text = "A00107D1";
             this.Reg1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg1TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg1TextBox_KeyPress);
             this.Reg1TextBox.LostFocus += new System.EventHandler(this.Reg1TextBox_LostFocus);
@@ -303,7 +301,6 @@ namespace Synthesizer_PC_control
             this.Reg2TextBox.Name = "Reg2TextBox";
             this.Reg2TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg2TextBox.TabIndex = 8;
-            this.Reg2TextBox.Text = "78004042";
             this.Reg2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg2TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg2TextBox_KeyPress);
             this.Reg2TextBox.LostFocus += new System.EventHandler(this.Reg2TextBox_LostFocus);
@@ -327,7 +324,6 @@ namespace Synthesizer_PC_control
             this.Reg3TextBox.Name = "Reg3TextBox";
             this.Reg3TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg3TextBox.TabIndex = 8;
-            this.Reg3TextBox.Text = "00001F23";
             this.Reg3TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg3TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg3TextBox_KeyPress);
             this.Reg3TextBox.LostFocus += new System.EventHandler(this.Reg3TextBox_LostFocus);
@@ -351,7 +347,6 @@ namespace Synthesizer_PC_control
             this.Reg4TextBox.Name = "Reg4TextBox";
             this.Reg4TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg4TextBox.TabIndex = 8;
-            this.Reg4TextBox.Text = "63AE80FC";
             this.Reg4TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg4TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg4TextBox_KeyPress);
             this.Reg4TextBox.LostFocus += new System.EventHandler(this.Reg4TextBox_LostFocus);
@@ -375,7 +370,6 @@ namespace Synthesizer_PC_control
             this.Reg5TextBox.Name = "Reg5TextBox";
             this.Reg5TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg5TextBox.TabIndex = 8;
-            this.Reg5TextBox.Text = "00400005";
             this.Reg5TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg5TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg5TextBox_KeyPress);
             this.Reg5TextBox.LostFocus += new System.EventHandler(this.Reg5TextBox_LostFocus);
@@ -703,7 +697,6 @@ namespace Synthesizer_PC_control
             this.RSetTextBox.Name = "RSetTextBox";
             this.RSetTextBox.Size = new System.Drawing.Size(53, 22);
             this.RSetTextBox.TabIndex = 3;
-            this.RSetTextBox.Text = "4700";
             this.RSetTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RSetTextBox.TextChanged += new System.EventHandler(this.RSetTextBox_TextChanged);
             this.RSetTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RSetTextBox_KeyDown);
@@ -1461,7 +1454,6 @@ namespace Synthesizer_PC_control
             this.R0M4.Name = "R0M4";
             this.R0M4.Size = new System.Drawing.Size(84, 22);
             this.R0M4.TabIndex = 9;
-            this.R0M4.Text = "80C90000";
             this.R0M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R0M3
@@ -1474,7 +1466,6 @@ namespace Synthesizer_PC_control
             this.R0M3.Name = "R0M3";
             this.R0M3.Size = new System.Drawing.Size(84, 22);
             this.R0M3.TabIndex = 9;
-            this.R0M3.Text = "80C90000";
             this.R0M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // LoadRegMemory
@@ -1509,7 +1500,6 @@ namespace Synthesizer_PC_control
             this.R0M2.Name = "R0M2";
             this.R0M2.Size = new System.Drawing.Size(84, 22);
             this.R0M2.TabIndex = 9;
-            this.R0M2.Text = "80C90000";
             this.R0M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R0M1
@@ -1522,7 +1512,6 @@ namespace Synthesizer_PC_control
             this.R0M1.Name = "R0M1";
             this.R0M1.Size = new System.Drawing.Size(84, 22);
             this.R0M1.TabIndex = 9;
-            this.R0M1.Text = "80C90000";
             this.R0M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Mem4Label
@@ -1589,7 +1578,6 @@ namespace Synthesizer_PC_control
             this.R1M4.Name = "R1M4";
             this.R1M4.Size = new System.Drawing.Size(84, 22);
             this.R1M4.TabIndex = 12;
-            this.R1M4.Text = "800103E9";
             this.R1M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R1M3
@@ -1602,7 +1590,6 @@ namespace Synthesizer_PC_control
             this.R1M3.Name = "R1M3";
             this.R1M3.Size = new System.Drawing.Size(84, 22);
             this.R1M3.TabIndex = 12;
-            this.R1M3.Text = "800103E9";
             this.R1M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R1M2
@@ -1615,7 +1602,6 @@ namespace Synthesizer_PC_control
             this.R1M2.Name = "R1M2";
             this.R1M2.Size = new System.Drawing.Size(84, 22);
             this.R1M2.TabIndex = 12;
-            this.R1M2.Text = "800103E9";
             this.R1M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R1M1
@@ -1628,7 +1614,6 @@ namespace Synthesizer_PC_control
             this.R1M1.Name = "R1M1";
             this.R1M1.Size = new System.Drawing.Size(84, 22);
             this.R1M1.TabIndex = 12;
-            this.R1M1.Text = "800103E9";
             this.R1M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // SavReg2Label
@@ -1650,7 +1635,6 @@ namespace Synthesizer_PC_control
             this.R2M4.Name = "R2M4";
             this.R2M4.Size = new System.Drawing.Size(84, 22);
             this.R2M4.TabIndex = 17;
-            this.R2M4.Text = "00005F42";
             this.R2M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R2M3
@@ -1663,7 +1647,6 @@ namespace Synthesizer_PC_control
             this.R2M3.Name = "R2M3";
             this.R2M3.Size = new System.Drawing.Size(84, 22);
             this.R2M3.TabIndex = 17;
-            this.R2M3.Text = "00005F42";
             this.R2M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R2M2
@@ -1676,7 +1659,6 @@ namespace Synthesizer_PC_control
             this.R2M2.Name = "R2M2";
             this.R2M2.Size = new System.Drawing.Size(84, 22);
             this.R2M2.TabIndex = 17;
-            this.R2M2.Text = "00005F42";
             this.R2M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R2M1
@@ -1689,7 +1671,6 @@ namespace Synthesizer_PC_control
             this.R2M1.Name = "R2M1";
             this.R2M1.Size = new System.Drawing.Size(84, 22);
             this.R2M1.TabIndex = 17;
-            this.R2M1.Text = "00005F42";
             this.R2M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R3M4
@@ -1702,7 +1683,6 @@ namespace Synthesizer_PC_control
             this.R3M4.Name = "R3M4";
             this.R3M4.Size = new System.Drawing.Size(84, 22);
             this.R3M4.TabIndex = 18;
-            this.R3M4.Text = "00001F23";
             this.R3M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R3M3
@@ -1715,7 +1695,6 @@ namespace Synthesizer_PC_control
             this.R3M3.Name = "R3M3";
             this.R3M3.Size = new System.Drawing.Size(84, 22);
             this.R3M3.TabIndex = 18;
-            this.R3M3.Text = "00001F23";
             this.R3M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R3M2
@@ -1728,7 +1707,6 @@ namespace Synthesizer_PC_control
             this.R3M2.Name = "R3M2";
             this.R3M2.Size = new System.Drawing.Size(84, 22);
             this.R3M2.TabIndex = 18;
-            this.R3M2.Text = "00001F23";
             this.R3M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R3M1
@@ -1741,7 +1719,6 @@ namespace Synthesizer_PC_control
             this.R3M1.Name = "R3M1";
             this.R3M1.Size = new System.Drawing.Size(84, 22);
             this.R3M1.TabIndex = 18;
-            this.R3M1.Text = "00001F23";
             this.R3M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // SavReg4Label
@@ -1763,7 +1740,6 @@ namespace Synthesizer_PC_control
             this.R4M4.Name = "R4M4";
             this.R4M4.Size = new System.Drawing.Size(84, 22);
             this.R4M4.TabIndex = 19;
-            this.R4M4.Text = "63BE80E4";
             this.R4M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R4M3
@@ -1776,7 +1752,6 @@ namespace Synthesizer_PC_control
             this.R4M3.Name = "R4M3";
             this.R4M3.Size = new System.Drawing.Size(84, 22);
             this.R4M3.TabIndex = 19;
-            this.R4M3.Text = "63BE80E4";
             this.R4M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R5M4
@@ -1789,7 +1764,6 @@ namespace Synthesizer_PC_control
             this.R5M4.Name = "R5M4";
             this.R5M4.Size = new System.Drawing.Size(84, 22);
             this.R5M4.TabIndex = 20;
-            this.R5M4.Text = "00400005";
             this.R5M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R4M2
@@ -1802,7 +1776,6 @@ namespace Synthesizer_PC_control
             this.R4M2.Name = "R4M2";
             this.R4M2.Size = new System.Drawing.Size(84, 22);
             this.R4M2.TabIndex = 19;
-            this.R4M2.Text = "63BE80E4";
             this.R4M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R5M3
@@ -1815,7 +1788,6 @@ namespace Synthesizer_PC_control
             this.R5M3.Name = "R5M3";
             this.R5M3.Size = new System.Drawing.Size(84, 22);
             this.R5M3.TabIndex = 20;
-            this.R5M3.Text = "00400005";
             this.R5M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R4M1
@@ -1828,7 +1800,6 @@ namespace Synthesizer_PC_control
             this.R4M1.Name = "R4M1";
             this.R4M1.Size = new System.Drawing.Size(84, 22);
             this.R4M1.TabIndex = 19;
-            this.R4M1.Text = "63BE80E4";
             this.R4M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R5M2
@@ -1841,7 +1812,6 @@ namespace Synthesizer_PC_control
             this.R5M2.Name = "R5M2";
             this.R5M2.Size = new System.Drawing.Size(84, 22);
             this.R5M2.TabIndex = 20;
-            this.R5M2.Text = "00400005";
             this.R5M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // SavReg5Label
@@ -1863,7 +1833,6 @@ namespace Synthesizer_PC_control
             this.R5M1.Name = "R5M1";
             this.R5M1.Size = new System.Drawing.Size(84, 22);
             this.R5M1.TabIndex = 20;
-            this.R5M1.Text = "00400005";
             this.R5M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // RegistersGroupBox
@@ -1905,7 +1874,6 @@ namespace Synthesizer_PC_control
             this.InputFreqTextBox.Name = "InputFreqTextBox";
             this.InputFreqTextBox.Size = new System.Drawing.Size(109, 22);
             this.InputFreqTextBox.TabIndex = 3;
-            this.InputFreqTextBox.Text = "2851.750000";
             this.InputFreqTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.InputFreqTextBox.TextChanged += new System.EventHandler(this.InputFreqTextBox_TextChanged);
             this.InputFreqTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputFreqTextBox_KeyDown);

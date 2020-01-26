@@ -546,6 +546,8 @@ namespace Synthesizer_PC_control
 
             view.RSetTextBox.Text = Convert.ToString(data.RSetValue);
 
+            view.InputFreqTextBox.Text = data.OutputFreqValue;
+
             view.R0M1.Text = data.Mem1[0];
             view.R1M1.Text = data.Mem1[1];
             view.R2M1.Text = data.Mem1[2];
@@ -592,6 +594,7 @@ namespace Synthesizer_PC_control
                     this.registers[5].string_GetValue()
                 },
                 RSetValue = Convert.ToUInt16(view.RSetTextBox.Text),
+                OutputFreqValue = view.InputFreqTextBox.Text,
                 Mem1 = new List<string>
                 {
                     view.R0M1.Text,

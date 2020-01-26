@@ -10,6 +10,7 @@ namespace Synthesizer_PC_control.Utilities
     {
         public IList<string> Registers { get; set; }
         public UInt16 RSetValue { get; set; }
+        public string OutputFreqValue { get; set; }
         public IList<string> Mem1 { get; set; }
         public IList<string> Mem2 { get; set; }
         public IList<string> Mem3 { get; set; }
@@ -30,6 +31,7 @@ namespace Synthesizer_PC_control.Utilities
                     "00400005"
                 },
                 RSetValue = 4700,
+                OutputFreqValue = "500.0000000",
                 Mem1 = new List<string>
                 {
                     "80C80018",
