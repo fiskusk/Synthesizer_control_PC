@@ -7,7 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using System.IO;
+using Synthesizer_PC_control.Utilities;
+
 using System.IO.Ports;
 using System.Threading;
 using System.Diagnostics;
@@ -23,17 +26,6 @@ namespace Synthesizer_PC_control
         //private MyRegister[] registers;
         private Controller controller;
 
-        public class SaveWindow
-        {
-            public IList<string> Registers { get; set; }
-            public UInt16 RSetValue { get; set; }
-            public IList<string> Mem1 { get; set; }
-            public IList<string> Mem2 { get; set; }
-            public IList<string> Mem3 { get; set; }
-            public IList<string> Mem4 { get; set; }
-            public string COM_port { get; set; }
-        }
-
         public class SaveAsDefaultRegisters
         {
             public IList<string> Registers { get; set; }
@@ -45,12 +37,14 @@ namespace Synthesizer_PC_control
             this.Load += Form1_Load;
         
             controller = new Controller(this);
+
+            EnableControls(false);
+            controller.LoadSavedWorkspaceData();
         }
 
         void Form1_Load(object sender, EventArgs e)
         {
-            EnableControls(false);
-            LoadSavedWorkspaceData();
+            
         }
 
         public void EnableControls(bool command)
@@ -196,193 +190,6 @@ namespace Synthesizer_PC_control
             {
                 
             }
-        }
-        
-        private string GetFileNamePath(string fileName)
-        {
-            string actual_dir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-            if (!Directory.Exists(actual_dir + @"\conf\"))
-                Directory.CreateDirectory(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + @"\conf\");
-            string folder = actual_dir + @"\conf\";
-            return folder + fileName;
-        }
-
-        public void SaveWorkspaceData()
-        {
-            try   
-            {   
-                string fileName = GetFileNamePath(@"saved_workspace.json");
-
-                SaveWindow saved = new SaveWindow
-                {
-                    Registers = new List<string>
-                    {
-                        controller.registers[0].string_GetValue(),
-                        controller.registers[1].string_GetValue(),
-                        controller.registers[2].string_GetValue(),
-                        controller.registers[3].string_GetValue(),
-                        controller.registers[4].string_GetValue(),
-                        controller.registers[5].string_GetValue()
-                    },
-                    RSetValue = Convert.ToUInt16(RSetTextBox.Text),
-                    Mem1 = new List<string>
-                    {
-                        R0M1.Text,
-                        R1M1.Text,
-                        R2M1.Text,
-                        R3M1.Text,
-                        R4M1.Text,
-                        R5M1.Text,
-                    },
-                    Mem2 = new List<string>
-                    {
-                        R0M2.Text,
-                        R1M2.Text,
-                        R2M2.Text,
-                        R3M2.Text,
-                        R4M2.Text,
-                        R5M2.Text,
-                    },
-                    Mem3 = new List<string>
-                    {
-                        R0M3.Text,
-                        R1M3.Text,
-                        R2M3.Text,
-                        R3M3.Text,
-                        R4M3.Text,
-                        R5M3.Text,
-                    },
-                    Mem4 = new List<string>
-                    {
-                        R0M4.Text,
-                        R1M4.Text,
-                        R2M4.Text,
-                        R3M4.Text,
-                        R4M4.Text,
-                        R5M4.Text,
-                    },
-                    COM_port = AvaibleCOMsComBox.Text
-                };
-
-                // serialize JSON to a string and then write string to a file
-                File.WriteAllText(fileName, JsonConvert.SerializeObject(saved, Formatting.Indented));
-            }
-            catch
-            {
-                MessageBox.Show("When saving worskspace data occurs error!", "Error Catch", 
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void LoadSavedWorkspaceData()
-        {   
-            string fileName = GetFileNamePath(@"saved_workspace.json");
-            // if saved data doesn't exist, create it from default textboxes data
-            if (!File.Exists(fileName))
-            {
-                SaveWindow saved = new SaveWindow
-                {
-                    Registers = new List<string>
-                    {
-                        controller.registers[0].string_GetValue(),
-                        controller.registers[1].string_GetValue(),
-                        controller.registers[2].string_GetValue(),
-                        controller.registers[3].string_GetValue(),
-                        controller.registers[4].string_GetValue(),
-                        controller.registers[5].string_GetValue()
-                    },
-                    RSetValue = Convert.ToUInt16(RSetTextBox.Text),
-                    Mem1 = new List<string>
-                    {
-                        R0M1.Text,
-                        R1M1.Text,
-                        R2M1.Text,
-                        R3M1.Text,
-                        R4M1.Text,
-                        R5M1.Text,
-                    },
-                    Mem2 = new List<string>
-                    {
-                        R0M2.Text,
-                        R1M2.Text,
-                        R2M2.Text,
-                        R3M2.Text,
-                        R4M2.Text,
-                        R5M2.Text,
-                    },
-                    Mem3 = new List<string>
-                    {
-                        R0M3.Text,
-                        R1M3.Text,
-                        R2M3.Text,
-                        R3M3.Text,
-                        R4M3.Text,
-                        R5M3.Text,
-                    },
-                    Mem4 = new List<string>
-                    {
-                        R0M4.Text,
-                        R1M4.Text,
-                        R2M4.Text,
-                        R3M4.Text,
-                        R4M4.Text,
-                        R5M4.Text,
-                    },
-                    COM_port = AvaibleCOMsComBox.Text
-                };
-                // serialize JSON to a string and then write string to a file
-                File.WriteAllText(fileName, JsonConvert.SerializeObject(saved, Formatting.Indented));
-            }
-            // if exist, load it into workspace
-            else
-            {
-                SaveWindow settings_loaded = JsonConvert.DeserializeObject<SaveWindow>(File.ReadAllText(fileName));
-                AvaibleCOMsComBox.Text = settings_loaded.COM_port;
-                LoadRegistersFromFile(settings_loaded);
-            }
-        }
-
-        private void LoadRegistersFromFile(SaveWindow data)
-        {
-            controller.registers[0].SetValue(data.Registers[0]);
-            controller.registers[1].SetValue(data.Registers[1]);
-            controller.registers[2].SetValue(data.Registers[2]);
-            controller.registers[3].SetValue(data.Registers[3]);
-            controller.registers[4].SetValue(data.Registers[4]);
-            controller.registers[5].SetValue(data.Registers[5]);
-            controller.old_registers[0].SetValue(data.Registers[0]);
-            controller.old_registers[1].SetValue(data.Registers[1]);
-            controller.old_registers[2].SetValue(data.Registers[2]);
-            controller.old_registers[3].SetValue(data.Registers[3]);
-            controller.old_registers[4].SetValue(data.Registers[4]);
-            controller.old_registers[5].SetValue(data.Registers[5]);
-            RSetTextBox.Text = Convert.ToString(data.RSetValue);
-            R0M1.Text = data.Mem1[0];
-            R1M1.Text = data.Mem1[1];
-            R2M1.Text = data.Mem1[2];
-            R3M1.Text = data.Mem1[3];
-            R4M1.Text = data.Mem1[4];
-            R5M1.Text = data.Mem1[5];
-            R0M2.Text = data.Mem2[0];
-            R1M2.Text = data.Mem2[1];
-            R2M2.Text = data.Mem2[2];
-            R3M2.Text = data.Mem2[3];
-            R4M2.Text = data.Mem2[4];
-            R5M2.Text = data.Mem2[5];
-            R0M3.Text = data.Mem3[0];
-            R1M3.Text = data.Mem3[1];
-            R2M3.Text = data.Mem3[2];
-            R3M3.Text = data.Mem3[3];
-            R4M3.Text = data.Mem3[4];
-            R5M3.Text = data.Mem3[5];
-            R0M4.Text = data.Mem4[0];
-            R1M4.Text = data.Mem4[1];
-            R2M4.Text = data.Mem4[2];
-            R3M4.Text = data.Mem4[3];
-            R4M4.Text = data.Mem4[4];
-            R5M4.Text = data.Mem4[5];
-            controller.GetCPCurrentFromTextBox();
-            controller.GetAllFromRegisters();
         }
 
         private void LoadRegistersFromFile(SaveAsDefaultRegisters data)
@@ -652,7 +459,7 @@ namespace Synthesizer_PC_control
 
         private void SetAsDefaultRegButton_Click(object sender, EventArgs e)
         {
-            string fileName = GetFileNamePath(@"default.json");  
+            string fileName = FilesManager.GetFileNamePath(@"default.json");  
      
             SaveAsDefaultRegisters defaults = new SaveAsDefaultRegisters
             {
@@ -675,7 +482,7 @@ namespace Synthesizer_PC_control
         {
             try
             {
-                string fileName = GetFileNamePath(@"default.json");
+                string fileName = FilesManager.GetFileNamePath(@"default.json");
 
                 SaveAsDefaultRegisters settings_loaded = JsonConvert.DeserializeObject<SaveAsDefaultRegisters>(File.ReadAllText(fileName));
                 LoadRegistersFromFile(settings_loaded);
@@ -708,7 +515,7 @@ namespace Synthesizer_PC_control
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SaveWorkspaceData();
+            controller.SaveWorkspaceData();
         }
 
         private void WriteR0Button_Click(object sender, EventArgs e)

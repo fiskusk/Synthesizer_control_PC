@@ -66,6 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializerPort.cs" />
     <Compile Include="utilities\FilesManager.cs" />
+    <Compile Include="utilities\SaveWindow.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

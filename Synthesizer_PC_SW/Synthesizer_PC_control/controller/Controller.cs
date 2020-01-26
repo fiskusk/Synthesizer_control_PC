@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 using Synthesizer_PC_control.Model;
 using Synthesizer_PC_control.Utilities;
 
@@ -23,6 +23,10 @@ namespace Synthesizer_PC_control
 
         public Controller(Form1 view)
         {
+            // TODO FILIP ... Hey, try this!
+            /*string test = null;
+            FilesManager.LoadFile(out test);*/
+
             this.view = view;
 
             serialPort = new MySerialPort(view, view.ConsoleTextBox, view.PortButton, view.AvaibleCOMsComBox);
@@ -477,8 +481,8 @@ namespace Synthesizer_PC_control
 
             if (success)
             {
-                view.SaveWorkspaceData();   // FIXME Not OOD
-                view.ForceLoadRegButton_Click(this, new EventArgs());
+                SaveWorkspaceData();
+                view.ForceLoadRegButton_Click(this, new EventArgs()); // FIXME Not OOD
                 bool isOpen;
                 if (serialPort.IsPortOpen())
                     isOpen = true;
@@ -493,6 +497,90 @@ namespace Synthesizer_PC_control
             }
         }
 
-#endregion
+        #endregion
+
+        #region Load and Save Data
+
+        public void LoadSavedWorkspaceData()
+        {
+            SaveWindow loadedData = new SaveWindow();
+            bool succes = FilesManager.LoadSavedWorkspaceData(out loadedData);
+
+            if (succes)
+            {
+                string text = "Workspace data succesfuly loaded.";
+                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+
+                // TODO Lukas ... Set data
+                //AvaibleCOMsComBox.Text = settings_loaded.COM_port;
+                //LoadRegistersFromFile(settings_loaded);
+            }
+            else
+            {
+                MessageBox.Show("When loading worskspace data occurs error!", "Error Catch",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void SaveWorkspaceData()
+        {
+            bool succes = FilesManager.SaveWorkspaceData(null);
+
+            if(succes)
+            {
+                string text = "Workspace data succesfuly saved.";
+                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+            }
+            else
+            {
+                MessageBox.Show("When saving worskspace data occurs error!", "Error Catch",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void LoadRegistersFromFile(SaveWindow data)
+        {
+            //controller.registers[0].SetValue(data.Registers[0]);
+            //controller.registers[1].SetValue(data.Registers[1]);
+            //controller.registers[2].SetValue(data.Registers[2]);
+            //controller.registers[3].SetValue(data.Registers[3]);
+            //controller.registers[4].SetValue(data.Registers[4]);
+            //controller.registers[5].SetValue(data.Registers[5]);
+            //controller.old_registers[0].SetValue(data.Registers[0]);
+            //controller.old_registers[1].SetValue(data.Registers[1]);
+            //controller.old_registers[2].SetValue(data.Registers[2]);
+            //controller.old_registers[3].SetValue(data.Registers[3]);
+            //controller.old_registers[4].SetValue(data.Registers[4]);
+            //controller.old_registers[5].SetValue(data.Registers[5]);
+            //RSetTextBox.Text = Convert.ToString(data.RSetValue);
+            //R0M1.Text = data.Mem1[0];
+            //R1M1.Text = data.Mem1[1];
+            //R2M1.Text = data.Mem1[2];
+            //R3M1.Text = data.Mem1[3];
+            //R4M1.Text = data.Mem1[4];
+            //R5M1.Text = data.Mem1[5];
+            //R0M2.Text = data.Mem2[0];
+            //R1M2.Text = data.Mem2[1];
+            //R2M2.Text = data.Mem2[2];
+            //R3M2.Text = data.Mem2[3];
+            //R4M2.Text = data.Mem2[4];
+            //R5M2.Text = data.Mem2[5];
+            //R0M3.Text = data.Mem3[0];
+            //R1M3.Text = data.Mem3[1];
+            //R2M3.Text = data.Mem3[2];
+            //R3M3.Text = data.Mem3[3];
+            //R4M3.Text = data.Mem3[4];
+            //R5M3.Text = data.Mem3[5];
+            //R0M4.Text = data.Mem4[0];
+            //R1M4.Text = data.Mem4[1];
+            //R2M4.Text = data.Mem4[2];
+            //R3M4.Text = data.Mem4[3];
+            //R4M4.Text = data.Mem4[4];
+            //R5M4.Text = data.Mem4[5];
+            //controller.GetCPCurrentFromTextBox();
+            //controller.GetAllFromRegisters();
+        }
+
+        #endregion
     }
 }
