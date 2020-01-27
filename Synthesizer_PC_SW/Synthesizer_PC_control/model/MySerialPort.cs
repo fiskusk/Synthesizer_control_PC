@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO; 
 using System.IO.Ports; 
 using System.Windows.Forms; 
+using Synthesizer_PC_control.Utilities;
  
 namespace Synthesizer_PC_control.Model 
 { 
@@ -148,8 +149,9 @@ namespace Synthesizer_PC_control.Model
             { 
                 ui_openClosed.Text = "Open Port"; 
             } 
-             
-            ui_avaliablePorts.DataSource = avaliablePorts; 
+            
+            if (!GeneralUtilities.CompareStringArrays((string[])ui_avaliablePorts.DataSource, avaliablePorts))
+                ui_avaliablePorts.DataSource = avaliablePorts;
         } 
     } 
 } 
