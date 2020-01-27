@@ -22,6 +22,26 @@ namespace Synthesizer_PC_control.Model
         public MyRegister[] registersMemory3;
         public MyRegister[] registersMemory4;
         // TODO FILIP other memories
+        public Memory(MyRegister[] value, TextBox uiElement, Form1 view)
+        {
+            this.view = view;
+            // TODO FILIP  změna hodnoty v kontroleru
+            var mem1Reg0 = new MyRegister(value[0].string_GetValue, view.R0M1);
+            var mem1Reg1 = new MyRegister(view.R1M1.Text, view.R1M1);
+            var mem1Reg2 = new MyRegister(view.R2M1.Text, view.R2M1);
+            var mem1Reg3 = new MyRegister(view.R3M1.Text, view.R3M1);
+            var mem1Reg4 = new MyRegister(view.R4M1.Text, view.R4M1);
+            var mem1Reg5 = new MyRegister(view.R5M1.Text, view.R5M1);
+
+            registersMemory1 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
+
+            this.registersMemory1  value;
+            this.uiElement = uiElement;
+
+            updateUI = true;
+
+            UpdateUiElements();
+        }
         public Memory(Form1 view)
         {
             this.view = view;
@@ -42,7 +62,7 @@ namespace Synthesizer_PC_control.Model
             var mem2Reg4 = new MyRegister(view.R4M2.Text, view.R4M2);
             var mem2Reg5 = new MyRegister(view.R5M2.Text, view.R5M2);
 
-            registersMemory1 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
+            registersMemory2 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
 
             var mem3Reg0 = new MyRegister(view.R0M3.Text, view.R0M3);
             var mem3Reg1 = new MyRegister(view.R1M3.Text, view.R1M3);
@@ -51,7 +71,7 @@ namespace Synthesizer_PC_control.Model
             var mem3Reg4 = new MyRegister(view.R4M3.Text, view.R4M3);
             var mem3Reg5 = new MyRegister(view.R5M3.Text, view.R5M3);
 
-            registersMemory1 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
+            registersMemory3 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
 
             var mem4Reg0 = new MyRegister(view.R0M4.Text, view.R0M4);
             var mem4Reg1 = new MyRegister(view.R1M4.Text, view.R1M4);
@@ -60,11 +80,11 @@ namespace Synthesizer_PC_control.Model
             var mem4Reg4 = new MyRegister(view.R4M4.Text, view.R4M4);
             var mem4Reg5 = new MyRegister(view.R5M4.Text, view.R5M4);
 
-            registersMemory1 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
+            registersMemory4 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
             
         }
 
-        public void MyRegister(int memory, int regIndex)
+        public UInt32 uint32_GetMemoryValue(int memory, int regIndex)
         {
 
         }
