@@ -64,6 +64,7 @@
     <Compile Include="model\Memory.cs" />
     <Compile Include="utilities\BitOperations.cs" />
     <Compile Include="utilities\GeneralUtilities.cs" />
+    <Compile Include="utilities\CalcRegsFromFreq.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerializerPort.cs" />
