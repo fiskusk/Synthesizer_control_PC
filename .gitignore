@@ -335,3 +335,6 @@ ASALocalRun/
 
 # build dir
 build/
+
+# users
+documentation/
