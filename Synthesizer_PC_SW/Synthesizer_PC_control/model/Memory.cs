@@ -85,7 +85,22 @@ namespace Synthesizer_PC_control.Model
         /// </summary>
         public void UpdateUiElements()
         {
-            // TODO Call UpdateUiElements on each register in each memory (1-4)
+            foreach (var register in registersMemory1)
+            {
+                register.UpdateUiElements();
+            }
+            foreach (var register in registersMemory2)
+            {
+                register.UpdateUiElements();
+            }
+            foreach (var register in registersMemory3)
+            {
+                register.UpdateUiElements();
+            }
+            foreach (var register in registersMemory4)
+            {
+                register.UpdateUiElements();
+            }
         }
     }
 }
