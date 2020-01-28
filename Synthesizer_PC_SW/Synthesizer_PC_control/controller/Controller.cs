@@ -32,12 +32,12 @@ namespace Synthesizer_PC_control
             serialPort = new MySerialPort(view, view.ConsoleTextBox, view.PortButton, view.AvaibleCOMsComBox);
             serialPort.GetAvaliablePorts();
 
-            var reg0 = new MyRegister(view.Reg0TextBox.Text, view.Reg0TextBox);
-            var reg1 = new MyRegister(view.Reg1TextBox.Text, view.Reg1TextBox);
-            var reg2 = new MyRegister(view.Reg2TextBox.Text, view.Reg2TextBox);
-            var reg3 = new MyRegister(view.Reg3TextBox.Text, view.Reg3TextBox);
-            var reg4 = new MyRegister(view.Reg4TextBox.Text, view.Reg4TextBox);
-            var reg5 = new MyRegister(view.Reg5TextBox.Text, view.Reg5TextBox);
+            var reg0 = new MyRegister(String.Empty, view.Reg0TextBox);
+            var reg1 = new MyRegister(String.Empty, view.Reg1TextBox);
+            var reg2 = new MyRegister(String.Empty, view.Reg2TextBox);
+            var reg3 = new MyRegister(String.Empty, view.Reg3TextBox);
+            var reg4 = new MyRegister(String.Empty, view.Reg4TextBox);
+            var reg5 = new MyRegister(String.Empty, view.Reg5TextBox);
 
             registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
 
@@ -460,8 +460,9 @@ namespace Synthesizer_PC_control
             GetAllFromRegisters();
         }
 
-        public void CheckAndApplyRegChanges(int regNumber)
+        public void CheckAndApplyRegChanges(int regNumber, string text)
         {
+            registers[regNumber].SetValue(text);
             if ((serialPort.IsPortOpen()) && 
                 (!string.Equals(registers[regNumber].string_GetValue(), 
                                 old_registers[regNumber].string_GetValue(),

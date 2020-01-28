@@ -19,6 +19,20 @@ using System.Globalization;
 
 using Synthesizer_PC_control.Model;
 
+/* 
+TODO CRITICAL
+Jak updatovat element tak aby přepsal ui, ale nespůsobil event na view??
+Otestovat jak funguje click?
+
+Co potřebujeme:
+view -textBox edit-> controller - upraví hodnotu-> MyModelObject (ten zavolá updateUiElements)
+-edituje textBox2-> Zachytí text box edit událost na view?
+
+controller lock?
+view lock?
+
+*/
+
 namespace Synthesizer_PC_control
 {
     public partial class Form1 : Form
@@ -233,8 +247,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                controller.registers[0].SetValue(Reg0TextBox.Text);
-                controller.CheckAndApplyRegChanges(0);
+                controller.CheckAndApplyRegChanges(0, Reg0TextBox.Text);
             }
         }
 
@@ -243,8 +256,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                controller.registers[1].SetValue(Reg1TextBox.Text);
-                controller.CheckAndApplyRegChanges(1);
+                controller.CheckAndApplyRegChanges(1, Reg1TextBox.Text);
             }
         }
 
@@ -253,8 +265,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                controller.registers[2].SetValue(Reg2TextBox.Text);
-                controller.CheckAndApplyRegChanges(2);
+                controller.CheckAndApplyRegChanges(2, Reg2TextBox.Text);
             }
         }
 
@@ -263,8 +274,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                controller.registers[3].SetValue(Reg3TextBox.Text);
-                controller.CheckAndApplyRegChanges(3);
+                controller.CheckAndApplyRegChanges(3, Reg3TextBox.Text);
             }
         }
 
@@ -273,8 +283,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                controller.registers[4].SetValue(Reg4TextBox.Text);
-                controller.CheckAndApplyRegChanges(4);
+                controller.CheckAndApplyRegChanges(4, Reg4TextBox.Text);
             }
         }
 
@@ -283,8 +292,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                controller.registers[5].SetValue(Reg5TextBox.Text);
-                controller.CheckAndApplyRegChanges(5);
+                controller.CheckAndApplyRegChanges(5, Reg5TextBox.Text);
             }
         }
 
@@ -320,38 +328,32 @@ namespace Synthesizer_PC_control
 
         private void WriteR0Button_Click(object sender, EventArgs e)
         {
-            controller.registers[0].SetValue(Reg0TextBox.Text);
-            controller.CheckAndApplyRegChanges(0);
+            controller.CheckAndApplyRegChanges(0, Reg0TextBox.Text);
         }
 
         private void WriteR1Button_Click(object sender, EventArgs e)
         {
-            controller.registers[1].SetValue(Reg1TextBox.Text);
-            controller.CheckAndApplyRegChanges(1);
+            controller.CheckAndApplyRegChanges(1, Reg1TextBox.Text);
         }
 
         private void WriteR2Button_Click(object sender, EventArgs e)
         {
-            controller.registers[2].SetValue(Reg2TextBox.Text);
-            controller.CheckAndApplyRegChanges(2);
+            controller.CheckAndApplyRegChanges(2, Reg2TextBox.Text);
         }
 
         private void WriteR3Button_Click(object sender, EventArgs e)
         {
-            controller.registers[3].SetValue(Reg3TextBox.Text);
-            controller.CheckAndApplyRegChanges(3);
+            controller.CheckAndApplyRegChanges(3, Reg3TextBox.Text);
         }
 
         private void WriteR4Button_Click(object sender, EventArgs e)
         {
-            controller.registers[4].SetValue(Reg4TextBox.Text);
-            controller.CheckAndApplyRegChanges(4);
+            controller.CheckAndApplyRegChanges(4, Reg4TextBox.Text);
         }
 
         private void WriteR5Button_Click(object sender, EventArgs e)
         {
-            controller.registers[5].SetValue(Reg5TextBox.Text);
-            controller.CheckAndApplyRegChanges(5);
+            controller.CheckAndApplyRegChanges(5, Reg5TextBox.Text);
         }
 
         private void LoadRegMemory_Click(object sender, EventArgs e)
@@ -552,38 +554,32 @@ namespace Synthesizer_PC_control
 
         private void Reg0TextBox_LostFocus(object sender, EventArgs e)
         {
-            controller.registers[0].SetValue(Reg0TextBox.Text);
-            controller.CheckAndApplyRegChanges(0);
+            controller.CheckAndApplyRegChanges(0, Reg0TextBox.Text);
         }
 
         private void Reg1TextBox_LostFocus(object sender, EventArgs e)
         {
-            controller.registers[1].SetValue(Reg1TextBox.Text);
-            controller.CheckAndApplyRegChanges(1);
+            controller.CheckAndApplyRegChanges(1, Reg1TextBox.Text);
         }
 
         private void Reg2TextBox_LostFocus(object sender, EventArgs e)
         {
-            controller.registers[2].SetValue(Reg2TextBox.Text);
-            controller.CheckAndApplyRegChanges(2);
+            controller.CheckAndApplyRegChanges(2, Reg2TextBox.Text);
         }
 
         private void Reg3TextBox_LostFocus(object sender, EventArgs e)
         {
-            controller.registers[3].SetValue(Reg3TextBox.Text);
-            controller.CheckAndApplyRegChanges(3);
+            controller.CheckAndApplyRegChanges(3, Reg3TextBox.Text);
         }
 
         private void Reg4TextBox_LostFocus(object sender, EventArgs e)
         {
-            controller.registers[4].SetValue(Reg4TextBox.Text);
-            controller.CheckAndApplyRegChanges(4);
+            controller.CheckAndApplyRegChanges(4, Reg4TextBox.Text);
         }
 
         private void Reg5TextBox_LostFocus(object sender, EventArgs e)
         {
-            controller.registers[5].SetValue(Reg5TextBox.Text);
-            controller.CheckAndApplyRegChanges(5);
+            controller.CheckAndApplyRegChanges(5, Reg5TextBox.Text);
         }
 
         private void RegistersPage_Click(object sender, EventArgs e)
