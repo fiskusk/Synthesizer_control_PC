@@ -19,9 +19,7 @@ namespace Synthesizer_PC_control
 
         public Memory memory;
         
-
         public MyRegister[] old_registers;
-        // TODO ... FILIP MyRegister without UI element
 
         public Controller(Form1 view)
         {

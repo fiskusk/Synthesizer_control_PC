@@ -48,7 +48,7 @@ namespace Synthesizer_PC_control.Model
                 port.DtrEnable = true; 
                 port.ReadTimeout = 500; 
                 port.WriteTimeout = 500; 
-                port.Open();                             // TODO po otevreni portu zjistit, jestli byl synt. programovan, a jestli ano, nacist data 
+                port.Open();
                 port.NewLine = "\r"; 
                 port.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler); 
  
