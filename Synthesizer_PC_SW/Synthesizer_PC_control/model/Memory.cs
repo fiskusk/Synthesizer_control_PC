@@ -3,49 +3,24 @@ using System.Windows.Forms;
 
 namespace Synthesizer_PC_control.Model
 {
-    class Memory
+    class Memory : I_UiLinked
     {
-        /*
-            TODO FILIP
-            Třída Memory, která drží všechny registersMemory1 - registersMemory4 (nový soubor Memory.cs)
-            V kontroktoru ZATÍM může dostat view aby si zjistila hodnoty (jak to delat je v controller.cs, ten ma referenci na view)
-            => napsat todo pro změnu na hodnoty z kontrolleru
-            => Případně může Memory.cs znát ZATÍM nějaké defoult hardcoded hodnoty
+        private MyRegister[] registersMemory1;
+        private MyRegister[] registersMemory2;
+        private MyRegister[] registersMemory3;
+        private MyRegister[] registersMemory4;
 
-            Memory bude mít funkce na vrácení registru podle čísla paměti a indexu
-            např. public MyRegister(int memory, int regIndex)
-            => pozor na větší číslo než je paměť => vrátit null?
-        */
-        private readonly Form1 view;
-        public MyRegister[] registersMemory1;
-        public MyRegister[] registersMemory2;
-        public MyRegister[] registersMemory3;
-        public MyRegister[] registersMemory4;
-        // TODO FILIP other memories
-        public Memory(MyRegister[] value, TextBox uiElement, Form1 view)
+        public Memory(MyRegister[] registersMemory1, MyRegister[] registersMemory2,
+                      MyRegister[] registersMemory3, MyRegister[] registersMemory4)
         {
-            this.view = view;
-            // TODO FILIP  změna hodnoty v kontroleru
-            var mem1Reg0 = new MyRegister(value[0].string_GetValue, view.R0M1);
-            var mem1Reg1 = new MyRegister(view.R1M1.Text, view.R1M1);
-            var mem1Reg2 = new MyRegister(view.R2M1.Text, view.R2M1);
-            var mem1Reg3 = new MyRegister(view.R3M1.Text, view.R3M1);
-            var mem1Reg4 = new MyRegister(view.R4M1.Text, view.R4M1);
-            var mem1Reg5 = new MyRegister(view.R5M1.Text, view.R5M1);
-
-            registersMemory1 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
-
-            this.registersMemory1  value;
-            this.uiElement = uiElement;
-
-            updateUI = true;
-
-            UpdateUiElements();
+            this.registersMemory1 = registersMemory1;
+            this.registersMemory2 = registersMemory2;
+            this.registersMemory3 = registersMemory3;
+            this.registersMemory4 = registersMemory4;
         }
+
         public Memory(Form1 view)
         {
-            this.view = view;
-            // TODO FILIP  změna hodnoty v kontroleru
             var mem1Reg0 = new MyRegister(view.R0M1.Text, view.R0M1);
             var mem1Reg1 = new MyRegister(view.R1M1.Text, view.R1M1);
             var mem1Reg2 = new MyRegister(view.R2M1.Text, view.R2M1);
@@ -62,7 +37,7 @@ namespace Synthesizer_PC_control.Model
             var mem2Reg4 = new MyRegister(view.R4M2.Text, view.R4M2);
             var mem2Reg5 = new MyRegister(view.R5M2.Text, view.R5M2);
 
-            registersMemory2 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
+            registersMemory2 = new MyRegister[] {mem2Reg0, mem2Reg1, mem2Reg2, mem2Reg3, mem2Reg4, mem2Reg5};
 
             var mem3Reg0 = new MyRegister(view.R0M3.Text, view.R0M3);
             var mem3Reg1 = new MyRegister(view.R1M3.Text, view.R1M3);
@@ -71,7 +46,7 @@ namespace Synthesizer_PC_control.Model
             var mem3Reg4 = new MyRegister(view.R4M3.Text, view.R4M3);
             var mem3Reg5 = new MyRegister(view.R5M3.Text, view.R5M3);
 
-            registersMemory3 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
+            registersMemory3 = new MyRegister[] {mem3Reg0, mem3Reg1, mem3Reg2, mem3Reg3, mem3Reg4, mem3Reg5};
 
             var mem4Reg0 = new MyRegister(view.R0M4.Text, view.R0M4);
             var mem4Reg1 = new MyRegister(view.R1M4.Text, view.R1M4);
@@ -80,13 +55,37 @@ namespace Synthesizer_PC_control.Model
             var mem4Reg4 = new MyRegister(view.R4M4.Text, view.R4M4);
             var mem4Reg5 = new MyRegister(view.R5M4.Text, view.R5M4);
 
-            registersMemory4 = new MyRegister[] {mem1Reg0, mem1Reg1, mem1Reg2, mem1Reg3, mem1Reg4, mem1Reg5};
+            registersMemory4 = new MyRegister[] {mem4Reg0, mem4Reg1, mem4Reg2, mem4Reg3, mem4Reg4, mem4Reg5};
             
         }
 
-        public UInt32 uint32_GetMemoryValue(int memory, int regIndex)
-        {
 
+        // FIXME ošetřit hranice -> return null
+        public MyRegister GetRegister(int memory, int regIndex)
+        {
+            if (regIndex < 0 || regIndex > 6)
+                return null;
+            switch (memory)
+            {
+                case 1:
+                    return registersMemory1[regIndex];
+                case 2:
+                    return registersMemory2[regIndex];
+                case 3:
+                    return registersMemory3[regIndex];
+                case 4:
+                    return registersMemory4[regIndex];
+                default:
+                    return null;
+            }
+        }
+
+        /// <summary>
+        /// Call this to refresh all registers in memory.
+        /// </summary>
+        public void UpdateUiElements()
+        {
+            // TODO Call UpdateUiElements on each register in each memory (1-4)
         }
     }
 }

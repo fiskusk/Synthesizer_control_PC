@@ -75,5 +75,35 @@ namespace Synthesizer_PC_control
                     sender.Value = sender.Maximum;
             }
         }
+
+        public static void ScrollByPositionOfCursor(TextBox sender, MouseEventArgs e)
+        {
+            string f_input_string = sender.Text;
+            f_input_string = f_input_string.Replace(" ", string.Empty);
+            f_input_string = f_input_string.Replace(".", ",");
+
+            double f_input = double.Parse(f_input_string);
+
+            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
+            handledArgs.Handled = true;
+            try{
+                int comma_position = f_input_string.IndexOf(",");
+                int position = sender.SelectionStart-1;
+                double delenec;
+                if ((position-comma_position) < 0)
+                    delenec = Math.Pow(10, position + 1 - comma_position);
+                else
+                    delenec = Math.Pow(10, position - comma_position);
+                double increment = 1/(delenec);
+                f_input = (handledArgs.Delta > 0) ? f_input += increment : f_input -= increment;
+                f_input_string = string.Format("{0:f8}", f_input);
+                sender.Text = f_input_string;
+                sender.SelectionStart = position + 1;
+            }
+            catch{
+                
+            }
+            
+        }
     }
 }

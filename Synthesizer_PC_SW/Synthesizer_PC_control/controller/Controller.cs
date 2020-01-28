@@ -16,6 +16,8 @@ namespace Synthesizer_PC_control
         public readonly MySerialPort serialPort;
 
         public MyRegister[] registers;
+
+        public Memory memory;
         
 
         public MyRegister[] old_registers;
@@ -49,6 +51,8 @@ namespace Synthesizer_PC_control
             var old_reg5 = new MyRegister(String.Empty);
 
             old_registers = new MyRegister[] {old_reg0, old_reg1, old_reg2, old_reg3, old_reg4, old_reg5};
+
+            memory = new Memory(this.view);
         }
 
 #region Register Change Functions for individual controls
@@ -455,8 +459,10 @@ namespace Synthesizer_PC_control
         {
             if (serialPort.IsPortOpen())
             {
-                string data = String.Format("plo set_register {0}", registers[index].string_GetValue());
-                old_registers[index].SetValue(registers[index].string_GetValue());
+                string value = registers[index].string_GetValue();
+                old_registers[index].SetValue(value);
+
+                string data = String.Format("plo set_register {0}", value);
                 serialPort.SendStringSerialPort(data);
             }
         }
@@ -548,33 +554,20 @@ namespace Synthesizer_PC_control
 
             view.InputFreqTextBox.Text = data.OutputFreqValue;
 
-            view.R0M1.Text = data.Mem1[0];
-            view.R1M1.Text = data.Mem1[1];
-            view.R2M1.Text = data.Mem1[2];
-            view.R3M1.Text = data.Mem1[3];
-            view.R4M1.Text = data.Mem1[4];
-            view.R5M1.Text = data.Mem1[5];
+            // TODO memory getter or setter
+            // getter works like this:
+            // myRegister toSet = memory.GetRegister(memory, regIndex);
+            // myRegister.setValue(data.MemN[i]);
+            //
+            // memory.GetRegister(memory, regIndex).setValue(data.MemN[i]);
 
-            view.R0M2.Text = data.Mem2[0];
-            view.R1M2.Text = data.Mem2[1];
-            view.R2M2.Text = data.Mem2[2];
-            view.R3M2.Text = data.Mem2[3];
-            view.R4M2.Text = data.Mem2[4];
-            view.R5M2.Text = data.Mem2[5];
-
-            view.R0M3.Text = data.Mem3[0];
-            view.R1M3.Text = data.Mem3[1];
-            view.R2M3.Text = data.Mem3[2];
-            view.R3M3.Text = data.Mem3[3];
-            view.R4M3.Text = data.Mem3[4];
-            view.R5M3.Text = data.Mem3[5];
-
-            view.R0M4.Text = data.Mem4[0];
-            view.R1M4.Text = data.Mem4[1];
-            view.R2M4.Text = data.Mem4[2];
-            view.R3M4.Text = data.Mem4[3];
-            view.R4M4.Text = data.Mem4[4];
-            view.R5M4.Text = data.Mem4[5];
+            for (int i = 0; i < 6; i++)
+            {
+                memory.GetRegister(1, i).SetValue(data.Mem1[i]);
+                memory.GetRegister(2, i).SetValue(data.Mem2[i]);
+                memory.GetRegister(3, i).SetValue(data.Mem3[i]);
+                memory.GetRegister(4, i).SetValue(data.Mem4[i]);
+            }
 
             this.GetCPCurrentFromTextBox();
             this.GetAllFromRegisters();
@@ -584,62 +577,47 @@ namespace Synthesizer_PC_control
         {
             SaveWindow saved = new SaveWindow
             {
-                Registers = new List<string>
-                {
-                    this.registers[0].string_GetValue(),
-                    this.registers[1].string_GetValue(),
-                    this.registers[2].string_GetValue(),
-                    this.registers[3].string_GetValue(),
-                    this.registers[4].string_GetValue(),
-                    this.registers[5].string_GetValue()
-                },
+                Registers = new List<string>{},
                 RSetValue = Convert.ToUInt16(view.RSetTextBox.Text),
                 OutputFreqValue = view.InputFreqTextBox.Text,
-                Mem1 = new List<string>
-                {
-                    view.R0M1.Text,
-                    view.R1M1.Text,
-                    view.R2M1.Text,
-                    view.R3M1.Text,
-                    view.R4M1.Text,
-                    view.R5M1.Text,
-                },
-                Mem2 = new List<string>
-                {
-                    view.R0M2.Text,
-                    view.R1M2.Text,
-                    view.R2M2.Text,
-                    view.R3M2.Text,
-                    view.R4M2.Text,
-                    view.R5M2.Text,
-                },
-                Mem3 = new List<string>
-                {
-                    view.R0M3.Text,
-                    view.R1M3.Text,
-                    view.R2M3.Text,
-                    view.R3M3.Text,
-                    view.R4M3.Text,
-                    view.R5M3.Text,
-                },
-                Mem4 = new List<string>
-                {
-                    view.R0M4.Text,
-                    view.R1M4.Text,
-                    view.R2M4.Text,
-                    view.R3M4.Text,
-                    view.R4M4.Text,
-                    view.R5M4.Text,
-                },
+                Mem1 = new List<string>{},
+                Mem2 = new List<string>{},
+                Mem3 = new List<string>{},
+                Mem4 = new List<string>{},
                 COM_port = view.AvaibleCOMsComBox.Text
             };
+
+            for (int i = 0; i < 6; i++)
+            {
+                saved.Registers.Add(this.registers[i].string_GetValue());
+                saved.Mem1.Add(memory.GetRegister(1, i).string_GetValue());
+                saved.Mem2.Add(memory.GetRegister(2, i).string_GetValue());
+                saved.Mem3.Add(memory.GetRegister(3, i).string_GetValue());
+                saved.Mem4.Add(memory.GetRegister(4, i).string_GetValue());
+            }
 
             return saved;
         }
 
 #endregion
+    
+#region Memory operation
+        public void ImportMemory(int memoryNumber)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                registers[i].SetValue(memory.GetRegister(memoryNumber, i).string_GetValue());
+            }
+            GetAllFromRegisters();
+        }
 
-
-
+        public void ExportMemory(int memoryNumber)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                memory.GetRegister(memoryNumber, i).SetValue(registers[i].string_GetValue());
+            }
+        }
+#endregion
     }
 }

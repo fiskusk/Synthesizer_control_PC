@@ -148,41 +148,32 @@ namespace Synthesizer_PC_control
                 else
                 {
                     string[] separrated = text.Split(' ');
-                    if (separrated[0] == "stored_data_1")
+                    switch (separrated[0])
                     {
-                        R0M1.Text = separrated[1];
-                        R1M1.Text = separrated[2];
-                        R2M1.Text = separrated[3];
-                        R3M1.Text = separrated[4];
-                        R4M1.Text = separrated[5];
-                        R5M1.Text = separrated[6];
-                    }
-                    else if (separrated[0] == "stored_data_2")
-                    {
-                        R0M2.Text = separrated[1];
-                        R1M2.Text = separrated[2];
-                        R2M2.Text = separrated[3];
-                        R3M2.Text = separrated[4];
-                        R4M2.Text = separrated[5];
-                        R5M2.Text = separrated[6];
-                    }
-                    else if (separrated[0] == "stored_data_3")
-                    {
-                        R0M3.Text = separrated[1];
-                        R1M3.Text = separrated[2];
-                        R2M3.Text = separrated[3];
-                        R3M3.Text = separrated[4];
-                        R4M3.Text = separrated[5];
-                        R5M3.Text = separrated[6];
-                    }
-                    else if (separrated[0] == "stored_data_4")
-                    {
-                        R0M4.Text = separrated[1];
-                        R1M4.Text = separrated[2];
-                        R2M4.Text = separrated[3];
-                        R3M4.Text = separrated[4];
-                        R4M4.Text = separrated[5];
-                        R5M4.Text = separrated[6];
+                        case "stored_data_1":
+                            for (int i = 0; i < 6; i++)
+                            {
+                                controller.memory.GetRegister(1, i).SetValue(separrated[i+1]);
+                            }
+                            break;
+                        case "stored_data_2":
+                            for (int i = 0; i < 6; i++)
+                            {
+                                controller.memory.GetRegister(2, i).SetValue(separrated[i+1]);
+                            }
+                            break;
+                        case "stored_data_3":
+                            for (int i = 0; i < 6; i++)
+                            {
+                                controller.memory.GetRegister(3, i).SetValue(separrated[i+1]);
+                            }
+                            break;
+                        case "stored_data_4":
+                            for (int i = 0; i < 6; i++)
+                            {
+                                controller.memory.GetRegister(4, i).SetValue(separrated[i+1]);
+                            }
+                            break;
                     }
                 }
             }
@@ -308,6 +299,7 @@ namespace Synthesizer_PC_control
 
         private void CheckAndApplyReg0Changes()
         {
+            // TODO controller.CheckAndApplyReg0Changes()
             controller.registers[0].SetValue(Reg0TextBox.Text);
             if ((controller.serialPort.IsPortOpen()) && 
                 (!string.Equals(controller.registers[0].string_GetValue(), 
@@ -418,8 +410,12 @@ namespace Synthesizer_PC_control
         private void SaveRegsMemory1()
         {
             string data = String.Format("plo data 1 {0} {1} {2} {3} {4} {5} {6}", 
-                    R0M1.Text, R1M1.Text, R2M1.Text, 
-                    R3M1.Text, R4M1.Text, R5M1.Text,
+                    controller.memory.GetRegister(1, 0).string_GetValue(),
+                    controller.memory.GetRegister(1, 1).string_GetValue(),
+                    controller.memory.GetRegister(1, 2).string_GetValue(),
+                    controller.memory.GetRegister(1, 3).string_GetValue(),
+                    controller.memory.GetRegister(1, 4).string_GetValue(),
+                    controller.memory.GetRegister(1, 5).string_GetValue(),
                     GetControlRegister() );
             controller.serialPort.SendStringSerialPort(data);
         }
@@ -427,8 +423,12 @@ namespace Synthesizer_PC_control
         private void SaveRegsMemory2()
         {
             string data = String.Format("plo data 2 {0} {1} {2} {3} {4} {5} {6}", 
-                    R0M2.Text, R1M2.Text, R2M2.Text, 
-                    R3M2.Text, R4M2.Text, R5M2.Text,
+                    controller.memory.GetRegister(2, 0).string_GetValue(),
+                    controller.memory.GetRegister(2, 1).string_GetValue(),
+                    controller.memory.GetRegister(2, 2).string_GetValue(),
+                    controller.memory.GetRegister(2, 3).string_GetValue(),
+                    controller.memory.GetRegister(2, 4).string_GetValue(),
+                    controller.memory.GetRegister(2, 5).string_GetValue(),
                     GetControlRegister() );
             controller.serialPort.SendStringSerialPort(data);
         }
@@ -436,8 +436,12 @@ namespace Synthesizer_PC_control
         private void SaveRegsMemory3()
         {
             string data = String.Format("plo data 3 {0} {1} {2} {3} {4} {5} {6}", 
-                    R0M3.Text, R1M3.Text, R2M3.Text, 
-                    R3M3.Text, R4M3.Text, R5M3.Text,
+                    controller.memory.GetRegister(3, 0).string_GetValue(),
+                    controller.memory.GetRegister(3, 1).string_GetValue(),
+                    controller.memory.GetRegister(3, 2).string_GetValue(),
+                    controller.memory.GetRegister(3, 3).string_GetValue(),
+                    controller.memory.GetRegister(3, 4).string_GetValue(),
+                    controller.memory.GetRegister(3, 5).string_GetValue(),
                     GetControlRegister() );
             controller.serialPort.SendStringSerialPort(data);
         }
@@ -445,8 +449,12 @@ namespace Synthesizer_PC_control
         private void SaveRegsMemory4()
         {
             string data = String.Format("plo data 4 {0} {1} {2} {3} {4} {5} {6}", 
-                    R0M4.Text, R1M4.Text, R2M4.Text, 
-                    R3M4.Text, R4M4.Text, R5M4.Text,
+                    controller.memory.GetRegister(4, 0).string_GetValue(),
+                    controller.memory.GetRegister(4, 1).string_GetValue(),
+                    controller.memory.GetRegister(4, 2).string_GetValue(),
+                    controller.memory.GetRegister(4, 3).string_GetValue(),
+                    controller.memory.GetRegister(4, 4).string_GetValue(),
+                    controller.memory.GetRegister(4, 5).string_GetValue(),
                     GetControlRegister() );
             controller.serialPort.SendStringSerialPort(data);
         }
@@ -1016,116 +1024,49 @@ namespace Synthesizer_PC_control
 
         private void InputFreqHandlerFunction(object sender, MouseEventArgs e)
         {
-            string f_input_string = InputFreqTextBox.Text;
-            f_input_string = f_input_string.Replace(" ", string.Empty);
-            f_input_string = f_input_string.Replace(".", ",");
+            MyFormat.ScrollByPositionOfCursor(InputFreqTextBox, e);
+            CalcSynthesizerRegValuesFromInpFreq();
 
-            double f_input = double.Parse(f_input_string);
-
-            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
-            handledArgs.Handled = true;
-            try{
-                int comma_position = f_input_string.IndexOf(",");
-                int position = InputFreqTextBox.SelectionStart-1;
-                double delenec;
-                if ((position-comma_position) < 0)
-                    delenec = Math.Pow(10, position + 1 - comma_position);
-                else
-                    delenec = Math.Pow(10, position - comma_position);
-                double increment = 1/(delenec);
-                f_input = (handledArgs.Delta > 0) ? f_input += increment : f_input -= increment;
-                f_input_string = string.Format("{0:f8}", f_input);
-                InputFreqTextBox.Text = f_input_string;
-                InputFreqTextBox.SelectionStart = position + 1;
-                CalcSynthesizerRegValuesFromInpFreq();
-            }
-            catch{
-                
-            }
         }
 
         private void MoveRegsIntoMem1Button_Click(object sender, EventArgs e)
         {
-            R0M1.Text = controller.registers[0].string_GetValue();
-            R1M1.Text = controller.registers[1].string_GetValue();
-            R2M1.Text = controller.registers[2].string_GetValue();
-            R3M1.Text = controller.registers[3].string_GetValue();
-            R4M1.Text = controller.registers[4].string_GetValue();
-            R5M1.Text = controller.registers[5].string_GetValue();
+            controller.ExportMemory(1);
         }
 
         private void MoveRegsIntoMem2Button_Click(object sender, EventArgs e)
         {
-            R0M2.Text = controller.registers[0].string_GetValue();
-            R1M2.Text = controller.registers[1].string_GetValue();
-            R2M2.Text = controller.registers[2].string_GetValue();
-            R3M2.Text = controller.registers[3].string_GetValue();
-            R4M2.Text = controller.registers[4].string_GetValue();
-            R5M2.Text = controller.registers[5].string_GetValue();
+            controller.ExportMemory(2);
         }
 
         private void MoveRegsIntoMem3Button_Click(object sender, EventArgs e)
         {
-            R0M3.Text = controller.registers[0].string_GetValue();
-            R1M3.Text = controller.registers[1].string_GetValue();
-            R2M3.Text = controller.registers[2].string_GetValue();
-            R3M3.Text = controller.registers[3].string_GetValue();
-            R4M3.Text = controller.registers[4].string_GetValue();
-            R5M3.Text = controller.registers[5].string_GetValue();
+            controller.ExportMemory(3);
         }
 
         private void MoveRegsIntoMem4Button_Click(object sender, EventArgs e)
         {
-            R0M4.Text = controller.registers[0].string_GetValue();
-            R1M4.Text = controller.registers[1].string_GetValue();
-            R2M4.Text = controller.registers[2].string_GetValue();
-            R3M4.Text = controller.registers[3].string_GetValue();
-            R4M4.Text = controller.registers[4].string_GetValue();
-            R5M4.Text = controller.registers[5].string_GetValue();
+            controller.ExportMemory(4);
         }
 
         private void ImportMem1Button_Click(object sender, EventArgs e)
         {
-            controller.registers[0].SetValue(R0M1.Text);
-            controller.registers[1].SetValue(R1M1.Text);
-            controller.registers[2].SetValue(R2M1.Text);
-            controller.registers[3].SetValue(R3M1.Text);
-            controller.registers[4].SetValue(R4M1.Text);
-            controller.registers[5].SetValue(R5M1.Text);
-            controller.GetAllFromRegisters();
+            controller.ImportMemory(1);
         }
 
         private void ImportMem2Button_Click(object sender, EventArgs e)
         {
-            controller.registers[0].SetValue(R0M2.Text);
-            controller.registers[1].SetValue(R1M2.Text);
-            controller.registers[2].SetValue(R2M2.Text);
-            controller.registers[3].SetValue(R3M2.Text);
-            controller.registers[4].SetValue(R4M2.Text);
-            controller.registers[5].SetValue(R5M2.Text);
-            controller.GetAllFromRegisters();
+            controller.ImportMemory(2);
         }
 
         private void ImportMem3Button_Click(object sender, EventArgs e)
         {
-            controller.registers[0].SetValue(R0M3.Text);
-            controller.registers[1].SetValue(R1M3.Text);
-            controller.registers[2].SetValue(R2M3.Text);
-            controller.registers[3].SetValue(R3M3.Text);
-            controller.registers[4].SetValue(R4M3.Text);
-            controller.registers[5].SetValue(R5M3.Text);
-            controller.GetAllFromRegisters();
+            controller.ImportMemory(3);
         }
 
         private void ImportMem4Button_Click(object sender, EventArgs e)
         {
-            controller.registers[0].SetValue(R0M4.Text);
-            controller.registers[1].SetValue(R1M4.Text);
-            controller.registers[2].SetValue(R2M4.Text);
-            controller.registers[3].SetValue(R3M4.Text);
-            controller.registers[4].SetValue(R4M4.Text);
-            controller.registers[5].SetValue(R5M4.Text);
-            controller.GetAllFromRegisters();
+            controller.ImportMemory(4);
         }
     }
 }
