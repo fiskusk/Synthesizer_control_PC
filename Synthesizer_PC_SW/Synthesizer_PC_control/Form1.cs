@@ -248,7 +248,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                CheckAndApplyReg0Changes();
+                controller.CheckAndApplyRegChanges(0);
             }
         }
 
@@ -257,7 +257,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                CheckAndApplyReg1Changes();
+                controller.CheckAndApplyRegChanges(1);
             }
         }
 
@@ -266,7 +266,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                CheckAndApplyReg2Changes();
+                controller.CheckAndApplyRegChanges(2);
             }
         }
 
@@ -275,7 +275,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                CheckAndApplyReg3Changes();
+                controller.CheckAndApplyRegChanges(3);
             }
         }
 
@@ -284,7 +284,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                CheckAndApplyReg4Changes();
+                controller.CheckAndApplyRegChanges(4);
             }
         }
 
@@ -293,90 +293,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                CheckAndApplyReg5Changes();
-            }
-        }
-
-        private void CheckAndApplyReg0Changes()
-        {
-            // TODO controller.CheckAndApplyReg0Changes()
-            controller.registers[0].SetValue(Reg0TextBox.Text);
-            if ((controller.serialPort.IsPortOpen()) && 
-                (!string.Equals(controller.registers[0].string_GetValue(), 
-                                controller.old_registers[0].string_GetValue(),
-                                StringComparison.CurrentCultureIgnoreCase)))
-            {
-                controller.GetAllFromReg(0);
-                controller.ApplyChangeReg(0);
-                controller.RecalcFreqInfo();
-            }
-        }
-
-        private void CheckAndApplyReg1Changes()
-        {
-            controller.registers[1].SetValue(Reg1TextBox.Text);
-            if ((controller.serialPort.IsPortOpen()) && 
-                (!string.Equals(controller.registers[1].string_GetValue(), 
-                                controller.old_registers[1].string_GetValue(),
-                                StringComparison.CurrentCultureIgnoreCase)))
-            {
-                controller.GetAllFromReg(1);
-                controller.ApplyChangeReg(1);
-                controller.ApplyChangeReg(0);
-                controller.RecalcFreqInfo();
-            }
-        }
-
-        private void CheckAndApplyReg2Changes()
-        {
-            controller.registers[2].SetValue(Reg2TextBox.Text);
-            if ((controller.serialPort.IsPortOpen()) && 
-                (!string.Equals(controller.registers[2].string_GetValue(), 
-                                controller.old_registers[2].string_GetValue(),
-                                StringComparison.CurrentCultureIgnoreCase)))
-            {
-                controller.GetAllFromReg(2);
-                controller.ApplyChangeReg(2);
-                controller.ApplyChangeReg(0);
-                controller.RecalcFreqInfo();
-            }
-        }
-
-        private void CheckAndApplyReg3Changes()
-        {
-            controller.registers[3].SetValue(Reg3TextBox.Text);
-            if ((controller.serialPort.IsPortOpen()) && 
-                (!string.Equals(controller.registers[3].string_GetValue(), 
-                                controller.old_registers[3].string_GetValue(),
-                                StringComparison.CurrentCultureIgnoreCase)))
-            {
-                controller.ApplyChangeReg(3);
-            }
-        }
-
-        private void CheckAndApplyReg4Changes()
-        {
-            controller.registers[4].SetValue(Reg4TextBox.Text);
-            if ((controller.serialPort.IsPortOpen()) && 
-                (!string.Equals(controller.registers[4].string_GetValue(), 
-                                controller.old_registers[4].string_GetValue(),
-                                StringComparison.CurrentCultureIgnoreCase)))
-            {
-                controller.GetAllFromReg(4);
-                controller.ApplyChangeReg(4);
-                controller.RecalcFreqInfo();
-            }
-        }
-
-        private void CheckAndApplyReg5Changes()
-        {
-            controller.registers[5].SetValue(Reg5TextBox.Text);
-            if ((controller.serialPort.IsPortOpen()) && 
-                (!string.Equals(controller.registers[5].string_GetValue(), 
-                                controller.old_registers[5].string_GetValue(),
-                                StringComparison.CurrentCultureIgnoreCase)))
-            {
-                controller.ApplyChangeReg(5);
+                controller.CheckAndApplyRegChanges(5);
             }
         }
 
@@ -391,16 +308,13 @@ namespace Synthesizer_PC_control
      
             SaveAsDefaultRegisters defaults = new SaveAsDefaultRegisters
             {
-                Registers = new List<string>
-                {
-                    controller.registers[0].string_GetValue(),
-                    controller.registers[1].string_GetValue(),
-                    controller.registers[2].string_GetValue(),
-                    controller.registers[3].string_GetValue(),
-                    controller.registers[4].string_GetValue(),
-                    controller.registers[5].string_GetValue()
-                }
+                Registers = new List<string>{}
             };
+
+            for (int i = 0; i < 6; i++)
+            {
+                defaults.Registers.Add(controller.registers[i].string_GetValue());
+            }
 
             // serialize JSON to a string and then write string to a file
             File.WriteAllText(fileName, JsonConvert.SerializeObject(defaults, Formatting.Indented));
@@ -441,32 +355,32 @@ namespace Synthesizer_PC_control
 
         private void WriteR0Button_Click(object sender, EventArgs e)
         {
-            CheckAndApplyReg0Changes();
+            controller.CheckAndApplyRegChanges(0);
         }
 
         private void WriteR1Button_Click(object sender, EventArgs e)
         {
-            CheckAndApplyReg1Changes();
+            controller.CheckAndApplyRegChanges(1);
         }
 
         private void WriteR2Button_Click(object sender, EventArgs e)
         {
-            CheckAndApplyReg2Changes();
+            controller.CheckAndApplyRegChanges(2);
         }
 
         private void WriteR3Button_Click(object sender, EventArgs e)
         {
-            CheckAndApplyReg3Changes();
+            controller.CheckAndApplyRegChanges(3);
         }
 
         private void WriteR4Button_Click(object sender, EventArgs e)
         {
-            CheckAndApplyReg4Changes();
+            controller.CheckAndApplyRegChanges(4);
         }
 
         private void WriteR5Button_Click(object sender, EventArgs e)
         {
-            CheckAndApplyReg5Changes();
+            controller.CheckAndApplyRegChanges(5);
         }
 
         private void LoadRegMemory_Click(object sender, EventArgs e)
@@ -667,32 +581,32 @@ namespace Synthesizer_PC_control
 
         private void Reg0TextBox_LostFocus(object sender, EventArgs e)
         {
-            CheckAndApplyReg0Changes();
+            controller.CheckAndApplyRegChanges(0);
         }
 
         private void Reg1TextBox_LostFocus(object sender, EventArgs e)
         {
-            CheckAndApplyReg1Changes();
+            controller.CheckAndApplyRegChanges(1);
         }
 
         private void Reg2TextBox_LostFocus(object sender, EventArgs e)
         {
-            CheckAndApplyReg2Changes();
+            controller.CheckAndApplyRegChanges(2);
         }
 
         private void Reg3TextBox_LostFocus(object sender, EventArgs e)
         {
-            CheckAndApplyReg3Changes();
+            controller.CheckAndApplyRegChanges(3);
         }
 
         private void Reg4TextBox_LostFocus(object sender, EventArgs e)
         {
-            CheckAndApplyReg4Changes();
+            controller.CheckAndApplyRegChanges(4);
         }
 
         private void Reg5TextBox_LostFocus(object sender, EventArgs e)
         {
-            CheckAndApplyReg5Changes();
+            controller.CheckAndApplyRegChanges(5);
         }
 
         private void RegistersPage_Click(object sender, EventArgs e)

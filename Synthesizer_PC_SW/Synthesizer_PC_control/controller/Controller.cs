@@ -464,6 +464,24 @@ namespace Synthesizer_PC_control
 
             GetAllFromRegisters();
         }
+
+        public void CheckAndApplyRegChanges(int regNumber)
+        {
+            registers[regNumber].SetValue(view.Reg0TextBox.Text);
+            if ((serialPort.IsPortOpen()) && 
+                (!string.Equals(registers[regNumber].string_GetValue(), 
+                                old_registers[regNumber].string_GetValue(),
+                                StringComparison.CurrentCultureIgnoreCase)))
+            {
+                GetAllFromReg(regNumber);
+                ApplyChangeReg(regNumber);
+                if (regNumber == 1 || regNumber == 2)
+                    ApplyChangeReg(0);
+                if (regNumber != 3 || regNumber != 5)
+                    RecalcFreqInfo();
+            }
+        }
+
         public void ApplyChangeReg(int index)
         {
             if (serialPort.IsPortOpen())
