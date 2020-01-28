@@ -337,13 +337,10 @@ namespace Synthesizer_PC_control
 
         public void GetAllFromRegisters()
         {
-            
-            GetAllFromReg(5);
-            GetAllFromReg(4);
-            GetAllFromReg(3);
-            GetAllFromReg(2);
-            GetAllFromReg(1);
-            GetAllFromReg(0);
+            for (int i = 5; i >= 0; i--)
+            {
+                GetAllFromReg(i);
+            }
             GetFPfdFreq();
             RecalcFreqInfo(); 
         }
