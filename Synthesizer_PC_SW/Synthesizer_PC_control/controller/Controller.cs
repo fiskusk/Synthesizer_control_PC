@@ -556,9 +556,9 @@ namespace Synthesizer_PC_control
         public void SaveWorkspaceData()
         {
 
-            bool succes = FilesManager.SaveWorkspaceData(CreateSaveWindow());
+            bool success = FilesManager.SaveWorkspaceData(CreateSaveWindow());
 
-            if(succes)
+            if(success)
             {
                 string text = "Workspace data succesfuly saved.";
                 view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
