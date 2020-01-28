@@ -467,7 +467,6 @@ namespace Synthesizer_PC_control
 
         public void CheckAndApplyRegChanges(int regNumber)
         {
-            registers[regNumber].SetValue(view.Reg0TextBox.Text);
             if ((serialPort.IsPortOpen()) && 
                 (!string.Equals(registers[regNumber].string_GetValue(), 
                                 old_registers[regNumber].string_GetValue(),

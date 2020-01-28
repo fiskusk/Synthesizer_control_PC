@@ -248,6 +248,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
+                controller.registers[0].SetValue(Reg0TextBox.Text);
                 controller.CheckAndApplyRegChanges(0);
             }
         }
@@ -257,6 +258,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
+                controller.registers[1].SetValue(Reg1TextBox.Text);
                 controller.CheckAndApplyRegChanges(1);
             }
         }
@@ -266,6 +268,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
+                controller.registers[2].SetValue(Reg2TextBox.Text);
                 controller.CheckAndApplyRegChanges(2);
             }
         }
@@ -275,6 +278,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
+                controller.registers[3].SetValue(Reg3TextBox.Text);
                 controller.CheckAndApplyRegChanges(3);
             }
         }
@@ -284,6 +288,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
+                controller.registers[4].SetValue(Reg4TextBox.Text);
                 controller.CheckAndApplyRegChanges(4);
             }
         }
@@ -293,6 +298,7 @@ namespace Synthesizer_PC_control
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
+                controller.registers[5].SetValue(Reg5TextBox.Text);
                 controller.CheckAndApplyRegChanges(5);
             }
         }
@@ -355,31 +361,37 @@ namespace Synthesizer_PC_control
 
         private void WriteR0Button_Click(object sender, EventArgs e)
         {
+            controller.registers[0].SetValue(Reg0TextBox.Text);
             controller.CheckAndApplyRegChanges(0);
         }
 
         private void WriteR1Button_Click(object sender, EventArgs e)
         {
+            controller.registers[1].SetValue(Reg1TextBox.Text);
             controller.CheckAndApplyRegChanges(1);
         }
 
         private void WriteR2Button_Click(object sender, EventArgs e)
         {
+            controller.registers[2].SetValue(Reg2TextBox.Text);
             controller.CheckAndApplyRegChanges(2);
         }
 
         private void WriteR3Button_Click(object sender, EventArgs e)
         {
+            controller.registers[3].SetValue(Reg3TextBox.Text);
             controller.CheckAndApplyRegChanges(3);
         }
 
         private void WriteR4Button_Click(object sender, EventArgs e)
         {
+            controller.registers[4].SetValue(Reg4TextBox.Text);
             controller.CheckAndApplyRegChanges(4);
         }
 
         private void WriteR5Button_Click(object sender, EventArgs e)
         {
+            controller.registers[5].SetValue(Reg5TextBox.Text);
             controller.CheckAndApplyRegChanges(5);
         }
 
@@ -581,31 +593,37 @@ namespace Synthesizer_PC_control
 
         private void Reg0TextBox_LostFocus(object sender, EventArgs e)
         {
+            controller.registers[0].SetValue(Reg0TextBox.Text);
             controller.CheckAndApplyRegChanges(0);
         }
 
         private void Reg1TextBox_LostFocus(object sender, EventArgs e)
         {
+            controller.registers[1].SetValue(Reg1TextBox.Text);
             controller.CheckAndApplyRegChanges(1);
         }
 
         private void Reg2TextBox_LostFocus(object sender, EventArgs e)
         {
+            controller.registers[2].SetValue(Reg2TextBox.Text);
             controller.CheckAndApplyRegChanges(2);
         }
 
         private void Reg3TextBox_LostFocus(object sender, EventArgs e)
         {
+            controller.registers[3].SetValue(Reg3TextBox.Text);
             controller.CheckAndApplyRegChanges(3);
         }
 
         private void Reg4TextBox_LostFocus(object sender, EventArgs e)
         {
+            controller.registers[4].SetValue(Reg4TextBox.Text);
             controller.CheckAndApplyRegChanges(4);
         }
 
         private void Reg5TextBox_LostFocus(object sender, EventArgs e)
         {
+            controller.registers[5].SetValue(Reg5TextBox.Text);
             controller.CheckAndApplyRegChanges(5);
         }
 
