@@ -26,11 +26,6 @@ namespace Synthesizer_PC_control
         //private MyRegister[] registers;
         private Controller controller;
 
-        public class SaveAsDefaultRegisters
-        {
-            public IList<string> Registers { get; set; }
-        }
-
         public Form1()
         {
             InitializeComponent();
@@ -183,16 +178,6 @@ namespace Synthesizer_PC_control
             }
         }
 
-        private void LoadRegistersFromFile(SaveAsDefaultRegisters data)
-        {
-            controller.registers[0].SetValue(data.Registers[0]);
-            controller.registers[1].SetValue(data.Registers[1]);
-            controller.registers[2].SetValue(data.Registers[2]);
-            controller.registers[3].SetValue(data.Registers[3]);
-            controller.registers[4].SetValue(data.Registers[4]);
-            controller.registers[5].SetValue(data.Registers[5]);
-        }
-
         // TODO FILIP_NOW out1 Butt as switch (inpiruj se comportem)
         private void Out1Button_Click(object sender, EventArgs e)
         {
@@ -310,38 +295,12 @@ namespace Synthesizer_PC_control
 
         private void SetAsDefaultRegButton_Click(object sender, EventArgs e)
         {
-            string fileName = FilesManager.GetFileNamePath(@"default.json");  
-     
-            SaveAsDefaultRegisters defaults = new SaveAsDefaultRegisters
-            {
-                Registers = new List<string>{}
-            };
-
-            for (int i = 0; i < 6; i++)
-            {
-                defaults.Registers.Add(controller.registers[i].string_GetValue());
-            }
-
-            // serialize JSON to a string and then write string to a file
-            File.WriteAllText(fileName, JsonConvert.SerializeObject(defaults, Formatting.Indented));
+            controller.SaveDefRegsData();
         }
 
         private void LoadDefRegButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string fileName = FilesManager.GetFileNamePath(@"default.json");
-
-                SaveAsDefaultRegisters settings_loaded = JsonConvert.DeserializeObject<SaveAsDefaultRegisters>(File.ReadAllText(fileName));
-                LoadRegistersFromFile(settings_loaded);
-                controller.ForceLoadAllRegsIntoPlo();
-
-            }
-            catch
-            {
-                MessageBox.Show("File default.json with include settings for registers, doesn't exist. First create it by click to Set As Def Button", "File defaults.txt doesn't exist", 
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            controller.LoadDefRegsData();
         }
 
         public void ForceLoadRegButton_Click(object sender, EventArgs e)

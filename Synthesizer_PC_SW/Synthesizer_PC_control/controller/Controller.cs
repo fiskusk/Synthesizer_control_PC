@@ -533,6 +533,7 @@ namespace Synthesizer_PC_control
 
 #region Load and Save Data
 
+    #region  Workspace data part
         public void LoadSavedWorkspaceData()
         {
             SaveWindow loadedData = new SaveWindow();
@@ -544,7 +545,7 @@ namespace Synthesizer_PC_control
                 view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
 
                 view.AvaibleCOMsComBox.Text = loadedData.COM_port;
-                LoadRegistersFromFile(loadedData);
+                LoadWorkspaceDataFromFile(loadedData);
             }
             else
             {
@@ -570,7 +571,7 @@ namespace Synthesizer_PC_control
             }
         }
 
-        public void LoadRegistersFromFile(SaveWindow data)
+        public void LoadWorkspaceDataFromFile(SaveWindow data)
         {
             // registers
             MyRegister.SetValues(registers, data.Registers.ToArray());
@@ -580,13 +581,6 @@ namespace Synthesizer_PC_control
             view.RSetTextBox.Text = Convert.ToString(data.RSetValue);
 
             view.InputFreqTextBox.Text = data.OutputFreqValue;
-
-            // TODO memory getter or setter
-            // getter works like this:
-            // myRegister toSet = memory.GetRegister(memory, regIndex);
-            // myRegister.setValue(data.MemN[i]);
-            //
-            // memory.GetRegister(memory, regIndex).setValue(data.MemN[i]);
 
             for (int i = 0; i < 6; i++)
             {
@@ -625,6 +619,74 @@ namespace Synthesizer_PC_control
 
             return saved;
         }
+    #endregion
+
+    #region Default registers part
+
+        public void LoadDefRegsData()
+        {
+            SaveDefaults loadedData = new SaveDefaults();
+            bool success = FilesManager.LoadDefRegsData(out loadedData);
+
+            if (success)
+            {
+                string text = "Default registers succesfuly loaded.";
+                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                LoadDefRegsFromFile(loadedData);
+                ForceLoadAllRegsIntoPlo();
+            }
+            else
+            {
+                string text = "When loading default registers occurs error!";
+                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                MessageBox.Show("File default.json with include settings for registers, doesn't exist. First create it by click to Set As Def Button", "File defaults.txt doesn't exist", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        public void SaveDefRegsData()
+        {
+
+            bool success = FilesManager.SaveDefRegsData(CreateDefaultsData());
+
+            if(success)
+            {
+                string text = "Default registers succesfuly saved.";
+                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+            }
+            else
+            {
+                string text = "When saving default registers occurs error!";
+                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                MessageBox.Show(text, "Error Catch",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void LoadDefRegsFromFile(SaveDefaults data)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                registers[i].SetValue(data.Registers[i]);
+            }
+        }
+
+        private SaveDefaults CreateDefaultsData()
+        {
+            SaveDefaults saved = new SaveDefaults
+            {
+                Registers = new List<string>{}
+            };
+
+            for (int i = 0; i < 6; i++)
+            {
+                saved.Registers.Add(this.registers[i].string_GetValue());
+            }
+
+            return saved;
+        }
+
+    #endregion
 
 #endregion
     

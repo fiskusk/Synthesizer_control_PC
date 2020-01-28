@@ -51,6 +51,8 @@ namespace Synthesizer_PC_control.Utilities
             return folder + fileName;
         }
 
+    #region Workspace part
+
         public static bool SaveWorkspaceData(SaveWindow saved)
         {
             try
@@ -93,5 +95,42 @@ namespace Synthesizer_PC_control.Utilities
                 return false;
             }
         }
+
+    #endregion
+
+    #region Default registers part
+        public static bool SaveDefRegsData(SaveDefaults saved)
+        {
+            try
+            {
+                string fileName = GetFileNamePath(@"default.json");
+
+                // serialize JSON to a string and then write string to a file
+                File.WriteAllText(fileName, JsonConvert.SerializeObject(saved, Formatting.Indented));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool LoadDefRegsData(out SaveDefaults settings_loaded)
+        {
+            try
+            {
+                string fileName = GetFileNamePath(@"default.json");
+
+                settings_loaded = JsonConvert.DeserializeObject<SaveDefaults>(File.ReadAllText(fileName));
+                return true;
+            }
+            catch
+            {
+                settings_loaded = null;
+                return false;
+            }
+        }
+
+    #endregion
     }
 }
