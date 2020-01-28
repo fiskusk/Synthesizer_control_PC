@@ -383,86 +383,6 @@ namespace Synthesizer_PC_control
         private void CheckAndApllyChangesForm1_Click(object sender, EventArgs e)
         {
             Reg0Label.Focus();
-        }        
-
-        private string GetControlRegister()
-        {
-            UInt32 control_register = 0;
-
-            if (Out1Button.Text == "Out 1 On")
-                control_register &= unchecked((UInt32)(~(1<<0)));
-            else
-                control_register |= (1<<0);
-
-            if (Out2Button.Text == "Out 2 On")
-                control_register &= unchecked((UInt32)(~(1<<1)));
-            else
-                control_register |= (1<<1);
-
-            if (RefButton.Text == "Ext Ref")
-                control_register &= unchecked((UInt32)(~(1<<2)));
-            else
-                control_register |= (1<<2);
-
-            return Convert.ToString(control_register, 16);
-        }
-
-        private void SaveRegsMemory1()
-        {
-            string data = String.Format("plo data 1 {0} {1} {2} {3} {4} {5} {6}", 
-                    controller.memory.GetRegister(1, 0).string_GetValue(),
-                    controller.memory.GetRegister(1, 1).string_GetValue(),
-                    controller.memory.GetRegister(1, 2).string_GetValue(),
-                    controller.memory.GetRegister(1, 3).string_GetValue(),
-                    controller.memory.GetRegister(1, 4).string_GetValue(),
-                    controller.memory.GetRegister(1, 5).string_GetValue(),
-                    GetControlRegister() );
-            controller.serialPort.SendStringSerialPort(data);
-        }
-
-        private void SaveRegsMemory2()
-        {
-            string data = String.Format("plo data 2 {0} {1} {2} {3} {4} {5} {6}", 
-                    controller.memory.GetRegister(2, 0).string_GetValue(),
-                    controller.memory.GetRegister(2, 1).string_GetValue(),
-                    controller.memory.GetRegister(2, 2).string_GetValue(),
-                    controller.memory.GetRegister(2, 3).string_GetValue(),
-                    controller.memory.GetRegister(2, 4).string_GetValue(),
-                    controller.memory.GetRegister(2, 5).string_GetValue(),
-                    GetControlRegister() );
-            controller.serialPort.SendStringSerialPort(data);
-        }
-
-        private void SaveRegsMemory3()
-        {
-            string data = String.Format("plo data 3 {0} {1} {2} {3} {4} {5} {6}", 
-                    controller.memory.GetRegister(3, 0).string_GetValue(),
-                    controller.memory.GetRegister(3, 1).string_GetValue(),
-                    controller.memory.GetRegister(3, 2).string_GetValue(),
-                    controller.memory.GetRegister(3, 3).string_GetValue(),
-                    controller.memory.GetRegister(3, 4).string_GetValue(),
-                    controller.memory.GetRegister(3, 5).string_GetValue(),
-                    GetControlRegister() );
-            controller.serialPort.SendStringSerialPort(data);
-        }
-
-        private void SaveRegsMemory4()
-        {
-            string data = String.Format("plo data 4 {0} {1} {2} {3} {4} {5} {6}", 
-                    controller.memory.GetRegister(4, 0).string_GetValue(),
-                    controller.memory.GetRegister(4, 1).string_GetValue(),
-                    controller.memory.GetRegister(4, 2).string_GetValue(),
-                    controller.memory.GetRegister(4, 3).string_GetValue(),
-                    controller.memory.GetRegister(4, 4).string_GetValue(),
-                    controller.memory.GetRegister(4, 5).string_GetValue(),
-                    GetControlRegister() );
-            controller.serialPort.SendStringSerialPort(data);
-        }
-
-        private void CleanSavedRegisters()
-        {
-            string data = String.Format("plo data clean");
-            controller.serialPort.SendStringSerialPort(data);
         }
 
         private void SetAsDefaultRegButton_Click(object sender, EventArgs e)
@@ -558,16 +478,13 @@ namespace Synthesizer_PC_control
 
         private void LoadRegMemory_Click(object sender, EventArgs e)
         {
-            controller.serialPort.SendStringSerialPort("plo data stored?");
+            controller.LoadRegsFromPloMemory();
         }
 
         private void SaveRegMemory_Click(object sender, EventArgs e)
         {
-            CleanSavedRegisters();
-            SaveRegsMemory1();
-            SaveRegsMemory2();
-            SaveRegsMemory3();
-            SaveRegsMemory4();
+
+            controller.SaveRegsIntoPloMemory();
         }
 
         private void RF_A_EN_ComboBox_SelectedIndexChanged(object sender, EventArgs e)

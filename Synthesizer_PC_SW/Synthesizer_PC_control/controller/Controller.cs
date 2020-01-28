@@ -618,6 +618,58 @@ namespace Synthesizer_PC_control
                 memory.GetRegister(memoryNumber, i).SetValue(registers[i].string_GetValue());
             }
         }
+
+        private void CleanSavedRegisters()
+        {
+            string data = String.Format("plo data clean");
+            serialPort.SendStringSerialPort(data);
+        }
+
+        public void SaveRegsIntoPloMemory()
+        {
+            CleanSavedRegisters();
+            for (int memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
+            {
+                string data = String.Format("plo data {0} {1} {2} {3} {4} {5} {6} {7}", 
+                        Convert.ToString(memoryNumber),
+                        memory.GetRegister(memoryNumber, 0).string_GetValue(),
+                        memory.GetRegister(memoryNumber, 1).string_GetValue(),
+                        memory.GetRegister(memoryNumber, 2).string_GetValue(),
+                        memory.GetRegister(memoryNumber, 3).string_GetValue(),
+                        memory.GetRegister(memoryNumber, 4).string_GetValue(),
+                        memory.GetRegister(memoryNumber, 5).string_GetValue(),
+                        GetControlRegister() );
+                serialPort.SendStringSerialPort(data);
+            }
+        }
+
+        public void LoadRegsFromPloMemory()
+        {
+            serialPort.SendStringSerialPort("plo data stored?");
+        }
+
+        // TODO move into utillities???
+        public string GetControlRegister()
+        {
+            UInt32 control_register = 0;
+
+            if (view.Out1Button.Text == "Out 1 On")
+                control_register &= unchecked((UInt32)(~(1<<0)));
+            else
+                control_register |= (1<<0);
+
+            if (view.Out2Button.Text == "Out 2 On")
+                control_register &= unchecked((UInt32)(~(1<<1)));
+            else
+                control_register |= (1<<1);
+
+            if (view.RefButton.Text == "Ext Ref")
+                control_register &= unchecked((UInt32)(~(1<<2)));
+            else
+                control_register |= (1<<2);
+
+            return Convert.ToString(control_register, 16);
+        }
 #endregion
     }
 }
