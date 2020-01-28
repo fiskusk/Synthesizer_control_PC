@@ -455,6 +455,15 @@ namespace Synthesizer_PC_control
 
 #region Serial port
 
+        public void ForceLoadAllRegsIntoPlo()
+        {
+            for (int i = 5; i >= 0; i--)
+            {
+                ApplyChangeReg(i);
+            }
+
+            GetAllFromRegisters();
+        }
         public void ApplyChangeReg(int index)
         {
             if (serialPort.IsPortOpen())
@@ -487,7 +496,8 @@ namespace Synthesizer_PC_control
             if (success)
             {
                 SaveWorkspaceData();
-                view.ForceLoadRegButton_Click(this, new EventArgs()); // FIXME Not OOD
+                //view.ForceLoadRegButton_Click(this, new EventArgs()); // FIXME Not OOD
+                ForceLoadAllRegsIntoPlo();
                 bool isOpen;
                 if (serialPort.IsPortOpen())
                     isOpen = true;

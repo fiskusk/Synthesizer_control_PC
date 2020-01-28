@@ -414,7 +414,7 @@ namespace Synthesizer_PC_control
 
                 SaveAsDefaultRegisters settings_loaded = JsonConvert.DeserializeObject<SaveAsDefaultRegisters>(File.ReadAllText(fileName));
                 LoadRegistersFromFile(settings_loaded);
-                ForceLoadRegButton_Click(this, new EventArgs());
+                controller.ForceLoadAllRegsIntoPlo();
 
             }
             catch
@@ -426,14 +426,7 @@ namespace Synthesizer_PC_control
 
         public void ForceLoadRegButton_Click(object sender, EventArgs e)
         {
-            controller.ApplyChangeReg(5);
-            controller.ApplyChangeReg(4);
-            controller.ApplyChangeReg(3);
-            controller.ApplyChangeReg(2);
-            controller.ApplyChangeReg(1);
-            controller.ApplyChangeReg(0);
-
-            controller.GetAllFromRegisters();
+            controller.ForceLoadAllRegsIntoPlo();
         }
 
         private void AvaibleCOMsComBox_DropDown(object sender, EventArgs e)
