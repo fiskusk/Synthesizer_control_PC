@@ -160,7 +160,7 @@ namespace Synthesizer_PC_control
                     switch (separrated[0])
                     {
                         case "stored_data_1":
-                            for (int i = 0; i < 6; i++)
+                            for (int i = 0; i < 7; i++)
                             {
                                 controller.memory.GetRegister(1, i).SetValue(separrated[i+1]);
                             }
@@ -195,46 +195,17 @@ namespace Synthesizer_PC_control
         // TODO FILIP_NOW out1 Butt as switch (inpiruj se comportem)
         private void Out1Button_Click(object sender, EventArgs e)
         {
-            if (Out1Button.Text == "Out 1 On")
-            {
-                Out1Button.Text = "Out 1 Off";
-                controller.serialPort.SendStringSerialPort("out 1 on");
-            }
-            else if (Out1Button.Text == "Out 1 Off")
-            {
-                Out1Button.Text = "Out 1 On";
-                controller.serialPort.SendStringSerialPort("out 1 off");
-            }
+            controller.SwitchOut1();
         }
 
         private void Out2Button_Click(object sender, EventArgs e)
         {
-            if (Out2Button.Text == "Out 2 On")
-            {
-                Out2Button.Text = "Out 2 Off";
-                controller.serialPort.SendStringSerialPort("out 2 on");
-            }
-
-            else if (Out2Button.Text == "Out 2 Off")
-            {
-                Out2Button.Text = "Out 2 On";
-                controller.serialPort.SendStringSerialPort("out 2 off");
-            }
+            controller.SwitchOut2();
         }
 
         private void RefButton_Click(object sender, EventArgs e)
         {
-            if (RefButton.Text == "Ext Ref")
-            {
-                RefButton.Text = "Int Ref";
-                controller.serialPort.SendStringSerialPort("ref ext");
-            }
-
-            else if (RefButton.Text == "Int Ref")
-            {
-                RefButton.Text = "Ext Ref";
-                controller.serialPort.SendStringSerialPort("ref int");
-            }
+            controller.SwitchRef();
         }
 
         private void PloInitButton_Click(object sender, EventArgs e)

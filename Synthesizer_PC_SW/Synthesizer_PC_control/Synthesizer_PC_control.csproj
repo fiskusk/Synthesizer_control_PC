@@ -62,6 +62,7 @@
     <Compile Include="model\MyRegister.cs" />
     <Compile Include="model\MySerialPort.cs" />
     <Compile Include="model\Memory.cs" />
+    <Compile Include="model\ModuleControls.cs" />
     <Compile Include="utilities\BitOperations.cs" />
     <Compile Include="utilities\GeneralUtilities.cs" />
     <Compile Include="utilities\CalcRegsFromFreq.cs" />

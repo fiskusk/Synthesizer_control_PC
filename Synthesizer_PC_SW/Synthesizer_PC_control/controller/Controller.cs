@@ -21,6 +21,8 @@ namespace Synthesizer_PC_control
         
         public MyRegister[] old_registers;
 
+        public ModuleControls moduleControls;
+
         public Controller(Form1 view)
         {
             // TODO FILIP ... Hey, try this! Hey! It works! :)
@@ -51,6 +53,8 @@ namespace Synthesizer_PC_control
             old_registers = new MyRegister[] {old_reg0, old_reg1, old_reg2, old_reg3, old_reg4, old_reg5};
 
             memory = new Memory(this.view);
+
+            moduleControls = new ModuleControls(view.Out1Button, view.Out2Button, view.RefButton);
         }
 
 #region Register Change Functions for individual controls
@@ -458,6 +462,21 @@ namespace Synthesizer_PC_control
             }
 
             GetAllFromRegisters();
+
+            if (moduleControls.GetOut1State())
+                serialPort.SendStringSerialPort("out 1 on");
+            else
+                serialPort.SendStringSerialPort("out 1 off");
+            
+            if (moduleControls.GetOut2State())
+                serialPort.SendStringSerialPort("out 2 on");
+            else
+                serialPort.SendStringSerialPort("out 2 off");
+            
+            if (moduleControls.GetRefState())
+                serialPort.SendStringSerialPort("ref int");
+            else
+                serialPort.SendStringSerialPort("ref ext");
         }
 
         public void CheckAndApplyRegChanges(int regNumber, string text)
@@ -509,6 +528,7 @@ namespace Synthesizer_PC_control
             if(serialPort.IsPortOpen())
             {
                 serialPort.ClosePort();
+                SaveWorkspaceData();
                 view.EnableControls(false);
             }
             else
@@ -541,6 +561,52 @@ namespace Synthesizer_PC_control
         }
 
         #endregion
+
+#region Synthesizer Module part
+
+        public void SwitchOut1()
+        {
+            if (moduleControls.GetOut1State())
+            {
+                serialPort.SendStringSerialPort("out 1 off");
+                moduleControls.SetOut1(false);
+            }
+            else
+            {
+                serialPort.SendStringSerialPort("out 1 on");
+                moduleControls.SetOut1(true);
+            }
+        }
+
+        public void SwitchOut2()
+        {
+            if (moduleControls.GetOut2State())
+            {
+                serialPort.SendStringSerialPort("out 2 off");
+                moduleControls.SetOut2(false);
+            }
+            else
+            {
+                serialPort.SendStringSerialPort("out 2 on");
+                moduleControls.SetOut2(true);
+            }
+        }
+
+        public void SwitchRef()
+        {
+            if (moduleControls.GetRefState())
+            {
+                serialPort.SendStringSerialPort("ref ext");
+                moduleControls.SetIntRef(false);
+            }
+            else
+            {
+                serialPort.SendStringSerialPort("ref int");
+                moduleControls.SetIntRef(true);
+            }
+        }
+
+#endregion
 
 #region Load and Save Data
 
@@ -593,7 +659,11 @@ namespace Synthesizer_PC_control
 
             view.InputFreqTextBox.Text = data.OutputFreqValue;
 
-            for (int i = 0; i < 6; i++)
+            moduleControls.SetOut1(data.Out1En);
+            moduleControls.SetOut2(data.Out2En);
+            moduleControls.SetIntRef(data.IntRef);
+
+            for (int i = 0; i < 7; i++)
             {
                 memory.GetRegister(1, i).SetValue(data.Mem1[i]);
                 memory.GetRegister(2, i).SetValue(data.Mem2[i]);
@@ -612,6 +682,9 @@ namespace Synthesizer_PC_control
                 Registers = new List<string>{},
                 RSetValue = Convert.ToUInt16(view.RSetTextBox.Text),
                 OutputFreqValue = view.InputFreqTextBox.Text,
+                Out1En = moduleControls.GetOut1State(),
+                Out2En = moduleControls.GetOut2State(),
+                IntRef = moduleControls.GetRefState(),
                 Mem1 = new List<string>{},
                 Mem2 = new List<string>{},
                 Mem3 = new List<string>{},
@@ -619,9 +692,11 @@ namespace Synthesizer_PC_control
                 COM_port = view.AvaibleCOMsComBox.Text
             };
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 7; i++)
             {
-                saved.Registers.Add(this.registers[i].string_GetValue());
+                if (i < 6)
+                    saved.Registers.Add(this.registers[i].string_GetValue());
+                
                 saved.Mem1.Add(memory.GetRegister(1, i).string_GetValue());
                 saved.Mem2.Add(memory.GetRegister(2, i).string_GetValue());
                 saved.Mem3.Add(memory.GetRegister(3, i).string_GetValue());
@@ -709,6 +784,43 @@ namespace Synthesizer_PC_control
                 registers[i].SetValue(memory.GetRegister(memoryNumber, i).string_GetValue());
             }
             GetAllFromRegisters();
+            GetAllFromControllReg(memoryNumber);
+
+        }
+        public void GetAllFromControllReg(int memoryNumber)
+        {
+            if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 0) == 1)
+            {
+                moduleControls.SetOut1(true);
+                serialPort.SendStringSerialPort("out 1 on");
+            }
+            else
+            {
+                moduleControls.SetOut1(false);
+                serialPort.SendStringSerialPort("out 1 off");
+            }
+            
+            if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 1) == 1)
+            {
+                moduleControls.SetOut2(true);
+                serialPort.SendStringSerialPort("out 2 on");
+            }
+            else
+            {
+                moduleControls.SetOut2(false);
+                serialPort.SendStringSerialPort("out 2 off");
+            }
+            
+            if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 2) == 0)
+            {
+                moduleControls.SetIntRef(true);
+                serialPort.SendStringSerialPort("ref int");
+            }
+            else
+            {
+                moduleControls.SetIntRef(false);
+                serialPort.SendStringSerialPort("ref ext");
+            }
         }
 
         public void ExportMemory(int memoryNumber)
@@ -717,6 +829,7 @@ namespace Synthesizer_PC_control
             {
                 memory.GetRegister(memoryNumber, i).SetValue(registers[i].string_GetValue());
             }
+            memory.GetRegister(memoryNumber, 6).SetValue(moduleControls.GetControlRegister());
         }
 
         private void CleanSavedRegisters()
@@ -738,7 +851,7 @@ namespace Synthesizer_PC_control
                         memory.GetRegister(memoryNumber, 3).string_GetValue(),
                         memory.GetRegister(memoryNumber, 4).string_GetValue(),
                         memory.GetRegister(memoryNumber, 5).string_GetValue(),
-                        GetControlRegister() );
+                        memory.GetRegister(memoryNumber, 6).string_GetValue() );
                 serialPort.SendStringSerialPort(data);
             }
         }
@@ -749,27 +862,7 @@ namespace Synthesizer_PC_control
         }
 
         // TODO move into utillities???
-        public string GetControlRegister()
-        {
-            UInt32 control_register = 0;
-
-            if (view.Out1Button.Text == "Out 1 On")
-                control_register &= unchecked((UInt32)(~(1<<0)));
-            else
-                control_register |= (1<<0);
-
-            if (view.Out2Button.Text == "Out 2 On")
-                control_register &= unchecked((UInt32)(~(1<<1)));
-            else
-                control_register |= (1<<1);
-
-            if (view.RefButton.Text == "Ext Ref")
-                control_register &= unchecked((UInt32)(~(1<<2)));
-            else
-                control_register |= (1<<2);
-
-            return Convert.ToString(control_register, 16);
-        }
+        
 #endregion
     }
 }
