@@ -32,12 +32,12 @@ namespace Synthesizer_PC_control
             serialPort = new MySerialPort(view, view.ConsoleTextBox, view.PortButton, view.AvaibleCOMsComBox);
             serialPort.GetAvaliablePorts();
 
-            var reg0 = new MyRegister(view.Reg0TextBox.Text, view.Reg0TextBox);
-            var reg1 = new MyRegister(view.Reg1TextBox.Text, view.Reg1TextBox);
-            var reg2 = new MyRegister(view.Reg2TextBox.Text, view.Reg2TextBox);
-            var reg3 = new MyRegister(view.Reg3TextBox.Text, view.Reg3TextBox);
-            var reg4 = new MyRegister(view.Reg4TextBox.Text, view.Reg4TextBox);
-            var reg5 = new MyRegister(view.Reg5TextBox.Text, view.Reg5TextBox);
+            var reg0 = new MyRegister(String.Empty, view.Reg0TextBox);
+            var reg1 = new MyRegister(String.Empty, view.Reg1TextBox);
+            var reg2 = new MyRegister(String.Empty, view.Reg2TextBox);
+            var reg3 = new MyRegister(String.Empty, view.Reg3TextBox);
+            var reg4 = new MyRegister(String.Empty, view.Reg4TextBox);
+            var reg5 = new MyRegister(String.Empty, view.Reg5TextBox);
 
             registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
 
@@ -337,13 +337,10 @@ namespace Synthesizer_PC_control
 
         public void GetAllFromRegisters()
         {
-            
-            GetAllFromReg(5);
-            GetAllFromReg(4);
-            GetAllFromReg(3);
-            GetAllFromReg(2);
-            GetAllFromReg(1);
-            GetAllFromReg(0);
+            for (int i = 5; i >= 0; i--)
+            {
+                GetAllFromReg(i);
+            }
             GetFPfdFreq();
             RecalcFreqInfo(); 
         }
@@ -463,6 +460,23 @@ namespace Synthesizer_PC_control
             GetAllFromRegisters();
         }
 
+        public void CheckAndApplyRegChanges(int regNumber, string text)
+        {
+            registers[regNumber].SetValue(text);
+            if ((serialPort.IsPortOpen()) && 
+                (!string.Equals(registers[regNumber].string_GetValue(), 
+                                old_registers[regNumber].string_GetValue(),
+                                StringComparison.CurrentCultureIgnoreCase)))
+            {
+                GetAllFromReg(regNumber);
+                ApplyChangeReg(regNumber);
+                if (regNumber == 1 || regNumber == 2)
+                    ApplyChangeReg(0);
+                if (regNumber != 3 || regNumber != 5)
+                    RecalcFreqInfo();
+            }
+        }
+
         public void CheckAndApplyRegChanges(int regNumber)
         {
             if ((serialPort.IsPortOpen()) && 
@@ -470,7 +484,6 @@ namespace Synthesizer_PC_control
                                 old_registers[regNumber].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
             {
-                GetAllFromReg(regNumber);
                 ApplyChangeReg(regNumber);
                 if (regNumber == 1 || regNumber == 2)
                     ApplyChangeReg(0);
