@@ -372,7 +372,7 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeOutAEn(RF_A_EN_ComboBox.SelectedIndex);
-                controller.ApplyChangeReg(4);
+                controller.CheckAndApplyRegChanges(4);
             }
         }
 
@@ -381,7 +381,7 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeOutAPwr(RF_A_PWR_ComboBox.SelectedIndex);
-                controller.ApplyChangeReg(4);
+                controller.CheckAndApplyRegChanges(4);
             }
         }
 
@@ -390,9 +390,7 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeIntFracMode(ModeIntFracComboBox.SelectedIndex);
-                controller.ApplyChangeReg(2);
-                controller.ApplyChangeReg(0);
-                controller.RecalcFreqInfo();
+                controller.CheckAndApplyRegChanges(2);
             }
         }
 
@@ -401,8 +399,7 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeIntNValue(IntNNumUpDown.Value);
-                controller.ApplyChangeReg(0);
-                controller.RecalcFreqInfo();
+                controller.CheckAndApplyRegChanges(0);
             }
         }
 
@@ -411,8 +408,7 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeFracNValue(FracNNumUpDown.Value);
-                controller.ApplyChangeReg(0);
-                controller.RecalcFreqInfo();
+                controller.CheckAndApplyRegChanges(0);
             }
         }
 
@@ -421,9 +417,7 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeModValue(ModNumUpDown.Value);
-                controller.ApplyChangeReg(1);
-                controller.ApplyChangeReg(0);
-                controller.RecalcFreqInfo();
+                controller.CheckAndApplyRegChanges(1);
             }
         }
 
@@ -432,10 +426,8 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeRefDoubler(DoubleRefFCheckBox.Checked);
-                controller.ApplyChangeReg(2);
-                controller.ApplyChangeReg(0);
                 controller.GetFPfdFreq();
-                controller.RecalcFreqInfo();
+                controller.CheckAndApplyRegChanges(2);
             }
         }
 
@@ -444,10 +436,8 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeRefDivider(DivideBy2CheckBox.Checked);
-                controller.ApplyChangeReg(2);
-                controller.ApplyChangeReg(0);
                 controller.GetFPfdFreq();
-                controller.RecalcFreqInfo();
+                controller.CheckAndApplyRegChanges(2);
             }
         }
 
@@ -456,10 +446,8 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeRDiv(RDivUpDown.Value);
-                controller.ApplyChangeReg(2);
-                controller.ApplyChangeReg(0);
                 controller.GetFPfdFreq();
-                controller.RecalcFreqInfo();
+                controller.CheckAndApplyRegChanges(2);
             }
         }
 
@@ -468,9 +456,8 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeADiv(ADivComboBox.SelectedIndex);
-                controller.ApplyChangeReg(4);
                 controller.GetFPfdFreq();
-                controller.RecalcFreqInfo();
+                controller.CheckAndApplyRegChanges(4);
             }
         }
 
@@ -479,7 +466,7 @@ namespace Synthesizer_PC_control
             if(controller.serialPort.IsPortOpen())
             {
                 controller.ChangePhaseP(PhasePNumericUpDown.Value);
-                controller.ApplyChangeReg(1);
+                controller.CheckAndApplyRegChanges(1);
             }
         }
 
@@ -488,8 +475,7 @@ namespace Synthesizer_PC_control
             if(controller.serialPort.IsPortOpen())
             {
                 controller.ChangeCPCurrent(CPCurrentComboBox.SelectedIndex);
-                controller.ApplyChangeReg(2);
-                controller.ApplyChangeReg(0);
+                controller.CheckAndApplyRegChanges(2);
             }
         }
 
@@ -498,7 +484,7 @@ namespace Synthesizer_PC_control
             if(controller.serialPort.IsPortOpen())
             {
                 controller.ChangeCPLinearity(CPLinearityComboBox.SelectedIndex);
-                controller.ApplyChangeReg(1);
+                controller.CheckAndApplyRegChanges(1);
             }
         }
 

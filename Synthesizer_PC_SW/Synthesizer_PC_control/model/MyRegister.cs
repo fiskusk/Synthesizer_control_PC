@@ -9,7 +9,19 @@ namespace Synthesizer_PC_control.Model
         private TextBox uiElement;
 
         private string value;
+        
         private readonly bool updateUI;
+
+        private MyRegister lastSendValuee;
+
+        public bool ShouldSendNew()
+        {
+            return lastSendValuee.string_GetValue() != this.string_GetValue();
+        }
+        public void ActualValueSend()
+        {
+            lastSendValuee.SetValue(this.value);
+        }
 
         public MyRegister(string value)
         {
