@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controller\ConsoleController.cs" />
     <Compile Include="controller\Controller.cs" />
     <Compile Include="model\UiLinked.cs" />
     <Compile Include="Form1.cs">
