@@ -554,16 +554,7 @@ namespace Synthesizer_PC_control
 
         private void RSetTextBox_LostFocus(object sender, EventArgs e)
         {
-            int value;
-            if (int.TryParse(RSetTextBox.Text, out value))
-            {
-                if (value > 10000)
-                    RSetTextBox.Text = "10000";
-                else if (value < 2700)
-                    RSetTextBox.Text = "2700";
-            }
             controller.GetCPCurrentFromTextBox();
-            controller.RecalcFreqInfo();
         }
 
         private void RSetTextBox_TextChanged(object sender, EventArgs e)

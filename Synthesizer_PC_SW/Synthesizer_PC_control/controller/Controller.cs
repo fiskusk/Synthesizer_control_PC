@@ -355,6 +355,14 @@ namespace Synthesizer_PC_control
 #region Some magic calculations
         public void GetCPCurrentFromTextBox()
         {
+            int value;
+            if (int.TryParse(view.RSetTextBox.Text, out value))
+            {
+                if (value > 10000)
+                    view.RSetTextBox.Text = "10000";
+                else if (value < 2700)
+                    view.RSetTextBox.Text = "2700";
+            }
             UInt16 R_set = Convert.ToUInt16(view.RSetTextBox.Text);
             IList<string> list = new List<string>();
             decimal I_cp;
@@ -614,9 +622,9 @@ namespace Synthesizer_PC_control
         public void LoadSavedWorkspaceData()
         {
             SaveWindow loadedData = new SaveWindow();
-            bool succes = FilesManager.LoadSavedWorkspaceData(out loadedData);
+            bool success = FilesManager.LoadSavedWorkspaceData(out loadedData);
 
-            if (succes)
+            if (success)
             {
                 string text = "Workspace data succesfuly loaded.";
                 view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
