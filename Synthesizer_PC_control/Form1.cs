@@ -395,12 +395,7 @@ namespace Synthesizer_PC_control
 
         private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeRefDoubler(RefDoublerCheckBox.Checked);
-                controller.GetFPfdFreq();
-                controller.CheckAndApplyRegChanges(2);
-            }
+            controller.ReferenceDoublerStateWasChanged(RefDoublerCheckBox.Checked);
         }
 
         private void DivideBy2CheckBox_CheckedChanged(object sender, EventArgs e)

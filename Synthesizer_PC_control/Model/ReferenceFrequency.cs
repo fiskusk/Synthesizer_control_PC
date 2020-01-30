@@ -46,6 +46,13 @@ namespace Synthesizer_PC_control.Model
             UpdateUiElements();
         }
 
+        public void SetRefDoubler(bool value)
+        {
+            isDoubled = value;
+
+            UpdateUiElements();
+        }
+
         #endregion
 
         #region Getters
@@ -58,6 +65,11 @@ namespace Synthesizer_PC_control.Model
         public decimal decimal_GetRefFreqValue()
         {
             return this.refInFreq;
+        }
+
+        public bool IsDoubled()
+        {
+            return isDoubled;
         }
 
         #endregion

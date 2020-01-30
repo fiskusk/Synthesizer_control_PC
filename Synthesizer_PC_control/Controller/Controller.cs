@@ -74,6 +74,7 @@ namespace Synthesizer_PC_control.Controllers
 
         public void ChangeRefDoubler(bool IsActive)
         {
+            referenceFrequency.SetRefDoubler(IsActive);
             if (IsActive == true)
             {
                 registers[2].SetResetOneBit(25, BitState.SET);
@@ -267,7 +268,7 @@ namespace Synthesizer_PC_control.Controllers
         #region Parsing register 2
         private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
         {
-            view.RefDoublerCheckBox.Checked = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25));
+            referenceFrequency.SetRefDoubler(Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25)));
         }
         
         private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
@@ -449,7 +450,7 @@ namespace Synthesizer_PC_control.Controllers
             f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
             f_pfd_string = f_pfd_string.Replace(".", ",");
             decimal f_ref = decimal.Parse(f_pfd_string);
-            UInt16 doubler = Convert.ToUInt16(view.RefDoublerCheckBox.Checked);
+            UInt16 doubler = Convert.ToUInt16(referenceFrequency.IsDoubled());
             UInt16 divider2 = Convert.ToUInt16(view.DivideBy2CheckBox.Checked);
             decimal f_pfd = f_ref * ((1 + doubler) / (view.RDivUpDown.Value * (1 + divider2)));
 
@@ -591,6 +592,16 @@ namespace Synthesizer_PC_control.Controllers
             referenceFrequency.SetRefFreqValue(value);
             GetFPfdFreq();
             RecalcFreqInfo();
+        }
+
+        public void ReferenceDoublerStateWasChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeRefDoubler(value);
+                GetFPfdFreq();
+                CheckAndApplyRegChanges(2);
+            }
         }
 
 #endregion
