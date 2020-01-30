@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.IO;
+using Synthesizer_PC_control.Controllers;
 using Synthesizer_PC_control.Utilities;
 
 using System.IO.Ports;
@@ -147,7 +148,7 @@ namespace Synthesizer_PC_control
                 // TODO a asi vycist pekne test register a ten soupnout do okna
                 //string text = _serialPort.ReadLine();
                 string text = controller.serialPort.ReadLine();
-                ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                ConsoleController.Console().Write(text);
                 if (text == "plo locked")
                     toolStripStatusLabel1.Text = "plo is locked";
                 else if (text == "plo isn't locked")

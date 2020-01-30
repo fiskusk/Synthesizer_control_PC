@@ -7,6 +7,7 @@ using System.IO;
 using System.IO.Ports; 
 using System.Windows.Forms; 
 using Synthesizer_PC_control.Utilities;
+using Synthesizer_PC_control.Controllers;
  
 namespace Synthesizer_PC_control.Model 
 { 
@@ -25,14 +26,13 @@ namespace Synthesizer_PC_control.Model
  
         private bool dontRunHandler; 
  
-        public MySerialPort(Form1 viewHandle, TextBox ui_ConsoleTextBox, Button ui_openClosed, ComboBox ui_avaliablePorts) 
+        public MySerialPort(Form1 viewHandle, Button ui_openClosed, ComboBox ui_avaliablePorts) 
         { 
  
             this.viewHandle = viewHandle; 
  
             this.ui_openClosed = ui_openClosed; 
             this.ui_avaliablePorts = ui_avaliablePorts; 
-            this.ui_ConsoleTextBox = ui_ConsoleTextBox; 
  
             dontRunHandler = false; 
  
@@ -121,8 +121,8 @@ namespace Synthesizer_PC_control.Model
                     // TODO FILIP_NOW podbarvit při potvrzeném zápisu textbox
                 } 
                 dontRunHandler = false; 
- 
-                ui_ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + "command: '" + text + "' sended"); 
+
+                ConsoleController.Console().Write("command: '" + text + "' sended");
             } 
             catch 
             { 

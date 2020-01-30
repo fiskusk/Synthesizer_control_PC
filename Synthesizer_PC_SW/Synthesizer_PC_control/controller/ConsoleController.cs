@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Synthesizer_PC_control.Model;
 
-namespace Synthesizer_PC_control.controller
+namespace Synthesizer_PC_control.Controllers
 {
     /// <summary>
     /// Console object, holding a lick to Ui. Uses Singleton pattern.
@@ -72,18 +72,18 @@ namespace Synthesizer_PC_control.controller
         /// </summary>
         public static void InitConsole()
         {
-            if (singleton != null)
+            if (singleton == null)
             {
                 singleton = new ConsoleController();
             }
         }
         /// <summary>
-        /// Create console singleton without ui.
+        /// Create console singleton with ui.
         /// </summary>
         /// <param name="uiElement"> Ui element which prints text sent to console.</param>
         public static void InitConsole(TextBox uiElement)
         {
-            if(singleton != null)
+            if(singleton == null)
             {
                 singleton = new ConsoleController(uiElement);
             }

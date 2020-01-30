@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Synthesizer_PC_control.Model;
 using Synthesizer_PC_control.Utilities;
 
-namespace Synthesizer_PC_control
+namespace Synthesizer_PC_control.Controllers
 {
     class Controller
     {
@@ -31,7 +31,7 @@ namespace Synthesizer_PC_control
 
             this.view = view;
 
-            serialPort = new MySerialPort(view, view.ConsoleTextBox, view.PortButton, view.AvaibleCOMsComBox);
+            serialPort = new MySerialPort(view, view.PortButton, view.AvaibleCOMsComBox);
             serialPort.GetAvaliablePorts();
 
             var reg0 = new MyRegister(String.Empty, view.Reg0TextBox);
@@ -55,6 +55,8 @@ namespace Synthesizer_PC_control
             memory = new Memory(this.view);
 
             moduleControls = new ModuleControls(view.Out1Button, view.Out2Button, view.RefButton);
+
+            ConsoleController.InitConsole(view.ConsoleTextBox);
         }
 
 #region Register Change Functions for individual controls
@@ -627,7 +629,7 @@ namespace Synthesizer_PC_control
             if (success)
             {
                 string text = "Workspace data succesfuly loaded.";
-                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                ConsoleController.Console().Write(text);
 
                 view.AvaibleCOMsComBox.Text = loadedData.COM_port;
                 LoadWorkspaceDataFromFile(loadedData);
@@ -647,7 +649,8 @@ namespace Synthesizer_PC_control
             if(success)
             {
                 string text = "Workspace data succesfuly saved.";
-                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                ConsoleController.Console().Write(text);
+
             }
             else
             {
@@ -725,14 +728,14 @@ namespace Synthesizer_PC_control
             if (success)
             {
                 string text = "Default registers succesfuly loaded.";
-                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                ConsoleController.Console().Write(text);
                 LoadDefRegsFromFile(loadedData);
                 ForceLoadAllRegsIntoPlo();
             }
             else
             {
                 string text = "When loading default registers occurs error!";
-                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                ConsoleController.Console().Write(text);
                 MessageBox.Show("File default.json with include settings for registers, doesn't exist. First create it by click to Set As Def Button", "File defaults.txt doesn't exist", 
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -746,12 +749,12 @@ namespace Synthesizer_PC_control
             if(success)
             {
                 string text = "Default registers succesfuly saved.";
-                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                ConsoleController.Console().Write(text);
             }
             else
             {
                 string text = "When saving default registers occurs error!";
-                view.ConsoleTextBox.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss: ") + text);
+                ConsoleController.Console().Write(text);
                 MessageBox.Show(text, "Error Catch",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
