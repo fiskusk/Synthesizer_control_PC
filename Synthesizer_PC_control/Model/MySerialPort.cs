@@ -22,7 +22,6 @@ namespace Synthesizer_PC_control.Model
  
         private Button ui_openClosed; 
         private ComboBox ui_avaliablePorts; 
-        private TextBox ui_ConsoleTextBox; 
  
         private bool dontRunHandler; 
  
