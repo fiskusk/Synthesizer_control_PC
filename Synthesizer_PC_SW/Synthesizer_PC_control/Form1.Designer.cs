@@ -1935,7 +1935,7 @@ namespace Synthesizer_PC_control
             this.ConsoleTextBox.Name = "ConsoleTextBox";
             this.ConsoleTextBox.ReadOnly = true;
             this.ConsoleTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ConsoleTextBox.Size = new System.Drawing.Size(318, 307);
+            this.ConsoleTextBox.Size = new System.Drawing.Size(334, 307);
             this.ConsoleTextBox.TabIndex = 21;
             // 
             // groupBox3
@@ -1948,7 +1948,7 @@ namespace Synthesizer_PC_control
             this.groupBox3.Controls.Add(this.HzLabel);
             this.groupBox3.Location = new System.Drawing.Point(16, 149);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(318, 74);
+            this.groupBox3.Size = new System.Drawing.Size(334, 74);
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Direct output frequency control";
