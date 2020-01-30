@@ -93,8 +93,9 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
-        public void ChangeRefDivider(bool IsActive)
+        public void ChangeRefDivBy2State(bool IsActive)
         {
+            referenceFrequency.SetRefDivBy2(IsActive);
             if (IsActive == true)
             {
                 registers[2].SetResetOneBit(24, BitState.SET);
@@ -273,7 +274,7 @@ namespace Synthesizer_PC_control.Controllers
         
         private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
         {
-            view.DivideBy2CheckBox.Checked = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 24));
+            referenceFrequency.SetRefDivBy2(Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 24)));
         }
 
         private void GetRDivValueFromRegister(UInt32 dataReg2)
@@ -451,7 +452,7 @@ namespace Synthesizer_PC_control.Controllers
             f_pfd_string = f_pfd_string.Replace(".", ",");
             decimal f_ref = decimal.Parse(f_pfd_string);
             UInt16 doubler = Convert.ToUInt16(referenceFrequency.IsDoubled());
-            UInt16 divider2 = Convert.ToUInt16(view.DivideBy2CheckBox.Checked);
+            UInt16 divider2 = Convert.ToUInt16(referenceFrequency.IsDividedBy2());
             decimal f_pfd = f_ref * ((1 + doubler) / (view.RDivUpDown.Value * (1 + divider2)));
 
             UInt16 f_pfd_MHz = (UInt16)(f_pfd);
@@ -599,6 +600,16 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.IsPortOpen())
             {
                 ChangeRefDoubler(value);
+                GetFPfdFreq();
+                CheckAndApplyRegChanges(2);
+            }
+        }
+
+        public void ReferenceDivBy2StateWasChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeRefDivBy2State(value);
                 GetFPfdFreq();
                 CheckAndApplyRegChanges(2);
             }

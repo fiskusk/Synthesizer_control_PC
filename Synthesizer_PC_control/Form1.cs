@@ -400,12 +400,8 @@ namespace Synthesizer_PC_control
 
         private void DivideBy2CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeRefDivider(DivideBy2CheckBox.Checked);
-                controller.GetFPfdFreq();
-                controller.CheckAndApplyRegChanges(2);
-            }
+            controller.ReferenceDivBy2StateWasChanged(DivideBy2CheckBox.Checked);
+            
         }
 
         private void RDivUpDown_ValueChanged(object sender, EventArgs e)

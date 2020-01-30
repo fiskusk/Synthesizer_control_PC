@@ -7,7 +7,7 @@ namespace Synthesizer_PC_control.Model
     {
         private decimal refInFreq;
         private bool isDoubled;
-        private bool isDiv2;
+        private bool isDivBy2;
         private UInt16 refDivider;
         private decimal pfdFreq;
 
@@ -48,7 +48,21 @@ namespace Synthesizer_PC_control.Model
 
         public void SetRefDoubler(bool value)
         {
-            isDoubled = value;
+            this.isDoubled = value;
+
+            UpdateUiElements();
+        }
+
+        public void SetRefDivBy2(bool value)
+        {
+            this.isDivBy2 = value;
+
+            UpdateUiElements();
+        }
+
+        public void SetRDivider(UInt16 value)
+        {
+            this.refDivider = value;
 
             UpdateUiElements();
         }
@@ -69,7 +83,12 @@ namespace Synthesizer_PC_control.Model
 
         public bool IsDoubled()
         {
-            return isDoubled;
+            return this.isDoubled;
+        }
+
+        public bool IsDividedBy2()
+        {
+            return this.isDivBy2;
         }
 
         #endregion
@@ -81,7 +100,7 @@ namespace Synthesizer_PC_control.Model
             else
                 ui_refDoubler.Checked = false;
             
-            if(isDiv2)
+            if(isDivBy2)
                 ui_refDiv2.Checked = true; 
             else
                 ui_refDiv2.Checked = false; 
