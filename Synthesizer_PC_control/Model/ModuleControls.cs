@@ -101,31 +101,19 @@ namespace Synthesizer_PC_control.Model
         public void UpdateUiElements() 
         { 
             if(isOut1On)    // Out 1 je aktivni
-            { 
                 ui_out1OnOff.Text = "Out 1 Off"; 
-            }
             else
-            {
                 ui_out1OnOff.Text = "Out 1 On"; 
-            }
             
             if(isOut2On)    // Out 2 je aktivni
-            { 
                 ui_out2OnOff.Text = "Out 2 Off"; 
-            }
             else
-            {
                 ui_out2OnOff.Text = "Out 2 On"; 
-            }
 
             if(isIntRef)    // Interní reference je aktivni
-            { 
                 ui_intExtRef.Text = "Ext Ref"; 
-            }
             else
-            {
                 ui_intExtRef.Text = "Int Ref"; 
-            }
         } 
     }
 }
