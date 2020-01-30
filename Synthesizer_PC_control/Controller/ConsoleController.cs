@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 using System.Windows.Forms;
@@ -119,7 +120,34 @@ namespace Synthesizer_PC_control.Controllers
             if (!updateUI)
                 return;
 
-            uiElement.AppendText(Environment.NewLine + item.ToString());
+            //uiElement.AppendText(Environment.NewLine + item.ToString());
+
+            AppendFormattedText(uiElement, item.logTime.ToString("HH:mm:ss: ") , Color.Black, true, HorizontalAlignment.Left);
+            AppendFormattedText(uiElement, item.logText , Color.Black, false, HorizontalAlignment.Left);
+            uiElement.AppendText("\r\n");
+
+        }
+
+        private void AppendFormattedText(RichTextBox rtb, string text, Color textColour, Boolean isBold, HorizontalAlignment alignment)
+        {
+            int start = rtb.TextLength;
+            rtb.AppendText(text);
+            int end = rtb.TextLength; // now longer by length of appended text
+
+            // Select text that was appended
+            rtb.Select(start, end - start);
+
+            #region Apply Formatting
+            rtb.SelectionColor = textColour;
+            rtb.SelectionAlignment = alignment;
+            rtb.SelectionFont = new Font(
+                rtb.SelectionFont.FontFamily,
+                rtb.SelectionFont.Size,
+                (isBold ? FontStyle.Bold : FontStyle.Regular));
+            #endregion
+
+            // Unselect text
+            rtb.SelectionLength = 0;
         }
 
         /// <summary>
