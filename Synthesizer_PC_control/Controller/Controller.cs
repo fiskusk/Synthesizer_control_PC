@@ -23,6 +23,8 @@ namespace Synthesizer_PC_control.Controllers
 
         public ModuleControls moduleControls;
 
+        public ReferenceFrequency referenceFrequency;
+
         public Controller(Form1 view)
         {
             // TODO FILIP ... Hey, try this! Hey! It works! :)
@@ -55,6 +57,9 @@ namespace Synthesizer_PC_control.Controllers
             memory = new Memory(this.view);
 
             moduleControls = new ModuleControls(view.Out1Button, view.Out2Button, view.RefButton);
+
+            referenceFrequency = new ReferenceFrequency(view.RefFTextBox,
+                view.RefDoublerCheckBox, view.DivideBy2CheckBox, view.RDivUpDown);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -262,7 +267,7 @@ namespace Synthesizer_PC_control.Controllers
         #region Parsing register 2
         private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
         {
-            view.DoubleRefFCheckBox.Checked = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25));
+            view.RefDoublerCheckBox.Checked = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25));
         }
         
         private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
@@ -440,11 +445,11 @@ namespace Synthesizer_PC_control.Controllers
         public void GetFPfdFreq()
         {
             // TODO osetrit fpfd
-            string f_pfd_string = view.RefFTextBox.Text;
+            string f_pfd_string = referenceFrequency.string_GetRefFreqValue();
             f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
             f_pfd_string = f_pfd_string.Replace(".", ",");
             decimal f_ref = decimal.Parse(f_pfd_string);
-            UInt16 doubler = Convert.ToUInt16(view.DoubleRefFCheckBox.Checked);
+            UInt16 doubler = Convert.ToUInt16(view.RefDoublerCheckBox.Checked);
             UInt16 divider2 = Convert.ToUInt16(view.DivideBy2CheckBox.Checked);
             decimal f_pfd = f_ref * ((1 + doubler) / (view.RDivUpDown.Value * (1 + divider2)));
 
@@ -460,6 +465,134 @@ namespace Synthesizer_PC_control.Controllers
 
             view.fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
         }
+
+        public void CalcSynthesizerRegValuesFromInpFreq()
+        {
+            string f_input_string = view.InputFreqTextBox.Text;
+            f_input_string = f_input_string.Replace(" ", string.Empty);
+            f_input_string = f_input_string.Replace(".", ",");
+
+            decimal f_ref = referenceFrequency.decimal_GetRefFreqValue();
+            decimal f_input = decimal.Parse(f_input_string);
+
+            view.RDivUpDown.Value = 1;
+
+            if (f_input >= 3000 && f_input <= 6000)
+            {
+                view.ADivComboBox.SelectedIndex = 0;
+            }
+            else if (f_input >= 1500 && f_input < 3000)
+            {
+                view.ADivComboBox.SelectedIndex = 1;
+            }
+            else if (f_input >= 750 && f_input < 1500)
+            {
+                view.ADivComboBox.SelectedIndex = 2;
+            }
+            else if (f_input >= 375 && f_input < 750)
+            {
+                view.ADivComboBox.SelectedIndex = 3;
+            }
+            else if (f_input >= 187.5M && f_input < 375)
+            {
+                view.ADivComboBox.SelectedIndex = 4;
+            }
+            else if (f_input >= 93.75M && f_input < 187.5M)
+            {
+                view.ADivComboBox.SelectedIndex = 5;
+            }
+            else if (f_input >= 46.875M && f_input < 93.75M)
+            {
+                view.ADivComboBox.SelectedIndex = 6;
+            }
+            else if (f_input >= 23.5M && f_input < 46.875M)
+            {
+                view.ADivComboBox.SelectedIndex = 7;
+            }
+            else if (f_input >= 1500 && f_input < 3000)
+            {
+                view.ADivComboBox.SelectedIndex = 8;
+            }
+
+            UInt16 DIVA = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
+            decimal IntN = (f_input*DIVA/(f_ref/view.RDivUpDown.Value));
+            decimal zbytek = IntN-(UInt16)IntN;
+
+            if (zbytek>0)
+            {
+                Fractions.Fraction pokus = new Fractions.Fraction();
+                //Fraction[] zaloha;
+                double accuracy;
+                int correction=1;
+                //zaloha = new Fraction[500];
+                UInt16 cnt = 0;
+                do
+                {
+                    accuracy = 0.000001;
+                    do
+                    {
+                        pokus = Fractions.RealToFraction((double)zbytek, accuracy);
+                        //zaloha[cnt] = pokus;
+                        cnt++;
+                        accuracy = accuracy*10;
+                    } while ((pokus.D < 2 || pokus.D > 4095) && accuracy <= 0.00001*correction);
+                    if ((pokus.D < 2 || pokus.D > 4095))
+                    {
+
+                        view.RDivUpDown.Value = view.RDivUpDown.Value + 1;
+                        IntN = (f_input*DIVA/(f_ref/view.RDivUpDown.Value));
+                        zbytek = IntN-(UInt16)IntN;
+                        if (IntN > 4091)
+                        {
+                            correction = correction * 10;
+                            view.RDivUpDown.Value = view.RDivUpDown.Value - 1;
+                            IntN = (f_input*DIVA/(f_ref/view.RDivUpDown.Value));
+                            zbytek = IntN-(UInt16)IntN;
+                        }
+                    }
+                } while((pokus.D < 2 || pokus.D > 4095) && accuracy < 1);
+                if ((pokus.D < 2 || pokus.D > 4095))
+                {
+                    view.ModeIntFracComboBox.SelectedIndex = 0;
+                    pokus = new Fractions.Fraction (1, 4095);
+                }
+                view.ModeIntFracComboBox.SelectedIndex = 0;
+                view.ModNumUpDown.Value = pokus.D;
+                view.FracNNumUpDown.Value = pokus.N;
+            }
+            else
+            {
+                view.ModeIntFracComboBox.SelectedIndex = 1;
+            }
+            view.IntNNumUpDown.Value = (UInt16)IntN;
+
+            string f_outA_string = view.fOutAScreenLabel.Text;
+            f_outA_string = f_outA_string.Replace(" ", string.Empty);
+            f_outA_string = f_outA_string.Replace(".", ",");
+
+            double f_out_A = double.Parse(f_outA_string);
+
+            double delta = ((double)f_input - f_out_A) * 1e6;
+            delta  = Math.Round(delta, 3, MidpointRounding.AwayFromZero);
+            if (Math.Abs(delta) > 10)
+                view.DeltaShowLabel.ForeColor = System.Drawing.Color.Red;
+            else
+                view.DeltaShowLabel.ForeColor = System.Drawing.Color.Black;
+
+            view.DeltaShowLabel.Text = delta.ToString ("0.###");
+
+        }
+#endregion
+
+#region Some other functions that I don't know where to include classify
+
+        public void ReferenceFrequencyValueWasChanged(string value)
+        {
+            referenceFrequency.SetRefFreqValue(value);
+            GetFPfdFreq();
+            RecalcFreqInfo();
+        }
+
 #endregion
 
 #region Serial port
@@ -670,6 +803,8 @@ namespace Synthesizer_PC_control.Controllers
 
             view.InputFreqTextBox.Text = data.OutputFreqValue;
 
+            referenceFrequency.SetRefFreqValue(data.ReferenceFrequency);
+
             moduleControls.SetOut1(data.Out1En);
             moduleControls.SetOut2(data.Out2En);
             moduleControls.SetIntRef(data.IntRef);
@@ -693,6 +828,7 @@ namespace Synthesizer_PC_control.Controllers
                 Registers = new List<string>{},
                 RSetValue = Convert.ToUInt16(view.RSetTextBox.Text),
                 OutputFreqValue = view.InputFreqTextBox.Text,
+                ReferenceFrequency = referenceFrequency.string_GetRefFreqValue(),
                 Out1En = moduleControls.GetOut1State(),
                 Out2En = moduleControls.GetOut2State(),
                 IntRef = moduleControls.GetRefState(),

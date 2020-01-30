@@ -115,7 +115,7 @@ namespace Synthesizer_PC_control
             ModeIntFracComboBox.Enabled = command;
             RefFTextBox.Enabled = command;
             RDivUpDown.Enabled = command;
-            DoubleRefFCheckBox.Enabled = command;
+            RefDoublerCheckBox.Enabled = command;
             DivideBy2CheckBox.Enabled = command;
             fPfdScreenLabel.Enabled = command;
             fVcoScreenLabel.Enabled = command;
@@ -397,7 +397,7 @@ namespace Synthesizer_PC_control
         {
             if (controller.serialPort.IsPortOpen())
             {
-                controller.ChangeRefDoubler(DoubleRefFCheckBox.Checked);
+                controller.ChangeRefDoubler(RefDoublerCheckBox.Checked);
                 controller.GetFPfdFreq();
                 controller.CheckAndApplyRegChanges(2);
             }
@@ -494,15 +494,13 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                controller.GetFPfdFreq();
-                controller.RecalcFreqInfo();
+                controller.ReferenceFrequencyValueWasChanged(RefFTextBox.Text);
             }
         }
 
         private void RefFTextBox_LostFocus(object sender, EventArgs e)
         {
-            controller.GetFPfdFreq();
-            controller.RecalcFreqInfo();
+            controller.ReferenceFrequencyValueWasChanged(RefFTextBox.Text);
         }
 
         private void RefFTextBox_TextChanged(object sender, EventArgs e)
@@ -567,14 +565,14 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-               CalcRegsFromFreq.CalcSynthesizerRegValuesFromInpFreq(this);
+               controller.CalcSynthesizerRegValuesFromInpFreq();
             }
         }
 
         private void InputFreqHandlerFunction(object sender, MouseEventArgs e)
         {
             MyFormat.ScrollByPositionOfCursor(InputFreqTextBox, e);
-            CalcRegsFromFreq.CalcSynthesizerRegValuesFromInpFreq(this);
+            controller.CalcSynthesizerRegValuesFromInpFreq();
 
         }
 

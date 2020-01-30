@@ -1,5 +1,5 @@
-1. implementovat konztoli az bude hotová
-2. checkandapllyreg místo applyreg 
-3. zacit predelavat groupy do class (ovladaci tlacitka syntezatzoru, reference signal freq....)
-4. osetrit načitani dat, aby to nepadalo (rozpracovano u verze co mi pushne Lukáš)
-5. Opravit view aby na eventy byla vždy pouze jen jedna funkce v kontroleru
+1. 	implementovat konztoli az bude hotová
+2. OK 	checkandapllyreg místo applyreg 
+3. 	zacit predelavat groupy do class (ovladaci tlacitka syntezatzoru, reference signal freq....)
+4. 	osetrit načitani dat, aby to nepadalo (rozpracovano u verze co mi pushne Lukáš)
+5. 	Opravit view aby na eventy byla vždy pouze jen jedna funkce v kontroleru

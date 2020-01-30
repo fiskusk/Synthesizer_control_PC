@@ -114,7 +114,7 @@ namespace Synthesizer_PC_control
             this.RDivUpDown = new System.Windows.Forms.NumericUpDown();
             this.RefFTextBox = new System.Windows.Forms.TextBox();
             this.DivideBy2CheckBox = new System.Windows.Forms.CheckBox();
-            this.DoubleRefFCheckBox = new System.Windows.Forms.CheckBox();
+            this.RefDoublerCheckBox = new System.Windows.Forms.CheckBox();
             this.RefFLabel = new System.Windows.Forms.Label();
             this.fPfdLabel = new System.Windows.Forms.Label();
             this.RDivLabel = new System.Windows.Forms.Label();
@@ -1202,7 +1202,7 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.Controls.Add(this.RDivUpDown);
             this.RefFreqGroupBox.Controls.Add(this.RefFTextBox);
             this.RefFreqGroupBox.Controls.Add(this.DivideBy2CheckBox);
-            this.RefFreqGroupBox.Controls.Add(this.DoubleRefFCheckBox);
+            this.RefFreqGroupBox.Controls.Add(this.RefDoublerCheckBox);
             this.RefFreqGroupBox.Controls.Add(this.RefFLabel);
             this.RefFreqGroupBox.Controls.Add(this.fPfdLabel);
             this.RefFreqGroupBox.Controls.Add(this.RDivLabel);
@@ -1254,7 +1254,6 @@ namespace Synthesizer_PC_control
             this.RefFTextBox.Name = "RefFTextBox";
             this.RefFTextBox.Size = new System.Drawing.Size(89, 22);
             this.RefFTextBox.TabIndex = 3;
-            this.RefFTextBox.Text = "10,000000";
             this.RefFTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RefFTextBox.TextChanged += new System.EventHandler(this.RefFTextBox_TextChanged);
             this.RefFTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RefFTextBox_KeyDown);
@@ -1276,17 +1275,17 @@ namespace Synthesizer_PC_control
             // 
             // DoubleRefFCheckBox
             // 
-            this.DoubleRefFCheckBox.AutoSize = true;
-            this.DoubleRefFCheckBox.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.DoubleRefFCheckBox.Location = new System.Drawing.Point(229, 14);
-            this.DoubleRefFCheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.DoubleRefFCheckBox.Name = "DoubleRefFCheckBox";
-            this.DoubleRefFCheckBox.Size = new System.Drawing.Size(26, 38);
-            this.DoubleRefFCheckBox.TabIndex = 21;
-            this.DoubleRefFCheckBox.Text = "x2";
-            this.DoubleRefFCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.DoubleRefFCheckBox.UseVisualStyleBackColor = true;
-            this.DoubleRefFCheckBox.CheckedChanged += new System.EventHandler(this.DoubleRefFCheckBox_CheckedChanged);
+            this.RefDoublerCheckBox.AutoSize = true;
+            this.RefDoublerCheckBox.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.RefDoublerCheckBox.Location = new System.Drawing.Point(229, 14);
+            this.RefDoublerCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.RefDoublerCheckBox.Name = "DoubleRefFCheckBox";
+            this.RefDoublerCheckBox.Size = new System.Drawing.Size(26, 38);
+            this.RefDoublerCheckBox.TabIndex = 21;
+            this.RefDoublerCheckBox.Text = "x2";
+            this.RefDoublerCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.RefDoublerCheckBox.UseVisualStyleBackColor = true;
+            this.RefDoublerCheckBox.CheckedChanged += new System.EventHandler(this.DoubleRefFCheckBox_CheckedChanged);
             // 
             // RefFLabel
             // 
@@ -2093,7 +2092,7 @@ namespace Synthesizer_PC_control
         public System.Windows.Forms.Label fVcoScreenLabel;
         private System.Windows.Forms.Label MHzLabel2;
         public CheckBox DivideBy2CheckBox;
-        public CheckBox DoubleRefFCheckBox;
+        public CheckBox RefDoublerCheckBox;
         private Label MHzLabel3;
         private Label RefFLabel;
         public TextBox RefFTextBox;

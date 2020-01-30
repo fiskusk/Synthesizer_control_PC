@@ -11,6 +11,7 @@ namespace Synthesizer_PC_control.Utilities
         public IList<string> Registers { get; set; }
         public UInt16 RSetValue { get; set; }
         public string OutputFreqValue { get; set; }
+        public string ReferenceFrequency { get; set; }
         public bool Out1En { get; set; }
         public bool Out2En { get; set; }
         public bool IntRef { get; set; }
@@ -35,6 +36,7 @@ namespace Synthesizer_PC_control.Utilities
                 },
                 RSetValue = 4700,
                 OutputFreqValue = "500.0000000",
+                ReferenceFrequency = "10,000000",
                 Out1En = true,
                 Out2En = false, 
                 IntRef = true,
