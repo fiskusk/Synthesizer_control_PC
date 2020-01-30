@@ -401,17 +401,11 @@ namespace Synthesizer_PC_control
         private void DivideBy2CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             controller.ReferenceDivBy2StateWasChanged(DivideBy2CheckBox.Checked);
-            
         }
 
         private void RDivUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeRDiv(RDivUpDown.Value);
-                controller.GetFPfdFreq();
-                controller.CheckAndApplyRegChanges(2);
-            }
+            controller.ReferenceRDividerValueChanged((UInt16)RDivUpDown.Value);
         }
 
         private void ADivComboBox_SelectedIndexChanged(object sender, EventArgs e)

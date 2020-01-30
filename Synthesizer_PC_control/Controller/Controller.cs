@@ -67,9 +67,10 @@ namespace Synthesizer_PC_control.Controllers
 #region Register Change Functions for individual controls
 
         #region Reference Frequency Part
-        public void ChangeRDiv(decimal RDividerValue)
+        public void ChangeRDiv(UInt16 value)
         {
-            registers[2].ChangeNBits(Convert.ToUInt32(RDividerValue), 10, 14);
+            referenceFrequency.SetRDivider(value);
+            registers[2].ChangeNBits(Convert.ToUInt32(value), 10, 14);
         }
 
         public void ChangeRefDoubler(bool IsActive)
@@ -279,7 +280,7 @@ namespace Synthesizer_PC_control.Controllers
 
         private void GetRDivValueFromRegister(UInt32 dataReg2)
         {
-            view.RDivUpDown.Value = BitOperations.GetNBits(dataReg2, 10, 14);
+            referenceFrequency.SetRDivider((UInt16)BitOperations.GetNBits(dataReg2, 10, 14));
         }
 
         private void GetCPCurrentIndexFromRegister(UInt32 dataReg2)
@@ -447,13 +448,11 @@ namespace Synthesizer_PC_control.Controllers
         public void GetFPfdFreq()
         {
             // TODO osetrit fpfd
-            string f_pfd_string = referenceFrequency.string_GetRefFreqValue();
-            f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
-            f_pfd_string = f_pfd_string.Replace(".", ",");
-            decimal f_ref = decimal.Parse(f_pfd_string);
+            decimal f_ref = referenceFrequency.decimal_GetRefFreqValue();
             UInt16 doubler = Convert.ToUInt16(referenceFrequency.IsDoubled());
-            UInt16 divider2 = Convert.ToUInt16(referenceFrequency.IsDividedBy2());
-            decimal f_pfd = f_ref * ((1 + doubler) / (view.RDivUpDown.Value * (1 + divider2)));
+            UInt16 divBy2 = Convert.ToUInt16(referenceFrequency.IsDividedBy2());
+            UInt16 rDivVal = referenceFrequency.uint16_GetRefDividerValue();
+            decimal f_pfd = f_ref * ((1 + doubler) / (decimal)(rDivVal * (1 + divBy2)));
 
             UInt16 f_pfd_MHz = (UInt16)(f_pfd);
             UInt32 f_pfd_kHz = (UInt32)(f_pfd*1000);
@@ -475,9 +474,9 @@ namespace Synthesizer_PC_control.Controllers
             f_input_string = f_input_string.Replace(".", ",");
 
             decimal f_ref = referenceFrequency.decimal_GetRefFreqValue();
+            UInt16 rDivValue = 1;
             decimal f_input = decimal.Parse(f_input_string);
 
-            view.RDivUpDown.Value = 1;
 
             if (f_input >= 3000 && f_input <= 6000)
             {
@@ -517,7 +516,7 @@ namespace Synthesizer_PC_control.Controllers
             }
 
             UInt16 DIVA = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
-            decimal IntN = (f_input*DIVA/(f_ref/view.RDivUpDown.Value));
+            decimal IntN = (f_input*DIVA/(f_ref/rDivValue));
             decimal zbytek = IntN-(UInt16)IntN;
 
             if (zbytek>0)
@@ -541,14 +540,14 @@ namespace Synthesizer_PC_control.Controllers
                     if ((pokus.D < 2 || pokus.D > 4095))
                     {
 
-                        view.RDivUpDown.Value = view.RDivUpDown.Value + 1;
-                        IntN = (f_input*DIVA/(f_ref/view.RDivUpDown.Value));
+                        rDivValue++;
+                        IntN = (f_input*DIVA/(f_ref/rDivValue));
                         zbytek = IntN-(UInt16)IntN;
                         if (IntN > 4091)
                         {
                             correction = correction * 10;
-                            view.RDivUpDown.Value = view.RDivUpDown.Value - 1;
-                            IntN = (f_input*DIVA/(f_ref/view.RDivUpDown.Value));
+                            rDivValue--;
+                            IntN = (f_input*DIVA/(f_ref/rDivValue));
                             zbytek = IntN-(UInt16)IntN;
                         }
                     }
@@ -566,6 +565,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 view.ModeIntFracComboBox.SelectedIndex = 1;
             }
+            referenceFrequency.SetRDivider(rDivValue);
             view.IntNNumUpDown.Value = (UInt16)IntN;
 
             string f_outA_string = view.fOutAScreenLabel.Text;
@@ -615,6 +615,16 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        public void ReferenceRDividerValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeRDiv(value);
+                GetFPfdFreq();
+                CheckAndApplyRegChanges(2);
+            }
+        }
+
 #endregion
 
 #region Serial port
@@ -652,12 +662,12 @@ namespace Synthesizer_PC_control.Controllers
                                 old_registers[regNumber].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
             {
-                GetAllFromReg(regNumber);
                 ApplyChangeReg(regNumber);
                 if (regNumber == 1 || regNumber == 2)
                     ApplyChangeReg(0);
                 if (regNumber != 3 || regNumber != 5)
                     RecalcFreqInfo();
+                GetAllFromReg(regNumber);
             }
         }
 

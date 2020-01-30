@@ -91,6 +91,11 @@ namespace Synthesizer_PC_control.Model
             return this.isDivBy2;
         }
 
+        public UInt16 uint16_GetRefDividerValue()
+        {
+            return this.refDivider;
+        }
+
         #endregion
 
         public void UpdateUiElements() 
