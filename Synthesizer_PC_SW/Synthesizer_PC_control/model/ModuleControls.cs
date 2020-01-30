@@ -6,11 +6,11 @@ namespace Synthesizer_PC_control.Model
 {
     class ModuleControls : I_UiLinked
     {
-        private Button ui_out1OnOff;
+        private readonly Button ui_out1OnOff;
         private bool isOut1On;
-        private Button ui_out2OnOff;
+        private readonly Button ui_out2OnOff;
         private bool isOut2On;
-        private Button ui_intExtRef;
+        private readonly Button ui_intExtRef;
         private bool isIntRef;
         
         public ModuleControls(Button ui_out1OnOff, Button ui_out2OnOff, Button ui_intExtRef)
