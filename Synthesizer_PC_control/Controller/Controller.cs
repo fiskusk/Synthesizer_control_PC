@@ -56,7 +56,7 @@ namespace Synthesizer_PC_control.Controllers
 
             moduleControls = new ModuleControls(view.Out1Button, view.Out2Button, view.RefButton);
 
-            ConsoleController.InitConsole(view.ConsoleTextBox);
+            ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
 
 #region Register Change Functions for individual controls

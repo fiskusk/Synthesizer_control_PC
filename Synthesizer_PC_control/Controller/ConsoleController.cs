@@ -47,7 +47,7 @@ namespace Synthesizer_PC_control.Controllers
 
         private static ConsoleController singleton = null;  // singleton holder
 
-        private TextBox uiElement;  // ui element to update
+        private RichTextBox uiElement;  // ui element to update
         private List<LogItem> log;
         private const int initialLogCapacity = 32;
         private readonly bool updateUI; // is there ui element to update
@@ -58,7 +58,7 @@ namespace Synthesizer_PC_control.Controllers
             log = new List<LogItem>(initialLogCapacity);
             updateUI = false;
         }
-        private ConsoleController(TextBox uiElement)
+        private ConsoleController(RichTextBox uiElement)
         {
             log = new List<LogItem>(initialLogCapacity);
             this.uiElement = uiElement;
@@ -81,7 +81,7 @@ namespace Synthesizer_PC_control.Controllers
         /// Create console singleton with ui.
         /// </summary>
         /// <param name="uiElement"> Ui element which prints text sent to console.</param>
-        public static void InitConsole(TextBox uiElement)
+        public static void InitConsole(RichTextBox uiElement)
         {
             if(singleton == null)
             {

@@ -171,8 +171,8 @@ namespace Synthesizer_PC_control
             this.HzLabel = new System.Windows.Forms.Label();
             this.DeltaLabel = new System.Windows.Forms.Label();
             this.InputFreqLabel = new System.Windows.Forms.Label();
-            this.ConsoleTextBox = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ConsoleRichTextBox = new System.Windows.Forms.RichTextBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.RegistersControlsGroupBox.SuspendLayout();
@@ -1928,16 +1928,6 @@ namespace Synthesizer_PC_control
             this.InputFreqLabel.Text = "Output frequency:";
             this.InputFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // ConsoleTextBox
-            // 
-            this.ConsoleTextBox.Location = new System.Drawing.Point(16, 260);
-            this.ConsoleTextBox.Multiline = true;
-            this.ConsoleTextBox.Name = "ConsoleTextBox";
-            this.ConsoleTextBox.ReadOnly = true;
-            this.ConsoleTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ConsoleTextBox.Size = new System.Drawing.Size(334, 307);
-            this.ConsoleTextBox.TabIndex = 21;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.InputFreqTextBox);
@@ -1953,13 +1943,24 @@ namespace Synthesizer_PC_control
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Direct output frequency control";
             // 
+            // ConsoleRichTextBox
+            // 
+            this.ConsoleRichTextBox.HideSelection = false;
+            this.ConsoleRichTextBox.Location = new System.Drawing.Point(16, 264);
+            this.ConsoleRichTextBox.Name = "ConsoleRichTextBox";
+            this.ConsoleRichTextBox.ReadOnly = true;
+            this.ConsoleRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 307);
+            this.ConsoleRichTextBox.TabIndex = 23;
+            this.ConsoleRichTextBox.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 601);
+            this.Controls.Add(this.ConsoleRichTextBox);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.ConsoleTextBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.RegistersTabControl);
             this.Controls.Add(this.RegistersGroupBox);
@@ -2144,10 +2145,9 @@ namespace Synthesizer_PC_control
         private Button ImportMem3Button;
         private Button ImportMem2Button;
         private Button ImportMem1Button;
-
-        public TextBox ConsoleTextBox;
         private GroupBox RegistersControlsGroupBox;
         private GroupBox groupBox3;
+        public RichTextBox ConsoleRichTextBox;
     }
 }
 
