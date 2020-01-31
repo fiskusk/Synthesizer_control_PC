@@ -413,7 +413,6 @@ namespace Synthesizer_PC_control
             if (controller.serialPort.IsPortOpen())
             {
                 controller.ChangeADiv(ADivComboBox.SelectedIndex);
-                controller.GetFPfdFreq();
                 controller.CheckAndApplyRegChanges(4);
             }
         }
