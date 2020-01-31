@@ -59,7 +59,7 @@ namespace Synthesizer_PC_control.Controllers
             moduleControls = new ModuleControls(view.Out1Button, view.Out2Button, view.RefButton);
 
             referenceFrequency = new ReferenceFrequency(view.RefFTextBox,
-                view.RefDoublerCheckBox, view.DivideBy2CheckBox, view.RDivUpDown);
+                view.RefDoublerCheckBox, view.DivideBy2CheckBox, view.RDivUpDown, view.pfdFreqLabel);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -389,7 +389,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             UInt16 DIVA = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
 
-            string f_pfd_string = view.fPfdScreenLabel.Text;
+            string f_pfd_string = view.pfdFreqLabel.Text;
             f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
             f_pfd_string = f_pfd_string.Replace(".", ",");
             decimal f_pfd = Convert.ToDecimal(f_pfd_string);
@@ -464,7 +464,7 @@ namespace Synthesizer_PC_control.Controllers
             float bill_f = (float)((billionths)/100.0);
             double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
 
-            view.fPfdScreenLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
+            view.pfdFreqLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
         }
 
         public void CalcSynthesizerRegValuesFromInpFreq()
@@ -590,9 +590,12 @@ namespace Synthesizer_PC_control.Controllers
 
         public void ReferenceFrequencyValueWasChanged(string value)
         {
-            referenceFrequency.SetRefFreqValue(value);
-            GetFPfdFreq();
-            RecalcFreqInfo();
+            if (referenceFrequency.IsUiUpdated())
+            {
+                referenceFrequency.SetRefFreqValue(value);
+                GetFPfdFreq();
+                RecalcFreqInfo();
+            }
         }
 
         public void ReferenceDoublerStateWasChanged(bool value)

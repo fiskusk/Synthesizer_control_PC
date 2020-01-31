@@ -10,19 +10,22 @@ namespace Synthesizer_PC_control.Model
         private bool isDivBy2;
         private UInt16 refDivider;
         private decimal pfdFreq;
+        private bool isUiUpdated;
 
         private readonly TextBox ui_refInFreq;
         private readonly CheckBox ui_refDoubler;
         private readonly CheckBox ui_refDiv2;
         private readonly NumericUpDown ui_refDivider;
+        private readonly Label ui_pfdFreqShowLabel;
 
         public ReferenceFrequency(TextBox ui_refInFreq, CheckBox ui_refDoubler, 
-                            CheckBox ui_refDiv2, NumericUpDown ui_refDivider)
+            CheckBox ui_refDiv2, NumericUpDown ui_refDivider, Label ui_pfdFreqShowLabel)
         {
             this.ui_refInFreq = ui_refInFreq;
             this.ui_refDoubler = ui_refDoubler;
             this.ui_refDiv2 = ui_refDiv2;
             this.ui_refDivider = ui_refDivider;
+            this.ui_pfdFreqShowLabel = ui_pfdFreqShowLabel;
 
             this.refDivider = 1; // FIXME delete this after complete OOD
             //UpdateUiElements();
@@ -96,10 +99,16 @@ namespace Synthesizer_PC_control.Model
             return this.refDivider;
         }
 
+        public bool IsUiUpdated()
+        {
+            return this.isUiUpdated;
+        }
+
         #endregion
 
         public void UpdateUiElements() 
-        { 
+        {
+            isUiUpdated = false;
             if(isDoubled)
                 ui_refDoubler.Checked = true;
             else
@@ -110,9 +119,32 @@ namespace Synthesizer_PC_control.Model
             else
                 ui_refDiv2.Checked = false; 
 
+            if (refInFreq < 10 || refInFreq > 210)
+            {
+                if (refInFreq < 10)
+                    refInFreq = 10;
+                else
+                    refInFreq = 210;
+                MessageBox.Show("The value entered is outside the allowed range for input signal reference frequency <10 - 210>", "Reference freq value out of range!", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
             ui_refInFreq.Text = string.Format("{0:f6}", refInFreq);
 
-            ui_refDivider.Value = refDivider;
+            try
+            {
+                ui_refDivider.Value = refDivider;
+            }
+            catch
+            {
+                if (refDivider < ui_refDivider.Minimum)
+                    refDivider = (UInt16)ui_refDivider.Minimum;
+                else if (refDivider > ui_refDivider.Maximum)
+                    refDivider = (UInt16)ui_refDivider.Maximum;
+                ui_refDivider.Value = refDivider;
+                MessageBox.Show("The value entered is outside the allowed range for the R divider <1 - 1023>", "R div value out of range!", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
+            isUiUpdated = true;
         } 
 
 

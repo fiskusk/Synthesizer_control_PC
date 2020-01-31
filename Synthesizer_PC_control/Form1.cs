@@ -117,7 +117,7 @@ namespace Synthesizer_PC_control
             RDivUpDown.Enabled = command;
             RefDoublerCheckBox.Enabled = command;
             DivideBy2CheckBox.Enabled = command;
-            fPfdScreenLabel.Enabled = command;
+            pfdFreqLabel.Enabled = command;
             fVcoScreenLabel.Enabled = command;
             fOutAScreenLabel.Enabled = command;
             fOutBScreenLabel.Enabled = command;

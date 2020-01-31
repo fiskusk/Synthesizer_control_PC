@@ -120,7 +120,7 @@ namespace Synthesizer_PC_control
             this.RDivLabel = new System.Windows.Forms.Label();
             this.MHzLabel4 = new System.Windows.Forms.Label();
             this.MHzLabel3 = new System.Windows.Forms.Label();
-            this.fPfdScreenLabel = new System.Windows.Forms.Label();
+            this.pfdFreqLabel = new System.Windows.Forms.Label();
             this.RegistersMemoryPage = new System.Windows.Forms.TabPage();
             this.ImportMem4Button = new System.Windows.Forms.Button();
             this.ImportMem3Button = new System.Windows.Forms.Button();
@@ -1208,7 +1208,7 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.Controls.Add(this.RDivLabel);
             this.RefFreqGroupBox.Controls.Add(this.MHzLabel4);
             this.RefFreqGroupBox.Controls.Add(this.MHzLabel3);
-            this.RefFreqGroupBox.Controls.Add(this.fPfdScreenLabel);
+            this.RefFreqGroupBox.Controls.Add(this.pfdFreqLabel);
             this.RefFreqGroupBox.Location = new System.Drawing.Point(7, 197);
             this.RefFreqGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.RefFreqGroupBox.Name = "RefFreqGroupBox";
@@ -1335,13 +1335,13 @@ namespace Synthesizer_PC_control
             // 
             // fPfdScreenLabel
             // 
-            this.fPfdScreenLabel.Location = new System.Drawing.Point(65, 87);
-            this.fPfdScreenLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.fPfdScreenLabel.Name = "fPfdScreenLabel";
-            this.fPfdScreenLabel.Size = new System.Drawing.Size(109, 16);
-            this.fPfdScreenLabel.TabIndex = 20;
-            this.fPfdScreenLabel.Text = "10.000 000";
-            this.fPfdScreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.pfdFreqLabel.Location = new System.Drawing.Point(65, 87);
+            this.pfdFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pfdFreqLabel.Name = "fPfdScreenLabel";
+            this.pfdFreqLabel.Size = new System.Drawing.Size(109, 16);
+            this.pfdFreqLabel.TabIndex = 20;
+            this.pfdFreqLabel.Text = "10.000 000";
+            this.pfdFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RegistersMemoryPage
             // 
@@ -2099,7 +2099,7 @@ namespace Synthesizer_PC_control
         public NumericUpDown RDivUpDown;
         private Label RDivLabel;
         private Label fPfdLabel;
-        public Label fPfdScreenLabel;
+        public Label pfdFreqLabel;
         public NumericUpDown PhasePNumericUpDown;
         private Label MHzLabel4;
         private Label PhasePLabel;
