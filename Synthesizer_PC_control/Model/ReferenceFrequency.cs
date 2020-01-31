@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using Synthesizer_PC_control.Utilities;
 
 namespace Synthesizer_PC_control.Model
 {
@@ -70,6 +71,22 @@ namespace Synthesizer_PC_control.Model
             UpdateUiElements();
         }
 
+        public void SetPfdFreq(decimal value)
+        {
+            this.pfdFreq = value;
+
+            UpdateUiElements();
+        }
+
+        public void SetPfdFreq(string value)
+        {
+            value = value.Replace(" ", string.Empty);
+            value = value.Replace(".", ",");
+            this.pfdFreq = Convert.ToDecimal(value);
+
+            UpdateUiElements();
+        }
+
         #endregion
 
         #region Getters
@@ -102,6 +119,11 @@ namespace Synthesizer_PC_control.Model
         public bool IsUiUpdated()
         {
             return this.isUiUpdated;
+        }
+
+        public decimal decimal_GetPfdFreq()
+        {
+            return this.pfdFreq;
         }
 
         #endregion
@@ -144,9 +166,10 @@ namespace Synthesizer_PC_control.Model
                 MessageBox.Show("The value entered is outside the allowed range for the R divider <1 - 1023>", "R div value out of range!", 
                 MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }
+            
+            ui_pfdFreqShowLabel.Text = MyFormat.ParseFrequencyDecimalValue(pfdFreq);
+
             isUiUpdated = true;
         } 
-
-
     }
 }
