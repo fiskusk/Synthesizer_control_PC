@@ -105,5 +105,20 @@ namespace Synthesizer_PC_control
             }
             
         }
+
+        public static string ParseFrequencyDecimalValue(decimal freq)
+        {
+            UInt16 f_MHz = (UInt16)(freq);
+            UInt32 f_kHz = (UInt32)(freq*1000);
+            UInt64 f_Hz = (UInt64)(freq*1000000);
+            UInt64 f_mHz = (UInt64)(freq*1000000000);
+            UInt16 thousandths = (UInt16)(f_kHz - f_MHz*1000);
+            UInt16 millionths = (UInt16)(f_Hz - (UInt64)(f_MHz)*1000000-(UInt64)(thousandths)*1000);
+            UInt16 billionths = (UInt16)(f_mHz - (UInt64)(f_Hz)*1000);
+            float bill_f = (float)((billionths)/100.0);
+            double roundedBillionths  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
+
+            return string.Format("{0},{1:000} {2:000} {3:0}", f_MHz, thousandths, millionths, roundedBillionths);
+        }
     }
 }
