@@ -355,7 +355,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 GetAllFromReg(i);
             }
-            GetFPfdFreq();
+            GetPfdFreq();
             RecalcFreqInfo(); 
         }
         #endregion
@@ -389,10 +389,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             UInt16 DIVA = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
 
-            string f_pfd_string = view.pfdFreqLabel.Text;
-            f_pfd_string = f_pfd_string.Replace(" ", string.Empty);
-            f_pfd_string = f_pfd_string.Replace(".", ",");
-            decimal f_pfd = Convert.ToDecimal(f_pfd_string);
+            decimal f_pfd = referenceFrequency.decimal_GetPfdFreq();
 
             decimal f_out_A = 0;
             decimal f_vco = 0;
@@ -445,26 +442,28 @@ namespace Synthesizer_PC_control.Controllers
             view.fVcoScreenLabel.Text = string.Format("{0:000},{1:000} {2:000} {3:0}", f_vco_MHz, thousandths, millionths, rounding);
         }
 
-        public void GetFPfdFreq()
+        public void GetPfdFreq()
         {
             // TODO osetrit fpfd
             decimal f_ref = referenceFrequency.decimal_GetRefFreqValue();
             UInt16 doubler = Convert.ToUInt16(referenceFrequency.IsDoubled());
             UInt16 divBy2 = Convert.ToUInt16(referenceFrequency.IsDividedBy2());
             UInt16 rDivVal = referenceFrequency.uint16_GetRefDividerValue();
+
             decimal f_pfd = f_ref * ((1 + doubler) / (decimal)(rDivVal * (1 + divBy2)));
 
-            UInt16 f_pfd_MHz = (UInt16)(f_pfd);
-            UInt32 f_pfd_kHz = (UInt32)(f_pfd*1000);
-            UInt64 f_pfd_Hz = (UInt64)(f_pfd*1000000);
-            UInt64 f_vco_mHz = (UInt64)(f_pfd*1000000000);
-            UInt16 thousandths = (UInt16)(f_pfd_kHz - f_pfd_MHz*1000);
-            UInt16 millionths = (UInt16)(f_pfd_Hz - (UInt64)(f_pfd_MHz)*1000000-(UInt64)(thousandths)*1000);
-            UInt16 billionths = (UInt16)(f_vco_mHz - (UInt64)(f_pfd_Hz)*1000);
-            float bill_f = (float)((billionths)/100.0);
-            double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
+            // FIXME this is bad
+            if (f_pfd < 10 || f_pfd > 210)
+            {
+                if (f_pfd < 10)
+                    f_pfd = 10;
+                else
+                    f_pfd = 210;
+                MessageBox.Show("The value entered is outside the allowed range for input signal reference frequency <10 - 210>", "Reference freq value out of range!", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
 
-            view.pfdFreqLabel.Text = string.Format("{0},{1:000} {2:000} {3:0}", f_pfd_MHz, thousandths, millionths, rounding);
+            referenceFrequency.SetPfdFreq(f_pfd);
         }
 
         public void CalcSynthesizerRegValuesFromInpFreq()
@@ -593,7 +592,7 @@ namespace Synthesizer_PC_control.Controllers
             if (referenceFrequency.IsUiUpdated())
             {
                 referenceFrequency.SetRefFreqValue(value);
-                GetFPfdFreq();
+                GetPfdFreq();
                 RecalcFreqInfo();
             }
         }
@@ -603,7 +602,7 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.IsPortOpen())
             {
                 ChangeRefDoubler(value);
-                GetFPfdFreq();
+                GetPfdFreq();
                 CheckAndApplyRegChanges(2);
             }
         }
@@ -613,7 +612,7 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.IsPortOpen())
             {
                 ChangeRefDivBy2State(value);
-                GetFPfdFreq();
+                GetPfdFreq();
                 CheckAndApplyRegChanges(2);
             }
         }
@@ -623,7 +622,7 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.IsPortOpen())
             {
                 ChangeRDiv(value);
-                GetFPfdFreq();
+                GetPfdFreq();
                 CheckAndApplyRegChanges(2);
             }
         }
