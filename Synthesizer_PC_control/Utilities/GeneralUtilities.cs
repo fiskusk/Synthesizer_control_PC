@@ -28,5 +28,36 @@ namespace Synthesizer_PC_control.Utilities
             }
             return found;
         }
+
+
+        /*
+            float a;
+            int b;
+            GeneralUtilities.IsWithin(a, (float)b, (float)b);
+        */
+        /* TODO Lukas IsWhithin and crop fnc? 
+        public static bool IsWithin<T>(T value, T min, T max) where T : IComparable
+        {
+            if(value >= min && value <= max)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static int Crop(int value, int min, int max)
+        {
+            if(value > max)
+            {
+                value = max;
+            }
+            else if(value < min)
+            {
+                value = min;
+            }
+
+            return value;
+        }
+        */
     }
 }
