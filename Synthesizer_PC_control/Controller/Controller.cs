@@ -452,17 +452,6 @@ namespace Synthesizer_PC_control.Controllers
 
             decimal f_pfd = f_ref * ((1 + doubler) / (decimal)(rDivVal * (1 + divBy2)));
 
-            // FIXME this is bad
-            if (f_pfd < 10 || f_pfd > 210)
-            {
-                if (f_pfd < 10)
-                    f_pfd = 10;
-                else
-                    f_pfd = 210;
-                MessageBox.Show("The value entered is outside the allowed range for input signal reference frequency <10 - 210>", "Reference freq value out of range!", 
-                MessageBoxButtons.OK, MessageBoxIcon.Error); 
-            }
-
             referenceFrequency.SetPfdFreq(f_pfd);
         }
 
