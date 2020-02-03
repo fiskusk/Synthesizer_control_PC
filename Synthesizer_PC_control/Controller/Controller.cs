@@ -460,10 +460,10 @@ namespace Synthesizer_PC_control.Controllers
             string f_input_string = view.InputFreqTextBox.Text;
             f_input_string = f_input_string.Replace(" ", string.Empty);
             f_input_string = f_input_string.Replace(".", ",");
+            decimal f_input = decimal.Parse(f_input_string);
 
             decimal f_ref = referenceFrequency.decimal_GetRefFreqValue();
             UInt16 rDivValue = 1;
-            decimal f_input = decimal.Parse(f_input_string);
 
 
             if (f_input >= 3000 && f_input <= 6000)
