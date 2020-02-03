@@ -484,7 +484,7 @@ namespace Synthesizer_PC_control
 
         private void RefFTextBox_LostFocus(object sender, EventArgs e)
         {
-            controller.ReferenceFrequencyValueWasChanged(RefFTextBox.Text);
+            //controller.ReferenceFrequencyValueWasChanged(RefFTextBox.Text);
         }
 
         private void RefFTextBox_TextChanged(object sender, EventArgs e)
