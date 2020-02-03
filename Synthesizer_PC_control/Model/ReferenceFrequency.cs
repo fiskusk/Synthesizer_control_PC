@@ -28,7 +28,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_refDivider = ui_refDivider;
             this.ui_pfdFreqShowLabel = ui_pfdFreqShowLabel;
 
-            this.refDivider = 1; // FIXME delete this after complete OOD
+            this.refDivider = 1; // TODO pridat ostatni defaultni hodnoty
             //UpdateUiElements();
         }
 
@@ -73,6 +73,7 @@ namespace Synthesizer_PC_control.Model
 
         public void SetPfdFreq(decimal value)
         {
+            // Ochrana formátu
             this.pfdFreq = value;
 
             UpdateUiElements();
@@ -82,9 +83,10 @@ namespace Synthesizer_PC_control.Model
         {
             value = value.Replace(" ", string.Empty);
             value = value.Replace(".", ",");
-            this.pfdFreq = Convert.ToDecimal(value);
+            //this.pfdFreq = ;
+            SetPfdFreq(Convert.ToDecimal(value));
 
-            UpdateUiElements();
+            //UpdateUiElements();
         }
 
         #endregion
@@ -166,10 +168,12 @@ namespace Synthesizer_PC_control.Model
                 MessageBox.Show("The value entered is outside the allowed range for the R divider <1 - 1023>", "R div value out of range!", 
                 MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }
-            
+
             ui_pfdFreqShowLabel.Text = MyFormat.ParseFrequencyDecimalValue(pfdFreq);
 
             isUiUpdated = true;
+
+            
         } 
     }
 }

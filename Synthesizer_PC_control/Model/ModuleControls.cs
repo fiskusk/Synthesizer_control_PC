@@ -19,6 +19,10 @@ namespace Synthesizer_PC_control.Model
             this.ui_out2OnOff = ui_out2OnOff;
             this.ui_intExtRef = ui_intExtRef;
 
+            isOut1On = false;
+            isOut2On = false;
+            isIntRef = false;
+
             UpdateUiElements();
         }
 
@@ -44,58 +48,40 @@ namespace Synthesizer_PC_control.Model
             return Convert.ToString(control_register, 16);
         }
 
-        public void SetOut1(bool setReset)
+        public void SetOut1(bool value)
         {
-            if (setReset)
-                isOut1On = true;
-            else
-                isOut1On = false;
+            isOut1On = value;
 
             UpdateUiElements();
         }
 
-        public void SetOut2(bool setReset)
+        public void SetOut2(bool value)
         {
-            if (setReset)
-                isOut2On = true;
-            else
-                isOut2On = false;
+            isOut2On = value;
 
             UpdateUiElements();
         }
 
-        public void SetIntRef(bool setReset)
+        public void SetIntRef(bool value)
         {
-            if (setReset)
-                isIntRef = true;
-            else
-                isIntRef = false;
+            isIntRef = value;
 
             UpdateUiElements();
         }
 
         public bool GetOut1State()
         {
-            if (isOut1On)
-                return true;
-            else
-                return false;
+            return isOut1On;
         }
 
         public bool GetOut2State()
         {
-            if (isOut2On)
-                return true;
-            else
-                return false;
+            return isOut2On;
         }
 
         public bool GetRefState()
         {
-            if (isIntRef)
-                return true;
-            else
-                return false;
+            return isIntRef;
         }
 
         public void UpdateUiElements() 
