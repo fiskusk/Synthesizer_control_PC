@@ -64,7 +64,7 @@
     <Compile Include="Model\MySerialPort.cs" />
     <Compile Include="Model\Memory.cs" />
     <Compile Include="Model\ModuleControls.cs" />
-    <Compile Include="Model\ReferenceFrequency.cs" />
+    <Compile Include="Model\RefFreq.cs" />
     <Compile Include="Utilities\BitOperations.cs" />
     <Compile Include="Utilities\GeneralUtilities.cs" />
     <Compile Include="Utilities\Fractions.cs" />

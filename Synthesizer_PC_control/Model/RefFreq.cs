@@ -4,7 +4,7 @@ using Synthesizer_PC_control.Utilities;
 
 namespace Synthesizer_PC_control.Model
 {
-    public class ReferenceFrequency : I_UiLinked
+    public class RefFreq : I_UiLinked
     {
         private decimal refInFreq;
         private bool isDoubled;
@@ -19,7 +19,7 @@ namespace Synthesizer_PC_control.Model
         private readonly NumericUpDown ui_refDivider;
         private readonly Label ui_pfdFreqShowLabel;
 
-        public ReferenceFrequency(TextBox ui_refInFreq, CheckBox ui_refDoubler, 
+        public RefFreq(TextBox ui_refInFreq, CheckBox ui_refDoubler, 
             CheckBox ui_refDiv2, NumericUpDown ui_refDivider, Label ui_pfdFreqShowLabel)
         {
             this.ui_refInFreq = ui_refInFreq;

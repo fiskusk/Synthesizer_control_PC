@@ -23,7 +23,7 @@ namespace Synthesizer_PC_control.Controllers
 
         public ModuleControls moduleControls;
 
-        public ReferenceFrequency referenceFrequency;
+        public RefFreq refFreq;
 
         public Controller(Form1 view)
         {
@@ -58,7 +58,7 @@ namespace Synthesizer_PC_control.Controllers
 
             moduleControls = new ModuleControls(view.Out1Button, view.Out2Button, view.RefButton);
 
-            referenceFrequency = new ReferenceFrequency(view.RefFTextBox,
+            refFreq = new RefFreq(view.RefFTextBox,
                 view.RefDoublerCheckBox, view.DivideBy2CheckBox, view.RDivUpDown, view.pfdFreqLabel);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
@@ -69,13 +69,13 @@ namespace Synthesizer_PC_control.Controllers
         #region Reference Frequency Part
         public void ChangeRDiv(UInt16 value)
         {
-            referenceFrequency.SetRDivider(value);
+            refFreq.SetRDivider(value);
             registers[2].ChangeNBits(Convert.ToUInt32(value), 10, 14);
         }
 
         public void ChangeRefDoubler(bool IsActive)
         {
-            referenceFrequency.SetRefDoubler(IsActive);
+            refFreq.SetRefDoubler(IsActive);
             if (IsActive == true)
             {
                 registers[2].SetResetOneBit(25, BitState.SET);
@@ -96,7 +96,7 @@ namespace Synthesizer_PC_control.Controllers
 
         public void ChangeRefDivBy2State(bool IsActive)
         {
-            referenceFrequency.SetRefDivBy2(IsActive);
+            refFreq.SetRefDivBy2(IsActive);
             if (IsActive == true)
             {
                 registers[2].SetResetOneBit(24, BitState.SET);
@@ -270,17 +270,17 @@ namespace Synthesizer_PC_control.Controllers
         #region Parsing register 2
         private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
         {
-            referenceFrequency.SetRefDoubler(Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25)));
+            refFreq.SetRefDoubler(Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25)));
         }
         
         private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
         {
-            referenceFrequency.SetRefDivBy2(Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 24)));
+            refFreq.SetRefDivBy2(Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 24)));
         }
 
         private void GetRDivValueFromRegister(UInt32 dataReg2)
         {
-            referenceFrequency.SetRDivider((UInt16)BitOperations.GetNBits(dataReg2, 10, 14));
+            refFreq.SetRDivider((UInt16)BitOperations.GetNBits(dataReg2, 10, 14));
         }
 
         private void GetCPCurrentIndexFromRegister(UInt32 dataReg2)
@@ -389,7 +389,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             UInt16 DIVA = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
 
-            decimal f_pfd = referenceFrequency.decimal_GetPfdFreq();
+            decimal f_pfd = refFreq.decimal_GetPfdFreq();
 
             decimal f_out_A = 0;
             decimal f_vco = 0;
@@ -445,14 +445,14 @@ namespace Synthesizer_PC_control.Controllers
         public void GetPfdFreq()
         {
             // TODO osetrit fpfd
-            decimal f_ref = referenceFrequency.decimal_GetRefFreqValue();
-            UInt16 doubler = Convert.ToUInt16(referenceFrequency.IsDoubled());
-            UInt16 divBy2 = Convert.ToUInt16(referenceFrequency.IsDividedBy2());
-            UInt16 rDivVal = referenceFrequency.uint16_GetRefDividerValue();
+            decimal f_ref = refFreq.decimal_GetRefFreqValue();
+            UInt16 doubler = Convert.ToUInt16(refFreq.IsDoubled());
+            UInt16 divBy2 = Convert.ToUInt16(refFreq.IsDividedBy2());
+            UInt16 rDivVal = refFreq.uint16_GetRefDividerValue();
 
             decimal f_pfd = f_ref * ((1 + doubler) / (decimal)(rDivVal * (1 + divBy2)));
 
-            referenceFrequency.SetPfdFreq(f_pfd);
+            refFreq.SetPfdFreq(f_pfd);
         }
 
         public void CalcSynthesizerRegValuesFromInpFreq()
@@ -462,7 +462,7 @@ namespace Synthesizer_PC_control.Controllers
             f_input_string = f_input_string.Replace(".", ",");
             decimal f_input = decimal.Parse(f_input_string);
 
-            decimal f_ref = referenceFrequency.decimal_GetRefFreqValue();
+            decimal f_ref = refFreq.decimal_GetRefFreqValue();
             UInt16 rDivValue = 1;
 
 
@@ -553,7 +553,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 view.ModeIntFracComboBox.SelectedIndex = 1;
             }
-            referenceFrequency.SetRDivider(rDivValue);
+            refFreq.SetRDivider(rDivValue);
             view.IntNNumUpDown.Value = (UInt16)IntN;
 
             string f_outA_string = view.fOutAScreenLabel.Text;
@@ -578,9 +578,9 @@ namespace Synthesizer_PC_control.Controllers
 
         public void ReferenceFrequencyValueWasChanged(string value)
         {
-            if (referenceFrequency.IsUiUpdated())
+            if (refFreq.IsUiUpdated())
             {
-                referenceFrequency.SetRefFreqValue(value);
+                refFreq.SetRefFreqValue(value);
                 GetPfdFreq();
                 RecalcFreqInfo();
             }
@@ -826,7 +826,7 @@ namespace Synthesizer_PC_control.Controllers
 
             view.InputFreqTextBox.Text = data.OutputFreqValue;
 
-            referenceFrequency.SetRefFreqValue(data.ReferenceFrequency);
+            refFreq.SetRefFreqValue(data.ReferenceFrequency);
 
             moduleControls.SetOut1(data.Out1En);
             moduleControls.SetOut2(data.Out2En);
@@ -851,7 +851,7 @@ namespace Synthesizer_PC_control.Controllers
                 Registers = new List<string>{},
                 RSetValue = Convert.ToUInt16(view.RSetTextBox.Text),
                 OutputFreqValue = view.InputFreqTextBox.Text,
-                ReferenceFrequency = referenceFrequency.string_GetRefFreqValue(),
+                ReferenceFrequency = refFreq.string_GetRefFreqValue(),
                 Out1En = moduleControls.GetOut1State(),
                 Out2En = moduleControls.GetOut2State(),
                 IntRef = moduleControls.GetRefState(),
