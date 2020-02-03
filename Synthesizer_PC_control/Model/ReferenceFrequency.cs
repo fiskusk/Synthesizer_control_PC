@@ -28,7 +28,12 @@ namespace Synthesizer_PC_control.Model
             this.ui_refDivider = ui_refDivider;
             this.ui_pfdFreqShowLabel = ui_pfdFreqShowLabel;
 
-            this.refDivider = 1; // TODO pridat ostatni defaultni hodnoty
+            this.refInFreq = 10.0M;
+            this.isDoubled = false;
+            this.isDivBy2 = false;
+            this.refDivider = 1;
+            this.pfdFreq = 10.0M;
+            
             //UpdateUiElements();
         }
 
