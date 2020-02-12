@@ -50,12 +50,46 @@ namespace Synthesizer_PC_control.Model
 
             UpdateUiElements();
         }
+
+        public void SetFracNVal(UInt16 value)
+        {
+            if (value < ui_fracN.Minimum)
+                value = (UInt16)ui_fracN.Minimum;
+            else if (value > ui_fracN.Maximum)
+                value = (UInt16)ui_fracN.Maximum;
+
+            this.fracN = value;
+
+            UpdateUiElements();
+        }
+        
+        public void SetModVal(UInt16 value)
+        {
+            if (value < ui_mod.Minimum)
+                value = (UInt16)ui_mod.Minimum;
+            else if (value > ui_mod.Maximum)
+                value = (UInt16)ui_mod.Maximum;
+
+            this.mod = value;
+
+            UpdateUiElements();
+        }
         #endregion
 
         #region Getters
         public UInt16 uint16_GetIntNVal()
         {
             return intN;
+        }
+
+        public UInt16 uint16_GetFracNVal()
+        {
+            return fracN;
+        }
+
+        public UInt16 uint16_GetModVal()
+        {
+            return mod;
         }
 
         #endregion
@@ -100,7 +134,9 @@ namespace Synthesizer_PC_control.Model
         {
             isUiUpdated = false;
 
-            this.ui_intN.Value = intN;
+            this.ui_intN.Value  = intN;
+            this.ui_fracN.Value = fracN;
+            this.ui_mod.Value   = mod;
 
             isUiUpdated = true;
         }

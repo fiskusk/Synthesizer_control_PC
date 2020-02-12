@@ -120,9 +120,10 @@ namespace Synthesizer_PC_control.Controllers
             outFreqControl.SetIntNVal(value);
         }
 
-        public void ChangeFracNValue(decimal fracNNumValue)
+        public void ChangeFracNValue(UInt16 value)
         {
-            registers[0].ChangeNBits(Convert.ToUInt32(fracNNumValue), 12, 3);
+            registers[0].ChangeNBits(Convert.ToUInt32(value), 12, 3);
+            outFreqControl.SetFracNVal(value);
         }
 
         public void ChangeModValue(decimal modValue)
@@ -233,7 +234,8 @@ namespace Synthesizer_PC_control.Controllers
 
         private void GetFracNValueFromRegister(UInt32 dataReg0)
         {
-            view.FracNNumUpDown.Value = BitOperations.GetNBits(dataReg0, 12, 3);
+            UInt16 FracN = (UInt16)BitOperations.GetNBits(dataReg0, 12, 3);
+            outFreqControl.SetFracNVal(FracN);
         }
 
         #endregion
@@ -379,6 +381,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             UInt16 aDiv = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
             UInt16 intN = outFreqControl.uint16_GetIntNVal();
+            UInt16 fracN = outFreqControl.uint16_GetFracNVal();
 
             decimal f_pfd = refFreq.decimal_GetPfdFreq();
 
@@ -393,7 +396,7 @@ namespace Synthesizer_PC_control.Controllers
             }
             else
             {
-                f_out_A = (f_pfd/aDiv)*(intN+(view.FracNNumUpDown.Value/(view.ModNumUpDown.Value*1.0M)));
+                f_out_A = (f_pfd/aDiv)*(intN+(fracN/(view.ModNumUpDown.Value*1.0M)));
             }
             f_vco = f_out_A*aDiv;
             if ((f_vco < 3000) || (f_vco > 6000))
@@ -538,7 +541,7 @@ namespace Synthesizer_PC_control.Controllers
                 }
                 view.ModeIntFracComboBox.SelectedIndex = 0;
                 view.ModNumUpDown.Value = pokus.D;
-                view.FracNNumUpDown.Value = pokus.N;
+                outFreqControl.SetFracNVal((UInt16)pokus.N);
             }
             else
             {
@@ -616,6 +619,15 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        public void FracNValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeFracNValue(value);
+                CheckAndApplyRegChanges(0);
+            }
+        }
+
 #endregion
 
 #region Serial port
@@ -654,11 +666,11 @@ namespace Synthesizer_PC_control.Controllers
                                 StringComparison.CurrentCultureIgnoreCase)))
             {
                 ApplyChangeReg(regNumber);
+                GetAllFromReg(regNumber);
                 if (regNumber == 1 || regNumber == 2)
                     ApplyChangeReg(0);
                 if (regNumber != 3 || regNumber != 5)
                     RecalcFreqInfo();
-                GetAllFromReg(regNumber);
             }
         }
 

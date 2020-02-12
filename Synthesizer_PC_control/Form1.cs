@@ -373,11 +373,7 @@ namespace Synthesizer_PC_control
 
         private void FracNNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeFracNValue(FracNNumUpDown.Value);
-                controller.CheckAndApplyRegChanges(0);
-            }
+            controller.FracNValueChanged((UInt16)FracNNumUpDown.Value);
         }
 
         private void ModNumUpDown_ValueChanged(object sender, EventArgs e)
