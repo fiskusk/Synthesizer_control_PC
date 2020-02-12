@@ -453,7 +453,7 @@ namespace Synthesizer_PC_control.Controllers
             f_input_string = f_input_string.Replace(".", ",");
             decimal f_input = decimal.Parse(f_input_string);
 
-            decimal f_ref = refFreq.decimal_GetRefFreqValue();
+            decimal f_pfd = refFreq.decimal_GetPfdFreq();
             UInt16 rDivValue = 1;
 
 
@@ -495,7 +495,7 @@ namespace Synthesizer_PC_control.Controllers
             }
 
             UInt16 DIVA = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
-            decimal intN = (f_input*DIVA/(f_ref/rDivValue));
+            decimal intN = (f_input*DIVA/(f_pfd/rDivValue));
             decimal zbytek = intN-(UInt16)intN;
 
             if (zbytek>0)
@@ -520,13 +520,13 @@ namespace Synthesizer_PC_control.Controllers
                     {
 
                         rDivValue++;
-                        intN = (f_input*DIVA/(f_ref/rDivValue));
+                        intN = (f_input*DIVA/(f_pfd/rDivValue));
                         zbytek = intN-(UInt16)intN;
                         if (intN > 4091)
                         {
                             correction = correction * 10;
                             rDivValue--;
-                            intN = (f_input*DIVA/(f_ref/rDivValue));
+                            intN = (f_input*DIVA/(f_pfd/rDivValue));
                             zbytek = intN-(UInt16)intN;
                         }
                     }
