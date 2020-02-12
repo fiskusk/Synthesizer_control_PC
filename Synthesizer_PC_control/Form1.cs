@@ -465,16 +465,12 @@ namespace Synthesizer_PC_control
 
         private void ModeIntFracComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            controller.IntFracModeChanged(ModeIntFracComboBox.SelectedIndex);
+            controller.SynthModeChanged(ModeIntFracComboBox.SelectedIndex);
         }
         
         private void ADivComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeADiv(ADivComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(4);
-            }
+            controller.ADivValueChanged((UInt16)ADivComboBox.SelectedIndex);
         }
 
         private void PhasePNumUpDown_ValueChanged(object sender, EventArgs e)

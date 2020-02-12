@@ -133,7 +133,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
 
-        public void ChangeIntFracMode(int value)
+        public void ChangeSynthMode(int value)
         {
             if (value == 0)
             {
@@ -150,18 +150,11 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
-        public void ChangeADiv(int selectedIndex)
+        public void ChangeADiv(UInt16 value)
         {
-            registers[4].ChangeNBits(Convert.ToUInt32(selectedIndex), 3, 20);
+            registers[4].ChangeNBits(Convert.ToUInt32(value), 3, 20);
+            outFreqControl.SetADivVal(value);
         }
-
-        // TODO FILIP controller.Cha... -> registers
-        /*public void ChangePhaseP(decimal val)
-        {
-            registers[0]
-            registers[1].ChangePhaseP(val);
-            controller.ApplyChangeReg(1);   // TODO FILIP, kde má byt to ApplyChangeReg
-        }*/
 
         public void ChangePhaseP(decimal PhasePValue)
         {
@@ -258,17 +251,20 @@ namespace Synthesizer_PC_control.Controllers
         #region Parsing register 2
         private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
         {
-            refFreq.SetRefDoubler(Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25)));
+            bool refDoubler = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25));
+            refFreq.SetRefDoubler(refDoubler);
         }
         
         private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
         {
-            refFreq.SetRefDivBy2(Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 24)));
+            bool refDividerBy2 = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 24));
+            refFreq.SetRefDivBy2(refDividerBy2);
         }
 
         private void GetRDivValueFromRegister(UInt32 dataReg2)
         {
-            refFreq.SetRDivider((UInt16)BitOperations.GetNBits(dataReg2, 10, 14));
+            UInt16 rDiv = (UInt16)BitOperations.GetNBits(dataReg2, 10, 14);
+            refFreq.SetRDivider(rDiv);
         }
 
         private void GetCPCurrentIndexFromRegister(UInt32 dataReg2)
@@ -295,7 +291,8 @@ namespace Synthesizer_PC_control.Controllers
 
         private void GetADividerValueFromRegister(UInt32 dataReg4)
         {
-            view.ADivComboBox.SelectedIndex = (int)BitOperations.GetNBits(dataReg4, 3, 20);
+            UInt16 aDiv = (UInt16)BitOperations.GetNBits(dataReg4, 3, 20);
+            outFreqControl.SetADivVal(aDiv);
         }
         #endregion
 
@@ -375,7 +372,7 @@ namespace Synthesizer_PC_control.Controllers
 
         public void RecalcFreqInfo()
         {
-            UInt16 aDiv     = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
+            UInt16 aDiv     = outFreqControl.uint16_GetADivVal();
             UInt16 intN     = outFreqControl.uint16_GetIntNVal();
             UInt16 fracN    = outFreqControl.uint16_GetFracNVal();
             UInt16 mod      = outFreqControl.uint16_GetModVal();
@@ -460,42 +457,42 @@ namespace Synthesizer_PC_control.Controllers
 
             if (f_input >= 3000 && f_input <= 6000)
             {
-                view.ADivComboBox.SelectedIndex = 0;
+                outFreqControl.SetADivVal(0);
             }
             else if (f_input >= 1500 && f_input < 3000)
             {
-                view.ADivComboBox.SelectedIndex = 1;
+                outFreqControl.SetADivVal(1);
             }
             else if (f_input >= 750 && f_input < 1500)
             {
-                view.ADivComboBox.SelectedIndex = 2;
+                outFreqControl.SetADivVal(2);
             }
             else if (f_input >= 375 && f_input < 750)
             {
-                view.ADivComboBox.SelectedIndex = 3;
+                outFreqControl.SetADivVal(3);
             }
             else if (f_input >= 187.5M && f_input < 375)
             {
-                view.ADivComboBox.SelectedIndex = 4;
+                outFreqControl.SetADivVal(4);
             }
             else if (f_input >= 93.75M && f_input < 187.5M)
             {
-                view.ADivComboBox.SelectedIndex = 5;
+                outFreqControl.SetADivVal(5);
             }
             else if (f_input >= 46.875M && f_input < 93.75M)
             {
-                view.ADivComboBox.SelectedIndex = 6;
+                outFreqControl.SetADivVal(6);
             }
             else if (f_input >= 23.5M && f_input < 46.875M)
             {
-                view.ADivComboBox.SelectedIndex = 7;
+                outFreqControl.SetADivVal(7);
             }
             else if (f_input >= 1500 && f_input < 3000)
             {
-                view.ADivComboBox.SelectedIndex = 8;
+                outFreqControl.SetADivVal(8);
             }
 
-            UInt16 DIVA = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
+            UInt16 DIVA = outFreqControl.uint16_GetADivVal();
             decimal intN = (f_input*DIVA/(f_pfd/rDivValue));
             decimal zbytek = intN-(UInt16)intN;
 
@@ -640,12 +637,21 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
-        public void IntFracModeChanged(int value)
+        public void SynthModeChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                ChangeIntFracMode(value);
+                ChangeSynthMode(value);
                 CheckAndApplyRegChanges(2);
+            }
+        }
+
+        public void ADivValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeADiv(value);
+                CheckAndApplyRegChanges(4);
             }
         }
 

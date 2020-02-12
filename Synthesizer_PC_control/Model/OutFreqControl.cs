@@ -99,6 +99,13 @@ namespace Synthesizer_PC_control.Model
             UpdateUiElements();
         }
 
+        public void SetADivVal(UInt16 value)
+        {
+            this.aDiv = value;
+
+            UpdateUiElements();
+        }
+
         #endregion
 
         #region Getters
@@ -120,6 +127,16 @@ namespace Synthesizer_PC_control.Model
         public SynthMode GetSynthMode()
         {
             return mode;
+        }
+
+        public UInt16 uint16_GetADivVal()
+        {
+            return (UInt16)(1 << aDiv);
+        }
+
+        public UInt16 SelectedIndex_GetADivVal()
+        {
+            return aDiv;
         }
 
         #endregion
@@ -174,6 +191,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_fracN.Value = fracN;
             this.ui_mod.Value   = mod;
             this.ui_mode.SelectedIndex = (int)mode;
+            this.ui_aDiv.SelectedIndex = aDiv;
 
             isUiUpdated = true;
         }
