@@ -404,31 +404,10 @@ namespace Synthesizer_PC_control.Controllers
                 view.fVcoScreenLabel.ForeColor = System.Drawing.Color.Black;
                 outFreqControl.ChangeIntNBackColor(Color.White);
             }
-                
 
-            UInt16 f_out_A_MHz = (UInt16)(f_out_A);
-            UInt32 f_out_A_kHz = (UInt32)(f_out_A*1000);
-            UInt64 f_out_A_Hz = (UInt64)(f_out_A*1000000);
-            UInt64 f_out_A_mHz = (UInt64)(f_out_A*1000000000);
-            UInt16 thousandths = (UInt16)(f_out_A_kHz - f_out_A_MHz*1000);
-            UInt16 millionths = (UInt16)(f_out_A_Hz - (UInt64)(f_out_A_MHz)*1000000-(UInt64)(thousandths)*1000);
-            UInt16 billionths = (UInt16)(f_out_A_mHz - (UInt64)(f_out_A_Hz)*1000);
-            float bill_f = (float)((billionths)/100.0);
-            double rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
+            view.fOutAScreenLabel.Text = MyFormat.ParseFrequencyDecimalValue(f_out_A);
 
-            view.fOutAScreenLabel.Text = string.Format("{0:000},{1:000} {2:000} {3:0}", f_out_A_MHz, thousandths, millionths, rounding);
-
-            UInt16 f_vco_MHz = (UInt16)(f_vco);
-            UInt32 f_vco_kHz = (UInt32)(f_vco*1000);
-            UInt64 f_vco_Hz = (UInt64)(f_vco*1000000);
-            UInt64 f_vco_mHz = (UInt64)(f_vco*1000000000);
-            thousandths = (UInt16)(f_vco_kHz - f_vco_MHz*1000);
-            millionths = (UInt16)(f_vco_Hz - (UInt64)(f_vco_MHz)*1000000-(UInt64)(thousandths)*1000);
-            billionths = (UInt16)(f_vco_mHz - (UInt64)(f_vco_Hz)*1000);
-            bill_f = (float)((billionths)/100.0);
-            rounding  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
-
-            view.fVcoScreenLabel.Text = string.Format("{0:000},{1:000} {2:000} {3:0}", f_vco_MHz, thousandths, millionths, rounding);
+            view.fVcoScreenLabel.Text = MyFormat.ParseFrequencyDecimalValue(f_vco);
         }
 
         public void GetPfdFreq()
