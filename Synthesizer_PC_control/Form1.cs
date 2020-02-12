@@ -140,11 +140,6 @@ namespace Synthesizer_PC_control
             DeltaShowLabel.Enabled = command;
         }
 
-        private void PortButton_Click(object sender, EventArgs e)
-        {
-            controller.SwitchPort();
-        }
-
         public void ProccesReceivedData(object Object)
         {
             try
@@ -198,7 +193,7 @@ namespace Synthesizer_PC_control
             }
         }
 
-        #region Synthesizer Module part controls
+#region Synthesizer Module part controls
         private void Out1Button_Click(object sender, EventArgs e)
         {
             controller.SwitchOut1();
@@ -219,9 +214,9 @@ namespace Synthesizer_PC_control
             controller.serialPort.SendStringSerialPort("PLO init");
         }
 
-        #endregion
+#endregion
 
-        #region Registers controls group
+#region Registers controls group
         private void Reg0TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             MyFormat.CheckIfHasHexInput(e);
@@ -361,17 +356,22 @@ namespace Synthesizer_PC_control
             controller.ForceLoadAllRegsIntoPlo();
         }
 
-        #endregion
+#endregion
 
-        #region Serial Port Controls group
+#region Serial Port Controls group
         private void AvaibleCOMsComBox_DropDown(object sender, EventArgs e)
         {
             controller.serialPort.GetAvaliablePorts();
         }
 
-        #endregion
+        private void PortButton_Click(object sender, EventArgs e)
+        {
+            controller.SwitchPort();
+        }
 
-        #region Registers memory
+#endregion
+
+#region Registers memory
 
         private void LoadRegMemory_Click(object sender, EventArgs e)
         {
@@ -424,9 +424,9 @@ namespace Synthesizer_PC_control
             controller.ImportMemory(4);
         }
 
-        #endregion
+#endregion
 
-        #region Output Controls group
+#region Output Controls group
         private void RF_A_EN_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (controller.serialPort.IsPortOpen())
@@ -445,9 +445,9 @@ namespace Synthesizer_PC_control
             }
         }
 
-        #endregion
+#endregion
 
-        #region Output Frequency Controls Group
+#region Output Frequency Controls Group
         private void IntNNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             controller.IntNValueChanged((UInt16)IntNNumUpDown.Value);
@@ -511,9 +511,9 @@ namespace Synthesizer_PC_control
             MyFormat.ScrollHandlerFunction(PhasePNumericUpDown, e);
         }
 
-        #endregion
+#endregion
         
-        #region Reference frequency control group
+#region Reference frequency control group
         
         private void RefFTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -548,9 +548,9 @@ namespace Synthesizer_PC_control
             controller.ReferenceRDividerValueChanged((UInt16)RDivUpDown.Value);
         }
 
-        #endregion
+#endregion
 
-        #region Charge Pump Section
+#region Charge Pump Section
         
         private void RSetTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -588,9 +588,9 @@ namespace Synthesizer_PC_control
             }
         }
 
-        #endregion
+#endregion
         
-        #region Direct frequency controls section
+#region Direct frequency controls section
         private void InputFreqTextBox_TextChanged(object sender, EventArgs e)
         {
             MyFormat.CheckIfHasDecimalInput(RefFTextBox);
@@ -611,6 +611,6 @@ namespace Synthesizer_PC_control
 
         }
 
-        #endregion
+#endregion
     }
 }
