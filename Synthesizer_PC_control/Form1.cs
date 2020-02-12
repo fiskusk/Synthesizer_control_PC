@@ -378,11 +378,7 @@ namespace Synthesizer_PC_control
 
         private void ModNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeModValue(ModNumUpDown.Value);
-                controller.CheckAndApplyRegChanges(1);
-            }
+            controller.ModValueChanged((UInt16)ModNumUpDown.Value);
         }
 
         private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)

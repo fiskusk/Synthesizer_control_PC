@@ -126,10 +126,10 @@ namespace Synthesizer_PC_control.Controllers
             outFreqControl.SetFracNVal(value);
         }
 
-        public void ChangeModValue(decimal modValue)
+        public void ChangeModValue(UInt16 value)
         {
-            registers[1].ChangeNBits(Convert.ToUInt32(modValue), 12, 3);
-            view.FracNNumUpDown.Maximum = modValue - 1;
+            registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 3);
+            outFreqControl.SetModVal(value);
         }
 
 
@@ -244,8 +244,7 @@ namespace Synthesizer_PC_control.Controllers
         private void GetModValueFromRegister(UInt32 dataReg1)
         {
             UInt16 mod = (UInt16)BitOperations.GetNBits(dataReg1, 12, 3);
-            view.ModNumUpDown.Value = mod;
-            view.FracNNumUpDown.Maximum = mod-1;
+            outFreqControl.SetModVal(mod);
         }
 
         private void GetPhasePValueFromRegister(UInt32 dataReg1)
@@ -379,9 +378,10 @@ namespace Synthesizer_PC_control.Controllers
 
         public void RecalcFreqInfo()
         {
-            UInt16 aDiv = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
-            UInt16 intN = outFreqControl.uint16_GetIntNVal();
-            UInt16 fracN = outFreqControl.uint16_GetFracNVal();
+            UInt16 aDiv     = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
+            UInt16 intN     = outFreqControl.uint16_GetIntNVal();
+            UInt16 fracN    = outFreqControl.uint16_GetFracNVal();
+            UInt16 mod      = outFreqControl.uint16_GetModVal();
 
             decimal f_pfd = refFreq.decimal_GetPfdFreq();
 
@@ -396,7 +396,7 @@ namespace Synthesizer_PC_control.Controllers
             }
             else
             {
-                f_out_A = (f_pfd/aDiv)*(intN+(fracN/(view.ModNumUpDown.Value*1.0M)));
+                f_out_A = (f_pfd/aDiv)*(intN+(fracN/(mod*1.0M)));
             }
             f_vco = f_out_A*aDiv;
             if ((f_vco < 3000) || (f_vco > 6000))
@@ -540,7 +540,7 @@ namespace Synthesizer_PC_control.Controllers
                     pokus = new Fractions.Fraction (1, 4095);
                 }
                 view.ModeIntFracComboBox.SelectedIndex = 0;
-                view.ModNumUpDown.Value = pokus.D;
+                outFreqControl.SetModVal((UInt16)pokus.D);
                 outFreqControl.SetFracNVal((UInt16)pokus.N);
             }
             else
@@ -625,6 +625,15 @@ namespace Synthesizer_PC_control.Controllers
             {
                 ChangeFracNValue(value);
                 CheckAndApplyRegChanges(0);
+            }
+        }
+
+        public void ModValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeModValue(value);
+                CheckAndApplyRegChanges(1);
             }
         }
 

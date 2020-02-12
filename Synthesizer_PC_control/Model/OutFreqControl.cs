@@ -28,12 +28,16 @@ namespace Synthesizer_PC_control.Model
 
         public OutFreqControl(NumericUpDown ui_intN, NumericUpDown ui_fracN, NumericUpDown ui_mod, ComboBox ui_mode, ComboBox ui_aDiv, NumericUpDown ui_phaseP)
         {
-            this.ui_intN = ui_intN;
-            this.ui_fracN = ui_fracN;
-            this.ui_mod = ui_mod;
-            this.ui_mode = ui_mode;
-            this.ui_aDiv = ui_aDiv;
-            this.ui_phaseP = ui_phaseP;
+            this.ui_intN    = ui_intN;
+            this.ui_fracN   = ui_fracN;
+            this.ui_mod     = ui_mod;
+            this.ui_mode    = ui_mode;
+            this.ui_aDiv    = ui_aDiv;
+            this.ui_phaseP  = ui_phaseP;
+
+            intN    = 400;
+            fracN   = 0;
+            mod     = 125;
 
             //UpdateUiElements();
         }
@@ -71,6 +75,8 @@ namespace Synthesizer_PC_control.Model
                 value = (UInt16)ui_mod.Maximum;
 
             this.mod = value;
+
+            ui_fracN.Maximum = value - 1;
 
             UpdateUiElements();
         }
