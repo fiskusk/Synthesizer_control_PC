@@ -97,13 +97,13 @@ namespace Synthesizer_PC_control.Controllers
             else
                 registers[2].SetResetOneBit(25, BitState.RESET);
             refFreq.SetRefDoubler(IsActive);
-            outFreqControl.ChangeIntNVal(IsActive);
+            outFreqControl.RecalcRegsForNewPfdFreq(IsActive);
         }
 
         public void ChangeRefDivBy2State(bool IsActive)
         {
             refFreq.SetRefDivBy2(IsActive);
-            outFreqControl.ChangeIntNVal(!IsActive);
+            outFreqControl.RecalcRegsForNewPfdFreq(!IsActive);
             if (IsActive == true)
                 registers[2].SetResetOneBit(24, BitState.SET);
             else
@@ -133,21 +133,20 @@ namespace Synthesizer_PC_control.Controllers
         }
 
 
-        public void ChangeIntFracMode(int selectedIndex)
+        public void ChangeIntFracMode(int value)
         {
-            if (selectedIndex == 0)
+            if (value == 0)
             {
                 registers[2].SetResetOneBit(8, BitState.RESET);
                 registers[0].SetResetOneBit(31, BitState.RESET);
-                view.IntNNumUpDown.Minimum = 19;
-                view.IntNNumUpDown.Maximum = 4091;
+                outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
+                
             }
-            else if (selectedIndex == 1)
+            else if (value == 1)
             {
                 registers[2].SetResetOneBit(8, BitState.SET);
                 registers[0].SetResetOneBit(31, BitState.SET);
-                view.IntNNumUpDown.Minimum = 16;
-                view.IntNNumUpDown.Maximum = 65535;
+                outFreqControl.SetSynthMode(SynthMode.INTEGER);
             }
         }
 
@@ -213,16 +212,14 @@ namespace Synthesizer_PC_control.Controllers
         #region Parsing register 0
         private void GetFracIntModeStatusFromRegister(UInt32 dataReg0)
         {
-            view.ModeIntFracComboBox.SelectedIndex = (int)BitOperations.GetNBits(dataReg0, 1, 31);
-            if (dataReg0 == 1)
+            UInt32 value = BitOperations.GetNBits(dataReg0, 1, 31);
+            if (value == 0)
             {
-                view.IntNNumUpDown.Minimum = 16;
-                view.IntNNumUpDown.Maximum = 65535;
+                outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
             }
-            else
+            else if (value == 1)
             {
-                view.IntNNumUpDown.Minimum = 19;
-                view.IntNNumUpDown.Maximum = 4091;
+                outFreqControl.SetSynthMode(SynthMode.INTEGER);
             }
         }
 
@@ -382,6 +379,7 @@ namespace Synthesizer_PC_control.Controllers
             UInt16 intN     = outFreqControl.uint16_GetIntNVal();
             UInt16 fracN    = outFreqControl.uint16_GetFracNVal();
             UInt16 mod      = outFreqControl.uint16_GetModVal();
+            SynthMode mode  = outFreqControl.GetSynthMode();
 
             decimal f_pfd = refFreq.decimal_GetPfdFreq();
 
@@ -390,7 +388,7 @@ namespace Synthesizer_PC_control.Controllers
 
             // TODO pohlidat f_vco
 
-            if (view.ModeIntFracComboBox.SelectedIndex == 1)
+            if (mode == SynthMode.INTEGER)
             {
                 f_out_A = ((f_pfd*intN)/(aDiv));
             }
@@ -536,16 +534,16 @@ namespace Synthesizer_PC_control.Controllers
                 } while((pokus.D < 2 || pokus.D > 4095) && accuracy < 1);
                 if ((pokus.D < 2 || pokus.D > 4095))
                 {
-                    view.ModeIntFracComboBox.SelectedIndex = 0;
+                    outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
                     pokus = new Fractions.Fraction (1, 4095);
                 }
-                view.ModeIntFracComboBox.SelectedIndex = 0;
+                outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
                 outFreqControl.SetModVal((UInt16)pokus.D);
                 outFreqControl.SetFracNVal((UInt16)pokus.N);
             }
             else
             {
-                view.ModeIntFracComboBox.SelectedIndex = 1;
+                outFreqControl.SetSynthMode(SynthMode.INTEGER);
             }
             refFreq.SetRDivider(rDivValue);
             outFreqControl.SetIntNVal((UInt16)intN);
@@ -570,6 +568,7 @@ namespace Synthesizer_PC_control.Controllers
 
 #region Some other functions that I don't know where to include classify
 
+        #region Reference frequency control group 
         public void ReferenceFrequencyValueChanged(string value)
         {
             if (refFreq.IsUiUpdated())
@@ -610,6 +609,10 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        #endregion
+
+        #region Output Frequency Controls Group
+
         public void IntNValueChanged(UInt16 value)
         {
             if (serialPort.IsPortOpen())
@@ -636,6 +639,17 @@ namespace Synthesizer_PC_control.Controllers
                 CheckAndApplyRegChanges(1);
             }
         }
+
+        public void IntFracModeChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeIntFracMode(value);
+                CheckAndApplyRegChanges(2);
+            }
+        }
+
+        #endregion
 
 #endregion
 
@@ -731,7 +745,6 @@ namespace Synthesizer_PC_control.Controllers
             if (success)
             {
                 SaveWorkspaceData();
-                //view.ForceLoadRegButton_Click(this, new EventArgs()); // FIXME Not OOD
                 ForceLoadAllRegsIntoPlo();
                 bool isOpen;
                 if (serialPort.IsPortOpen())

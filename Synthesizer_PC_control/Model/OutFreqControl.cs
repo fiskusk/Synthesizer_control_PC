@@ -6,8 +6,8 @@ namespace Synthesizer_PC_control.Model
 {
     public enum SynthMode
     {
-        INTEGER,
-        FRACTIONAL
+        FRACTIONAL,
+        INTEGER
     }
     public class OutFreqControl : I_UiLinked
     {
@@ -80,6 +80,25 @@ namespace Synthesizer_PC_control.Model
 
             UpdateUiElements();
         }
+
+        public void SetSynthMode(SynthMode value)
+        {
+            if (value == SynthMode.FRACTIONAL)
+            {
+                ui_intN.Minimum = 19;
+                ui_intN.Maximum = 4091;
+            }
+            else
+            {
+                ui_intN.Minimum = 16;
+                ui_intN.Maximum = 65535;
+            }
+
+            this.mode = value;
+
+            UpdateUiElements();
+        }
+
         #endregion
 
         #region Getters
@@ -98,28 +117,39 @@ namespace Synthesizer_PC_control.Model
             return mod;
         }
 
+        public SynthMode GetSynthMode()
+        {
+            return mode;
+        }
+
         #endregion
 
-        public void ChangeIntNVal(bool value)
+        public void RecalcRegsForNewPfdFreq(bool value)
         {
             if (value == true)
             {
                 if ((intN / 2) < ui_intN.Minimum)
+                {
                     intN = (UInt16)ui_intN.Minimum;
+                    mod  = (UInt16)ui_mod.Minimum;
+                }
                 else
                 {
                     intN = (UInt16)(intN/2);
-                    // TODO double mod value to get same frequency
+                    mod  = (UInt16)(mod*2);
                 }
             }
             else
             {
                 if ((intN * 2) > ui_intN.Maximum)
+                {
                     intN = (UInt16)ui_intN.Maximum;
+                    mod  = (UInt16)ui_mod.Maximum;
+                }
                 else
                 {
                     intN = (UInt16)(intN*2);
-
+                    mod  = (UInt16)(mod/2);
                 }
             }
 
@@ -143,6 +173,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_intN.Value  = intN;
             this.ui_fracN.Value = fracN;
             this.ui_mod.Value   = mod;
+            this.ui_mode.SelectedIndex = (int)mode;
 
             isUiUpdated = true;
         }

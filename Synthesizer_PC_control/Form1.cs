@@ -359,11 +359,7 @@ namespace Synthesizer_PC_control
 
         private void ModeIntFracComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeIntFracMode(ModeIntFracComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(2);
-            }
+            controller.IntFracModeChanged(ModeIntFracComboBox.SelectedIndex);
         }
 
         private void IntNNumericUpDown_ValueChanged(object sender, EventArgs e)
