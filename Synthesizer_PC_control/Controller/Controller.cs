@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
 using Synthesizer_PC_control.Model;
 using Synthesizer_PC_control.Utilities;
@@ -25,6 +26,8 @@ namespace Synthesizer_PC_control.Controllers
 
         public RefFreq refFreq;
 
+        public OutFreqControl outFreqControl;
+
         public Controller(Form1 view)
         {
             // TODO FILIP ... Hey, try this! Hey! It works! :)
@@ -33,7 +36,8 @@ namespace Synthesizer_PC_control.Controllers
 
             this.view = view;
 
-            serialPort = new MySerialPort(view, view.PortButton, view.AvaibleCOMsComBox);
+            serialPort = new MySerialPort(view, view.PortButton, 
+                                          view.AvaibleCOMsComBox);
             serialPort.GetAvaliablePorts();
 
             var reg0 = new MyRegister(String.Empty, view.Reg0TextBox);
@@ -52,14 +56,27 @@ namespace Synthesizer_PC_control.Controllers
             var old_reg4 = new MyRegister(String.Empty);
             var old_reg5 = new MyRegister(String.Empty);
 
-            old_registers = new MyRegister[] {old_reg0, old_reg1, old_reg2, old_reg3, old_reg4, old_reg5};
+            old_registers = new MyRegister[] {old_reg0, old_reg1, old_reg2, 
+                                              old_reg3, old_reg4, old_reg5};
 
             memory = new Memory(this.view);
 
-            moduleControls = new ModuleControls(view.Out1Button, view.Out2Button, view.RefButton);
+            moduleControls = new ModuleControls(view.Out1Button,
+                                                view.Out2Button,
+                                                view.RefButton);
 
             refFreq = new RefFreq(view.RefFTextBox,
-                view.RefDoublerCheckBox, view.DivideBy2CheckBox, view.RDivUpDown, view.pfdFreqLabel);
+                                  view.RefDoublerCheckBox, 
+                                  view.DivideBy2CheckBox, 
+                                  view.RDivUpDown, 
+                                  view.pfdFreqLabel);
+
+            outFreqControl = new OutFreqControl(view.IntNNumUpDown,
+                                                view.FracNNumUpDown,
+                                                view.ModNumUpDown,
+                                                view.ModeIntFracComboBox,
+                                                view.ADivComboBox,
+                                                view.PhasePNumericUpDown);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -69,59 +86,38 @@ namespace Synthesizer_PC_control.Controllers
         #region Reference Frequency Part
         public void ChangeRDiv(UInt16 value)
         {
-            refFreq.SetRDivider(value);
             registers[2].ChangeNBits(Convert.ToUInt32(value), 10, 14);
+            refFreq.SetRDivider(value);
         }
 
         public void ChangeRefDoubler(bool IsActive)
         {
-            refFreq.SetRefDoubler(IsActive);
             if (IsActive == true)
-            {
                 registers[2].SetResetOneBit(25, BitState.SET);
-                if ((view.IntNNumUpDown.Value / 2) < view.IntNNumUpDown.Minimum)
-                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Minimum;
-                else
-                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Value/2;
-            }
             else
-            {
                 registers[2].SetResetOneBit(25, BitState.RESET);
-                if ((view.IntNNumUpDown.Value * 2) > view.IntNNumUpDown.Maximum)
-                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Maximum;
-                else
-                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Value*2;
-            }
+            refFreq.SetRefDoubler(IsActive);
+            outFreqControl.ChangeIntNVal(IsActive);
         }
 
         public void ChangeRefDivBy2State(bool IsActive)
         {
             refFreq.SetRefDivBy2(IsActive);
+            outFreqControl.ChangeIntNVal(!IsActive);
             if (IsActive == true)
-            {
                 registers[2].SetResetOneBit(24, BitState.SET);
-                if ((view.IntNNumUpDown.Value * 2) > view.IntNNumUpDown.Maximum)
-                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Maximum;
-                else
-                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Value*2;
-            }
             else
-            {
                 registers[2].SetResetOneBit(24, BitState.RESET);
-                if ((view.IntNNumUpDown.Value / 2) < view.IntNNumUpDown.Minimum)
-                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Minimum;
-                else
-                    view.IntNNumUpDown.Value = view.IntNNumUpDown.Value/2;
-            }
         }
 
         #endregion
         
         #region Output Frequency Control Part
         // Zapise a prevede hodnotu IntN do Reg0
-        public void ChangeIntNValue(decimal intNValue)
+        public void ChangeIntNValue(UInt16 value)
         {
-            registers[0].ChangeNBits(Convert.ToUInt32(intNValue), 16, 15);
+            registers[0].ChangeNBits(Convert.ToUInt32(value), 16, 15);
+            outFreqControl.SetIntNVal(value);
         }
 
         public void ChangeFracNValue(decimal fracNNumValue)
@@ -232,13 +228,7 @@ namespace Synthesizer_PC_control.Controllers
         private void GetIntNValueFromRegister(UInt32 dataReg0)
         {
             UInt16 IntN = (UInt16)BitOperations.GetNBits(dataReg0, 16, 15);
-
-            if (IntN < view.IntNNumUpDown.Minimum)
-                IntN = Convert.ToUInt16(view.IntNNumUpDown.Minimum);
-            else if (IntN > view.IntNNumUpDown.Maximum)
-                IntN = Convert.ToUInt16(view.IntNNumUpDown.Maximum);
-
-            view.IntNNumUpDown.Value = IntN;
+            outFreqControl.SetIntNVal(IntN);
         }
 
         private void GetFracNValueFromRegister(UInt32 dataReg0)
@@ -387,7 +377,8 @@ namespace Synthesizer_PC_control.Controllers
 
         public void RecalcFreqInfo()
         {
-            UInt16 DIVA = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
+            UInt16 aDiv = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
+            UInt16 intN = outFreqControl.uint16_GetIntNVal();
 
             decimal f_pfd = refFreq.decimal_GetPfdFreq();
 
@@ -398,22 +389,22 @@ namespace Synthesizer_PC_control.Controllers
 
             if (view.ModeIntFracComboBox.SelectedIndex == 1)
             {
-                f_out_A = ((f_pfd*view.IntNNumUpDown.Value)/(DIVA));
+                f_out_A = ((f_pfd*intN)/(aDiv));
             }
             else
             {
-                f_out_A = (f_pfd/DIVA)*(view.IntNNumUpDown.Value+(view.FracNNumUpDown.Value/(view.ModNumUpDown.Value*1.0M)));
+                f_out_A = (f_pfd/aDiv)*(intN+(view.FracNNumUpDown.Value/(view.ModNumUpDown.Value*1.0M)));
             }
-            f_vco = f_out_A*DIVA;
+            f_vco = f_out_A*aDiv;
             if ((f_vco < 3000) || (f_vco > 6000))
             {
                 view.fVcoScreenLabel.ForeColor = System.Drawing.Color.Red;
-                view.IntNNumUpDown.BackColor = System.Drawing.Color.Red;
+                outFreqControl.ChangeIntNBackColor(Color.Red);
             }
             else
             {
                 view.fVcoScreenLabel.ForeColor = System.Drawing.Color.Black;
-                view.IntNNumUpDown.BackColor = System.Drawing.Color.White;
+                outFreqControl.ChangeIntNBackColor(Color.White);
             }
                 
 
@@ -504,8 +495,8 @@ namespace Synthesizer_PC_control.Controllers
             }
 
             UInt16 DIVA = (UInt16)(1 << view.ADivComboBox.SelectedIndex);
-            decimal IntN = (f_input*DIVA/(f_ref/rDivValue));
-            decimal zbytek = IntN-(UInt16)IntN;
+            decimal intN = (f_input*DIVA/(f_ref/rDivValue));
+            decimal zbytek = intN-(UInt16)intN;
 
             if (zbytek>0)
             {
@@ -529,14 +520,14 @@ namespace Synthesizer_PC_control.Controllers
                     {
 
                         rDivValue++;
-                        IntN = (f_input*DIVA/(f_ref/rDivValue));
-                        zbytek = IntN-(UInt16)IntN;
-                        if (IntN > 4091)
+                        intN = (f_input*DIVA/(f_ref/rDivValue));
+                        zbytek = intN-(UInt16)intN;
+                        if (intN > 4091)
                         {
                             correction = correction * 10;
                             rDivValue--;
-                            IntN = (f_input*DIVA/(f_ref/rDivValue));
-                            zbytek = IntN-(UInt16)IntN;
+                            intN = (f_input*DIVA/(f_ref/rDivValue));
+                            zbytek = intN-(UInt16)intN;
                         }
                     }
                 } while((pokus.D < 2 || pokus.D > 4095) && accuracy < 1);
@@ -554,7 +545,7 @@ namespace Synthesizer_PC_control.Controllers
                 view.ModeIntFracComboBox.SelectedIndex = 1;
             }
             refFreq.SetRDivider(rDivValue);
-            view.IntNNumUpDown.Value = (UInt16)IntN;
+            outFreqControl.SetIntNVal((UInt16)intN);
 
             string f_outA_string = view.fOutAScreenLabel.Text;
             f_outA_string = f_outA_string.Replace(" ", string.Empty);
@@ -576,7 +567,7 @@ namespace Synthesizer_PC_control.Controllers
 
 #region Some other functions that I don't know where to include classify
 
-        public void ReferenceFrequencyValueWasChanged(string value)
+        public void ReferenceFrequencyValueChanged(string value)
         {
             if (refFreq.IsUiUpdated())
             {
@@ -586,7 +577,7 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
-        public void ReferenceDoublerStateWasChanged(bool value)
+        public void ReferenceDoublerStateChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
@@ -596,7 +587,7 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
-        public void ReferenceDivBy2StateWasChanged(bool value)
+        public void ReferenceDivBy2StateChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
@@ -613,6 +604,15 @@ namespace Synthesizer_PC_control.Controllers
                 ChangeRDiv(value);
                 GetPfdFreq();
                 CheckAndApplyRegChanges(2);
+            }
+        }
+
+        public void IntNValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeIntNValue(value);
+                CheckAndApplyRegChanges(0);
             }
         }
 

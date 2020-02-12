@@ -368,11 +368,7 @@ namespace Synthesizer_PC_control
 
         private void IntNNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeIntNValue(IntNNumUpDown.Value);
-                controller.CheckAndApplyRegChanges(0);
-            }
+            controller.IntNValueChanged((UInt16)IntNNumUpDown.Value);
         }
 
         private void FracNNumUpDown_ValueChanged(object sender, EventArgs e)
@@ -395,12 +391,12 @@ namespace Synthesizer_PC_control
 
         private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.ReferenceDoublerStateWasChanged(RefDoublerCheckBox.Checked);
+            controller.ReferenceDoublerStateChanged(RefDoublerCheckBox.Checked);
         }
 
         private void DivideBy2CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.ReferenceDivBy2StateWasChanged(DivideBy2CheckBox.Checked);
+            controller.ReferenceDivBy2StateChanged(DivideBy2CheckBox.Checked);
         }
 
         private void RDivUpDown_ValueChanged(object sender, EventArgs e)
@@ -478,7 +474,7 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                controller.ReferenceFrequencyValueWasChanged(RefFTextBox.Text);
+                controller.ReferenceFrequencyValueChanged(RefFTextBox.Text);
             }
         }
 
