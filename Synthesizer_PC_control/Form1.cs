@@ -56,6 +56,11 @@ namespace Synthesizer_PC_control
         {
             
         }
+        
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            controller.SaveWorkspaceData();
+        }
 
         public void EnableControls(bool command)
         {
@@ -193,7 +198,7 @@ namespace Synthesizer_PC_control
             }
         }
 
-        // TODO FILIP_NOW out1 Butt as switch (inpiruj se comportem)
+        #region Synthesizer Module part controls
         private void Out1Button_Click(object sender, EventArgs e)
         {
             controller.SwitchOut1();
@@ -214,6 +219,9 @@ namespace Synthesizer_PC_control
             controller.serialPort.SendStringSerialPort("PLO init");
         }
 
+        #endregion
+
+        #region Registers controls group
         private void Reg0TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             MyFormat.CheckIfHasHexInput(e);
@@ -268,214 +276,6 @@ namespace Synthesizer_PC_control
             }
         }
 
-        private void CheckAndApllyChangesForm1_Click(object sender, EventArgs e)
-        {
-            Reg0Label.Focus();
-        }
-
-        private void SetAsDefaultRegButton_Click(object sender, EventArgs e)
-        {
-            controller.SaveDefRegsData();
-        }
-
-        private void LoadDefRegButton_Click(object sender, EventArgs e)
-        {
-            controller.LoadDefRegsData();
-        }
-
-        public void ForceLoadRegButton_Click(object sender, EventArgs e)
-        {
-            controller.ForceLoadAllRegsIntoPlo();
-        }
-
-        private void AvaibleCOMsComBox_DropDown(object sender, EventArgs e)
-        {
-            controller.serialPort.GetAvaliablePorts();
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            controller.SaveWorkspaceData();
-        }
-
-        private void WriteR0Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(0, Reg0TextBox.Text);
-        }
-
-        private void WriteR1Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(1, Reg1TextBox.Text);
-        }
-
-        private void WriteR2Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(2, Reg2TextBox.Text);
-        }
-
-        private void WriteR3Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(3, Reg3TextBox.Text);
-        }
-
-        private void WriteR4Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(4, Reg4TextBox.Text);
-        }
-
-        private void WriteR5Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(5, Reg5TextBox.Text);
-        }
-
-        private void LoadRegMemory_Click(object sender, EventArgs e)
-        {
-            controller.LoadRegsFromPloMemory();
-        }
-
-        private void SaveRegMemory_Click(object sender, EventArgs e)
-        {
-
-            controller.SaveRegsIntoPloMemory();
-        }
-
-        private void RF_A_EN_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeOutAEn(RF_A_EN_ComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(4);
-            }
-        }
-
-        private void RF_A_PWR_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeOutAPwr(RF_A_PWR_ComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(4);
-            }
-        }
-
-        private void ModeIntFracComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            controller.IntFracModeChanged(ModeIntFracComboBox.SelectedIndex);
-        }
-
-        private void IntNNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            controller.IntNValueChanged((UInt16)IntNNumUpDown.Value);
-        }
-
-        private void FracNNumUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            controller.FracNValueChanged((UInt16)FracNNumUpDown.Value);
-        }
-
-        private void ModNumUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            controller.ModValueChanged((UInt16)ModNumUpDown.Value);
-        }
-
-        private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            controller.ReferenceDoublerStateChanged(RefDoublerCheckBox.Checked);
-        }
-
-        private void DivideBy2CheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            controller.ReferenceDivBy2StateChanged(DivideBy2CheckBox.Checked);
-        }
-
-        private void RDivUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            controller.ReferenceRDividerValueChanged((UInt16)RDivUpDown.Value);
-        }
-
-        private void ADivComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeADiv(ADivComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(4);
-            }
-        }
-
-        private void PhasePNumUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if(controller.serialPort.IsPortOpen())
-            {
-                controller.ChangePhaseP(PhasePNumericUpDown.Value);
-                controller.CheckAndApplyRegChanges(1);
-            }
-        }
-
-        private void CPCurrentComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeCPCurrent(CPCurrentComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(2);
-            }
-        }
-
-        private void CPLinearityComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeCPLinearity(CPLinearityComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(1);
-            }
-        }
-
-        private void InputFreqTextBox_TextChanged(object sender, EventArgs e)
-        {
-            MyFormat.CheckIfHasDecimalInput(RefFTextBox);
-        }
-
-        private void FracNScrollHandlerFunction(object sender, MouseEventArgs e)
-        {
-            MyFormat.ScrollHandlerFunction(FracNNumUpDown, e);
-        }
-
-        private void IntNScrollHandlerFunction(object sender, MouseEventArgs e)
-        {
-            MyFormat.ScrollHandlerFunction(IntNNumUpDown, e);
-        }
-
-        private void ModScrollHandlerFunction(object sender, MouseEventArgs e)
-        {
-            MyFormat.ScrollHandlerFunction(ModNumUpDown, e);
-        }
-
-        private void RDivScrollHandlerFunction(object sender, MouseEventArgs e)
-        {
-            MyFormat.ScrollHandlerFunction(RDivUpDown, e);
-        }
-
-        private void PhasePScrollHandlerFunction(object sender, MouseEventArgs e)
-        {
-            MyFormat.ScrollHandlerFunction(PhasePNumericUpDown, e);
-        }
-
-        private void RefFTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                controller.ReferenceFrequencyValueChanged(RefFTextBox.Text);
-            }
-        }
-
-        private void RefFTextBox_LostFocus(object sender, EventArgs e)
-        {
-            //controller.ReferenceFrequencyValueWasChanged(RefFTextBox.Text);
-        }
-
-        private void RefFTextBox_TextChanged(object sender, EventArgs e)
-        {
-            MyFormat.CheckIfHasDecimalInput(RefFTextBox);
-        }
-
         private void Reg0TextBox_LostFocus(object sender, EventArgs e)
         {
             controller.CheckAndApplyRegChanges(0, Reg0TextBox.Text);
@@ -511,37 +311,77 @@ namespace Synthesizer_PC_control
             Reg0Label.Focus();
         }
 
-        private void RSetTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void WriteR0Button_Click(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                RSetTextBox_LostFocus(sender, e);
-            }
+            controller.CheckAndApplyRegChanges(0, Reg0TextBox.Text);
         }
 
-        private void RSetTextBox_LostFocus(object sender, EventArgs e)
+        private void WriteR1Button_Click(object sender, EventArgs e)
         {
-            controller.GetCPCurrentFromTextBox();
+            controller.CheckAndApplyRegChanges(1, Reg1TextBox.Text);
         }
 
-        private void RSetTextBox_TextChanged(object sender, EventArgs e)
+        private void WriteR2Button_Click(object sender, EventArgs e)
         {
-            MyFormat.CheckIfHasIntegerInput(RSetTextBox);
+            controller.CheckAndApplyRegChanges(2, Reg2TextBox.Text);
         }
 
-        private void InputFreqTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void WriteR3Button_Click(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-               controller.CalcSynthesizerRegValuesFromInpFreq();
-            }
+            controller.CheckAndApplyRegChanges(3, Reg3TextBox.Text);
         }
 
-        private void InputFreqHandlerFunction(object sender, MouseEventArgs e)
+        private void WriteR4Button_Click(object sender, EventArgs e)
         {
-            MyFormat.ScrollByPositionOfCursor(InputFreqTextBox, e);
-            controller.CalcSynthesizerRegValuesFromInpFreq();
+            controller.CheckAndApplyRegChanges(4, Reg4TextBox.Text);
+        }
 
+        private void WriteR5Button_Click(object sender, EventArgs e)
+        {
+            controller.CheckAndApplyRegChanges(5, Reg5TextBox.Text);
+        }
+
+        private void CheckAndApllyChangesForm1_Click(object sender, EventArgs e)
+        {
+            Reg0Label.Focus();  // TODO pohlídat, k cemu toto sakra je
+        }
+
+        private void SetAsDefaultRegButton_Click(object sender, EventArgs e)
+        {
+            controller.SaveDefRegsData();
+        }
+
+        private void LoadDefRegButton_Click(object sender, EventArgs e)
+        {
+            controller.LoadDefRegsData();
+        }
+
+        public void ForceLoadRegButton_Click(object sender, EventArgs e)
+        {
+            controller.ForceLoadAllRegsIntoPlo();
+        }
+
+        #endregion
+
+        #region Serial Port Controls group
+        private void AvaibleCOMsComBox_DropDown(object sender, EventArgs e)
+        {
+            controller.serialPort.GetAvaliablePorts();
+        }
+
+        #endregion
+
+        #region Registers memory
+
+        private void LoadRegMemory_Click(object sender, EventArgs e)
+        {
+            controller.LoadRegsFromPloMemory();
+        }
+
+        private void SaveRegMemory_Click(object sender, EventArgs e)
+        {
+
+            controller.SaveRegsIntoPloMemory();
         }
 
         private void MoveRegsIntoMem1Button_Click(object sender, EventArgs e)
@@ -583,5 +423,194 @@ namespace Synthesizer_PC_control
         {
             controller.ImportMemory(4);
         }
+
+        #endregion
+
+        #region Output Controls group
+        private void RF_A_EN_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (controller.serialPort.IsPortOpen())
+            {
+                controller.ChangeOutAEn(RF_A_EN_ComboBox.SelectedIndex);
+                controller.CheckAndApplyRegChanges(4);
+            }
+        }
+
+        private void RF_A_PWR_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (controller.serialPort.IsPortOpen())
+            {
+                controller.ChangeOutAPwr(RF_A_PWR_ComboBox.SelectedIndex);
+                controller.CheckAndApplyRegChanges(4);
+            }
+        }
+
+        #endregion
+
+        #region Output Frequency Controls Group
+        private void IntNNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            controller.IntNValueChanged((UInt16)IntNNumUpDown.Value);
+        }
+
+        private void FracNNumUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            controller.FracNValueChanged((UInt16)FracNNumUpDown.Value);
+        }
+
+        private void ModNumUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            controller.ModValueChanged((UInt16)ModNumUpDown.Value);
+        }
+
+        private void ModeIntFracComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.IntFracModeChanged(ModeIntFracComboBox.SelectedIndex);
+        }
+        
+        private void ADivComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (controller.serialPort.IsPortOpen())
+            {
+                controller.ChangeADiv(ADivComboBox.SelectedIndex);
+                controller.CheckAndApplyRegChanges(4);
+            }
+        }
+
+        private void PhasePNumUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if(controller.serialPort.IsPortOpen())
+            {
+                controller.ChangePhaseP(PhasePNumericUpDown.Value);
+                controller.CheckAndApplyRegChanges(1);
+            }
+        }
+
+        private void FracNScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            MyFormat.ScrollHandlerFunction(FracNNumUpDown, e);
+        }
+
+        private void IntNScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            MyFormat.ScrollHandlerFunction(IntNNumUpDown, e);
+        }
+
+        private void ModScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            MyFormat.ScrollHandlerFunction(ModNumUpDown, e);
+        }
+
+        private void RDivScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            MyFormat.ScrollHandlerFunction(RDivUpDown, e);
+        }
+
+        private void PhasePScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            MyFormat.ScrollHandlerFunction(PhasePNumericUpDown, e);
+        }
+
+        #endregion
+        
+        #region Reference frequency control group
+        
+        private void RefFTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                controller.ReferenceFrequencyValueChanged(RefFTextBox.Text);
+            }
+        }
+
+        private void RefFTextBox_LostFocus(object sender, EventArgs e)
+        {
+            //controller.ReferenceFrequencyValueWasChanged(RefFTextBox.Text);
+        }
+
+        private void RefFTextBox_TextChanged(object sender, EventArgs e)
+        {
+            MyFormat.CheckIfHasDecimalInput(RefFTextBox);
+        }
+
+        private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.ReferenceDoublerStateChanged(RefDoublerCheckBox.Checked);
+        }
+
+        private void DivideBy2CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.ReferenceDivBy2StateChanged(DivideBy2CheckBox.Checked);
+        }
+
+        private void RDivUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            controller.ReferenceRDividerValueChanged((UInt16)RDivUpDown.Value);
+        }
+
+        #endregion
+
+        #region Charge Pump Section
+        
+        private void RSetTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                RSetTextBox_LostFocus(sender, e);
+            }
+        }
+
+        private void RSetTextBox_LostFocus(object sender, EventArgs e)
+        {
+            controller.GetCPCurrentFromTextBox();
+        }
+
+        private void RSetTextBox_TextChanged(object sender, EventArgs e)
+        {
+            MyFormat.CheckIfHasIntegerInput(RSetTextBox);
+        }
+
+        private void CPCurrentComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(controller.serialPort.IsPortOpen())
+            {
+                controller.ChangeCPCurrent(CPCurrentComboBox.SelectedIndex);
+                controller.CheckAndApplyRegChanges(2);
+            }
+        }
+
+        private void CPLinearityComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(controller.serialPort.IsPortOpen())
+            {
+                controller.ChangeCPLinearity(CPLinearityComboBox.SelectedIndex);
+                controller.CheckAndApplyRegChanges(1);
+            }
+        }
+
+        #endregion
+        
+        #region Direct frequency controls section
+        private void InputFreqTextBox_TextChanged(object sender, EventArgs e)
+        {
+            MyFormat.CheckIfHasDecimalInput(RefFTextBox);
+        }
+
+        private void InputFreqTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+               controller.CalcSynthesizerRegValuesFromInpFreq();
+            }
+        }
+
+        private void InputFreqHandlerFunction(object sender, MouseEventArgs e)
+        {
+            MyFormat.ScrollByPositionOfCursor(InputFreqTextBox, e);
+            controller.CalcSynthesizerRegValuesFromInpFreq();
+
+        }
+
+        #endregion
     }
 }
