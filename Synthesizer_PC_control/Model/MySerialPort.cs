@@ -15,6 +15,7 @@ namespace Synthesizer_PC_control.Model
     { 
         private SerialPort port; 
         private string[] avaliablePorts; 
+        private string selectedPort;
  
         //private readonly Control delegateHandle; 
         private readonly Form1 viewHandle; 
@@ -36,14 +37,26 @@ namespace Synthesizer_PC_control.Model
             dontRunHandler = false; 
  
             UpdateUiElements(); 
-        } 
+        }
+
+        public void SetSelectedPort(string value)
+        {
+            this.selectedPort = value;
+
+            UpdateUiElements();
+        }
+
+        public string GetSelectedPort()
+        {
+            return selectedPort;
+        }
  
-        public bool OpenPort(string portName) 
+        public bool OpenPort() 
         { 
             try 
             { 
-                //port = new SerialPort(AvaibleCOMsComBox.Text, 115200); 
-                port = new SerialPort(portName, 115200); 
+                //port = new SerialPort(AvaibleCOMsComBox.Text, 115200);
+                port = new SerialPort(selectedPort, 115200); 
                 port.DtrEnable = true; 
                 port.ReadTimeout = 500; 
                 port.WriteTimeout = 500; 
@@ -151,6 +164,8 @@ namespace Synthesizer_PC_control.Model
             
             if (!GeneralUtilities.CompareStringArrays((string[])ui_avaliablePorts.DataSource, avaliablePorts))
                 ui_avaliablePorts.DataSource = avaliablePorts;
+
+            ui_avaliablePorts.Text = selectedPort;
         } 
     } 
 } 

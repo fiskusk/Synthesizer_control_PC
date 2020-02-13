@@ -310,34 +310,37 @@ namespace Synthesizer_PC_control.Controllers
         #region Collection function
         public void GetAllFromReg(int index)
         {
-            UInt32 reg = registers[index].uint32_GetValue();
-            switch (index)
+            if (serialPort.IsPortOpen())
             {
-                case 0:
-                    GetFracIntModeStatusFromRegister(reg);
-                    GetIntNValueFromRegister(reg);
-                    GetFracNValueFromRegister(reg);
-                    break;
-                case 1:
-                    GetModValueFromRegister(reg);
-                    GetPhasePValueFromRegister(reg);
-                    GetCPLinearityFromRegister(reg);
-                    break;
-                case 2:
-                    GetRefDoublerStatusFromRegister(reg);
-                    GetRefDividerStatusFromRegister(reg);
-                    GetRDivValueFromRegister(reg);
-                    GetCPCurrentIndexFromRegister(reg);
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    GetOutAENStatusFromRegister(reg);
-                    GetOutAPwrStatusFromRegister(reg);
-                    GetADividerValueFromRegister(reg);
-                    break;
-                case 5:
-                    break;
+                UInt32 reg = registers[index].uint32_GetValue();
+                switch (index)
+                {
+                    case 0:
+                        GetFracIntModeStatusFromRegister(reg);
+                        GetIntNValueFromRegister(reg);
+                        GetFracNValueFromRegister(reg);
+                        break;
+                    case 1:
+                        GetModValueFromRegister(reg);
+                        GetPhasePValueFromRegister(reg);
+                        GetCPLinearityFromRegister(reg);
+                        break;
+                    case 2:
+                        GetRefDoublerStatusFromRegister(reg);
+                        GetRefDividerStatusFromRegister(reg);
+                        GetRDivValueFromRegister(reg);
+                        GetCPCurrentIndexFromRegister(reg);
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        GetOutAENStatusFromRegister(reg);
+                        GetOutAPwrStatusFromRegister(reg);
+                        GetADividerValueFromRegister(reg);
+                        break;
+                    case 5:
+                        break;
+                }
             }
         }
 
@@ -541,6 +544,12 @@ namespace Synthesizer_PC_control.Controllers
 #endregion
 
 #region Some other functions that I don't know where to include classify
+        #region Serial port group
+        public void SelectedSerialPortChanged(string value)
+        {
+            serialPort.SetSelectedPort(value);
+        }
+        #endregion
 
         #region Reference frequency control group 
         public void ReferenceFrequencyValueChanged(string value)
@@ -652,6 +661,8 @@ namespace Synthesizer_PC_control.Controllers
             for (int i = 5; i >= 0; i--)
             {
                 ApplyChangeReg(i);
+                if (!serialPort.IsPortOpen())
+                    return;
             }
 
             GetAllFromRegisters();
@@ -716,35 +727,35 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
-        public void SwitchPort()
+        public bool SwitchPort()
         {
             if(serialPort.IsPortOpen())
             {
                 serialPort.ClosePort();
                 SaveWorkspaceData();
-                view.EnableControls(false);
+                return false;
             }
             else
             {
-                view.EnableControls( OpenPort() );
+                return OpenPort();
             }
         }
 
         private bool OpenPort()
         {
-            bool success = serialPort.OpenPort(view.AvaibleCOMsComBox.Text);
+            bool success = serialPort.OpenPort();
 
             if (success)
             {
-                SaveWorkspaceData();
                 ForceLoadAllRegsIntoPlo();
-                bool isOpen;
                 if (serialPort.IsPortOpen())
-                    isOpen = true;
+                {
+                    success = true;
+                    SaveWorkspaceData();
+                }
                 else
-                    isOpen = false;
-                view.EnableControls(isOpen);
-                return isOpen;
+                    success = false;
+                return success;
             }
             else
             {
@@ -813,7 +824,6 @@ namespace Synthesizer_PC_control.Controllers
                 string text = "Workspace data succesfuly loaded.";
                 ConsoleController.Console().Write(text);
 
-                view.AvaibleCOMsComBox.Text = loadedData.COM_port;
                 LoadWorkspaceDataFromFile(loadedData);
             }
             else
@@ -854,6 +864,8 @@ namespace Synthesizer_PC_control.Controllers
 
             refFreq.SetRefFreqValue(data.ReferenceFrequency);
 
+            serialPort.SetSelectedPort(data.COM_port);
+
             moduleControls.SetOut1(data.Out1En);
             moduleControls.SetOut2(data.Out2En);
             moduleControls.SetIntRef(data.IntRef);
@@ -885,7 +897,7 @@ namespace Synthesizer_PC_control.Controllers
                 Mem2 = new List<string>{},
                 Mem3 = new List<string>{},
                 Mem4 = new List<string>{},
-                COM_port = view.AvaibleCOMsComBox.Text
+                COM_port = serialPort.GetSelectedPort()
             };
 
             for (int i = 0; i < 7; i++)
@@ -981,41 +993,43 @@ namespace Synthesizer_PC_control.Controllers
             }
             GetAllFromRegisters();
             GetAllFromControllReg(memoryNumber);
-
         }
         public void GetAllFromControllReg(int memoryNumber)
         {
-            if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 0) == 1)
+            if (serialPort.IsPortOpen())
             {
-                moduleControls.SetOut1(true);
-                serialPort.SendStringSerialPort("out 1 on");
-            }
-            else
-            {
-                moduleControls.SetOut1(false);
-                serialPort.SendStringSerialPort("out 1 off");
-            }
-            
-            if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 1) == 1)
-            {
-                moduleControls.SetOut2(true);
-                serialPort.SendStringSerialPort("out 2 on");
-            }
-            else
-            {
-                moduleControls.SetOut2(false);
-                serialPort.SendStringSerialPort("out 2 off");
-            }
-            
-            if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 2) == 0)
-            {
-                moduleControls.SetIntRef(true);
-                serialPort.SendStringSerialPort("ref int");
-            }
-            else
-            {
-                moduleControls.SetIntRef(false);
-                serialPort.SendStringSerialPort("ref ext");
+                if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 0) == 1)
+                {
+                    moduleControls.SetOut1(true);
+                    serialPort.SendStringSerialPort("out 1 on");
+                }
+                else
+                {
+                    moduleControls.SetOut1(false);
+                    serialPort.SendStringSerialPort("out 1 off");
+                }
+                
+                if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 1) == 1)
+                {
+                    moduleControls.SetOut2(true);
+                    serialPort.SendStringSerialPort("out 2 on");
+                }
+                else
+                {
+                    moduleControls.SetOut2(false);
+                    serialPort.SendStringSerialPort("out 2 off");
+                }
+                
+                if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 2) == 0)
+                {
+                    moduleControls.SetIntRef(true);
+                    serialPort.SendStringSerialPort("ref int");
+                }
+                else
+                {
+                    moduleControls.SetIntRef(false);
+                    serialPort.SendStringSerialPort("ref ext");
+                }
             }
         }
 

@@ -40,13 +40,17 @@ namespace Synthesizer_PC_control
         {
         //private MyRegister[] registers;
         private Controller controller;
+        private bool isForm1Load;
 
         public Form1()
         {
+            isForm1Load = false;
             InitializeComponent();
             this.Load += Form1_Load;
         
             controller = new Controller(this);
+
+            isForm1Load = true;
 
             EnableControls(false);
             controller.LoadSavedWorkspaceData();
@@ -364,9 +368,15 @@ namespace Synthesizer_PC_control
             controller.serialPort.GetAvaliablePorts();
         }
 
+        private void AvaibleCOMsComBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isForm1Load == true)
+                controller.SelectedSerialPortChanged(AvaibleCOMsComBox.Text);
+        }
+
         private void PortButton_Click(object sender, EventArgs e)
         {
-            controller.SwitchPort();
+            EnableControls(controller.SwitchPort());
         }
 
 #endregion

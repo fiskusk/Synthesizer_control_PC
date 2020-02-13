@@ -428,6 +428,8 @@ namespace Synthesizer_PC_control
             this.AvaibleCOMsComBox.Size = new System.Drawing.Size(87, 24);
             this.AvaibleCOMsComBox.TabIndex = 10;
             this.AvaibleCOMsComBox.DropDown += new System.EventHandler(this.AvaibleCOMsComBox_DropDown);
+            this.AvaibleCOMsComBox.SelectedIndexChanged += new System.EventHandler(this.AvaibleCOMsComBox_SelectedIndexChanged);
+
             // 
             // WriteR0Button
             // 
