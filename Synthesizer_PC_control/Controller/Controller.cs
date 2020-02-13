@@ -156,9 +156,10 @@ namespace Synthesizer_PC_control.Controllers
             outFreqControl.SetADivVal(value);
         }
 
-        public void ChangePhaseP(decimal PhasePValue)
+        public void ChangePhaseP(UInt16 value)
         {
-            registers[1].ChangeNBits(Convert.ToUInt32(PhasePValue), 12, 15);
+            registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 15);
+            outFreqControl.SetPPhaseVal(value);
         }
 
         #endregion
@@ -239,7 +240,8 @@ namespace Synthesizer_PC_control.Controllers
 
         private void GetPhasePValueFromRegister(UInt32 dataReg1)
         {
-            view.PhasePNumericUpDown.Value = (UInt16)BitOperations.GetNBits(dataReg1, 12, 15);
+            UInt16 phaseP = (UInt16)BitOperations.GetNBits(dataReg1, 12, 15);
+            outFreqControl.SetPPhaseVal(phaseP);
         }
 
         private void GetCPLinearityFromRegister(UInt32 dataReg1)
@@ -631,6 +633,15 @@ namespace Synthesizer_PC_control.Controllers
             {
                 ChangeADiv(value);
                 CheckAndApplyRegChanges(4);
+            }
+        }
+
+        public void PhasePValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangePhaseP(value);
+                CheckAndApplyRegChanges(1);
             }
         }
 

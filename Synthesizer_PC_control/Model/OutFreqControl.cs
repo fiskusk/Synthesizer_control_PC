@@ -106,6 +106,18 @@ namespace Synthesizer_PC_control.Model
             UpdateUiElements();
         }
 
+        public void SetPPhaseVal(UInt16 value)
+        {
+            if (value < ui_phaseP.Minimum)
+                value = (UInt16)ui_phaseP.Minimum;
+            else if (value > ui_phaseP.Maximum)
+                value = (UInt16)ui_phaseP.Maximum;
+
+            this.phaseP = value;
+
+            UpdateUiElements();
+        }
+
         #endregion
 
         #region Getters
@@ -137,6 +149,11 @@ namespace Synthesizer_PC_control.Model
         public UInt16 SelectedIndex_GetADivVal()
         {
             return aDiv;
+        }
+
+        public UInt16 uint16_GetPhasePVal()
+        {
+            return phaseP;
         }
 
         #endregion
@@ -192,6 +209,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_mod.Value   = mod;
             this.ui_mode.SelectedIndex = (int)mode;
             this.ui_aDiv.SelectedIndex = aDiv;
+            this.ui_phaseP.Value = phaseP;
 
             isUiUpdated = true;
         }

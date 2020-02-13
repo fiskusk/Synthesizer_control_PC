@@ -475,11 +475,7 @@ namespace Synthesizer_PC_control
 
         private void PhasePNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if(controller.serialPort.IsPortOpen())
-            {
-                controller.ChangePhaseP(PhasePNumericUpDown.Value);
-                controller.CheckAndApplyRegChanges(1);
-            }
+            controller.PhasePValueChanged((UInt16)PhasePNumericUpDown.Value);
         }
 
         private void FracNScrollHandlerFunction(object sender, MouseEventArgs e)
