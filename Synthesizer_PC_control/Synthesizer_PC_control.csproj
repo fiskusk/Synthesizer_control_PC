@@ -66,6 +66,7 @@
     <Compile Include="Model\ModuleControls.cs" />
     <Compile Include="Model\RefFreq.cs" />
     <Compile Include="Model\OutFreqControl.cs" />
+    <Compile Include="Model\DirectFreqControl.cs" />
     <Compile Include="Utilities\BitOperations.cs" />
     <Compile Include="Utilities\GeneralUtilities.cs" />
     <Compile Include="Utilities\Fractions.cs" />

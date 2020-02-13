@@ -28,6 +28,8 @@ namespace Synthesizer_PC_control.Controllers
 
         public OutFreqControl outFreqControl;
 
+        public DirectFreqControl directFreqControl;
+
         public Controller(Form1 view)
         {
             // TODO FILIP ... Hey, try this! Hey! It works! :)
@@ -77,6 +79,9 @@ namespace Synthesizer_PC_control.Controllers
                                                 view.ModeIntFracComboBox,
                                                 view.ADivComboBox,
                                                 view.PhasePNumericUpDown);
+
+            directFreqControl = new DirectFreqControl(view.InputFreqTextBox, 
+                                                      view.DeltaShowLabel);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -425,16 +430,14 @@ namespace Synthesizer_PC_control.Controllers
             refFreq.SetPfdFreq(f_pfd);
         }
 
-        public void CalcSynthesizerRegValuesFromInpFreq()
+        public void CalcSynthesizerRegValuesFromInpFreq(string value)
         {
-            string f_input_string = view.InputFreqTextBox.Text;
-            f_input_string = f_input_string.Replace(" ", string.Empty);
-            f_input_string = f_input_string.Replace(".", ",");
-            decimal f_input = decimal.Parse(f_input_string);
+            directFreqControl.SetDirectInputFreqValue(value);
 
-            decimal f_pfd = refFreq.decimal_GetPfdFreq();
             UInt16 rDivValue = 1;
-
+            decimal f_input = directFreqControl.decimal_GetDirectInputFreqVal();
+            refFreq.SetRDivider(rDivValue);
+            decimal f_pfd = refFreq.decimal_GetPfdFreq();
 
             if (f_input >= 3000 && f_input <= 6000)
             {
@@ -473,8 +476,8 @@ namespace Synthesizer_PC_control.Controllers
                 outFreqControl.SetADivVal(8);
             }
 
-            UInt16 DIVA = outFreqControl.uint16_GetADivVal();
-            decimal intN = (f_input*DIVA/(f_pfd/rDivValue));
+            UInt16 divA = outFreqControl.uint16_GetADivVal();
+            decimal intN = (f_input*divA/(f_pfd/rDivValue));
             decimal zbytek = intN-(UInt16)intN;
 
             if (zbytek>0)
@@ -499,13 +502,13 @@ namespace Synthesizer_PC_control.Controllers
                     {
 
                         rDivValue++;
-                        intN = (f_input*DIVA/(f_pfd/rDivValue));
+                        intN = (f_input*divA/(f_pfd/rDivValue));
                         zbytek = intN-(UInt16)intN;
                         if (intN > 4091)
                         {
                             correction = correction * 10;
                             rDivValue--;
-                            intN = (f_input*DIVA/(f_pfd/rDivValue));
+                            intN = (f_input*divA/(f_pfd/rDivValue));
                             zbytek = intN-(UInt16)intN;
                         }
                     }
@@ -530,17 +533,10 @@ namespace Synthesizer_PC_control.Controllers
             f_outA_string = f_outA_string.Replace(" ", string.Empty);
             f_outA_string = f_outA_string.Replace(".", ",");
 
-            double f_out_A = double.Parse(f_outA_string);
+            decimal f_out_A = decimal.Parse(f_outA_string);
 
-            double delta = ((double)f_input - f_out_A) * 1e6;
-            delta  = Math.Round(delta, 3, MidpointRounding.AwayFromZero);
-            if (Math.Abs(delta) > 10)
-                view.DeltaShowLabel.ForeColor = System.Drawing.Color.Red;
-            else
-                view.DeltaShowLabel.ForeColor = System.Drawing.Color.Black;
-
-            view.DeltaShowLabel.Text = delta.ToString ("0.###");
-
+            decimal delta = (f_input - f_out_A) * 1e6M;
+            directFreqControl.SetDeltaFreqValue(delta);
         }
 #endregion
 
@@ -854,7 +850,7 @@ namespace Synthesizer_PC_control.Controllers
 
             view.RSetTextBox.Text = Convert.ToString(data.RSetValue);
 
-            view.InputFreqTextBox.Text = data.OutputFreqValue;
+            directFreqControl.SetDirectInputFreqValue(data.OutputFreqValue);
 
             refFreq.SetRefFreqValue(data.ReferenceFrequency);
 
@@ -880,7 +876,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 Registers = new List<string>{},
                 RSetValue = Convert.ToUInt16(view.RSetTextBox.Text),
-                OutputFreqValue = view.InputFreqTextBox.Text,
+                OutputFreqValue = directFreqControl.string_GetDirectInputFreqVal(),
                 ReferenceFrequency = refFreq.string_GetRefFreqValue(),
                 Out1En = moduleControls.GetOut1State(),
                 Out2En = moduleControls.GetOut2State(),

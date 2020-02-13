@@ -585,22 +585,22 @@ namespace Synthesizer_PC_control
 #region Direct frequency controls section
         private void InputFreqTextBox_TextChanged(object sender, EventArgs e)
         {
-            MyFormat.CheckIfHasDecimalInput(RefFTextBox);
+            MyFormat.CheckIfHasDecimalInput(InputFreqTextBox);
         }
 
         private void InputFreqTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-               controller.CalcSynthesizerRegValuesFromInpFreq();
+               controller.CalcSynthesizerRegValuesFromInpFreq(InputFreqTextBox.Text);
             }
         }
 
         private void InputFreqHandlerFunction(object sender, MouseEventArgs e)
         {
-            MyFormat.ScrollByPositionOfCursor(InputFreqTextBox, e);
-            controller.CalcSynthesizerRegValuesFromInpFreq();
-
+            int cursorPosition = MyFormat.ScrollByPositionOfCursor(InputFreqTextBox, e);
+            controller.CalcSynthesizerRegValuesFromInpFreq(InputFreqTextBox.Text);
+            InputFreqTextBox.SelectionStart = cursorPosition;
         }
 
 #endregion

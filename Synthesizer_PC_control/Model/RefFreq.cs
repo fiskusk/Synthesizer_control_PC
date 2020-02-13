@@ -43,9 +43,7 @@ namespace Synthesizer_PC_control.Model
         {
             value = value.Replace(" ", string.Empty);
             value = value.Replace(".", ",");
-            this.refInFreq = Convert.ToDecimal(value);
-
-            UpdateUiElements();
+            SetRefFreqValue(Convert.ToDecimal(value));
         }
 
         public void SetRefFreqValue(decimal value)
@@ -88,10 +86,7 @@ namespace Synthesizer_PC_control.Model
         {
             value = value.Replace(" ", string.Empty);
             value = value.Replace(".", ",");
-            //this.pfdFreq = ;
             SetPfdFreq(Convert.ToDecimal(value));
-
-            //UpdateUiElements();
         }
 
         #endregion

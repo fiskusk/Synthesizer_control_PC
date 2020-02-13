@@ -76,7 +76,7 @@ namespace Synthesizer_PC_control
             }
         }
 
-        public static void ScrollByPositionOfCursor(TextBox sender, MouseEventArgs e)
+        public static int ScrollByPositionOfCursor(TextBox sender, MouseEventArgs e)
         {
             string f_input_string = sender.Text;
             f_input_string = f_input_string.Replace(" ", string.Empty);
@@ -98,10 +98,10 @@ namespace Synthesizer_PC_control
                 f_input = (handledArgs.Delta > 0) ? f_input += increment : f_input -= increment;
                 f_input_string = string.Format("{0:f8}", f_input);
                 sender.Text = f_input_string;
-                sender.SelectionStart = position + 1;
+                return position + 1;
             }
             catch{
-                
+                return 0;
             }
             
         }
