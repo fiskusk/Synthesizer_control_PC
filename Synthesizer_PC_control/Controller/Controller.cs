@@ -30,6 +30,8 @@ namespace Synthesizer_PC_control.Controllers
 
         public DirectFreqControl directFreqControl;
 
+        public SynthFreqInfo synthFreqInfo;
+
         public Controller(Form1 view)
         {
             // TODO FILIP ... Hey, try this! Hey! It works! :)
@@ -82,6 +84,10 @@ namespace Synthesizer_PC_control.Controllers
 
             directFreqControl = new DirectFreqControl(view.InputFreqTextBox, 
                                                       view.DeltaShowLabel);
+
+            synthFreqInfo = new SynthFreqInfo(view.fVcoScreenLabel,
+                                              view.fOutAScreenLabel,
+                                              view.fOutBScreenLabel);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -403,21 +409,22 @@ namespace Synthesizer_PC_control.Controllers
             {
                 f_out_A = (f_pfd/aDiv)*(intN+(fracN/(mod*1.0M)));
             }
-            f_vco = f_out_A*aDiv;
+
+            f_vco = f_out_A * aDiv;
+
             if ((f_vco < 3000) || (f_vco > 6000))
             {
-                view.fVcoScreenLabel.ForeColor = System.Drawing.Color.Red;
+                synthFreqInfo.ChangeVcoFreqForeColor(Color.Red);
                 outFreqControl.ChangeIntNBackColor(Color.Red);
             }
             else
             {
-                view.fVcoScreenLabel.ForeColor = System.Drawing.Color.Black;
+                synthFreqInfo.ChangeVcoFreqForeColor(Color.Black);
                 outFreqControl.ChangeIntNBackColor(Color.White);
             }
 
-            view.fOutAScreenLabel.Text = MyFormat.ParseFrequencyDecimalValue(f_out_A);
-
-            view.fVcoScreenLabel.Text = MyFormat.ParseFrequencyDecimalValue(f_vco);
+            synthFreqInfo.SetVcoFreq(f_vco);
+            synthFreqInfo.SetOutAFreq(f_out_A);
         }
 
         public void GetPfdFreq()
@@ -529,14 +536,11 @@ namespace Synthesizer_PC_control.Controllers
             {
                 outFreqControl.SetSynthMode(SynthMode.INTEGER);
             }
+
             refFreq.SetRDivider(rDivValue);
             outFreqControl.SetIntNVal((UInt16)intN);
 
-            string f_outA_string = view.fOutAScreenLabel.Text;
-            f_outA_string = f_outA_string.Replace(" ", string.Empty);
-            f_outA_string = f_outA_string.Replace(".", ",");
-
-            decimal f_out_A = decimal.Parse(f_outA_string);
+            decimal f_out_A = synthFreqInfo.decimal_GetOutAFreq();
 
             decimal delta = (f_input - f_out_A) * 1e6M;
             directFreqControl.SetDeltaFreqValue(delta);
