@@ -142,6 +142,14 @@ namespace Synthesizer_PC_control
             PosPFDCheckBox.Enabled = command;
             InputFreqTextBox.Enabled = command;
             DeltaShowLabel.Enabled = command;
+            ExportIntoMem1Button.Enabled = command;
+            ExportIntoMem2Button.Enabled = command;
+            ExportIntoMem3Button.Enabled = command;
+            ExportIntoMem4Button.Enabled = command;
+            ImportMem1Button.Enabled = command;
+            ImportMem2Button.Enabled = command;
+            ImportMem3Button.Enabled = command;
+            ImportMem4Button.Enabled = command;
         }
 
         public void ProccesReceivedData(object Object)
@@ -394,22 +402,22 @@ namespace Synthesizer_PC_control
             controller.SaveRegsIntoPloMemory();
         }
 
-        private void MoveRegsIntoMem1Button_Click(object sender, EventArgs e)
+        private void ExportIntoMem1Button_Click(object sender, EventArgs e)
         {
             controller.ExportMemory(1);
         }
 
-        private void MoveRegsIntoMem2Button_Click(object sender, EventArgs e)
+        private void ExportIntoMem2Button_Click(object sender, EventArgs e)
         {
             controller.ExportMemory(2);
         }
 
-        private void MoveRegsIntoMem3Button_Click(object sender, EventArgs e)
+        private void ExportIntoMem3Button_Click(object sender, EventArgs e)
         {
             controller.ExportMemory(3);
         }
 
-        private void MoveRegsIntoMem4Button_Click(object sender, EventArgs e)
+        private void ExportIntoMem4Button_Click(object sender, EventArgs e)
         {
             controller.ExportMemory(4);
         }

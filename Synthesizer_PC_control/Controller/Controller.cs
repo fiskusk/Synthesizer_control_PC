@@ -1051,18 +1051,21 @@ namespace Synthesizer_PC_control.Controllers
         public void SaveRegsIntoPloMemory()
         {
             CleanSavedRegisters();
-            for (int memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
+            if (serialPort.IsPortOpen())
             {
-                string data = String.Format("plo data {0} {1} {2} {3} {4} {5} {6} {7}", 
-                        Convert.ToString(memoryNumber),
-                        memory.GetRegister(memoryNumber, 0).string_GetValue(),
-                        memory.GetRegister(memoryNumber, 1).string_GetValue(),
-                        memory.GetRegister(memoryNumber, 2).string_GetValue(),
-                        memory.GetRegister(memoryNumber, 3).string_GetValue(),
-                        memory.GetRegister(memoryNumber, 4).string_GetValue(),
-                        memory.GetRegister(memoryNumber, 5).string_GetValue(),
-                        memory.GetRegister(memoryNumber, 6).string_GetValue() );
-                serialPort.SendStringSerialPort(data);
+                for (int memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
+                {
+                    string data = String.Format("plo data {0} {1} {2} {3} {4} {5} {6} {7}", 
+                            Convert.ToString(memoryNumber),
+                            memory.GetRegister(memoryNumber, 0).string_GetValue(),
+                            memory.GetRegister(memoryNumber, 1).string_GetValue(),
+                            memory.GetRegister(memoryNumber, 2).string_GetValue(),
+                            memory.GetRegister(memoryNumber, 3).string_GetValue(),
+                            memory.GetRegister(memoryNumber, 4).string_GetValue(),
+                            memory.GetRegister(memoryNumber, 5).string_GetValue(),
+                            memory.GetRegister(memoryNumber, 6).string_GetValue() );
+                    serialPort.SendStringSerialPort(data);
+                }
             }
         }
 

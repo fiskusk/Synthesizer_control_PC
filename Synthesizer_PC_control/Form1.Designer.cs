@@ -61,10 +61,10 @@ namespace Synthesizer_PC_control
             this.RegistersPage = new System.Windows.Forms.TabPage();
             this.RegistersControlsGroupBox = new System.Windows.Forms.GroupBox();
             this.MoveRegsIntoMemsGroupBox = new System.Windows.Forms.GroupBox();
-            this.MoveRegsIntoMem1Button = new System.Windows.Forms.Button();
-            this.MoveRegsIntoMem2Button = new System.Windows.Forms.Button();
-            this.MoveRegsIntoMem3Button = new System.Windows.Forms.Button();
-            this.MoveRegsIntoMem4Button = new System.Windows.Forms.Button();
+            this.ExportIntoMem1Button = new System.Windows.Forms.Button();
+            this.ExportIntoMem2Button = new System.Windows.Forms.Button();
+            this.ExportIntoMem3Button = new System.Windows.Forms.Button();
+            this.ExportIntoMem4Button = new System.Windows.Forms.Button();
             this.ChargePumpGroupBox = new System.Windows.Forms.GroupBox();
             this.PosPFDCheckBox = new System.Windows.Forms.CheckBox();
             this.CPCycleSlipCheckBox = new System.Windows.Forms.CheckBox();
@@ -559,10 +559,10 @@ namespace Synthesizer_PC_control
             // 
             // MoveRegsIntoMemsGroupBox
             // 
-            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem1Button);
-            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem2Button);
-            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem3Button);
-            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.MoveRegsIntoMem4Button);
+            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.ExportIntoMem1Button);
+            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.ExportIntoMem2Button);
+            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.ExportIntoMem3Button);
+            this.MoveRegsIntoMemsGroupBox.Controls.Add(this.ExportIntoMem4Button);
             this.MoveRegsIntoMemsGroupBox.Location = new System.Drawing.Point(413, 5);
             this.MoveRegsIntoMemsGroupBox.Name = "MoveRegsIntoMemsGroupBox";
             this.MoveRegsIntoMemsGroupBox.Size = new System.Drawing.Size(175, 187);
@@ -572,47 +572,47 @@ namespace Synthesizer_PC_control
             // 
             // MoveRegsIntoMem1Button
             // 
-            this.MoveRegsIntoMem1Button.Location = new System.Drawing.Point(39, 63);
-            this.MoveRegsIntoMem1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MoveRegsIntoMem1Button.Name = "MoveRegsIntoMem1Button";
-            this.MoveRegsIntoMem1Button.Size = new System.Drawing.Size(99, 23);
-            this.MoveRegsIntoMem1Button.TabIndex = 9;
-            this.MoveRegsIntoMem1Button.Text = "Memory 1";
-            this.MoveRegsIntoMem1Button.UseVisualStyleBackColor = true;
-            this.MoveRegsIntoMem1Button.Click += new System.EventHandler(this.MoveRegsIntoMem1Button_Click);
+            this.ExportIntoMem1Button.Location = new System.Drawing.Point(39, 63);
+            this.ExportIntoMem1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ExportIntoMem1Button.Name = "MoveRegsIntoMem1Button";
+            this.ExportIntoMem1Button.Size = new System.Drawing.Size(99, 23);
+            this.ExportIntoMem1Button.TabIndex = 9;
+            this.ExportIntoMem1Button.Text = "Memory 1";
+            this.ExportIntoMem1Button.UseVisualStyleBackColor = true;
+            this.ExportIntoMem1Button.Click += new System.EventHandler(this.ExportIntoMem1Button_Click);
             // 
             // MoveRegsIntoMem2Button
             // 
-            this.MoveRegsIntoMem2Button.Location = new System.Drawing.Point(39, 91);
-            this.MoveRegsIntoMem2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MoveRegsIntoMem2Button.Name = "MoveRegsIntoMem2Button";
-            this.MoveRegsIntoMem2Button.Size = new System.Drawing.Size(99, 23);
-            this.MoveRegsIntoMem2Button.TabIndex = 9;
-            this.MoveRegsIntoMem2Button.Text = "Memory 2";
-            this.MoveRegsIntoMem2Button.UseVisualStyleBackColor = true;
-            this.MoveRegsIntoMem2Button.Click += new System.EventHandler(this.MoveRegsIntoMem2Button_Click);
+            this.ExportIntoMem2Button.Location = new System.Drawing.Point(39, 91);
+            this.ExportIntoMem2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ExportIntoMem2Button.Name = "MoveRegsIntoMem2Button";
+            this.ExportIntoMem2Button.Size = new System.Drawing.Size(99, 23);
+            this.ExportIntoMem2Button.TabIndex = 9;
+            this.ExportIntoMem2Button.Text = "Memory 2";
+            this.ExportIntoMem2Button.UseVisualStyleBackColor = true;
+            this.ExportIntoMem2Button.Click += new System.EventHandler(this.ExportIntoMem2Button_Click);
             // 
             // MoveRegsIntoMem3Button
             // 
-            this.MoveRegsIntoMem3Button.Location = new System.Drawing.Point(39, 119);
-            this.MoveRegsIntoMem3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MoveRegsIntoMem3Button.Name = "MoveRegsIntoMem3Button";
-            this.MoveRegsIntoMem3Button.Size = new System.Drawing.Size(99, 23);
-            this.MoveRegsIntoMem3Button.TabIndex = 9;
-            this.MoveRegsIntoMem3Button.Text = "Memory 3";
-            this.MoveRegsIntoMem3Button.UseVisualStyleBackColor = true;
-            this.MoveRegsIntoMem3Button.Click += new System.EventHandler(this.MoveRegsIntoMem3Button_Click);
+            this.ExportIntoMem3Button.Location = new System.Drawing.Point(39, 119);
+            this.ExportIntoMem3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ExportIntoMem3Button.Name = "MoveRegsIntoMem3Button";
+            this.ExportIntoMem3Button.Size = new System.Drawing.Size(99, 23);
+            this.ExportIntoMem3Button.TabIndex = 9;
+            this.ExportIntoMem3Button.Text = "Memory 3";
+            this.ExportIntoMem3Button.UseVisualStyleBackColor = true;
+            this.ExportIntoMem3Button.Click += new System.EventHandler(this.ExportIntoMem3Button_Click);
             // 
             // MoveRegsIntoMem4Button
             // 
-            this.MoveRegsIntoMem4Button.Location = new System.Drawing.Point(39, 147);
-            this.MoveRegsIntoMem4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MoveRegsIntoMem4Button.Name = "MoveRegsIntoMem4Button";
-            this.MoveRegsIntoMem4Button.Size = new System.Drawing.Size(99, 23);
-            this.MoveRegsIntoMem4Button.TabIndex = 9;
-            this.MoveRegsIntoMem4Button.Text = "Memory 4";
-            this.MoveRegsIntoMem4Button.UseVisualStyleBackColor = true;
-            this.MoveRegsIntoMem4Button.Click += new System.EventHandler(this.MoveRegsIntoMem4Button_Click);
+            this.ExportIntoMem4Button.Location = new System.Drawing.Point(39, 147);
+            this.ExportIntoMem4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ExportIntoMem4Button.Name = "MoveRegsIntoMem4Button";
+            this.ExportIntoMem4Button.Size = new System.Drawing.Size(99, 23);
+            this.ExportIntoMem4Button.TabIndex = 9;
+            this.ExportIntoMem4Button.Text = "Memory 4";
+            this.ExportIntoMem4Button.UseVisualStyleBackColor = true;
+            this.ExportIntoMem4Button.Click += new System.EventHandler(this.ExportIntoMem4Button_Click);
             // 
             // ChargePumpGroupBox
             // 
@@ -2138,10 +2138,10 @@ namespace Synthesizer_PC_control
         private Label DeltaLabel;
         private Label InputFreqLabel;
         private GroupBox MoveRegsIntoMemsGroupBox;
-        private Button MoveRegsIntoMem1Button;
-        private Button MoveRegsIntoMem2Button;
-        private Button MoveRegsIntoMem3Button;
-        private Button MoveRegsIntoMem4Button;
+        private Button ExportIntoMem1Button;
+        private Button ExportIntoMem2Button;
+        private Button ExportIntoMem3Button;
+        private Button ExportIntoMem4Button;
         private Button ImportMem4Button;
         private Button ImportMem3Button;
         private Button ImportMem2Button;
