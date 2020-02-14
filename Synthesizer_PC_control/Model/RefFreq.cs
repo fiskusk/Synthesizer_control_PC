@@ -12,21 +12,25 @@ namespace Synthesizer_PC_control.Model
         private UInt16 refDivider;
         private decimal pfdFreq;
         private bool isUiUpdated;
+        private int LDSpeedAdj;
 
         private readonly TextBox ui_refInFreq;
         private readonly CheckBox ui_refDoubler;
         private readonly CheckBox ui_refDiv2;
         private readonly NumericUpDown ui_refDivider;
         private readonly Label ui_pfdFreqShowLabel;
+        private readonly ComboBox ui_LDSpeedAdj;
 
         public RefFreq(TextBox ui_refInFreq, CheckBox ui_refDoubler, 
-            CheckBox ui_refDiv2, NumericUpDown ui_refDivider, Label ui_pfdFreqShowLabel)
+                       CheckBox ui_refDiv2, NumericUpDown ui_refDivider, 
+                       Label ui_pfdFreqShowLabel, ComboBox ui_LDSpeedAdj)
         {
             this.ui_refInFreq = ui_refInFreq;
             this.ui_refDoubler = ui_refDoubler;
             this.ui_refDiv2 = ui_refDiv2;
             this.ui_refDivider = ui_refDivider;
             this.ui_pfdFreqShowLabel = ui_pfdFreqShowLabel;
+            this.ui_LDSpeedAdj = ui_LDSpeedAdj;
 
             this.refInFreq = 10.0M;
             this.isDoubled = false;
@@ -87,6 +91,13 @@ namespace Synthesizer_PC_control.Model
             value = value.Replace(" ", string.Empty);
             value = value.Replace(".", ",");
             SetPfdFreq(Convert.ToDecimal(value));
+        }
+
+        public void SetLDSpeedAdj(int value)
+        {
+            LDSpeedAdj = value;
+
+            UpdateUiElements();
         }
 
         #endregion
@@ -176,9 +187,9 @@ namespace Synthesizer_PC_control.Model
 
             ui_pfdFreqShowLabel.Text = MyFormat.ParseFrequencyDecimalValue(pfdFreq);
 
-            isUiUpdated = true;
+            ui_LDSpeedAdj.SelectedIndex = LDSpeedAdj;
 
-            
+            isUiUpdated = true;
         } 
     }
 }

@@ -75,7 +75,8 @@ namespace Synthesizer_PC_control.Controllers
                                   view.RefDoublerCheckBox, 
                                   view.DivideBy2CheckBox, 
                                   view.RDivUpDown, 
-                                  view.pfdFreqLabel);
+                                  view.pfdFreqLabel,
+                                  view.LDSpeedAdjComboBox);
 
             outFreqControl = new OutFreqControl(view.IntNNumUpDown,
                                                 view.FracNNumUpDown,
@@ -131,6 +132,12 @@ namespace Synthesizer_PC_control.Controllers
                 registers[2].SetResetOneBit(24, BitState.SET);
             else
                 registers[2].SetResetOneBit(24, BitState.RESET);
+        }
+
+        public void ChangeLDSpeedAdjIndex(int index)
+        {
+            refFreq.SetLDSpeedAdj(index);
+            registers[2].SetResetOneBit(31, (BitState)index);
         }
 
         #endregion
@@ -320,6 +327,12 @@ namespace Synthesizer_PC_control.Controllers
             view.CPCurrentComboBox.SelectedIndex = (int)BitOperations.GetNBits(dataReg2, 4, 9);
         }
 
+        private void GetLDSpeedAdjIndexFromRegister(UInt32 dataReg2)
+        {
+            int index = (int)BitOperations.GetNBits(dataReg2, 1, 31);
+            refFreq.SetLDSpeedAdj(index);
+        }
+
         #endregion
 
         #region Parsing register 3
@@ -383,6 +396,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetRefDividerStatusFromRegister(reg);
                     GetRDivValueFromRegister(reg);
                     GetCPCurrentIndexFromRegister(reg);
+                    GetLDSpeedAdjIndexFromRegister(reg);
                     break;
                 case 3:
                     break;
@@ -685,6 +699,15 @@ namespace Synthesizer_PC_control.Controllers
             {
                 ChangeRDiv(value);
                 GetPfdFreq();
+                CheckAndApplyRegChanges(2);
+            }
+        }
+
+        public void LDSpeedAdjIndexChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeLDSpeedAdjIndex(value);
                 CheckAndApplyRegChanges(2);
             }
         }

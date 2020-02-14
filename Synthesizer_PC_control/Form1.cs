@@ -160,6 +160,8 @@ namespace Synthesizer_PC_control
             ActOut2ShowLabel.Enabled        = command;
             FreqAtOut1ShowLabel.Enabled     = command;
             FreqAtOut2ShowLabel.Enabled     = command;
+            LDSpeedAdjComboBox.Enabled      = command;
+            AutoLDSpeedAdjCheckBox.Enabled  = command;
         }
 
         public void ProccesReceivedData(object Object)
@@ -576,6 +578,11 @@ namespace Synthesizer_PC_control
             controller.ReferenceRDividerValueChanged((UInt16)RDivUpDown.Value);
         }
 
+        private void LDSpeedAdjComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.LDSpeedAdjIndexChanged(LDSpeedAdjComboBox.SelectedIndex);
+        }
+
 #endregion
 
 #region Charge Pump Section
@@ -651,5 +658,6 @@ namespace Synthesizer_PC_control
         }
 
         #endregion
+
     }
 }

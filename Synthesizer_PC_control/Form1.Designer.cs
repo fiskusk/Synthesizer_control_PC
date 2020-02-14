@@ -1439,6 +1439,7 @@ namespace Synthesizer_PC_control
             this.LDSpeedAdjComboBox.Name = "LDSpeedAdjComboBox";
             this.LDSpeedAdjComboBox.Size = new System.Drawing.Size(144, 24);
             this.LDSpeedAdjComboBox.TabIndex = 16;
+            this.LDSpeedAdjComboBox.SelectedIndexChanged += new System.EventHandler(this.LDSpeedAdjComboBox_SelectedIndexChanged);
             // 
             // RefFTextBox
             // 
@@ -2245,7 +2246,7 @@ namespace Synthesizer_PC_control
             // 
             // ActOut1ShowLabel
             // 
-            this.ActOut1ShowLabel.BackColor = System.Drawing.Color.LimeGreen;
+            this.ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ActOut1ShowLabel.Location = new System.Drawing.Point(124, 97);
             this.ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActOut1ShowLabel.Name = "ActOut1ShowLabel";
