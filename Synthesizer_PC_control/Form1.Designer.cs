@@ -59,6 +59,12 @@ namespace Synthesizer_PC_control
             this.WriteR5Button = new System.Windows.Forms.Button();
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
+            this.PhaseDetectorGroupBox = new System.Windows.Forms.GroupBox();
+            this.LDPrecisionLabel = new System.Windows.Forms.Label();
+            this.SDNoiseModeLabel = new System.Windows.Forms.Label();
+            this.PosPFDCheckBox = new System.Windows.Forms.CheckBox();
+            this.LDPrecisionComboBox = new System.Windows.Forms.ComboBox();
+            this.SDNoiseModeComboBox = new System.Windows.Forms.ComboBox();
             this.RegistersControlsGroupBox = new System.Windows.Forms.GroupBox();
             this.MoveRegsIntoMemsGroupBox = new System.Windows.Forms.GroupBox();
             this.ExportIntoMem1Button = new System.Windows.Forms.Button();
@@ -66,7 +72,6 @@ namespace Synthesizer_PC_control
             this.ExportIntoMem3Button = new System.Windows.Forms.Button();
             this.ExportIntoMem4Button = new System.Windows.Forms.Button();
             this.ChargePumpGroupBox = new System.Windows.Forms.GroupBox();
-            this.PosPFDCheckBox = new System.Windows.Forms.CheckBox();
             this.CPCycleSlipCheckBox = new System.Windows.Forms.CheckBox();
             this.CPTriStateOutCheckBox = new System.Windows.Forms.CheckBox();
             this.CPFastLockCheckBox = new System.Windows.Forms.CheckBox();
@@ -78,7 +83,7 @@ namespace Synthesizer_PC_control
             this.CPlinearityLabel = new System.Windows.Forms.Label();
             this.RSetLabel = new System.Windows.Forms.Label();
             this.CPCurrentLabel = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.OutputControlsGroupBox = new System.Windows.Forms.GroupBox();
             this.RF_A_EN_Label = new System.Windows.Forms.Label();
             this.RF_A_PWR_Label = new System.Windows.Forms.Label();
             this.RF_B_EN_Label = new System.Windows.Forms.Label();
@@ -98,9 +103,14 @@ namespace Synthesizer_PC_control
             this.fOutBScreenLabel = new System.Windows.Forms.Label();
             this.fVcoScreenLabel = new System.Windows.Forms.Label();
             this.FreqControlGroupBox = new System.Windows.Forms.GroupBox();
+            this.RFoutBPathLabel = new System.Windows.Forms.Label();
+            this.LDfuncLabel = new System.Windows.Forms.Label();
             this.ADivComboBox = new System.Windows.Forms.ComboBox();
             this.FracNLabel = new System.Windows.Forms.Label();
             this.ModeIntFracComboBox = new System.Windows.Forms.ComboBox();
+            this.RFoutBPathComboBox = new System.Windows.Forms.ComboBox();
+            this.LDFuncComboBox = new System.Windows.Forms.ComboBox();
+            this.AutoLDFuncCheckBox = new System.Windows.Forms.CheckBox();
             this.IntNLabel = new System.Windows.Forms.Label();
             this.ModeIntFracLabel = new System.Windows.Forms.Label();
             this.ModLabel = new System.Windows.Forms.Label();
@@ -111,9 +121,12 @@ namespace Synthesizer_PC_control
             this.FracNNumUpDown = new System.Windows.Forms.NumericUpDown();
             this.PhasePNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.RefFreqGroupBox = new System.Windows.Forms.GroupBox();
+            this.LDSpeedAdjLabel = new System.Windows.Forms.Label();
             this.RDivUpDown = new System.Windows.Forms.NumericUpDown();
+            this.LDSpeedAdjComboBox = new System.Windows.Forms.ComboBox();
             this.RefFTextBox = new System.Windows.Forms.TextBox();
             this.DivideBy2CheckBox = new System.Windows.Forms.CheckBox();
+            this.AutoLDSpeedAdjCheckBox = new System.Windows.Forms.CheckBox();
             this.RefDoublerCheckBox = new System.Windows.Forms.CheckBox();
             this.RefFLabel = new System.Windows.Forms.Label();
             this.fPfdLabel = new System.Windows.Forms.Label();
@@ -171,14 +184,29 @@ namespace Synthesizer_PC_control
             this.HzLabel = new System.Windows.Forms.Label();
             this.DeltaLabel = new System.Windows.Forms.Label();
             this.InputFreqLabel = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.DirectFreqContrGroupBox = new System.Windows.Forms.GroupBox();
+            this.MHzLabel9 = new System.Windows.Forms.Label();
+            this.MHzLabel8 = new System.Windows.Forms.Label();
+            this.MHzLabel7 = new System.Windows.Forms.Label();
+            this.FreqAtOut2ShowLabel = new System.Windows.Forms.Label();
+            this.FreqAtOut1ShowLabel = new System.Windows.Forms.Label();
+            this.CalcFreqShowLabel = new System.Windows.Forms.Label();
+            this.ActOut2ShowLabel = new System.Windows.Forms.Label();
+            this.FreqAtOut2Label = new System.Windows.Forms.Label();
+            this.ActOut1ShowLabel = new System.Windows.Forms.Label();
+            this.FreqAtOut1Label = new System.Windows.Forms.Label();
+            this.CalcFreqLabel = new System.Windows.Forms.Label();
+            this.ActiveOut2Label = new System.Windows.Forms.Label();
+            this.ActiveOut1Label = new System.Windows.Forms.Label();
             this.ConsoleRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.VcoSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
+            this.PhaseDetectorGroupBox.SuspendLayout();
             this.RegistersControlsGroupBox.SuspendLayout();
             this.MoveRegsIntoMemsGroupBox.SuspendLayout();
             this.ChargePumpGroupBox.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.OutputControlsGroupBox.SuspendLayout();
             this.OutInfoGroupBox.SuspendLayout();
             this.FreqControlGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IntNNumUpDown)).BeginInit();
@@ -189,7 +217,7 @@ namespace Synthesizer_PC_control
             ((System.ComponentModel.ISupportInitialize)(this.RDivUpDown)).BeginInit();
             this.RegistersMemoryPage.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.DirectFreqContrGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // PortButton
@@ -216,7 +244,7 @@ namespace Synthesizer_PC_control
             // 
             // Out2Button
             // 
-            this.Out2Button.Location = new System.Drawing.Point(16, 82);
+            this.Out2Button.Location = new System.Drawing.Point(122, 48);
             this.Out2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Out2Button.Name = "Out2Button";
             this.Out2Button.Size = new System.Drawing.Size(100, 28);
@@ -227,7 +255,7 @@ namespace Synthesizer_PC_control
             // 
             // PloInitButton
             // 
-            this.PloInitButton.Location = new System.Drawing.Point(161, 48);
+            this.PloInitButton.Location = new System.Drawing.Point(228, 11);
             this.PloInitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PloInitButton.Name = "PloInitButton";
             this.PloInitButton.Size = new System.Drawing.Size(100, 28);
@@ -376,7 +404,7 @@ namespace Synthesizer_PC_control
             // 
             // RefButton
             // 
-            this.RefButton.Location = new System.Drawing.Point(16, 115);
+            this.RefButton.Location = new System.Drawing.Point(228, 48);
             this.RefButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RefButton.Name = "RefButton";
             this.RefButton.Size = new System.Drawing.Size(100, 28);
@@ -422,14 +450,13 @@ namespace Synthesizer_PC_control
             // 
             this.AvaibleCOMsComBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AvaibleCOMsComBox.FormattingEnabled = true;
-            this.AvaibleCOMsComBox.Location = new System.Drawing.Point(143, 11);
+            this.AvaibleCOMsComBox.Location = new System.Drawing.Point(123, 11);
             this.AvaibleCOMsComBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.AvaibleCOMsComBox.Name = "AvaibleCOMsComBox";
-            this.AvaibleCOMsComBox.Size = new System.Drawing.Size(87, 24);
+            this.AvaibleCOMsComBox.Size = new System.Drawing.Size(99, 24);
             this.AvaibleCOMsComBox.TabIndex = 10;
             this.AvaibleCOMsComBox.DropDown += new System.EventHandler(this.AvaibleCOMsComBox_DropDown);
             this.AvaibleCOMsComBox.SelectedIndexChanged += new System.EventHandler(this.AvaibleCOMsComBox_SelectedIndexChanged);
-
             // 
             // WriteR0Button
             // 
@@ -505,15 +532,17 @@ namespace Synthesizer_PC_control
             this.RegistersTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersTabControl.Name = "RegistersTabControl";
             this.RegistersTabControl.SelectedIndex = 0;
-            this.RegistersTabControl.Size = new System.Drawing.Size(708, 548);
+            this.RegistersTabControl.Size = new System.Drawing.Size(708, 661);
             this.RegistersTabControl.TabIndex = 12;
             // 
             // RegistersPage
             // 
+            this.RegistersPage.Controls.Add(this.VcoSettingsGroupBox);
+            this.RegistersPage.Controls.Add(this.PhaseDetectorGroupBox);
             this.RegistersPage.Controls.Add(this.RegistersControlsGroupBox);
             this.RegistersPage.Controls.Add(this.MoveRegsIntoMemsGroupBox);
             this.RegistersPage.Controls.Add(this.ChargePumpGroupBox);
-            this.RegistersPage.Controls.Add(this.groupBox1);
+            this.RegistersPage.Controls.Add(this.OutputControlsGroupBox);
             this.RegistersPage.Controls.Add(this.OutInfoGroupBox);
             this.RegistersPage.Controls.Add(this.FreqControlGroupBox);
             this.RegistersPage.Controls.Add(this.RefFreqGroupBox);
@@ -521,11 +550,85 @@ namespace Synthesizer_PC_control
             this.RegistersPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersPage.Name = "RegistersPage";
             this.RegistersPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersPage.Size = new System.Drawing.Size(700, 519);
+            this.RegistersPage.Size = new System.Drawing.Size(700, 632);
             this.RegistersPage.TabIndex = 0;
             this.RegistersPage.Text = "Direct Control Of Registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
             this.RegistersPage.Click += new System.EventHandler(this.RegistersPage_Click);
+            // 
+            // PhaseDetectorGroupBox
+            // 
+            this.PhaseDetectorGroupBox.Controls.Add(this.LDPrecisionLabel);
+            this.PhaseDetectorGroupBox.Controls.Add(this.SDNoiseModeLabel);
+            this.PhaseDetectorGroupBox.Controls.Add(this.PosPFDCheckBox);
+            this.PhaseDetectorGroupBox.Controls.Add(this.LDPrecisionComboBox);
+            this.PhaseDetectorGroupBox.Controls.Add(this.SDNoiseModeComboBox);
+            this.PhaseDetectorGroupBox.Location = new System.Drawing.Point(355, 300);
+            this.PhaseDetectorGroupBox.Name = "PhaseDetectorGroupBox";
+            this.PhaseDetectorGroupBox.Size = new System.Drawing.Size(335, 86);
+            this.PhaseDetectorGroupBox.TabIndex = 28;
+            this.PhaseDetectorGroupBox.TabStop = false;
+            this.PhaseDetectorGroupBox.Text = "Phase Detector";
+            // 
+            // LDPrecisionLabel
+            // 
+            this.LDPrecisionLabel.Location = new System.Drawing.Point(9, 55);
+            this.LDPrecisionLabel.Name = "LDPrecisionLabel";
+            this.LDPrecisionLabel.Size = new System.Drawing.Size(96, 17);
+            this.LDPrecisionLabel.TabIndex = 17;
+            this.LDPrecisionLabel.Text = "LD precision:";
+            this.LDPrecisionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // SDNoiseModeLabel
+            // 
+            this.SDNoiseModeLabel.Location = new System.Drawing.Point(6, 24);
+            this.SDNoiseModeLabel.Name = "SDNoiseModeLabel";
+            this.SDNoiseModeLabel.Size = new System.Drawing.Size(120, 17);
+            this.SDNoiseModeLabel.TabIndex = 17;
+            this.SDNoiseModeLabel.Text = "S-D Noise Mode:";
+            this.SDNoiseModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // PosPFDCheckBox
+            // 
+            this.PosPFDCheckBox.AutoSize = true;
+            this.PosPFDCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.PosPFDCheckBox.Location = new System.Drawing.Point(211, 55);
+            this.PosPFDCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.PosPFDCheckBox.Name = "PosPFDCheckBox";
+            this.PosPFDCheckBox.Size = new System.Drawing.Size(114, 21);
+            this.PosPFDCheckBox.TabIndex = 18;
+            this.PosPFDCheckBox.Text = "Positive PFD:";
+            this.PosPFDCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.PosPFDCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // LDPrecisionComboBox
+            // 
+            this.LDPrecisionComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.LDPrecisionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LDPrecisionComboBox.FormattingEnabled = true;
+            this.LDPrecisionComboBox.Items.AddRange(new object[] {
+            "10 ns",
+            " 6  ns"});
+            this.LDPrecisionComboBox.Location = new System.Drawing.Point(111, 52);
+            this.LDPrecisionComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LDPrecisionComboBox.Name = "LDPrecisionComboBox";
+            this.LDPrecisionComboBox.Size = new System.Drawing.Size(77, 24);
+            this.LDPrecisionComboBox.TabIndex = 16;
+            // 
+            // SDNoiseModeComboBox
+            // 
+            this.SDNoiseModeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.SDNoiseModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SDNoiseModeComboBox.FormattingEnabled = true;
+            this.SDNoiseModeComboBox.Items.AddRange(new object[] {
+            "Low-noise Mode",
+            "Low-spur Mode 1",
+            "Low-spur Mode 2"});
+            this.SDNoiseModeComboBox.Location = new System.Drawing.Point(132, 21);
+            this.SDNoiseModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SDNoiseModeComboBox.Name = "SDNoiseModeComboBox";
+            this.SDNoiseModeComboBox.Size = new System.Drawing.Size(144, 24);
+            this.SDNoiseModeComboBox.TabIndex = 16;
             // 
             // RegistersControlsGroupBox
             // 
@@ -570,44 +673,44 @@ namespace Synthesizer_PC_control
             this.MoveRegsIntoMemsGroupBox.TabStop = false;
             this.MoveRegsIntoMemsGroupBox.Text = "Move the currently set registers to the register memory tab:";
             // 
-            // MoveRegsIntoMem1Button
+            // ExportIntoMem1Button
             // 
             this.ExportIntoMem1Button.Location = new System.Drawing.Point(39, 63);
             this.ExportIntoMem1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ExportIntoMem1Button.Name = "MoveRegsIntoMem1Button";
+            this.ExportIntoMem1Button.Name = "ExportIntoMem1Button";
             this.ExportIntoMem1Button.Size = new System.Drawing.Size(99, 23);
             this.ExportIntoMem1Button.TabIndex = 9;
             this.ExportIntoMem1Button.Text = "Memory 1";
             this.ExportIntoMem1Button.UseVisualStyleBackColor = true;
             this.ExportIntoMem1Button.Click += new System.EventHandler(this.ExportIntoMem1Button_Click);
             // 
-            // MoveRegsIntoMem2Button
+            // ExportIntoMem2Button
             // 
             this.ExportIntoMem2Button.Location = new System.Drawing.Point(39, 91);
             this.ExportIntoMem2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ExportIntoMem2Button.Name = "MoveRegsIntoMem2Button";
+            this.ExportIntoMem2Button.Name = "ExportIntoMem2Button";
             this.ExportIntoMem2Button.Size = new System.Drawing.Size(99, 23);
             this.ExportIntoMem2Button.TabIndex = 9;
             this.ExportIntoMem2Button.Text = "Memory 2";
             this.ExportIntoMem2Button.UseVisualStyleBackColor = true;
             this.ExportIntoMem2Button.Click += new System.EventHandler(this.ExportIntoMem2Button_Click);
             // 
-            // MoveRegsIntoMem3Button
+            // ExportIntoMem3Button
             // 
             this.ExportIntoMem3Button.Location = new System.Drawing.Point(39, 119);
             this.ExportIntoMem3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ExportIntoMem3Button.Name = "MoveRegsIntoMem3Button";
+            this.ExportIntoMem3Button.Name = "ExportIntoMem3Button";
             this.ExportIntoMem3Button.Size = new System.Drawing.Size(99, 23);
             this.ExportIntoMem3Button.TabIndex = 9;
             this.ExportIntoMem3Button.Text = "Memory 3";
             this.ExportIntoMem3Button.UseVisualStyleBackColor = true;
             this.ExportIntoMem3Button.Click += new System.EventHandler(this.ExportIntoMem3Button_Click);
             // 
-            // MoveRegsIntoMem4Button
+            // ExportIntoMem4Button
             // 
             this.ExportIntoMem4Button.Location = new System.Drawing.Point(39, 147);
             this.ExportIntoMem4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ExportIntoMem4Button.Name = "MoveRegsIntoMem4Button";
+            this.ExportIntoMem4Button.Name = "ExportIntoMem4Button";
             this.ExportIntoMem4Button.Size = new System.Drawing.Size(99, 23);
             this.ExportIntoMem4Button.TabIndex = 9;
             this.ExportIntoMem4Button.Text = "Memory 4";
@@ -616,7 +719,6 @@ namespace Synthesizer_PC_control
             // 
             // ChargePumpGroupBox
             // 
-            this.ChargePumpGroupBox.Controls.Add(this.PosPFDCheckBox);
             this.ChargePumpGroupBox.Controls.Add(this.CPCycleSlipCheckBox);
             this.ChargePumpGroupBox.Controls.Add(this.CPTriStateOutCheckBox);
             this.ChargePumpGroupBox.Controls.Add(this.CPFastLockCheckBox);
@@ -628,38 +730,25 @@ namespace Synthesizer_PC_control
             this.ChargePumpGroupBox.Controls.Add(this.CPlinearityLabel);
             this.ChargePumpGroupBox.Controls.Add(this.RSetLabel);
             this.ChargePumpGroupBox.Controls.Add(this.CPCurrentLabel);
-            this.ChargePumpGroupBox.Location = new System.Drawing.Point(355, 269);
+            this.ChargePumpGroupBox.Location = new System.Drawing.Point(355, 393);
             this.ChargePumpGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.ChargePumpGroupBox.Name = "ChargePumpGroupBox";
             this.ChargePumpGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.ChargePumpGroupBox.Size = new System.Drawing.Size(335, 158);
+            this.ChargePumpGroupBox.Size = new System.Drawing.Size(335, 147);
             this.ChargePumpGroupBox.TabIndex = 26;
             this.ChargePumpGroupBox.TabStop = false;
             this.ChargePumpGroupBox.Text = "Charge Pump";
-            // 
-            // PosPFDCheckBox
-            // 
-            this.PosPFDCheckBox.AutoSize = true;
-            this.PosPFDCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PosPFDCheckBox.Location = new System.Drawing.Point(212, 116);
-            this.PosPFDCheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.PosPFDCheckBox.Name = "PosPFDCheckBox";
-            this.PosPFDCheckBox.Size = new System.Drawing.Size(110, 21);
-            this.PosPFDCheckBox.TabIndex = 18;
-            this.PosPFDCheckBox.Text = "Positive PFD";
-            this.PosPFDCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PosPFDCheckBox.UseVisualStyleBackColor = true;
             // 
             // CPCycleSlipCheckBox
             // 
             this.CPCycleSlipCheckBox.AutoSize = true;
             this.CPCycleSlipCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(227, 87);
+            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(191, 85);
             this.CPCycleSlipCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPCycleSlipCheckBox.Name = "CPCycleSlipCheckBox";
-            this.CPCycleSlipCheckBox.Size = new System.Drawing.Size(95, 21);
+            this.CPCycleSlipCheckBox.Size = new System.Drawing.Size(134, 21);
             this.CPCycleSlipCheckBox.TabIndex = 18;
-            this.CPCycleSlipCheckBox.Text = "Cycle Slip:";
+            this.CPCycleSlipCheckBox.Text = "Cycle Slip Mode:";
             this.CPCycleSlipCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.CPCycleSlipCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -680,7 +769,7 @@ namespace Synthesizer_PC_control
             // 
             this.CPFastLockCheckBox.AutoSize = true;
             this.CPFastLockCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPFastLockCheckBox.Location = new System.Drawing.Point(227, 30);
+            this.CPFastLockCheckBox.Location = new System.Drawing.Point(230, 30);
             this.CPFastLockCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPFastLockCheckBox.Name = "CPFastLockCheckBox";
             this.CPFastLockCheckBox.Size = new System.Drawing.Size(95, 21);
@@ -693,7 +782,7 @@ namespace Synthesizer_PC_control
             // 
             this.RSetTextBox.BackColor = System.Drawing.Color.White;
             this.RSetTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.RSetTextBox.Location = new System.Drawing.Point(80, 22);
+            this.RSetTextBox.Location = new System.Drawing.Point(73, 22);
             this.RSetTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RSetTextBox.MaxLength = 8;
             this.RSetTextBox.Name = "RSetTextBox";
@@ -709,12 +798,16 @@ namespace Synthesizer_PC_control
             this.CPTestComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CPTestComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CPTestComboBox.FormattingEnabled = true;
-            this.CPTestComboBox.Location = new System.Drawing.Point(80, 113);
+            this.CPTestComboBox.Items.AddRange(new object[] {
+            "Normal",
+            "Long Reset",
+            "Force Source",
+            "Force Sink"});
+            this.CPTestComboBox.Location = new System.Drawing.Point(73, 113);
             this.CPTestComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPTestComboBox.Name = "CPTestComboBox";
-            this.CPTestComboBox.Size = new System.Drawing.Size(91, 24);
+            this.CPTestComboBox.Size = new System.Drawing.Size(116, 24);
             this.CPTestComboBox.TabIndex = 16;
-            this.CPTestComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
             // 
             // CPLinearityComboBox
             // 
@@ -726,20 +819,20 @@ namespace Synthesizer_PC_control
             "10% extra",
             "20% extra",
             "30% extra"});
-            this.CPLinearityComboBox.Location = new System.Drawing.Point(80, 82);
+            this.CPLinearityComboBox.Location = new System.Drawing.Point(73, 82);
             this.CPLinearityComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPLinearityComboBox.Name = "CPLinearityComboBox";
-            this.CPLinearityComboBox.Size = new System.Drawing.Size(91, 24);
+            this.CPLinearityComboBox.Size = new System.Drawing.Size(116, 24);
             this.CPLinearityComboBox.TabIndex = 16;
             this.CPLinearityComboBox.SelectedIndexChanged += new System.EventHandler(this.CPLinearityComboBox_SelectedIndexChanged);
             // 
             // CPTestLabel
             // 
-            this.CPTestLabel.Location = new System.Drawing.Point(7, 117);
+            this.CPTestLabel.Location = new System.Drawing.Point(0, 117);
             this.CPTestLabel.Name = "CPTestLabel";
             this.CPTestLabel.Size = new System.Drawing.Size(68, 17);
             this.CPTestLabel.TabIndex = 17;
-            this.CPTestLabel.Text = "Test:";
+            this.CPTestLabel.Text = "CP Test:";
             this.CPTestLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // CPCurrentComboBox
@@ -747,16 +840,16 @@ namespace Synthesizer_PC_control
             this.CPCurrentComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CPCurrentComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CPCurrentComboBox.FormattingEnabled = true;
-            this.CPCurrentComboBox.Location = new System.Drawing.Point(80, 52);
+            this.CPCurrentComboBox.Location = new System.Drawing.Point(73, 52);
             this.CPCurrentComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPCurrentComboBox.Name = "CPCurrentComboBox";
-            this.CPCurrentComboBox.Size = new System.Drawing.Size(91, 24);
+            this.CPCurrentComboBox.Size = new System.Drawing.Size(116, 24);
             this.CPCurrentComboBox.TabIndex = 16;
             this.CPCurrentComboBox.SelectedIndexChanged += new System.EventHandler(this.CPCurrentComboBox_SelectedIndexChanged);
             // 
             // CPlinearityLabel
             // 
-            this.CPlinearityLabel.Location = new System.Drawing.Point(7, 86);
+            this.CPlinearityLabel.Location = new System.Drawing.Point(0, 86);
             this.CPlinearityLabel.Name = "CPlinearityLabel";
             this.CPlinearityLabel.Size = new System.Drawing.Size(68, 17);
             this.CPlinearityLabel.TabIndex = 17;
@@ -765,7 +858,7 @@ namespace Synthesizer_PC_control
             // 
             // RSetLabel
             // 
-            this.RSetLabel.Location = new System.Drawing.Point(7, 26);
+            this.RSetLabel.Location = new System.Drawing.Point(0, 26);
             this.RSetLabel.Name = "RSetLabel";
             this.RSetLabel.Size = new System.Drawing.Size(68, 17);
             this.RSetLabel.TabIndex = 17;
@@ -774,31 +867,31 @@ namespace Synthesizer_PC_control
             // 
             // CPCurrentLabel
             // 
-            this.CPCurrentLabel.Location = new System.Drawing.Point(11, 55);
+            this.CPCurrentLabel.Location = new System.Drawing.Point(4, 55);
             this.CPCurrentLabel.Name = "CPCurrentLabel";
             this.CPCurrentLabel.Size = new System.Drawing.Size(64, 17);
             this.CPCurrentLabel.TabIndex = 17;
             this.CPCurrentLabel.Text = "Current:";
             this.CPCurrentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // groupBox1
+            // OutputControlsGroupBox
             // 
-            this.groupBox1.Controls.Add(this.RF_A_EN_Label);
-            this.groupBox1.Controls.Add(this.RF_A_PWR_Label);
-            this.groupBox1.Controls.Add(this.RF_B_EN_Label);
-            this.groupBox1.Controls.Add(this.RF_B_PWR_Label);
-            this.groupBox1.Controls.Add(this.OutBPwr_ComboBox);
-            this.groupBox1.Controls.Add(this.OutAEn_ComboBox);
-            this.groupBox1.Controls.Add(this.OutAPwr_ComboBox);
-            this.groupBox1.Controls.Add(this.OutBEn_ComboBox);
-            this.groupBox1.Location = new System.Drawing.Point(231, 437);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(459, 75);
-            this.groupBox1.TabIndex = 25;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Output Controls";
+            this.OutputControlsGroupBox.Controls.Add(this.RF_A_EN_Label);
+            this.OutputControlsGroupBox.Controls.Add(this.RF_A_PWR_Label);
+            this.OutputControlsGroupBox.Controls.Add(this.RF_B_EN_Label);
+            this.OutputControlsGroupBox.Controls.Add(this.RF_B_PWR_Label);
+            this.OutputControlsGroupBox.Controls.Add(this.OutBPwr_ComboBox);
+            this.OutputControlsGroupBox.Controls.Add(this.OutAEn_ComboBox);
+            this.OutputControlsGroupBox.Controls.Add(this.OutAPwr_ComboBox);
+            this.OutputControlsGroupBox.Controls.Add(this.OutBEn_ComboBox);
+            this.OutputControlsGroupBox.Location = new System.Drawing.Point(231, 549);
+            this.OutputControlsGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.OutputControlsGroupBox.Name = "OutputControlsGroupBox";
+            this.OutputControlsGroupBox.Padding = new System.Windows.Forms.Padding(4);
+            this.OutputControlsGroupBox.Size = new System.Drawing.Size(459, 75);
+            this.OutputControlsGroupBox.TabIndex = 25;
+            this.OutputControlsGroupBox.TabStop = false;
+            this.OutputControlsGroupBox.Text = "Output Controls";
             // 
             // RF_A_EN_Label
             // 
@@ -836,7 +929,7 @@ namespace Synthesizer_PC_control
             this.RF_B_PWR_Label.Text = "RFoutB Power:";
             this.RF_B_PWR_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // RF_B_PWR_ComboBox
+            // OutBPwr_ComboBox
             // 
             this.OutBPwr_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.OutBPwr_ComboBox.FormattingEnabled = true;
@@ -847,12 +940,12 @@ namespace Synthesizer_PC_control
             "+5 dBm"});
             this.OutBPwr_ComboBox.Location = new System.Drawing.Point(352, 47);
             this.OutBPwr_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.OutBPwr_ComboBox.Name = "RF_B_PWR_ComboBox";
+            this.OutBPwr_ComboBox.Name = "OutBPwr_ComboBox";
             this.OutBPwr_ComboBox.Size = new System.Drawing.Size(100, 24);
             this.OutBPwr_ComboBox.TabIndex = 16;
             this.OutBPwr_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutBPwr_ComboBox_SelectedIndexChanged);
             // 
-            // RF_A_EN_ComboBox
+            // OutAEn_ComboBox
             // 
             this.OutAEn_ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.OutAEn_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -862,12 +955,12 @@ namespace Synthesizer_PC_control
             "1. Enabled"});
             this.OutAEn_ComboBox.Location = new System.Drawing.Point(127, 18);
             this.OutAEn_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.OutAEn_ComboBox.Name = "RF_A_EN_ComboBox";
+            this.OutAEn_ComboBox.Name = "OutAEn_ComboBox";
             this.OutAEn_ComboBox.Size = new System.Drawing.Size(100, 24);
             this.OutAEn_ComboBox.TabIndex = 16;
             this.OutAEn_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutAEn_ComboBox_SelectedIndexChanged);
             // 
-            // RF_A_PWR_ComboBox
+            // OutAPwr_ComboBox
             // 
             this.OutAPwr_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.OutAPwr_ComboBox.FormattingEnabled = true;
@@ -878,12 +971,12 @@ namespace Synthesizer_PC_control
             "+5 dBm"});
             this.OutAPwr_ComboBox.Location = new System.Drawing.Point(127, 47);
             this.OutAPwr_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.OutAPwr_ComboBox.Name = "RF_A_PWR_ComboBox";
+            this.OutAPwr_ComboBox.Name = "OutAPwr_ComboBox";
             this.OutAPwr_ComboBox.Size = new System.Drawing.Size(100, 24);
             this.OutAPwr_ComboBox.TabIndex = 16;
             this.OutAPwr_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutAPwr_ComboBox_SelectedIndexChanged);
             // 
-            // RF_B_EN_ComboBox
+            // OutBEn_ComboBox
             // 
             this.OutBEn_ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.OutBEn_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -893,7 +986,7 @@ namespace Synthesizer_PC_control
             "1. Enabled"});
             this.OutBEn_ComboBox.Location = new System.Drawing.Point(352, 18);
             this.OutBEn_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.OutBEn_ComboBox.Name = "RF_B_EN_ComboBox";
+            this.OutBEn_ComboBox.Name = "OutBEn_ComboBox";
             this.OutBEn_ComboBox.Size = new System.Drawing.Size(100, 24);
             this.OutBEn_ComboBox.TabIndex = 16;
             this.OutBEn_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutBEn_ComboBox_SelectedIndexChanged);
@@ -909,7 +1002,7 @@ namespace Synthesizer_PC_control
             this.OutInfoGroupBox.Controls.Add(this.fOutAScreenLabel);
             this.OutInfoGroupBox.Controls.Add(this.fOutBScreenLabel);
             this.OutInfoGroupBox.Controls.Add(this.fVcoScreenLabel);
-            this.OutInfoGroupBox.Location = new System.Drawing.Point(7, 437);
+            this.OutInfoGroupBox.Location = new System.Drawing.Point(7, 549);
             this.OutInfoGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.OutInfoGroupBox.Name = "OutInfoGroupBox";
             this.OutInfoGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -1007,9 +1100,14 @@ namespace Synthesizer_PC_control
             // 
             // FreqControlGroupBox
             // 
+            this.FreqControlGroupBox.Controls.Add(this.RFoutBPathLabel);
+            this.FreqControlGroupBox.Controls.Add(this.LDfuncLabel);
             this.FreqControlGroupBox.Controls.Add(this.ADivComboBox);
             this.FreqControlGroupBox.Controls.Add(this.FracNLabel);
             this.FreqControlGroupBox.Controls.Add(this.ModeIntFracComboBox);
+            this.FreqControlGroupBox.Controls.Add(this.RFoutBPathComboBox);
+            this.FreqControlGroupBox.Controls.Add(this.LDFuncComboBox);
+            this.FreqControlGroupBox.Controls.Add(this.AutoLDFuncCheckBox);
             this.FreqControlGroupBox.Controls.Add(this.IntNLabel);
             this.FreqControlGroupBox.Controls.Add(this.ModeIntFracLabel);
             this.FreqControlGroupBox.Controls.Add(this.ModLabel);
@@ -1019,14 +1117,32 @@ namespace Synthesizer_PC_control
             this.FreqControlGroupBox.Controls.Add(this.ModNumUpDown);
             this.FreqControlGroupBox.Controls.Add(this.FracNNumUpDown);
             this.FreqControlGroupBox.Controls.Add(this.PhasePNumericUpDown);
-            this.FreqControlGroupBox.Location = new System.Drawing.Point(9, 316);
+            this.FreqControlGroupBox.Location = new System.Drawing.Point(9, 327);
             this.FreqControlGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.FreqControlGroupBox.Name = "FreqControlGroupBox";
             this.FreqControlGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.FreqControlGroupBox.Size = new System.Drawing.Size(339, 111);
+            this.FreqControlGroupBox.Size = new System.Drawing.Size(339, 169);
             this.FreqControlGroupBox.TabIndex = 23;
             this.FreqControlGroupBox.TabStop = false;
             this.FreqControlGroupBox.Text = "Output Frequency Control";
+            // 
+            // RFoutBPathLabel
+            // 
+            this.RFoutBPathLabel.Location = new System.Drawing.Point(-3, 140);
+            this.RFoutBPathLabel.Name = "RFoutBPathLabel";
+            this.RFoutBPathLabel.Size = new System.Drawing.Size(100, 17);
+            this.RFoutBPathLabel.TabIndex = 17;
+            this.RFoutBPathLabel.Text = "RFoutB path:";
+            this.RFoutBPathLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // LDfuncLabel
+            // 
+            this.LDfuncLabel.Location = new System.Drawing.Point(10, 110);
+            this.LDfuncLabel.Name = "LDfuncLabel";
+            this.LDfuncLabel.Size = new System.Drawing.Size(87, 17);
+            this.LDfuncLabel.TabIndex = 17;
+            this.LDfuncLabel.Text = "LD function:";
+            this.LDfuncLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ADivComboBox
             // 
@@ -1071,6 +1187,47 @@ namespace Synthesizer_PC_control
             this.ModeIntFracComboBox.Size = new System.Drawing.Size(106, 24);
             this.ModeIntFracComboBox.TabIndex = 16;
             this.ModeIntFracComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
+            // 
+            // RFoutBPathComboBox
+            // 
+            this.RFoutBPathComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.RFoutBPathComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.RFoutBPathComboBox.FormattingEnabled = true;
+            this.RFoutBPathComboBox.Items.AddRange(new object[] {
+            "VCO divided",
+            "VCO fundamental"});
+            this.RFoutBPathComboBox.Location = new System.Drawing.Point(103, 137);
+            this.RFoutBPathComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RFoutBPathComboBox.Name = "RFoutBPathComboBox";
+            this.RFoutBPathComboBox.Size = new System.Drawing.Size(150, 24);
+            this.RFoutBPathComboBox.TabIndex = 16;
+            // 
+            // LDFuncComboBox
+            // 
+            this.LDFuncComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.LDFuncComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LDFuncComboBox.FormattingEnabled = true;
+            this.LDFuncComboBox.Items.AddRange(new object[] {
+            "Frac-N Lock-det.",
+            "Int-N Lock-det."});
+            this.LDFuncComboBox.Location = new System.Drawing.Point(103, 107);
+            this.LDFuncComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LDFuncComboBox.Name = "LDFuncComboBox";
+            this.LDFuncComboBox.Size = new System.Drawing.Size(150, 24);
+            this.LDFuncComboBox.TabIndex = 16;
+            // 
+            // AutoLDFuncCheckBox
+            // 
+            this.AutoLDFuncCheckBox.AutoSize = true;
+            this.AutoLDFuncCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.AutoLDFuncCheckBox.Location = new System.Drawing.Point(260, 109);
+            this.AutoLDFuncCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.AutoLDFuncCheckBox.Name = "AutoLDFuncCheckBox";
+            this.AutoLDFuncCheckBox.Size = new System.Drawing.Size(58, 21);
+            this.AutoLDFuncCheckBox.TabIndex = 21;
+            this.AutoLDFuncCheckBox.Text = "auto";
+            this.AutoLDFuncCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.AutoLDFuncCheckBox.UseVisualStyleBackColor = true;
             // 
             // IntNLabel
             // 
@@ -1203,9 +1360,12 @@ namespace Synthesizer_PC_control
             // 
             // RefFreqGroupBox
             // 
+            this.RefFreqGroupBox.Controls.Add(this.LDSpeedAdjLabel);
             this.RefFreqGroupBox.Controls.Add(this.RDivUpDown);
+            this.RefFreqGroupBox.Controls.Add(this.LDSpeedAdjComboBox);
             this.RefFreqGroupBox.Controls.Add(this.RefFTextBox);
             this.RefFreqGroupBox.Controls.Add(this.DivideBy2CheckBox);
+            this.RefFreqGroupBox.Controls.Add(this.AutoLDSpeedAdjCheckBox);
             this.RefFreqGroupBox.Controls.Add(this.RefDoublerCheckBox);
             this.RefFreqGroupBox.Controls.Add(this.RefFLabel);
             this.RefFreqGroupBox.Controls.Add(this.fPfdLabel);
@@ -1217,10 +1377,19 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.RefFreqGroupBox.Name = "RefFreqGroupBox";
             this.RefFreqGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.RefFreqGroupBox.Size = new System.Drawing.Size(304, 111);
+            this.RefFreqGroupBox.Size = new System.Drawing.Size(341, 122);
             this.RefFreqGroupBox.TabIndex = 22;
             this.RefFreqGroupBox.TabStop = false;
             this.RefFreqGroupBox.Text = "Reference Frequency";
+            // 
+            // LDSpeedAdjLabel
+            // 
+            this.LDSpeedAdjLabel.Location = new System.Drawing.Point(1, 90);
+            this.LDSpeedAdjLabel.Name = "LDSpeedAdjLabel";
+            this.LDSpeedAdjLabel.Size = new System.Drawing.Size(148, 17);
+            this.LDSpeedAdjLabel.TabIndex = 17;
+            this.LDSpeedAdjLabel.Text = "LD speed adjustment:";
+            this.LDSpeedAdjLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RDivUpDown
             // 
@@ -1248,6 +1417,20 @@ namespace Synthesizer_PC_control
             this.RDivUpDown.ValueChanged += new System.EventHandler(this.RDivUpDown_ValueChanged);
             this.RDivUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.RDivScrollHandlerFunction);
             // 
+            // LDSpeedAdjComboBox
+            // 
+            this.LDSpeedAdjComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.LDSpeedAdjComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LDSpeedAdjComboBox.FormattingEnabled = true;
+            this.LDSpeedAdjComboBox.Items.AddRange(new object[] {
+            "fPFD <= 32 MHz",
+            "fPFD  >  32 MHz"});
+            this.LDSpeedAdjComboBox.Location = new System.Drawing.Point(154, 87);
+            this.LDSpeedAdjComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LDSpeedAdjComboBox.Name = "LDSpeedAdjComboBox";
+            this.LDSpeedAdjComboBox.Size = new System.Drawing.Size(144, 24);
+            this.LDSpeedAdjComboBox.TabIndex = 16;
+            // 
             // RefFTextBox
             // 
             this.RefFTextBox.BackColor = System.Drawing.Color.White;
@@ -1267,7 +1450,7 @@ namespace Synthesizer_PC_control
             // 
             this.DivideBy2CheckBox.AutoSize = true;
             this.DivideBy2CheckBox.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.DivideBy2CheckBox.Location = new System.Drawing.Point(267, 14);
+            this.DivideBy2CheckBox.Location = new System.Drawing.Point(292, 14);
             this.DivideBy2CheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.DivideBy2CheckBox.Name = "DivideBy2CheckBox";
             this.DivideBy2CheckBox.Size = new System.Drawing.Size(28, 38);
@@ -1277,13 +1460,26 @@ namespace Synthesizer_PC_control
             this.DivideBy2CheckBox.UseVisualStyleBackColor = true;
             this.DivideBy2CheckBox.CheckedChanged += new System.EventHandler(this.DivideBy2CheckBox_CheckedChanged);
             // 
-            // DoubleRefFCheckBox
+            // AutoLDSpeedAdjCheckBox
+            // 
+            this.AutoLDSpeedAdjCheckBox.AutoSize = true;
+            this.AutoLDSpeedAdjCheckBox.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.AutoLDSpeedAdjCheckBox.Location = new System.Drawing.Point(302, 81);
+            this.AutoLDSpeedAdjCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.AutoLDSpeedAdjCheckBox.Name = "AutoLDSpeedAdjCheckBox";
+            this.AutoLDSpeedAdjCheckBox.Size = new System.Drawing.Size(40, 38);
+            this.AutoLDSpeedAdjCheckBox.TabIndex = 21;
+            this.AutoLDSpeedAdjCheckBox.Text = "auto";
+            this.AutoLDSpeedAdjCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.AutoLDSpeedAdjCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // RefDoublerCheckBox
             // 
             this.RefDoublerCheckBox.AutoSize = true;
             this.RefDoublerCheckBox.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.RefDoublerCheckBox.Location = new System.Drawing.Point(229, 14);
+            this.RefDoublerCheckBox.Location = new System.Drawing.Point(254, 14);
             this.RefDoublerCheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.RefDoublerCheckBox.Name = "DoubleRefFCheckBox";
+            this.RefDoublerCheckBox.Name = "RefDoublerCheckBox";
             this.RefDoublerCheckBox.Size = new System.Drawing.Size(26, 38);
             this.RefDoublerCheckBox.TabIndex = 21;
             this.RefDoublerCheckBox.Text = "x2";
@@ -1302,10 +1498,10 @@ namespace Synthesizer_PC_control
             // 
             // fPfdLabel
             // 
-            this.fPfdLabel.Location = new System.Drawing.Point(20, 87);
+            this.fPfdLabel.Location = new System.Drawing.Point(180, 58);
             this.fPfdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fPfdLabel.Name = "fPfdLabel";
-            this.fPfdLabel.Size = new System.Drawing.Size(61, 16);
+            this.fPfdLabel.Size = new System.Drawing.Size(43, 16);
             this.fPfdLabel.TabIndex = 20;
             this.fPfdLabel.Text = "fPFD:";
             this.fPfdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1321,7 +1517,7 @@ namespace Synthesizer_PC_control
             // 
             // MHzLabel4
             // 
-            this.MHzLabel4.Location = new System.Drawing.Point(169, 86);
+            this.MHzLabel4.Location = new System.Drawing.Point(301, 58);
             this.MHzLabel4.Name = "MHzLabel4";
             this.MHzLabel4.Size = new System.Drawing.Size(40, 17);
             this.MHzLabel4.TabIndex = 17;
@@ -1337,15 +1533,15 @@ namespace Synthesizer_PC_control
             this.MHzLabel3.Text = "MHz";
             this.MHzLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // fPfdScreenLabel
+            // pfdFreqLabel
             // 
-            this.pfdFreqLabel.Location = new System.Drawing.Point(65, 87);
+            this.pfdFreqLabel.Location = new System.Drawing.Point(221, 58);
             this.pfdFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.pfdFreqLabel.Name = "fPfdScreenLabel";
-            this.pfdFreqLabel.Size = new System.Drawing.Size(109, 16);
+            this.pfdFreqLabel.Name = "pfdFreqLabel";
+            this.pfdFreqLabel.Size = new System.Drawing.Size(83, 16);
             this.pfdFreqLabel.TabIndex = 20;
             this.pfdFreqLabel.Text = "10.000 000";
-            this.pfdFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.pfdFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RegistersMemoryPage
             // 
@@ -1393,7 +1589,7 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersMemoryPage.Name = "RegistersMemoryPage";
             this.RegistersMemoryPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersMemoryPage.Size = new System.Drawing.Size(700, 519);
+            this.RegistersMemoryPage.Size = new System.Drawing.Size(700, 632);
             this.RegistersMemoryPage.TabIndex = 1;
             this.RegistersMemoryPage.Text = "Registers Memory";
             this.RegistersMemoryPage.UseVisualStyleBackColor = true;
@@ -1855,7 +2051,7 @@ namespace Synthesizer_PC_control
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 579);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 744);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 13, 0);
             this.statusStrip1.Size = new System.Drawing.Size(1067, 22);
@@ -1894,7 +2090,7 @@ namespace Synthesizer_PC_control
             // 
             // DeltaShowLabel
             // 
-            this.DeltaShowLabel.Location = new System.Drawing.Point(147, 50);
+            this.DeltaShowLabel.Location = new System.Drawing.Point(147, 70);
             this.DeltaShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DeltaShowLabel.Name = "DeltaShowLabel";
             this.DeltaShowLabel.Size = new System.Drawing.Size(109, 16);
@@ -1904,7 +2100,7 @@ namespace Synthesizer_PC_control
             // 
             // HzLabel
             // 
-            this.HzLabel.Location = new System.Drawing.Point(262, 50);
+            this.HzLabel.Location = new System.Drawing.Point(262, 70);
             this.HzLabel.Name = "HzLabel";
             this.HzLabel.Size = new System.Drawing.Size(40, 17);
             this.HzLabel.TabIndex = 17;
@@ -1913,7 +2109,7 @@ namespace Synthesizer_PC_control
             // 
             // DeltaLabel
             // 
-            this.DeltaLabel.Location = new System.Drawing.Point(2, 49);
+            this.DeltaLabel.Location = new System.Drawing.Point(2, 69);
             this.DeltaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DeltaLabel.Name = "DeltaLabel";
             this.DeltaLabel.Size = new System.Drawing.Size(138, 18);
@@ -1931,20 +2127,162 @@ namespace Synthesizer_PC_control
             this.InputFreqLabel.Text = "Output frequency:";
             this.InputFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // groupBox3
+            // DirectFreqContrGroupBox
             // 
-            this.groupBox3.Controls.Add(this.InputFreqTextBox);
-            this.groupBox3.Controls.Add(this.MHzLabel6);
-            this.groupBox3.Controls.Add(this.InputFreqLabel);
-            this.groupBox3.Controls.Add(this.DeltaShowLabel);
-            this.groupBox3.Controls.Add(this.DeltaLabel);
-            this.groupBox3.Controls.Add(this.HzLabel);
-            this.groupBox3.Location = new System.Drawing.Point(16, 149);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(334, 74);
-            this.groupBox3.TabIndex = 22;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Direct output frequency control";
+            this.DirectFreqContrGroupBox.Controls.Add(this.InputFreqTextBox);
+            this.DirectFreqContrGroupBox.Controls.Add(this.MHzLabel9);
+            this.DirectFreqContrGroupBox.Controls.Add(this.MHzLabel8);
+            this.DirectFreqContrGroupBox.Controls.Add(this.MHzLabel7);
+            this.DirectFreqContrGroupBox.Controls.Add(this.MHzLabel6);
+            this.DirectFreqContrGroupBox.Controls.Add(this.InputFreqLabel);
+            this.DirectFreqContrGroupBox.Controls.Add(this.FreqAtOut2ShowLabel);
+            this.DirectFreqContrGroupBox.Controls.Add(this.FreqAtOut1ShowLabel);
+            this.DirectFreqContrGroupBox.Controls.Add(this.CalcFreqShowLabel);
+            this.DirectFreqContrGroupBox.Controls.Add(this.ActOut2ShowLabel);
+            this.DirectFreqContrGroupBox.Controls.Add(this.FreqAtOut2Label);
+            this.DirectFreqContrGroupBox.Controls.Add(this.ActOut1ShowLabel);
+            this.DirectFreqContrGroupBox.Controls.Add(this.FreqAtOut1Label);
+            this.DirectFreqContrGroupBox.Controls.Add(this.DeltaShowLabel);
+            this.DirectFreqContrGroupBox.Controls.Add(this.CalcFreqLabel);
+            this.DirectFreqContrGroupBox.Controls.Add(this.ActiveOut2Label);
+            this.DirectFreqContrGroupBox.Controls.Add(this.ActiveOut1Label);
+            this.DirectFreqContrGroupBox.Controls.Add(this.DeltaLabel);
+            this.DirectFreqContrGroupBox.Controls.Add(this.HzLabel);
+            this.DirectFreqContrGroupBox.Location = new System.Drawing.Point(16, 93);
+            this.DirectFreqContrGroupBox.Name = "DirectFreqContrGroupBox";
+            this.DirectFreqContrGroupBox.Size = new System.Drawing.Size(334, 165);
+            this.DirectFreqContrGroupBox.TabIndex = 22;
+            this.DirectFreqContrGroupBox.TabStop = false;
+            this.DirectFreqContrGroupBox.Text = "Direct output frequency control";
+            // 
+            // MHzLabel9
+            // 
+            this.MHzLabel9.Location = new System.Drawing.Point(263, 140);
+            this.MHzLabel9.Name = "MHzLabel9";
+            this.MHzLabel9.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel9.TabIndex = 17;
+            this.MHzLabel9.Text = "MHz";
+            this.MHzLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // MHzLabel8
+            // 
+            this.MHzLabel8.Location = new System.Drawing.Point(263, 118);
+            this.MHzLabel8.Name = "MHzLabel8";
+            this.MHzLabel8.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel8.TabIndex = 17;
+            this.MHzLabel8.Text = "MHz";
+            this.MHzLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // MHzLabel7
+            // 
+            this.MHzLabel7.Location = new System.Drawing.Point(263, 47);
+            this.MHzLabel7.Name = "MHzLabel7";
+            this.MHzLabel7.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel7.TabIndex = 17;
+            this.MHzLabel7.Text = "MHz";
+            this.MHzLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FreqAtOut2ShowLabel
+            // 
+            this.FreqAtOut2ShowLabel.Location = new System.Drawing.Point(147, 141);
+            this.FreqAtOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FreqAtOut2ShowLabel.Name = "FreqAtOut2ShowLabel";
+            this.FreqAtOut2ShowLabel.Size = new System.Drawing.Size(109, 16);
+            this.FreqAtOut2ShowLabel.TabIndex = 20;
+            this.FreqAtOut2ShowLabel.Text = "0";
+            this.FreqAtOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // FreqAtOut1ShowLabel
+            // 
+            this.FreqAtOut1ShowLabel.Location = new System.Drawing.Point(147, 119);
+            this.FreqAtOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FreqAtOut1ShowLabel.Name = "FreqAtOut1ShowLabel";
+            this.FreqAtOut1ShowLabel.Size = new System.Drawing.Size(109, 16);
+            this.FreqAtOut1ShowLabel.TabIndex = 20;
+            this.FreqAtOut1ShowLabel.Text = "0";
+            this.FreqAtOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // CalcFreqShowLabel
+            // 
+            this.CalcFreqShowLabel.Location = new System.Drawing.Point(147, 48);
+            this.CalcFreqShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CalcFreqShowLabel.Name = "CalcFreqShowLabel";
+            this.CalcFreqShowLabel.Size = new System.Drawing.Size(109, 16);
+            this.CalcFreqShowLabel.TabIndex = 20;
+            this.CalcFreqShowLabel.Text = "0";
+            this.CalcFreqShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ActOut2ShowLabel
+            // 
+            this.ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.ActOut2ShowLabel.Location = new System.Drawing.Point(300, 97);
+            this.ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ActOut2ShowLabel.Name = "ActOut2ShowLabel";
+            this.ActOut2ShowLabel.Size = new System.Drawing.Size(21, 16);
+            this.ActOut2ShowLabel.TabIndex = 20;
+            this.ActOut2ShowLabel.Text = "0";
+            this.ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // FreqAtOut2Label
+            // 
+            this.FreqAtOut2Label.Location = new System.Drawing.Point(2, 139);
+            this.FreqAtOut2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FreqAtOut2Label.Name = "FreqAtOut2Label";
+            this.FreqAtOut2Label.Size = new System.Drawing.Size(138, 18);
+            this.FreqAtOut2Label.TabIndex = 20;
+            this.FreqAtOut2Label.Text = "Frequency at Out 2:";
+            this.FreqAtOut2Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // ActOut1ShowLabel
+            // 
+            this.ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.ActOut1ShowLabel.Location = new System.Drawing.Point(147, 97);
+            this.ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ActOut1ShowLabel.Name = "ActOut1ShowLabel";
+            this.ActOut1ShowLabel.Size = new System.Drawing.Size(21, 16);
+            this.ActOut1ShowLabel.TabIndex = 20;
+            this.ActOut1ShowLabel.Text = "0";
+            this.ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // FreqAtOut1Label
+            // 
+            this.FreqAtOut1Label.Location = new System.Drawing.Point(2, 117);
+            this.FreqAtOut1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FreqAtOut1Label.Name = "FreqAtOut1Label";
+            this.FreqAtOut1Label.Size = new System.Drawing.Size(138, 18);
+            this.FreqAtOut1Label.TabIndex = 20;
+            this.FreqAtOut1Label.Text = "Frequency at Out 1:";
+            this.FreqAtOut1Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // CalcFreqLabel
+            // 
+            this.CalcFreqLabel.Location = new System.Drawing.Point(2, 46);
+            this.CalcFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CalcFreqLabel.Name = "CalcFreqLabel";
+            this.CalcFreqLabel.Size = new System.Drawing.Size(138, 18);
+            this.CalcFreqLabel.TabIndex = 20;
+            this.CalcFreqLabel.Text = "Calculated freq.:";
+            this.CalcFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // ActiveOut2Label
+            // 
+            this.ActiveOut2Label.Location = new System.Drawing.Point(183, 96);
+            this.ActiveOut2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ActiveOut2Label.Name = "ActiveOut2Label";
+            this.ActiveOut2Label.Size = new System.Drawing.Size(109, 18);
+            this.ActiveOut2Label.TabIndex = 20;
+            this.ActiveOut2Label.Text = "Active Output 2:";
+            this.ActiveOut2Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // ActiveOut1Label
+            // 
+            this.ActiveOut1Label.Location = new System.Drawing.Point(2, 95);
+            this.ActiveOut1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ActiveOut1Label.Name = "ActiveOut1Label";
+            this.ActiveOut1Label.Size = new System.Drawing.Size(138, 18);
+            this.ActiveOut1Label.TabIndex = 20;
+            this.ActiveOut1Label.Text = "Active Output 1:";
+            this.ActiveOut1Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ConsoleRichTextBox
             // 
@@ -1957,13 +2295,22 @@ namespace Synthesizer_PC_control
             this.ConsoleRichTextBox.TabIndex = 23;
             this.ConsoleRichTextBox.Text = "";
             // 
+            // VcoSettingsGroupBox
+            // 
+            this.VcoSettingsGroupBox.Location = new System.Drawing.Point(355, 198);
+            this.VcoSettingsGroupBox.Name = "VcoSettingsGroupBox";
+            this.VcoSettingsGroupBox.Size = new System.Drawing.Size(335, 100);
+            this.VcoSettingsGroupBox.TabIndex = 29;
+            this.VcoSettingsGroupBox.TabStop = false;
+            this.VcoSettingsGroupBox.Text = "VCO settings";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 601);
+            this.ClientSize = new System.Drawing.Size(1067, 766);
             this.Controls.Add(this.ConsoleRichTextBox);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.DirectFreqContrGroupBox);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.RegistersTabControl);
             this.Controls.Add(this.RegistersGroupBox);
@@ -1980,14 +2327,17 @@ namespace Synthesizer_PC_control
             this.Click += new System.EventHandler(this.CheckAndApllyChangesForm1_Click);
             this.RegistersTabControl.ResumeLayout(false);
             this.RegistersPage.ResumeLayout(false);
+            this.PhaseDetectorGroupBox.ResumeLayout(false);
+            this.PhaseDetectorGroupBox.PerformLayout();
             this.RegistersControlsGroupBox.ResumeLayout(false);
             this.RegistersControlsGroupBox.PerformLayout();
             this.MoveRegsIntoMemsGroupBox.ResumeLayout(false);
             this.ChargePumpGroupBox.ResumeLayout(false);
             this.ChargePumpGroupBox.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
+            this.OutputControlsGroupBox.ResumeLayout(false);
             this.OutInfoGroupBox.ResumeLayout(false);
             this.FreqControlGroupBox.ResumeLayout(false);
+            this.FreqControlGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IntNNumUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ModNumUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FracNNumUpDown)).EndInit();
@@ -1999,8 +2349,8 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.DirectFreqContrGroupBox.ResumeLayout(false);
+            this.DirectFreqContrGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2118,7 +2468,7 @@ namespace Synthesizer_PC_control
         private GroupBox RefFreqGroupBox;
         private GroupBox FreqControlGroupBox;
         private GroupBox OutInfoGroupBox;
-        private GroupBox groupBox1;
+        private GroupBox OutputControlsGroupBox;
         private GroupBox ChargePumpGroupBox;
         public TextBox RSetTextBox;
         private Label RSetLabel;
@@ -2149,8 +2499,35 @@ namespace Synthesizer_PC_control
         private Button ImportMem2Button;
         private Button ImportMem1Button;
         private GroupBox RegistersControlsGroupBox;
-        private GroupBox groupBox3;
+        private GroupBox DirectFreqContrGroupBox;
         public RichTextBox ConsoleRichTextBox;
+        private Label MHzLabel7;
+        public Label CalcFreqShowLabel;
+        private Label CalcFreqLabel;
+        private Label ActiveOut1Label;
+        private Label MHzLabel9;
+        private Label MHzLabel8;
+        public Label FreqAtOut2ShowLabel;
+        public Label FreqAtOut1ShowLabel;
+        public Label ActOut2ShowLabel;
+        private Label FreqAtOut2Label;
+        public Label ActOut1ShowLabel;
+        private Label FreqAtOut1Label;
+        private Label ActiveOut2Label;
+        private GroupBox PhaseDetectorGroupBox;
+        private Label LDSpeedAdjLabel;
+        public ComboBox LDSpeedAdjComboBox;
+        public CheckBox AutoLDSpeedAdjCheckBox;
+        private Label LDPrecisionLabel;
+        private Label SDNoiseModeLabel;
+        public ComboBox LDPrecisionComboBox;
+        public ComboBox SDNoiseModeComboBox;
+        private Label LDfuncLabel;
+        public ComboBox LDFuncComboBox;
+        private Label RFoutBPathLabel;
+        public ComboBox RFoutBPathComboBox;
+        public CheckBox AutoLDFuncCheckBox;
+        private GroupBox VcoSettingsGroupBox;
     }
 }
 
