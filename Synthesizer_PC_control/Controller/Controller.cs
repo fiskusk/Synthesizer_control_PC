@@ -32,6 +32,8 @@ namespace Synthesizer_PC_control.Controllers
 
         public SynthFreqInfo synthFreqInfo;
 
+        public SynthOutputControls synthOutputControls;
+
         public Controller(Form1 view)
         {
             // TODO FILIP ... Hey, try this! Hey! It works! :)
@@ -88,6 +90,11 @@ namespace Synthesizer_PC_control.Controllers
             synthFreqInfo = new SynthFreqInfo(view.fVcoScreenLabel,
                                               view.fOutAScreenLabel,
                                               view.fOutBScreenLabel);
+
+            synthOutputControls = new SynthOutputControls(view.OutAEn_ComboBox,
+                                                          view.OutBEn_ComboBox,
+                                                          view.OutAPwr_ComboBox,
+                                                          view.OutBPwr_ComboBox);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -191,20 +198,43 @@ namespace Synthesizer_PC_control.Controllers
 
         #region Output Controls
 
-        public void ChangeOutAPwr(int selectedIndex)
+        public void ChangeOutAPwr(int value)
         {
-            registers[4].ChangeNBits(Convert.ToUInt32(selectedIndex), 2, 3);
+            registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 3);
+            synthOutputControls.SetOutAPwr(value);
         }
 
-        public void ChangeOutAEn(int selectedIndex)
+        public void ChangeOutAEn(int value)
         {
-            if (selectedIndex == 0)
+            if (value == 0)
             {
                 registers[4].SetResetOneBit(5, BitState.RESET);
+                synthOutputControls.SetOutAEnable(OutEnState.DISABLE);
             }
-            else if (selectedIndex == 1)
+            else if (value == 1)
             {
                 registers[4].SetResetOneBit(5, BitState.SET);
+                synthOutputControls.SetOutAEnable(OutEnState.ENABLE);
+            }
+        }
+
+        public void ChangeOutBPwr(int value)
+        {
+            registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 6);
+            synthOutputControls.SetOutBPwr(value);
+        }
+
+        public void ChangeOutBEn(int value)
+        {
+            if (value == 0)
+            {
+                registers[4].SetResetOneBit(8, BitState.RESET);
+                synthOutputControls.SetOutBEnable(OutEnState.DISABLE);
+            }
+            else if (value == 1)
+            {
+                registers[4].SetResetOneBit(8, BitState.SET);
+                synthOutputControls.SetOutBEnable(OutEnState.ENABLE);
             }
         }
 
@@ -294,12 +324,26 @@ namespace Synthesizer_PC_control.Controllers
         #region Parsing register 4
         private void GetOutAENStatusFromRegister(UInt32 dataReg4)
         {
-            view.RF_A_EN_ComboBox.SelectedIndex = (int)BitOperations.GetNBits(dataReg4, 1, 5);
+            OutEnState outAEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 5);
+            synthOutputControls.SetOutAEnable(outAEn);
+        }
+
+        private void GetOutBENStatusFromRegister(UInt32 dataReg4)
+        {
+            OutEnState outBEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 8);
+            synthOutputControls.SetOutBEnable(outBEn);
         }
 
         private void GetOutAPwrStatusFromRegister(UInt32 dataReg4)
         {
-            view.RF_A_PWR_ComboBox.SelectedIndex = (int)BitOperations.GetNBits(dataReg4, 2, 3);
+            int outAPwr = (int)BitOperations.GetNBits(dataReg4, 2, 3);
+            synthOutputControls.SetOutAPwr(outAPwr);
+        }
+
+        private void GetOutBPwrStatusFromRegister(UInt32 dataReg4)
+        {
+            int outBPwr = (int)BitOperations.GetNBits(dataReg4, 2, 6);
+            synthOutputControls.SetOutBPwr(outBPwr);
         }
 
         private void GetADividerValueFromRegister(UInt32 dataReg4)
@@ -316,37 +360,36 @@ namespace Synthesizer_PC_control.Controllers
         #region Collection function
         public void GetAllFromReg(int index)
         {
-            if (serialPort.IsPortOpen())
+            UInt32 reg = registers[index].uint32_GetValue();
+            switch (index)
             {
-                UInt32 reg = registers[index].uint32_GetValue();
-                switch (index)
-                {
-                    case 0:
-                        GetFracIntModeStatusFromRegister(reg);
-                        GetIntNValueFromRegister(reg);
-                        GetFracNValueFromRegister(reg);
-                        break;
-                    case 1:
-                        GetModValueFromRegister(reg);
-                        GetPhasePValueFromRegister(reg);
-                        GetCPLinearityFromRegister(reg);
-                        break;
-                    case 2:
-                        GetRefDoublerStatusFromRegister(reg);
-                        GetRefDividerStatusFromRegister(reg);
-                        GetRDivValueFromRegister(reg);
-                        GetCPCurrentIndexFromRegister(reg);
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        GetOutAENStatusFromRegister(reg);
-                        GetOutAPwrStatusFromRegister(reg);
-                        GetADividerValueFromRegister(reg);
-                        break;
-                    case 5:
-                        break;
-                }
+                case 0:
+                    GetFracIntModeStatusFromRegister(reg);
+                    GetIntNValueFromRegister(reg);
+                    GetFracNValueFromRegister(reg);
+                    break;
+                case 1:
+                    GetModValueFromRegister(reg);
+                    GetPhasePValueFromRegister(reg);
+                    GetCPLinearityFromRegister(reg);
+                    break;
+                case 2:
+                    GetRefDoublerStatusFromRegister(reg);
+                    GetRefDividerStatusFromRegister(reg);
+                    GetRDivValueFromRegister(reg);
+                    GetCPCurrentIndexFromRegister(reg);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    GetOutAENStatusFromRegister(reg);
+                    GetOutBENStatusFromRegister(reg);
+                    GetOutAPwrStatusFromRegister(reg);
+                    GetOutBPwrStatusFromRegister(reg);
+                    GetADividerValueFromRegister(reg);
+                    break;
+                case 5:
+                    break;
             }
         }
 
@@ -651,6 +694,42 @@ namespace Synthesizer_PC_control.Controllers
             {
                 ChangePhaseP(value);
                 CheckAndApplyRegChanges(1);
+            }
+        }
+
+        public void OutAEnStateChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeOutAEn(value);
+                CheckAndApplyRegChanges(4);
+            }
+        }
+
+        public void OutBEnStateChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeOutBEn(value);
+                CheckAndApplyRegChanges(4);
+            }
+        }
+
+        public void OutAPwrValueChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeOutAPwr(value);
+                CheckAndApplyRegChanges(4);
+            }
+        }
+
+        public void OutBPwrValueChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeOutBPwr(value);
+                CheckAndApplyRegChanges(4);
             }
         }
 

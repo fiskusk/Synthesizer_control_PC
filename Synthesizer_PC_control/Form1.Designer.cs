@@ -83,10 +83,10 @@ namespace Synthesizer_PC_control
             this.RF_A_PWR_Label = new System.Windows.Forms.Label();
             this.RF_B_EN_Label = new System.Windows.Forms.Label();
             this.RF_B_PWR_Label = new System.Windows.Forms.Label();
-            this.RF_B_PWR_ComboBox = new System.Windows.Forms.ComboBox();
-            this.RF_A_EN_ComboBox = new System.Windows.Forms.ComboBox();
-            this.RF_A_PWR_ComboBox = new System.Windows.Forms.ComboBox();
-            this.RF_B_EN_ComboBox = new System.Windows.Forms.ComboBox();
+            this.OutBPwr_ComboBox = new System.Windows.Forms.ComboBox();
+            this.OutAEn_ComboBox = new System.Windows.Forms.ComboBox();
+            this.OutAPwr_ComboBox = new System.Windows.Forms.ComboBox();
+            this.OutBEn_ComboBox = new System.Windows.Forms.ComboBox();
             this.OutInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.fOutALabel = new System.Windows.Forms.Label();
             this.MHzLabel1 = new System.Windows.Forms.Label();
@@ -787,10 +787,10 @@ namespace Synthesizer_PC_control
             this.groupBox1.Controls.Add(this.RF_A_PWR_Label);
             this.groupBox1.Controls.Add(this.RF_B_EN_Label);
             this.groupBox1.Controls.Add(this.RF_B_PWR_Label);
-            this.groupBox1.Controls.Add(this.RF_B_PWR_ComboBox);
-            this.groupBox1.Controls.Add(this.RF_A_EN_ComboBox);
-            this.groupBox1.Controls.Add(this.RF_A_PWR_ComboBox);
-            this.groupBox1.Controls.Add(this.RF_B_EN_ComboBox);
+            this.groupBox1.Controls.Add(this.OutBPwr_ComboBox);
+            this.groupBox1.Controls.Add(this.OutAEn_ComboBox);
+            this.groupBox1.Controls.Add(this.OutAPwr_ComboBox);
+            this.groupBox1.Controls.Add(this.OutBEn_ComboBox);
             this.groupBox1.Location = new System.Drawing.Point(231, 437);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
@@ -838,63 +838,65 @@ namespace Synthesizer_PC_control
             // 
             // RF_B_PWR_ComboBox
             // 
-            this.RF_B_PWR_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.RF_B_PWR_ComboBox.FormattingEnabled = true;
-            this.RF_B_PWR_ComboBox.Items.AddRange(new object[] {
+            this.OutBPwr_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.OutBPwr_ComboBox.FormattingEnabled = true;
+            this.OutBPwr_ComboBox.Items.AddRange(new object[] {
             "-4 dBm",
             "-1 dBm",
             "+2 dBm",
             "+5 dBm"});
-            this.RF_B_PWR_ComboBox.Location = new System.Drawing.Point(352, 47);
-            this.RF_B_PWR_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RF_B_PWR_ComboBox.Name = "RF_B_PWR_ComboBox";
-            this.RF_B_PWR_ComboBox.Size = new System.Drawing.Size(100, 24);
-            this.RF_B_PWR_ComboBox.TabIndex = 16;
+            this.OutBPwr_ComboBox.Location = new System.Drawing.Point(352, 47);
+            this.OutBPwr_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.OutBPwr_ComboBox.Name = "RF_B_PWR_ComboBox";
+            this.OutBPwr_ComboBox.Size = new System.Drawing.Size(100, 24);
+            this.OutBPwr_ComboBox.TabIndex = 16;
+            this.OutBPwr_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutBPwr_ComboBox_SelectedIndexChanged);
             // 
             // RF_A_EN_ComboBox
             // 
-            this.RF_A_EN_ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.RF_A_EN_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.RF_A_EN_ComboBox.FormattingEnabled = true;
-            this.RF_A_EN_ComboBox.Items.AddRange(new object[] {
+            this.OutAEn_ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.OutAEn_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.OutAEn_ComboBox.FormattingEnabled = true;
+            this.OutAEn_ComboBox.Items.AddRange(new object[] {
             "0. Disabled",
             "1. Enabled"});
-            this.RF_A_EN_ComboBox.Location = new System.Drawing.Point(127, 18);
-            this.RF_A_EN_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RF_A_EN_ComboBox.Name = "RF_A_EN_ComboBox";
-            this.RF_A_EN_ComboBox.Size = new System.Drawing.Size(100, 24);
-            this.RF_A_EN_ComboBox.TabIndex = 16;
-            this.RF_A_EN_ComboBox.SelectedIndexChanged += new System.EventHandler(this.RF_A_EN_ComboBox_SelectedIndexChanged);
+            this.OutAEn_ComboBox.Location = new System.Drawing.Point(127, 18);
+            this.OutAEn_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.OutAEn_ComboBox.Name = "RF_A_EN_ComboBox";
+            this.OutAEn_ComboBox.Size = new System.Drawing.Size(100, 24);
+            this.OutAEn_ComboBox.TabIndex = 16;
+            this.OutAEn_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutAEn_ComboBox_SelectedIndexChanged);
             // 
             // RF_A_PWR_ComboBox
             // 
-            this.RF_A_PWR_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.RF_A_PWR_ComboBox.FormattingEnabled = true;
-            this.RF_A_PWR_ComboBox.Items.AddRange(new object[] {
+            this.OutAPwr_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.OutAPwr_ComboBox.FormattingEnabled = true;
+            this.OutAPwr_ComboBox.Items.AddRange(new object[] {
             "-4 dBm",
             "-1 dBm",
             "+2 dBm",
             "+5 dBm"});
-            this.RF_A_PWR_ComboBox.Location = new System.Drawing.Point(127, 47);
-            this.RF_A_PWR_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RF_A_PWR_ComboBox.Name = "RF_A_PWR_ComboBox";
-            this.RF_A_PWR_ComboBox.Size = new System.Drawing.Size(100, 24);
-            this.RF_A_PWR_ComboBox.TabIndex = 16;
-            this.RF_A_PWR_ComboBox.SelectedIndexChanged += new System.EventHandler(this.RF_A_PWR_ComboBox_SelectedIndexChanged);
+            this.OutAPwr_ComboBox.Location = new System.Drawing.Point(127, 47);
+            this.OutAPwr_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.OutAPwr_ComboBox.Name = "RF_A_PWR_ComboBox";
+            this.OutAPwr_ComboBox.Size = new System.Drawing.Size(100, 24);
+            this.OutAPwr_ComboBox.TabIndex = 16;
+            this.OutAPwr_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutAPwr_ComboBox_SelectedIndexChanged);
             // 
             // RF_B_EN_ComboBox
             // 
-            this.RF_B_EN_ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.RF_B_EN_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.RF_B_EN_ComboBox.FormattingEnabled = true;
-            this.RF_B_EN_ComboBox.Items.AddRange(new object[] {
+            this.OutBEn_ComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.OutBEn_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.OutBEn_ComboBox.FormattingEnabled = true;
+            this.OutBEn_ComboBox.Items.AddRange(new object[] {
             "0. Disabled",
             "1. Enabled"});
-            this.RF_B_EN_ComboBox.Location = new System.Drawing.Point(352, 18);
-            this.RF_B_EN_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RF_B_EN_ComboBox.Name = "RF_B_EN_ComboBox";
-            this.RF_B_EN_ComboBox.Size = new System.Drawing.Size(100, 24);
-            this.RF_B_EN_ComboBox.TabIndex = 16;
+            this.OutBEn_ComboBox.Location = new System.Drawing.Point(352, 18);
+            this.OutBEn_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.OutBEn_ComboBox.Name = "RF_B_EN_ComboBox";
+            this.OutBEn_ComboBox.Size = new System.Drawing.Size(100, 24);
+            this.OutBEn_ComboBox.TabIndex = 16;
+            this.OutBEn_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutBEn_ComboBox_SelectedIndexChanged);
             // 
             // OutInfoGroupBox
             // 
@@ -2076,9 +2078,9 @@ namespace Synthesizer_PC_control
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Label RF_A_EN_Label;
-        public System.Windows.Forms.ComboBox RF_A_EN_ComboBox;
+        public System.Windows.Forms.ComboBox OutAEn_ComboBox;
         public System.Windows.Forms.Label RF_A_PWR_Label;
-        public System.Windows.Forms.ComboBox RF_A_PWR_ComboBox;
+        public System.Windows.Forms.ComboBox OutAPwr_ComboBox;
         private System.Windows.Forms.Label ModLabel;
         private System.Windows.Forms.Label FracNLabel;
         private System.Windows.Forms.Label IntNLabel;
@@ -2106,8 +2108,8 @@ namespace Synthesizer_PC_control
         private Label MHzLabel4;
         private Label PhasePLabel;
         private Label ADivLabel;
-        public ComboBox RF_B_PWR_ComboBox;
-        public ComboBox RF_B_EN_ComboBox;
+        public ComboBox OutBPwr_ComboBox;
+        public ComboBox OutBEn_ComboBox;
         private Label RF_B_PWR_Label;
         private Label RF_B_EN_Label;
         private Label fOutBLabel;

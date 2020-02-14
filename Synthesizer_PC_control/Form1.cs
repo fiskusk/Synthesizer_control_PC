@@ -114,10 +114,10 @@ namespace Synthesizer_PC_control
             R5M4.Enabled = command;
             LoadRegMemory.Enabled = command;
             SaveRegMemory.Enabled = command;
-            RF_A_EN_ComboBox.Enabled = command;
-            RF_B_EN_ComboBox.Enabled = command;
-            RF_A_PWR_ComboBox.Enabled = command;
-            RF_B_PWR_ComboBox.Enabled = command;
+            OutAEn_ComboBox.Enabled = command;
+            OutBEn_ComboBox.Enabled = command;
+            OutAPwr_ComboBox.Enabled = command;
+            OutBPwr_ComboBox.Enabled = command;
             IntNNumUpDown.Enabled = command;
             FracNNumUpDown.Enabled = command;
             ModNumUpDown.Enabled = command;
@@ -445,22 +445,28 @@ namespace Synthesizer_PC_control
 #endregion
 
 #region Output Controls group
-        private void RF_A_EN_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void OutAEn_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeOutAEn(RF_A_EN_ComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(4);
-            }
+            if (isForm1Load)
+                controller.OutAEnStateChanged(OutAEn_ComboBox.SelectedIndex);
         }
 
-        private void RF_A_PWR_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void OutBEn_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeOutAPwr(RF_A_PWR_ComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(4);
-            }
+            if (isForm1Load)
+                controller.OutBEnStateChanged(OutBEn_ComboBox.SelectedIndex);
+        }
+
+        private void OutAPwr_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isForm1Load)
+                controller.OutAPwrValueChanged(OutAPwr_ComboBox.SelectedIndex);
+        }
+
+        private void OutBPwr_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (isForm1Load)
+                controller.OutBPwrValueChanged(OutBPwr_ComboBox.SelectedIndex);
         }
 
 #endregion

@@ -26,7 +26,9 @@ namespace Synthesizer_PC_control.Model
         private readonly ComboBox ui_aDiv;
         private readonly NumericUpDown ui_phaseP; 
 
-        public OutFreqControl(NumericUpDown ui_intN, NumericUpDown ui_fracN, NumericUpDown ui_mod, ComboBox ui_mode, ComboBox ui_aDiv, NumericUpDown ui_phaseP)
+        public OutFreqControl(NumericUpDown ui_intN, NumericUpDown ui_fracN, 
+                              NumericUpDown ui_mod, ComboBox ui_mode, 
+                              ComboBox ui_aDiv, NumericUpDown ui_phaseP)
         {
             this.ui_intN    = ui_intN;
             this.ui_fracN   = ui_fracN;
