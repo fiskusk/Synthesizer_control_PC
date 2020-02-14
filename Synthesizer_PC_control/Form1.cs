@@ -52,8 +52,8 @@ namespace Synthesizer_PC_control
 
             isForm1Load = true;
 
-            EnableControls(false);
             controller.LoadSavedWorkspaceData();
+            EnableControls(false);
         }
 
         void Form1_Load(object sender, EventArgs e)
@@ -68,88 +68,98 @@ namespace Synthesizer_PC_control
 
         public void EnableControls(bool command)
         {
-            AvaibleCOMsComBox.Enabled = !command;
-            Out1Button.Enabled = command;
-            Out2Button.Enabled = command;
-            RefButton.Enabled = command;
-            PloInitButton.Enabled = command;
-            Reg0TextBox.Enabled = command;
-            Reg1TextBox.Enabled = command;
-            Reg2TextBox.Enabled = command;
-            Reg3TextBox.Enabled = command;
-            Reg4TextBox.Enabled = command;
-            Reg5TextBox.Enabled = command;
-            SetAsDefaultRegButton.Enabled = command;
-            ForceLoadRegButton.Enabled = command;
-            LoadDefRegButton.Enabled = command;
-            WriteR0Button.Enabled = command;
-            WriteR1Button.Enabled = command;
-            WriteR2Button.Enabled = command;
-            WriteR3Button.Enabled = command;
-            WriteR4Button.Enabled = command;
-            WriteR5Button.Enabled = command;
-            R0M1.Enabled = command;
-            R1M1.Enabled = command;
-            R2M1.Enabled = command;
-            R3M1.Enabled = command;
-            R4M1.Enabled = command;
-            R5M1.Enabled = command;
-            R0M2.Enabled = command;
-            R1M2.Enabled = command;
-            R2M2.Enabled = command;
-            R3M2.Enabled = command;
-            R4M2.Enabled = command;
-            R5M2.Enabled = command;
-            R0M3.Enabled = command;
-            R1M3.Enabled = command;
-            R2M3.Enabled = command;
-            R3M3.Enabled = command;
-            R4M3.Enabled = command;
-            R5M3.Enabled = command;
-            R0M4.Enabled = command;
-            R1M4.Enabled = command;
-            R2M4.Enabled = command;
-            R3M4.Enabled = command;
-            R4M4.Enabled = command;
-            R5M4.Enabled = command;
-            LoadRegMemory.Enabled = command;
-            SaveRegMemory.Enabled = command;
-            OutAEn_ComboBox.Enabled = command;
-            OutBEn_ComboBox.Enabled = command;
-            OutAPwr_ComboBox.Enabled = command;
-            OutBPwr_ComboBox.Enabled = command;
-            IntNNumUpDown.Enabled = command;
-            FracNNumUpDown.Enabled = command;
-            ModNumUpDown.Enabled = command;
-            ModeIntFracComboBox.Enabled = command;
-            RefFTextBox.Enabled = command;
-            RDivUpDown.Enabled = command;
-            RefDoublerCheckBox.Enabled = command;
-            DivideBy2CheckBox.Enabled = command;
-            pfdFreqLabel.Enabled = command;
-            fVcoScreenLabel.Enabled = command;
-            fOutAScreenLabel.Enabled = command;
-            fOutBScreenLabel.Enabled = command;
-            ADivComboBox.Enabled = command;
-            PhasePNumericUpDown.Enabled = command;
-            RSetTextBox.Enabled = command;
-            CPCurrentComboBox.Enabled = command;
-            CPLinearityComboBox.Enabled = command;
-            CPTestComboBox.Enabled = command;
-            CPFastLockCheckBox.Enabled = command;
-            CPTriStateOutCheckBox.Enabled = command;
-            CPCycleSlipCheckBox.Enabled = command;
-            PosPFDCheckBox.Enabled = command;
-            InputFreqTextBox.Enabled = command;
-            DeltaShowLabel.Enabled = command;
-            ExportIntoMem1Button.Enabled = command;
-            ExportIntoMem2Button.Enabled = command;
-            ExportIntoMem3Button.Enabled = command;
-            ExportIntoMem4Button.Enabled = command;
-            ImportMem1Button.Enabled = command;
-            ImportMem2Button.Enabled = command;
-            ImportMem3Button.Enabled = command;
-            ImportMem4Button.Enabled = command;
+            AvaibleCOMsComBox.Enabled       = !command;
+            Out1Button.Enabled              = command;
+            Out2Button.Enabled              = command;
+            RefButton.Enabled               = command;
+            PloInitButton.Enabled           = command;
+            Reg0TextBox.Enabled             = command;
+            Reg1TextBox.Enabled             = command;
+            Reg2TextBox.Enabled             = command;
+            Reg3TextBox.Enabled             = command;
+            Reg4TextBox.Enabled             = command;
+            Reg5TextBox.Enabled             = command;
+            SetAsDefaultRegButton.Enabled   = command;
+            ForceLoadRegButton.Enabled      = command;
+            LoadDefRegButton.Enabled        = command;
+            WriteR0Button.Enabled           = command;
+            WriteR1Button.Enabled           = command;
+            WriteR2Button.Enabled           = command;
+            WriteR3Button.Enabled           = command;
+            WriteR4Button.Enabled           = command;
+            WriteR5Button.Enabled           = command;
+            R0M1.Enabled                    = command;
+            R1M1.Enabled                    = command;
+            R2M1.Enabled                    = command;
+            R3M1.Enabled                    = command;
+            R4M1.Enabled                    = command;
+            R5M1.Enabled                    = command;
+            R0M2.Enabled                    = command;
+            R1M2.Enabled                    = command;
+            R2M2.Enabled                    = command;
+            R3M2.Enabled                    = command;
+            R4M2.Enabled                    = command;
+            R5M2.Enabled                    = command;
+            R0M3.Enabled                    = command;
+            R1M3.Enabled                    = command;
+            R2M3.Enabled                    = command;
+            R3M3.Enabled                    = command;
+            R4M3.Enabled                    = command;
+            R5M3.Enabled                    = command;
+            R0M4.Enabled                    = command;
+            R1M4.Enabled                    = command;
+            R2M4.Enabled                    = command;
+            R3M4.Enabled                    = command;
+            R4M4.Enabled                    = command;
+            R5M4.Enabled                    = command;
+            LoadRegMemory.Enabled           = command;
+            SaveRegMemory.Enabled           = command;
+            OutAEn_ComboBox.Enabled         = command;
+            OutBEn_ComboBox.Enabled         = command;
+            OutAPwr_ComboBox.Enabled        = command;
+            OutBPwr_ComboBox.Enabled        = command;
+            IntNNumUpDown.Enabled           = command;
+            FracNNumUpDown.Enabled          = command;
+            ModNumUpDown.Enabled            = command;
+            ModeIntFracComboBox.Enabled     = command;
+            RefFTextBox.Enabled             = command;
+            RDivUpDown.Enabled              = command;
+            RefDoublerCheckBox.Enabled      = command;
+            DivideBy2CheckBox.Enabled       = command;
+            pfdFreqLabel.Enabled            = command;
+            fVcoScreenLabel.Enabled         = command;
+            fOutAScreenLabel.Enabled        = command;
+            fOutBScreenLabel.Enabled        = command;
+            ADivComboBox.Enabled            = command;
+            PhasePNumericUpDown.Enabled     = command;
+            RSetTextBox.Enabled             = command;
+            CPCurrentComboBox.Enabled       = command;
+            CPLinearityComboBox.Enabled     = command;
+            CPTestComboBox.Enabled          = command;
+            CPFastLockCheckBox.Enabled      = command;
+            CPTriStateOutCheckBox.Enabled   = command;
+            CPCycleSlipCheckBox.Enabled     = command;
+            PosPFDCheckBox.Enabled          = command;
+            InputFreqTextBox.Enabled        = command;
+            DeltaShowLabel.Enabled          = command;
+            ExportIntoMem1Button.Enabled    = command;
+            ExportIntoMem2Button.Enabled    = command;
+            ExportIntoMem3Button.Enabled    = command;
+            ExportIntoMem4Button.Enabled    = command;
+            ImportMem1Button.Enabled        = command;
+            ImportMem2Button.Enabled        = command;
+            ImportMem3Button.Enabled        = command;
+            ImportMem4Button.Enabled        = command;
+            CalcFreqShowLabel.Enabled       = command;
+            ActOut1ShowLabel.Enabled        = command;
+            if (!command)
+            {
+                ActOut1ShowLabel.BackColor  = SystemColors.ScrollBar;
+                ActOut2ShowLabel.BackColor  = SystemColors.ScrollBar;
+            }
+            ActOut2ShowLabel.Enabled        = command;
+            FreqAtOut1ShowLabel.Enabled     = command;
+            FreqAtOut2ShowLabel.Enabled     = command;
         }
 
         public void ProccesReceivedData(object Object)
@@ -385,6 +395,8 @@ namespace Synthesizer_PC_control
         private void PortButton_Click(object sender, EventArgs e)
         {
             EnableControls(controller.SwitchPort());
+            if (controller.moduleControls.GetRefState())
+                RefFTextBox.Enabled = false;
         }
 
 #endregion
@@ -627,6 +639,17 @@ namespace Synthesizer_PC_control
             InputFreqTextBox.SelectionStart = cursorPosition;
         }
 
-#endregion
+        
+        private void ActOut1ShowLabel_Click(object sender, EventArgs e)
+        {
+            controller.SwitchOut1();
+        }
+
+        private void ActOut2ShowLabel_Click(object sender, EventArgs e)
+        {
+            controller.SwitchOut2();
+        }
+
+        #endregion
     }
 }

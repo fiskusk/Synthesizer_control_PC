@@ -60,15 +60,16 @@ namespace Synthesizer_PC_control.Model
 
         #endregion
 
-        public void ChangeVcoFreqForeColor(Color foreColor)
-        {
-            ui_fVco.ForeColor = foreColor;
-        }
-
         public void UpdateUiElements()
         {
             
             this.ui_fVco.Text = MyFormat.ParseFrequencyDecimalValue(vcoFreq);
+
+            if ((vcoFreq < 3000) || (vcoFreq > 6000))
+                ui_fVco.ForeColor = Color.Red;
+            else
+                ui_fVco.ForeColor = Color.Black;
+
             this.ui_fOutA.Text = MyFormat.ParseFrequencyDecimalValue(fOutA);
             this.ui_fOutB.Text = MyFormat.ParseFrequencyDecimalValue(fOutB);
         }

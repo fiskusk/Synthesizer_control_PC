@@ -85,7 +85,12 @@ namespace Synthesizer_PC_control.Controllers
                                                 view.PhasePNumericUpDown);
 
             directFreqControl = new DirectFreqControl(view.InputFreqTextBox, 
-                                                      view.DeltaShowLabel);
+                                                      view.DeltaShowLabel,
+                                                      view.CalcFreqShowLabel,
+                                                      view.FreqAtOut1ShowLabel,
+                                                      view.FreqAtOut2ShowLabel,
+                                                      view.ActOut1ShowLabel,
+                                                      view.ActOut2ShowLabel);
 
             synthFreqInfo = new SynthFreqInfo(view.fVcoScreenLabel,
                                               view.fOutAScreenLabel,
@@ -457,17 +462,17 @@ namespace Synthesizer_PC_control.Controllers
 
             if ((f_vco < 3000) || (f_vco > 6000))
             {
-                synthFreqInfo.ChangeVcoFreqForeColor(Color.Red);
                 outFreqControl.ChangeIntNBackColor(Color.Red);
             }
             else
             {
-                synthFreqInfo.ChangeVcoFreqForeColor(Color.Black);
                 outFreqControl.ChangeIntNBackColor(Color.White);
             }
 
             synthFreqInfo.SetVcoFreq(f_vco);
             synthFreqInfo.SetOutAFreq(f_out_A);
+            directFreqControl.SetFreqAtOut1(f_out_A);
+            //directFreqControl.SetFreqAtOut2(f_out_B);
         }
 
         public void GetPfdFreq()
@@ -492,44 +497,48 @@ namespace Synthesizer_PC_control.Controllers
             refFreq.SetRDivider(rDivValue);
             decimal f_pfd = refFreq.decimal_GetPfdFreq();
 
+            UInt16 divA;
             if (f_input >= 3000 && f_input <= 6000)
             {
-                outFreqControl.SetADivVal(0);
+                divA = 0;
             }
             else if (f_input >= 1500 && f_input < 3000)
             {
-                outFreqControl.SetADivVal(1);
+                divA = 1;
             }
             else if (f_input >= 750 && f_input < 1500)
             {
-                outFreqControl.SetADivVal(2);
+                divA = 2;
             }
             else if (f_input >= 375 && f_input < 750)
             {
-                outFreqControl.SetADivVal(3);
+                divA = 3;
             }
             else if (f_input >= 187.5M && f_input < 375)
             {
-                outFreqControl.SetADivVal(4);
+                divA = 4;
             }
             else if (f_input >= 93.75M && f_input < 187.5M)
             {
-                outFreqControl.SetADivVal(5);
+                divA = 5;
             }
             else if (f_input >= 46.875M && f_input < 93.75M)
             {
-                outFreqControl.SetADivVal(6);
+                divA = 6;
             }
             else if (f_input >= 23.5M && f_input < 46.875M)
             {
-                outFreqControl.SetADivVal(7);
+                divA = 7;
             }
-            else if (f_input >= 1500 && f_input < 3000)
+            else
             {
-                outFreqControl.SetADivVal(8);
+                divA = 1;
             }
 
-            UInt16 divA = outFreqControl.uint16_GetADivVal();
+            outFreqControl.SetADivVal(divA);
+
+            divA = outFreqControl.uint16_GetADivVal();
+
             decimal intN = (f_input*divA/(f_pfd/rDivValue));
             decimal zbytek = intN-(UInt16)intN;
 
@@ -584,6 +593,47 @@ namespace Synthesizer_PC_control.Controllers
             outFreqControl.SetIntNVal((UInt16)intN);
 
             decimal f_out_A = synthFreqInfo.decimal_GetOutAFreq();
+            decimal f_out_B = synthFreqInfo.decimal_GetOutBFreq();
+
+            directFreqControl.SetCalcFreq(f_out_A);
+            directFreqControl.SetFreqAtOut1(f_out_A);
+            directFreqControl.SetFreqAtOut2(2*f_out_B);
+
+            if (f_input <= 6000)
+            {
+                if (!moduleControls.GetOut1State())
+                {
+                    serialPort.SendStringSerialPort("out 1 on");
+                    moduleControls.SetOut1(true);
+                    directFreqControl.SetActiveOut1(true);
+                }
+                if (moduleControls.GetOut2State())
+                {
+                    serialPort.SendStringSerialPort("out 2 off");
+                    moduleControls.SetOut2(false);
+                    directFreqControl.SetActiveOut2(false);
+                }
+            }
+            else if (f_input < 12000)
+            {
+                if (moduleControls.GetOut1State())
+                {
+                    serialPort.SendStringSerialPort("out 1 off");
+                    moduleControls.SetOut1(false);
+                    directFreqControl.SetActiveOut1(false);
+                }
+                if (!moduleControls.GetOut2State()) 
+                {
+                    serialPort.SendStringSerialPort("out 2 on");
+                    moduleControls.SetOut2(true);
+                    directFreqControl.SetActiveOut2(true);
+                }
+            }
+            else
+            {
+                // TODO fix this statement
+            }
+
 
             decimal delta = (f_input - f_out_A) * 1e6M;
             directFreqControl.SetDeltaFreqValue(delta);
@@ -856,11 +906,14 @@ namespace Synthesizer_PC_control.Controllers
             {
                 serialPort.SendStringSerialPort("out 1 off");
                 moduleControls.SetOut1(false);
+                directFreqControl.SetActiveOut1(false);
+                
             }
             else
             {
                 serialPort.SendStringSerialPort("out 1 on");
                 moduleControls.SetOut1(true);
+                directFreqControl.SetActiveOut1(true);
             }
         }
 
@@ -870,11 +923,13 @@ namespace Synthesizer_PC_control.Controllers
             {
                 serialPort.SendStringSerialPort("out 2 off");
                 moduleControls.SetOut2(false);
+                directFreqControl.SetActiveOut2(false);
             }
             else
             {
                 serialPort.SendStringSerialPort("out 2 on");
                 moduleControls.SetOut2(true);
+                directFreqControl.SetActiveOut2(true);
             }
         }
 
@@ -883,11 +938,14 @@ namespace Synthesizer_PC_control.Controllers
             if (moduleControls.GetRefState())
             {
                 serialPort.SendStringSerialPort("ref ext");
+                refFreq.ChangeRefInpUIEnabled(true);
                 moduleControls.SetIntRef(false);
             }
             else
             {
                 serialPort.SendStringSerialPort("ref int");
+                refFreq.SetRefFreqValue(10);
+                refFreq.ChangeRefInpUIEnabled(false);
                 moduleControls.SetIntRef(true);
             }
         }
@@ -952,6 +1010,8 @@ namespace Synthesizer_PC_control.Controllers
             moduleControls.SetOut1(data.Out1En);
             moduleControls.SetOut2(data.Out2En);
             moduleControls.SetIntRef(data.IntRef);
+            directFreqControl.SetActiveOut1(data.Out1En);
+            directFreqControl.SetActiveOut2(data.Out2En);
 
             for (int i = 0; i < 7; i++)
             {

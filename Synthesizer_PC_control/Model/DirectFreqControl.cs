@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Synthesizer_PC_control.Model
 {
@@ -7,12 +8,30 @@ namespace Synthesizer_PC_control.Model
     {
         private decimal directFreqInput;
         private decimal deltaFreq;
+        private decimal calcFreq;
+        private decimal freqAtOut1;
+        private decimal freqAtOut2;
+        private bool activeOut1;
+        private bool activeOut2;
         private readonly TextBox ui_directFreqInput;
         private readonly Label ui_deltaFreqLabel;
-        public DirectFreqControl(TextBox ui_directFreqInput, Label ui_deltaFreqLabel)
+        private readonly Label ui_calcFreq;
+        private readonly Label ui_freqAtOut1;
+        private readonly Label ui_freqAtOut2;
+        private readonly Label ui_activeOut1;
+        private readonly Label ui_activeOut2;
+        public DirectFreqControl(TextBox ui_directFreqInput, Label ui_deltaFreqLabel,
+                                 Label ui_calcFreq, Label ui_freqAtOut1, 
+                                 Label ui_freqAtOut2, Label ui_activeOut1, 
+                                 Label ui_activeOut2)
         {
             this.ui_directFreqInput = ui_directFreqInput;
             this.ui_deltaFreqLabel  = ui_deltaFreqLabel;
+            this.ui_calcFreq        = ui_calcFreq;
+            this.ui_freqAtOut1      = ui_freqAtOut1;
+            this.ui_freqAtOut2      = ui_freqAtOut2;
+            this.ui_activeOut1      = ui_activeOut1;
+            this.ui_activeOut2      = ui_activeOut2;
 
             this.directFreqInput = 500.0M;
             this.deltaFreq = 0;
@@ -47,6 +66,41 @@ namespace Synthesizer_PC_control.Model
 
             UpdateUiElements();
         }
+
+        public void SetCalcFreq(decimal value)
+        {
+            this.calcFreq = value;
+
+            UpdateUiElements();
+        }
+        public void SetFreqAtOut1(decimal value)
+        {
+            this.freqAtOut1 = value;
+
+            UpdateUiElements();
+        }
+        
+        public void SetFreqAtOut2(decimal value)
+        {
+            this.freqAtOut2 = value;
+
+            UpdateUiElements();
+        }
+
+        public void SetActiveOut1(bool value)
+        {
+            this.activeOut1 = value;
+
+            UpdateUiElements();
+        }
+
+        public void SetActiveOut2(bool value)
+        {
+            this.activeOut2 = value;
+
+            UpdateUiElements();
+        }
+
         #endregion
 
         #region Getters
@@ -80,6 +134,32 @@ namespace Synthesizer_PC_control.Model
             else
                 ui_deltaFreqLabel.ForeColor = System.Drawing.Color.Black;
             ui_deltaFreqLabel.Text = deltaFreq.ToString ("0.###");
+
+            ui_calcFreq.Text = MyFormat.ParseFrequencyDecimalValue(calcFreq);
+            ui_freqAtOut1.Text = MyFormat.ParseFrequencyDecimalValue(freqAtOut1);
+            ui_freqAtOut2.Text = MyFormat.ParseFrequencyDecimalValue(freqAtOut2);
+
+            if (activeOut1)
+            {
+                ui_activeOut1.Text = "ON";
+                ui_activeOut1.BackColor = Color.LimeGreen;
+            }
+            else
+            {
+                ui_activeOut1.Text = "OFF";
+                ui_activeOut1.BackColor = SystemColors.ControlDark;
+            }
+
+            if (activeOut2)
+            {
+                ui_activeOut2.Text = "ON";
+                ui_activeOut2.BackColor = Color.LimeGreen;
+            }
+            else
+            {
+                ui_activeOut2.Text = "OFF";
+                ui_activeOut2.BackColor = SystemColors.ControlDark;
+            }
         }
 
     }

@@ -59,6 +59,7 @@ namespace Synthesizer_PC_control
             this.WriteR5Button = new System.Windows.Forms.Button();
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
+            this.VcoSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.PhaseDetectorGroupBox = new System.Windows.Forms.GroupBox();
             this.LDPrecisionLabel = new System.Windows.Forms.Label();
             this.SDNoiseModeLabel = new System.Windows.Forms.Label();
@@ -199,7 +200,6 @@ namespace Synthesizer_PC_control
             this.ActiveOut2Label = new System.Windows.Forms.Label();
             this.ActiveOut1Label = new System.Windows.Forms.Label();
             this.ConsoleRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.VcoSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.PhaseDetectorGroupBox.SuspendLayout();
@@ -555,6 +555,15 @@ namespace Synthesizer_PC_control
             this.RegistersPage.Text = "Direct Control Of Registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
             this.RegistersPage.Click += new System.EventHandler(this.RegistersPage_Click);
+            // 
+            // VcoSettingsGroupBox
+            // 
+            this.VcoSettingsGroupBox.Location = new System.Drawing.Point(355, 198);
+            this.VcoSettingsGroupBox.Name = "VcoSettingsGroupBox";
+            this.VcoSettingsGroupBox.Size = new System.Drawing.Size(335, 100);
+            this.VcoSettingsGroupBox.TabIndex = 29;
+            this.VcoSettingsGroupBox.TabStop = false;
+            this.VcoSettingsGroupBox.Text = "VCO settings";
             // 
             // PhaseDetectorGroupBox
             // 
@@ -2051,7 +2060,7 @@ namespace Synthesizer_PC_control
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 744);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 687);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 13, 0);
             this.statusStrip1.Size = new System.Drawing.Size(1067, 22);
@@ -2215,13 +2224,14 @@ namespace Synthesizer_PC_control
             // ActOut2ShowLabel
             // 
             this.ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ActOut2ShowLabel.Location = new System.Drawing.Point(300, 97);
+            this.ActOut2ShowLabel.Location = new System.Drawing.Point(288, 98);
             this.ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActOut2ShowLabel.Name = "ActOut2ShowLabel";
-            this.ActOut2ShowLabel.Size = new System.Drawing.Size(21, 16);
+            this.ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
             this.ActOut2ShowLabel.TabIndex = 20;
-            this.ActOut2ShowLabel.Text = "0";
+            this.ActOut2ShowLabel.Text = "OFF";
             this.ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ActOut2ShowLabel.Click += new System.EventHandler(this.ActOut2ShowLabel_Click);
             // 
             // FreqAtOut2Label
             // 
@@ -2235,14 +2245,15 @@ namespace Synthesizer_PC_control
             // 
             // ActOut1ShowLabel
             // 
-            this.ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ActOut1ShowLabel.Location = new System.Drawing.Point(147, 97);
+            this.ActOut1ShowLabel.BackColor = System.Drawing.Color.LimeGreen;
+            this.ActOut1ShowLabel.Location = new System.Drawing.Point(124, 97);
             this.ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActOut1ShowLabel.Name = "ActOut1ShowLabel";
-            this.ActOut1ShowLabel.Size = new System.Drawing.Size(21, 16);
+            this.ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
             this.ActOut1ShowLabel.TabIndex = 20;
-            this.ActOut1ShowLabel.Text = "0";
+            this.ActOut1ShowLabel.Text = "OFF";
             this.ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ActOut1ShowLabel.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
             // 
             // FreqAtOut1Label
             // 
@@ -2266,20 +2277,20 @@ namespace Synthesizer_PC_control
             // 
             // ActiveOut2Label
             // 
-            this.ActiveOut2Label.Location = new System.Drawing.Point(183, 96);
+            this.ActiveOut2Label.Location = new System.Drawing.Point(167, 96);
             this.ActiveOut2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActiveOut2Label.Name = "ActiveOut2Label";
-            this.ActiveOut2Label.Size = new System.Drawing.Size(109, 18);
+            this.ActiveOut2Label.Size = new System.Drawing.Size(116, 18);
             this.ActiveOut2Label.TabIndex = 20;
             this.ActiveOut2Label.Text = "Active Output 2:";
             this.ActiveOut2Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ActiveOut1Label
             // 
-            this.ActiveOut1Label.Location = new System.Drawing.Point(2, 95);
+            this.ActiveOut1Label.Location = new System.Drawing.Point(4, 95);
             this.ActiveOut1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActiveOut1Label.Name = "ActiveOut1Label";
-            this.ActiveOut1Label.Size = new System.Drawing.Size(138, 18);
+            this.ActiveOut1Label.Size = new System.Drawing.Size(113, 18);
             this.ActiveOut1Label.TabIndex = 20;
             this.ActiveOut1Label.Text = "Active Output 1:";
             this.ActiveOut1Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2291,24 +2302,15 @@ namespace Synthesizer_PC_control
             this.ConsoleRichTextBox.Name = "ConsoleRichTextBox";
             this.ConsoleRichTextBox.ReadOnly = true;
             this.ConsoleRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 307);
+            this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 416);
             this.ConsoleRichTextBox.TabIndex = 23;
             this.ConsoleRichTextBox.Text = "";
-            // 
-            // VcoSettingsGroupBox
-            // 
-            this.VcoSettingsGroupBox.Location = new System.Drawing.Point(355, 198);
-            this.VcoSettingsGroupBox.Name = "VcoSettingsGroupBox";
-            this.VcoSettingsGroupBox.Size = new System.Drawing.Size(335, 100);
-            this.VcoSettingsGroupBox.TabIndex = 29;
-            this.VcoSettingsGroupBox.TabStop = false;
-            this.VcoSettingsGroupBox.Text = "VCO settings";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 766);
+            this.ClientSize = new System.Drawing.Size(1067, 709);
             this.Controls.Add(this.ConsoleRichTextBox);
             this.Controls.Add(this.DirectFreqContrGroupBox);
             this.Controls.Add(this.statusStrip1);

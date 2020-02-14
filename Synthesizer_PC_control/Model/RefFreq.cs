@@ -130,6 +130,11 @@ namespace Synthesizer_PC_control.Model
 
         #endregion
 
+        public void ChangeRefInpUIEnabled(bool state)
+        {
+            ui_refInFreq.Enabled = state;
+        }
+
         public void UpdateUiElements() 
         {
             isUiUpdated = false;
