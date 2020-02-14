@@ -76,7 +76,8 @@ namespace Synthesizer_PC_control.Controllers
                                   view.DivideBy2CheckBox, 
                                   view.RDivUpDown, 
                                   view.pfdFreqLabel,
-                                  view.LDSpeedAdjComboBox);
+                                  view.LDSpeedAdjComboBox,
+                                  view.AutoLDSpeedAdjCheckBox);
 
             outFreqControl = new OutFreqControl(view.IntNNumUpDown,
                                                 view.FracNNumUpDown,
@@ -114,30 +115,39 @@ namespace Synthesizer_PC_control.Controllers
             refFreq.SetRDivider(value);
         }
 
-        public void ChangeRefDoubler(bool IsActive)
+        public void ChangeRefDoubler(bool value)
         {
-            if (IsActive == true)
+            if (value == true)
                 registers[2].SetResetOneBit(25, BitState.SET);
             else
                 registers[2].SetResetOneBit(25, BitState.RESET);
-            refFreq.SetRefDoubler(IsActive);
-            outFreqControl.RecalcRegsForNewPfdFreq(IsActive);
+            refFreq.SetRefDoubler(value);
+            outFreqControl.RecalcRegsForNewPfdFreq(value);
         }
 
-        public void ChangeRefDivBy2State(bool IsActive)
+        public void ChangeRefDivBy2State(bool value)
         {
-            refFreq.SetRefDivBy2(IsActive);
-            outFreqControl.RecalcRegsForNewPfdFreq(!IsActive);
-            if (IsActive == true)
+            refFreq.SetRefDivBy2(value);
+            outFreqControl.RecalcRegsForNewPfdFreq(!value);
+            if (value == true)
                 registers[2].SetResetOneBit(24, BitState.SET);
             else
                 registers[2].SetResetOneBit(24, BitState.RESET);
         }
 
-        public void ChangeLDSpeedAdjIndex(int index)
+        public void ChangeLDSpeedAdjIndex(int value)
         {
-            refFreq.SetLDSpeedAdj(index);
-            registers[2].SetResetOneBit(31, (BitState)index);
+            refFreq.SetLDSpeedAdj(value);
+            registers[2].SetResetOneBit(31, (BitState)value);
+        }
+
+        public void ChangeAutoLDSpeedAdj(bool value)
+        {
+            refFreq.SetAutoLDSpeedAdj(value);
+            if (value)
+            {
+                ChangeLDSpeedWithRespectToRefFreq();
+            }
         }
 
         #endregion
@@ -426,6 +436,15 @@ namespace Synthesizer_PC_control.Controllers
 #endregion
 
 #region Some magic calculations
+        public void ChangeLDSpeedWithRespectToRefFreq()
+        {
+            decimal refF = refFreq.decimal_GetRefFreqValue();
+            if(refF <= 32)
+                refFreq.SetLDSpeedAdj(0);
+            else
+                refFreq.SetLDSpeedAdj(1);
+        }
+
         public void GetCPCurrentFromTextBox()
         {
             int value;
@@ -668,6 +687,8 @@ namespace Synthesizer_PC_control.Controllers
             if (refFreq.IsUiUpdated())
             {
                 refFreq.SetRefFreqValue(value);
+                if (refFreq.bool_GetAutoLdSpeedAdj())
+                    ChangeLDSpeedWithRespectToRefFreq();
                 GetPfdFreq();
                 RecalcFreqInfo();
             }
@@ -709,6 +730,14 @@ namespace Synthesizer_PC_control.Controllers
             {
                 ChangeLDSpeedAdjIndex(value);
                 CheckAndApplyRegChanges(2);
+            }
+        }
+
+        public void AutoLDSpeedAdjChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeAutoLDSpeedAdj(value);
             }
         }
 
@@ -971,6 +1000,8 @@ namespace Synthesizer_PC_control.Controllers
                 refFreq.ChangeRefInpUIEnabled(false);
                 moduleControls.SetIntRef(true);
             }
+            if (refFreq.bool_GetAutoLdSpeedAdj())
+                ChangeLDSpeedWithRespectToRefFreq();
         }
 
 #endregion
@@ -1029,6 +1060,7 @@ namespace Synthesizer_PC_control.Controllers
             refFreq.SetRefFreqValue(data.ReferenceFrequency);
 
             serialPort.SetSelectedPort(data.COM_port);
+            refFreq.SetAutoLDSpeedAdj(data.AutoLDSpeedAdj);
 
             moduleControls.SetOut1(data.Out1En);
             moduleControls.SetOut2(data.Out2En);
@@ -1063,7 +1095,8 @@ namespace Synthesizer_PC_control.Controllers
                 Mem2 = new List<string>{},
                 Mem3 = new List<string>{},
                 Mem4 = new List<string>{},
-                COM_port = serialPort.GetSelectedPort()
+                COM_port = serialPort.GetSelectedPort(),
+                AutoLDSpeedAdj = refFreq.bool_GetAutoLdSpeedAdj()
             };
 
             for (int i = 0; i < 7; i++)

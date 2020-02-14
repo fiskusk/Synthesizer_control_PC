@@ -1482,6 +1482,7 @@ namespace Synthesizer_PC_control
             this.AutoLDSpeedAdjCheckBox.Text = "auto";
             this.AutoLDSpeedAdjCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.AutoLDSpeedAdjCheckBox.UseVisualStyleBackColor = true;
+            this.AutoLDSpeedAdjCheckBox.CheckedChanged += new System.EventHandler(this.AutoLDSpeedAdjCheckBox_CheckedChanged);
             // 
             // RefDoublerCheckBox
             // 

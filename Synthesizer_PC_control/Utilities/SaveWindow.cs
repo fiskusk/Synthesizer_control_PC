@@ -20,6 +20,7 @@ namespace Synthesizer_PC_control.Utilities
         public IList<string> Mem3 { get; set; }
         public IList<string> Mem4 { get; set; }
         public string COM_port { get; set; }
+        public bool AutoLDSpeedAdj { get; set; }
 
         public static SaveWindow GetDefaultSaveWindow()
         {
@@ -81,7 +82,8 @@ namespace Synthesizer_PC_control.Utilities
                     "00000001"
                 },
                 //COM_port = AvaibleCOMsComBox.Text
-                COM_port = "COM3"
+                COM_port = "COM3",
+                AutoLDSpeedAdj = true
             };
 
             return saved;

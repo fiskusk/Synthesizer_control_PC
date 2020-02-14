@@ -13,6 +13,7 @@ namespace Synthesizer_PC_control.Model
         private decimal pfdFreq;
         private bool isUiUpdated;
         private int LDSpeedAdj;
+        private bool autoLdSpeedAdj;
 
         private readonly TextBox ui_refInFreq;
         private readonly CheckBox ui_refDoubler;
@@ -20,10 +21,12 @@ namespace Synthesizer_PC_control.Model
         private readonly NumericUpDown ui_refDivider;
         private readonly Label ui_pfdFreqShowLabel;
         private readonly ComboBox ui_LDSpeedAdj;
+        private readonly CheckBox ui_autoLdSpeedAdj;
 
         public RefFreq(TextBox ui_refInFreq, CheckBox ui_refDoubler, 
                        CheckBox ui_refDiv2, NumericUpDown ui_refDivider, 
-                       Label ui_pfdFreqShowLabel, ComboBox ui_LDSpeedAdj)
+                       Label ui_pfdFreqShowLabel, ComboBox ui_LDSpeedAdj,
+                       CheckBox ui_autoLdSpeedAdj)
         {
             this.ui_refInFreq = ui_refInFreq;
             this.ui_refDoubler = ui_refDoubler;
@@ -31,6 +34,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_refDivider = ui_refDivider;
             this.ui_pfdFreqShowLabel = ui_pfdFreqShowLabel;
             this.ui_LDSpeedAdj = ui_LDSpeedAdj;
+            this.ui_autoLdSpeedAdj = ui_autoLdSpeedAdj;
 
             this.refInFreq = 10.0M;
             this.isDoubled = false;
@@ -100,6 +104,13 @@ namespace Synthesizer_PC_control.Model
             UpdateUiElements();
         }
 
+        public void SetAutoLDSpeedAdj(bool value)
+        {
+            autoLdSpeedAdj = value;
+
+            UpdateUiElements();
+        }
+
         #endregion
 
         #region Getters
@@ -137,6 +148,11 @@ namespace Synthesizer_PC_control.Model
         public decimal decimal_GetPfdFreq()
         {
             return this.pfdFreq;
+        }
+
+        public bool bool_GetAutoLdSpeedAdj()
+        {
+            return this.autoLdSpeedAdj;
         }
 
         #endregion
@@ -188,6 +204,8 @@ namespace Synthesizer_PC_control.Model
             ui_pfdFreqShowLabel.Text = MyFormat.ParseFrequencyDecimalValue(pfdFreq);
 
             ui_LDSpeedAdj.SelectedIndex = LDSpeedAdj;
+
+            ui_autoLdSpeedAdj.Checked = autoLdSpeedAdj;
 
             isUiUpdated = true;
         } 

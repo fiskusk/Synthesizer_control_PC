@@ -399,6 +399,7 @@ namespace Synthesizer_PC_control
             EnableControls(controller.SwitchPort());
             if (controller.moduleControls.GetRefState())
                 RefFTextBox.Enabled = false;
+            LDSpeedAdjComboBox.Enabled = !AutoLDSpeedAdjCheckBox.Checked;
         }
 
 #endregion
@@ -581,6 +582,13 @@ namespace Synthesizer_PC_control
         private void LDSpeedAdjComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             controller.LDSpeedAdjIndexChanged(LDSpeedAdjComboBox.SelectedIndex);
+        }
+
+        
+        private void AutoLDSpeedAdjCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.AutoLDSpeedAdjChanged(AutoLDSpeedAdjCheckBox.Checked);
+            LDSpeedAdjComboBox.Enabled = !AutoLDSpeedAdjCheckBox.Checked;
         }
 
 #endregion
