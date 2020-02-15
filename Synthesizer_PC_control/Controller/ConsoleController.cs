@@ -122,8 +122,19 @@ namespace Synthesizer_PC_control.Controllers
 
             //uiElement.AppendText(Environment.NewLine + item.ToString());
 
-            AppendFormattedText(uiElement, item.logTime.ToString("HH:mm:ss: ") , Color.Black, true, HorizontalAlignment.Left);
-            AppendFormattedText(uiElement, item.logText , Color.Black, false, HorizontalAlignment.Left);
+            if(item.logText.Contains("Warning:"))
+            {                
+                AppendFormattedText(uiElement, item.logTime.ToString("HH:mm:ss: ") , Color.Red, true, HorizontalAlignment.Left);
+                AppendFormattedText(uiElement, "Warning: ", Color.Red, true, HorizontalAlignment.Left);
+                string text = item.logText.Replace("Warning: ", string.Empty);
+                AppendFormattedText(uiElement, text, Color.Black, false, HorizontalAlignment.Left);
+            }
+            else
+            {
+                AppendFormattedText(uiElement, item.logTime.ToString("HH:mm:ss: ") , Color.Black, true, HorizontalAlignment.Left);
+                AppendFormattedText(uiElement, item.logText , Color.Black, false, HorizontalAlignment.Left);
+            }
+
             uiElement.AppendText("\r\n");
 
         }
