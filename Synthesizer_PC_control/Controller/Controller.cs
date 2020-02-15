@@ -84,7 +84,10 @@ namespace Synthesizer_PC_control.Controllers
                                                 view.ModNumUpDown,
                                                 view.ModeIntFracComboBox,
                                                 view.ADivComboBox,
-                                                view.PhasePNumericUpDown);
+                                                view.PhasePNumericUpDown,
+                                                view.LDFuncComboBox,
+                                                view.AutoLDFuncCheckBox, 
+                                                view.RFoutBPathComboBox);
 
             directFreqControl = new DirectFreqControl(view.InputFreqTextBox, 
                                                       view.DeltaShowLabel,
@@ -144,10 +147,6 @@ namespace Synthesizer_PC_control.Controllers
         public void ChangeAutoLDSpeedAdj(bool value)
         {
             refFreq.SetAutoLDSpeedAdj(value);
-            if (value)
-            {
-                ChangeLDSpeedWithRespectToRefFreq();
-            }
         }
 
         #endregion
@@ -177,14 +176,12 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (value == 0)
             {
-                registers[2].SetResetOneBit(8, BitState.RESET);
                 registers[0].SetResetOneBit(31, BitState.RESET);
                 outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
                 
             }
             else if (value == 1)
             {
-                registers[2].SetResetOneBit(8, BitState.SET);
                 registers[0].SetResetOneBit(31, BitState.SET);
                 outFreqControl.SetSynthMode(SynthMode.INTEGER);
             }
@@ -200,6 +197,12 @@ namespace Synthesizer_PC_control.Controllers
         {
             registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 15);
             outFreqControl.SetPPhaseVal(value);
+        }
+
+        public void ChangeLDFunction(int value)
+        {
+            registers[2].SetResetOneBit(8, (BitState)value);
+            outFreqControl.SetLDFunction(value);
         }
 
         #endregion
@@ -343,6 +346,12 @@ namespace Synthesizer_PC_control.Controllers
             refFreq.SetLDSpeedAdj(index);
         }
 
+        private void GetLDFunctionIndexFromRegister(UInt32 dataReg2)
+        {
+            int index = (int)BitOperations.GetNBits(dataReg2, 1, 8);
+            outFreqControl.SetLDFunction(index);
+        }
+
         #endregion
 
         #region Parsing register 3
@@ -407,6 +416,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetRDivValueFromRegister(reg);
                     GetCPCurrentIndexFromRegister(reg);
                     GetLDSpeedAdjIndexFromRegister(reg);
+                    GetLDFunctionIndexFromRegister(reg);
                     break;
                 case 3:
                     break;
@@ -428,7 +438,6 @@ namespace Synthesizer_PC_control.Controllers
             {
                 GetAllFromReg(i);
             }
-            GetPfdFreq();
             RecalcFreqInfo(); 
         }
         #endregion
@@ -436,15 +445,7 @@ namespace Synthesizer_PC_control.Controllers
 #endregion
 
 #region Some magic calculations
-        public void ChangeLDSpeedWithRespectToRefFreq()
-        {
-            decimal refF = refFreq.decimal_GetRefFreqValue();
-            if(refF <= 32)
-                refFreq.SetLDSpeedAdj(0);
-            else
-                refFreq.SetLDSpeedAdj(1);
-        }
-
+        
         public void GetCPCurrentFromTextBox()
         {
             int value;
@@ -506,19 +507,6 @@ namespace Synthesizer_PC_control.Controllers
             synthFreqInfo.SetOutAFreq(f_out_A);
             directFreqControl.SetFreqAtOut1(f_out_A);
             //directFreqControl.SetFreqAtOut2(f_out_B);
-        }
-
-        public void GetPfdFreq()
-        {
-            // TODO osetrit fpfd
-            decimal f_ref = refFreq.decimal_GetRefFreqValue();
-            UInt16 doubler = Convert.ToUInt16(refFreq.IsDoubled());
-            UInt16 divBy2 = Convert.ToUInt16(refFreq.IsDividedBy2());
-            UInt16 rDivVal = refFreq.uint16_GetRefDividerValue();
-
-            decimal f_pfd = f_ref * ((1 + doubler) / (decimal)(rDivVal * (1 + divBy2)));
-
-            refFreq.SetPfdFreq(f_pfd);
         }
 
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
@@ -610,7 +598,6 @@ namespace Synthesizer_PC_control.Controllers
                 } while((pokus.D < 2 || pokus.D > 4095) && accuracy < 1);
                 if ((pokus.D < 2 || pokus.D > 4095))
                 {
-                    outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
                     pokus = new Fractions.Fraction (1, 4095);
                 }
                 outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
@@ -687,9 +674,6 @@ namespace Synthesizer_PC_control.Controllers
             if (refFreq.IsUiUpdated())
             {
                 refFreq.SetRefFreqValue(value);
-                if (refFreq.bool_GetAutoLdSpeedAdj())
-                    ChangeLDSpeedWithRespectToRefFreq();
-                GetPfdFreq();
                 RecalcFreqInfo();
             }
         }
@@ -699,7 +683,6 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.IsPortOpen())
             {
                 ChangeRefDoubler(value);
-                GetPfdFreq();
                 CheckAndApplyRegChanges(2);
             }
         }
@@ -709,7 +692,6 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.IsPortOpen())
             {
                 ChangeRefDivBy2State(value);
-                GetPfdFreq();
                 CheckAndApplyRegChanges(2);
             }
         }
@@ -719,7 +701,6 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.IsPortOpen())
             {
                 ChangeRDiv(value);
-                GetPfdFreq();
                 CheckAndApplyRegChanges(2);
             }
         }
@@ -777,7 +758,7 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.IsPortOpen())
             {
                 ChangeSynthMode(value);
-                CheckAndApplyRegChanges(2);
+                CheckAndApplyRegChanges(0);
             }
         }
 
@@ -799,6 +780,26 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        public void LDFunctionIndexChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                ChangeLDFunction(value);
+                CheckAndApplyRegChanges(2);
+            }
+        }
+
+        public void AutoLDFuncCheckedChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                outFreqControl.SetAutoLDFunction(value);
+            }
+        }
+
+        #endregion
+
+        #region Output Synthesizer Controls
         public void OutAEnStateChanged(int value)
         {
             if (serialPort.IsPortOpen())
@@ -1000,8 +1001,6 @@ namespace Synthesizer_PC_control.Controllers
                 refFreq.ChangeRefInpUIEnabled(false);
                 moduleControls.SetIntRef(true);
             }
-            if (refFreq.bool_GetAutoLdSpeedAdj())
-                ChangeLDSpeedWithRespectToRefFreq();
         }
 
 #endregion
@@ -1061,6 +1060,7 @@ namespace Synthesizer_PC_control.Controllers
 
             serialPort.SetSelectedPort(data.COM_port);
             refFreq.SetAutoLDSpeedAdj(data.AutoLDSpeedAdj);
+            outFreqControl.SetAutoLDFunction(data.AutoLDFunc);
 
             moduleControls.SetOut1(data.Out1En);
             moduleControls.SetOut2(data.Out2En);
@@ -1096,7 +1096,8 @@ namespace Synthesizer_PC_control.Controllers
                 Mem3 = new List<string>{},
                 Mem4 = new List<string>{},
                 COM_port = serialPort.GetSelectedPort(),
-                AutoLDSpeedAdj = refFreq.bool_GetAutoLdSpeedAdj()
+                AutoLDSpeedAdj = refFreq.bool_GetAutoLdSpeedAdj(),
+                AutoLDFunc = outFreqControl.GetAutoLDFunctionIsChecked()
             };
 
             for (int i = 0; i < 7; i++)

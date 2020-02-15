@@ -1224,6 +1224,7 @@ namespace Synthesizer_PC_control
             this.LDFuncComboBox.Name = "LDFuncComboBox";
             this.LDFuncComboBox.Size = new System.Drawing.Size(150, 24);
             this.LDFuncComboBox.TabIndex = 16;
+            this.LDFuncComboBox.SelectedIndexChanged += new System.EventHandler(this.LDFuncComboBox_SelectedIndexChanged);
             // 
             // AutoLDFuncCheckBox
             // 
@@ -1237,6 +1238,7 @@ namespace Synthesizer_PC_control
             this.AutoLDFuncCheckBox.Text = "auto";
             this.AutoLDFuncCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.AutoLDFuncCheckBox.UseVisualStyleBackColor = true;
+            this.AutoLDFuncCheckBox.CheckedChanged += new System.EventHandler(this.AutoLDFuncCheckBox_CheckedChanged);
             // 
             // IntNLabel
             // 

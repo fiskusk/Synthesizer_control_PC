@@ -18,17 +18,25 @@ namespace Synthesizer_PC_control.Model
         private UInt16 aDiv;
         private UInt16 phaseP;
         private bool isUiUpdated;
+        private int LDFunction;
+        private bool autoLDFunction;
+        private int outBPath;
 
         private readonly NumericUpDown ui_intN;
         private readonly NumericUpDown ui_fracN;
         private readonly NumericUpDown ui_mod;
         private readonly ComboBox ui_mode;
         private readonly ComboBox ui_aDiv;
-        private readonly NumericUpDown ui_phaseP; 
+        private readonly NumericUpDown ui_phaseP;
+        private readonly ComboBox ui_LDFunction;
+        private readonly CheckBox ui_autoLDFunction;
+        private readonly ComboBox ui_outBPath;
 
         public OutFreqControl(NumericUpDown ui_intN, NumericUpDown ui_fracN, 
                               NumericUpDown ui_mod, ComboBox ui_mode, 
-                              ComboBox ui_aDiv, NumericUpDown ui_phaseP)
+                              ComboBox ui_aDiv, NumericUpDown ui_phaseP,
+                              ComboBox ui_LDFunction, CheckBox ui_autoLDFunction,
+                              ComboBox ui_outBPath)
         {
             this.ui_intN    = ui_intN;
             this.ui_fracN   = ui_fracN;
@@ -36,6 +44,9 @@ namespace Synthesizer_PC_control.Model
             this.ui_mode    = ui_mode;
             this.ui_aDiv    = ui_aDiv;
             this.ui_phaseP  = ui_phaseP;
+            this.ui_LDFunction      = ui_LDFunction;
+            this.ui_autoLDFunction  = ui_autoLDFunction;
+            this.ui_outBPath        = ui_outBPath;
 
             intN    = 400;
             fracN   = 0;
@@ -89,11 +100,15 @@ namespace Synthesizer_PC_control.Model
             {
                 ui_intN.Minimum = 19;
                 ui_intN.Maximum = 4091;
+                if (autoLDFunction)
+                    LDFunction = 0;
             }
             else
             {
                 ui_intN.Minimum = 16;
                 ui_intN.Maximum = 65535;
+                if (autoLDFunction)
+                    LDFunction = 1;
             }
 
             this.mode = value;
@@ -116,6 +131,35 @@ namespace Synthesizer_PC_control.Model
                 value = (UInt16)ui_phaseP.Maximum;
 
             this.phaseP = value;
+
+            UpdateUiElements();
+        }
+
+        public void SetLDFunction(int value)
+        {
+            this.LDFunction = value;
+
+            UpdateUiElements();
+        }
+
+        public void SetAutoLDFunction(bool value)
+        {
+            this.autoLDFunction = value;
+
+            if (value)
+            {
+                if (mode == SynthMode.FRACTIONAL)
+                    LDFunction = 0;
+                else
+                    LDFunction = 1;
+            }
+
+            UpdateUiElements();
+        }
+
+        public void SetOutBPath(int value)
+        {
+            this.outBPath = value;
 
             UpdateUiElements();
         }
@@ -156,6 +200,21 @@ namespace Synthesizer_PC_control.Model
         public UInt16 uint16_GetPhasePVal()
         {
             return phaseP;
+        }
+
+        public int GetLDFunctionIndex()
+        {
+            return LDFunction;
+        }
+
+        public bool GetAutoLDFunctionIsChecked()
+        {
+            return autoLDFunction;
+        }
+
+        public int GetOutBPathIndex()
+        {
+            return outBPath;
         }
 
         #endregion
@@ -212,6 +271,9 @@ namespace Synthesizer_PC_control.Model
             this.ui_mode.SelectedIndex = (int)mode;
             this.ui_aDiv.SelectedIndex = aDiv;
             this.ui_phaseP.Value = phaseP;
+            this.ui_LDFunction.SelectedIndex = LDFunction;
+            this.ui_autoLDFunction.Checked = autoLDFunction;
+            this.ui_outBPath.SelectedIndex = outBPath;
 
             isUiUpdated = true;
         }

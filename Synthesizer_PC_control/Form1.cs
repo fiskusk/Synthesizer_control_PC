@@ -162,6 +162,9 @@ namespace Synthesizer_PC_control
             FreqAtOut2ShowLabel.Enabled     = command;
             LDSpeedAdjComboBox.Enabled      = command;
             AutoLDSpeedAdjCheckBox.Enabled  = command;
+            LDFuncComboBox.Enabled          = command;
+            AutoLDFuncCheckBox.Enabled      = command;
+            RFoutBPathComboBox.Enabled      = command;
         }
 
         public void ProccesReceivedData(object Object)
@@ -399,7 +402,10 @@ namespace Synthesizer_PC_control
             EnableControls(controller.SwitchPort());
             if (controller.moduleControls.GetRefState())
                 RefFTextBox.Enabled = false;
-            LDSpeedAdjComboBox.Enabled = !AutoLDSpeedAdjCheckBox.Checked;
+            if (AutoLDSpeedAdjCheckBox.Checked)
+                LDSpeedAdjComboBox.Enabled = false;
+            if (AutoLDFuncCheckBox.Checked)
+                LDFuncComboBox.Enabled = false;
         }
 
 #endregion
@@ -515,6 +521,17 @@ namespace Synthesizer_PC_control
         private void PhasePNumUpDown_ValueChanged(object sender, EventArgs e)
         {
             controller.PhasePValueChanged((UInt16)PhasePNumericUpDown.Value);
+        }
+        
+        private void LDFuncComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.LDFunctionIndexChanged(LDFuncComboBox.SelectedIndex);
+        }
+        
+        private void AutoLDFuncCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.AutoLDFuncCheckedChanged(AutoLDFuncCheckBox.Checked);
+            LDFuncComboBox.Enabled = !AutoLDFuncCheckBox.Checked;
         }
 
         private void FracNScrollHandlerFunction(object sender, MouseEventArgs e)

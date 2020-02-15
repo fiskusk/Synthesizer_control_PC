@@ -162,6 +162,14 @@ namespace Synthesizer_PC_control.Model
             ui_refInFreq.Enabled = state;
         }
 
+        public void ChangeLDSpeedWithRespectToPFDFreq()
+        {
+            if(pfdFreq <= 32)
+                LDSpeedAdj = 0;
+            else
+                LDSpeedAdj = 1;
+        }
+
         public void UpdateUiElements() 
         {
             isUiUpdated = false;
@@ -201,11 +209,20 @@ namespace Synthesizer_PC_control.Model
                 MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }
 
+            pfdFreq = refInFreq * ((1 + Convert.ToUInt16(isDoubled)) / (decimal)(refDivider * (1 + Convert.ToUInt16(isDivBy2))));
+
             ui_pfdFreqShowLabel.Text = MyFormat.ParseFrequencyDecimalValue(pfdFreq);
+
+            ui_autoLdSpeedAdj.Checked = autoLdSpeedAdj;
+            if (autoLdSpeedAdj)
+            {
+                ChangeLDSpeedWithRespectToPFDFreq();
+            }
 
             ui_LDSpeedAdj.SelectedIndex = LDSpeedAdj;
 
-            ui_autoLdSpeedAdj.Checked = autoLdSpeedAdj;
+
+            
 
             isUiUpdated = true;
         } 
