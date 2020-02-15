@@ -69,6 +69,7 @@
     <Compile Include="Model\DirectFreqControl.cs" />
     <Compile Include="Model\SynthFreqInfo.cs" />
     <Compile Include="Model\SynthOutputControls.cs" />
+    <Compile Include="Model\ChargePump.cs" />
     <Compile Include="Utilities\BitOperations.cs" />
     <Compile Include="Utilities\GeneralUtilities.cs" />
     <Compile Include="Utilities\Fractions.cs" />

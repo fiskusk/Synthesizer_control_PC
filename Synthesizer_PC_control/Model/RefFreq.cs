@@ -255,9 +255,6 @@ namespace Synthesizer_PC_control.Model
 
             ui_LDSpeedAdj.SelectedIndex = LDSpeedAdj;
 
-
-            
-
             isUiUpdated = true;
         } 
     }

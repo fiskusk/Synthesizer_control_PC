@@ -662,7 +662,7 @@ namespace Synthesizer_PC_control
 
         private void RSetTextBox_LostFocus(object sender, EventArgs e)
         {
-            controller.GetCPCurrentFromTextBox();
+            controller.GetCPCurrentFromTextBox(RSetTextBox.Text);
         }
 
         private void RSetTextBox_TextChanged(object sender, EventArgs e)
@@ -672,20 +672,12 @@ namespace Synthesizer_PC_control
 
         private void CPCurrentComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeCPCurrent(CPCurrentComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(2);
-            }
+            controller.CPCurrentIndexChanged(CPCurrentComboBox.SelectedIndex);
         }
 
         private void CPLinearityComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(controller.serialPort.IsPortOpen())
-            {
-                controller.ChangeCPLinearity(CPLinearityComboBox.SelectedIndex);
-                controller.CheckAndApplyRegChanges(1);
-            }
+            controller.CPLinearityIndexChanged(CPLinearityComboBox.SelectedIndex);
         }
 
 #endregion

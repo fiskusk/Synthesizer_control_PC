@@ -81,7 +81,7 @@ namespace Synthesizer_PC_control
             this.CPLinearityComboBox = new System.Windows.Forms.ComboBox();
             this.CPTestLabel = new System.Windows.Forms.Label();
             this.CPCurrentComboBox = new System.Windows.Forms.ComboBox();
-            this.CPlinearityLabel = new System.Windows.Forms.Label();
+            this.CPLinearityLabel = new System.Windows.Forms.Label();
             this.RSetLabel = new System.Windows.Forms.Label();
             this.CPCurrentLabel = new System.Windows.Forms.Label();
             this.OutputControlsGroupBox = new System.Windows.Forms.GroupBox();
@@ -736,7 +736,7 @@ namespace Synthesizer_PC_control
             this.ChargePumpGroupBox.Controls.Add(this.CPLinearityComboBox);
             this.ChargePumpGroupBox.Controls.Add(this.CPTestLabel);
             this.ChargePumpGroupBox.Controls.Add(this.CPCurrentComboBox);
-            this.ChargePumpGroupBox.Controls.Add(this.CPlinearityLabel);
+            this.ChargePumpGroupBox.Controls.Add(this.CPLinearityLabel);
             this.ChargePumpGroupBox.Controls.Add(this.RSetLabel);
             this.ChargePumpGroupBox.Controls.Add(this.CPCurrentLabel);
             this.ChargePumpGroupBox.Location = new System.Drawing.Point(355, 393);
@@ -793,7 +793,7 @@ namespace Synthesizer_PC_control
             this.RSetTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.RSetTextBox.Location = new System.Drawing.Point(73, 22);
             this.RSetTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RSetTextBox.MaxLength = 8;
+            this.RSetTextBox.MaxLength = 5;
             this.RSetTextBox.Name = "RSetTextBox";
             this.RSetTextBox.Size = new System.Drawing.Size(53, 22);
             this.RSetTextBox.TabIndex = 3;
@@ -856,14 +856,14 @@ namespace Synthesizer_PC_control
             this.CPCurrentComboBox.TabIndex = 16;
             this.CPCurrentComboBox.SelectedIndexChanged += new System.EventHandler(this.CPCurrentComboBox_SelectedIndexChanged);
             // 
-            // CPlinearityLabel
+            // CPLinearityLabel
             // 
-            this.CPlinearityLabel.Location = new System.Drawing.Point(0, 86);
-            this.CPlinearityLabel.Name = "CPlinearityLabel";
-            this.CPlinearityLabel.Size = new System.Drawing.Size(68, 17);
-            this.CPlinearityLabel.TabIndex = 17;
-            this.CPlinearityLabel.Text = "Linearity:";
-            this.CPlinearityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CPLinearityLabel.Location = new System.Drawing.Point(0, 86);
+            this.CPLinearityLabel.Name = "CPLinearityLabel";
+            this.CPLinearityLabel.Size = new System.Drawing.Size(68, 17);
+            this.CPLinearityLabel.TabIndex = 17;
+            this.CPLinearityLabel.Text = "Linearity:";
+            this.CPLinearityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RSetLabel
             // 
@@ -2484,11 +2484,11 @@ namespace Synthesizer_PC_control
         public TextBox RSetTextBox;
         private Label RSetLabel;
         public ComboBox CPCurrentComboBox;
-        private Label CPCurrentLabel;
+        public Label CPCurrentLabel;
         public ComboBox CPTestComboBox;
         public ComboBox CPLinearityComboBox;
         private Label CPTestLabel;
-        private Label CPlinearityLabel;
+        public Label CPLinearityLabel;
         public CheckBox CPTriStateOutCheckBox;
         public CheckBox CPFastLockCheckBox;
         public CheckBox CPCycleSlipCheckBox;

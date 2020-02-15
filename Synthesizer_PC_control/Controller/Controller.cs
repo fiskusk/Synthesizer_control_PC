@@ -13,26 +13,17 @@ namespace Synthesizer_PC_control.Controllers
     class Controller
     {
         private readonly Form1 view;
-
         public readonly MySerialPort serialPort;
-
         public MyRegister[] registers;
-
         public Memory memory;
-        
         public MyRegister[] old_registers;
-
         public ModuleControls moduleControls;
-
         public RefFreq refFreq;
-
         public OutFreqControl outFreqControl;
-
         public DirectFreqControl directFreqControl;
-
         public SynthFreqInfo synthFreqInfo;
-
         public SynthOutputControls synthOutputControls;
+        public ChargePump chargePump;
 
         public Controller(Form1 view)
         {
@@ -107,6 +98,16 @@ namespace Synthesizer_PC_control.Controllers
                                                           view.OutBEn_ComboBox,
                                                           view.OutAPwr_ComboBox,
                                                           view.OutBPwr_ComboBox);
+
+            chargePump = new ChargePump(view.RSetTextBox,
+                                        view.CPCurrentComboBox,
+                                        view.CPLinearityComboBox,
+                                        view.CPTestComboBox,
+                                        view.CPFastLockCheckBox,
+                                        view.CPTriStateOutCheckBox,
+                                        view.CPCycleSlipCheckBox,
+                                        view.CPCurrentLabel,
+                                        view.CPLinearityLabel);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -267,6 +268,11 @@ namespace Synthesizer_PC_control.Controllers
                 registers[0].SetResetOneBit(31, (BitState)value);
                 outFreqControl.SetSynthMode((SynthMode)value);
 
+                if ((SynthMode)value == SynthMode.INTEGER)
+                    chargePump.SetLinearityIndex(0);
+                else
+                    chargePump.SetLinearityIndex(1);
+
                 CheckAndApplyRegChanges(0);
             }
         }
@@ -379,15 +385,34 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
 
     #region Charge Pump Group
-
-        public void ChangeCPCurrent(int selectedIndex)
+        public void GetCPCurrentFromTextBox(string value)
         {
-            registers[2].ChangeNBits(Convert.ToUInt32(selectedIndex), 4, 9);
+            chargePump.SetRSetValue(value);
+        }
+        
+        public void CPCurrentIndexChanged(int value)
+        {
+            if (serialPort.IsPortOpen() && chargePump.isCurrentComboboxFilled())
+            {
+                registers[2].ChangeNBits(Convert.ToUInt32(value), 4, 9);
+                chargePump.SetCurrentIndex(value);
+
+                CheckAndApplyRegChanges(2);
+            }
         }
 
-        public void ChangeCPLinearity(int selectedIndex)
+        public void CPLinearityIndexChanged(int value)
         {
-            registers[1].ChangeNBits(Convert.ToUInt32(selectedIndex), 2, 29);
+            if (serialPort.IsPortOpen())
+            {
+                registers[1].ChangeNBits(Convert.ToUInt32(value), 2, 29);
+                chargePump.SetLinearityIndex(value);
+
+                SynthMode synthMode = outFreqControl.GetSynthMode();
+                chargePump.CheckIfCorrectLinearityIsSelected(synthMode);
+
+                CheckAndApplyRegChanges(1);
+            }
         }
 
         #endregion
@@ -404,14 +429,9 @@ namespace Synthesizer_PC_control.Controllers
         private void GetFracIntModeStatusFromRegister(UInt32 dataReg0)
         {
             UInt32 value = BitOperations.GetNBits(dataReg0, 1, 31);
-            if (value == 0)
-            {
-                outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
-            }
-            else if (value == 1)
-            {
-                outFreqControl.SetSynthMode(SynthMode.INTEGER);
-            }
+            outFreqControl.SetSynthMode((SynthMode)value);
+
+            chargePump.CheckIfCorrectLinearityIsSelected((SynthMode)value);
         }
 
         private void GetIntNValueFromRegister(UInt32 dataReg0)
@@ -442,7 +462,8 @@ namespace Synthesizer_PC_control.Controllers
 
         private void GetCPLinearityFromRegister(UInt32 dataReg1)
         {
-            view.CPLinearityComboBox.SelectedIndex = (int)BitOperations.GetNBits(dataReg1, 2, 29);
+            int index = (int)BitOperations.GetNBits(dataReg1, 2, 29);
+            chargePump.SetLinearityIndex(index);
         }
     #endregion
 
@@ -467,7 +488,8 @@ namespace Synthesizer_PC_control.Controllers
 
         private void GetCPCurrentIndexFromRegister(UInt32 dataReg2)
         {
-            view.CPCurrentComboBox.SelectedIndex = (int)BitOperations.GetNBits(dataReg2, 4, 9);
+            int index = (int)BitOperations.GetNBits(dataReg2, 4, 9);
+            chargePump.SetCurrentIndex(index);
         }
 
         private void GetLDSpeedAdjIndexFromRegister(UInt32 dataReg2)
@@ -582,27 +604,7 @@ namespace Synthesizer_PC_control.Controllers
 
 #region Some magic calculations
         
-        public void GetCPCurrentFromTextBox()
-        {
-            int value;
-            if (int.TryParse(view.RSetTextBox.Text, out value))
-            {
-                if (value > 10000)
-                    view.RSetTextBox.Text = "10000";
-                else if (value < 2700)
-                    view.RSetTextBox.Text = "2700";
-            }
-            UInt16 R_set = Convert.ToUInt16(view.RSetTextBox.Text);
-            IList<string> list = new List<string>();
-            decimal I_cp;
-            for (UInt16 cp = 0; cp < 16; cp++)
-            {
-                I_cp = (decimal)(1.63*1000)/(decimal)(R_set) * (1 + cp);
-                I_cp = Math.Round(I_cp, 3, MidpointRounding.AwayFromZero);
-                list.Add(Convert.ToString(I_cp) + " mA");
-            }
-            view.CPCurrentComboBox.DataSource = list;
-        }
+        
 
         public void RecalcFreqInfo()
         {
@@ -750,7 +752,7 @@ namespace Synthesizer_PC_control.Controllers
 
             refFreq.SetRDivider(rDivValue);
             outFreqControl.SetIntNVal((UInt16)intN);
-
+            
             decimal f_out_A = synthFreqInfo.decimal_GetOutAFreq();
             decimal f_out_B = synthFreqInfo.decimal_GetOutBFreq();
 
@@ -792,7 +794,6 @@ namespace Synthesizer_PC_control.Controllers
             {
                 // TODO fix this statement
             }
-
 
             decimal delta = (f_input - f_out_A) * 1e6M;
             directFreqControl.SetDeltaFreqValue(delta);
@@ -957,7 +958,7 @@ namespace Synthesizer_PC_control.Controllers
             // old registers
             MyRegister.SetValues(old_registers, data.Registers.ToArray());
 
-            view.RSetTextBox.Text = Convert.ToString(data.RSetValue);
+            chargePump.SetRSetValue(data.RSetValue);
 
             directFreqControl.SetDirectInputFreqValue(data.OutputFreqValue);
 
@@ -981,7 +982,6 @@ namespace Synthesizer_PC_control.Controllers
                 memory.GetRegister(4, i).SetValue(data.Mem4[i]);
             }
 
-            this.GetCPCurrentFromTextBox();
             this.GetAllFromRegisters();
         }
 
@@ -990,7 +990,7 @@ namespace Synthesizer_PC_control.Controllers
             SaveWindow saved = new SaveWindow
             {
                 Registers = new List<string>{},
-                RSetValue = Convert.ToUInt16(view.RSetTextBox.Text),
+                RSetValue = chargePump.GetRSetValue(),
                 OutputFreqValue = directFreqControl.string_GetDirectInputFreqVal(),
                 ReferenceFrequency = refFreq.string_GetRefFreqValue(),
                 Out1En = moduleControls.GetOut1State(),
