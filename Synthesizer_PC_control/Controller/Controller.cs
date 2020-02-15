@@ -127,7 +127,7 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SendStringSerialPort("out 1 on");
 
             moduleControls.SetOut1(!moduleControls.GetOut1State());
-            directFreqControl.SetActiveOut1(!moduleControls.GetOut1State());
+            directFreqControl.SetActiveOut1(moduleControls.GetOut1State());
         }
 
         public void SwitchOut2()
@@ -138,7 +138,7 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SendStringSerialPort("out 2 on");
 
             moduleControls.SetOut2(!moduleControls.GetOut2State());
-            directFreqControl.SetActiveOut2(!moduleControls.GetOut2State());
+            directFreqControl.SetActiveOut2(moduleControls.GetOut2State());
         }
 
         public void SwitchRef()
@@ -363,6 +363,7 @@ namespace Synthesizer_PC_control.Controllers
                 if (value == 3)
                 {
                     value = synthOutputControls.GetOutBPwrIndex();
+                    ConsoleController.Console().Write("Warning: Output power at 'Out B' is limited to maximum +2 dBm. This limitation is due to the frequency doubler circuit used at Out 2");
                 }
                 else
                 {
@@ -626,7 +627,10 @@ namespace Synthesizer_PC_control.Controllers
             f_vco = f_out_A * aDiv;
 
             if ((f_vco < 3000) || (f_vco > 6000))
+            {
                 outFreqControl.ChangeIntNBackColor(Color.Red);
+                ConsoleController.Console().Write("Warning: With the current setting, the VCO frequency is outside the limits. <3000 ~ 6000>");
+            }
             else
                 outFreqControl.ChangeIntNBackColor(Color.White);
 
