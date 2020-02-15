@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using System.Drawing;
+using Synthesizer_PC_control.Controllers;
 
 namespace Synthesizer_PC_control.Model
 {
@@ -21,6 +22,8 @@ namespace Synthesizer_PC_control.Model
         private int LDFunction;
         private bool autoLDFunction;
         private int outBPath;
+
+        private string warningMessage = "Warning: The 'Lock-Detect function' is set to the wrong lock type due to the synthesizer mode set.";
 
         private readonly NumericUpDown ui_intN;
         private readonly NumericUpDown ui_fracN;
@@ -109,7 +112,10 @@ namespace Synthesizer_PC_control.Model
                     if (LDFunction == 0)
                         ui_LDFunctionLabel.ForeColor = Color.Black;
                     else
+                    {
                         ui_LDFunctionLabel.ForeColor = Color.Red;
+                        ConsoleController.Console().Write(warningMessage);
+                    }
                 }
             }
             else
@@ -123,7 +129,10 @@ namespace Synthesizer_PC_control.Model
                     if (LDFunction == 1)
                         ui_LDFunctionLabel.ForeColor = Color.Black;
                     else
+                    {
                         ui_LDFunctionLabel.ForeColor = Color.Red;
+                        ConsoleController.Console().Write(warningMessage);
+                    }
                 }
             }
 
@@ -160,14 +169,20 @@ namespace Synthesizer_PC_control.Model
                 if (mode == SynthMode.FRACTIONAL)
                     ui_LDFunctionLabel.ForeColor = Color.Black;
                 else
+                {
                     ui_LDFunctionLabel.ForeColor = Color.Red;
+                    ConsoleController.Console().Write(warningMessage);
+                }
             }
             else
             {
                 if (mode == SynthMode.INTEGER)
                     ui_LDFunctionLabel.ForeColor = Color.Black;
                 else
+                {
                     ui_LDFunctionLabel.ForeColor = Color.Red;
+                    ConsoleController.Console().Write(warningMessage);
+                }
             }
 
             UpdateUiElements();
