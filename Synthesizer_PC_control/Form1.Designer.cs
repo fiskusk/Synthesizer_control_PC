@@ -2526,7 +2526,7 @@ namespace Synthesizer_PC_control
         private Label FreqAtOut1Label;
         private Label ActiveOut2Label;
         private GroupBox PhaseDetectorGroupBox;
-        private Label LDSpeedAdjLabel;
+        public Label LDSpeedAdjLabel;
         public ComboBox LDSpeedAdjComboBox;
         public CheckBox AutoLDSpeedAdjCheckBox;
         private Label LDPrecisionLabel;

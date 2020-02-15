@@ -77,7 +77,8 @@ namespace Synthesizer_PC_control.Controllers
                                   view.RDivUpDown, 
                                   view.pfdFreqLabel,
                                   view.LDSpeedAdjComboBox,
-                                  view.AutoLDSpeedAdjCheckBox);
+                                  view.AutoLDSpeedAdjCheckBox,
+                                  view.LDSpeedAdjLabel);
 
             outFreqControl = new OutFreqControl(view.IntNNumUpDown,
                                                 view.FracNNumUpDown,
@@ -156,6 +157,7 @@ namespace Synthesizer_PC_control.Controllers
                 refFreq.ChangeRefInpUIEnabled(false);
                 moduleControls.SetIntRef(true);
             }
+            RecalcFreqInfo();
         }
 #endregion
     
