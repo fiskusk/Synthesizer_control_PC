@@ -601,38 +601,38 @@ namespace Synthesizer_PC_control.Controllers
             UInt16 fracN    = outFreqControl.uint16_GetFracNVal();
             UInt16 mod      = outFreqControl.uint16_GetModVal();
             SynthMode mode  = outFreqControl.GetSynthMode();
+            int outBpath = outFreqControl.GetOutBPathIndex();
 
             decimal f_pfd = refFreq.decimal_GetPfdFreq();
 
             decimal f_out_A = 0;
+            decimal f_out_B = 0;
             decimal f_vco = 0;
 
             // TODO pohlidat f_vco
 
             if (mode == SynthMode.INTEGER)
-            {
                 f_out_A = ((f_pfd*intN)/(aDiv));
-            }
             else
-            {
                 f_out_A = (f_pfd/aDiv)*(intN+(fracN/(mod*1.0M)));
-            }
 
             f_vco = f_out_A * aDiv;
 
             if ((f_vco < 3000) || (f_vco > 6000))
-            {
                 outFreqControl.ChangeIntNBackColor(Color.Red);
-            }
             else
-            {
                 outFreqControl.ChangeIntNBackColor(Color.White);
-            }
+
+            if (outBpath == 0)
+                f_out_B = f_out_A;
+            else
+                f_out_B = f_vco;
 
             synthFreqInfo.SetVcoFreq(f_vco);
             synthFreqInfo.SetOutAFreq(f_out_A);
+            synthFreqInfo.SetOutBFreq(f_out_B);
             directFreqControl.SetFreqAtOut1(f_out_A);
-            //directFreqControl.SetFreqAtOut2(f_out_B);
+            directFreqControl.SetFreqAtOut2(2*f_out_B);
         }
 
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
