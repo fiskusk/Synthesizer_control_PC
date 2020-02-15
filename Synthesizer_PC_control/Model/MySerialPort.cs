@@ -130,7 +130,6 @@ namespace Synthesizer_PC_control.Model
                 { 
                     port.WriteLine(text); 
                     while (port.ReadLine() != "OK") { } // FIXME: Is there not a better way than freezing whole programm? 
-                    // TODO FILIP_NOW podbarvit při potvrzeném zápisu textbox
                 } 
                 dontRunHandler = false; 
 

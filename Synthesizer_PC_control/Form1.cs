@@ -167,13 +167,10 @@ namespace Synthesizer_PC_control
             RFoutBPathComboBox.Enabled      = command;
         }
 
-        public void ProccesReceivedData(object Object)
+        public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
         {
             try
-            { // TODO zde si zjistovat na zacasku jestli je ID max2871, jinak vyhodit hlasku a zavrit port. 
-                // TODO vycitat info o tom, jestli je int/ext ref, out1, out2 on/off
-                // TODO a asi vycist pekne test register a ten soupnout do okna
-                //string text = _serialPort.ReadLine();
+            {
                 string text = controller.serialPort.ReadLine();
                 ConsoleController.Console().Write(text);
                 if (text == "plo locked")
@@ -238,7 +235,7 @@ namespace Synthesizer_PC_control
 
         private void PloInitButton_Click(object sender, EventArgs e)
         {
-            controller.serialPort.SendStringSerialPort("PLO init");
+            controller.PloModuleInit();
         }
 
 #endregion

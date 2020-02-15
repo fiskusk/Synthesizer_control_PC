@@ -620,8 +620,6 @@ namespace Synthesizer_PC_control.Controllers
             decimal f_out_B = 0;
             decimal f_vco = 0;
 
-            // TODO pohlidat f_vco
-
             if (mode == SynthMode.INTEGER)
                 f_out_A = ((f_pfd*intN)/(aDiv));
             else
