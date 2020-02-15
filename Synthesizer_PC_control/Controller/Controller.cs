@@ -176,6 +176,7 @@ namespace Synthesizer_PC_control.Controllers
                 registers[2].SetResetOneBit(25, (BitState)Convert.ToUInt16(value));
                 refFreq.SetRefDoubler(value);
                 outFreqControl.RecalcRegsForNewPfdFreq(value);
+
                 CheckAndApplyRegChanges(2);
             }
         }
@@ -184,9 +185,10 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                registers[2].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
                 refFreq.SetRefDivBy2(value);
                 outFreqControl.RecalcRegsForNewPfdFreq(!value);
-                registers[2].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
+
                 CheckAndApplyRegChanges(2);
             }
         }
@@ -197,6 +199,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[2].ChangeNBits(Convert.ToUInt32(value), 10, 14);
                 refFreq.SetRDivider(value);
+
                 CheckAndApplyRegChanges(2);
             }
         }
@@ -205,8 +208,9 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                refFreq.SetLDSpeedAdj(value);
                 registers[2].SetResetOneBit(31, (BitState)value);
+                refFreq.SetLDSpeedAdj(value);
+
                 CheckAndApplyRegChanges(2);
             }
         }
@@ -227,6 +231,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[0].ChangeNBits(Convert.ToUInt32(value), 16, 15);
                 outFreqControl.SetIntNVal(value);
+
                 CheckAndApplyRegChanges(0);
             }
         }
@@ -237,6 +242,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[0].ChangeNBits(Convert.ToUInt32(value), 12, 3);
                 outFreqControl.SetFracNVal(value);
+
                 CheckAndApplyRegChanges(0);
             }
         }
@@ -247,6 +253,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 3);
                 outFreqControl.SetModVal(value);
+
                 CheckAndApplyRegChanges(1);
             }
         }
@@ -257,6 +264,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[0].SetResetOneBit(31, (BitState)value);
                 outFreqControl.SetSynthMode((SynthMode)value);
+
                 CheckAndApplyRegChanges(0);
             }
         }
@@ -267,6 +275,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[4].ChangeNBits(Convert.ToUInt32(value), 3, 20);
                 outFreqControl.SetADivVal(value);
+
                 CheckAndApplyRegChanges(4);
             }
         }
@@ -277,6 +286,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 15);
                 outFreqControl.SetPPhaseVal(value);
+
                 CheckAndApplyRegChanges(1);
             }
         }
@@ -287,6 +297,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[2].SetResetOneBit(8, (BitState)value);
                 outFreqControl.SetLDFunction(value);
+
                 CheckAndApplyRegChanges(2);
             }
         }
@@ -301,7 +312,13 @@ namespace Synthesizer_PC_control.Controllers
 
         public void OutBPathIndexChanged(int value)
         {
+            if (serialPort.IsPortOpen())
+            {
+                registers[4].SetResetOneBit(9, (BitState)value);
+                outFreqControl.SetOutBPath(value);
 
+                CheckAndApplyRegChanges(4);
+            }
         }
     #endregion
 
@@ -312,6 +329,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[4].SetResetOneBit(5, (BitState)value);
                 synthOutputControls.SetOutAEnable((OutEnState)value);
+
                 CheckAndApplyRegChanges(4);
             }
         }
@@ -322,6 +340,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[4].SetResetOneBit(8, (BitState)value);
                 synthOutputControls.SetOutBEnable((OutEnState)value);
+
                 CheckAndApplyRegChanges(4);
             }
         }
@@ -332,6 +351,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 3);
                 synthOutputControls.SetOutAPwr(value);
+
                 CheckAndApplyRegChanges(4);
             }
         }
@@ -342,6 +362,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 6);
                 synthOutputControls.SetOutBPwr(value);
+
                 CheckAndApplyRegChanges(4);
             }
         }
@@ -486,6 +507,12 @@ namespace Synthesizer_PC_control.Controllers
             UInt16 aDiv = (UInt16)BitOperations.GetNBits(dataReg4, 3, 20);
             outFreqControl.SetADivVal(aDiv);
         }
+
+        public void GetOutBPathIndexFromRegister(UInt32 dataReg4)
+        {
+            int index = (int)BitOperations.GetNBits(dataReg4, 1, 9);
+            outFreqControl.SetOutBPath(index);
+        }
     #endregion
 
     #region Parsing register 5
@@ -524,6 +551,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetOutAPwrStatusFromRegister(reg);
                     GetOutBPwrStatusFromRegister(reg);
                     GetADividerValueFromRegister(reg);
+                    GetOutBPathIndexFromRegister(reg);
                     break;
                 case 5:
                     break;
