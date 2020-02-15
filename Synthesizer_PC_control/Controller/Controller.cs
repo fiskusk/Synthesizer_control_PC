@@ -360,7 +360,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 6);
+                if (value == 3)
+                {
+                    value = synthOutputControls.GetOutBPwrIndex();
+                }
+                else
+                {
+                    registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 6);
+                }
                 synthOutputControls.SetOutBPwr(value);
 
                 CheckAndApplyRegChanges(4);

@@ -940,6 +940,7 @@ namespace Synthesizer_PC_control
             // 
             // OutBPwr_ComboBox
             // 
+            this.OutBPwr_ComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.OutBPwr_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.OutBPwr_ComboBox.FormattingEnabled = true;
             this.OutBPwr_ComboBox.Items.AddRange(new object[] {
@@ -950,8 +951,9 @@ namespace Synthesizer_PC_control
             this.OutBPwr_ComboBox.Location = new System.Drawing.Point(352, 47);
             this.OutBPwr_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OutBPwr_ComboBox.Name = "OutBPwr_ComboBox";
-            this.OutBPwr_ComboBox.Size = new System.Drawing.Size(100, 24);
+            this.OutBPwr_ComboBox.Size = new System.Drawing.Size(100, 23);
             this.OutBPwr_ComboBox.TabIndex = 16;
+            this.OutBPwr_ComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OutBPwr_ComboBox_DrawItem);
             this.OutBPwr_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutBPwr_ComboBox_SelectedIndexChanged);
             // 
             // OutAEn_ComboBox
@@ -971,6 +973,7 @@ namespace Synthesizer_PC_control
             // 
             // OutAPwr_ComboBox
             // 
+            this.OutAPwr_ComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.OutAPwr_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.OutAPwr_ComboBox.FormattingEnabled = true;
             this.OutAPwr_ComboBox.Items.AddRange(new object[] {
@@ -981,8 +984,9 @@ namespace Synthesizer_PC_control
             this.OutAPwr_ComboBox.Location = new System.Drawing.Point(127, 47);
             this.OutAPwr_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OutAPwr_ComboBox.Name = "OutAPwr_ComboBox";
-            this.OutAPwr_ComboBox.Size = new System.Drawing.Size(100, 24);
+            this.OutAPwr_ComboBox.Size = new System.Drawing.Size(100, 23);
             this.OutAPwr_ComboBox.TabIndex = 16;
+            this.OutAPwr_ComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OutAPwr_ComboBox_DrawItem);
             this.OutAPwr_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutAPwr_ComboBox_SelectedIndexChanged);
             // 
             // OutBEn_ComboBox

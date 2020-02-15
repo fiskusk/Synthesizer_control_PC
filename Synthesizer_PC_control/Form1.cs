@@ -490,6 +490,41 @@ namespace Synthesizer_PC_control
                 controller.OutBPwrValueChanged(OutBPwr_ComboBox.SelectedIndex);
         }
 
+        private void OutBPwr_ComboBox_DrawItem(object sender, DrawItemEventArgs e)
+        {        
+            ComboBox comboBox = (ComboBox)sender;
+
+            if (e.Index == 3) //We are disabling item based on Index, you can have your logic here
+            {
+                e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds);
+                e.Graphics.DrawString(comboBox.Items[e.Index].ToString(), comboBox.Font, SystemBrushes.GrayText, e.Bounds);            }
+            else
+            {
+                e.DrawBackground();
+
+                // Using winwaed's advice for selected items:
+                // Set the brush according to whether the item is selected or not
+                Brush brush = ( (e.State & DrawItemState.Selected) > 0) ? SystemBrushes.HighlightText : SystemBrushes.ControlText;
+                e.Graphics.DrawString(comboBox.Items[e.Index].ToString(), comboBox.Font, brush, e.Bounds);
+
+                e.DrawFocusRectangle();
+            }
+        }
+
+        private void OutAPwr_ComboBox_DrawItem(object sender, DrawItemEventArgs e)
+        {        
+            ComboBox comboBox = (ComboBox)sender;
+
+            e.DrawBackground();
+
+            // Using winwaed's advice for selected items:
+            // Set the brush according to whether the item is selected or not
+            Brush brush = ( Convert.ToUInt16(e.State & DrawItemState.Selected) == 1 ) ? SystemBrushes.HighlightText : SystemBrushes.ControlText;
+            e.Graphics.DrawString(comboBox.Items[e.Index].ToString(), comboBox.Font, brush, e.Bounds);
+
+            e.DrawFocusRectangle();
+        }
+
 #endregion
 
 #region Output Frequency Controls group

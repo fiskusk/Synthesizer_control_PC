@@ -70,6 +70,10 @@ namespace Synthesizer_PC_control.Model
         #endregion
 
         #region Getters
+        public int GetOutBPwrIndex()
+        {
+            return outBPwr;
+        }
         #endregion
 
         public void UpdateUiElements()
