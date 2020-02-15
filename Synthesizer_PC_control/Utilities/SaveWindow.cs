@@ -33,7 +33,7 @@ namespace Synthesizer_PC_control.Utilities
                     "A00107D1",
                     "78004042",
                     "00001F23",
-                    "63AE80FC",
+                    "63BE82BC",
                     "00400005"
                 },
                 RSetValue = 4700,
