@@ -608,10 +608,10 @@ namespace Synthesizer_PC_control
             LDSpeedAdjComboBox.Enabled = !AutoLDSpeedAdjCheckBox.Checked;
         }
 
-#endregion
+        #endregion
 
-#region Charge Pump Section
-        
+        #region Charge Pump Section
+
         private void RSetTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

@@ -87,7 +87,8 @@ namespace Synthesizer_PC_control.Controllers
                                                 view.PhasePNumericUpDown,
                                                 view.LDFuncComboBox,
                                                 view.AutoLDFuncCheckBox, 
-                                                view.RFoutBPathComboBox);
+                                                view.RFoutBPathComboBox,
+                                                view.LDfuncLabel);
 
             directFreqControl = new DirectFreqControl(view.InputFreqTextBox, 
                                                       view.DeltaShowLabel,

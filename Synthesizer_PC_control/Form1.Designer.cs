@@ -2528,7 +2528,7 @@ namespace Synthesizer_PC_control
         private Label SDNoiseModeLabel;
         public ComboBox LDPrecisionComboBox;
         public ComboBox SDNoiseModeComboBox;
-        private Label LDfuncLabel;
+        public Label LDfuncLabel;
         public ComboBox LDFuncComboBox;
         private Label RFoutBPathLabel;
         public ComboBox RFoutBPathComboBox;

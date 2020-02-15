@@ -29,6 +29,7 @@ namespace Synthesizer_PC_control.Model
         private readonly ComboBox ui_aDiv;
         private readonly NumericUpDown ui_phaseP;
         private readonly ComboBox ui_LDFunction;
+        private readonly Label ui_LDFunctionLabel;
         private readonly CheckBox ui_autoLDFunction;
         private readonly ComboBox ui_outBPath;
 
@@ -36,7 +37,7 @@ namespace Synthesizer_PC_control.Model
                               NumericUpDown ui_mod, ComboBox ui_mode, 
                               ComboBox ui_aDiv, NumericUpDown ui_phaseP,
                               ComboBox ui_LDFunction, CheckBox ui_autoLDFunction,
-                              ComboBox ui_outBPath)
+                              ComboBox ui_outBPath, Label ui_LDFunctionLabel)
         {
             this.ui_intN    = ui_intN;
             this.ui_fracN   = ui_fracN;
@@ -47,6 +48,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_LDFunction      = ui_LDFunction;
             this.ui_autoLDFunction  = ui_autoLDFunction;
             this.ui_outBPath        = ui_outBPath;
+            this.ui_LDFunctionLabel = ui_LDFunctionLabel;
 
             intN    = 400;
             fracN   = 0;
@@ -102,6 +104,13 @@ namespace Synthesizer_PC_control.Model
                 ui_intN.Maximum = 4091;
                 if (autoLDFunction)
                     LDFunction = 0;
+                else
+                {
+                    if (LDFunction == 0)
+                        ui_LDFunctionLabel.ForeColor = Color.Black;
+                    else
+                        ui_LDFunctionLabel.ForeColor = Color.Red;
+                }
             }
             else
             {
@@ -109,6 +118,13 @@ namespace Synthesizer_PC_control.Model
                 ui_intN.Maximum = 65535;
                 if (autoLDFunction)
                     LDFunction = 1;
+                else
+                {
+                    if (LDFunction == 1)
+                        ui_LDFunctionLabel.ForeColor = Color.Black;
+                    else
+                        ui_LDFunctionLabel.ForeColor = Color.Red;
+                }
             }
 
             this.mode = value;
@@ -138,6 +154,21 @@ namespace Synthesizer_PC_control.Model
         public void SetLDFunction(int value)
         {
             this.LDFunction = value;
+
+            if (value == 0)
+            {
+                if (mode == SynthMode.FRACTIONAL)
+                    ui_LDFunctionLabel.ForeColor = Color.Black;
+                else
+                    ui_LDFunctionLabel.ForeColor = Color.Red;
+            }
+            else
+            {
+                if (mode == SynthMode.INTEGER)
+                    ui_LDFunctionLabel.ForeColor = Color.Black;
+                else
+                    ui_LDFunctionLabel.ForeColor = Color.Red;
+            }
 
             UpdateUiElements();
         }
