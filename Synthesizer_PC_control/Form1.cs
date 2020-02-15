@@ -220,7 +220,7 @@ namespace Synthesizer_PC_control
             }
         }
 
-#region Synthesizer Module part controls
+#region Synthesizer Module controls
         private void Out1Button_Click(object sender, EventArgs e)
         {
             controller.SwitchOut1();
@@ -492,7 +492,7 @@ namespace Synthesizer_PC_control
 
 #endregion
 
-#region Output Frequency Controls Group
+#region Output Frequency Controls group
         private void IntNNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             controller.IntNValueChanged((UInt16)IntNNumUpDown.Value);
@@ -532,6 +532,11 @@ namespace Synthesizer_PC_control
         {
             controller.AutoLDFuncCheckedChanged(AutoLDFuncCheckBox.Checked);
             LDFuncComboBox.Enabled = !AutoLDFuncCheckBox.Checked;
+        }
+        
+        private void RFoutBPathComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.OutBPathIndexChanged(RFoutBPathComboBox.SelectedIndex);
         }
 
         private void FracNScrollHandlerFunction(object sender, MouseEventArgs e)
@@ -610,7 +615,7 @@ namespace Synthesizer_PC_control
 
         #endregion
 
-        #region Charge Pump Section
+#region Charge Pump group
 
         private void RSetTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -650,7 +655,7 @@ namespace Synthesizer_PC_control
 
 #endregion
         
-#region Direct frequency controls section
+#region Direct frequency controls
         private void InputFreqTextBox_TextChanged(object sender, EventArgs e)
         {
             MyFormat.CheckIfHasDecimalInput(InputFreqTextBox);

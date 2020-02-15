@@ -1210,6 +1210,7 @@ namespace Synthesizer_PC_control
             this.RFoutBPathComboBox.Name = "RFoutBPathComboBox";
             this.RFoutBPathComboBox.Size = new System.Drawing.Size(150, 24);
             this.RFoutBPathComboBox.TabIndex = 16;
+            this.RFoutBPathComboBox.SelectedIndexChanged += new System.EventHandler(this.RFoutBPathComboBox_SelectedIndexChanged);
             // 
             // LDFuncComboBox
             // 

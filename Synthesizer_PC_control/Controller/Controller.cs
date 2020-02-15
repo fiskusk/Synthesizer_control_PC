@@ -110,105 +110,244 @@ namespace Synthesizer_PC_control.Controllers
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
 
-#region Register Change Functions for individual controls
-
-        #region Reference Frequency Part
-        public void ChangeRDiv(UInt16 value)
+#region Change Functions for individual controls
+    #region Serial Port Section
+        public void SelectedSerialPortChanged(string value)
         {
-            registers[2].ChangeNBits(Convert.ToUInt32(value), 10, 14);
-            refFreq.SetRDivider(value);
+            serialPort.SetSelectedPort(value);
         }
+    #endregion
 
-        public void ChangeRefDoubler(bool value)
+    #region Synthesizer Module Controls Section
+        public void SwitchOut1()
         {
-            if (value == true)
-                registers[2].SetResetOneBit(25, BitState.SET);
+            if (moduleControls.GetOut1State())
+                serialPort.SendStringSerialPort("out 1 off");
             else
-                registers[2].SetResetOneBit(25, BitState.RESET);
-            refFreq.SetRefDoubler(value);
-            outFreqControl.RecalcRegsForNewPfdFreq(value);
+                serialPort.SendStringSerialPort("out 1 on");
+
+            moduleControls.SetOut1(!moduleControls.GetOut1State());
+            directFreqControl.SetActiveOut1(!moduleControls.GetOut1State());
         }
 
-        public void ChangeRefDivBy2State(bool value)
+        public void SwitchOut2()
         {
-            refFreq.SetRefDivBy2(value);
-            outFreqControl.RecalcRegsForNewPfdFreq(!value);
-            if (value == true)
-                registers[2].SetResetOneBit(24, BitState.SET);
+            if (moduleControls.GetOut2State())
+                serialPort.SendStringSerialPort("out 2 off");
             else
-                registers[2].SetResetOneBit(24, BitState.RESET);
+                serialPort.SendStringSerialPort("out 2 on");
+
+            moduleControls.SetOut2(!moduleControls.GetOut2State());
+            directFreqControl.SetActiveOut2(!moduleControls.GetOut2State());
         }
 
-        public void ChangeLDSpeedAdjIndex(int value)
+        public void SwitchRef()
         {
-            refFreq.SetLDSpeedAdj(value);
-            registers[2].SetResetOneBit(31, (BitState)value);
-        }
-
-        public void ChangeAutoLDSpeedAdj(bool value)
-        {
-            refFreq.SetAutoLDSpeedAdj(value);
-        }
-
-        #endregion
-        
-        #region Output Frequency Control Part
-        // Zapise a prevede hodnotu IntN do Reg0
-        public void ChangeIntNValue(UInt16 value)
-        {
-            registers[0].ChangeNBits(Convert.ToUInt32(value), 16, 15);
-            outFreqControl.SetIntNVal(value);
-        }
-
-        public void ChangeFracNValue(UInt16 value)
-        {
-            registers[0].ChangeNBits(Convert.ToUInt32(value), 12, 3);
-            outFreqControl.SetFracNVal(value);
-        }
-
-        public void ChangeModValue(UInt16 value)
-        {
-            registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 3);
-            outFreqControl.SetModVal(value);
-        }
-
-
-        public void ChangeSynthMode(int value)
-        {
-            if (value == 0)
+            if (moduleControls.GetRefState())
             {
-                registers[0].SetResetOneBit(31, BitState.RESET);
-                outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
-                
+                serialPort.SendStringSerialPort("ref ext");
+                refFreq.ChangeRefInpUIEnabled(true);
+                moduleControls.SetIntRef(false);
             }
-            else if (value == 1)
+            else
             {
-                registers[0].SetResetOneBit(31, BitState.SET);
-                outFreqControl.SetSynthMode(SynthMode.INTEGER);
+                serialPort.SendStringSerialPort("ref int");
+                refFreq.SetRefFreqValue(10);
+                refFreq.ChangeRefInpUIEnabled(false);
+                moduleControls.SetIntRef(true);
+            }
+        }
+#endregion
+    
+    #region Reference Frequency Controls Group 
+        public void ReferenceFrequencyValueChanged(string value)
+        {
+            if (refFreq.IsUiUpdated())
+            {
+                refFreq.SetRefFreqValue(value);
+                RecalcFreqInfo();
             }
         }
 
-        public void ChangeADiv(UInt16 value)
+        public void ReferenceDoublerStateChanged(bool value)
         {
-            registers[4].ChangeNBits(Convert.ToUInt32(value), 3, 20);
-            outFreqControl.SetADivVal(value);
+            if (serialPort.IsPortOpen())
+            {
+                registers[2].SetResetOneBit(25, (BitState)Convert.ToUInt16(value));
+                refFreq.SetRefDoubler(value);
+                outFreqControl.RecalcRegsForNewPfdFreq(value);
+                CheckAndApplyRegChanges(2);
+            }
         }
 
-        public void ChangePhaseP(UInt16 value)
+        public void ReferenceDivBy2StateChanged(bool value)
         {
-            registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 15);
-            outFreqControl.SetPPhaseVal(value);
+            if (serialPort.IsPortOpen())
+            {
+                refFreq.SetRefDivBy2(value);
+                outFreqControl.RecalcRegsForNewPfdFreq(!value);
+                registers[2].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
+                CheckAndApplyRegChanges(2);
+            }
         }
 
-        public void ChangeLDFunction(int value)
+        public void ReferenceRDividerValueChanged(UInt16 value)
         {
-            registers[2].SetResetOneBit(8, (BitState)value);
-            outFreqControl.SetLDFunction(value);
+            if (serialPort.IsPortOpen())
+            {
+                registers[2].ChangeNBits(Convert.ToUInt32(value), 10, 14);
+                refFreq.SetRDivider(value);
+                CheckAndApplyRegChanges(2);
+            }
         }
 
-        #endregion
+        public void LDSpeedAdjIndexChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                refFreq.SetLDSpeedAdj(value);
+                registers[2].SetResetOneBit(31, (BitState)value);
+                CheckAndApplyRegChanges(2);
+            }
+        }
 
-        #region Charge Pump Section
+        public void AutoLDSpeedAdjChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                refFreq.SetAutoLDSpeedAdj(value);
+            }
+        }
+    #endregion
+
+    #region Output Frequency Controls Group
+        public void IntNValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[0].ChangeNBits(Convert.ToUInt32(value), 16, 15);
+                outFreqControl.SetIntNVal(value);
+                CheckAndApplyRegChanges(0);
+            }
+        }
+
+        public void FracNValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[0].ChangeNBits(Convert.ToUInt32(value), 12, 3);
+                outFreqControl.SetFracNVal(value);
+                CheckAndApplyRegChanges(0);
+            }
+        }
+
+        public void ModValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 3);
+                outFreqControl.SetModVal(value);
+                CheckAndApplyRegChanges(1);
+            }
+        }
+
+        public void SynthModeChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[0].SetResetOneBit(31, (BitState)value);
+                outFreqControl.SetSynthMode((SynthMode)value);
+                CheckAndApplyRegChanges(0);
+            }
+        }
+
+        public void ADivValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[4].ChangeNBits(Convert.ToUInt32(value), 3, 20);
+                outFreqControl.SetADivVal(value);
+                CheckAndApplyRegChanges(4);
+            }
+        }
+
+        public void PhasePValueChanged(UInt16 value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 15);
+                outFreqControl.SetPPhaseVal(value);
+                CheckAndApplyRegChanges(1);
+            }
+        }
+
+        public void LDFunctionIndexChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[2].SetResetOneBit(8, (BitState)value);
+                outFreqControl.SetLDFunction(value);
+                CheckAndApplyRegChanges(2);
+            }
+        }
+
+        public void AutoLDFuncCheckedChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                outFreqControl.SetAutoLDFunction(value);
+            }
+        }
+
+        public void OutBPathIndexChanged(int value)
+        {
+
+        }
+    #endregion
+
+    #region Synthesizer Output Controls Group
+        public void OutAEnStateChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[4].SetResetOneBit(5, (BitState)value);
+                synthOutputControls.SetOutAEnable((OutEnState)value);
+                CheckAndApplyRegChanges(4);
+            }
+        }
+
+        public void OutBEnStateChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[4].SetResetOneBit(8, (BitState)value);
+                synthOutputControls.SetOutBEnable((OutEnState)value);
+                CheckAndApplyRegChanges(4);
+            }
+        }
+
+        public void OutAPwrValueChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 3);
+                synthOutputControls.SetOutAPwr(value);
+                CheckAndApplyRegChanges(4);
+            }
+        }
+
+        public void OutBPwrValueChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 6);
+                synthOutputControls.SetOutBPwr(value);
+                CheckAndApplyRegChanges(4);
+            }
+        }
+    #endregion
+
+    #region Charge Pump Group
 
         public void ChangeCPCurrent(int selectedIndex)
         {
@@ -222,55 +361,15 @@ namespace Synthesizer_PC_control.Controllers
 
         #endregion
 
-        #region Output Controls
+    #region Phase Detector Group
+    #endregion
 
-        public void ChangeOutAPwr(int value)
-        {
-            registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 3);
-            synthOutputControls.SetOutAPwr(value);
-        }
-
-        public void ChangeOutAEn(int value)
-        {
-            if (value == 0)
-            {
-                registers[4].SetResetOneBit(5, BitState.RESET);
-                synthOutputControls.SetOutAEnable(OutEnState.DISABLE);
-            }
-            else if (value == 1)
-            {
-                registers[4].SetResetOneBit(5, BitState.SET);
-                synthOutputControls.SetOutAEnable(OutEnState.ENABLE);
-            }
-        }
-
-        public void ChangeOutBPwr(int value)
-        {
-            registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 6);
-            synthOutputControls.SetOutBPwr(value);
-        }
-
-        public void ChangeOutBEn(int value)
-        {
-            if (value == 0)
-            {
-                registers[4].SetResetOneBit(8, BitState.RESET);
-                synthOutputControls.SetOutBEnable(OutEnState.DISABLE);
-            }
-            else if (value == 1)
-            {
-                registers[4].SetResetOneBit(8, BitState.SET);
-                synthOutputControls.SetOutBEnable(OutEnState.ENABLE);
-            }
-        }
-
-        #endregion
-
+    #region VCO Settings Group
+    #endregion
 #endregion
 
 #region Functions for get values from register
-
-        #region Parsing register 0
+    #region Parsing register 0
         private void GetFracIntModeStatusFromRegister(UInt32 dataReg0)
         {
             UInt32 value = BitOperations.GetNBits(dataReg0, 1, 31);
@@ -295,10 +394,9 @@ namespace Synthesizer_PC_control.Controllers
             UInt16 FracN = (UInt16)BitOperations.GetNBits(dataReg0, 12, 3);
             outFreqControl.SetFracNVal(FracN);
         }
+    #endregion
 
-        #endregion
-
-        #region Parsing register 1
+    #region Parsing register 1
         private void GetModValueFromRegister(UInt32 dataReg1)
         {
             UInt16 mod = (UInt16)BitOperations.GetNBits(dataReg1, 12, 3);
@@ -315,9 +413,9 @@ namespace Synthesizer_PC_control.Controllers
         {
             view.CPLinearityComboBox.SelectedIndex = (int)BitOperations.GetNBits(dataReg1, 2, 29);
         }
-        #endregion
+    #endregion
 
-        #region Parsing register 2
+    #region Parsing register 2
         private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
         {
             bool refDoubler = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25));
@@ -352,14 +450,13 @@ namespace Synthesizer_PC_control.Controllers
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 8);
             outFreqControl.SetLDFunction(index);
         }
+    #endregion
 
-        #endregion
+    #region Parsing register 3
 
-        #region Parsing register 3
+    #endregion
 
-        #endregion
-
-        #region Parsing register 4
+    #region Parsing register 4
         private void GetOutAENStatusFromRegister(UInt32 dataReg4)
         {
             OutEnState outAEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 5);
@@ -389,13 +486,13 @@ namespace Synthesizer_PC_control.Controllers
             UInt16 aDiv = (UInt16)BitOperations.GetNBits(dataReg4, 3, 20);
             outFreqControl.SetADivVal(aDiv);
         }
-        #endregion
+    #endregion
 
-        #region Parsing register 5
+    #region Parsing register 5
 
-        #endregion
+    #endregion
 
-        #region Collection function
+    #region Collection function
         public void GetAllFromReg(int index)
         {
             UInt32 reg = registers[index].uint32_GetValue();
@@ -441,7 +538,7 @@ namespace Synthesizer_PC_control.Controllers
             }
             RecalcFreqInfo(); 
         }
-        #endregion
+    #endregion
 
 #endregion
 
@@ -661,186 +758,6 @@ namespace Synthesizer_PC_control.Controllers
         }
 #endregion
 
-#region Some other functions that I don't know where to include classify
-        #region Serial port group
-        public void SelectedSerialPortChanged(string value)
-        {
-            serialPort.SetSelectedPort(value);
-        }
-        #endregion
-
-        #region Reference frequency control group 
-        public void ReferenceFrequencyValueChanged(string value)
-        {
-            if (refFreq.IsUiUpdated())
-            {
-                refFreq.SetRefFreqValue(value);
-                RecalcFreqInfo();
-            }
-        }
-
-        public void ReferenceDoublerStateChanged(bool value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeRefDoubler(value);
-                CheckAndApplyRegChanges(2);
-            }
-        }
-
-        public void ReferenceDivBy2StateChanged(bool value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeRefDivBy2State(value);
-                CheckAndApplyRegChanges(2);
-            }
-        }
-
-        public void ReferenceRDividerValueChanged(UInt16 value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeRDiv(value);
-                CheckAndApplyRegChanges(2);
-            }
-        }
-
-        public void LDSpeedAdjIndexChanged(int value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeLDSpeedAdjIndex(value);
-                CheckAndApplyRegChanges(2);
-            }
-        }
-
-        public void AutoLDSpeedAdjChanged(bool value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeAutoLDSpeedAdj(value);
-            }
-        }
-
-        #endregion
-
-        #region Output Frequency Controls Group
-
-        public void IntNValueChanged(UInt16 value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeIntNValue(value);
-                CheckAndApplyRegChanges(0);
-            }
-        }
-
-        public void FracNValueChanged(UInt16 value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeFracNValue(value);
-                CheckAndApplyRegChanges(0);
-            }
-        }
-
-        public void ModValueChanged(UInt16 value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeModValue(value);
-                CheckAndApplyRegChanges(1);
-            }
-        }
-
-        public void SynthModeChanged(int value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeSynthMode(value);
-                CheckAndApplyRegChanges(0);
-            }
-        }
-
-        public void ADivValueChanged(UInt16 value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeADiv(value);
-                CheckAndApplyRegChanges(4);
-            }
-        }
-
-        public void PhasePValueChanged(UInt16 value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangePhaseP(value);
-                CheckAndApplyRegChanges(1);
-            }
-        }
-
-        public void LDFunctionIndexChanged(int value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeLDFunction(value);
-                CheckAndApplyRegChanges(2);
-            }
-        }
-
-        public void AutoLDFuncCheckedChanged(bool value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                outFreqControl.SetAutoLDFunction(value);
-            }
-        }
-
-        #endregion
-
-        #region Output Synthesizer Controls
-        public void OutAEnStateChanged(int value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeOutAEn(value);
-                CheckAndApplyRegChanges(4);
-            }
-        }
-
-        public void OutBEnStateChanged(int value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeOutBEn(value);
-                CheckAndApplyRegChanges(4);
-            }
-        }
-
-        public void OutAPwrValueChanged(int value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeOutAPwr(value);
-                CheckAndApplyRegChanges(4);
-            }
-        }
-
-        public void OutBPwrValueChanged(int value)
-        {
-            if (serialPort.IsPortOpen())
-            {
-                ChangeOutBPwr(value);
-                CheckAndApplyRegChanges(4);
-            }
-        }
-
-        #endregion
-
-#endregion
-
 #region Serial port
 
         public void ForceLoadAllRegsIntoPlo()
@@ -951,60 +868,6 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         #endregion
-
-#region Synthesizer Module part
-
-        public void SwitchOut1()
-        {
-            if (moduleControls.GetOut1State())
-            {
-                serialPort.SendStringSerialPort("out 1 off");
-                moduleControls.SetOut1(false);
-                directFreqControl.SetActiveOut1(false);
-                
-            }
-            else
-            {
-                serialPort.SendStringSerialPort("out 1 on");
-                moduleControls.SetOut1(true);
-                directFreqControl.SetActiveOut1(true);
-            }
-        }
-
-        public void SwitchOut2()
-        {
-            if (moduleControls.GetOut2State())
-            {
-                serialPort.SendStringSerialPort("out 2 off");
-                moduleControls.SetOut2(false);
-                directFreqControl.SetActiveOut2(false);
-            }
-            else
-            {
-                serialPort.SendStringSerialPort("out 2 on");
-                moduleControls.SetOut2(true);
-                directFreqControl.SetActiveOut2(true);
-            }
-        }
-
-        public void SwitchRef()
-        {
-            if (moduleControls.GetRefState())
-            {
-                serialPort.SendStringSerialPort("ref ext");
-                refFreq.ChangeRefInpUIEnabled(true);
-                moduleControls.SetIntRef(false);
-            }
-            else
-            {
-                serialPort.SendStringSerialPort("ref int");
-                refFreq.SetRefFreqValue(10);
-                refFreq.ChangeRefInpUIEnabled(false);
-                moduleControls.SetIntRef(true);
-            }
-        }
-
-#endregion
 
 #region Load and Save Data
 
