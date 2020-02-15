@@ -12,7 +12,6 @@ namespace Synthesizer_PC_control.Controllers
 {
     class Controller
     {
-        private readonly Form1 view;
         public readonly MySerialPort serialPort;
         public MyRegister[] registers;
         public Memory memory;
@@ -30,8 +29,6 @@ namespace Synthesizer_PC_control.Controllers
             // TODO FILIP ... Hey, try this! Hey! It works! :)
             /*string test = null;
             FilesManager.LoadFile(out test);*/
-
-            this.view = view;
 
             serialPort = new MySerialPort(view, view.PortButton, 
                                           view.AvaibleCOMsComBox);
@@ -56,7 +53,7 @@ namespace Synthesizer_PC_control.Controllers
             old_registers = new MyRegister[] {old_reg0, old_reg1, old_reg2, 
                                               old_reg3, old_reg4, old_reg5};
 
-            memory = new Memory(this.view);
+            memory = new Memory(view);
 
             moduleControls = new ModuleControls(view.Out1Button,
                                                 view.Out2Button,
@@ -159,6 +156,11 @@ namespace Synthesizer_PC_control.Controllers
                 moduleControls.SetIntRef(true);
             }
             RecalcFreqInfo();
+        }
+
+        public void PloModuleInit()
+        {
+            serialPort.SendStringSerialPort("PLO init");
         }
 #endregion
     
@@ -603,9 +605,6 @@ namespace Synthesizer_PC_control.Controllers
 #endregion
 
 #region Some magic calculations
-        
-        
-
         public void RecalcFreqInfo()
         {
             UInt16 aDiv     = outFreqControl.uint16_GetADivVal();
