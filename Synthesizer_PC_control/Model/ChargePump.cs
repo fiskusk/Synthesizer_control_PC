@@ -26,6 +26,7 @@ namespace Synthesizer_PC_control.Model
         private bool isFillCurrentCombobox;
         private bool disableHandler = false;
         private string badLinearityMessage = "Warning: In the current synthesizer mode setting, the linearity of the CP is incorrectly selected.";
+        private string currentWarning = "Warning: In 'Cycle Slip Reduction' or 'Fast-Lock' mode, the current value must be set to its minimum value.";
         private readonly TextBox ui_Rset;
         private readonly ComboBox ui_Current;
         private readonly ComboBox ui_Linearity;
@@ -75,7 +76,15 @@ namespace Synthesizer_PC_control.Model
 
         public void SetCurrentIndex(int value)
         {
-            this.currentIndex = value;
+            if ((cycleSlipReductEnabled == true || fastLockEnabled == true) && value != 0)
+            {
+                ConsoleController.Console().Write(currentWarning);
+                this.currentIndex = 0;
+            }
+            else
+            {
+                this.currentIndex = value;
+            }
 
             UpdateUiElements();
         }
@@ -100,7 +109,10 @@ namespace Synthesizer_PC_control.Model
 
             this.fastLockEnabled = value;
             if (value ==  true)
+            {
+                this.currentIndex = 0;
                 this.phaseAdjustmentEnabled = false;
+            }
 
             UpdateUiElements();
 
@@ -123,6 +135,11 @@ namespace Synthesizer_PC_control.Model
         public void SetCycleSlipMode(bool value)
         {
             this.cycleSlipReductEnabled = value;
+
+            if (value == true)
+            {
+                this.currentIndex = 0;
+            }
 
             UpdateUiElements();
         }
