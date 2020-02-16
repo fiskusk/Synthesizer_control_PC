@@ -409,9 +409,15 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
-        private void CPTestComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        public void CPTestModeIndexChanged(int value)
         {
-            
+            if (serialPort.IsPortOpen())
+            {
+                registers[1].ChangeNBits(Convert.ToUInt32(value), 2, 27);
+                chargePump.SetTestModeIndex(value);
+
+                CheckAndApplyRegChanges(1);
+            }
         }
 
         #endregion
@@ -463,6 +469,12 @@ namespace Synthesizer_PC_control.Controllers
         {
             int index = (int)BitOperations.GetNBits(dataReg1, 2, 29);
             chargePump.SetLinearityIndex(index);
+        }
+
+        private void GetCPTestModeFromRegister(UInt32 dataReg1)
+        {
+            int index = (int)BitOperations.GetNBits(dataReg1, 2, 27);
+            chargePump.SetTestModeIndex(index);
         }
     #endregion
 
@@ -565,6 +577,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetModValueFromRegister(reg);
                     GetPhasePValueFromRegister(reg);
                     GetCPLinearityFromRegister(reg);
+                    GetCPTestModeFromRegister(reg);
                     break;
                 case 2:
                     GetRefDoublerStatusFromRegister(reg);

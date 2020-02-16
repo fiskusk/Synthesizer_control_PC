@@ -677,6 +677,11 @@ namespace Synthesizer_PC_control
             controller.CPLinearityIndexChanged(CPLinearityComboBox.SelectedIndex);
         }
 
+        private void CPTestComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.CPTestModeIndexChanged(CPTestComboBox.SelectedIndex);
+        }
+
 #endregion
         
 #region Direct frequency controls

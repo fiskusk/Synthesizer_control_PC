@@ -75,6 +75,13 @@ namespace Synthesizer_PC_control.Model
 
             UpdateUiElements();
         }
+
+        public void SetTestModeIndex(int value)
+        {
+            this.testModeIndex = value;
+
+            UpdateUiElements();
+        }
         #endregion
 
         #region Getters
@@ -90,6 +97,11 @@ namespace Synthesizer_PC_control.Model
         public int GetCurrentIndex()
         {
             return currentIndex;
+        }
+
+        public int GetTestModeIndex()
+        {
+            return testModeIndex;
         }
         #endregion
 
@@ -144,6 +156,7 @@ namespace Synthesizer_PC_control.Model
             ui_Rset.Text = rSet.ToString();
             ui_Current.SelectedIndex = currentIndex;
             ui_Linearity.SelectedIndex = linearityIndex;
+            ui_Test.SelectedIndex = testModeIndex;
         }
     }
 }
