@@ -139,7 +139,7 @@ namespace Synthesizer_PC_control
             CPFastLockCheckBox.Enabled      = command;
             CPTriStateOutCheckBox.Enabled   = command;
             CPCycleSlipCheckBox.Enabled     = command;
-            PosPFDCheckBox.Enabled          = command;
+            PfdPolarity.Enabled             = command;
             InputFreqTextBox.Enabled        = command;
             DeltaShowLabel.Enabled          = command;
             ExportIntoMem1Button.Enabled    = command;
@@ -707,7 +707,25 @@ namespace Synthesizer_PC_control
         }
 
 #endregion
+
+#region Phase Detector group
+        private void SDNoiseModeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.SDNoiseModeIndexChanged(SigmaDeltaNoiseModeComboBox.SelectedIndex);
+        }
+
+        private void LDPrecisionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.LDPrecisionIndexChanged(LDPrecisionComboBox.SelectedIndex);
+        }
         
+        private void PfdPolarity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.PositivePdfCheckedChanged(PfdPolarity.SelectedIndex);
+        }
+
+#endregion
+
 #region Direct frequency controls
         private void InputFreqTextBox_TextChanged(object sender, EventArgs e)
         {

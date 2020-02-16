@@ -23,6 +23,7 @@ namespace Synthesizer_PC_control.Controllers
         public SynthFreqInfo synthFreqInfo;
         public SynthOutputControls synthOutputControls;
         public ChargePump chargePump;
+        public PhaseDetector phaseDetector;
 
         public Controller(Form1 view)
         {
@@ -107,6 +108,10 @@ namespace Synthesizer_PC_control.Controllers
                                         view.CPCurrentLabel,
                                         view.CPLinearityLabel,
                                         view.PhaseAdjustmentModeCheckbox);
+
+            phaseDetector = new PhaseDetector(view.SigmaDeltaNoiseModeComboBox,
+                                              view.LDPrecisionComboBox,
+                                              view.PfdPolarity);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -477,6 +482,40 @@ namespace Synthesizer_PC_control.Controllers
         #endregion
 
     #region Phase Detector Group
+        public void SDNoiseModeIndexChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                phaseDetector.SetNoiseMode(value);
+                if (value == 1 || value == 2)
+                    value++;
+                registers[2].ChangeNBits(Convert.ToUInt32(value), 2, 29);
+
+                CheckAndApplyRegChanges(2);
+            }
+        }
+
+        public void LDPrecisionIndexChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[2].SetResetOneBit(7, (BitState)value);
+                phaseDetector.SetPrecision(value);
+
+                CheckAndApplyRegChanges(2);
+            }
+        }
+
+        public void PositivePdfCheckedChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[2].SetResetOneBit(6, (BitState)value);
+                phaseDetector.SetPfdPolarity(value);
+
+                CheckAndApplyRegChanges(2);
+            }
+        }
     #endregion
 
     #region VCO Settings Group
@@ -574,6 +613,26 @@ namespace Synthesizer_PC_control.Controllers
             bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 4));
             chargePump.SetTriStateMode(enabled);
         }
+
+        private void GetNoiseModeFromRegister(UInt32 dataReg2)
+        {
+            int index = (int)BitOperations.GetNBits(dataReg2, 2, 29);
+            if (index == 2 || index == 3)
+                index--;
+            phaseDetector.SetNoiseMode(index);
+        }
+
+        private void GetPrecisionFromRegister(UInt32 dataReg2)
+        {
+            int index = (int)BitOperations.GetNBits(dataReg2, 1, 7);
+            phaseDetector.SetPrecision(index);
+        }
+
+        private void GetPfdPositionFromRegister(UInt32 dataReg2)
+        {
+            int index = (int)BitOperations.GetNBits(dataReg2, 1, 6);
+            phaseDetector.SetPfdPolarity(index);
+        }
     #endregion
 
     #region Parsing register 3
@@ -666,6 +725,9 @@ namespace Synthesizer_PC_control.Controllers
                     GetLDSpeedAdjIndexFromRegister(reg);
                     GetLDFunctionIndexFromRegister(reg);
                     GetTriStateModeFromRegister(reg);
+                    GetNoiseModeFromRegister(reg);
+                    GetPrecisionFromRegister(reg);
+                    GetPfdPositionFromRegister(reg);
                     break;
                 case 3:
                     GetClockDividerModeFromRegister(reg);

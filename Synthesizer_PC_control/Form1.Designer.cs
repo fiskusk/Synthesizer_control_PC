@@ -63,11 +63,12 @@ namespace Synthesizer_PC_control
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.VcoSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.PhaseDetectorGroupBox = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.LDPrecisionLabel = new System.Windows.Forms.Label();
             this.SDNoiseModeLabel = new System.Windows.Forms.Label();
-            this.PosPFDCheckBox = new System.Windows.Forms.CheckBox();
+            this.PfdPolarity = new System.Windows.Forms.ComboBox();
             this.LDPrecisionComboBox = new System.Windows.Forms.ComboBox();
-            this.SDNoiseModeComboBox = new System.Windows.Forms.ComboBox();
+            this.SigmaDeltaNoiseModeComboBox = new System.Windows.Forms.ComboBox();
             this.RegistersControlsGroupBox = new System.Windows.Forms.GroupBox();
             this.MoveRegsIntoMemsGroupBox = new System.Windows.Forms.GroupBox();
             this.ExportIntoMem1Button = new System.Windows.Forms.Button();
@@ -75,6 +76,7 @@ namespace Synthesizer_PC_control
             this.ExportIntoMem3Button = new System.Windows.Forms.Button();
             this.ExportIntoMem4Button = new System.Windows.Forms.Button();
             this.ChargePumpGroupBox = new System.Windows.Forms.GroupBox();
+            this.PhaseAdjustmentModeCheckbox = new System.Windows.Forms.CheckBox();
             this.CPCycleSlipCheckBox = new System.Windows.Forms.CheckBox();
             this.CPTriStateOutCheckBox = new System.Windows.Forms.CheckBox();
             this.CPFastLockCheckBox = new System.Windows.Forms.CheckBox();
@@ -203,7 +205,6 @@ namespace Synthesizer_PC_control
             this.ActiveOut2Label = new System.Windows.Forms.Label();
             this.ActiveOut1Label = new System.Windows.Forms.Label();
             this.ConsoleRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.PhaseAdjustmentModeCheckbox = new System.Windows.Forms.CheckBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.PhaseDetectorGroupBox.SuspendLayout();
@@ -591,11 +592,12 @@ namespace Synthesizer_PC_control
             // 
             // PhaseDetectorGroupBox
             // 
+            this.PhaseDetectorGroupBox.Controls.Add(this.label1);
             this.PhaseDetectorGroupBox.Controls.Add(this.LDPrecisionLabel);
             this.PhaseDetectorGroupBox.Controls.Add(this.SDNoiseModeLabel);
-            this.PhaseDetectorGroupBox.Controls.Add(this.PosPFDCheckBox);
+            this.PhaseDetectorGroupBox.Controls.Add(this.PfdPolarity);
             this.PhaseDetectorGroupBox.Controls.Add(this.LDPrecisionComboBox);
-            this.PhaseDetectorGroupBox.Controls.Add(this.SDNoiseModeComboBox);
+            this.PhaseDetectorGroupBox.Controls.Add(this.SigmaDeltaNoiseModeComboBox);
             this.PhaseDetectorGroupBox.Location = new System.Drawing.Point(7, 503);
             this.PhaseDetectorGroupBox.Name = "PhaseDetectorGroupBox";
             this.PhaseDetectorGroupBox.Size = new System.Drawing.Size(341, 86);
@@ -603,9 +605,18 @@ namespace Synthesizer_PC_control
             this.PhaseDetectorGroupBox.TabStop = false;
             this.PhaseDetectorGroupBox.Text = "Phase Detector";
             // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(172, 55);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 17);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "PFD polarity:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // LDPrecisionLabel
             // 
-            this.LDPrecisionLabel.Location = new System.Drawing.Point(9, 55);
+            this.LDPrecisionLabel.Location = new System.Drawing.Point(1, 55);
             this.LDPrecisionLabel.Name = "LDPrecisionLabel";
             this.LDPrecisionLabel.Size = new System.Drawing.Size(96, 17);
             this.LDPrecisionLabel.TabIndex = 17;
@@ -621,18 +632,20 @@ namespace Synthesizer_PC_control
             this.SDNoiseModeLabel.Text = "S-D Noise Mode:";
             this.SDNoiseModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // PosPFDCheckBox
+            // PfdPolarity
             // 
-            this.PosPFDCheckBox.AutoSize = true;
-            this.PosPFDCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PosPFDCheckBox.Location = new System.Drawing.Point(211, 55);
-            this.PosPFDCheckBox.Margin = new System.Windows.Forms.Padding(4);
-            this.PosPFDCheckBox.Name = "PosPFDCheckBox";
-            this.PosPFDCheckBox.Size = new System.Drawing.Size(114, 21);
-            this.PosPFDCheckBox.TabIndex = 18;
-            this.PosPFDCheckBox.Text = "Positive PFD:";
-            this.PosPFDCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PosPFDCheckBox.UseVisualStyleBackColor = true;
+            this.PfdPolarity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.PfdPolarity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PfdPolarity.FormattingEnabled = true;
+            this.PfdPolarity.Items.AddRange(new object[] {
+            "neg",
+            "pos"});
+            this.PfdPolarity.Location = new System.Drawing.Point(274, 52);
+            this.PfdPolarity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.PfdPolarity.Name = "PfdPolarity";
+            this.PfdPolarity.Size = new System.Drawing.Size(61, 24);
+            this.PfdPolarity.TabIndex = 16;
+            this.PfdPolarity.SelectedIndexChanged += new System.EventHandler(this.PfdPolarity_SelectedIndexChanged);
             // 
             // LDPrecisionComboBox
             // 
@@ -642,26 +655,28 @@ namespace Synthesizer_PC_control
             this.LDPrecisionComboBox.Items.AddRange(new object[] {
             "10 ns",
             " 6  ns"});
-            this.LDPrecisionComboBox.Location = new System.Drawing.Point(111, 52);
+            this.LDPrecisionComboBox.Location = new System.Drawing.Point(103, 52);
             this.LDPrecisionComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LDPrecisionComboBox.Name = "LDPrecisionComboBox";
-            this.LDPrecisionComboBox.Size = new System.Drawing.Size(77, 24);
+            this.LDPrecisionComboBox.Size = new System.Drawing.Size(67, 24);
             this.LDPrecisionComboBox.TabIndex = 16;
+            this.LDPrecisionComboBox.SelectedIndexChanged += new System.EventHandler(this.LDPrecisionComboBox_SelectedIndexChanged);
             // 
-            // SDNoiseModeComboBox
+            // SigmaDeltaNoiseModeComboBox
             // 
-            this.SDNoiseModeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.SDNoiseModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SDNoiseModeComboBox.FormattingEnabled = true;
-            this.SDNoiseModeComboBox.Items.AddRange(new object[] {
+            this.SigmaDeltaNoiseModeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.SigmaDeltaNoiseModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SigmaDeltaNoiseModeComboBox.FormattingEnabled = true;
+            this.SigmaDeltaNoiseModeComboBox.Items.AddRange(new object[] {
             "Low-noise Mode",
             "Low-spur Mode 1",
             "Low-spur Mode 2"});
-            this.SDNoiseModeComboBox.Location = new System.Drawing.Point(132, 21);
-            this.SDNoiseModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SDNoiseModeComboBox.Name = "SDNoiseModeComboBox";
-            this.SDNoiseModeComboBox.Size = new System.Drawing.Size(144, 24);
-            this.SDNoiseModeComboBox.TabIndex = 16;
+            this.SigmaDeltaNoiseModeComboBox.Location = new System.Drawing.Point(132, 21);
+            this.SigmaDeltaNoiseModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SigmaDeltaNoiseModeComboBox.Name = "SigmaDeltaNoiseModeComboBox";
+            this.SigmaDeltaNoiseModeComboBox.Size = new System.Drawing.Size(144, 24);
+            this.SigmaDeltaNoiseModeComboBox.TabIndex = 16;
+            this.SigmaDeltaNoiseModeComboBox.SelectedIndexChanged += new System.EventHandler(this.SDNoiseModeComboBox_SelectedIndexChanged);
             // 
             // RegistersControlsGroupBox
             // 
@@ -772,6 +787,19 @@ namespace Synthesizer_PC_control
             this.ChargePumpGroupBox.TabIndex = 26;
             this.ChargePumpGroupBox.TabStop = false;
             this.ChargePumpGroupBox.Text = "Charge Pump";
+            // 
+            // PhaseAdjustmentModeCheckbox
+            // 
+            this.PhaseAdjustmentModeCheckbox.AutoSize = true;
+            this.PhaseAdjustmentModeCheckbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.PhaseAdjustmentModeCheckbox.Location = new System.Drawing.Point(208, 57);
+            this.PhaseAdjustmentModeCheckbox.Margin = new System.Windows.Forms.Padding(4);
+            this.PhaseAdjustmentModeCheckbox.Name = "PhaseAdjustmentModeCheckbox";
+            this.PhaseAdjustmentModeCheckbox.Size = new System.Drawing.Size(121, 21);
+            this.PhaseAdjustmentModeCheckbox.TabIndex = 18;
+            this.PhaseAdjustmentModeCheckbox.Text = "Phase Adjust.:";
+            this.PhaseAdjustmentModeCheckbox.UseVisualStyleBackColor = true;
+            this.PhaseAdjustmentModeCheckbox.CheckedChanged += new System.EventHandler(this.PhaseAdjustmentModeCheckbox_CheckedChanged);
             // 
             // CPCycleSlipCheckBox
             // 
@@ -2354,19 +2382,6 @@ namespace Synthesizer_PC_control
             this.ConsoleRichTextBox.TabIndex = 23;
             this.ConsoleRichTextBox.Text = "";
             // 
-            // PhaseAdjustmentModeCheckbox
-            // 
-            this.PhaseAdjustmentModeCheckbox.AutoSize = true;
-            this.PhaseAdjustmentModeCheckbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PhaseAdjustmentModeCheckbox.Location = new System.Drawing.Point(208, 57);
-            this.PhaseAdjustmentModeCheckbox.Margin = new System.Windows.Forms.Padding(4);
-            this.PhaseAdjustmentModeCheckbox.Name = "PhaseAdjustmentModeCheckbox";
-            this.PhaseAdjustmentModeCheckbox.Size = new System.Drawing.Size(121, 21);
-            this.PhaseAdjustmentModeCheckbox.TabIndex = 18;
-            this.PhaseAdjustmentModeCheckbox.Text = "Phase Adjust.:";
-            this.PhaseAdjustmentModeCheckbox.UseVisualStyleBackColor = true;
-            this.PhaseAdjustmentModeCheckbox.CheckedChanged += new System.EventHandler(this.PhaseAdjustmentModeCheckbox_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2391,7 +2406,6 @@ namespace Synthesizer_PC_control
             this.RegistersTabControl.ResumeLayout(false);
             this.RegistersPage.ResumeLayout(false);
             this.PhaseDetectorGroupBox.ResumeLayout(false);
-            this.PhaseDetectorGroupBox.PerformLayout();
             this.RegistersControlsGroupBox.ResumeLayout(false);
             this.RegistersControlsGroupBox.PerformLayout();
             this.MoveRegsIntoMemsGroupBox.ResumeLayout(false);
@@ -2544,7 +2558,6 @@ namespace Synthesizer_PC_control
         public CheckBox CPTriStateOutCheckBox;
         public CheckBox CPFastLockCheckBox;
         public CheckBox CPCycleSlipCheckBox;
-        public CheckBox PosPFDCheckBox;
         public ComboBox ADivComboBox;
         public TextBox InputFreqTextBox;
         private Label MHzLabel6;
@@ -2584,7 +2597,7 @@ namespace Synthesizer_PC_control
         private Label LDPrecisionLabel;
         private Label SDNoiseModeLabel;
         public ComboBox LDPrecisionComboBox;
-        public ComboBox SDNoiseModeComboBox;
+        public ComboBox SigmaDeltaNoiseModeComboBox;
         public Label LDfuncLabel;
         public ComboBox LDFuncComboBox;
         private Label RFoutBPathLabel;
@@ -2595,6 +2608,8 @@ namespace Synthesizer_PC_control
         private GroupBox groupBox1;
         public Label InternalLabel;
         public CheckBox PhaseAdjustmentModeCheckbox;
+        private Label label1;
+        public ComboBox PfdPolarity;
     }
 }
 

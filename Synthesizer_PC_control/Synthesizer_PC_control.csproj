@@ -70,6 +70,7 @@
     <Compile Include="Model\SynthFreqInfo.cs" />
     <Compile Include="Model\SynthOutputControls.cs" />
     <Compile Include="Model\ChargePump.cs" />
+    <Compile Include="Model\PhaseDetector.cs" />
     <Compile Include="Utilities\BitOperations.cs" />
     <Compile Include="Utilities\GeneralUtilities.cs" />
     <Compile Include="Utilities\Fractions.cs" />
