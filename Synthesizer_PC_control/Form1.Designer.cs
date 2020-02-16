@@ -798,6 +798,7 @@ namespace Synthesizer_PC_control
             this.CPTriStateOutCheckBox.TabIndex = 18;
             this.CPTriStateOutCheckBox.Text = "Tristate Output:";
             this.CPTriStateOutCheckBox.UseVisualStyleBackColor = true;
+            this.CPTriStateOutCheckBox.CheckedChanged += new System.EventHandler(this.CPTriStateOutCheckBox_CheckedChanged);
             // 
             // CPFastLockCheckBox
             // 

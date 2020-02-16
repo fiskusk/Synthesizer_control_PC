@@ -143,6 +143,13 @@ namespace Synthesizer_PC_control.Model
 
             UpdateUiElements();
         }
+
+        public void SetTriStateMode(bool value)
+        {
+            this.triStateEnabled = value;
+
+            UpdateUiElements();
+        }
         #endregion
 
         #region Getters
@@ -226,6 +233,7 @@ namespace Synthesizer_PC_control.Model
             ui_FastLock.Checked = fastLockEnabled;
             ui_PhaseAdjustment.Checked = phaseAdjustmentEnabled;
             ui_CycleSlipReduct.Checked = cycleSlipReductEnabled;
+            ui_TriState.Checked = triStateEnabled;
         }
     }
 }

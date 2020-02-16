@@ -700,6 +700,12 @@ namespace Synthesizer_PC_control
             controller.CPCycleSlipCheckedChanged(CPCycleSlipCheckBox.Checked);
         }
 
+        
+        private void CPTriStateOutCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.CPTristateCheckedChanged(CPTriStateOutCheckBox.Checked);
+        }
+
 #endregion
         
 #region Direct frequency controls

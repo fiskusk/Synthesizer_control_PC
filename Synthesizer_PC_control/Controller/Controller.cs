@@ -456,10 +456,21 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[3].ChangeNBits(Convert.ToUInt32(value), 1, 18);
+                registers[3].SetResetOneBit(18, (BitState)Convert.ToUInt16(value));
                 chargePump.SetCycleSlipMode(value);
 
                 CheckAndApplyRegChanges(3);
+            }
+        }
+
+        public void CPTristateCheckedChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[2].SetResetOneBit(4, (BitState)Convert.ToUInt16(value));
+                chargePump.SetTriStateMode(value);
+
+                CheckAndApplyRegChanges(2);
             }
         }
 
@@ -557,6 +568,12 @@ namespace Synthesizer_PC_control.Controllers
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 8);
             outFreqControl.SetLDFunction(index);
         }
+
+        private void GetTriStateModeFromRegister(UInt32 dataReg2)
+        {
+            bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 4));
+            chargePump.SetTriStateMode(enabled);
+        }
     #endregion
 
     #region Parsing register 3
@@ -648,6 +665,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetCPCurrentIndexFromRegister(reg);
                     GetLDSpeedAdjIndexFromRegister(reg);
                     GetLDFunctionIndexFromRegister(reg);
+                    GetTriStateModeFromRegister(reg);
                     break;
                 case 3:
                     GetClockDividerModeFromRegister(reg);
