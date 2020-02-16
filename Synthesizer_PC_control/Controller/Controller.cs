@@ -66,7 +66,8 @@ namespace Synthesizer_PC_control.Controllers
                                   view.pfdFreqLabel,
                                   view.LDSpeedAdjComboBox,
                                   view.AutoLDSpeedAdjCheckBox,
-                                  view.LDSpeedAdjLabel);
+                                  view.LDSpeedAdjLabel,
+                                  view.InternalLabel);
 
             outFreqControl = new OutFreqControl(view.IntNNumUpDown,
                                                 view.FracNNumUpDown,
@@ -990,6 +991,7 @@ namespace Synthesizer_PC_control.Controllers
             }
 
             this.GetAllFromRegisters();
+            refFreq.ChangeRefInpUIEnabled(!moduleControls.GetRefState());
         }
 
         private SaveWindow CreateSaveWindow()

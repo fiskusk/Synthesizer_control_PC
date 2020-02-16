@@ -59,6 +59,8 @@ namespace Synthesizer_PC_control
             this.WriteR5Button = new System.Windows.Forms.Button();
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.VcoSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.PhaseDetectorGroupBox = new System.Windows.Forms.GroupBox();
             this.LDPrecisionLabel = new System.Windows.Forms.Label();
@@ -200,8 +202,7 @@ namespace Synthesizer_PC_control
             this.ActiveOut2Label = new System.Windows.Forms.Label();
             this.ActiveOut1Label = new System.Windows.Forms.Label();
             this.ConsoleRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.InternalLabel = new System.Windows.Forms.Label();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.PhaseDetectorGroupBox.SuspendLayout();
@@ -559,6 +560,24 @@ namespace Synthesizer_PC_control
             this.RegistersPage.Text = "Direct Control Of Registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
             this.RegistersPage.Click += new System.EventHandler(this.RegistersPage_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(7, 595);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(341, 118);
+            this.groupBox2.TabIndex = 31;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Generic Controls";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(356, 503);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(341, 86);
+            this.groupBox1.TabIndex = 30;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Shutdown Controls";
             // 
             // VcoSettingsGroupBox
             // 
@@ -1388,6 +1407,7 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.Controls.Add(this.DivideBy2CheckBox);
             this.RefFreqGroupBox.Controls.Add(this.AutoLDSpeedAdjCheckBox);
             this.RefFreqGroupBox.Controls.Add(this.RefDoublerCheckBox);
+            this.RefFreqGroupBox.Controls.Add(this.InternalLabel);
             this.RefFreqGroupBox.Controls.Add(this.RefFLabel);
             this.RefFreqGroupBox.Controls.Add(this.fPfdLabel);
             this.RefFreqGroupBox.Controls.Add(this.RDivLabel);
@@ -1612,7 +1632,7 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersMemoryPage.Name = "RegistersMemoryPage";
             this.RegistersMemoryPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersMemoryPage.Size = new System.Drawing.Size(709, 732);
+            this.RegistersMemoryPage.Size = new System.Drawing.Size(709, 818);
             this.RegistersMemoryPage.TabIndex = 1;
             this.RegistersMemoryPage.Text = "Registers Memory";
             this.RegistersMemoryPage.UseVisualStyleBackColor = true;
@@ -2320,23 +2340,14 @@ namespace Synthesizer_PC_control
             this.ConsoleRichTextBox.TabIndex = 23;
             this.ConsoleRichTextBox.Text = "";
             // 
-            // groupBox1
+            // InternalLabel
             // 
-            this.groupBox1.Location = new System.Drawing.Point(356, 503);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(341, 86);
-            this.groupBox1.TabIndex = 30;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Shutdown Controls";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Location = new System.Drawing.Point(7, 595);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(341, 118);
-            this.groupBox2.TabIndex = 31;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Generic Controls";
+            this.InternalLabel.Location = new System.Drawing.Point(12, 15);
+            this.InternalLabel.Name = "InternalLabel";
+            this.InternalLabel.Size = new System.Drawing.Size(69, 17);
+            this.InternalLabel.TabIndex = 17;
+            this.InternalLabel.Text = "Internal";
+            this.InternalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -2564,6 +2575,7 @@ namespace Synthesizer_PC_control
         private GroupBox VcoSettingsGroupBox;
         private GroupBox groupBox2;
         private GroupBox groupBox1;
+        public Label InternalLabel;
     }
 }
 

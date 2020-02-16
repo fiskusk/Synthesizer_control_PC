@@ -27,11 +27,13 @@ namespace Synthesizer_PC_control.Model
         private readonly ComboBox ui_LDSpeedAdj;
         private readonly CheckBox ui_autoLdSpeedAdj;
         private readonly Label ui_LDSpeedAdjLabel;
+        private readonly Label ui_internalRefLabel;
 
         public RefFreq(TextBox ui_refInFreq, CheckBox ui_refDoubler, 
                        CheckBox ui_refDiv2, NumericUpDown ui_refDivider, 
                        Label ui_pfdFreqShowLabel, ComboBox ui_LDSpeedAdj,
-                       CheckBox ui_autoLdSpeedAdj, Label ui_LDSpeedAdjLabel)
+                       CheckBox ui_autoLdSpeedAdj, Label ui_LDSpeedAdjLabel,
+                       Label ui_internalRefLabel)
         {
             this.ui_refInFreq = ui_refInFreq;
             this.ui_refDoubler = ui_refDoubler;
@@ -41,6 +43,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_LDSpeedAdj = ui_LDSpeedAdj;
             this.ui_autoLdSpeedAdj = ui_autoLdSpeedAdj;
             this.ui_LDSpeedAdjLabel = ui_LDSpeedAdjLabel;
+            this.ui_internalRefLabel = ui_internalRefLabel;
 
             this.refInFreq = 10.0M;
             this.isDoubled = false;
@@ -166,6 +169,10 @@ namespace Synthesizer_PC_control.Model
         public void ChangeRefInpUIEnabled(bool state)
         {
             ui_refInFreq.Enabled = state;
+            if (state)
+                ui_internalRefLabel.Text = "External";
+            else
+                ui_internalRefLabel.Text = "Internal";
         }
 
         public void ChangeLDSpeedWithRespectToPFDFreq()
