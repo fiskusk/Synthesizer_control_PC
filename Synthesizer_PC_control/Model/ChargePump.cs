@@ -7,6 +7,12 @@ using Synthesizer_PC_control.Controllers;
 
 namespace Synthesizer_PC_control.Model
 {
+    public enum ClockDividerMode
+    {
+        MuteUntilLockDelay,
+        FastLockEnable,
+        PhaseAdjustment
+    }
     public class ChargePump : I_UiLinked
     {
         private UInt16 rSet;
@@ -14,22 +20,26 @@ namespace Synthesizer_PC_control.Model
         private int linearityIndex;
         private int testModeIndex;
         private bool fastLockEnabled;
+        private bool phaseAdjustmentEnabled;
         private bool triStateEnabled;
         private bool cycleSlipReductEnabled;
         private bool isFillCurrentCombobox;
+        private bool disableHandler = false;
         private string badLinearityMessage = "Warning: In the current synthesizer mode setting, the linearity of the CP is incorrectly selected.";
-        private readonly  TextBox ui_Rset;
-        private readonly  ComboBox ui_Current;
-        private readonly  ComboBox ui_Linearity;
-        private readonly  ComboBox ui_Test;
-        private readonly  CheckBox ui_FastLock;
-        private readonly  CheckBox ui_TriState;
-        private readonly  CheckBox ui_CycleSlipReduct;
-        private readonly  Label ui_CurrentLabel;
-        private readonly  Label ui_LinearityLabel;
+        private readonly TextBox ui_Rset;
+        private readonly ComboBox ui_Current;
+        private readonly ComboBox ui_Linearity;
+        private readonly ComboBox ui_Test;
+        private readonly CheckBox ui_FastLock;
+        private readonly CheckBox ui_PhaseAdjustment;
+        private readonly CheckBox ui_TriState;
+        private readonly CheckBox ui_CycleSlipReduct;
+        private readonly Label ui_CurrentLabel;
+        private readonly Label ui_LinearityLabel;
         public ChargePump(TextBox ui_Rset, ComboBox ui_Current, ComboBox ui_Linearity,
                           ComboBox ui_Test, CheckBox ui_FastLock, CheckBox ui_TriState, 
-                          CheckBox ui_CycleSlipReduct, Label ui_CurrentLabel, Label ui_LinearityLabel)
+                          CheckBox ui_CycleSlipReduct, Label ui_CurrentLabel, Label ui_LinearityLabel,
+                          CheckBox ui_PhaseAdjustment)
         {
             this.ui_Rset    = ui_Rset;
             this.ui_Current = ui_Current;
@@ -40,6 +50,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_CycleSlipReduct = ui_CycleSlipReduct;
             this.ui_CurrentLabel    = ui_CurrentLabel;
             this.ui_LinearityLabel  = ui_LinearityLabel;
+            this.ui_PhaseAdjustment = ui_PhaseAdjustment;
         }
 
         #region Setters
@@ -82,6 +93,32 @@ namespace Synthesizer_PC_control.Model
 
             UpdateUiElements();
         }
+
+        public void SetFastLockMode(bool value)
+        {
+            disableHandler = true;
+
+            this.fastLockEnabled = value;
+            if (value ==  true)
+                this.phaseAdjustmentEnabled = false;
+
+            UpdateUiElements();
+
+            disableHandler = false;
+        }
+
+        public void SetPhaseAdjustmentMode(bool value)
+        {
+            disableHandler = true;
+
+            this.phaseAdjustmentEnabled = value;
+            if (value == true)
+                this.fastLockEnabled = false;
+
+            UpdateUiElements();
+            
+            disableHandler = false;
+        }
         #endregion
 
         #region Getters
@@ -102,6 +139,11 @@ namespace Synthesizer_PC_control.Model
         public int GetTestModeIndex()
         {
             return testModeIndex;
+        }
+
+        public bool GetDisableHandler()
+        {
+            return disableHandler;
         }
         #endregion
 
@@ -157,6 +199,8 @@ namespace Synthesizer_PC_control.Model
             ui_Current.SelectedIndex = currentIndex;
             ui_Linearity.SelectedIndex = linearityIndex;
             ui_Test.SelectedIndex = testModeIndex;
+            ui_FastLock.Checked = fastLockEnabled;
+            ui_PhaseAdjustment.Checked = phaseAdjustmentEnabled;
         }
     }
 }

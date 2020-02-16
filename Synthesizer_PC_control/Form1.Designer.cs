@@ -131,6 +131,7 @@ namespace Synthesizer_PC_control
             this.DivideBy2CheckBox = new System.Windows.Forms.CheckBox();
             this.AutoLDSpeedAdjCheckBox = new System.Windows.Forms.CheckBox();
             this.RefDoublerCheckBox = new System.Windows.Forms.CheckBox();
+            this.InternalLabel = new System.Windows.Forms.Label();
             this.RefFLabel = new System.Windows.Forms.Label();
             this.fPfdLabel = new System.Windows.Forms.Label();
             this.RDivLabel = new System.Windows.Forms.Label();
@@ -202,7 +203,7 @@ namespace Synthesizer_PC_control
             this.ActiveOut2Label = new System.Windows.Forms.Label();
             this.ActiveOut1Label = new System.Windows.Forms.Label();
             this.ConsoleRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.InternalLabel = new System.Windows.Forms.Label();
+            this.PhaseAdjustmentModeCheckbox = new System.Windows.Forms.CheckBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.PhaseDetectorGroupBox.SuspendLayout();
@@ -751,6 +752,7 @@ namespace Synthesizer_PC_control
             // 
             // ChargePumpGroupBox
             // 
+            this.ChargePumpGroupBox.Controls.Add(this.PhaseAdjustmentModeCheckbox);
             this.ChargePumpGroupBox.Controls.Add(this.CPCycleSlipCheckBox);
             this.ChargePumpGroupBox.Controls.Add(this.CPTriStateOutCheckBox);
             this.ChargePumpGroupBox.Controls.Add(this.CPFastLockCheckBox);
@@ -775,30 +777,30 @@ namespace Synthesizer_PC_control
             // 
             this.CPCycleSlipCheckBox.AutoSize = true;
             this.CPCycleSlipCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(191, 85);
+            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(191, 115);
             this.CPCycleSlipCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPCycleSlipCheckBox.Name = "CPCycleSlipCheckBox";
             this.CPCycleSlipCheckBox.Size = new System.Drawing.Size(134, 21);
             this.CPCycleSlipCheckBox.TabIndex = 18;
             this.CPCycleSlipCheckBox.Text = "Cycle Slip Mode:";
-            this.CPCycleSlipCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.CPCycleSlipCheckBox.UseVisualStyleBackColor = true;
             // 
             // CPTriStateOutCheckBox
             // 
+            this.CPTriStateOutCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.CPTriStateOutCheckBox.AutoSize = true;
             this.CPTriStateOutCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPTriStateOutCheckBox.Location = new System.Drawing.Point(196, 59);
+            this.CPTriStateOutCheckBox.Location = new System.Drawing.Point(196, 86);
             this.CPTriStateOutCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPTriStateOutCheckBox.Name = "CPTriStateOutCheckBox";
             this.CPTriStateOutCheckBox.Size = new System.Drawing.Size(129, 21);
             this.CPTriStateOutCheckBox.TabIndex = 18;
             this.CPTriStateOutCheckBox.Text = "Tristate Output:";
-            this.CPTriStateOutCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.CPTriStateOutCheckBox.UseVisualStyleBackColor = true;
             // 
             // CPFastLockCheckBox
             // 
+            this.CPFastLockCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CPFastLockCheckBox.AutoSize = true;
             this.CPFastLockCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.CPFastLockCheckBox.Location = new System.Drawing.Point(230, 30);
@@ -809,6 +811,7 @@ namespace Synthesizer_PC_control
             this.CPFastLockCheckBox.Text = "Fast Lock:";
             this.CPFastLockCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.CPFastLockCheckBox.UseVisualStyleBackColor = true;
+            this.CPFastLockCheckBox.CheckedChanged += new System.EventHandler(this.CPFastLockCheckBox_CheckedChanged);
             // 
             // RSetTextBox
             // 
@@ -1529,6 +1532,15 @@ namespace Synthesizer_PC_control
             this.RefDoublerCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.RefDoublerCheckBox.UseVisualStyleBackColor = true;
             this.RefDoublerCheckBox.CheckedChanged += new System.EventHandler(this.DoubleRefFCheckBox_CheckedChanged);
+            // 
+            // InternalLabel
+            // 
+            this.InternalLabel.Location = new System.Drawing.Point(12, 15);
+            this.InternalLabel.Name = "InternalLabel";
+            this.InternalLabel.Size = new System.Drawing.Size(69, 17);
+            this.InternalLabel.TabIndex = 17;
+            this.InternalLabel.Text = "Internal";
+            this.InternalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RefFLabel
             // 
@@ -2340,14 +2352,18 @@ namespace Synthesizer_PC_control
             this.ConsoleRichTextBox.TabIndex = 23;
             this.ConsoleRichTextBox.Text = "";
             // 
-            // InternalLabel
+            // PhaseAdjustmentModeCheckbox
             // 
-            this.InternalLabel.Location = new System.Drawing.Point(12, 15);
-            this.InternalLabel.Name = "InternalLabel";
-            this.InternalLabel.Size = new System.Drawing.Size(69, 17);
-            this.InternalLabel.TabIndex = 17;
-            this.InternalLabel.Text = "Internal";
-            this.InternalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.PhaseAdjustmentModeCheckbox.AutoSize = true;
+            this.PhaseAdjustmentModeCheckbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.PhaseAdjustmentModeCheckbox.Location = new System.Drawing.Point(204, 57);
+            this.PhaseAdjustmentModeCheckbox.Margin = new System.Windows.Forms.Padding(4);
+            this.PhaseAdjustmentModeCheckbox.Name = "PhaseAdjustmentModeCheckbox";
+            this.PhaseAdjustmentModeCheckbox.Size = new System.Drawing.Size(121, 21);
+            this.PhaseAdjustmentModeCheckbox.TabIndex = 18;
+            this.PhaseAdjustmentModeCheckbox.Text = "Phase Adjust.:";
+            this.PhaseAdjustmentModeCheckbox.UseVisualStyleBackColor = true;
+            this.PhaseAdjustmentModeCheckbox.CheckedChanged += new System.EventHandler(this.PhaseAdjustmentModeCheckbox_CheckedChanged);
             // 
             // Form1
             // 
@@ -2576,6 +2592,7 @@ namespace Synthesizer_PC_control
         private GroupBox groupBox2;
         private GroupBox groupBox1;
         public Label InternalLabel;
+        public CheckBox PhaseAdjustmentModeCheckbox;
     }
 }
 

@@ -105,7 +105,8 @@ namespace Synthesizer_PC_control.Controllers
                                         view.CPTriStateOutCheckBox,
                                         view.CPCycleSlipCheckBox,
                                         view.CPCurrentLabel,
-                                        view.CPLinearityLabel);
+                                        view.CPLinearityLabel,
+                                        view.PhaseAdjustmentModeCheckbox);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -421,6 +422,36 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        public void CPFastLockCheckedChanged(bool value)
+        {
+            if (serialPort.IsPortOpen() && !chargePump.GetDisableHandler())
+            {
+                if (value)
+                    registers[3].ChangeNBits(Convert.ToUInt32(ClockDividerMode.FastLockEnable), 2, 15);
+                else
+                    registers[3].ChangeNBits(Convert.ToUInt32(ClockDividerMode.MuteUntilLockDelay), 2, 15);
+                
+                chargePump.SetFastLockMode(value);
+
+                CheckAndApplyRegChanges(3);
+            }
+        }
+
+        public void PhaseAdjustmentCheckedChanged(bool value)
+        {
+            if (serialPort.IsPortOpen() && !chargePump.GetDisableHandler())
+            {
+                if (value)
+                    registers[3].ChangeNBits(Convert.ToUInt32(ClockDividerMode.PhaseAdjustment), 2, 15);
+                else
+                    registers[3].ChangeNBits(Convert.ToUInt32(ClockDividerMode.MuteUntilLockDelay), 2, 15);
+                
+                chargePump.SetPhaseAdjustmentMode(value);
+
+                CheckAndApplyRegChanges(3);
+            }
+        }
+
         #endregion
 
     #region Phase Detector Group
@@ -518,6 +549,19 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
 
     #region Parsing register 3
+        private void GetClockDividerModeFromRegister(UInt32 dataReg3)
+        {
+            ClockDividerMode cdm = (ClockDividerMode)BitOperations.GetNBits(dataReg3, 2, 15);
+            if (cdm == ClockDividerMode.FastLockEnable)
+                chargePump.SetFastLockMode(true);
+            else
+                chargePump.SetFastLockMode(false);
+
+            if (cdm == ClockDividerMode.PhaseAdjustment)
+                chargePump.SetPhaseAdjustmentMode(true);
+            else
+                chargePump.SetPhaseAdjustmentMode(false);
+        }
 
     #endregion
 

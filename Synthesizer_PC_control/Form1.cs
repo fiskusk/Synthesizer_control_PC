@@ -165,6 +165,7 @@ namespace Synthesizer_PC_control
             LDFuncComboBox.Enabled          = command;
             AutoLDFuncCheckBox.Enabled      = command;
             RFoutBPathComboBox.Enabled      = command;
+            PhaseAdjustmentModeCheckbox.Enabled = command;
         }
 
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
@@ -682,6 +683,17 @@ namespace Synthesizer_PC_control
             controller.CPTestModeIndexChanged(CPTestComboBox.SelectedIndex);
         }
 
+        
+        private void CPFastLockCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.CPFastLockCheckedChanged(CPFastLockCheckBox.Checked);
+        }
+        
+        private void PhaseAdjustmentModeCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.PhaseAdjustmentCheckedChanged(PhaseAdjustmentModeCheckbox.Checked);
+        }
+
 #endregion
         
 #region Direct frequency controls
@@ -716,8 +728,8 @@ namespace Synthesizer_PC_control
             controller.SwitchOut2();
         }
 
+
         #endregion
 
-        
     }
 }
