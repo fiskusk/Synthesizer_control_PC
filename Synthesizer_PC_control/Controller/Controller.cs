@@ -452,6 +452,17 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        public void CPCycleSlipCheckedChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                registers[3].ChangeNBits(Convert.ToUInt32(value), 1, 18);
+                chargePump.SetCycleSlipMode(value);
+
+                CheckAndApplyRegChanges(3);
+            }
+        }
+
         #endregion
 
     #region Phase Detector Group
@@ -563,6 +574,12 @@ namespace Synthesizer_PC_control.Controllers
                 chargePump.SetPhaseAdjustmentMode(false);
         }
 
+        private void GetCycleSlipModeFromRegister(UInt32 dataReg3)
+        {
+            bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg3, 1, 18));
+            chargePump.SetCycleSlipMode(enabled);
+        }
+
     #endregion
 
     #region Parsing register 4
@@ -633,6 +650,8 @@ namespace Synthesizer_PC_control.Controllers
                     GetLDFunctionIndexFromRegister(reg);
                     break;
                 case 3:
+                    GetClockDividerModeFromRegister(reg);
+                    GetCycleSlipModeFromRegister(reg);
                     break;
                 case 4:
                     GetOutAENStatusFromRegister(reg);

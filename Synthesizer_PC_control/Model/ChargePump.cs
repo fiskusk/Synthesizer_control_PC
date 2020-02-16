@@ -116,8 +116,15 @@ namespace Synthesizer_PC_control.Model
                 this.fastLockEnabled = false;
 
             UpdateUiElements();
-            
+
             disableHandler = false;
+        }
+
+        public void SetCycleSlipMode(bool value)
+        {
+            this.cycleSlipReductEnabled = value;
+
+            UpdateUiElements();
         }
         #endregion
 
@@ -201,6 +208,7 @@ namespace Synthesizer_PC_control.Model
             ui_Test.SelectedIndex = testModeIndex;
             ui_FastLock.Checked = fastLockEnabled;
             ui_PhaseAdjustment.Checked = phaseAdjustmentEnabled;
+            ui_CycleSlipReduct.Checked = cycleSlipReductEnabled;
         }
     }
 }

@@ -777,20 +777,21 @@ namespace Synthesizer_PC_control
             // 
             this.CPCycleSlipCheckBox.AutoSize = true;
             this.CPCycleSlipCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(191, 115);
+            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(194, 115);
             this.CPCycleSlipCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPCycleSlipCheckBox.Name = "CPCycleSlipCheckBox";
             this.CPCycleSlipCheckBox.Size = new System.Drawing.Size(134, 21);
             this.CPCycleSlipCheckBox.TabIndex = 18;
             this.CPCycleSlipCheckBox.Text = "Cycle Slip Mode:";
             this.CPCycleSlipCheckBox.UseVisualStyleBackColor = true;
+            this.CPCycleSlipCheckBox.CheckedChanged += new System.EventHandler(this.CPCycleSlipCheckBox_CheckedChanged);
             // 
             // CPTriStateOutCheckBox
             // 
             this.CPTriStateOutCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.CPTriStateOutCheckBox.AutoSize = true;
             this.CPTriStateOutCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPTriStateOutCheckBox.Location = new System.Drawing.Point(196, 86);
+            this.CPTriStateOutCheckBox.Location = new System.Drawing.Point(205, 86);
             this.CPTriStateOutCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPTriStateOutCheckBox.Name = "CPTriStateOutCheckBox";
             this.CPTriStateOutCheckBox.Size = new System.Drawing.Size(129, 21);
@@ -803,7 +804,7 @@ namespace Synthesizer_PC_control
             this.CPFastLockCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CPFastLockCheckBox.AutoSize = true;
             this.CPFastLockCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPFastLockCheckBox.Location = new System.Drawing.Point(230, 30);
+            this.CPFastLockCheckBox.Location = new System.Drawing.Point(239, 30);
             this.CPFastLockCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPFastLockCheckBox.Name = "CPFastLockCheckBox";
             this.CPFastLockCheckBox.Size = new System.Drawing.Size(95, 21);
@@ -2356,7 +2357,7 @@ namespace Synthesizer_PC_control
             // 
             this.PhaseAdjustmentModeCheckbox.AutoSize = true;
             this.PhaseAdjustmentModeCheckbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PhaseAdjustmentModeCheckbox.Location = new System.Drawing.Point(204, 57);
+            this.PhaseAdjustmentModeCheckbox.Location = new System.Drawing.Point(208, 57);
             this.PhaseAdjustmentModeCheckbox.Margin = new System.Windows.Forms.Padding(4);
             this.PhaseAdjustmentModeCheckbox.Name = "PhaseAdjustmentModeCheckbox";
             this.PhaseAdjustmentModeCheckbox.Size = new System.Drawing.Size(121, 21);

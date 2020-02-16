@@ -694,6 +694,12 @@ namespace Synthesizer_PC_control
             controller.PhaseAdjustmentCheckedChanged(PhaseAdjustmentModeCheckbox.Checked);
         }
 
+        
+        private void CPCycleSlipCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.CPCycleSlipCheckedChanged(CPCycleSlipCheckBox.Checked);
+        }
+
 #endregion
         
 #region Direct frequency controls
