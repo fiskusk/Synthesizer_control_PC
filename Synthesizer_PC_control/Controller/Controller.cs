@@ -370,16 +370,8 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                if (value == 3)
-                {
-                    value = synthOutputControls.GetOutBPwrIndex();
-                    ConsoleController.Console().Write("Warning: Output power at 'Out B' is limited to maximum +2 dBm. This limitation is due to the frequency doubler circuit used at Out 2");
-                }
-                else
-                {
+                if (synthOutputControls.SetOutBPwr(value))
                     registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 6);
-                }
-                synthOutputControls.SetOutBPwr(value);
 
                 CheckAndApplyRegChanges(4);
             }
@@ -415,6 +407,11 @@ namespace Synthesizer_PC_control.Controllers
 
                 CheckAndApplyRegChanges(1);
             }
+        }
+
+        private void CPTestComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
 
         #endregion

@@ -200,6 +200,8 @@ namespace Synthesizer_PC_control
             this.ActiveOut2Label = new System.Windows.Forms.Label();
             this.ActiveOut1Label = new System.Windows.Forms.Label();
             this.ConsoleRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.PhaseDetectorGroupBox.SuspendLayout();
@@ -532,11 +534,13 @@ namespace Synthesizer_PC_control
             this.RegistersTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersTabControl.Name = "RegistersTabControl";
             this.RegistersTabControl.SelectedIndex = 0;
-            this.RegistersTabControl.Size = new System.Drawing.Size(708, 661);
+            this.RegistersTabControl.Size = new System.Drawing.Size(717, 847);
             this.RegistersTabControl.TabIndex = 12;
             // 
             // RegistersPage
             // 
+            this.RegistersPage.Controls.Add(this.groupBox2);
+            this.RegistersPage.Controls.Add(this.groupBox1);
             this.RegistersPage.Controls.Add(this.VcoSettingsGroupBox);
             this.RegistersPage.Controls.Add(this.PhaseDetectorGroupBox);
             this.RegistersPage.Controls.Add(this.RegistersControlsGroupBox);
@@ -550,7 +554,7 @@ namespace Synthesizer_PC_control
             this.RegistersPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersPage.Name = "RegistersPage";
             this.RegistersPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersPage.Size = new System.Drawing.Size(700, 632);
+            this.RegistersPage.Size = new System.Drawing.Size(709, 818);
             this.RegistersPage.TabIndex = 0;
             this.RegistersPage.Text = "Direct Control Of Registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
@@ -558,9 +562,9 @@ namespace Synthesizer_PC_control
             // 
             // VcoSettingsGroupBox
             // 
-            this.VcoSettingsGroupBox.Location = new System.Drawing.Point(355, 198);
+            this.VcoSettingsGroupBox.Location = new System.Drawing.Point(356, 198);
             this.VcoSettingsGroupBox.Name = "VcoSettingsGroupBox";
-            this.VcoSettingsGroupBox.Size = new System.Drawing.Size(335, 100);
+            this.VcoSettingsGroupBox.Size = new System.Drawing.Size(341, 144);
             this.VcoSettingsGroupBox.TabIndex = 29;
             this.VcoSettingsGroupBox.TabStop = false;
             this.VcoSettingsGroupBox.Text = "VCO settings";
@@ -572,9 +576,9 @@ namespace Synthesizer_PC_control
             this.PhaseDetectorGroupBox.Controls.Add(this.PosPFDCheckBox);
             this.PhaseDetectorGroupBox.Controls.Add(this.LDPrecisionComboBox);
             this.PhaseDetectorGroupBox.Controls.Add(this.SDNoiseModeComboBox);
-            this.PhaseDetectorGroupBox.Location = new System.Drawing.Point(355, 300);
+            this.PhaseDetectorGroupBox.Location = new System.Drawing.Point(7, 503);
             this.PhaseDetectorGroupBox.Name = "PhaseDetectorGroupBox";
-            this.PhaseDetectorGroupBox.Size = new System.Drawing.Size(335, 86);
+            this.PhaseDetectorGroupBox.Size = new System.Drawing.Size(341, 86);
             this.PhaseDetectorGroupBox.TabIndex = 28;
             this.PhaseDetectorGroupBox.TabStop = false;
             this.PhaseDetectorGroupBox.Text = "Phase Detector";
@@ -739,11 +743,11 @@ namespace Synthesizer_PC_control
             this.ChargePumpGroupBox.Controls.Add(this.CPLinearityLabel);
             this.ChargePumpGroupBox.Controls.Add(this.RSetLabel);
             this.ChargePumpGroupBox.Controls.Add(this.CPCurrentLabel);
-            this.ChargePumpGroupBox.Location = new System.Drawing.Point(355, 393);
+            this.ChargePumpGroupBox.Location = new System.Drawing.Point(356, 349);
             this.ChargePumpGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.ChargePumpGroupBox.Name = "ChargePumpGroupBox";
             this.ChargePumpGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.ChargePumpGroupBox.Size = new System.Drawing.Size(335, 147);
+            this.ChargePumpGroupBox.Size = new System.Drawing.Size(341, 147);
             this.ChargePumpGroupBox.TabIndex = 26;
             this.ChargePumpGroupBox.TabStop = false;
             this.ChargePumpGroupBox.Text = "Charge Pump";
@@ -817,6 +821,7 @@ namespace Synthesizer_PC_control
             this.CPTestComboBox.Name = "CPTestComboBox";
             this.CPTestComboBox.Size = new System.Drawing.Size(116, 24);
             this.CPTestComboBox.TabIndex = 16;
+            this.CPTestComboBox.SelectedIndexChanged += new System.EventHandler(this.CPTestComboBox_SelectedIndexChanged);
             // 
             // CPLinearityComboBox
             // 
@@ -893,7 +898,7 @@ namespace Synthesizer_PC_control
             this.OutputControlsGroupBox.Controls.Add(this.OutAEn_ComboBox);
             this.OutputControlsGroupBox.Controls.Add(this.OutAPwr_ComboBox);
             this.OutputControlsGroupBox.Controls.Add(this.OutBEn_ComboBox);
-            this.OutputControlsGroupBox.Location = new System.Drawing.Point(231, 549);
+            this.OutputControlsGroupBox.Location = new System.Drawing.Point(231, 720);
             this.OutputControlsGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.OutputControlsGroupBox.Name = "OutputControlsGroupBox";
             this.OutputControlsGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -1015,7 +1020,7 @@ namespace Synthesizer_PC_control
             this.OutInfoGroupBox.Controls.Add(this.fOutAScreenLabel);
             this.OutInfoGroupBox.Controls.Add(this.fOutBScreenLabel);
             this.OutInfoGroupBox.Controls.Add(this.fVcoScreenLabel);
-            this.OutInfoGroupBox.Location = new System.Drawing.Point(7, 549);
+            this.OutInfoGroupBox.Location = new System.Drawing.Point(7, 720);
             this.OutInfoGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.OutInfoGroupBox.Name = "OutInfoGroupBox";
             this.OutInfoGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -1130,11 +1135,11 @@ namespace Synthesizer_PC_control
             this.FreqControlGroupBox.Controls.Add(this.ModNumUpDown);
             this.FreqControlGroupBox.Controls.Add(this.FracNNumUpDown);
             this.FreqControlGroupBox.Controls.Add(this.PhasePNumericUpDown);
-            this.FreqControlGroupBox.Location = new System.Drawing.Point(9, 327);
+            this.FreqControlGroupBox.Location = new System.Drawing.Point(7, 327);
             this.FreqControlGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.FreqControlGroupBox.Name = "FreqControlGroupBox";
             this.FreqControlGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.FreqControlGroupBox.Size = new System.Drawing.Size(339, 169);
+            this.FreqControlGroupBox.Size = new System.Drawing.Size(341, 169);
             this.FreqControlGroupBox.TabIndex = 23;
             this.FreqControlGroupBox.TabStop = false;
             this.FreqControlGroupBox.Text = "Output Frequency Control";
@@ -1607,7 +1612,7 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersMemoryPage.Name = "RegistersMemoryPage";
             this.RegistersMemoryPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersMemoryPage.Size = new System.Drawing.Size(700, 632);
+            this.RegistersMemoryPage.Size = new System.Drawing.Size(709, 732);
             this.RegistersMemoryPage.TabIndex = 1;
             this.RegistersMemoryPage.Text = "Registers Memory";
             this.RegistersMemoryPage.UseVisualStyleBackColor = true;
@@ -2059,7 +2064,7 @@ namespace Synthesizer_PC_control
             this.RegistersGroupBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersGroupBox.Name = "RegistersGroupBox";
             this.RegistersGroupBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersGroupBox.Size = new System.Drawing.Size(703, 563);
+            this.RegistersGroupBox.Size = new System.Drawing.Size(717, 780);
             this.RegistersGroupBox.TabIndex = 13;
             this.RegistersGroupBox.TabStop = false;
             this.RegistersGroupBox.Text = "PLO MAX2871 Registers Settings";
@@ -2069,10 +2074,10 @@ namespace Synthesizer_PC_control
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 687);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 872);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 13, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1067, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1071, 22);
             this.statusStrip1.TabIndex = 14;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2311,15 +2316,33 @@ namespace Synthesizer_PC_control
             this.ConsoleRichTextBox.Name = "ConsoleRichTextBox";
             this.ConsoleRichTextBox.ReadOnly = true;
             this.ConsoleRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 416);
+            this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 516);
             this.ConsoleRichTextBox.TabIndex = 23;
             this.ConsoleRichTextBox.Text = "";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(356, 503);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(341, 86);
+            this.groupBox1.TabIndex = 30;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Shutdown Controls";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(7, 595);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(341, 118);
+            this.groupBox2.TabIndex = 31;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Generic Controls";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 709);
+            this.ClientSize = new System.Drawing.Size(1071, 894);
             this.Controls.Add(this.ConsoleRichTextBox);
             this.Controls.Add(this.DirectFreqContrGroupBox);
             this.Controls.Add(this.statusStrip1);
@@ -2539,6 +2562,8 @@ namespace Synthesizer_PC_control
         public ComboBox RFoutBPathComboBox;
         public CheckBox AutoLDFuncCheckBox;
         private GroupBox VcoSettingsGroupBox;
+        private GroupBox groupBox2;
+        private GroupBox groupBox1;
     }
 }
 

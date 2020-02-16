@@ -1,5 +1,7 @@
 using System.Windows.Forms;
 
+using Synthesizer_PC_control.Controllers;
+
 namespace Synthesizer_PC_control.Model
 {
     public enum OutEnState
@@ -14,6 +16,7 @@ namespace Synthesizer_PC_control.Model
         private OutEnState outBEn;
         private int outAPwr;
         private int outBPwr;
+        private string wrongBPwrMessage = "Warning: Output power at 'Out B' is limited to maximum +2 dBm. This limitation is due to the frequency doubler circuit used at Out 2";
         private readonly ComboBox ui_outAEnable;
         private readonly ComboBox ui_outBEnable;
         private readonly ComboBox ui_outAPwr;
@@ -61,11 +64,25 @@ namespace Synthesizer_PC_control.Model
             UpdateUiElements();
         }
 
-        public void SetOutBPwr(int value)
+        public bool SetOutBPwr(int value)
         {
+            bool state;
+            if (value == 3)
+            {
+                value = outBPwr;
+                ConsoleController.Console().Write(wrongBPwrMessage);
+                state = false;
+            }
+            else
+            {
+                state = true;
+            }
+
             this.outBPwr = value;
 
             UpdateUiElements();
+
+            return state;
         }
         #endregion
 
