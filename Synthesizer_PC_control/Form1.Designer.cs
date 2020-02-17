@@ -1797,6 +1797,7 @@ namespace Synthesizer_PC_control
             this.R0M1.Size = new System.Drawing.Size(84, 22);
             this.R0M1.TabIndex = 9;
             this.R0M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0M1.TextChanged += new System.EventHandler(this.R0M1_TextChanged);
             // 
             // Mem4Label
             // 

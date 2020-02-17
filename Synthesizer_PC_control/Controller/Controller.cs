@@ -377,8 +377,8 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                if (synthOutputControls.SetOutBPwr(value))
-                    registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 6);
+                if (!synthOutputControls.SetOutBPwr(value))
+                    registers[4].ChangeNBits((UInt32)synthOutputControls.GetOutBPwrIndex(), 2, 6);
 
                 CheckAndApplyRegChanges(4);
             }
@@ -680,7 +680,8 @@ namespace Synthesizer_PC_control.Controllers
         private void GetOutBPwrStatusFromRegister(UInt32 dataReg4)
         {
             int outBPwr = (int)BitOperations.GetNBits(dataReg4, 2, 6);
-            synthOutputControls.SetOutBPwr(outBPwr);
+            if (!synthOutputControls.SetOutBPwr(outBPwr))
+                registers[4].ChangeNBits((UInt32)synthOutputControls.GetOutBPwrIndex(), 2, 6);
         }
 
         private void GetADividerValueFromRegister(UInt32 dataReg4)
@@ -1242,6 +1243,11 @@ namespace Synthesizer_PC_control.Controllers
 #endregion
     
 #region Memory operation
+        public void SetMemoryRegisterValue(string value, int memoryNumber, int registerNumber)
+        {
+            memory.GetRegister(memoryNumber, registerNumber).SetValue(value);
+        }
+
         public void ImportMemory(int memoryNumber)
         {
             for (int i = 0; i < 6; i++)

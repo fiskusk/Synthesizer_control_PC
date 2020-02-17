@@ -461,6 +461,12 @@ namespace Synthesizer_PC_control
             controller.ImportMemory(4);
         }
 
+        
+        private void R0M1_TextChanged(object sender, EventArgs e)
+        {
+            controller.SetMemoryRegisterValue(R0M1.Text, 1, 0);
+        }
+
 #endregion
 
 #region Output Controls group
