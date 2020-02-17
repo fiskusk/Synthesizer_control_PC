@@ -280,8 +280,8 @@ namespace Synthesizer_PC_control
             this.Reg0TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg0TextBox.TabIndex = 3;
             this.Reg0TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg0TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg0TextBox_KeyPress);
-            this.Reg0TextBox.LostFocus += new System.EventHandler(this.Reg0TextBox_LostFocus);
+            this.Reg0TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg0TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg0Label
             // 
@@ -312,8 +312,8 @@ namespace Synthesizer_PC_control
             this.Reg1TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg1TextBox.TabIndex = 6;
             this.Reg1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg1TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg1TextBox_KeyPress);
-            this.Reg1TextBox.LostFocus += new System.EventHandler(this.Reg1TextBox_LostFocus);
+            this.Reg1TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg1TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg2Label
             // 
@@ -335,8 +335,8 @@ namespace Synthesizer_PC_control
             this.Reg2TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg2TextBox.TabIndex = 8;
             this.Reg2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg2TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg2TextBox_KeyPress);
-            this.Reg2TextBox.LostFocus += new System.EventHandler(this.Reg2TextBox_LostFocus);
+            this.Reg2TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg2TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg3Label
             // 
@@ -358,8 +358,8 @@ namespace Synthesizer_PC_control
             this.Reg3TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg3TextBox.TabIndex = 8;
             this.Reg3TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg3TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg3TextBox_KeyPress);
-            this.Reg3TextBox.LostFocus += new System.EventHandler(this.Reg3TextBox_LostFocus);
+            this.Reg3TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg3TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg4Label
             // 
@@ -381,8 +381,8 @@ namespace Synthesizer_PC_control
             this.Reg4TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg4TextBox.TabIndex = 8;
             this.Reg4TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg4TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg4TextBox_KeyPress);
-            this.Reg4TextBox.LostFocus += new System.EventHandler(this.Reg4TextBox_LostFocus);
+            this.Reg4TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg4TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg5Label
             // 
@@ -404,8 +404,8 @@ namespace Synthesizer_PC_control
             this.Reg5TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg5TextBox.TabIndex = 8;
             this.Reg5TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg5TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Reg5TextBox_KeyPress);
-            this.Reg5TextBox.LostFocus += new System.EventHandler(this.Reg5TextBox_LostFocus);
+            this.Reg5TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg5TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // RefButton
             // 
@@ -472,7 +472,7 @@ namespace Synthesizer_PC_control
             this.WriteR0Button.TabIndex = 11;
             this.WriteR0Button.Text = "Write R0";
             this.WriteR0Button.UseVisualStyleBackColor = true;
-            this.WriteR0Button.Click += new System.EventHandler(this.WriteR0Button_Click);
+            this.WriteR0Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
             // 
             // WriteR1Button
             // 
@@ -483,7 +483,7 @@ namespace Synthesizer_PC_control
             this.WriteR1Button.TabIndex = 11;
             this.WriteR1Button.Text = "Write R1";
             this.WriteR1Button.UseVisualStyleBackColor = true;
-            this.WriteR1Button.Click += new System.EventHandler(this.WriteR1Button_Click);
+            this.WriteR1Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
             // 
             // WriteR2Button
             // 
@@ -494,7 +494,7 @@ namespace Synthesizer_PC_control
             this.WriteR2Button.TabIndex = 11;
             this.WriteR2Button.Text = "Write R2";
             this.WriteR2Button.UseVisualStyleBackColor = true;
-            this.WriteR2Button.Click += new System.EventHandler(this.WriteR2Button_Click);
+            this.WriteR2Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
             // 
             // WriteR3Button
             // 
@@ -505,7 +505,7 @@ namespace Synthesizer_PC_control
             this.WriteR3Button.TabIndex = 11;
             this.WriteR3Button.Text = "Write R3";
             this.WriteR3Button.UseVisualStyleBackColor = true;
-            this.WriteR3Button.Click += new System.EventHandler(this.WriteR3Button_Click);
+            this.WriteR3Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
             // 
             // WriteR4Button
             // 
@@ -516,7 +516,7 @@ namespace Synthesizer_PC_control
             this.WriteR4Button.TabIndex = 11;
             this.WriteR4Button.Text = "Write R4";
             this.WriteR4Button.UseVisualStyleBackColor = true;
-            this.WriteR4Button.Click += new System.EventHandler(this.WriteR4Button_Click);
+            this.WriteR4Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
             // 
             // WriteR5Button
             // 
@@ -527,7 +527,7 @@ namespace Synthesizer_PC_control
             this.WriteR5Button.TabIndex = 11;
             this.WriteR5Button.Text = "Write R5";
             this.WriteR5Button.UseVisualStyleBackColor = true;
-            this.WriteR5Button.Click += new System.EventHandler(this.WriteR5Button_Click);
+            this.WriteR5Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
             // 
             // RegistersTabControl
             // 
@@ -730,7 +730,7 @@ namespace Synthesizer_PC_control
             this.ExportIntoMem1Button.TabIndex = 9;
             this.ExportIntoMem1Button.Text = "Memory 1";
             this.ExportIntoMem1Button.UseVisualStyleBackColor = true;
-            this.ExportIntoMem1Button.Click += new System.EventHandler(this.ExportIntoMem1Button_Click);
+            this.ExportIntoMem1Button.Click += new System.EventHandler(this.ExportIntoMememoryButton_Click);
             // 
             // ExportIntoMem2Button
             // 
@@ -741,7 +741,7 @@ namespace Synthesizer_PC_control
             this.ExportIntoMem2Button.TabIndex = 9;
             this.ExportIntoMem2Button.Text = "Memory 2";
             this.ExportIntoMem2Button.UseVisualStyleBackColor = true;
-            this.ExportIntoMem2Button.Click += new System.EventHandler(this.ExportIntoMem2Button_Click);
+            this.ExportIntoMem2Button.Click += new System.EventHandler(this.ExportIntoMememoryButton_Click);
             // 
             // ExportIntoMem3Button
             // 
@@ -752,7 +752,7 @@ namespace Synthesizer_PC_control
             this.ExportIntoMem3Button.TabIndex = 9;
             this.ExportIntoMem3Button.Text = "Memory 3";
             this.ExportIntoMem3Button.UseVisualStyleBackColor = true;
-            this.ExportIntoMem3Button.Click += new System.EventHandler(this.ExportIntoMem3Button_Click);
+            this.ExportIntoMem3Button.Click += new System.EventHandler(this.ExportIntoMememoryButton_Click);
             // 
             // ExportIntoMem4Button
             // 
@@ -763,7 +763,7 @@ namespace Synthesizer_PC_control
             this.ExportIntoMem4Button.TabIndex = 9;
             this.ExportIntoMem4Button.Text = "Memory 4";
             this.ExportIntoMem4Button.UseVisualStyleBackColor = true;
-            this.ExportIntoMem4Button.Click += new System.EventHandler(this.ExportIntoMem4Button_Click);
+            this.ExportIntoMem4Button.Click += new System.EventHandler(this.ExportIntoMememoryButton_Click);
             // 
             // ChargePumpGroupBox
             // 
@@ -1371,7 +1371,7 @@ namespace Synthesizer_PC_control
             0,
             0});
             this.IntNNumUpDown.ValueChanged += new System.EventHandler(this.IntNNumericUpDown_ValueChanged);
-            this.IntNNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IntNScrollHandlerFunction);
+            this.IntNNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
             // ModNumUpDown
             // 
@@ -1397,7 +1397,7 @@ namespace Synthesizer_PC_control
             0,
             0});
             this.ModNumUpDown.ValueChanged += new System.EventHandler(this.ModNumUpDown_ValueChanged);
-            this.ModNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ModScrollHandlerFunction);
+            this.ModNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
             // FracNNumUpDown
             // 
@@ -1413,7 +1413,7 @@ namespace Synthesizer_PC_control
             this.FracNNumUpDown.TabIndex = 19;
             this.FracNNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.FracNNumUpDown.ValueChanged += new System.EventHandler(this.FracNNumUpDown_ValueChanged);
-            this.FracNNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.FracNScrollHandlerFunction);
+            this.FracNNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
             // PhasePNumericUpDown
             // 
@@ -1429,7 +1429,7 @@ namespace Synthesizer_PC_control
             this.PhasePNumericUpDown.TabIndex = 19;
             this.PhasePNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.PhasePNumericUpDown.ValueChanged += new System.EventHandler(this.PhasePNumUpDown_ValueChanged);
-            this.PhasePNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.PhasePScrollHandlerFunction);
+            this.PhasePNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
             // RefFreqGroupBox
             // 
@@ -1489,7 +1489,7 @@ namespace Synthesizer_PC_control
             0,
             0});
             this.RDivUpDown.ValueChanged += new System.EventHandler(this.RDivUpDown_ValueChanged);
-            this.RDivUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.RDivScrollHandlerFunction);
+            this.RDivUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
             // 
             // LDSpeedAdjComboBox
             // 
@@ -1687,7 +1687,7 @@ namespace Synthesizer_PC_control
             this.ImportMem4Button.TabIndex = 21;
             this.ImportMem4Button.Text = "Import Memory 4";
             this.ImportMem4Button.UseVisualStyleBackColor = true;
-            this.ImportMem4Button.Click += new System.EventHandler(this.ImportMem4Button_Click);
+            this.ImportMem4Button.Click += new System.EventHandler(this.ImportMememoryButton_Click);
             // 
             // ImportMem3Button
             // 
@@ -1697,7 +1697,7 @@ namespace Synthesizer_PC_control
             this.ImportMem3Button.TabIndex = 21;
             this.ImportMem3Button.Text = "Import Memory 3";
             this.ImportMem3Button.UseVisualStyleBackColor = true;
-            this.ImportMem3Button.Click += new System.EventHandler(this.ImportMem3Button_Click);
+            this.ImportMem3Button.Click += new System.EventHandler(this.ImportMememoryButton_Click);
             // 
             // ImportMem2Button
             // 
@@ -1707,7 +1707,7 @@ namespace Synthesizer_PC_control
             this.ImportMem2Button.TabIndex = 21;
             this.ImportMem2Button.Text = "Import Memory 2";
             this.ImportMem2Button.UseVisualStyleBackColor = true;
-            this.ImportMem2Button.Click += new System.EventHandler(this.ImportMem2Button_Click);
+            this.ImportMem2Button.Click += new System.EventHandler(this.ImportMememoryButton_Click);
             // 
             // ImportMem1Button
             // 
@@ -1717,7 +1717,7 @@ namespace Synthesizer_PC_control
             this.ImportMem1Button.TabIndex = 21;
             this.ImportMem1Button.Text = "Import Memory 1";
             this.ImportMem1Button.UseVisualStyleBackColor = true;
-            this.ImportMem1Button.Click += new System.EventHandler(this.ImportMem1Button_Click);
+            this.ImportMem1Button.Click += new System.EventHandler(this.ImportMememoryButton_Click);
             // 
             // SavReg3Label
             // 
@@ -1739,6 +1739,7 @@ namespace Synthesizer_PC_control
             this.R0M4.Size = new System.Drawing.Size(84, 22);
             this.R0M4.TabIndex = 9;
             this.R0M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R0M3
             // 
@@ -1751,6 +1752,7 @@ namespace Synthesizer_PC_control
             this.R0M3.Size = new System.Drawing.Size(84, 22);
             this.R0M3.TabIndex = 9;
             this.R0M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // LoadRegMemory
             // 
@@ -1785,6 +1787,7 @@ namespace Synthesizer_PC_control
             this.R0M2.Size = new System.Drawing.Size(84, 22);
             this.R0M2.TabIndex = 9;
             this.R0M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R0M1
             // 
@@ -1797,7 +1800,7 @@ namespace Synthesizer_PC_control
             this.R0M1.Size = new System.Drawing.Size(84, 22);
             this.R0M1.TabIndex = 9;
             this.R0M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R0M1.TextChanged += new System.EventHandler(this.R0M1_TextChanged);
+            this.R0M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // Mem4Label
             // 
@@ -1864,6 +1867,7 @@ namespace Synthesizer_PC_control
             this.R1M4.Size = new System.Drawing.Size(84, 22);
             this.R1M4.TabIndex = 12;
             this.R1M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R1M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R1M3
             // 
@@ -1876,6 +1880,7 @@ namespace Synthesizer_PC_control
             this.R1M3.Size = new System.Drawing.Size(84, 22);
             this.R1M3.TabIndex = 12;
             this.R1M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R1M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R1M2
             // 
@@ -1888,6 +1893,7 @@ namespace Synthesizer_PC_control
             this.R1M2.Size = new System.Drawing.Size(84, 22);
             this.R1M2.TabIndex = 12;
             this.R1M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R1M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R1M1
             // 
@@ -1900,6 +1906,7 @@ namespace Synthesizer_PC_control
             this.R1M1.Size = new System.Drawing.Size(84, 22);
             this.R1M1.TabIndex = 12;
             this.R1M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R1M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // SavReg2Label
             // 
@@ -1921,6 +1928,7 @@ namespace Synthesizer_PC_control
             this.R2M4.Size = new System.Drawing.Size(84, 22);
             this.R2M4.TabIndex = 17;
             this.R2M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R2M3
             // 
@@ -1933,6 +1941,7 @@ namespace Synthesizer_PC_control
             this.R2M3.Size = new System.Drawing.Size(84, 22);
             this.R2M3.TabIndex = 17;
             this.R2M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R2M2
             // 
@@ -1945,6 +1954,7 @@ namespace Synthesizer_PC_control
             this.R2M2.Size = new System.Drawing.Size(84, 22);
             this.R2M2.TabIndex = 17;
             this.R2M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R2M1
             // 
@@ -1957,6 +1967,7 @@ namespace Synthesizer_PC_control
             this.R2M1.Size = new System.Drawing.Size(84, 22);
             this.R2M1.TabIndex = 17;
             this.R2M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R3M4
             // 
@@ -1969,6 +1980,7 @@ namespace Synthesizer_PC_control
             this.R3M4.Size = new System.Drawing.Size(84, 22);
             this.R3M4.TabIndex = 18;
             this.R3M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R3M3
             // 
@@ -1981,6 +1993,7 @@ namespace Synthesizer_PC_control
             this.R3M3.Size = new System.Drawing.Size(84, 22);
             this.R3M3.TabIndex = 18;
             this.R3M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R3M2
             // 
@@ -1993,6 +2006,7 @@ namespace Synthesizer_PC_control
             this.R3M2.Size = new System.Drawing.Size(84, 22);
             this.R3M2.TabIndex = 18;
             this.R3M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R3M1
             // 
@@ -2005,6 +2019,7 @@ namespace Synthesizer_PC_control
             this.R3M1.Size = new System.Drawing.Size(84, 22);
             this.R3M1.TabIndex = 18;
             this.R3M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // SavReg4Label
             // 
@@ -2026,6 +2041,7 @@ namespace Synthesizer_PC_control
             this.R4M4.Size = new System.Drawing.Size(84, 22);
             this.R4M4.TabIndex = 19;
             this.R4M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R4M3
             // 
@@ -2038,6 +2054,7 @@ namespace Synthesizer_PC_control
             this.R4M3.Size = new System.Drawing.Size(84, 22);
             this.R4M3.TabIndex = 19;
             this.R4M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R5M4
             // 
@@ -2050,6 +2067,7 @@ namespace Synthesizer_PC_control
             this.R5M4.Size = new System.Drawing.Size(84, 22);
             this.R5M4.TabIndex = 20;
             this.R5M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R5M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R4M2
             // 
@@ -2062,6 +2080,7 @@ namespace Synthesizer_PC_control
             this.R4M2.Size = new System.Drawing.Size(84, 22);
             this.R4M2.TabIndex = 19;
             this.R4M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R5M3
             // 
@@ -2074,6 +2093,7 @@ namespace Synthesizer_PC_control
             this.R5M3.Size = new System.Drawing.Size(84, 22);
             this.R5M3.TabIndex = 20;
             this.R5M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R5M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R4M1
             // 
@@ -2086,6 +2106,7 @@ namespace Synthesizer_PC_control
             this.R4M1.Size = new System.Drawing.Size(84, 22);
             this.R4M1.TabIndex = 19;
             this.R4M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // R5M2
             // 
@@ -2098,6 +2119,7 @@ namespace Synthesizer_PC_control
             this.R5M2.Size = new System.Drawing.Size(84, 22);
             this.R5M2.TabIndex = 20;
             this.R5M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R5M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // SavReg5Label
             // 
@@ -2119,6 +2141,7 @@ namespace Synthesizer_PC_control
             this.R5M1.Size = new System.Drawing.Size(84, 22);
             this.R5M1.TabIndex = 20;
             this.R5M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R5M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // RegistersGroupBox
             // 

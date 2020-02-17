@@ -242,123 +242,28 @@ namespace Synthesizer_PC_control
 #endregion
 
 #region Registers controls group
-        private void Reg0TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void RegisterTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             MyFormat.CheckIfHasHexInput(e);
             if (e.KeyChar == (char)13)
             {
-                controller.CheckAndApplyRegChanges(0, Reg0TextBox.Text);
+                controller.CheckAndApplyRegChanges((((TextBox)(sender)).Name), ((TextBox)(sender)).Text);
             }
         }
 
-        private void Reg1TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void RegisterTextBox_LostFocus(object sender, EventArgs e)
         {
-            MyFormat.CheckIfHasHexInput(e);
-            if (e.KeyChar == (char)13)
-            {
-                controller.CheckAndApplyRegChanges(1, Reg1TextBox.Text);
-            }
+            controller.CheckAndApplyRegChanges((((TextBox)(sender)).Name), ((TextBox)(sender)).Text);
         }
 
-        private void Reg2TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void WriteRegisterButton_Click(object sender, EventArgs e)
         {
-            MyFormat.CheckIfHasHexInput(e);
-            if (e.KeyChar == (char)13)
-            {
-                controller.CheckAndApplyRegChanges(2, Reg2TextBox.Text);
-            }
-        }
-
-        private void Reg3TextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            MyFormat.CheckIfHasHexInput(e);
-            if (e.KeyChar == (char)13)
-            {
-                controller.CheckAndApplyRegChanges(3, Reg3TextBox.Text);
-            }
-        }
-
-        private void Reg4TextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            MyFormat.CheckIfHasHexInput(e);
-            if (e.KeyChar == (char)13)
-            {
-                controller.CheckAndApplyRegChanges(4, Reg4TextBox.Text);
-            }
-        }
-
-        private void Reg5TextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            MyFormat.CheckIfHasHexInput(e);
-            if (e.KeyChar == (char)13)
-            {
-                controller.CheckAndApplyRegChanges(5, Reg5TextBox.Text);
-            }
-        }
-
-        private void Reg0TextBox_LostFocus(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(0, Reg0TextBox.Text);
-        }
-
-        private void Reg1TextBox_LostFocus(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(1, Reg1TextBox.Text);
-        }
-
-        private void Reg2TextBox_LostFocus(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(2, Reg2TextBox.Text);
-        }
-
-        private void Reg3TextBox_LostFocus(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(3, Reg3TextBox.Text);
-        }
-
-        private void Reg4TextBox_LostFocus(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(4, Reg4TextBox.Text);
-        }
-
-        private void Reg5TextBox_LostFocus(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(5, Reg5TextBox.Text);
+            controller.CheckAndApplyRegChanges(((Button)(sender)).Name);
         }
 
         private void RegistersPage_Click(object sender, EventArgs e)
         {
             Reg0Label.Focus();
-        }
-
-        private void WriteR0Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(0, Reg0TextBox.Text);
-        }
-
-        private void WriteR1Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(1, Reg1TextBox.Text);
-        }
-
-        private void WriteR2Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(2, Reg2TextBox.Text);
-        }
-
-        private void WriteR3Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(3, Reg3TextBox.Text);
-        }
-
-        private void WriteR4Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(4, Reg4TextBox.Text);
-        }
-
-        private void WriteR5Button_Click(object sender, EventArgs e)
-        {
-            controller.CheckAndApplyRegChanges(5, Reg5TextBox.Text);
         }
 
         private void CheckAndApllyChangesForm1_Click(object sender, EventArgs e)
@@ -421,50 +326,19 @@ namespace Synthesizer_PC_control
             controller.SaveRegsIntoPloMemory();
         }
 
-        private void ExportIntoMem1Button_Click(object sender, EventArgs e)
+        private void ExportIntoMememoryButton_Click(object sender, EventArgs e)
         {
-            controller.ExportMemory(1);
+            controller.ExportMemory(((Button)(sender)).Name);
         }
 
-        private void ExportIntoMem2Button_Click(object sender, EventArgs e)
+        private void ImportMememoryButton_Click(object sender, EventArgs e)
         {
-            controller.ExportMemory(2);
+            controller.ImportMemory(((Button)(sender)).Name);
         }
-
-        private void ExportIntoMem3Button_Click(object sender, EventArgs e)
-        {
-            controller.ExportMemory(3);
-        }
-
-        private void ExportIntoMem4Button_Click(object sender, EventArgs e)
-        {
-            controller.ExportMemory(4);
-        }
-
-        private void ImportMem1Button_Click(object sender, EventArgs e)
-        {
-            controller.ImportMemory(1);
-        }
-
-        private void ImportMem2Button_Click(object sender, EventArgs e)
-        {
-            controller.ImportMemory(2);
-        }
-
-        private void ImportMem3Button_Click(object sender, EventArgs e)
-        {
-            controller.ImportMemory(3);
-        }
-
-        private void ImportMem4Button_Click(object sender, EventArgs e)
-        {
-            controller.ImportMemory(4);
-        }
-
         
-        private void R0M1_TextChanged(object sender, EventArgs e)
+        private void MemoryRegister_TextChanged(object sender, EventArgs e)
         {
-            controller.SetMemoryRegisterValue(R0M1.Text, 1, 0);
+            controller.SetMemoryRegisterValue(((TextBox)(sender)).Name, ((TextBox)(sender)).Text);
         }
 
 #endregion
@@ -578,35 +452,13 @@ namespace Synthesizer_PC_control
             controller.OutBPathIndexChanged(RFoutBPathComboBox.SelectedIndex);
         }
 
-        private void FracNScrollHandlerFunction(object sender, MouseEventArgs e)
+        private void ScrollHandlerFunction(object sender, MouseEventArgs e)
         {
-            MyFormat.ScrollHandlerFunction(FracNNumUpDown, e);
+            MyFormat.ScrollHandlerFunction((NumericUpDown)sender, e);
         }
-
-        private void IntNScrollHandlerFunction(object sender, MouseEventArgs e)
-        {
-            MyFormat.ScrollHandlerFunction(IntNNumUpDown, e);
-        }
-
-        private void ModScrollHandlerFunction(object sender, MouseEventArgs e)
-        {
-            MyFormat.ScrollHandlerFunction(ModNumUpDown, e);
-        }
-
-        private void RDivScrollHandlerFunction(object sender, MouseEventArgs e)
-        {
-            MyFormat.ScrollHandlerFunction(RDivUpDown, e);
-        }
-
-        private void PhasePScrollHandlerFunction(object sender, MouseEventArgs e)
-        {
-            MyFormat.ScrollHandlerFunction(PhasePNumericUpDown, e);
-        }
-
 #endregion
         
 #region Reference frequency control group
-        
         private void RefFTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

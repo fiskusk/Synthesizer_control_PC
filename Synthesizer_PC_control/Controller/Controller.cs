@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Synthesizer_PC_control.Model;
 using Synthesizer_PC_control.Utilities;
+using System.Text.RegularExpressions;
 
 namespace Synthesizer_PC_control.Controllers
 {
@@ -981,9 +982,12 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SendStringSerialPort("ref ext");
         }
 
-        public void CheckAndApplyRegChanges(int regNumber, string text)
+        public void CheckAndApplyRegChanges(string sender, string value)
         {
-            registers[regNumber].SetValue(text);
+            sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
+            int regNumber = int.Parse(sender);
+
+            registers[regNumber].SetValue(value);
             if ((serialPort.IsPortOpen()) && 
                 (!string.Equals(registers[regNumber].string_GetValue(), 
                                 old_registers[regNumber].string_GetValue(),
@@ -1011,6 +1015,14 @@ namespace Synthesizer_PC_control.Controllers
                 if (regNumber != 3 || regNumber != 5)
                     RecalcFreqInfo();
             }
+        }
+
+        public void CheckAndApplyRegChanges(string sender)
+        {
+            sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
+            int regNumber = int.Parse(sender);
+
+            CheckAndApplyRegChanges(regNumber);
         }
 
         public void ApplyChangeReg(int index)
@@ -1243,13 +1255,27 @@ namespace Synthesizer_PC_control.Controllers
 #endregion
     
 #region Memory operation
-        public void SetMemoryRegisterValue(string value, int memoryNumber, int registerNumber)
+        public void SetMemoryRegisterValue(string sender, string value)
         {
+            int memoryNumber;
+            int registerNumber;
+
+            string memoryNumberString = Regex.Match(sender, "M.*(.*)").Value;
+            memoryNumberString = string.Join("", memoryNumberString.ToCharArray().Where(Char.IsDigit));
+            memoryNumber = int.Parse(memoryNumberString);
+
+            string registerNumberString = Regex.Match(sender, @".*R.*M").Value;
+            registerNumberString = string.Join("", registerNumberString.ToCharArray().Where(Char.IsDigit));
+            registerNumber = int.Parse(registerNumberString);
+
             memory.GetRegister(memoryNumber, registerNumber).SetValue(value);
         }
 
-        public void ImportMemory(int memoryNumber)
+        public void ImportMemory(string sender)
         {
+            sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
+            int memoryNumber = int.Parse(sender);
+            
             for (int i = 0; i < 6; i++)
             {
                 registers[i].SetValue(memory.GetRegister(memoryNumber, i).string_GetValue());
@@ -1257,6 +1283,19 @@ namespace Synthesizer_PC_control.Controllers
             GetAllFromRegisters();
             GetAllFromControllReg(memoryNumber);
         }
+        
+        public void ExportMemory(string sender)
+        {
+            sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
+            int memoryNumber = int.Parse(sender);
+
+            for (int i = 0; i < 6; i++)
+            {
+                memory.GetRegister(memoryNumber, i).SetValue(registers[i].string_GetValue());
+            }
+            memory.GetRegister(memoryNumber, 6).SetValue(moduleControls.GetControlRegister());
+        }
+
         public void GetAllFromControllReg(int memoryNumber)
         {
             if (serialPort.IsPortOpen())
@@ -1294,15 +1333,6 @@ namespace Synthesizer_PC_control.Controllers
                     serialPort.SendStringSerialPort("ref ext");
                 }
             }
-        }
-
-        public void ExportMemory(int memoryNumber)
-        {
-            for (int i = 0; i < 6; i++)
-            {
-                memory.GetRegister(memoryNumber, i).SetValue(registers[i].string_GetValue());
-            }
-            memory.GetRegister(memoryNumber, 6).SetValue(moduleControls.GetControlRegister());
         }
 
         private void CleanSavedRegisters()
