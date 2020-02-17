@@ -59,8 +59,10 @@ namespace Synthesizer_PC_control
             this.WriteR5Button = new System.Windows.Forms.Button();
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.genericControlsGroupBox = new System.Windows.Forms.GroupBox();
+            this.MuxPinModeCombobox = new System.Windows.Forms.ComboBox();
+            this.MuxPinModeLabel = new System.Windows.Forms.Label();
+            this.ShutDownGroupBox = new System.Windows.Forms.GroupBox();
             this.VcoSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.PhaseDetectorGroupBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -207,6 +209,7 @@ namespace Synthesizer_PC_control
             this.ConsoleRichTextBox = new System.Windows.Forms.RichTextBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
+            this.genericControlsGroupBox.SuspendLayout();
             this.PhaseDetectorGroupBox.SuspendLayout();
             this.RegistersControlsGroupBox.SuspendLayout();
             this.MoveRegsIntoMemsGroupBox.SuspendLayout();
@@ -542,8 +545,8 @@ namespace Synthesizer_PC_control
             // 
             // RegistersPage
             // 
-            this.RegistersPage.Controls.Add(this.groupBox2);
-            this.RegistersPage.Controls.Add(this.groupBox1);
+            this.RegistersPage.Controls.Add(this.genericControlsGroupBox);
+            this.RegistersPage.Controls.Add(this.ShutDownGroupBox);
             this.RegistersPage.Controls.Add(this.VcoSettingsGroupBox);
             this.RegistersPage.Controls.Add(this.PhaseDetectorGroupBox);
             this.RegistersPage.Controls.Add(this.RegistersControlsGroupBox);
@@ -563,23 +566,55 @@ namespace Synthesizer_PC_control
             this.RegistersPage.UseVisualStyleBackColor = true;
             this.RegistersPage.Click += new System.EventHandler(this.RegistersPage_Click);
             // 
-            // groupBox2
+            // genericControlsGroupBox
             // 
-            this.groupBox2.Location = new System.Drawing.Point(7, 595);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(341, 118);
-            this.groupBox2.TabIndex = 31;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Generic Controls";
+            this.genericControlsGroupBox.Controls.Add(this.MuxPinModeCombobox);
+            this.genericControlsGroupBox.Controls.Add(this.MuxPinModeLabel);
+            this.genericControlsGroupBox.Location = new System.Drawing.Point(7, 595);
+            this.genericControlsGroupBox.Name = "genericControlsGroupBox";
+            this.genericControlsGroupBox.Size = new System.Drawing.Size(341, 118);
+            this.genericControlsGroupBox.TabIndex = 31;
+            this.genericControlsGroupBox.TabStop = false;
+            this.genericControlsGroupBox.Text = "Generic Controls";
             // 
-            // groupBox1
+            // MuxPinModeCombobox
             // 
-            this.groupBox1.Location = new System.Drawing.Point(356, 503);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(341, 86);
-            this.groupBox1.TabIndex = 30;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Shutdown Controls";
+            this.MuxPinModeCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.MuxPinModeCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MuxPinModeCombobox.FormattingEnabled = true;
+            this.MuxPinModeCombobox.Items.AddRange(new object[] {
+            "Three-state output",
+            "D_VDD",
+            "D_GND",
+            "R-divider output",
+            "N-divider output/2",
+            "Analog lock detect",
+            "Digital lock detect",
+            "Sync Input"});
+            this.MuxPinModeCombobox.Location = new System.Drawing.Point(116, 20);
+            this.MuxPinModeCombobox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MuxPinModeCombobox.Name = "MuxPinModeCombobox";
+            this.MuxPinModeCombobox.Size = new System.Drawing.Size(160, 24);
+            this.MuxPinModeCombobox.TabIndex = 16;
+            this.MuxPinModeCombobox.SelectedIndexChanged += new System.EventHandler(this.MuxPinModeCombobox_SelectedIndexChanged);
+            // 
+            // MuxPinModeLabel
+            // 
+            this.MuxPinModeLabel.Location = new System.Drawing.Point(-10, 23);
+            this.MuxPinModeLabel.Name = "MuxPinModeLabel";
+            this.MuxPinModeLabel.Size = new System.Drawing.Size(120, 17);
+            this.MuxPinModeLabel.TabIndex = 17;
+            this.MuxPinModeLabel.Text = "Mux Pin Mode:";
+            this.MuxPinModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // ShutDownGroupBox
+            // 
+            this.ShutDownGroupBox.Location = new System.Drawing.Point(356, 503);
+            this.ShutDownGroupBox.Name = "ShutDownGroupBox";
+            this.ShutDownGroupBox.Size = new System.Drawing.Size(341, 86);
+            this.ShutDownGroupBox.TabIndex = 30;
+            this.ShutDownGroupBox.TabStop = false;
+            this.ShutDownGroupBox.Text = "Shutdown Controls";
             // 
             // VcoSettingsGroupBox
             // 
@@ -2402,7 +2437,7 @@ namespace Synthesizer_PC_control
             this.ConsoleRichTextBox.Name = "ConsoleRichTextBox";
             this.ConsoleRichTextBox.ReadOnly = true;
             this.ConsoleRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 516);
+            this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 602);
             this.ConsoleRichTextBox.TabIndex = 23;
             this.ConsoleRichTextBox.Text = "";
             // 
@@ -2429,6 +2464,7 @@ namespace Synthesizer_PC_control
             this.Click += new System.EventHandler(this.CheckAndApllyChangesForm1_Click);
             this.RegistersTabControl.ResumeLayout(false);
             this.RegistersPage.ResumeLayout(false);
+            this.genericControlsGroupBox.ResumeLayout(false);
             this.PhaseDetectorGroupBox.ResumeLayout(false);
             this.RegistersControlsGroupBox.ResumeLayout(false);
             this.RegistersControlsGroupBox.PerformLayout();
@@ -2628,12 +2664,14 @@ namespace Synthesizer_PC_control
         public ComboBox RFoutBPathComboBox;
         public CheckBox AutoLDFuncCheckBox;
         private GroupBox VcoSettingsGroupBox;
-        private GroupBox groupBox2;
-        private GroupBox groupBox1;
+        private GroupBox genericControlsGroupBox;
+        private GroupBox ShutDownGroupBox;
         public Label InternalLabel;
         public CheckBox PhaseAdjustmentModeCheckbox;
         private Label label1;
         public ComboBox PfdPolarity;
+        public ComboBox MuxPinModeCombobox;
+        private Label MuxPinModeLabel;
     }
 }
 

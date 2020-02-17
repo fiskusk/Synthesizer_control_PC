@@ -137,10 +137,10 @@ namespace Synthesizer_PC_control.Model
             } 
             catch 
             { 
+                ClosePort();
+                viewHandle.EnableControls(false);
                 MessageBox.Show("Device doesn't work", "COM Port Error", 
                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk); 
-                ClosePort(); 
-                viewHandle.EnableControls(false);
             } 
         }
  

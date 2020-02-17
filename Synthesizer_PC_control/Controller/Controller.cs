@@ -25,6 +25,7 @@ namespace Synthesizer_PC_control.Controllers
         public SynthOutputControls synthOutputControls;
         public ChargePump chargePump;
         public PhaseDetector phaseDetector;
+        public GenericControls genericControls;
 
         public Controller(Form1 view)
         {
@@ -113,6 +114,8 @@ namespace Synthesizer_PC_control.Controllers
             phaseDetector = new PhaseDetector(view.SigmaDeltaNoiseModeComboBox,
                                               view.LDPrecisionComboBox,
                                               view.PfdPolarity);
+
+            genericControls = new GenericControls(view.MuxPinModeCombobox);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -210,7 +213,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[2].ChangeNBits(Convert.ToUInt32(value), 10, 14);
+                registers[2].ChangeNBits((UInt32)value, 10, 14);
                 refFreq.SetRDivider(value);
 
                 CheckAndApplyRegChanges(2);
@@ -242,7 +245,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[0].ChangeNBits(Convert.ToUInt32(value), 16, 15);
+                registers[0].ChangeNBits((UInt32)value, 16, 15);
                 outFreqControl.SetIntNVal(value);
 
                 CheckAndApplyRegChanges(0);
@@ -253,7 +256,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[0].ChangeNBits(Convert.ToUInt32(value), 12, 3);
+                registers[0].ChangeNBits((UInt32)value, 12, 3);
                 outFreqControl.SetFracNVal(value);
 
                 CheckAndApplyRegChanges(0);
@@ -264,7 +267,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 3);
+                registers[1].ChangeNBits((UInt32)value, 12, 3);
                 outFreqControl.SetModVal(value);
 
                 CheckAndApplyRegChanges(1);
@@ -291,7 +294,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[4].ChangeNBits(Convert.ToUInt32(value), 3, 20);
+                registers[4].ChangeNBits((UInt32)value, 3, 20);
                 outFreqControl.SetADivVal(value);
 
                 CheckAndApplyRegChanges(4);
@@ -302,7 +305,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[1].ChangeNBits(Convert.ToUInt32(value), 12, 15);
+                registers[1].ChangeNBits((UInt32)value, 12, 15);
                 outFreqControl.SetPPhaseVal(value);
 
                 CheckAndApplyRegChanges(1);
@@ -367,7 +370,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[4].ChangeNBits(Convert.ToUInt32(value), 2, 3);
+                registers[4].ChangeNBits((UInt32)value, 2, 3);
                 synthOutputControls.SetOutAPwr(value);
 
                 CheckAndApplyRegChanges(4);
@@ -396,7 +399,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen() && chargePump.isCurrentComboboxFilled())
             {
-                registers[2].ChangeNBits(Convert.ToUInt32(value), 4, 9);
+                registers[2].ChangeNBits((UInt32)value, 4, 9);
                 chargePump.SetCurrentIndex(value);
 
                 CheckAndApplyRegChanges(2);
@@ -407,7 +410,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[1].ChangeNBits(Convert.ToUInt32(value), 2, 29);
+                registers[1].ChangeNBits((UInt32)value, 2, 29);
                 chargePump.SetLinearityIndex(value);
 
                 SynthMode synthMode = outFreqControl.GetSynthMode();
@@ -421,7 +424,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                registers[1].ChangeNBits(Convert.ToUInt32(value), 2, 27);
+                registers[1].ChangeNBits((UInt32)value, 2, 27);
                 chargePump.SetTestModeIndex(value);
 
                 CheckAndApplyRegChanges(1);
@@ -490,7 +493,7 @@ namespace Synthesizer_PC_control.Controllers
                 phaseDetector.SetNoiseMode(value);
                 if (value == 1 || value == 2)
                     value++;
-                registers[2].ChangeNBits(Convert.ToUInt32(value), 2, 29);
+                registers[2].ChangeNBits((UInt32)value, 2, 29);
 
                 CheckAndApplyRegChanges(2);
             }
@@ -521,6 +524,17 @@ namespace Synthesizer_PC_control.Controllers
 
     #region VCO Settings Group
     #endregion
+
+    #region Generic Controls Group
+        public void MuxPinModeIndexChanged(int value)
+        {
+            registers[2].ChangeNBits((UInt32)value, 3, 26);
+            genericControls.SetMuxPinMode(value);
+
+            CheckAndApplyRegChanges(2);
+        }
+    #endregion
+
 #endregion
 
 #region Functions for get values from register
@@ -634,6 +648,12 @@ namespace Synthesizer_PC_control.Controllers
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 6);
             phaseDetector.SetPfdPolarity(index);
         }
+
+        private void GetMuxPinModeFromRegister(UInt32 dataReg2)
+        {
+            int index = (int)BitOperations.GetNBits(dataReg2, 3, 26);
+            genericControls.SetMuxPinMode(index);
+        }
     #endregion
 
     #region Parsing register 3
@@ -730,6 +750,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetNoiseModeFromRegister(reg);
                     GetPrecisionFromRegister(reg);
                     GetPfdPositionFromRegister(reg);
+                    GetMuxPinModeFromRegister(reg);
                     break;
                 case 3:
                     GetClockDividerModeFromRegister(reg);

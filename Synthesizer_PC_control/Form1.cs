@@ -166,6 +166,9 @@ namespace Synthesizer_PC_control
             AutoLDFuncCheckBox.Enabled      = command;
             RFoutBPathComboBox.Enabled      = command;
             PhaseAdjustmentModeCheckbox.Enabled = command;
+            SigmaDeltaNoiseModeComboBox.Enabled = command;
+            LDPrecisionComboBox.Enabled     = command;
+            MuxPinModeCombobox.Enabled      = command;
         }
 
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
@@ -618,6 +621,14 @@ namespace Synthesizer_PC_control
 
 
         #endregion
+
+#region Generic controls Group
+        
+        private void MuxPinModeCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.MuxPinModeIndexChanged(MuxPinModeCombobox.SelectedIndex);
+        }
+#endregion
 
     }
 }
