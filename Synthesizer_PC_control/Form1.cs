@@ -1,24 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System.IO;
+
 using Synthesizer_PC_control.Controllers;
-using Synthesizer_PC_control.Utilities;
+using Synthesizer_PC_control.Properties;
 
-using System.IO.Ports;
-using System.Threading;
-using System.Diagnostics;
-using Newtonsoft.Json;
-using System.Globalization;
-
-using Synthesizer_PC_control.Model;
 
 /* 
 TODO CRITICAL
@@ -58,12 +45,20 @@ namespace Synthesizer_PC_control
 
         void Form1_Load(object sender, EventArgs e)
         {
-            
+            // Set window location
+            if (Settings.Default.WindowLocation != null)
+            {
+                this.Location = Settings.Default.WindowLocation;
+            }
         }
         
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             controller.SaveWorkspaceData();
+
+            // Copy window location to app settings
+            Settings.Default.WindowLocation = this.Location;
+            Settings.Default.Save();
         }
 
         public void EnableControls(bool command)
