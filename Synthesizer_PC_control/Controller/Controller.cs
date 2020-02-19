@@ -1284,14 +1284,10 @@ namespace Synthesizer_PC_control.Controllers
             int memoryNumber;
             int registerNumber;
 
-            string memoryNumberString = Regex.Match(sender, "M.*(.*)").Value;
-            memoryNumberString = string.Join("", memoryNumberString.ToCharArray().Where(Char.IsDigit));
-            memoryNumber = int.Parse(memoryNumberString);
-
-            string registerNumberString = Regex.Match(sender, @".*R.*M").Value;
-            registerNumberString = string.Join("", registerNumberString.ToCharArray().Where(Char.IsDigit));
-            registerNumber = int.Parse(registerNumberString);
-
+            sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
+            registerNumber = int.Parse(Convert.ToString(sender[0]));
+            memoryNumber = int.Parse(Convert.ToString(sender[1]));
+            
             memory.GetRegister(memoryNumber, registerNumber).SetValue(value);
         }
 

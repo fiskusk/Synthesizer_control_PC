@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Synthesizer_PC_control.Utilities;
+using System.Linq;
 
 namespace Synthesizer_PC_control.Model
 {
@@ -64,14 +65,25 @@ namespace Synthesizer_PC_control.Model
 
         public void SetValue(string value)
         {
-            this.value = value;
-            UpdateUiElements();
+            if (!string.Equals(this.value, value, StringComparison.CurrentCultureIgnoreCase))
+            {
+                if (updateUI)
+                {
+                    string sender = string.Join("", uiElement.Name.ToCharArray().Where(Char.IsDigit));
+                    int regNumber = int.Parse(Convert.ToString(sender[0]));
+
+                    UInt32 val = UInt32.Parse(value, System.Globalization.NumberStyles.HexNumber);
+                    val = BitOperations.ChangeNBits(val, (UInt32)regNumber, 3, 0);
+                    value = Convert.ToString(val, 16);
+                }
+                this.value = value;
+                UpdateUiElements();
+            }
         }
 
         public void SetValue(UInt32 value)
         {
-            this.value = Convert.ToString(value, 16);
-            UpdateUiElements();
+            SetValue(Convert.ToString(value, 16));
         }
 
         public static void SetValues(MyRegister[] registers, string[] values)

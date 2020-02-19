@@ -246,10 +246,14 @@ namespace Synthesizer_PC_control
 #endregion
 
 #region Registers controls group
-        private void RegisterTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void RegisterTextBox_TextChanged(object sender, EventArgs e)
         {
-            MyFormat.CheckIfHasHexInput(e);
-            if (e.KeyChar == (char)13)
+            MyFormat.CheckIfHasHexInput((TextBox)sender);
+        }
+        
+        private void RegisterTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
             {
                 controller.CheckAndApplyRegChanges((((TextBox)(sender)).Name), ((TextBox)(sender)).Text);
             }

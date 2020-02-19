@@ -283,7 +283,8 @@ namespace Synthesizer_PC_control
             this.Reg0TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg0TextBox.TabIndex = 3;
             this.Reg0TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg0TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg0TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
+            this.Reg0TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
             this.Reg0TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg0Label
@@ -315,7 +316,8 @@ namespace Synthesizer_PC_control
             this.Reg1TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg1TextBox.TabIndex = 6;
             this.Reg1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg1TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg1TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
+            this.Reg1TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
             this.Reg1TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg2Label
@@ -338,7 +340,8 @@ namespace Synthesizer_PC_control
             this.Reg2TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg2TextBox.TabIndex = 8;
             this.Reg2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg2TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg2TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
+            this.Reg2TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
             this.Reg2TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg3Label
@@ -361,7 +364,8 @@ namespace Synthesizer_PC_control
             this.Reg3TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg3TextBox.TabIndex = 8;
             this.Reg3TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg3TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg3TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
+            this.Reg3TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
             this.Reg3TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg4Label
@@ -384,7 +388,8 @@ namespace Synthesizer_PC_control
             this.Reg4TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg4TextBox.TabIndex = 8;
             this.Reg4TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg4TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg4TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
+            this.Reg4TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
             this.Reg4TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg5Label
@@ -407,7 +412,8 @@ namespace Synthesizer_PC_control
             this.Reg5TextBox.Size = new System.Drawing.Size(100, 22);
             this.Reg5TextBox.TabIndex = 8;
             this.Reg5TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.Reg5TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegisterTextBox_KeyPress);
+            this.Reg5TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
+            this.Reg5TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
             this.Reg5TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // RefButton

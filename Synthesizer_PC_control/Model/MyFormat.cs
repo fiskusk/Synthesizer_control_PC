@@ -19,14 +19,17 @@ namespace Synthesizer_PC_control
 {
     static class MyFormat
     {
-        public static void CheckIfHasHexInput(KeyPressEventArgs e)
+        public static void CheckIfHasHexInput(TextBox sender)
         {
+            string item = sender.Text;
             int n = 0;
-            string item = Convert.ToString(e.KeyChar);
             if (!int.TryParse(item, System.Globalization.NumberStyles.HexNumber, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                item != String.Empty && item != "\b")
+                item != String.Empty)
             {
-                e.Handled = true;
+                int position = sender.SelectionStart-1;
+                item = item.Remove(position, 1);
+                sender.Text = item;
+                sender.SelectionStart = position;
             }
         }
 
