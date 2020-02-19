@@ -216,6 +216,12 @@ namespace Synthesizer_PC_control
             }
         }
 
+        
+        private void ScrollHandlerFunction(object sender, MouseEventArgs e)
+        {
+            MyFormat.ScrollHandlerFunction((NumericUpDown)sender, e);
+        }
+
 #region Synthesizer Module controls
         private void Out1Button_Click(object sender, EventArgs e)
         {
@@ -449,11 +455,6 @@ namespace Synthesizer_PC_control
         {
             controller.OutBPathIndexChanged(RFoutBPathComboBox.SelectedIndex);
         }
-
-        private void ScrollHandlerFunction(object sender, MouseEventArgs e)
-        {
-            MyFormat.ScrollHandlerFunction((NumericUpDown)sender, e);
-        }
 #endregion
         
 #region Reference frequency control group
@@ -624,6 +625,5 @@ namespace Synthesizer_PC_control
             controller.MuxPinModeIndexChanged(MuxPinModeCombobox.SelectedIndex);
         }
 #endregion
-
     }
 }

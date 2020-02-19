@@ -10,8 +10,12 @@ namespace Synthesizer_PC_control.Model
     public class RefFreq : I_UiLinked
     {
         private string badLDSpeedAdjMsg = "Warning: The 'LD Speed adjustment' value is set improperly with respect to the current frequency at the PFD input.";
-        private string badInputRefFreqMsg = "Warning: The value entered is outside the allowed range for input signal reference frequency <10 - 210>";
-        
+        private string badInputRefFreqMsg = "Warning: The value entered in ref. freq is outside the allowed range for input signal reference frequency. Maximum ref. input freq. is 210 MHz if reference doubler is disabled, or 105 MHz if enabled.";
+        private string badPfdFreqMsg = "Warning: The PFD input frequency is too high. For Frac-N mode is alowed max 125 MHz and for Int-N mode is allowed 140 MHz";
+        private UInt16 maxRefInputFreq = 210;   // maximum Reference Input signal freq if doubler is disabled (210MHz), if enabled max is 105MHz
+        private UInt16 minRefInputFreq = 10;    // minimum ref input freq
+        private UInt16 maxPfdFreq = 125;        // maximum PFD freq for Frac-N mode (125MHz), if mode is Int-N maximum is (140MHz)
+        private SynthMode synthMode;
         private decimal refInFreq;
         private bool isDoubled;
         private bool isDivBy2;
@@ -57,6 +61,17 @@ namespace Synthesizer_PC_control.Model
 
         #region Setters
 
+        public void SetSynthModeInfoVariable(SynthMode value)
+        {
+            if (synthMode != value)
+            {
+                this.synthMode = value;
+
+                SetPfdFreq();
+
+                UpdateUiElements();
+            }
+        }
         public void SetRefFreqValue(string value)
         {
             value = value.Replace(" ", string.Empty);
@@ -66,67 +81,163 @@ namespace Synthesizer_PC_control.Model
 
         public void SetRefFreqValue(decimal value)
         {
-            if (value < 10 || value > 210)
+            if (value != refInFreq)
             {
-                if (value < 10)
+                if (value < minRefInputFreq || value > maxRefInputFreq)
+                {
                     value = this.refInFreq;
+                    ConsoleController.Console().Write(badInputRefFreqMsg);
+                }
                 else
-                    value = this.refInFreq;
-                ConsoleController.Console().Write(badInputRefFreqMsg);
-            }
-            this.refInFreq = value;
+                {
+                    this.refInFreq = value;
+                }
 
-            UpdateUiElements();
+                SetPfdFreq();
+
+                UpdateUiElements();
+            }
         }
 
         public void SetRefDoubler(bool value)
         {
-            this.isDoubled = value;
+            if (value != isDoubled)
+            {
+                if (value == false)
+                {
+                    maxRefInputFreq = 210;
+                    if (refInFreq > maxRefInputFreq)
+                    {
+                        refInFreq = 210;
+                        ConsoleController.Console().Write(badInputRefFreqMsg);
+                    }
+                }
+                else
+                {
+                    maxRefInputFreq = 105;
+                    if (refInFreq > maxRefInputFreq)
+                    {
+                        refInFreq = 105;
+                        ConsoleController.Console().Write(badInputRefFreqMsg);
+                    }
+                }
 
-            UpdateUiElements();
+                this.isDoubled = value;
+
+                SetPfdFreq();
+
+                UpdateUiElements();
+            }
         }
 
         public void SetRefDivBy2(bool value)
         {
-            this.isDivBy2 = value;
+            if (isDivBy2 != value)
+            {
+                this.isDivBy2 = value;
+                
+                SetPfdFreq();
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetRDivider(UInt16 value)
         {
-            this.refDivider = value;
+            if (refDivider != value)
+            {
+                if (value < ui_refDivider.Minimum || value > ui_refDivider.Maximum)
+                {
+                    if (value < ui_refDivider.Minimum)
+                        value = (UInt16)ui_refDivider.Minimum;
+                    else
+                        value = (UInt16)ui_refDivider.Maximum;
+                }
 
-            UpdateUiElements();
+                this.refDivider = value;
+
+                SetPfdFreq();
+
+                UpdateUiElements();
+            }
         }
 
-        public void SetPfdFreq(decimal value)
+        private void SetPfdFreq()
         {
-            // Ochrana formátu
-            this.pfdFreq = value;
+            if (synthMode == SynthMode.FRACTIONAL)
+            {
+                maxPfdFreq = 125;
+            }
+            else
+            {
+                maxPfdFreq = 140;
+            }
 
-            UpdateUiElements();
-        }
+            this.pfdFreq = refInFreq * ((1 + Convert.ToUInt16(isDoubled)) / 
+                (decimal)(refDivider * (1 + Convert.ToUInt16(isDivBy2))));
 
-        public void SetPfdFreq(string value)
-        {
-            value = value.Replace(" ", string.Empty);
-            value = value.Replace(".", ",");
-            SetPfdFreq(Convert.ToDecimal(value));
+            if (pfdFreq > maxPfdFreq)
+            {
+                ConsoleController.Console().Write(badPfdFreqMsg);
+                ui_pfdFreqShowLabel.ForeColor = Color.Red;
+            }
+            else
+            {
+                ui_pfdFreqShowLabel.ForeColor = Color.Black;
+            }
         }
 
         public void SetLDSpeedAdj(int value)
         {
-            LDSpeedAdj = value;
+            if (LDSpeedAdj != value)
+            {
+                if (value == 0)
+                {
+                    if (pfdFreq > 32)
+                    {
+                        ConsoleController.Console().Write(badLDSpeedAdjMsg);
+                        ui_LDSpeedAdjLabel.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        ui_LDSpeedAdjLabel.ForeColor = Color.Black;
+                    }
+                }
+                else
+                {
+                    if (pfdFreq <= 32)
+                    {
+                        ConsoleController.Console().Write(badLDSpeedAdjMsg);
+                        ui_LDSpeedAdjLabel.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        ui_LDSpeedAdjLabel.ForeColor = Color.Black;
+                    }
+                }
+                LDSpeedAdj = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetAutoLDSpeedAdj(bool value)
         {
-            autoLdSpeedAdj = value;
+            if (autoLdSpeedAdj != value)
+            {
+                if (value)
+                {
+                    if(pfdFreq <= 32)
+                        LDSpeedAdj = 0;
+                    else
+                        LDSpeedAdj = 1;
+                    ui_LDSpeedAdjLabel.ForeColor = Color.Black;
+                }
+                
+                autoLdSpeedAdj = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         #endregion
@@ -158,11 +269,6 @@ namespace Synthesizer_PC_control.Model
             return this.refDivider;
         }
 
-        public bool IsUiUpdated()
-        {
-            return this.isUiUpdated;
-        }
-
         public decimal decimal_GetPfdFreq()
         {
             return this.pfdFreq;
@@ -184,80 +290,15 @@ namespace Synthesizer_PC_control.Model
                 ui_internalRefLabel.Text = "Internal";
         }
 
-        public void ChangeLDSpeedWithRespectToPFDFreq()
-        {
-            if(pfdFreq <= 32)
-                LDSpeedAdj = 0;
-            else
-                LDSpeedAdj = 1;
-        }
-
-        private void CheckIfSpeedAdjIsCorrect()
-        {
-            if (LDSpeedAdj == 0)
-            {
-                if (pfdFreq > 32)
-                {
-                    ConsoleController.Console().Write(badLDSpeedAdjMsg);
-                    ui_LDSpeedAdjLabel.ForeColor = Color.Red;
-                }
-                else
-                {
-                    ui_LDSpeedAdjLabel.ForeColor = Color.Black;
-                }
-            }
-            else
-            {
-                if (pfdFreq <= 32)
-                {
-                    ConsoleController.Console().Write(badLDSpeedAdjMsg);
-                    ui_LDSpeedAdjLabel.ForeColor = Color.Red;
-                }
-                else
-                {
-                    ui_LDSpeedAdjLabel.ForeColor = Color.Black;
-                }
-            }
-        }
-
         public void UpdateUiElements() 
         {
-            isUiUpdated = false;
-
             ui_refDoubler.Checked = isDoubled;
             ui_refDiv2.Checked = isDivBy2; 
-
-            
             ui_refInFreq.Text = string.Format("{0:f6}", refInFreq);
-
-            try
-            {
-                ui_refDivider.Value = refDivider;
-            }
-            catch
-            {
-                if (refDivider < ui_refDivider.Minimum)
-                    refDivider = (UInt16)ui_refDivider.Minimum;
-                else if (refDivider > ui_refDivider.Maximum)
-                    refDivider = (UInt16)ui_refDivider.Maximum;
-                ui_refDivider.Value = refDivider;
-                MessageBox.Show("The value entered is outside the allowed range for the R divider <1 - 1023>", "R div value out of range!", 
-                MessageBoxButtons.OK, MessageBoxIcon.Error); 
-            }
-
-            pfdFreq = refInFreq * ((1 + Convert.ToUInt16(isDoubled)) / (decimal)(refDivider * (1 + Convert.ToUInt16(isDivBy2))));
-
-
+            ui_refDivider.Value = refDivider;
             ui_pfdFreqShowLabel.Text = MyFormat.ParseFrequencyDecimalValue(pfdFreq);
-
             ui_autoLdSpeedAdj.Checked = autoLdSpeedAdj;
-            if (autoLdSpeedAdj)
-                ChangeLDSpeedWithRespectToPFDFreq();
-            CheckIfSpeedAdjIsCorrect();
-
             ui_LDSpeedAdj.SelectedIndex = LDSpeedAdj;
-
-            isUiUpdated = true;
         } 
     }
 }

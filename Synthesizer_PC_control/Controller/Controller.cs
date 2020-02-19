@@ -178,11 +178,7 @@ namespace Synthesizer_PC_control.Controllers
     #region Reference Frequency Controls Group 
         public void ReferenceFrequencyValueChanged(string value)
         {
-            if (refFreq.IsUiUpdated())
-            {
-                refFreq.SetRefFreqValue(value);
-                RecalcFreqInfo();
-            }
+            refFreq.SetRefFreqValue(value);
         }
 
         public void ReferenceDoublerStateChanged(bool value)
@@ -280,6 +276,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[0].SetResetOneBit(31, (BitState)value);
                 outFreqControl.SetSynthMode((SynthMode)value);
+                refFreq.SetSynthModeInfoVariable((SynthMode)value);
 
                 if ((SynthMode)value == SynthMode.INTEGER)
                     chargePump.SetLinearityIndex(0);
@@ -543,6 +540,12 @@ namespace Synthesizer_PC_control.Controllers
         {
             UInt32 value = BitOperations.GetNBits(dataReg0, 1, 31);
             outFreqControl.SetSynthMode((SynthMode)value);
+            refFreq.SetSynthModeInfoVariable((SynthMode)value);
+
+            if ((SynthMode)value == SynthMode.INTEGER)
+                chargePump.SetLinearityIndex(0);
+            else
+                chargePump.SetLinearityIndex(1);
 
             chargePump.CheckIfCorrectLinearityIsSelected((SynthMode)value);
         }
@@ -812,11 +815,16 @@ namespace Synthesizer_PC_control.Controllers
                 f_out_B = f_vco;
 
             if (synthFreqInfo.SetVcoFreq(f_vco) == false)
+            {
+                directFreqControl.SetFreqAtOut1(0);
+                directFreqControl.SetFreqAtOut2(0);
+                
                 return;
+            }
             synthFreqInfo.SetOutAFreq(f_out_A);
             synthFreqInfo.SetOutBFreq(f_out_B);
             directFreqControl.SetFreqAtOut1(f_out_A);
-            directFreqControl.SetFreqAtOut2(2*f_out_B);
+            directFreqControl.SetFreqAtOut2(f_out_B * 2);
         }
 
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
