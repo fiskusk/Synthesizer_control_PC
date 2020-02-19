@@ -2,10 +2,14 @@ using System;
 using System.Windows.Forms;
 using System.Drawing;
 
+using Synthesizer_PC_control.Controllers;
+
 namespace Synthesizer_PC_control.Model
 {
     public class SynthFreqInfo : I_UiLinked
     {
+        private string badVcoMsg = "Warning: With the current setting, the VCO frequency is outside the limits. <3000 ~ 6000>";  
+
         private decimal vcoFreq;
         private decimal fOutA;
         private decimal fOutB;
@@ -20,11 +24,28 @@ namespace Synthesizer_PC_control.Model
         }
 
         #region Setters
-        public void SetVcoFreq(decimal value)
+        public bool SetVcoFreq(decimal value)
         {
+            bool status;
+            if ((value < 3000) || (value > 6000))
+            {
+                ui_fVco.ForeColor = Color.Red;
+                ConsoleController.Console().Write(badVcoMsg);
+                value = 0;
+                fOutA = 0;
+                fOutB = 0;
+                status = false;
+            }
+            else
+            {
+                ui_fVco.ForeColor = Color.Black;
+                status = true;
+            }
+
             this.vcoFreq = value;
 
             UpdateUiElements();
+            return status;
         }
 
         public void SetOutAFreq(decimal value)
@@ -64,12 +85,6 @@ namespace Synthesizer_PC_control.Model
         {
             
             this.ui_fVco.Text = MyFormat.ParseFrequencyDecimalValue(vcoFreq);
-
-            if ((vcoFreq < 3000) || (vcoFreq > 6000))
-                ui_fVco.ForeColor = Color.Red;
-            else
-                ui_fVco.ForeColor = Color.Black;
-
             this.ui_fOutA.Text = MyFormat.ParseFrequencyDecimalValue(fOutA);
             this.ui_fOutB.Text = MyFormat.ParseFrequencyDecimalValue(fOutB);
         }

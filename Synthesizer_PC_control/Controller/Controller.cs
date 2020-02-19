@@ -804,20 +804,15 @@ namespace Synthesizer_PC_control.Controllers
 
             f_vco = f_out_A * aDiv;
 
-            if ((f_vco < 3000) || (f_vco > 6000))
-            {
-                outFreqControl.ChangeIntNBackColor(Color.Red);
-                ConsoleController.Console().Write("Warning: With the current setting, the VCO frequency is outside the limits. <3000 ~ 6000>");
-            }
-            else
-                outFreqControl.ChangeIntNBackColor(Color.White);
+           
 
             if (outBpath == 0)
                 f_out_B = f_out_A;
             else
                 f_out_B = f_vco;
 
-            synthFreqInfo.SetVcoFreq(f_vco);
+            if (synthFreqInfo.SetVcoFreq(f_vco) == false)
+                return;
             synthFreqInfo.SetOutAFreq(f_out_A);
             synthFreqInfo.SetOutBFreq(f_out_B);
             directFreqControl.SetFreqAtOut1(f_out_A);

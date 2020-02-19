@@ -9,6 +9,9 @@ namespace Synthesizer_PC_control.Model
 {
     public class RefFreq : I_UiLinked
     {
+        private string badLDSpeedAdjMsg = "Warning: The 'LD Speed adjustment' value is set improperly with respect to the current frequency at the PFD input.";
+        private string badInputRefFreqMsg = "Warning: The value entered is outside the allowed range for input signal reference frequency <10 - 210>";
+        
         private decimal refInFreq;
         private bool isDoubled;
         private bool isDivBy2;
@@ -17,8 +20,6 @@ namespace Synthesizer_PC_control.Model
         private bool isUiUpdated;
         private int LDSpeedAdj;
         private bool autoLdSpeedAdj;
-        private string warningMessage = "Warning: The 'LD Speed adjustment' value is set improperly with respect to the current frequency at the PFD input.";
-
         private readonly TextBox ui_refInFreq;
         private readonly CheckBox ui_refDoubler;
         private readonly CheckBox ui_refDiv2;
@@ -65,6 +66,14 @@ namespace Synthesizer_PC_control.Model
 
         public void SetRefFreqValue(decimal value)
         {
+            if (value < 10 || value > 210)
+            {
+                if (value < 10)
+                    value = this.refInFreq;
+                else
+                    value = this.refInFreq;
+                ConsoleController.Console().Write(badInputRefFreqMsg);
+            }
             this.refInFreq = value;
 
             UpdateUiElements();
@@ -189,7 +198,7 @@ namespace Synthesizer_PC_control.Model
             {
                 if (pfdFreq > 32)
                 {
-                    ConsoleController.Console().Write(warningMessage);
+                    ConsoleController.Console().Write(badLDSpeedAdjMsg);
                     ui_LDSpeedAdjLabel.ForeColor = Color.Red;
                 }
                 else
@@ -201,7 +210,7 @@ namespace Synthesizer_PC_control.Model
             {
                 if (pfdFreq <= 32)
                 {
-                    ConsoleController.Console().Write(warningMessage);
+                    ConsoleController.Console().Write(badLDSpeedAdjMsg);
                     ui_LDSpeedAdjLabel.ForeColor = Color.Red;
                 }
                 else
@@ -214,25 +223,11 @@ namespace Synthesizer_PC_control.Model
         public void UpdateUiElements() 
         {
             isUiUpdated = false;
-            if(isDoubled)
-                ui_refDoubler.Checked = true;
-            else
-                ui_refDoubler.Checked = false;
-            
-            if(isDivBy2)
-                ui_refDiv2.Checked = true; 
-            else
-                ui_refDiv2.Checked = false; 
 
-            if (refInFreq < 10 || refInFreq > 210)
-            {
-                if (refInFreq < 10)
-                    refInFreq = 10;
-                else
-                    refInFreq = 210;
-                MessageBox.Show("The value entered is outside the allowed range for input signal reference frequency <10 - 210>", "Reference freq value out of range!", 
-                MessageBoxButtons.OK, MessageBoxIcon.Error); 
-            }
+            ui_refDoubler.Checked = isDoubled;
+            ui_refDiv2.Checked = isDivBy2; 
+
+            
             ui_refInFreq.Text = string.Format("{0:f6}", refInFreq);
 
             try
