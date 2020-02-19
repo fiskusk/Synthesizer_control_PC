@@ -297,11 +297,6 @@ namespace Synthesizer_PC_control.Model
             UpdateUiElements();
         }
 
-        public void ChangeIntNBackColor(Color backColor)
-        {
-            ui_intN.BackColor = backColor;
-        }
-
         public bool IsUiUpdated()
         {
             return this.isUiUpdated;
