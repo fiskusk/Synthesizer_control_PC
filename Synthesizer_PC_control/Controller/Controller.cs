@@ -378,7 +378,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                if (!synthOutputControls.SetOutBPwr(value))
+                if (synthOutputControls.SetOutBPwr(value))
                     registers[4].ChangeNBits((UInt32)synthOutputControls.GetOutBPwrIndex(), 2, 6);
 
                 CheckAndApplyRegChanges(4);
