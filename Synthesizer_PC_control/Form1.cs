@@ -28,6 +28,7 @@ namespace Synthesizer_PC_control
         //private MyRegister[] registers;
         private Controller controller;
         private bool isForm1Load;
+        bool windowInitialized;
 
         public Form1()
         {
@@ -45,20 +46,104 @@ namespace Synthesizer_PC_control
 
         void Form1_Load(object sender, EventArgs e)
         {
-            // Set window location
-            if (Settings.Default.WindowLocation != null)
+            // this is the default
+            this.Visible = false;
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.WindowsDefaultBounds;
+
+            // check if the saved bounds are nonzero and visible on any screen
+            if (Settings.Default.WindowPosition != Rectangle.Empty &&
+                IsVisibleOnAnyScreen(Settings.Default.WindowPosition))
             {
-                this.Location = Settings.Default.WindowLocation;
+                // first set the bounds
+                this.StartPosition = FormStartPosition.Manual;
+                this.DesktopBounds = Settings.Default.WindowPosition;
+
+                // afterwards set the window state to the saved value (which could be Maximized)
+                this.WindowState = Settings.Default.WindowState;
+            }
+            else
+            {
+                // this resets the upper left corner of the window to windows standards
+                this.StartPosition = FormStartPosition.WindowsDefaultLocation;
+
+            }
+            this.Size = new System.Drawing.Size(821, 771);
+            this.Visible = true;
+            windowInitialized = true;
+        }
+
+        private bool IsVisibleOnAnyScreen(Rectangle rect)
+        {
+            foreach (Screen screen in Screen.AllScreens)
+            {
+                if (screen.WorkingArea.IntersectsWith(rect))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+             base.OnClosed(e);
+
+            // only save the WindowState if Normal or Maximized
+            switch (this.WindowState)
+            {
+                case FormWindowState.Normal:
+                case FormWindowState.Maximized:
+                    Settings.Default.WindowState = this.WindowState;
+                    break;
+
+                default:
+                    Settings.Default.WindowState = FormWindowState.Normal;
+                    break;
+            }
+
+            # region msorens: this code does *not* handle minimized/maximized window.
+
+            // reset window state to normal to get the correct bounds
+            // also make the form invisible to prevent distracting the user
+            //this.Visible = false;
+            //this.WindowState = FormWindowState.Normal;
+            //Settings.Default.WindowPosition = this.DesktopBounds;
+
+            # endregion
+
+            Settings.Default.Save();
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            TrackWindowState();
+        }
+
+        protected override void OnMove(EventArgs e)
+        {
+            base.OnMove(e);
+            TrackWindowState();
+        }
+
+        // On a move or resize in Normal state, record the new values as they occur.
+        // This solves the problem of closing the app when minimized or maximized.
+        private void TrackWindowState()
+        {
+            // Don't record the window setup, otherwise we lose the persistent values!
+            if (!windowInitialized) { return; }
+
+            if (WindowState == FormWindowState.Normal)
+            {
+                Settings.Default.WindowPosition = this.DesktopBounds;
             }
         }
         
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             controller.SaveWorkspaceData();
-
-            // Copy window location to app settings
-            Settings.Default.WindowLocation = this.Location;
-            Settings.Default.Save();
         }
 
         public void EnableControls(bool command)
