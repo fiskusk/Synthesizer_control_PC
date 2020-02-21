@@ -2201,7 +2201,7 @@ namespace Synthesizer_PC_control
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 872);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 873);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 13, 0);
             this.statusStrip1.Size = new System.Drawing.Size(1071, 22);
@@ -2451,7 +2451,7 @@ namespace Synthesizer_PC_control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1071, 894);
+            this.ClientSize = new System.Drawing.Size(1071, 895);
             this.Controls.Add(this.ConsoleRichTextBox);
             this.Controls.Add(this.DirectFreqContrGroupBox);
             this.Controls.Add(this.statusStrip1);

@@ -29,6 +29,18 @@ namespace Synthesizer_PC_control.Utilities
             return found;
         }
 
+        public static bool IsStringLocatedInArray(string value, string[] arrayValues)
+        {
+            if (arrayValues == null)
+                return false;
+            foreach (string valueFromArray in arrayValues)
+            {
+                if (string.Equals(value, valueFromArray))
+                    return true;
+            }
+            return false;
+        }
+
 
         /*
             float a;

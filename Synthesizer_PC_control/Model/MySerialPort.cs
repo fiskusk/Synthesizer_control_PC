@@ -41,7 +41,10 @@ namespace Synthesizer_PC_control.Model
 
         public void SetSelectedPort(string value)
         {
-            this.selectedPort = value;
+            if (GeneralUtilities.IsStringLocatedInArray(value, avaliablePorts))
+                this.selectedPort = value;
+            else
+                this.selectedPort = null;
 
             UpdateUiElements();
         }
@@ -52,7 +55,13 @@ namespace Synthesizer_PC_control.Model
         }
  
         public bool OpenPort() 
-        { 
+        {
+            if (selectedPort == null)
+            {
+                MessageBox.Show("No valid serial port name is selected. Please select it from the menu and then try to connect again.", "No serial port is selected.", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error); 
+                return false;
+            }
             try 
             { 
                 //port = new SerialPort(AvaibleCOMsComBox.Text, 115200);
