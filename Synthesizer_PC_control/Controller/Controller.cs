@@ -185,11 +185,15 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 5);
+
                 registers[2].SetResetOneBit(25, (BitState)Convert.ToUInt16(value));
                 refFreq.SetRefDoubler(value);
                 outFreqControl.RecalcRegsForNewPfdFreq(value);
 
-                CheckAndApplyRegChanges(2);
+                serialPort.SetDisableSending(false, 5);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -197,11 +201,15 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 12);
+
                 registers[2].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
                 refFreq.SetRefDivBy2(value);
                 outFreqControl.RecalcRegsForNewPfdFreq(!value);
 
-                CheckAndApplyRegChanges(2);
+                serialPort.SetDisableSending(false, 12);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -209,10 +217,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 14);
+
                 registers[2].ChangeNBits((UInt32)value, 10, 14);
                 refFreq.SetRDivider(value);
 
-                CheckAndApplyRegChanges(2);
+                serialPort.SetDisableSending(false, 14);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -241,10 +253,13 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 6);
                 registers[0].ChangeNBits((UInt32)value, 16, 15);
                 outFreqControl.SetIntNVal(value);
 
-                CheckAndApplyRegChanges(0);
+                serialPort.SetDisableSending(false, 6);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -252,10 +267,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 7);
+
                 registers[0].ChangeNBits((UInt32)value, 12, 3);
                 outFreqControl.SetFracNVal(value);
 
-                CheckAndApplyRegChanges(0);
+                serialPort.SetDisableSending(false, 7);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -263,10 +282,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 8);
+
                 registers[1].ChangeNBits((UInt32)value, 12, 3);
                 outFreqControl.SetModVal(value);
 
-                CheckAndApplyRegChanges(1);
+                serialPort.SetDisableSending(false, 8);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -274,6 +297,8 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 1);
+
                 registers[0].SetResetOneBit(31, (BitState)value);
                 outFreqControl.SetSynthMode((SynthMode)value);
                 refFreq.SetSynthModeInfoVariable((SynthMode)value);
@@ -283,7 +308,9 @@ namespace Synthesizer_PC_control.Controllers
                 else
                     chargePump.SetLinearityIndex(1);
 
-                CheckAndApplyRegChanges(0);
+                serialPort.SetDisableSending(false, 1);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -291,10 +318,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 9);
+
                 registers[4].ChangeNBits((UInt32)value, 3, 20);
                 outFreqControl.SetADivVal(value);
 
-                CheckAndApplyRegChanges(4);
+                serialPort.SetDisableSending(false, 9);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -302,10 +333,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 10);
+
                 registers[1].ChangeNBits((UInt32)value, 12, 15);
                 outFreqControl.SetPPhaseVal(value);
 
-                CheckAndApplyRegChanges(1);
+                serialPort.SetDisableSending(false, 10);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -313,10 +348,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 2);
+
                 registers[2].SetResetOneBit(8, (BitState)value);
                 outFreqControl.SetLDFunction(value);
 
-                CheckAndApplyRegChanges(2);
+                serialPort.SetDisableSending(false, 2);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -332,10 +371,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 11);
+
                 registers[4].SetResetOneBit(9, (BitState)value);
                 outFreqControl.SetOutBPath(value);
 
-                CheckAndApplyRegChanges(4);
+                serialPort.SetDisableSending(false, 11);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
     #endregion
@@ -407,13 +450,18 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 3);
+
                 registers[1].ChangeNBits((UInt32)value, 2, 29);
                 chargePump.SetLinearityIndex(value);
 
                 SynthMode synthMode = outFreqControl.GetSynthMode();
                 chargePump.CheckIfCorrectLinearityIsSelected(synthMode);
 
-                CheckAndApplyRegChanges(1);
+                serialPort.SetDisableSending(false, 3);
+
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -830,87 +878,43 @@ namespace Synthesizer_PC_control.Controllers
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
         {
             directFreqControl.SetDirectInputFreqValue(value);
+            serialPort.SetDisableSending(true, 13);
 
             UInt16 rDivValue = 1;
             decimal f_input = directFreqControl.decimal_GetDirectInputFreqVal();
             refFreq.SetRDivider(rDivValue);
             decimal f_pfd = refFreq.decimal_GetPfdFreq();
 
-            UInt16 divA;
-            if (f_input >= 3000 && f_input <= 6000)
-            {
-                divA = 0;
-            }
-            else if (f_input >= 1500 && f_input < 3000)
-            {
-                divA = 1;
-            }
-            else if (f_input >= 750 && f_input < 1500)
-            {
-                divA = 2;
-            }
-            else if (f_input >= 375 && f_input < 750)
-            {
-                divA = 3;
-            }
-            else if (f_input >= 187.5M && f_input < 375)
-            {
-                divA = 4;
-            }
-            else if (f_input >= 93.75M && f_input < 187.5M)
-            {
-                divA = 5;
-            }
-            else if (f_input >= 46.875M && f_input < 93.75M)
-            {
-                divA = 6;
-            }
-            else if (f_input >= 23.5M && f_input < 46.875M)
-            {
-                divA = 7;
-            }
-            else
-            {
-                divA = 1;
-            }
+            decimal intN;
+            decimal remainder;
 
-            outFreqControl.SetADivVal(divA);
-
-            divA = outFreqControl.uint16_GetADivVal();
-
-            decimal intN = (f_input*divA/(f_pfd/rDivValue));
-            decimal zbytek = intN-(UInt16)intN;
-
-            if (zbytek>0)
+            CalcIntNFromFrequency(f_input, f_pfd, rDivValue, out intN, out remainder);
+            
+            if (remainder>0)
             {
                 Fractions.Fraction pokus = new Fractions.Fraction();
-                //Fraction[] zaloha;
                 double accuracy;
                 int correction=1;
-                //zaloha = new Fraction[500];
                 UInt16 cnt = 0;
                 do
                 {
                     accuracy = 0.000001;
                     do
                     {
-                        pokus = Fractions.RealToFraction((double)zbytek, accuracy);
+                        pokus = Fractions.RealToFraction((double)remainder, accuracy);
                         //zaloha[cnt] = pokus;
                         cnt++;
                         accuracy = accuracy*10;
                     } while ((pokus.D < 2 || pokus.D > 4095) && accuracy <= 0.00001*correction);
                     if ((pokus.D < 2 || pokus.D > 4095))
                     {
-
                         rDivValue++;
-                        intN = (f_input*divA/(f_pfd/rDivValue));
-                        zbytek = intN-(UInt16)intN;
+                        CalcIntNFromFrequency(f_input, f_pfd, rDivValue, out intN, out remainder);
                         if (intN > 4091)
                         {
                             correction = correction * 10;
                             rDivValue--;
-                            intN = (f_input*divA/(f_pfd/rDivValue));
-                            zbytek = intN-(UInt16)intN;
+                            CalcIntNFromFrequency(f_input, f_pfd, rDivValue, out intN, out remainder);
                         }
                     }
                 } while((pokus.D < 2 || pokus.D > 4095) && accuracy < 1);
@@ -929,13 +933,18 @@ namespace Synthesizer_PC_control.Controllers
 
             refFreq.SetRDivider(rDivValue);
             outFreqControl.SetIntNVal((UInt16)intN);
+
+            serialPort.SetDisableSending(false, 13);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
             
             decimal f_out_A = synthFreqInfo.decimal_GetOutAFreq();
             decimal f_out_B = synthFreqInfo.decimal_GetOutBFreq();
 
-            directFreqControl.SetCalcFreq(f_out_A);
             directFreqControl.SetFreqAtOut1(f_out_A);
             directFreqControl.SetFreqAtOut2(2*f_out_B);
+
+            decimal delta;
 
             if (f_input <= 6000)
             {
@@ -951,8 +960,10 @@ namespace Synthesizer_PC_control.Controllers
                     moduleControls.SetOut2(false);
                     directFreqControl.SetActiveOut2(false);
                 }
+                delta = (f_input - f_out_A) * 1e6M;
+                directFreqControl.SetCalcFreq(f_out_A);
             }
-            else if (f_input < 12000)
+            else if (f_input <= 12000)
             {
                 if (moduleControls.GetOut1State())
                 {
@@ -966,14 +977,85 @@ namespace Synthesizer_PC_control.Controllers
                     moduleControls.SetOut2(true);
                     directFreqControl.SetActiveOut2(true);
                 }
+                delta = (f_input - f_out_B * 2) * 1e6M;
+                directFreqControl.SetCalcFreq(f_out_B * 2);
             }
             else
             {
+                delta = 9999999999;
                 // TODO fix this statement
             }
 
-            decimal delta = (f_input - f_out_A) * 1e6M;
             directFreqControl.SetDeltaFreqValue(delta);
+        }
+
+        public UInt16 FindAndSetCorrespondingADivValue(decimal value)
+        {
+            UInt16 divA;
+            if (value >= 3000 && value <= 6000)
+            {
+                divA = 0;
+            }
+            else if (value >= 1500 && value < 3000)
+            {
+                divA = 1;
+            }
+            else if (value >= 750 && value < 1500)
+            {
+                divA = 2;
+            }
+            else if (value >= 375 && value < 750)
+            {
+                divA = 3;
+            }
+            else if (value >= 187.5M && value < 375)
+            {
+                divA = 4;
+            }
+            else if (value >= 93.75M && value < 187.5M)
+            {
+                divA = 5;
+            }
+            else if (value >= 46.875M && value < 93.75M)
+            {
+                divA = 6;
+            }
+            else if (value >= 23.5M && value < 46.875M)
+            {
+                divA = 7;
+            }
+            else
+            {
+                divA = 1;
+            }
+
+            outFreqControl.SetADivVal(divA);
+            return outFreqControl.uint16_GetADivVal();
+        }
+
+        public void CalcIntNFromFrequency(decimal frequency, decimal f_pfd,
+                                          UInt16 rDivValue,
+                                          out decimal intN, out decimal remainder)
+        {
+            if (frequency <= 6000)
+            {
+                UInt16 divA = FindAndSetCorrespondingADivValue(frequency);
+                intN = (frequency*divA/(f_pfd/rDivValue));
+            }
+            else
+            {
+                if (outFreqControl.GetOutBPathIndex() == 0)
+                {
+                    UInt16 divA = FindAndSetCorrespondingADivValue(frequency/2);
+                    intN = ((frequency/2)*divA/(f_pfd/rDivValue));
+                }
+                else
+                {
+                    intN = ((frequency/2)/(f_pfd/rDivValue));
+                }
+            }
+
+            remainder = intN-(UInt16)intN;
         }
 #endregion
 
@@ -1008,22 +1090,17 @@ namespace Synthesizer_PC_control.Controllers
 
         public void CheckAndApplyRegChanges(string sender, string value)
         {
+            serialPort.SetDisableSending(true, 4);
+
             sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
             int regNumber = int.Parse(sender);
 
             registers[regNumber].SetValue(value);
-            if ((serialPort.IsPortOpen()) && 
-                (!string.Equals(registers[regNumber].string_GetValue(), 
-                                old_registers[regNumber].string_GetValue(),
-                                StringComparison.CurrentCultureIgnoreCase)))
-            {
-                ApplyChangeReg(regNumber);
-                GetAllFromReg(regNumber);
-                if (regNumber == 1 || regNumber == 2)
-                    ApplyChangeReg(0);
-                if (regNumber != 3 || regNumber != 5)
-                    RecalcFreqInfo();
-            }
+            GetAllFromReg(regNumber);
+
+            serialPort.SetDisableSending(false, 4);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
         }
 
         public void CheckAndApplyRegChanges(int regNumber)
@@ -1047,6 +1124,55 @@ namespace Synthesizer_PC_control.Controllers
             int regNumber = int.Parse(sender);
 
             CheckAndApplyRegChanges(regNumber);
+        }
+
+        private void SendData()
+        {
+            if (serialPort.IsPortOpen())
+            {
+                bool[] needUpdate = new bool[6];
+                for (int regNumber = 0; regNumber <= 5; regNumber++)
+                {
+                    if ((!string.Equals(registers[regNumber].string_GetValue(), 
+                                old_registers[regNumber].string_GetValue(),
+                                StringComparison.CurrentCultureIgnoreCase)))
+                        needUpdate[regNumber] = true;
+                    else
+                        needUpdate[regNumber] = false;
+                }
+
+                for (int regNumber = 5; regNumber >= 0; regNumber--)
+                {
+                    if (needUpdate[regNumber] == true)
+                    {
+                        switch (regNumber)
+                        {
+                            case 5:
+                                ApplyChangeReg(5);
+                                break;
+                            case 4:
+                                ApplyChangeReg(4);
+                                break;
+                            case 3:
+                                ApplyChangeReg(3);
+                                break;
+                            case 2:
+                                ApplyChangeReg(2);
+                                needUpdate[0] = true;
+                                break;
+                            case 1:
+                                ApplyChangeReg(1);
+                                needUpdate[0] = true;
+                                break;
+                            default:
+                                ApplyChangeReg(0);
+                                break;
+                        }
+                    }
+                }
+                if (needUpdate[0] || needUpdate[1] || needUpdate[2] || needUpdate[4])
+                    RecalcFreqInfo();
+            }
         }
 
         public void ApplyChangeReg(int index)

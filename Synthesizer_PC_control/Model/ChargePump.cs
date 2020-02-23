@@ -57,16 +57,19 @@ namespace Synthesizer_PC_control.Model
         #region Setters
         public void SetRSetValue(UInt16 value)
         {
-            if (value > 10000)
-                value = 10000;
-            else if (value < 2700)
-                value = 2700;
+            if (rSet != value)
+            {
+                if (value > 10000)
+                    value = 10000;
+                else if (value < 2700)
+                    value = 2700;
 
-            this.rSet = value;
+                this.rSet = value;
 
-            FillCurrentItemsFromRSetValue();
+                FillCurrentItemsFromRSetValue();
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetRSetValue(string value)
@@ -76,79 +79,100 @@ namespace Synthesizer_PC_control.Model
 
         public void SetCurrentIndex(int value)
         {
-            if ((cycleSlipReductEnabled == true || fastLockEnabled == true) && value != 0)
+            if (currentIndex != value)
             {
-                ConsoleController.Console().Write(currentWarning);
-                this.currentIndex = 0;
-            }
-            else
-            {
-                this.currentIndex = value;
-            }
+                if ((cycleSlipReductEnabled == true || fastLockEnabled == true) && value != 0)
+                {
+                    ConsoleController.Console().Write(currentWarning);
+                    this.currentIndex = 0;
+                }
+                else
+                {
+                    this.currentIndex = value;
+                }
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetLinearityIndex(int value)
         {
-            this.linearityIndex = value;
+            if (linearityIndex != value)
+            {
+                this.linearityIndex = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetTestModeIndex(int value)
         {
-            this.testModeIndex = value;
+            if (testModeIndex != value)
+            {
+                this.testModeIndex = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetFastLockMode(bool value)
         {
-            disableHandler = true;
-
-            this.fastLockEnabled = value;
-            if (value ==  true)
+            if (fastLockEnabled != value)
             {
-                this.currentIndex = 0;
-                this.phaseAdjustmentEnabled = false;
+                disableHandler = true;
+
+                this.fastLockEnabled = value;
+                if (value ==  true)
+                {
+                    this.currentIndex = 0;
+                    this.phaseAdjustmentEnabled = false;
+                }
+
+                UpdateUiElements();
+
+                disableHandler = false;
             }
-
-            UpdateUiElements();
-
-            disableHandler = false;
         }
 
         public void SetPhaseAdjustmentMode(bool value)
         {
-            disableHandler = true;
+            if (phaseAdjustmentEnabled != value)
+            {
+                disableHandler = true;
 
-            this.phaseAdjustmentEnabled = value;
-            if (value == true)
-                this.fastLockEnabled = false;
+                this.phaseAdjustmentEnabled = value;
+                if (value == true)
+                    this.fastLockEnabled = false;
 
-            UpdateUiElements();
+                UpdateUiElements();
 
-            disableHandler = false;
+                disableHandler = false;
+            }
         }
 
         public void SetCycleSlipMode(bool value)
         {
-            this.cycleSlipReductEnabled = value;
-
-            if (value == true)
+            if (cycleSlipReductEnabled != value)
             {
-                this.currentIndex = 0;
-            }
+                this.cycleSlipReductEnabled = value;
 
-            UpdateUiElements();
+                if (value == true)
+                {
+                    this.currentIndex = 0;
+                }
+
+                UpdateUiElements();
+            }
         }
 
         public void SetTriStateMode(bool value)
         {
-            this.triStateEnabled = value;
+            if (triStateEnabled != value)
+            {
+                this.triStateEnabled = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
         #endregion
 

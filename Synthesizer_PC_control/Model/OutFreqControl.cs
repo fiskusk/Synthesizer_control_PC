@@ -63,151 +63,178 @@ namespace Synthesizer_PC_control.Model
         #region Setters
         public void SetIntNVal(UInt16 value)
         {
-            if (value < ui_intN.Minimum)
-                value = (UInt16)ui_intN.Minimum;
-            else if (value > ui_intN.Maximum)
-                value = (UInt16)ui_intN.Maximum;
+            if (intN != value)
+            {
+                if (value < ui_intN.Minimum)
+                    value = (UInt16)ui_intN.Minimum;
+                else if (value > ui_intN.Maximum)
+                    value = (UInt16)ui_intN.Maximum;
 
-            this.intN = value;
+                this.intN = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetFracNVal(UInt16 value)
         {
-            if (value < ui_fracN.Minimum)
-                value = (UInt16)ui_fracN.Minimum;
-            else if (value > ui_fracN.Maximum)
-                value = (UInt16)ui_fracN.Maximum;
+            if (fracN != value)
+            {
+                if (value < ui_fracN.Minimum)
+                    value = (UInt16)ui_fracN.Minimum;
+                else if (value > ui_fracN.Maximum)
+                    value = (UInt16)ui_fracN.Maximum;
 
-            this.fracN = value;
+                this.fracN = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
         
         public void SetModVal(UInt16 value)
         {
-            if (value < ui_mod.Minimum)
-                value = (UInt16)ui_mod.Minimum;
-            else if (value > ui_mod.Maximum)
-                value = (UInt16)ui_mod.Maximum;
+            if (mod != value)
+            {
+                if (value < ui_mod.Minimum)
+                    value = (UInt16)ui_mod.Minimum;
+                else if (value > ui_mod.Maximum)
+                    value = (UInt16)ui_mod.Maximum;
 
-            this.mod = value;
+                this.mod = value;
 
-            ui_fracN.Maximum = value - 1;
+                ui_fracN.Maximum = value - 1;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetSynthMode(SynthMode value)
         {
-            if (value == SynthMode.FRACTIONAL)
+            if (mode != value)
             {
-                ui_intN.Minimum = 19;
-                ui_intN.Maximum = 4091;
-                if (autoLDFunction)
-                    LDFunction = 0;
-                else
+                if (value == SynthMode.FRACTIONAL)
                 {
-                    if (LDFunction == 0)
-                        ui_LDFunctionLabel.ForeColor = Color.Black;
+                    ui_intN.Minimum = 19;
+                    ui_intN.Maximum = 4091;
+                    if (autoLDFunction)
+                        LDFunction = 0;
                     else
                     {
-                        ui_LDFunctionLabel.ForeColor = Color.Red;
-                        ConsoleController.Console().Write(warningMessage);
+                        if (LDFunction == 0)
+                            ui_LDFunctionLabel.ForeColor = Color.Black;
+                        else
+                        {
+                            ui_LDFunctionLabel.ForeColor = Color.Red;
+                            ConsoleController.Console().Write(warningMessage);
+                        }
                     }
                 }
-            }
-            else
-            {
-                ui_intN.Minimum = 16;
-                ui_intN.Maximum = 65535;
-                if (autoLDFunction)
-                    LDFunction = 1;
                 else
                 {
-                    if (LDFunction == 1)
-                        ui_LDFunctionLabel.ForeColor = Color.Black;
+                    ui_intN.Minimum = 16;
+                    ui_intN.Maximum = 65535;
+                    if (autoLDFunction)
+                        LDFunction = 1;
                     else
                     {
-                        ui_LDFunctionLabel.ForeColor = Color.Red;
-                        ConsoleController.Console().Write(warningMessage);
+                        if (LDFunction == 1)
+                            ui_LDFunctionLabel.ForeColor = Color.Black;
+                        else
+                        {
+                            ui_LDFunctionLabel.ForeColor = Color.Red;
+                            ConsoleController.Console().Write(warningMessage);
+                        }
                     }
                 }
+
+                this.mode = value;
+
+                UpdateUiElements();
             }
-
-            this.mode = value;
-
-            UpdateUiElements();
         }
 
         public void SetADivVal(UInt16 value)
         {
-            this.aDiv = value;
+            if (aDiv != value)
+            {
+                this.aDiv = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetPPhaseVal(UInt16 value)
         {
-            if (value < ui_phaseP.Minimum)
-                value = (UInt16)ui_phaseP.Minimum;
-            else if (value > ui_phaseP.Maximum)
-                value = (UInt16)ui_phaseP.Maximum;
+            if (phaseP != value)
+            {
+                if (value < ui_phaseP.Minimum)
+                    value = (UInt16)ui_phaseP.Minimum;
+                else if (value > ui_phaseP.Maximum)
+                    value = (UInt16)ui_phaseP.Maximum;
 
-            this.phaseP = value;
+                this.phaseP = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetLDFunction(int value)
         {
-            this.LDFunction = value;
-
-            if (value == 0)
+            if (LDFunction != value)
             {
-                if (mode == SynthMode.FRACTIONAL)
-                    ui_LDFunctionLabel.ForeColor = Color.Black;
+                this.LDFunction = value;
+
+                if (value == 0)
+                {
+                    if (mode == SynthMode.FRACTIONAL)
+                        ui_LDFunctionLabel.ForeColor = Color.Black;
+                    else
+                    {
+                        ui_LDFunctionLabel.ForeColor = Color.Red;
+                        ConsoleController.Console().Write(warningMessage);
+                    }
+                }
                 else
                 {
-                    ui_LDFunctionLabel.ForeColor = Color.Red;
-                    ConsoleController.Console().Write(warningMessage);
+                    if (mode == SynthMode.INTEGER)
+                        ui_LDFunctionLabel.ForeColor = Color.Black;
+                    else
+                    {
+                        ui_LDFunctionLabel.ForeColor = Color.Red;
+                        ConsoleController.Console().Write(warningMessage);
+                    }
                 }
-            }
-            else
-            {
-                if (mode == SynthMode.INTEGER)
-                    ui_LDFunctionLabel.ForeColor = Color.Black;
-                else
-                {
-                    ui_LDFunctionLabel.ForeColor = Color.Red;
-                    ConsoleController.Console().Write(warningMessage);
-                }
-            }
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetAutoLDFunction(bool value)
         {
-            this.autoLDFunction = value;
-
-            if (value)
+            if (autoLDFunction != value)
             {
-                if (mode == SynthMode.FRACTIONAL)
-                    LDFunction = 0;
-                else
-                    LDFunction = 1;
-            }
+                this.autoLDFunction = value;
 
-            UpdateUiElements();
+                if (value)
+                {
+                    if (mode == SynthMode.FRACTIONAL)
+                        LDFunction = 0;
+                    else
+                        LDFunction = 1;
+                }
+
+                UpdateUiElements();
+            }
         }
 
         public void SetOutBPath(int value)
         {
-            this.outBPath = value;
+            if (outBPath != value)
+            {
+                this.outBPath = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         #endregion
@@ -269,32 +296,14 @@ namespace Synthesizer_PC_control.Model
         {
             if (value == true)
             {
-                if ((intN / 2) < ui_intN.Minimum)
-                {
-                    intN = (UInt16)ui_intN.Minimum;
-                    mod  = (UInt16)ui_mod.Minimum;
-                }
-                else
-                {
-                    intN = (UInt16)(intN/2);
-                    mod  = (UInt16)(mod*2);
-                }
+                SetIntNVal((UInt16)(intN/2));
+                SetModVal((UInt16)(mod*2));
             }
             else
             {
-                if ((intN * 2) > ui_intN.Maximum)
-                {
-                    intN = (UInt16)ui_intN.Maximum;
-                    mod  = (UInt16)ui_mod.Maximum;
-                }
-                else
-                {
-                    intN = (UInt16)(intN*2);
-                    mod  = (UInt16)(mod/2);
-                }
+                SetIntNVal((UInt16)(intN*2));
+                SetModVal((UInt16)(mod/2));
             }
-
-            UpdateUiElements();
         }
 
         public bool IsUiUpdated()

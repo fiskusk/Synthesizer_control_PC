@@ -16,6 +16,8 @@ namespace Synthesizer_PC_control.Model
         private SerialPort port; 
         private string[] avaliablePorts; 
         private string selectedPort;
+        private bool disableSending;
+        private int disableID;
  
         //private readonly Control delegateHandle; 
         private readonly Form1 viewHandle; 
@@ -47,6 +49,28 @@ namespace Synthesizer_PC_control.Model
                 this.selectedPort = null;
 
             UpdateUiElements();
+        }
+
+        public void SetDisableSending(bool value, int ID)
+        {
+            if (this.disableSending == false && value == true)
+            {
+                this.disableID = ID;
+                this.disableSending = value;
+            }
+            else if (this.disableSending == true && value == false)
+            {
+                if (this.disableID == ID)
+                {
+                    this.disableID = 0;
+                    this.disableSending = value;
+                }
+            }
+        }
+
+        public bool GetDisableSending()
+        {
+            return this.disableSending;
         }
 
         public string GetSelectedPort()
