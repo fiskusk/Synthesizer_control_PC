@@ -127,7 +127,7 @@ namespace Synthesizer_PC_control.Model
                 MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }
             //ui_directFreqInput.Text = MyFormat.ParseFrequencyDecimalValue(directFreqInput);
-            ui_directFreqInput.Text = string.Format("{0:f7}", directFreqInput);
+            ui_directFreqInput.Text = string.Format("{0:f6}", directFreqInput);
 
             if (Math.Abs(deltaFreq) > 10)
                 ui_deltaFreqLabel.ForeColor = System.Drawing.Color.Red;
