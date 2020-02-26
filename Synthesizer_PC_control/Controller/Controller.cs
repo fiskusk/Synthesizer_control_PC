@@ -855,8 +855,6 @@ namespace Synthesizer_PC_control.Controllers
 
             f_vco = f_out_A * aDiv;
 
-           
-
             if (outBpath == 0)
                 f_out_B = f_out_A;
             else
@@ -875,76 +873,57 @@ namespace Synthesizer_PC_control.Controllers
             directFreqControl.SetFreqAtOut2(f_out_B * 2);
         }
 
+        public struct CalcMemory
+        {
+            public decimal intN;
+            public UInt16 fracN;
+            public UInt16 mod;
+            public UInt16 rDiv;
+            public SynthMode mode;
+            public decimal delta;
+        }
+
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
         {
             directFreqControl.SetDirectInputFreqValue(value);
+
             serialPort.SetDisableSending(true, 13);
 
-            UInt16 rDivValue = 1;
             decimal f_input = directFreqControl.decimal_GetDirectInputFreqVal();
-            refFreq.SetRDivider(rDivValue);
-            decimal f_pfd = refFreq.decimal_GetPfdFreq();
 
-            decimal intN;
-            decimal remainder;
+            bool isDoubled = refFreq.GetIsDoubled();
+            bool isDivBy2 = refFreq.GetIsDividedBy2();
+            decimal refInFreq = refFreq.decimal_GetRefFreqValue();
+            int outBPathIndex = outFreqControl.GetOutBPathIndex();
 
-            CalcIntNFromFrequency(f_input, f_pfd, rDivValue, out intN, out remainder);
+            CalcRegs calcRegs = CalcRegisters.CalcRegistersFromInput(f_input, 
+                                                                     refInFreq, 
+                                                                     isDoubled, 
+                                                                     isDivBy2, 
+                                                                     outBPathIndex);
+
+            outFreqControl.SetADivVal((UInt16)calcRegs.aDivIndex);
+            outFreqControl.SetSynthMode(calcRegs.mode);
+            outFreqControl.SetIntNVal(calcRegs.intN);
+            refFreq.SetRDivider(calcRegs.rDiv);
             
-            if (remainder>0)
-            {
-                Fractions.Fraction pokus = new Fractions.Fraction();
-                double accuracy;
-                int correction=1;
-                UInt16 cnt = 0;
-                do
-                {
-                    accuracy = 0.000001;
-                    do
-                    {
-                        pokus = Fractions.RealToFraction((double)remainder, accuracy);
-                        //zaloha[cnt] = pokus;
-                        cnt++;
-                        accuracy = accuracy*10;
-                    } while ((pokus.D < 2 || pokus.D > 4095) && accuracy <= 0.00001*correction);
-                    if ((pokus.D < 2 || pokus.D > 4095))
-                    {
-                        rDivValue++;
-                        CalcIntNFromFrequency(f_input, f_pfd, rDivValue, out intN, out remainder);
-                        if (intN > 4091)
-                        {
-                            correction = correction * 10;
-                            rDivValue--;
-                            CalcIntNFromFrequency(f_input, f_pfd, rDivValue, out intN, out remainder);
-                        }
-                    }
-                } while((pokus.D < 2 || pokus.D > 4095) && accuracy < 1);
-                if ((pokus.D < 2 || pokus.D > 4095))
-                {
-                    pokus = new Fractions.Fraction (1, 4095);
-                }
-                outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
-                outFreqControl.SetModVal((UInt16)pokus.D);
-                outFreqControl.SetFracNVal((UInt16)pokus.N);
-            }
-            else
-            {
-                outFreqControl.SetSynthMode(SynthMode.INTEGER);
-            }
 
-            refFreq.SetRDivider(rDivValue);
-            outFreqControl.SetIntNVal((UInt16)intN);
+            if (calcRegs.mode == SynthMode.FRACTIONAL)
+            {
+                outFreqControl.SetModVal(calcRegs.mod);
+                outFreqControl.SetFracNVal(calcRegs.fracN);
+            }
 
             serialPort.SetDisableSending(false, 13);
             if (serialPort.GetDisableSending() == false)
                 SendData();
             
+            decimal delta;
             decimal f_out_A = synthFreqInfo.decimal_GetOutAFreq();
             decimal f_out_B = synthFreqInfo.decimal_GetOutBFreq();
 
             directFreqControl.SetFreqAtOut1(f_out_A);
             directFreqControl.SetFreqAtOut2(2*f_out_B);
-
-            decimal delta;
 
             if (f_input <= 6000)
             {
@@ -1033,29 +1012,80 @@ namespace Synthesizer_PC_control.Controllers
             return outFreqControl.uint16_GetADivVal();
         }
 
-        public void CalcIntNFromFrequency(decimal frequency, decimal f_pfd,
-                                          UInt16 rDivValue,
+        public void CalcIntNFromFrequency(decimal frequency, UInt16 rDivValue,
                                           out decimal intN, out decimal remainder)
         {
+            refFreq.SetRDivider(rDivValue);
+            decimal f_pfd = refFreq.decimal_GetPfdFreq();
+
             if (frequency <= 6000)
             {
                 UInt16 divA = FindAndSetCorrespondingADivValue(frequency);
-                intN = (frequency*divA/(f_pfd/rDivValue));
+                intN = (frequency*divA/f_pfd);
             }
             else
             {
                 if (outFreqControl.GetOutBPathIndex() == 0)
                 {
                     UInt16 divA = FindAndSetCorrespondingADivValue(frequency/2);
-                    intN = ((frequency/2)*divA/(f_pfd/rDivValue));
+                    intN = (frequency/2)*divA/f_pfd;
                 }
                 else
                 {
-                    intN = ((frequency/2)/(f_pfd/rDivValue));
+                    intN = (frequency/2)/f_pfd;
                 }
             }
 
+            outFreqControl.SetIntNVal((UInt16)intN);
+
             remainder = intN-(UInt16)intN;
+        }
+
+        public bool TryToCalcFractPart(decimal remainder, 
+                    decimal f_input, UInt16 rDivValueIn, out UInt16 rDivValue, decimal intN)
+        {
+            bool success;
+            rDivValue = rDivValueIn;
+            Fractions.Fraction pokus = new Fractions.Fraction();
+            double accuracy;
+            int correction=1000;
+            UInt16 cnt = 0;
+            do
+            {
+                accuracy = 0.000001;
+                do
+                {
+                    pokus = Fractions.RealToFraction((double)remainder, accuracy);
+                    cnt++;
+                    accuracy = accuracy*10;
+                } while ((pokus.D < 2 || pokus.D > 4095) && accuracy <= 0.00001*correction);
+                if ((pokus.D < 2 || pokus.D > 4095))
+                {
+                    rDivValue++;
+                    CalcIntNFromFrequency(f_input, rDivValue, out intN, out remainder);
+                    if (intN > 4091)
+                    {
+                        correction = correction * 10;
+                        rDivValue--;
+                        CalcIntNFromFrequency(f_input, rDivValue, out intN, out remainder);
+                    }
+                }
+            } while((pokus.D < 2 || pokus.D > 4095) && accuracy < 1);
+
+            if ((pokus.D < 2 || pokus.D > 4095))
+            {
+                success = false;
+                rDivValue = 1;
+            }
+            else
+            {
+                success = true;
+                outFreqControl.SetSynthMode(SynthMode.FRACTIONAL);
+                outFreqControl.SetModVal((UInt16)pokus.D);
+                outFreqControl.SetFracNVal((UInt16)pokus.N);
+                refFreq.SetRDivider(rDivValue);
+            }
+            return success;
         }
 #endregion
 

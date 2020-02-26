@@ -254,12 +254,12 @@ namespace Synthesizer_PC_control.Model
             return this.refInFreq;
         }
 
-        public bool IsDoubled()
+        public bool GetIsDoubled()
         {
             return this.isDoubled;
         }
 
-        public bool IsDividedBy2()
+        public bool GetIsDividedBy2()
         {
             return this.isDivBy2;
         }
