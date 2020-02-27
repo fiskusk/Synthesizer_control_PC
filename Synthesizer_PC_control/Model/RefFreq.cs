@@ -21,7 +21,6 @@ namespace Synthesizer_PC_control.Model
         private bool isDivBy2;
         private UInt16 refDivider;
         private decimal pfdFreq;
-        private bool isUiUpdated;
         private int LDSpeedAdj;
         private bool autoLdSpeedAdj;
         private readonly TextBox ui_refInFreq;
