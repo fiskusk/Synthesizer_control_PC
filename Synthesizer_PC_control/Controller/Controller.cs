@@ -232,10 +232,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 15);
+
                 registers[2].SetResetOneBit(31, (BitState)value);
                 refFreq.SetLDSpeedAdj(value);
 
-                CheckAndApplyRegChanges(2);
+                serialPort.SetDisableSending(false, 15);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -254,6 +258,7 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.IsPortOpen())
             {
                 serialPort.SetDisableSending(true, 6);
+
                 registers[0].ChangeNBits((UInt32)value, 16, 15);
                 outFreqControl.SetIntNVal(value);
 
@@ -301,6 +306,7 @@ namespace Synthesizer_PC_control.Controllers
 
                 registers[0].SetResetOneBit(31, (BitState)value);
                 outFreqControl.SetSynthMode((SynthMode)value);
+                outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
                 refFreq.SetSynthModeInfoVariable((SynthMode)value);
 
                 if ((SynthMode)value == SynthMode.INTEGER)
@@ -352,6 +358,7 @@ namespace Synthesizer_PC_control.Controllers
 
                 registers[2].SetResetOneBit(8, (BitState)value);
                 outFreqControl.SetLDFunction(value);
+                outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
 
                 serialPort.SetDisableSending(false, 2);
                 if (serialPort.GetDisableSending() == false)
@@ -364,6 +371,7 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.IsPortOpen())
             {
                 outFreqControl.SetAutoLDFunction(value);
+                outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(true);
             }
         }
 
@@ -388,10 +396,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 16);
+
                 registers[4].SetResetOneBit(5, (BitState)value);
                 synthOutputControls.SetOutAEnable((OutEnState)value);
 
-                CheckAndApplyRegChanges(4);
+                serialPort.SetDisableSending(false, 16);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -399,10 +411,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 17);
+
                 registers[4].SetResetOneBit(8, (BitState)value);
                 synthOutputControls.SetOutBEnable((OutEnState)value);
 
-                CheckAndApplyRegChanges(4);
+                serialPort.SetDisableSending(false, 17);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -410,10 +426,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 18);
+
                 registers[4].ChangeNBits((UInt32)value, 2, 3);
                 synthOutputControls.SetOutAPwr(value);
 
-                CheckAndApplyRegChanges(4);
+                serialPort.SetDisableSending(false, 18);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -421,10 +441,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 19);
+
                 if (synthOutputControls.SetOutBPwr(value))
                     registers[4].ChangeNBits((UInt32)synthOutputControls.GetOutBPwrIndex(), 2, 6);
 
-                CheckAndApplyRegChanges(4);
+                serialPort.SetDisableSending(false, 19);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
     #endregion
@@ -439,10 +463,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen() && chargePump.isCurrentComboboxFilled())
             {
+                serialPort.SetDisableSending(true, 20);
+
                 registers[2].ChangeNBits((UInt32)value, 4, 9);
                 chargePump.SetCurrentIndex(value);
 
-                CheckAndApplyRegChanges(2);
+                serialPort.SetDisableSending(false, 20);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -459,7 +487,6 @@ namespace Synthesizer_PC_control.Controllers
                 chargePump.CheckIfCorrectLinearityIsSelected(synthMode);
 
                 serialPort.SetDisableSending(false, 3);
-
                 if (serialPort.GetDisableSending() == false)
                     SendData();
             }
@@ -469,10 +496,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 21);
+
                 registers[1].ChangeNBits((UInt32)value, 2, 27);
                 chargePump.SetTestModeIndex(value);
 
-                CheckAndApplyRegChanges(1);
+                serialPort.SetDisableSending(false, 21);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -480,6 +511,8 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen() && !chargePump.GetDisableHandler())
             {
+                serialPort.SetDisableSending(true, 22);
+
                 if (value)
                     registers[3].ChangeNBits(Convert.ToUInt32(ClockDividerMode.FastLockEnable), 2, 15);
                 else
@@ -487,7 +520,9 @@ namespace Synthesizer_PC_control.Controllers
                 
                 chargePump.SetFastLockMode(value);
 
-                CheckAndApplyRegChanges(3);
+                serialPort.SetDisableSending(false, 22);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -495,6 +530,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen() && !chargePump.GetDisableHandler())
             {
+                serialPort.SetDisableSending(true, 23);
                 if (value)
                     registers[3].ChangeNBits(Convert.ToUInt32(ClockDividerMode.PhaseAdjustment), 2, 15);
                 else
@@ -502,7 +538,9 @@ namespace Synthesizer_PC_control.Controllers
                 
                 chargePump.SetPhaseAdjustmentMode(value);
 
-                CheckAndApplyRegChanges(3);
+                serialPort.SetDisableSending(false, 23);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -510,10 +548,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 24);
+
                 registers[3].SetResetOneBit(18, (BitState)Convert.ToUInt16(value));
                 chargePump.SetCycleSlipMode(value);
 
-                CheckAndApplyRegChanges(3);
+                serialPort.SetDisableSending(false, 24);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -521,10 +563,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 25);
+
                 registers[2].SetResetOneBit(4, (BitState)Convert.ToUInt16(value));
                 chargePump.SetTriStateMode(value);
 
-                CheckAndApplyRegChanges(2);
+                serialPort.SetDisableSending(false, 25);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -535,12 +581,16 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 26);
+
                 phaseDetector.SetNoiseMode(value);
                 if (value == 1 || value == 2)
                     value++;
                 registers[2].ChangeNBits((UInt32)value, 2, 29);
 
-                CheckAndApplyRegChanges(2);
+                serialPort.SetDisableSending(false, 26);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -548,10 +598,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 27);
+
                 registers[2].SetResetOneBit(7, (BitState)value);
                 phaseDetector.SetPrecision(value);
 
-                CheckAndApplyRegChanges(2);
+                serialPort.SetDisableSending(false, 27);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
 
@@ -559,10 +613,14 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
+                serialPort.SetDisableSending(true, 28);
+
                 registers[2].SetResetOneBit(6, (BitState)value);
                 phaseDetector.SetPfdPolarity(value);
 
-                CheckAndApplyRegChanges(2);
+                serialPort.SetDisableSending(false, 28);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
             }
         }
     #endregion
@@ -573,10 +631,14 @@ namespace Synthesizer_PC_control.Controllers
     #region Generic Controls Group
         public void MuxPinModeIndexChanged(int value)
         {
+            serialPort.SetDisableSending(true, 29);
+
             registers[2].ChangeNBits((UInt32)value, 3, 26);
             genericControls.SetMuxPinMode(value);
 
-            CheckAndApplyRegChanges(2);
+            serialPort.SetDisableSending(false, 29);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
         }
     #endregion
 
@@ -588,6 +650,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             UInt32 value = BitOperations.GetNBits(dataReg0, 1, 31);
             outFreqControl.SetSynthMode((SynthMode)value);
+            outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
             refFreq.SetSynthModeInfoVariable((SynthMode)value);
 
             if ((SynthMode)value == SynthMode.INTEGER)
@@ -672,6 +735,8 @@ namespace Synthesizer_PC_control.Controllers
         {
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 8);
             outFreqControl.SetLDFunction(index);
+            if (serialPort.IsPortOpen())
+                outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
         }
 
         private void GetTriStateModeFromRegister(UInt32 dataReg2)
@@ -893,6 +958,7 @@ namespace Synthesizer_PC_control.Controllers
                                                                      outBPathIndex);
 
             outFreqControl.SetADivVal((UInt16)calcRegs.aDivIndex);
+            outFreqControl.SetAutoLDFunction(true);
             outFreqControl.SetSynthMode(calcRegs.mode);
             outFreqControl.SetIntNVal(calcRegs.intN);
             refFreq.SetRDivider(calcRegs.rDiv);
@@ -965,9 +1031,9 @@ namespace Synthesizer_PC_control.Controllers
         {
             for (int i = 5; i >= 0; i--)
             {
-                ApplyChangeReg(i);
                 if (!serialPort.IsPortOpen())
                     return;
+                ApplyChangeReg(i);
             }
 
             GetAllFromRegisters();
