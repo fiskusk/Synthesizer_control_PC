@@ -18,7 +18,6 @@ namespace Synthesizer_PC_control.Model
         private SynthMode mode;
         private UInt16 aDiv;
         private UInt16 phaseP;
-        private bool isUiUpdated;
         private int LDFunction;
         private bool autoLDFunction;
         private int outBPath;
@@ -118,16 +117,6 @@ namespace Synthesizer_PC_control.Model
                     ui_intN.Maximum = 4091;
                     if (autoLDFunction)
                         LDFunction = 0;
-                    else
-                    {
-                        if (LDFunction == 0)
-                            ui_LDFunctionLabel.ForeColor = Color.Black;
-                        else
-                        {
-                            ui_LDFunctionLabel.ForeColor = Color.Red;
-                            ConsoleController.Console().Write(warningMessage);
-                        }
-                    }
                 }
                 else
                 {
@@ -135,16 +124,6 @@ namespace Synthesizer_PC_control.Model
                     ui_intN.Maximum = 65535;
                     if (autoLDFunction)
                         LDFunction = 1;
-                    else
-                    {
-                        if (LDFunction == 1)
-                            ui_LDFunctionLabel.ForeColor = Color.Black;
-                        else
-                        {
-                            ui_LDFunctionLabel.ForeColor = Color.Red;
-                            ConsoleController.Console().Write(warningMessage);
-                        }
-                    }
                 }
 
                 this.mode = value;
@@ -183,27 +162,6 @@ namespace Synthesizer_PC_control.Model
             if (LDFunction != value)
             {
                 this.LDFunction = value;
-
-                if (value == 0)
-                {
-                    if (mode == SynthMode.FRACTIONAL)
-                        ui_LDFunctionLabel.ForeColor = Color.Black;
-                    else
-                    {
-                        ui_LDFunctionLabel.ForeColor = Color.Red;
-                        ConsoleController.Console().Write(warningMessage);
-                    }
-                }
-                else
-                {
-                    if (mode == SynthMode.INTEGER)
-                        ui_LDFunctionLabel.ForeColor = Color.Black;
-                    else
-                    {
-                        ui_LDFunctionLabel.ForeColor = Color.Red;
-                        ConsoleController.Console().Write(warningMessage);
-                    }
-                }
 
                 UpdateUiElements();
             }
@@ -306,15 +264,35 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
-        public bool IsUiUpdated()
+        public void CheckIfLDfuncToAppropriateModeIsSellected(bool forceApply)
         {
-            return this.isUiUpdated;
+            if (autoLDFunction == false || forceApply ==  true)
+            {
+                if (LDFunction == 0)
+                {
+                    if (mode == SynthMode.FRACTIONAL)
+                        ui_LDFunctionLabel.ForeColor = Color.Black;
+                    else if (ui_LDFunctionLabel.ForeColor != Color.Red)
+                    {
+                        ui_LDFunctionLabel.ForeColor = Color.Red;
+                        ConsoleController.Console().Write(warningMessage);
+                    }
+                }
+                else
+                {
+                    if (mode == SynthMode.INTEGER)
+                        ui_LDFunctionLabel.ForeColor = Color.Black;
+                    else if (ui_LDFunctionLabel.ForeColor != Color.Red)
+                    {
+                        ui_LDFunctionLabel.ForeColor = Color.Red;
+                        ConsoleController.Console().Write(warningMessage);
+                    }
+                }
+            }
         }
 
         public void UpdateUiElements()
         {
-            isUiUpdated = false;
-
             this.ui_intN.Value  = intN;
             this.ui_fracN.Value = fracN;
             this.ui_mod.Value   = mod;
@@ -324,8 +302,6 @@ namespace Synthesizer_PC_control.Model
             this.ui_LDFunction.SelectedIndex = LDFunction;
             this.ui_autoLDFunction.Checked = autoLDFunction;
             this.ui_outBPath.SelectedIndex = outBPath;
-
-            isUiUpdated = true;
         }
     }
 }
