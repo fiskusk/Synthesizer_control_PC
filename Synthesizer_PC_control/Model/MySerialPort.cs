@@ -157,24 +157,27 @@ namespace Synthesizer_PC_control.Model
  
         public void SendStringSerialPort(string text) 
         {
-            try 
-            { 
-                dontRunHandler = true; 
+            if (IsPortOpen())
+            {
+                try 
                 { 
-                    port.WriteLine(text); 
-                    while (port.ReadLine() != "OK") { } // FIXME: Is there not a better way than freezing whole programm? 
-                } 
-                dontRunHandler = false; 
+                    dontRunHandler = true; 
+                    { 
+                        port.WriteLine(text); 
+                        while (port.ReadLine() != "OK") { } // FIXME: Is there not a better way than freezing whole programm? 
+                    } 
+                    dontRunHandler = false; 
 
-                ConsoleController.Console().Write("command: '" + text + "' sended");
-            } 
-            catch 
-            { 
-                ClosePort();
-                viewHandle.EnableControls(false);
-                MessageBox.Show("Device doesn't work", "COM Port Error", 
-                MessageBoxButtons.OK, MessageBoxIcon.Asterisk); 
-            } 
+                    ConsoleController.Console().Write("command: '" + text + "' sended");
+                } 
+                catch 
+                { 
+                    ClosePort();
+                    viewHandle.EnableControls(false);
+                    MessageBox.Show("Device doesn't work", "COM Port Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk); 
+                } 
+            }
         }
  
         private void MyDataReceivedHandler(object sender, SerialDataReceivedEventArgs e) 
