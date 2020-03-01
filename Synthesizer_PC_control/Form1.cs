@@ -682,10 +682,21 @@ namespace Synthesizer_PC_control
 
         private void InputFreqTextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            int position = ((TextBox)(sender)).SelectionStart;
+            if (e.KeyCode == Keys.Back)
+            {
+                string text = ((TextBox)(sender)).Text;
+                int commaPosition = text.IndexOf(".");
+                if (position == commaPosition + 5  && commaPosition != -1)
+                {
+                   position = commaPosition + 4;
+                }
+            }
             if (e.KeyCode == Keys.Enter)
             {
                controller.CalcSynthesizerRegValuesFromInpFreq(InputFreqTextBox.Text);
             }
+            ((TextBox)(sender)).SelectionStart = position;
         }
 
         private void InputFreqHandlerFunction(object sender, MouseEventArgs e)

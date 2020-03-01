@@ -78,6 +78,8 @@ namespace Synthesizer_PC_control
                 else if (i == 0)
                 {
                     if ((item[i] == ' ') ||
+                        (item[i] == '.') ||
+                        (item[i] == ',') ||
                         (item[i] == '.' && item[i+1] == '.') ||
                         (item[i] == ',' && item[i+1] == ',') ||
                         (item[i] == '.' && item[i+1] == ',') ||
@@ -175,13 +177,21 @@ namespace Synthesizer_PC_control
                item = item.Insert(comma_position + 4, " ");
                position++;
             }
+            if (item.IndexOf(" ") != comma_position + 4)
+            {
+                int count = item.Count(f => f == ' ');
+                item = item.Replace(" ", string.Empty);
+                position = position - count;
+            }
             if (position == comma_position + 9 && comma_position != -1)
             {
                item = item.Remove(comma_position + 8, 1);
                position--;
             }
             sender.Text = item;
-            sender.SelectionStart = position;/*
+            sender.SelectionStart = position;
+            
+            /*
             item = item.Replace(" ", string.Empty);
             item = item.Replace(".", ",");
             item = item.Replace(",,", ",");
@@ -194,7 +204,8 @@ namespace Synthesizer_PC_control
             decimal itemDecimal = Convert.ToDecimal(item);
             sender.Text =  itemDecimal.ToString("0.0## ###");
             if (!(position == comma_position + 1) && position == comma_position + 4)
-                position++;*/
+                position++;
+            */
         }
 
         public static void CheckIfHasIntegerInput(TextBox sender)
