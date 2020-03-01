@@ -293,9 +293,9 @@ namespace Synthesizer_PC_control.Model
         {
             ui_refDoubler.Checked = isDoubled;
             ui_refDiv2.Checked = isDivBy2; 
-            ui_refInFreq.Text = string.Format("{0:f6}", refInFreq);
+            ui_refInFreq.Text = refInFreq.ToString("0.000 000");
             ui_refDivider.Value = refDivider;
-            ui_pfdFreqShowLabel.Text = MyFormat.ParseFrequencyDecimalValue(pfdFreq);
+            ui_pfdFreqShowLabel.Text = pfdFreq.ToString("0.000 000");
             ui_autoLdSpeedAdj.Checked = autoLdSpeedAdj;
             ui_LDSpeedAdj.SelectedIndex = LDSpeedAdj;
         } 

@@ -126,8 +126,9 @@ namespace Synthesizer_PC_control.Model
                 MessageBox.Show("The value entered is outside the allowed range for output frequency <23.5M - 12000>", "Output freq value out of range!", 
                 MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }
-            //ui_directFreqInput.Text = MyFormat.ParseFrequencyDecimalValue(directFreqInput);
-            ui_directFreqInput.Text = string.Format("{0:f6}", directFreqInput);
+            ui_directFreqInput.Text = directFreqInput.ToString("0.000 000");
+            //string pokus = MyFormat.ParseFrequencyDecimalValue(directFreqInput, 6); // FIXME this shit
+            //ui_directFreqInput.Text = string.Format("{0:f6}", directFreqInput);
 
             if (Math.Abs(deltaFreq) > 10)
                 ui_deltaFreqLabel.ForeColor = System.Drawing.Color.Red;
@@ -135,9 +136,9 @@ namespace Synthesizer_PC_control.Model
                 ui_deltaFreqLabel.ForeColor = System.Drawing.Color.Black;
             ui_deltaFreqLabel.Text = deltaFreq.ToString ("0.###");
 
-            ui_calcFreq.Text = MyFormat.ParseFrequencyDecimalValue(calcFreq);
-            ui_freqAtOut1.Text = MyFormat.ParseFrequencyDecimalValue(freqAtOut1);
-            ui_freqAtOut2.Text = MyFormat.ParseFrequencyDecimalValue(freqAtOut2);
+            ui_calcFreq.Text = calcFreq.ToString("0.### ### #");
+            ui_freqAtOut1.Text = freqAtOut1.ToString("0.0## ### #");
+            ui_freqAtOut2.Text = freqAtOut2.ToString("0.0## ### #");
 
             if (activeOut1)
             {
