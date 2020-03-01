@@ -2216,10 +2216,9 @@ namespace Synthesizer_PC_control
             // InputFreqTextBox
             // 
             this.InputFreqTextBox.BackColor = System.Drawing.Color.White;
-            this.InputFreqTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.InputFreqTextBox.Location = new System.Drawing.Point(147, 20);
             this.InputFreqTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.InputFreqTextBox.MaxLength = 12;
+            this.InputFreqTextBox.MaxLength = 17;
             this.InputFreqTextBox.Name = "InputFreqTextBox";
             this.InputFreqTextBox.Size = new System.Drawing.Size(109, 22);
             this.InputFreqTextBox.TabIndex = 3;
