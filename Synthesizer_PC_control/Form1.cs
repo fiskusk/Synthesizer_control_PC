@@ -38,9 +38,9 @@ namespace Synthesizer_PC_control
         
             controller = new Controller(this);
 
-            isForm1Load = true;
 
             controller.LoadSavedWorkspaceData();
+            isForm1Load = true;
             EnableControls(false);
         }
 
@@ -562,7 +562,8 @@ namespace Synthesizer_PC_control
 
         private void RefFTextBox_TextChanged(object sender, EventArgs e)
         {
-            MyFormat.CheckIfHasDecimalInput(RefFTextBox);
+            if (isForm1Load == true)
+                MyFormat.CheckIfHasDecimalInput(RefFTextBox);
         }
 
         private void DoubleRefFCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -675,7 +676,8 @@ namespace Synthesizer_PC_control
 #region Direct frequency controls
         private void InputFreqTextBox_TextChanged(object sender, EventArgs e)
         {
-            MyFormat.CheckIfHasDecimalInput(InputFreqTextBox);
+            if (isForm1Load == true)
+                MyFormat.CheckIfHasDecimalInput(InputFreqTextBox);
         }
 
         private void InputFreqTextBox_KeyDown(object sender, KeyEventArgs e)
