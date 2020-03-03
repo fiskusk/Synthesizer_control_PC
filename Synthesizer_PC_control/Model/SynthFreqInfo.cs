@@ -84,9 +84,9 @@ namespace Synthesizer_PC_control.Model
         public void UpdateUiElements()
         {
             
-            this.ui_fVco.Text = vcoFreq.ToString("0.0## ### #");
-            this.ui_fOutA.Text = fOutA.ToString("0.0## ### #");
-            this.ui_fOutB.Text = fOutB.ToString("0.0## ### #");
+            this.ui_fVco.Text = vcoFreq.ToString("0.000 000 #");
+            this.ui_fOutA.Text = fOutA.ToString("0.000 000 #");
+            this.ui_fOutB.Text = fOutB.ToString("0.000 000 #");
         }
     }
 }

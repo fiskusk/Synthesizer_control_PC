@@ -1006,7 +1006,7 @@ namespace Synthesizer_PC_control.Controllers
                     moduleControls.SetOut2(false);
                     directFreqControl.SetActiveOut2(false);
                 }
-                delta = (f_input - f_out_A) * 1e6M;
+                delta = (f_out_A - f_input) * 1e6M;
                 directFreqControl.SetCalcFreq(f_out_A);
             }
             else
@@ -1023,7 +1023,7 @@ namespace Synthesizer_PC_control.Controllers
                     moduleControls.SetOut2(true);
                     directFreqControl.SetActiveOut2(true);
                 }
-                delta = (f_input - f_out_B * 2) * 1e6M;
+                delta = (f_out_B * 2 - f_input) * 1e6M;
                 directFreqControl.SetCalcFreq(f_out_B * 2);
             }
 

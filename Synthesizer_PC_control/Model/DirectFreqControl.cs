@@ -143,17 +143,15 @@ namespace Synthesizer_PC_control.Model
                 MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }
             ui_directFreqInput.Text = directFreqInput.ToString("0.000 000");
-            //string pokus = MyFormat.ParseFrequencyDecimalValue(directFreqInput, 6); // FIXME this shit
-            //ui_directFreqInput.Text = string.Format("{0:f6}", directFreqInput);
 
             if (Math.Abs(deltaFreq) > 10)
                 ui_deltaFreqLabel.ForeColor = System.Drawing.Color.Red;
             else
                 ui_deltaFreqLabel.ForeColor = System.Drawing.Color.Black;
-            ui_deltaFreqLabel.Text = deltaFreq.ToString ("0.###");
+            ui_deltaFreqLabel.Text = deltaFreq.ToString ("+ 0.###;- 0.###;0");
 
-            ui_calcFreq.Text = calcFreq.ToString("0.### ### #");
-            ui_freqAtOut1.Text = freqAtOut1.ToString("0.0## ### #");
+            ui_calcFreq.Text = calcFreq.ToString("0.000 000 #");
+            ui_freqAtOut1.Text = freqAtOut1.ToString("0.000 000 #");
             ui_freqAtOut2.Text = freqAtOut2;
 
             if (activeOut1)
