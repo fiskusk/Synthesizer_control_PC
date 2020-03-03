@@ -63,8 +63,6 @@ namespace Synthesizer_PC_control.Model
             
         }
 
-
-        // FIXME ošetřit hranice -> return null
         public MyRegister GetRegister(int memory, int regIndex)
         {
             if (regIndex < 0 || regIndex > 6)

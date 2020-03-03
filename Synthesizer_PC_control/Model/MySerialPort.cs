@@ -104,7 +104,6 @@ namespace Synthesizer_PC_control.Model
             { 
                 MessageBox.Show("Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port", 
                 MessageBoxButtons.OK, MessageBoxIcon.Error); 
-                // TODO dodelat overeni, jestli se jedna o syntezator. Odesilat z modulu nejaky string ID treba MAX2871byFKU. Kdyz takovy tvar neprijde, napsat, ze takove zarizeni nelze pouzit. 
  
                 ClosePort(); 
  
