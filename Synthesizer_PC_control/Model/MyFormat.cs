@@ -275,7 +275,6 @@ namespace Synthesizer_PC_control
                         return position + 2;
                     else
                         return position;
-
                 }
                 else
                 {
@@ -285,7 +284,55 @@ namespace Synthesizer_PC_control
             catch{
                 return 0;
             }
-            
+        }
+
+        public static int UpDownKeyIncDecFunc(TextBox sender, Keys key)
+        {
+            string f_input_string = sender.Text;
+            f_input_string = f_input_string.Replace(" ", string.Empty);
+            f_input_string = f_input_string.Replace(".", ",");
+
+            double f_input = double.Parse(f_input_string);
+
+            try{
+                int comma_position = f_input_string.IndexOf(",");
+                int position = sender.SelectionStart-1;
+                double delenec;
+                if (position >= 0)
+                {
+                    if ((position-comma_position) <= 0)
+                    {
+                        if ((position-comma_position) < 0)
+                            delenec = Math.Pow(10, position + 1 - comma_position);
+                        else
+                            delenec = Math.Pow(10, position - comma_position);
+                    }
+                    else
+                    {
+                        if ((position-comma_position) <= 3)
+                            delenec = Math.Pow(10, position - comma_position);
+                        else
+                            delenec = Math.Pow(10, position - 1 - comma_position);
+                    }
+                    double increment = 1/(delenec);
+                    f_input = (key == Keys.Up) ? f_input += increment : f_input -= increment;
+                    f_input_string = string.Format("{0:f8}", f_input);
+                    sender.Text = f_input_string;
+                    if (comma_position == f_input_string.IndexOf(",") || comma_position == -1)
+                        return position + 1;
+                    else if ((comma_position == (f_input_string.IndexOf(",")) - 1))
+                        return position + 2;
+                    else
+                        return position;
+                }
+                else
+                {
+                    return position + 1;
+                }
+            }
+            catch{
+                return 0;
+            }
         }
 
         /*

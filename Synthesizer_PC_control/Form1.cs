@@ -711,6 +711,13 @@ namespace Synthesizer_PC_control
             {
                 e.SuppressKeyPress = true;
             }
+            else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                int cursorPosition = MyFormat.UpDownKeyIncDecFunc((TextBox)sender, e.KeyCode);
+                controller.CalcSynthesizerRegValuesFromInpFreq(InputFreqTextBox.Text);
+                InputFreqTextBox.SelectionStart = cursorPosition;
+                e.SuppressKeyPress = true;
+            }
             else if (e.KeyCode == Keys.Enter)
             {
                controller.CalcSynthesizerRegValuesFromInpFreq(InputFreqTextBox.Text);
