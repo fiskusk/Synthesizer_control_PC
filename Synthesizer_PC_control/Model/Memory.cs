@@ -60,7 +60,6 @@ namespace Synthesizer_PC_control.Model
             var mem4ControlReg = new MyRegister(string.Empty);
 
             registersMemory4 = new MyRegister[] {mem4Reg0, mem4Reg1, mem4Reg2, mem4Reg3, mem4Reg4, mem4Reg5, mem4ControlReg};
-            
         }
 
         public MyRegister GetRegister(int memory, int regIndex)
