@@ -958,6 +958,7 @@ namespace Synthesizer_PC_control.Controllers
                                                                      outBPathIndex);
 
             outFreqControl.SetADivVal((UInt16)calcRegs.aDivIndex);
+            refFreq.SetAutoLDSpeedAdj(true);
             outFreqControl.SetAutoLDFunction(true);
             outFreqControl.SetSynthMode(calcRegs.mode);
             outFreqControl.SetIntNVal(calcRegs.intN);
