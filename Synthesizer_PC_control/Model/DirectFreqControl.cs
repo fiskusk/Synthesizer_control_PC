@@ -10,7 +10,7 @@ namespace Synthesizer_PC_control.Model
         private decimal deltaFreq;
         private decimal calcFreq;
         private decimal freqAtOut1;
-        private decimal freqAtOut2;
+        private string freqAtOut2;
         private bool activeOut1;
         private bool activeOut2;
         private readonly TextBox ui_directFreqInput;
@@ -42,6 +42,8 @@ namespace Synthesizer_PC_control.Model
         {
             value = value.Replace(" ", string.Empty);
             value = value.Replace(".", ",");
+            if (value == string.Empty)
+                value = "23,5";
             SetDirectInputFreqValue(Convert.ToDecimal(value));
         }
 
@@ -82,7 +84,21 @@ namespace Synthesizer_PC_control.Model
         
         public void SetFreqAtOut2(decimal value)
         {
-            this.freqAtOut2 = value;
+            if (value >= 5000 && value <= 12000)
+            {
+                this.freqAtOut2 = value.ToString("0.0## ### #");
+                this.ui_freqAtOut2.ForeColor = Color.Black;
+            }
+            else if (value < 5000)
+            {
+                this.freqAtOut2 = "OutB freq Low";
+                this.ui_freqAtOut2.ForeColor = Color.Red;
+            }
+            else if (value > 12000)
+            {
+                this.freqAtOut2 = "OutB freq Hi";
+                this.ui_freqAtOut2.ForeColor = Color.Red;
+            }
 
             UpdateUiElements();
         }
@@ -138,7 +154,7 @@ namespace Synthesizer_PC_control.Model
 
             ui_calcFreq.Text = calcFreq.ToString("0.### ### #");
             ui_freqAtOut1.Text = freqAtOut1.ToString("0.0## ### #");
-            ui_freqAtOut2.Text = freqAtOut2.ToString("0.0## ### #");
+            ui_freqAtOut2.Text = freqAtOut2;
 
             if (activeOut1)
             {

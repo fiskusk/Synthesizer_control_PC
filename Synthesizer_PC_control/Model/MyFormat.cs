@@ -179,9 +179,7 @@ namespace Synthesizer_PC_control
             }
             if (item.IndexOf(" ") != comma_position + 4)
             {
-                int count = item.Count(f => f == ' ');
                 item = item.Replace(" ", string.Empty);
-                position = position - count;
             }
             if (position == comma_position + 9 && comma_position != -1)
             {
@@ -251,15 +249,38 @@ namespace Synthesizer_PC_control
                 int comma_position = f_input_string.IndexOf(",");
                 int position = sender.SelectionStart-1;
                 double delenec;
-                if ((position-comma_position) < 0)
-                    delenec = Math.Pow(10, position + 1 - comma_position);
+                if (position >= 0)
+                {
+                    if ((position-comma_position) <= 0)
+                    {
+                        if ((position-comma_position) < 0)
+                            delenec = Math.Pow(10, position + 1 - comma_position);
+                        else
+                            delenec = Math.Pow(10, position - comma_position);
+                    }
+                    else
+                    {
+                        if ((position-comma_position) <= 3)
+                            delenec = Math.Pow(10, position - comma_position);
+                        else
+                            delenec = Math.Pow(10, position - 1 - comma_position);
+                    }
+                    double increment = 1/(delenec);
+                    f_input = (handledArgs.Delta > 0) ? f_input += increment : f_input -= increment;
+                    f_input_string = string.Format("{0:f8}", f_input);
+                    sender.Text = f_input_string;
+                    if (comma_position == f_input_string.IndexOf(",") || comma_position == -1)
+                        return position + 1;
+                    else if ((comma_position == (f_input_string.IndexOf(",")) - 1))
+                        return position + 2;
+                    else
+                        return position;
+
+                }
                 else
-                    delenec = Math.Pow(10, position - comma_position);
-                double increment = 1/(delenec);
-                f_input = (handledArgs.Delta > 0) ? f_input += increment : f_input -= increment;
-                f_input_string = string.Format("{0:f8}", f_input);
-                sender.Text = f_input_string;
-                return position + 1;
+                {
+                    return position + 1;
+                }
             }
             catch{
                 return 0;
