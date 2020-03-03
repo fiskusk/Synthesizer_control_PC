@@ -970,6 +970,17 @@ namespace Synthesizer_PC_control.Controllers
                 outFreqControl.SetFracNVal(calcRegs.fracN);
             }
 
+            if (f_input <= 6000)
+            {
+                synthOutputControls.SetOutAEnable(OutEnState.ENABLE);
+                synthOutputControls.SetOutBEnable(OutEnState.DISABLE);
+            }
+            else
+            {
+                synthOutputControls.SetOutAEnable(OutEnState.DISABLE);
+                synthOutputControls.SetOutBEnable(OutEnState.ENABLE);
+            }
+
             serialPort.SetDisableSending(false, 13);
             if (serialPort.GetDisableSending() == false)
                 SendData();
@@ -998,7 +1009,7 @@ namespace Synthesizer_PC_control.Controllers
                 delta = (f_input - f_out_A) * 1e6M;
                 directFreqControl.SetCalcFreq(f_out_A);
             }
-            else if (f_input <= 12000)
+            else
             {
                 if (moduleControls.GetOut1State())
                 {
@@ -1014,11 +1025,6 @@ namespace Synthesizer_PC_control.Controllers
                 }
                 delta = (f_input - f_out_B * 2) * 1e6M;
                 directFreqControl.SetCalcFreq(f_out_B * 2);
-            }
-            else
-            {
-                delta = 9999999999;
-                // TODO fix this statement
             }
 
             directFreqControl.SetDeltaFreqValue(delta);
@@ -1415,22 +1421,26 @@ namespace Synthesizer_PC_control.Controllers
                 if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 0) == 1)
                 {
                     moduleControls.SetOut1(true);
+                    directFreqControl.SetActiveOut1(true);
                     serialPort.SendStringSerialPort("out 1 on");
                 }
                 else
                 {
                     moduleControls.SetOut1(false);
+                    directFreqControl.SetActiveOut1(false);
                     serialPort.SendStringSerialPort("out 1 off");
                 }
                 
                 if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 1) == 1)
                 {
                     moduleControls.SetOut2(true);
+                    directFreqControl.SetActiveOut2(true);
                     serialPort.SendStringSerialPort("out 2 on");
                 }
                 else
                 {
                     moduleControls.SetOut2(false);
+                    directFreqControl.SetActiveOut2(false);
                     serialPort.SendStringSerialPort("out 2 off");
                 }
                 
