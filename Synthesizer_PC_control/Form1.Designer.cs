@@ -1553,7 +1553,7 @@ namespace Synthesizer_PC_control
             this.RefFTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.RefFTextBox.Location = new System.Drawing.Point(87, 26);
             this.RefFTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RefFTextBox.MaxLength = 9;
+            this.RefFTextBox.MaxLength = 10;
             this.RefFTextBox.Name = "RefFTextBox";
             this.RefFTextBox.Size = new System.Drawing.Size(89, 22);
             this.RefFTextBox.TabIndex = 3;
