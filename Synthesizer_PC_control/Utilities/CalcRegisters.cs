@@ -62,59 +62,7 @@ namespace Synthesizer_PC_control.Utilities
                         ParallelEnumerable.Range(0, 50).WithDegreeOfParallelism(50).ForAll(i =>
                         {
                             copyFInputDown = copyFInputDown - 0.000001M;
-                            UInt16      rDivValueDown = 1;
-                            UInt16      aDivIndexDown;
-                            UInt16      intNDown;
-                            SynthMode   modeDown;
-                            UInt16      fracNDown;
-                            UInt16      modDown;
-                            decimal     fPfdDown;
-                            decimal     remainderDown;
-                            decimal     deltaDown;
-                            decimal     calcFreqDown;
-
-
-                            CalcIntNFromFrequency(copyFInputDown, rDivValueDown, 
-                                                out intNDown, out remainderDown, 
-                                                out aDivIndexDown, out fPfdDown);
-                            if (remainderDown > 0.0000000001M)
-                            {
-                                modeDown = SynthMode.FRACTIONAL;
-                                if (TryToCalcFractPart(remainderDown, rDivValueDown, 
-                                                        out rDivValueDown, intNDown, 
-                                                        out intNDown, out fracNDown, 
-                                                        out modDown, copyFInputDown,
-                                                        aDivIndexDown, fPfdDown, out fPfdDown) == true)
-                                {
-                                    calcFreqDown = CalcFreqInfo(modeDown, intNDown,
-                                                            fracNDown, modDown, 
-                                                            copyFInputDown, fPfdDown,
-                                                            aDivIndexDown);
-                                    deltaDown = Math.Abs((f_input - calcFreqDown) * 1e6M);
-                                }
-                                else
-                                {
-                                    deltaDown = 99999;
-                                }
-                            }
-                            else
-                            {
-                                modeDown = SynthMode.INTEGER;
-                                fracNDown = 0;
-                                modDown = 0;
-                                calcFreqDown = CalcFreqInfo(modeDown, intNDown,
-                                                        fracNDown, modDown, copyFInputDown, 
-                                                        fPfdDown, aDivIndexDown);
-                                deltaDown = Math.Abs((f_input - calcFreqDown) * 1e6M);
-                            }
-                            // store new calc values if its smallest than last stored
-                            calculatedSettings[i].intN = intNDown;
-                            calculatedSettings[i].fracN = fracNDown;
-                            calculatedSettings[i].mod = modDown;
-                            calculatedSettings[i].rDiv = rDivValueDown;
-                            calculatedSettings[i].mode = modeDown;
-                            calculatedSettings[i].aDivIndex = aDivIndexDown;
-                            calculatedSettings[i].delta = deltaDown;
+                            calculatedSettings[i] = CalcFracModVals(copyFInputDown, f_input);
                         });
                     };
 
@@ -125,59 +73,7 @@ namespace Synthesizer_PC_control.Utilities
                         ParallelEnumerable.Range(50, 50).WithDegreeOfParallelism(50).ForAll(i =>
                         {
                             copyFInputUp = copyFInputUp + 0.000001M;
-                            UInt16      rDivValueUp = 1;
-                            UInt16      aDivIndexUp;
-                            UInt16      intNUp;
-                            SynthMode   modeUp;
-                            UInt16      fracNUp;
-                            UInt16      modUp;
-                            decimal     fPfdUp;
-                            decimal     remainderUp;
-                            decimal     deltaUp;
-                            decimal     calcFreqUp;
-
-
-                            CalcIntNFromFrequency(copyFInputUp, rDivValueUp, 
-                                                out intNUp, out remainderUp, 
-                                                out aDivIndexUp, out fPfdUp);
-                            if (remainderUp > 0.0000000001M)
-                            {
-                                modeUp = SynthMode.FRACTIONAL;
-                                if (TryToCalcFractPart(remainderUp, rDivValueUp, 
-                                                        out rDivValueUp, intNUp, 
-                                                        out intNUp, out fracNUp, 
-                                                        out modUp, copyFInputUp,
-                                                        aDivIndexUp, fPfdUp, out fPfdUp) == true)
-                                {
-                                    calcFreqUp = CalcFreqInfo(modeUp, intNUp,
-                                                            fracNUp, modUp, 
-                                                            copyFInputUp, fPfdUp,
-                                                            aDivIndexUp);
-                                    deltaUp = Math.Abs((f_input - calcFreqUp) * 1e6M);
-                                }
-                                else
-                                {
-                                    deltaUp = 99999;
-                                }
-                            }
-                            else
-                            {
-                                modeUp = SynthMode.INTEGER;
-                                fracNUp = 0;
-                                modUp = 0;
-                                calcFreqUp = CalcFreqInfo(modeUp, intNUp,
-                                                        fracNUp, modUp, copyFInputUp, 
-                                                        fPfdUp, aDivIndexUp);
-                                deltaUp = Math.Abs((f_input - calcFreqUp) * 1e6M);
-                            }
-                            // store new calc values if its smallest than last stored
-                            calculatedSettings[i].intN = intNUp;
-                            calculatedSettings[i].fracN = fracNUp;
-                            calculatedSettings[i].mod = modUp;
-                            calculatedSettings[i].rDiv = rDivValueUp;
-                            calculatedSettings[i].mode = modeUp;
-                            calculatedSettings[i].aDivIndex = aDivIndexUp;
-                            calculatedSettings[i].delta = deltaUp;
+                            calculatedSettings[i] = CalcFracModVals(copyFInputUp, f_input);
                         });
                     };
 
@@ -222,6 +118,65 @@ namespace Synthesizer_PC_control.Utilities
 
             return calcRegs;
         }
+        public static  CalcRegs CalcFracModVals(decimal fInputNew, decimal fInputOriginal)
+        {
+            UInt16      rDivValueDown = 1;
+            UInt16      aDivIndexDown;
+            UInt16      intNDown;
+            SynthMode   modeDown;
+            UInt16      fracNDown;
+            UInt16      modDown;
+            decimal     fPfdDown;
+            decimal     remainderDown;
+            decimal     deltaDown;
+            decimal     calcFreqDown;
+
+            CalcRegs calcRegs = new CalcRegs();
+
+            CalcIntNFromFrequency(fInputNew, rDivValueDown, 
+                                out intNDown, out remainderDown, 
+                                out aDivIndexDown, out fPfdDown);
+            if (remainderDown > 0.0000000001M)
+            {
+                modeDown = SynthMode.FRACTIONAL;
+                if (TryToCalcFractPart(remainderDown, rDivValueDown, 
+                                        out rDivValueDown, intNDown, 
+                                        out intNDown, out fracNDown, 
+                                        out modDown, fInputNew,
+                                        aDivIndexDown, fPfdDown, out fPfdDown) == true)
+                {
+                    calcFreqDown = CalcFreqInfo(modeDown, intNDown,
+                                            fracNDown, modDown, 
+                                            fInputNew, fPfdDown,
+                                            aDivIndexDown);
+                    deltaDown = Math.Abs((fInputOriginal - calcFreqDown) * 1e6M);
+                }
+                else
+                {
+                    deltaDown = 99999;
+                }
+            }
+            else
+            {
+                modeDown = SynthMode.INTEGER;
+                fracNDown = 0;
+                modDown = 0;
+                calcFreqDown = CalcFreqInfo(modeDown, intNDown,
+                                        fracNDown, modDown, fInputNew, 
+                                        fPfdDown, aDivIndexDown);
+                deltaDown = Math.Abs((fInputOriginal - calcFreqDown) * 1e6M);
+            }
+            // store new calc values if its smallest than last stored
+            calcRegs.intN = intNDown;
+            calcRegs.fracN = fracNDown;
+            calcRegs.mod = modDown;
+            calcRegs.rDiv = rDivValueDown;
+            calcRegs.mode = modeDown;
+            calcRegs.aDivIndex = aDivIndexDown;
+            calcRegs.delta = deltaDown;
+
+            return calcRegs;
+        }
 
         public static void CalcIntNFromFrequency(decimal frequency, UInt16 rDivValue,
                                           out UInt16 intN, out decimal remainder,
@@ -252,7 +207,7 @@ namespace Synthesizer_PC_control.Utilities
 
             intN = (UInt16)intN_decimal;
 
-            remainder = intN_decimal-intN;
+            remainder = intN_decimal - intN;
         }
 
         private static UInt16 FindAndSetCorrespondingADivValue(decimal value)
