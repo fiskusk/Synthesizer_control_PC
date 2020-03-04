@@ -14,7 +14,7 @@ namespace Synthesizer_PC_control.Utilities
         public UInt16 rDiv;
         public SynthMode mode;
         public int aDivIndex;
-        public decimal delta;
+        public decimal calcFreq;
     }
     
     public static class  CalcRegisters
@@ -36,8 +36,6 @@ namespace Synthesizer_PC_control.Utilities
 
             CalcRegs calcRegs = new CalcRegs();
             CalcRegs[] calculatedSettings = new CalcRegs[100];
-
-            calculatedSettings[0].delta = 99999;
 
             UInt16      intN;
             UInt16      fracN;
@@ -85,13 +83,16 @@ namespace Synthesizer_PC_control.Utilities
                     Task.WaitAll(tasks);
 
                     int indexOfMinimum = 0;
-                    decimal minimum = 9999999;
+                    decimal deltaMinimum = Math.Abs((f_input - calculatedSettings[indexOfMinimum].calcFreq) * 1e6M);
+                    decimal delta;
 
                     for (int i = 0; i < calculatedSettings.Length; i++)
                     {
-                        if (calculatedSettings[i].delta < minimum)
+                        delta = Math.Abs((f_input - calculatedSettings[i].calcFreq) * 1e6M);
+
+                        if (delta < deltaMinimum)
                         {
-                            minimum = calculatedSettings[i].delta;
+                            deltaMinimum = delta;
                             indexOfMinimum = i;
                         }
                     }
@@ -128,7 +129,6 @@ namespace Synthesizer_PC_control.Utilities
             UInt16      modDown;
             decimal     fPfdDown;
             decimal     remainderDown;
-            decimal     deltaDown;
             decimal     calcFreqDown;
 
             CalcRegs calcRegs = new CalcRegs();
@@ -149,11 +149,10 @@ namespace Synthesizer_PC_control.Utilities
                                             fracNDown, modDown, 
                                             fInputNew, fPfdDown,
                                             aDivIndexDown);
-                    deltaDown = Math.Abs((fInputOriginal - calcFreqDown) * 1e6M);
                 }
                 else
                 {
-                    deltaDown = 99999;
+                    calcFreqDown = 0;
                 }
             }
             else
@@ -164,7 +163,6 @@ namespace Synthesizer_PC_control.Utilities
                 calcFreqDown = CalcFreqInfo(modeDown, intNDown,
                                         fracNDown, modDown, fInputNew, 
                                         fPfdDown, aDivIndexDown);
-                deltaDown = Math.Abs((fInputOriginal - calcFreqDown) * 1e6M);
             }
             // store new calc values if its smallest than last stored
             calcRegs.intN = intNDown;
@@ -173,7 +171,7 @@ namespace Synthesizer_PC_control.Utilities
             calcRegs.rDiv = rDivValueDown;
             calcRegs.mode = modeDown;
             calcRegs.aDivIndex = aDivIndexDown;
-            calcRegs.delta = deltaDown;
+            calcRegs.calcFreq = calcFreqDown;
 
             return calcRegs;
         }
