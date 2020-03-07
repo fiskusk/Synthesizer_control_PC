@@ -1412,7 +1412,7 @@ namespace Synthesizer_PC_control
             0,
             0});
             this.IntNNumUpDown.ValueChanged += new System.EventHandler(this.IntNNumericUpDown_ValueChanged);
-            this.IntNNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
+            this.IntNNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
             // 
             // ModNumUpDown
             // 
@@ -1438,7 +1438,7 @@ namespace Synthesizer_PC_control
             0,
             0});
             this.ModNumUpDown.ValueChanged += new System.EventHandler(this.ModNumUpDown_ValueChanged);
-            this.ModNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
+            this.ModNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
             // 
             // FracNNumUpDown
             // 
@@ -1454,7 +1454,7 @@ namespace Synthesizer_PC_control
             this.FracNNumUpDown.TabIndex = 19;
             this.FracNNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.FracNNumUpDown.ValueChanged += new System.EventHandler(this.FracNNumUpDown_ValueChanged);
-            this.FracNNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
+            this.FracNNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
             // 
             // PhasePNumericUpDown
             // 
@@ -1470,7 +1470,7 @@ namespace Synthesizer_PC_control
             this.PhasePNumericUpDown.TabIndex = 19;
             this.PhasePNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.PhasePNumericUpDown.ValueChanged += new System.EventHandler(this.PhasePNumUpDown_ValueChanged);
-            this.PhasePNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
+            this.PhasePNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
             // 
             // RefFreqGroupBox
             // 
@@ -1530,7 +1530,7 @@ namespace Synthesizer_PC_control
             0,
             0});
             this.RDivUpDown.ValueChanged += new System.EventHandler(this.RDivUpDown_ValueChanged);
-            this.RDivUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ScrollHandlerFunction);
+            this.RDivUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
             // 
             // LDSpeedAdjComboBox
             // 
@@ -1561,6 +1561,7 @@ namespace Synthesizer_PC_control
             this.RefFTextBox.TextChanged += new System.EventHandler(this.RefFTextBox_TextChanged);
             this.RefFTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RefFTextBox_KeyDown);
             this.RefFTextBox.LostFocus += new System.EventHandler(this.RefFTextBox_LostFocus);
+            this.RefFTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
             // 
             // DivideBy2CheckBox
             // 
@@ -2226,7 +2227,7 @@ namespace Synthesizer_PC_control
             this.InputFreqTextBox.TextChanged += new System.EventHandler(this.InputFreqTextBox_TextChanged);
             this.InputFreqTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputFreqTextBox_KeyDown);
             this.InputFreqTextBox.LostFocus += new System.EventHandler(this.RefFTextBox_LostFocus);
-            this.InputFreqTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.InputFreqHandlerFunction);
+            this.InputFreqTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
             // 
             // MHzLabel6
             // 

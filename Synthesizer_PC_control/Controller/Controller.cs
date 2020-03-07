@@ -212,6 +212,16 @@ namespace Synthesizer_PC_control.Controllers
             sender.SelectionStart = position;
         }
 
+        public void TextBoxHandlerFunc(TextBox sender, MouseEventArgs e)
+        {
+            int cursorPosition = MyFormat.ScrollByPositionOfCursor(sender, e);
+            if (sender.Name == "InputFreqTextBox")
+                CalcSynthesizerRegValuesFromInpFreq(sender.Text);
+            else if (sender.Name == "RefFTextBox")
+                ReferenceFrequencyValueChanged(sender.Text);
+            sender.SelectionStart = cursorPosition;
+        }
+
         public void ReferenceFrequencyValueChanged(string value)
         {
             if (refFreq.SetRefFreqValue(value) == true)

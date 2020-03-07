@@ -302,7 +302,7 @@ namespace Synthesizer_PC_control
         }
 
         
-        private void ScrollHandlerFunction(object sender, MouseEventArgs e)
+        private void NumericUpDwScrollHandlerFunction(object sender, MouseEventArgs e)
         {
             MyFormat.ScrollHandlerFunction((NumericUpDown)sender, e);
         }
@@ -554,7 +554,7 @@ namespace Synthesizer_PC_control
 
         private void RefFTextBox_LostFocus(object sender, EventArgs e)
         {
-            //controller.ReferenceFrequencyValueWasChanged(RefFTextBox.Text);
+            controller.ReferenceFrequencyValueChanged(((TextBox)(sender)).Text);
         }
 
         private void RefFTextBox_TextChanged(object sender, EventArgs e)
@@ -682,11 +682,9 @@ namespace Synthesizer_PC_control
             controller.FreqTextBoxBehavior(((TextBox)(sender)), e);
         }
 
-        private void InputFreqHandlerFunction(object sender, MouseEventArgs e)
+        private void TextBoxScrollHandlerFunction(object sender, MouseEventArgs e)
         {
-            int cursorPosition = MyFormat.ScrollByPositionOfCursor(InputFreqTextBox, e);
-            controller.CalcSynthesizerRegValuesFromInpFreq(InputFreqTextBox.Text);
-            InputFreqTextBox.SelectionStart = cursorPosition;
+            controller.TextBoxHandlerFunc((TextBox)(sender), e);
         }
 
         
