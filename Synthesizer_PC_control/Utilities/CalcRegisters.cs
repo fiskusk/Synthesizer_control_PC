@@ -36,86 +36,52 @@ namespace Synthesizer_PC_control.Utilities
 
             CalcRegs calcRegs = new CalcRegs();
             CalcRegs[] calculatedSettings = new CalcRegs[100];
-
-            UInt16      intN;
-            UInt16      fracN;
-            UInt16      mod;
-            UInt16      aDivIndex;
-            UInt16      rDivValue = 1;
-            decimal     remainder;
-            decimal     fPfd;
-
-            CalcIntNFromFrequency(f_input, rDivValue, out intN, out remainder, out aDivIndex, out fPfd);
             
-            if (remainder > 0.0000000000000001M)
+            Action calcJob1 = () => 
             {
-                if (TryToCalcFractPart(remainder, rDivValue, 
-                    out rDivValue, intN, out intN, out fracN, 
-                    out mod, f_input, aDivIndex, fPfd, out fPfd) == false)
+                decimal copyFInputDown = f_input + 0.000001M;
+                ThreadPool.SetMinThreads(50,50);
+                ParallelEnumerable.Range(0, 50).WithDegreeOfParallelism(50).ForAll(i =>
                 {
-                    Action calcJob1 = () => 
-                    {
-                        decimal copyFInputDown = f_input;
-                        ThreadPool.SetMinThreads(50,50);
-                        ParallelEnumerable.Range(0, 50).WithDegreeOfParallelism(50).ForAll(i =>
-                        {
-                            copyFInputDown = copyFInputDown - 0.000001M;
-                            calculatedSettings[i] = CalcFracModVals(copyFInputDown, f_input);
-                        });
-                    };
+                    copyFInputDown = copyFInputDown - 0.000001M;
+                    calculatedSettings[i] = CalcFracModVals(copyFInputDown, f_input);
+                });
+            };
 
-                    Action calcJob2 = () => 
-                    {
-                        decimal copyFInputUp = f_input;
-                        ThreadPool.SetMinThreads(50,50);
-                        ParallelEnumerable.Range(50, 50).WithDegreeOfParallelism(50).ForAll(i =>
-                        {
-                            copyFInputUp = copyFInputUp + 0.000001M;
-                            calculatedSettings[i] = CalcFracModVals(copyFInputUp, f_input);
-                        });
-                    };
-
-                    var tasks = new[] {
-                        Task.Factory.StartNew(calcJob1),
-                        Task.Factory.StartNew(calcJob2)
-                    };
-
-                    Task.WaitAll(tasks);
-
-                    int indexOfMinimum = 0;
-                    decimal deltaMinimum = Math.Abs((f_input - calculatedSettings[indexOfMinimum].calcFreq) * 1e6M);
-                    decimal delta;
-
-                    for (int i = 0; i < calculatedSettings.Length; i++)
-                    {
-                        delta = Math.Abs((f_input - calculatedSettings[i].calcFreq) * 1e6M);
-
-                        if (delta < deltaMinimum)
-                        {
-                            deltaMinimum = delta;
-                            indexOfMinimum = i;
-                        }
-                    }
-
-                    calcRegs = calculatedSettings[indexOfMinimum];
-                }
-                else
+            Action calcJob2 = () => 
+            {
+                decimal copyFInputUp = f_input;
+                ThreadPool.SetMinThreads(50,50);
+                ParallelEnumerable.Range(50, 50).WithDegreeOfParallelism(50).ForAll(i =>
                 {
-                    calcRegs.mode = SynthMode.FRACTIONAL;
-                    calcRegs.aDivIndex = aDivIndex;
-                    calcRegs.rDiv = rDivValue;
-                    calcRegs.intN = intN;
-                    calcRegs.fracN = fracN;
-                    calcRegs.mod = mod;
+                    copyFInputUp = copyFInputUp + 0.000001M;
+                    calculatedSettings[i] = CalcFracModVals(copyFInputUp, f_input);
+                });
+            };
+
+            var tasks = new[] {
+                Task.Factory.StartNew(calcJob1),
+                Task.Factory.StartNew(calcJob2)
+            };
+
+            Task.WaitAll(tasks);
+
+            int indexOfMinimum = 0;
+            decimal deltaMinimum = Math.Abs((f_input - calculatedSettings[indexOfMinimum].calcFreq) * 1e6M);
+            decimal delta;
+
+            for (int i = 0; i < calculatedSettings.Length; i++)
+            {
+                delta = Math.Abs((f_input - calculatedSettings[i].calcFreq) * 1e6M);
+
+                if (delta < deltaMinimum)
+                {
+                    deltaMinimum = delta;
+                    indexOfMinimum = i;
                 }
             }
-            else
-            {
-                calcRegs.mode = SynthMode.INTEGER;
-                calcRegs.rDiv = rDivValue;
-                calcRegs.aDivIndex = aDivIndex;
-                calcRegs.intN = intN;
-            }
+
+            calcRegs = calculatedSettings[indexOfMinimum];
 
             return calcRegs;
         }
