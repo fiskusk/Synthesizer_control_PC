@@ -176,9 +176,46 @@ namespace Synthesizer_PC_control.Controllers
 #endregion
     
     #region Reference Frequency Controls Group 
+        public void FreqTextBoxBehavior(TextBox sender, KeyEventArgs e)
+        {
+            int position = sender.SelectionStart;
+            if (e.KeyCode == Keys.Back)
+            {
+                string text = sender.Text;
+                int commaPosition = text.IndexOf(".");
+                if (position == commaPosition + 5  && commaPosition != -1)
+                {
+                   position = commaPosition + 4;
+                }
+            }
+            else if (e.KeyCode == Keys.Space)
+            {
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                int cursorPosition = MyFormat.UpDownKeyIncDecFunc(sender, e.KeyCode);
+                if (sender.Name == "InputFreqTextBox")  
+                    CalcSynthesizerRegValuesFromInpFreq(sender.Text);
+                else if (sender.Name == "RefFTextBox")
+                    ReferenceFrequencyValueChanged(sender.Text);
+                sender.SelectionStart = cursorPosition;
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                if (sender.Name == "InputFreqTextBox")
+                    CalcSynthesizerRegValuesFromInpFreq(sender.Text);
+                else if (sender.Name == "RefFTextBox")
+                    ReferenceFrequencyValueChanged(sender.Text);
+            }
+            sender.SelectionStart = position;
+        }
+
         public void ReferenceFrequencyValueChanged(string value)
         {
-            refFreq.SetRefFreqValue(value);
+            if (refFreq.SetRefFreqValue(value) == true)
+                RecalcFreqInfo();
         }
 
         public void ReferenceDoublerStateChanged(bool value)

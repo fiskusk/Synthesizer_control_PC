@@ -549,25 +549,7 @@ namespace Synthesizer_PC_control
 #region Reference frequency control group
         private void RefFTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            int position = ((TextBox)(sender)).SelectionStart;
-            if (e.KeyCode == Keys.Back)
-            {
-                string text = ((TextBox)(sender)).Text;
-                int commaPosition = text.IndexOf(".");
-                if (position == commaPosition + 5  && commaPosition != -1)
-                {
-                   position = commaPosition + 4;
-                }
-            }
-            else if (e.KeyCode == Keys.Space)
-            {
-                e.SuppressKeyPress = true;
-            }
-            if (e.KeyCode == Keys.Enter)
-            {
-                controller.ReferenceFrequencyValueChanged(RefFTextBox.Text);
-            }
-            ((TextBox)(sender)).SelectionStart = position;
+            controller.FreqTextBoxBehavior(((TextBox)(sender)), e);
         }
 
         private void RefFTextBox_LostFocus(object sender, EventArgs e)
@@ -697,32 +679,7 @@ namespace Synthesizer_PC_control
 
         private void InputFreqTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            int position = ((TextBox)(sender)).SelectionStart;
-            if (e.KeyCode == Keys.Back)
-            {
-                string text = ((TextBox)(sender)).Text;
-                int commaPosition = text.IndexOf(".");
-                if (position == commaPosition + 5  && commaPosition != -1)
-                {
-                   position = commaPosition + 4;
-                }
-            }
-            else if (e.KeyCode == Keys.Space)
-            {
-                e.SuppressKeyPress = true;
-            }
-            else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
-            {
-                int cursorPosition = MyFormat.UpDownKeyIncDecFunc((TextBox)sender, e.KeyCode);
-                controller.CalcSynthesizerRegValuesFromInpFreq(InputFreqTextBox.Text);
-                InputFreqTextBox.SelectionStart = cursorPosition;
-                e.SuppressKeyPress = true;
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-               controller.CalcSynthesizerRegValuesFromInpFreq(InputFreqTextBox.Text);
-            }
-            ((TextBox)(sender)).SelectionStart = position;
+            controller.FreqTextBoxBehavior(((TextBox)(sender)), e);
         }
 
         private void InputFreqHandlerFunction(object sender, MouseEventArgs e)

@@ -71,17 +71,19 @@ namespace Synthesizer_PC_control.Model
                 UpdateUiElements();
             }
         }
-        public void SetRefFreqValue(string value)
+        public bool SetRefFreqValue(string value)
         {
             value = value.Replace(" ", string.Empty);
             value = value.Replace(".", ",");
-            SetRefFreqValue(Convert.ToDecimal(value));
+            return SetRefFreqValue(Convert.ToDecimal(value));
         }
 
-        public void SetRefFreqValue(decimal value)
+        public bool SetRefFreqValue(decimal value)
         {
+            bool changed;
             if (value != refInFreq)
             {
+                changed = true;
                 if (value < minRefInputFreq || value > maxRefInputFreq)
                 {
                     value = this.refInFreq;
@@ -96,6 +98,11 @@ namespace Synthesizer_PC_control.Model
 
                 UpdateUiElements();
             }
+            else
+            {
+                changed = false;
+            }
+            return changed;
         }
 
         public void SetRefDoubler(bool value)
