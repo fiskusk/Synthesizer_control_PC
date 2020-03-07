@@ -12,6 +12,8 @@ namespace Synthesizer_PC_control.Model
     }
     public class OutFreqControl : I_UiLinked
     {
+        private string wrongLDFncMsg = "Warning: The 'Lock-Detect function' is set to the wrong lock type due to the synthesizer mode set.";
+
         private UInt16 intN;
         private UInt16 fracN;
         private UInt16 mod;
@@ -21,9 +23,6 @@ namespace Synthesizer_PC_control.Model
         private int LDFunction;
         private bool autoLDFunction;
         private int outBPath;
-
-        private string warningMessage = "Warning: The 'Lock-Detect function' is set to the wrong lock type due to the synthesizer mode set.";
-
         private readonly NumericUpDown ui_intN;
         private readonly NumericUpDown ui_fracN;
         private readonly NumericUpDown ui_mod;
@@ -275,7 +274,7 @@ namespace Synthesizer_PC_control.Model
                     else if (ui_LDFunctionLabel.ForeColor != Color.Red)
                     {
                         ui_LDFunctionLabel.ForeColor = Color.Red;
-                        ConsoleController.Console().Write(warningMessage);
+                        ConsoleController.Console().Write(wrongLDFncMsg);
                     }
                 }
                 else
@@ -285,7 +284,7 @@ namespace Synthesizer_PC_control.Model
                     else if (ui_LDFunctionLabel.ForeColor != Color.Red)
                     {
                         ui_LDFunctionLabel.ForeColor = Color.Red;
-                        ConsoleController.Console().Write(warningMessage);
+                        ConsoleController.Console().Write(wrongLDFncMsg);
                     }
                 }
             }

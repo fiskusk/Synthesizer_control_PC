@@ -33,27 +33,6 @@ namespace Synthesizer_PC_control
             }
         }
 
-        /*
-        public static void CheckIfHasDecimalInput(TextBox sender)
-        {
-            string item = sender.Text;
-            decimal n = 0;
-            if ((!decimal.TryParse(item, NumberStyles.AllowDecimalPoint, new NumberFormatInfo() {
-                NumberDecimalSeparator = ".", NumberGroupSeparator = " " },  out n) &&
-                !decimal.TryParse(item, NumberStyles.AllowDecimalPoint, new NumberFormatInfo() {
-                NumberDecimalSeparator = ",", NumberGroupSeparator = " " }, out n)) &&
-                item != String.Empty)
-            {
-                if (sender.SelectionStart != 0)
-                {
-                    int position = sender.SelectionStart-1;
-                    item = item.Remove(position, 1);
-                    sender.Text = item;
-                    sender.SelectionStart = position;
-                }
-            }
-        }
-        */
         public static void CheckIfHasDecimalInput(TextBox sender)
         {
             string item = sender.Text;
@@ -188,22 +167,6 @@ namespace Synthesizer_PC_control
             }
             sender.Text = item;
             sender.SelectionStart = position;
-            
-            /*
-            item = item.Replace(" ", string.Empty);
-            item = item.Replace(".", ",");
-            item = item.Replace(",,", ",");
-            item = item.Replace("..", ",");
-            item = item.Replace(",.", ",");
-            item = item.Replace(".,", ",");
-            int comma_position = item.IndexOf(",");
-            if (comma_position != position && comma_position != -1)
-                item = item.Remove(position, 1);
-            decimal itemDecimal = Convert.ToDecimal(item);
-            sender.Text =  itemDecimal.ToString("0.0## ###");
-            if (!(position == comma_position + 1) && position == comma_position + 4)
-                position++;
-            */
         }
 
         public static void CheckIfHasIntegerInput(TextBox sender)
@@ -334,21 +297,5 @@ namespace Synthesizer_PC_control
                 return 0;
             }
         }
-
-        /*
-        public static string ParseFrequencyDecimalValue(decimal freq)
-        {
-            UInt16 f_MHz = (UInt16)(freq);
-            UInt32 f_kHz = (UInt32)(freq*1000);
-            UInt64 f_Hz = (UInt64)(freq*1000000);
-            UInt64 f_mHz = (UInt64)(freq*1000000000);
-            UInt16 thousandths = (UInt16)(f_kHz - f_MHz*1000);
-            UInt16 millionths = (UInt16)(f_Hz - (UInt64)(f_MHz)*1000000-(UInt64)(thousandths)*1000);
-            UInt16 billionths = (UInt16)(f_mHz - (UInt64)(f_Hz)*1000);
-            float bill_f = (float)((billionths)/100.0);
-            double roundedBillionths  = Math.Round((float)(billionths)/100.0, MidpointRounding.AwayFromZero);
-
-            return string.Format("{0},{1:000} {2:000} {3:0}", f_MHz, thousandths, millionths, roundedBillionths);
-        }*/
     }
 }

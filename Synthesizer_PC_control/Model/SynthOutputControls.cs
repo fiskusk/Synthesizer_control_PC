@@ -12,11 +12,11 @@ namespace Synthesizer_PC_control.Model
 
     public class SynthOutputControls : I_UiLinked
     {
+        private string wrongBPwrMsg = "Warning: Output power at 'Out B' is limited to maximum +2 dBm. This limitation is due to the frequency doubler circuit used at Out 2";
         private OutEnState outAEn;
         private OutEnState outBEn;
         private int outAPwr;
         private int outBPwr;
-        private string wrongBPwrMessage = "Warning: Output power at 'Out B' is limited to maximum +2 dBm. This limitation is due to the frequency doubler circuit used at Out 2";
         private readonly ComboBox ui_outAEnable;
         private readonly ComboBox ui_outBEnable;
         private readonly ComboBox ui_outAPwr;
@@ -70,7 +70,7 @@ namespace Synthesizer_PC_control.Model
             if (value == 3)
             {
                 value = outBPwr;
-                ConsoleController.Console().Write(wrongBPwrMessage);
+                ConsoleController.Console().Write(wrongBPwrMsg);
                 state = false;
             }
             else
