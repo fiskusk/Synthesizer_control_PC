@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Windows.Forms;
 using Synthesizer_PC_control.Utilities;
+using Synthesizer_PC_control.Controllers;
 using System.Linq;
 
 namespace Synthesizer_PC_control.Model
 {
     class MyRegister : I_UiLinked
     {
-        private TextBox uiElement;
+        private string badAddressMsg = "Warning: An incorrect address was detected while parsing the specified registry value. Address value changed to correct.";
 
+        private TextBox uiElement;
         private string value;
-        
         private readonly bool updateUI;
 
         public MyRegister(string value)
@@ -61,9 +62,15 @@ namespace Synthesizer_PC_control.Model
                     string sender = string.Join("", uiElement.Name.ToCharArray().Where(Char.IsDigit));
                     int regNumber = int.Parse(Convert.ToString(sender[0]));
 
-                    UInt32 val = UInt32.Parse(value, System.Globalization.NumberStyles.HexNumber);
-                    val = BitOperations.ChangeNBits(val, (UInt32)regNumber, 3, 0);
-                    value = Convert.ToString(val, 16);
+                    UInt32 correctAddress = UInt32.Parse(value, System.Globalization.NumberStyles.HexNumber);
+                    correctAddress = BitOperations.ChangeNBits(correctAddress, (UInt32)regNumber, 3, 0);
+                    string correctAddressString = Convert.ToString(correctAddress, 16);
+
+                    if (!string.Equals(value, correctAddressString) )
+                    {
+                        value = correctAddressString;
+                        ConsoleController.Console().Write(badAddressMsg);
+                    }
                 }
                 this.value = value;
                 UpdateUiElements();
