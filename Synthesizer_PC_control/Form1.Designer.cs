@@ -207,6 +207,7 @@ namespace Synthesizer_PC_control
             this.ActiveOut2Label = new System.Windows.Forms.Label();
             this.ActiveOut1Label = new System.Windows.Forms.Label();
             this.ConsoleRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.SynthModuleInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.genericControlsGroupBox.SuspendLayout();
@@ -226,11 +227,12 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.DirectFreqContrGroupBox.SuspendLayout();
+            this.SynthModuleInfoGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // PortButton
             // 
-            this.PortButton.Location = new System.Drawing.Point(16, 11);
+            this.PortButton.Location = new System.Drawing.Point(22, 11);
             this.PortButton.Margin = new System.Windows.Forms.Padding(4);
             this.PortButton.Name = "PortButton";
             this.PortButton.Size = new System.Drawing.Size(100, 28);
@@ -241,7 +243,7 @@ namespace Synthesizer_PC_control
             // 
             // Out1Button
             // 
-            this.Out1Button.Location = new System.Drawing.Point(16, 48);
+            this.Out1Button.Location = new System.Drawing.Point(22, 48);
             this.Out1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Out1Button.Name = "Out1Button";
             this.Out1Button.Size = new System.Drawing.Size(100, 28);
@@ -252,7 +254,7 @@ namespace Synthesizer_PC_control
             // 
             // Out2Button
             // 
-            this.Out2Button.Location = new System.Drawing.Point(122, 48);
+            this.Out2Button.Location = new System.Drawing.Point(128, 48);
             this.Out2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Out2Button.Name = "Out2Button";
             this.Out2Button.Size = new System.Drawing.Size(100, 28);
@@ -263,7 +265,7 @@ namespace Synthesizer_PC_control
             // 
             // PloInitButton
             // 
-            this.PloInitButton.Location = new System.Drawing.Point(228, 11);
+            this.PloInitButton.Location = new System.Drawing.Point(234, 11);
             this.PloInitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PloInitButton.Name = "PloInitButton";
             this.PloInitButton.Size = new System.Drawing.Size(100, 28);
@@ -418,7 +420,7 @@ namespace Synthesizer_PC_control
             // 
             // RefButton
             // 
-            this.RefButton.Location = new System.Drawing.Point(228, 48);
+            this.RefButton.Location = new System.Drawing.Point(234, 48);
             this.RefButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RefButton.Name = "RefButton";
             this.RefButton.Size = new System.Drawing.Size(100, 28);
@@ -464,7 +466,7 @@ namespace Synthesizer_PC_control
             // 
             this.AvaibleCOMsComBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AvaibleCOMsComBox.FormattingEnabled = true;
-            this.AvaibleCOMsComBox.Location = new System.Drawing.Point(123, 11);
+            this.AvaibleCOMsComBox.Location = new System.Drawing.Point(129, 11);
             this.AvaibleCOMsComBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.AvaibleCOMsComBox.Name = "AvaibleCOMsComBox";
             this.AvaibleCOMsComBox.Size = new System.Drawing.Size(99, 24);
@@ -2280,34 +2282,24 @@ namespace Synthesizer_PC_control
             // DirectFreqContrGroupBox
             // 
             this.DirectFreqContrGroupBox.Controls.Add(this.InputFreqTextBox);
-            this.DirectFreqContrGroupBox.Controls.Add(this.MHzLabel9);
-            this.DirectFreqContrGroupBox.Controls.Add(this.MHzLabel8);
             this.DirectFreqContrGroupBox.Controls.Add(this.MHzLabel7);
             this.DirectFreqContrGroupBox.Controls.Add(this.MHzLabel6);
             this.DirectFreqContrGroupBox.Controls.Add(this.InputFreqLabel);
-            this.DirectFreqContrGroupBox.Controls.Add(this.FreqAtOut2ShowLabel);
-            this.DirectFreqContrGroupBox.Controls.Add(this.FreqAtOut1ShowLabel);
             this.DirectFreqContrGroupBox.Controls.Add(this.CalcFreqShowLabel);
-            this.DirectFreqContrGroupBox.Controls.Add(this.ActOut2ShowLabel);
-            this.DirectFreqContrGroupBox.Controls.Add(this.FreqAtOut2Label);
-            this.DirectFreqContrGroupBox.Controls.Add(this.ActOut1ShowLabel);
-            this.DirectFreqContrGroupBox.Controls.Add(this.FreqAtOut1Label);
             this.DirectFreqContrGroupBox.Controls.Add(this.DeltaShowLabel);
             this.DirectFreqContrGroupBox.Controls.Add(this.CalcFreqLabel);
-            this.DirectFreqContrGroupBox.Controls.Add(this.ActiveOut2Label);
-            this.DirectFreqContrGroupBox.Controls.Add(this.ActiveOut1Label);
             this.DirectFreqContrGroupBox.Controls.Add(this.DeltaLabel);
             this.DirectFreqContrGroupBox.Controls.Add(this.HzLabel);
-            this.DirectFreqContrGroupBox.Location = new System.Drawing.Point(16, 93);
+            this.DirectFreqContrGroupBox.Location = new System.Drawing.Point(11, 81);
             this.DirectFreqContrGroupBox.Name = "DirectFreqContrGroupBox";
-            this.DirectFreqContrGroupBox.Size = new System.Drawing.Size(334, 165);
+            this.DirectFreqContrGroupBox.Size = new System.Drawing.Size(334, 95);
             this.DirectFreqContrGroupBox.TabIndex = 22;
             this.DirectFreqContrGroupBox.TabStop = false;
             this.DirectFreqContrGroupBox.Text = "Direct output frequency control";
             // 
             // MHzLabel9
             // 
-            this.MHzLabel9.Location = new System.Drawing.Point(263, 140);
+            this.MHzLabel9.Location = new System.Drawing.Point(266, 65);
             this.MHzLabel9.Name = "MHzLabel9";
             this.MHzLabel9.Size = new System.Drawing.Size(40, 17);
             this.MHzLabel9.TabIndex = 17;
@@ -2316,7 +2308,7 @@ namespace Synthesizer_PC_control
             // 
             // MHzLabel8
             // 
-            this.MHzLabel8.Location = new System.Drawing.Point(263, 118);
+            this.MHzLabel8.Location = new System.Drawing.Point(266, 43);
             this.MHzLabel8.Name = "MHzLabel8";
             this.MHzLabel8.Size = new System.Drawing.Size(40, 17);
             this.MHzLabel8.TabIndex = 17;
@@ -2334,7 +2326,7 @@ namespace Synthesizer_PC_control
             // 
             // FreqAtOut2ShowLabel
             // 
-            this.FreqAtOut2ShowLabel.Location = new System.Drawing.Point(147, 141);
+            this.FreqAtOut2ShowLabel.Location = new System.Drawing.Point(150, 66);
             this.FreqAtOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FreqAtOut2ShowLabel.Name = "FreqAtOut2ShowLabel";
             this.FreqAtOut2ShowLabel.Size = new System.Drawing.Size(109, 16);
@@ -2344,7 +2336,7 @@ namespace Synthesizer_PC_control
             // 
             // FreqAtOut1ShowLabel
             // 
-            this.FreqAtOut1ShowLabel.Location = new System.Drawing.Point(147, 119);
+            this.FreqAtOut1ShowLabel.Location = new System.Drawing.Point(150, 44);
             this.FreqAtOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FreqAtOut1ShowLabel.Name = "FreqAtOut1ShowLabel";
             this.FreqAtOut1ShowLabel.Size = new System.Drawing.Size(109, 16);
@@ -2365,7 +2357,7 @@ namespace Synthesizer_PC_control
             // ActOut2ShowLabel
             // 
             this.ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ActOut2ShowLabel.Location = new System.Drawing.Point(288, 98);
+            this.ActOut2ShowLabel.Location = new System.Drawing.Point(291, 23);
             this.ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActOut2ShowLabel.Name = "ActOut2ShowLabel";
             this.ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
@@ -2376,7 +2368,7 @@ namespace Synthesizer_PC_control
             // 
             // FreqAtOut2Label
             // 
-            this.FreqAtOut2Label.Location = new System.Drawing.Point(2, 139);
+            this.FreqAtOut2Label.Location = new System.Drawing.Point(5, 64);
             this.FreqAtOut2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FreqAtOut2Label.Name = "FreqAtOut2Label";
             this.FreqAtOut2Label.Size = new System.Drawing.Size(138, 18);
@@ -2387,7 +2379,7 @@ namespace Synthesizer_PC_control
             // ActOut1ShowLabel
             // 
             this.ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.ActOut1ShowLabel.Location = new System.Drawing.Point(124, 97);
+            this.ActOut1ShowLabel.Location = new System.Drawing.Point(127, 22);
             this.ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActOut1ShowLabel.Name = "ActOut1ShowLabel";
             this.ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
@@ -2398,7 +2390,7 @@ namespace Synthesizer_PC_control
             // 
             // FreqAtOut1Label
             // 
-            this.FreqAtOut1Label.Location = new System.Drawing.Point(2, 117);
+            this.FreqAtOut1Label.Location = new System.Drawing.Point(5, 42);
             this.FreqAtOut1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FreqAtOut1Label.Name = "FreqAtOut1Label";
             this.FreqAtOut1Label.Size = new System.Drawing.Size(138, 18);
@@ -2418,7 +2410,7 @@ namespace Synthesizer_PC_control
             // 
             // ActiveOut2Label
             // 
-            this.ActiveOut2Label.Location = new System.Drawing.Point(167, 96);
+            this.ActiveOut2Label.Location = new System.Drawing.Point(170, 21);
             this.ActiveOut2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActiveOut2Label.Name = "ActiveOut2Label";
             this.ActiveOut2Label.Size = new System.Drawing.Size(116, 18);
@@ -2428,7 +2420,7 @@ namespace Synthesizer_PC_control
             // 
             // ActiveOut1Label
             // 
-            this.ActiveOut1Label.Location = new System.Drawing.Point(4, 95);
+            this.ActiveOut1Label.Location = new System.Drawing.Point(7, 20);
             this.ActiveOut1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActiveOut1Label.Name = "ActiveOut1Label";
             this.ActiveOut1Label.Size = new System.Drawing.Size(113, 18);
@@ -2439,19 +2431,39 @@ namespace Synthesizer_PC_control
             // ConsoleRichTextBox
             // 
             this.ConsoleRichTextBox.HideSelection = false;
-            this.ConsoleRichTextBox.Location = new System.Drawing.Point(16, 264);
+            this.ConsoleRichTextBox.Location = new System.Drawing.Point(11, 283);
             this.ConsoleRichTextBox.Name = "ConsoleRichTextBox";
             this.ConsoleRichTextBox.ReadOnly = true;
             this.ConsoleRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 602);
+            this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 583);
             this.ConsoleRichTextBox.TabIndex = 23;
             this.ConsoleRichTextBox.Text = "";
+            // 
+            // SynthModuleInfoGroupBox
+            // 
+            this.SynthModuleInfoGroupBox.Controls.Add(this.ActiveOut1Label);
+            this.SynthModuleInfoGroupBox.Controls.Add(this.ActiveOut2Label);
+            this.SynthModuleInfoGroupBox.Controls.Add(this.MHzLabel9);
+            this.SynthModuleInfoGroupBox.Controls.Add(this.FreqAtOut1Label);
+            this.SynthModuleInfoGroupBox.Controls.Add(this.ActOut1ShowLabel);
+            this.SynthModuleInfoGroupBox.Controls.Add(this.MHzLabel8);
+            this.SynthModuleInfoGroupBox.Controls.Add(this.FreqAtOut2Label);
+            this.SynthModuleInfoGroupBox.Controls.Add(this.ActOut2ShowLabel);
+            this.SynthModuleInfoGroupBox.Controls.Add(this.FreqAtOut1ShowLabel);
+            this.SynthModuleInfoGroupBox.Controls.Add(this.FreqAtOut2ShowLabel);
+            this.SynthModuleInfoGroupBox.Location = new System.Drawing.Point(11, 182);
+            this.SynthModuleInfoGroupBox.Name = "SynthModuleInfoGroupBox";
+            this.SynthModuleInfoGroupBox.Size = new System.Drawing.Size(334, 95);
+            this.SynthModuleInfoGroupBox.TabIndex = 21;
+            this.SynthModuleInfoGroupBox.TabStop = false;
+            this.SynthModuleInfoGroupBox.Text = "Synthesizer module info";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1071, 895);
+            this.Controls.Add(this.SynthModuleInfoGroupBox);
             this.Controls.Add(this.ConsoleRichTextBox);
             this.Controls.Add(this.DirectFreqContrGroupBox);
             this.Controls.Add(this.statusStrip1);
@@ -2496,6 +2508,7 @@ namespace Synthesizer_PC_control
             this.statusStrip1.PerformLayout();
             this.DirectFreqContrGroupBox.ResumeLayout(false);
             this.DirectFreqContrGroupBox.PerformLayout();
+            this.SynthModuleInfoGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2680,6 +2693,7 @@ namespace Synthesizer_PC_control
         public ComboBox PfdPolarity;
         public ComboBox MuxPinModeCombobox;
         private Label MuxPinModeLabel;
+        private GroupBox SynthModuleInfoGroupBox;
     }
 }
 
