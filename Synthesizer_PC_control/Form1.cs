@@ -249,6 +249,7 @@ namespace Synthesizer_PC_control
             SigmaDeltaNoiseModeComboBox.Enabled = command;
             LDPrecisionComboBox.Enabled     = command;
             MuxPinModeCombobox.Enabled      = command;
+            FBPathComboBox.Enabled          = command;
         }
 
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
@@ -543,6 +544,12 @@ namespace Synthesizer_PC_control
         private void RFoutBPathComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             controller.OutBPathIndexChanged(RFoutBPathComboBox.SelectedIndex);
+        }
+
+        
+        private void FBPathComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.FBPathIndexChanged(FBPathComboBox.SelectedIndex);
         }
 #endregion
         

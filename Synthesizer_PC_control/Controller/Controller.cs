@@ -81,7 +81,8 @@ namespace Synthesizer_PC_control.Controllers
                                                 view.LDFuncComboBox,
                                                 view.AutoLDFuncCheckBox, 
                                                 view.RFoutBPathComboBox,
-                                                view.LDfuncLabel);
+                                                view.LDfuncLabel,
+                                                view.FBPathComboBox);
 
             directFreqControl = new DirectFreqControl(view.InputFreqTextBox, 
                                                       view.DeltaShowLabel,
@@ -432,6 +433,21 @@ namespace Synthesizer_PC_control.Controllers
                 outFreqControl.SetOutBPath(value);
 
                 serialPort.SetDisableSending(false, 11);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
+            }
+        }
+
+        public void FBPathIndexChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                serialPort.SetDisableSending(true, 30);
+
+                registers[4].SetResetOneBit(23, (BitState)value);
+                outFreqControl.SetFBPath(value);
+
+                serialPort.SetDisableSending(false, 30);
                 if (serialPort.GetDisableSending() == false)
                     SendData();
             }
@@ -879,6 +895,12 @@ namespace Synthesizer_PC_control.Controllers
             int index = (int)BitOperations.GetNBits(dataReg4, 1, 9);
             outFreqControl.SetOutBPath(index);
         }
+
+        public void GetFBPathIndexFromRegister(UInt32 dataReg4)
+        {
+            int index = (int)BitOperations.GetNBits(dataReg4, 1, 23);
+            outFreqControl.SetFBPath(index);
+        }
     #endregion
 
     #region Parsing register 5
@@ -926,6 +948,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetOutBPwrStatusFromRegister(reg);
                     GetADividerValueFromRegister(reg);
                     GetOutBPathIndexFromRegister(reg);
+                    GetFBPathIndexFromRegister(reg);
                     break;
                 case 5:
                     break;
@@ -952,37 +975,62 @@ namespace Synthesizer_PC_control.Controllers
             UInt16 fracN    = outFreqControl.uint16_GetFracNVal();
             UInt16 mod      = outFreqControl.uint16_GetModVal();
             SynthMode mode  = outFreqControl.GetSynthMode();
-            int outBpath = outFreqControl.GetOutBPathIndex();
+            int outBpath    = outFreqControl.GetOutBPathIndex();
+            int FBpath      = outFreqControl.GetFBPathIndex();
 
-            decimal f_pfd = refFreq.decimal_GetPfdFreq();
+            decimal fPfd = refFreq.decimal_GetPfdFreq();
 
-            decimal f_out_A = 0;
-            decimal f_out_B = 0;
-            decimal f_vco = 0;
+            decimal fOutA = 0;
+            decimal fOutB = 0;
+            decimal fVco = 0;
 
             if (mode == SynthMode.INTEGER)
-                f_out_A = ((f_pfd*intN)/(aDiv));
+            {
+                if (FBpath == 1)
+                {
+                    fVco = fPfd * intN;
+                }
+                else
+                {
+                    if (aDiv <=16)
+                        fVco = fPfd * intN * aDiv;
+                    else if (aDiv > 16)
+                        fVco = fPfd * intN * 16; // FIXME calculating freq for all FB combinations
+                }
+            }
             else
-                f_out_A = (f_pfd/aDiv)*(intN+(fracN/(mod*1.0M)));
+            {
+                if (FBpath == 1)
+                {
+                    fVco = (intN + (fracN / (mod*1.0M) ) ) * fPfd;
+                }
+                else
+                {
+                    if (aDiv <=16)
+                        fVco = (intN + (fracN / (mod*1.0M) ) ) * fPfd * aDiv;
+                    else if (aDiv > 16)
+                        fVco = (intN + (fracN / (mod*1.0M) ) ) * fPfd * 16;
+                }
+            }
 
-            f_vco = f_out_A * aDiv;
+            fOutA = fVco / aDiv;
 
             if (outBpath == 0)
-                f_out_B = f_out_A;
+                fOutB = fOutA;
             else
-                f_out_B = f_vco;
+                fOutB = fVco;
 
-            if (synthFreqInfo.SetVcoFreq(f_vco) == false)
+            if (synthFreqInfo.SetVcoFreq(fVco) == false)
             {
                 directFreqControl.SetFreqAtOut1(0);
                 directFreqControl.SetFreqAtOut2(0);
                 
                 return;
             }
-            synthFreqInfo.SetOutAFreq(f_out_A);
-            synthFreqInfo.SetOutBFreq(f_out_B);
-            directFreqControl.SetFreqAtOut1(f_out_A);
-            directFreqControl.SetFreqAtOut2(f_out_B * 2);
+            synthFreqInfo.SetOutAFreq(fOutA);
+            synthFreqInfo.SetOutBFreq(fOutB);
+            directFreqControl.SetFreqAtOut1(fOutA);
+            directFreqControl.SetFreqAtOut2(fOutB * 2);
         }
 
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
@@ -997,12 +1045,14 @@ namespace Synthesizer_PC_control.Controllers
             bool isDivBy2 = refFreq.GetIsDividedBy2();
             decimal refInFreq = refFreq.decimal_GetRefFreqValue();
             int outBPathIndex = outFreqControl.GetOutBPathIndex();
+            int FBPathIndex   = outFreqControl.GetFBPathIndex();
 
             CalcRegs calcRegs = CalcRegisters.CalcRegistersFromInput(f_input, 
                                                                      refInFreq, 
                                                                      isDoubled, 
                                                                      isDivBy2, 
-                                                                     outBPathIndex);
+                                                                     outBPathIndex,
+                                                                     FBPathIndex);
 
             outFreqControl.SetADivVal((UInt16)calcRegs.aDivIndex);
             refFreq.SetAutoLDSpeedAdj(true);

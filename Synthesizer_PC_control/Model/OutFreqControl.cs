@@ -23,6 +23,7 @@ namespace Synthesizer_PC_control.Model
         private int LDFunction;
         private bool autoLDFunction;
         private int outBPath;
+        private int FBPath;
         private readonly NumericUpDown ui_intN;
         private readonly NumericUpDown ui_fracN;
         private readonly NumericUpDown ui_mod;
@@ -33,12 +34,14 @@ namespace Synthesizer_PC_control.Model
         private readonly Label ui_LDFunctionLabel;
         private readonly CheckBox ui_autoLDFunction;
         private readonly ComboBox ui_outBPath;
+        private readonly ComboBox ui_FBPath;
 
         public OutFreqControl(NumericUpDown ui_intN, NumericUpDown ui_fracN, 
                               NumericUpDown ui_mod, ComboBox ui_mode, 
                               ComboBox ui_aDiv, NumericUpDown ui_phaseP,
                               ComboBox ui_LDFunction, CheckBox ui_autoLDFunction,
-                              ComboBox ui_outBPath, Label ui_LDFunctionLabel)
+                              ComboBox ui_outBPath, Label ui_LDFunctionLabel,
+                              ComboBox ui_FBPath)
         {
             this.ui_intN    = ui_intN;
             this.ui_fracN   = ui_fracN;
@@ -50,6 +53,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_autoLDFunction  = ui_autoLDFunction;
             this.ui_outBPath        = ui_outBPath;
             this.ui_LDFunctionLabel = ui_LDFunctionLabel;
+            this.ui_FBPath          = ui_FBPath;
 
             intN    = 400;
             fracN   = 0;
@@ -194,6 +198,16 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
+        public void SetFBPath(int value)
+        {
+            if (FBPath != value)
+            {
+                this.FBPath = value;
+
+                UpdateUiElements();
+            }
+        }
+
         #endregion
 
         #region Getters
@@ -245,6 +259,11 @@ namespace Synthesizer_PC_control.Model
         public int GetOutBPathIndex()
         {
             return outBPath;
+        }
+
+        public int GetFBPathIndex()
+        {
+            return FBPath;
         }
 
         #endregion
@@ -301,6 +320,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_LDFunction.SelectedIndex = LDFunction;
             this.ui_autoLDFunction.Checked = autoLDFunction;
             this.ui_outBPath.SelectedIndex = outBPath;
+            this.ui_FBPath.SelectedIndex = FBPath;
         }
     }
 }

@@ -23,16 +23,19 @@ namespace Synthesizer_PC_control.Utilities
         private static bool static_isDoubled;
         private static bool static_isDivBy2;
         private static int static_outBPathIndex;
+        private static int static_FBPathIndex;
         public static CalcRegs CalcRegistersFromInput(decimal f_input, 
                                                     decimal refInFreq, 
                                                     bool isDoubled, 
                                                     bool isDivBy2, 
-                                                    int outBPathIndex)
+                                                    int outBPathIndex,
+                                                    int FBPathIndex)
         {
             static_refInFreq      = refInFreq;
             static_isDoubled      = isDoubled;
             static_isDivBy2       = isDivBy2;
             static_outBPathIndex  = outBPathIndex;
+            static_FBPathIndex    = FBPathIndex;            // FIXME implement FBPath into calculations
 
             CalcRegs calcRegs = new CalcRegs();
             CalcRegs[] calculatedSettings = new CalcRegs[100];
