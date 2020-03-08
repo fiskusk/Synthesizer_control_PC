@@ -31,7 +31,6 @@ namespace Synthesizer_PC_control.Model
             {
                 ui_fVco.ForeColor = Color.Red;
                 ConsoleController.Console().Write(badVcoMsg);
-                value = 0;
                 fOutA = 0;
                 fOutB = 0;
                 status = false;
