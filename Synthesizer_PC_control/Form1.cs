@@ -250,6 +250,15 @@ namespace Synthesizer_PC_control
             LDPrecisionComboBox.Enabled     = command;
             MuxPinModeCombobox.Enabled      = command;
             FBPathComboBox.Enabled          = command;
+            PloPowerDownCheckBox.Enabled    = command;
+            RefInputShutdownCheckBox.Enabled = command;
+            PllShutDownCheckBox.Enabled     = command;
+            VcoDividerShutdownCheckBox.Enabled = command;
+            VcoLdoShutDownCheckBox.Enabled  = command;
+            VcoShutDownCheckBox.Enabled     = command;
+            Reg4DoubleBufferedCheckBox.Enabled = command;
+            IntNAutoModeWhenF0CheckBox.Enabled = command;
+            RandNCountersResetCheckBox.Enabled = command;
         }
 
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
@@ -714,6 +723,21 @@ namespace Synthesizer_PC_control
         {
             controller.MuxPinModeIndexChanged(MuxPinModeCombobox.SelectedIndex);
         }
+
+        private void Reg4DoubleBufferedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.Reg4DoubleBufferedStateChanged(Reg4DoubleBufferedCheckBox.Checked);
+        }
+
+        private void IntNAutoModeWhenF0CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.IntNAutoModeWhenF0StateChanged(IntNAutoModeWhenF0CheckBox.Checked);
+        }
+
+        private void RandNCountersResetCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.RandNCountersResetStateChanged(RandNCountersResetCheckBox.Checked);
+        }
         #endregion
     
 #region Shutdown control group
@@ -723,28 +747,32 @@ namespace Synthesizer_PC_control
         {
             controller.PloPowerDownStateChanged(PloPowerDownCheckBox.Checked);
         }
+
         private void RefInputShutdownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             controller.RefInputShutdownStateChanged(RefInputShutdownCheckBox.Checked);
         }
+
         private void PllShutDownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             controller.PllShutDownStateChanged(PllShutDownCheckBox.Checked);
         }
+
         private void VcoDividerShutdownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             controller.VcoDividerShutDownStateChanged(VcoDividerShutdownCheckBox.Checked);
         }
+
         private void VcoLdoShutDownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             controller.VcoLdoShutDownStateChanged(VcoLdoShutDownCheckBox.Checked);
         }
+
         private void VcoShutDownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             controller.VcoShutDownStateChanged(VcoShutDownCheckBox.Checked);
         }
 
         #endregion
-
     }
 }

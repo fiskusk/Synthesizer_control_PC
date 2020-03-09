@@ -117,7 +117,10 @@ namespace Synthesizer_PC_control.Controllers
                                               view.LDPrecisionComboBox,
                                               view.PfdPolarity);
 
-            genericControls = new GenericControls(view.MuxPinModeCombobox);
+            genericControls = new GenericControls(view.MuxPinModeCombobox,
+                                                  view.Reg4DoubleBufferedCheckBox,
+                                                  view.IntNAutoModeWhenF0CheckBox,
+                                                  view.RandNCountersResetCheckBox);
 
             shutdowns = new Shutdowns(view.PloPowerDownCheckBox,
                                       view.RefInputShutdownCheckBox,
@@ -711,6 +714,42 @@ namespace Synthesizer_PC_control.Controllers
             if (serialPort.GetDisableSending() == false)
                 SendData();
         }
+
+        public void Reg4DoubleBufferedStateChanged(bool value)
+        {
+            serialPort.SetDisableSending(true, 37);
+
+            registers[2].SetResetOneBit(13, (BitState)Convert.ToUInt16(value));
+            genericControls.SetReg4DoubleBuffered(value);
+
+            serialPort.SetDisableSending(false, 37);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
+        }
+
+        public void IntNAutoModeWhenF0StateChanged(bool value) // TODO test it on SA
+        {
+            serialPort.SetDisableSending(true, 38);
+
+            registers[5].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
+            genericControls.SetF0AutoIntNMode(value);
+
+            serialPort.SetDisableSending(false, 38);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
+        }
+
+        public void RandNCountersResetStateChanged(bool value)
+        {
+            serialPort.SetDisableSending(true, 39);
+
+            registers[2].SetResetOneBit(3, (BitState)Convert.ToUInt16(value));
+            genericControls.SetRandNCountersReset(value);
+
+            serialPort.SetDisableSending(false, 39);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
+        }
     #endregion
 
     #region Shutdown controls group
@@ -924,6 +963,18 @@ namespace Synthesizer_PC_control.Controllers
             shutdowns.SetShutdownAllState(shutdown);
         }
 
+        private void GetReg4DoubleBufferedStateFromRegister(UInt32 dataReg2)
+        {
+            bool state = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 13));
+            genericControls.SetReg4DoubleBuffered(state);
+        }
+
+        private void GetRandNCountersResetStateFromRegister(UInt32 dataReg2)
+        {
+            bool state = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 3));
+            genericControls.SetRandNCountersReset(state);
+        }
+
     #endregion
 
     #region Parsing register 3
@@ -1025,6 +1076,13 @@ namespace Synthesizer_PC_control.Controllers
             bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg5, 1, 25));
             shutdowns.SetPllShutdownState(shutdown);
         }
+        
+        private void GetIntNAutoModeWhenF0StateFromRegister(UInt32 dataReg5)
+        {
+            bool state = Convert.ToBoolean(BitOperations.GetNBits(dataReg5, 1, 24));
+            genericControls.SetF0AutoIntNMode(state);
+        }
+
     #endregion
 
     #region Collection function
@@ -1057,6 +1115,8 @@ namespace Synthesizer_PC_control.Controllers
                     GetPfdPositionFromRegister(reg);
                     GetMuxPinModeFromRegister(reg);
                     GetShutDownAllStateFromRegister(reg);
+                    GetReg4DoubleBufferedStateFromRegister(reg);
+                    GetRandNCountersResetStateFromRegister(reg);
                     break;
                 case 3:
                     GetClockDividerModeFromRegister(reg);
@@ -1077,6 +1137,7 @@ namespace Synthesizer_PC_control.Controllers
                     break;
                 case 5:
                     GetPllShutdownStateFromRegister(reg);
+                    GetIntNAutoModeWhenF0StateFromRegister(reg);
                     break;
             }
         }
@@ -1348,6 +1409,8 @@ namespace Synthesizer_PC_control.Controllers
                                 break;
                             case 4:
                                 ApplyChangeReg(4);
+                                if (genericControls.GetReg4DoubleBuffered()) // TODO test me on SA, comment needUpdate true flag and test it
+                                    needUpdate[0] = true;
                                 break;
                             case 3:
                                 ApplyChangeReg(3);

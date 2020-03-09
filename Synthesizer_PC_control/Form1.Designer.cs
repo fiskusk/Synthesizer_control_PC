@@ -69,10 +69,10 @@ namespace Synthesizer_PC_control
             this.genericControlsGroupBox = new System.Windows.Forms.GroupBox();
             this.MuxPinModeCombobox = new System.Windows.Forms.ComboBox();
             this.MuxPinModeLabel = new System.Windows.Forms.Label();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
+            this.Reg4DoubleBufferedCheckBox = new System.Windows.Forms.CheckBox();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox15 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.RandNCountersResetCheckBox = new System.Windows.Forms.CheckBox();
+            this.IntNAutoModeWhenF0CheckBox = new System.Windows.Forms.CheckBox();
             this.ShutDownGroupBox = new System.Windows.Forms.GroupBox();
             this.PllShutDownCheckBox = new System.Windows.Forms.CheckBox();
             this.VcoShutDownCheckBox = new System.Windows.Forms.CheckBox();
@@ -702,10 +702,10 @@ namespace Synthesizer_PC_control
             // 
             this.genericControlsGroupBox.Controls.Add(this.MuxPinModeCombobox);
             this.genericControlsGroupBox.Controls.Add(this.MuxPinModeLabel);
-            this.genericControlsGroupBox.Controls.Add(this.checkBox11);
+            this.genericControlsGroupBox.Controls.Add(this.Reg4DoubleBufferedCheckBox);
             this.genericControlsGroupBox.Controls.Add(this.checkBox10);
-            this.genericControlsGroupBox.Controls.Add(this.checkBox15);
-            this.genericControlsGroupBox.Controls.Add(this.checkBox8);
+            this.genericControlsGroupBox.Controls.Add(this.RandNCountersResetCheckBox);
+            this.genericControlsGroupBox.Controls.Add(this.IntNAutoModeWhenF0CheckBox);
             this.genericControlsGroupBox.Location = new System.Drawing.Point(355, 596);
             this.genericControlsGroupBox.Name = "genericControlsGroupBox";
             this.genericControlsGroupBox.Size = new System.Drawing.Size(341, 125);
@@ -743,15 +743,16 @@ namespace Synthesizer_PC_control
             this.MuxPinModeLabel.Text = "Mux Pin Mode:";
             this.MuxPinModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // checkBox11
+            // Reg4DoubleBufferedCheckBox
             // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(12, 49);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(264, 21);
-            this.checkBox11.TabIndex = 0;
-            this.checkBox11.Text = "Register 4 double bufered with reg. 0";
-            this.checkBox11.UseVisualStyleBackColor = true;
+            this.Reg4DoubleBufferedCheckBox.AutoSize = true;
+            this.Reg4DoubleBufferedCheckBox.Location = new System.Drawing.Point(12, 49);
+            this.Reg4DoubleBufferedCheckBox.Name = "Reg4DoubleBufferedCheckBox";
+            this.Reg4DoubleBufferedCheckBox.Size = new System.Drawing.Size(264, 21);
+            this.Reg4DoubleBufferedCheckBox.TabIndex = 0;
+            this.Reg4DoubleBufferedCheckBox.Text = "Register 4 double bufered with reg. 0";
+            this.Reg4DoubleBufferedCheckBox.UseVisualStyleBackColor = true;
+            this.Reg4DoubleBufferedCheckBox.CheckedChanged += new System.EventHandler(this.Reg4DoubleBufferedCheckBox_CheckedChanged);
             // 
             // checkBox10
             // 
@@ -763,25 +764,27 @@ namespace Synthesizer_PC_control
             this.checkBox10.Text = "R and N counters reset";
             this.checkBox10.UseVisualStyleBackColor = true;
             // 
-            // checkBox15
+            // RandNCountersResetCheckBox
             // 
-            this.checkBox15.AutoSize = true;
-            this.checkBox15.Location = new System.Drawing.Point(12, 103);
-            this.checkBox15.Name = "checkBox15";
-            this.checkBox15.Size = new System.Drawing.Size(177, 21);
-            this.checkBox15.TabIndex = 0;
-            this.checkBox15.Text = "R and N counters reset";
-            this.checkBox15.UseVisualStyleBackColor = true;
+            this.RandNCountersResetCheckBox.AutoSize = true;
+            this.RandNCountersResetCheckBox.Location = new System.Drawing.Point(12, 103);
+            this.RandNCountersResetCheckBox.Name = "RandNCountersResetCheckBox";
+            this.RandNCountersResetCheckBox.Size = new System.Drawing.Size(177, 21);
+            this.RandNCountersResetCheckBox.TabIndex = 0;
+            this.RandNCountersResetCheckBox.Text = "R and N counters reset";
+            this.RandNCountersResetCheckBox.UseVisualStyleBackColor = true;
+            this.RandNCountersResetCheckBox.CheckedChanged += new System.EventHandler(this.RandNCountersResetCheckBox_CheckedChanged);
             // 
-            // checkBox8
+            // IntNAutoModeWhenF0CheckBox
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(12, 76);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(264, 21);
-            this.checkBox8.TabIndex = 0;
-            this.checkBox8.Text = "Integer-N mode auto set, if FracN = 0";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            this.IntNAutoModeWhenF0CheckBox.AutoSize = true;
+            this.IntNAutoModeWhenF0CheckBox.Location = new System.Drawing.Point(12, 76);
+            this.IntNAutoModeWhenF0CheckBox.Name = "IntNAutoModeWhenF0CheckBox";
+            this.IntNAutoModeWhenF0CheckBox.Size = new System.Drawing.Size(264, 21);
+            this.IntNAutoModeWhenF0CheckBox.TabIndex = 0;
+            this.IntNAutoModeWhenF0CheckBox.Text = "Integer-N mode auto set, if FracN = 0";
+            this.IntNAutoModeWhenF0CheckBox.UseVisualStyleBackColor = true;
+            this.IntNAutoModeWhenF0CheckBox.CheckedChanged += new System.EventHandler(this.IntNAutoModeWhenF0CheckBox_CheckedChanged);
             // 
             // ShutDownGroupBox
             // 
@@ -3150,8 +3153,8 @@ namespace Synthesizer_PC_control
         private Label MuxPinModeLabel;
         private GroupBox SynthModuleInfoGroupBox;
         private CheckBox checkBox7;
-        private CheckBox checkBox8;
-        private CheckBox checkBox11;
+        public CheckBox IntNAutoModeWhenF0CheckBox;
+        public CheckBox Reg4DoubleBufferedCheckBox;
         private CheckBox checkBox10;
         private CheckBox checkBox9;
         private Label label2;
@@ -3165,7 +3168,7 @@ namespace Synthesizer_PC_control
         private CheckBox checkBox12;
         public NumericUpDown numericUpDown3;
         private Label label5;
-        private CheckBox checkBox15;
+        public CheckBox RandNCountersResetCheckBox;
         public Button button1;
         public Button button2;
         private GroupBox groupBox1;
