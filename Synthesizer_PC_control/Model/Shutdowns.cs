@@ -124,6 +124,7 @@ namespace Synthesizer_PC_control.Model
         public void UpdateUiElements() 
         {
             ui_ShutdownAll.Checked = shutdownAllState;
+            ui_ReferenceInputShutdown.Checked = refInputShutdownState;
         }
     }
 }

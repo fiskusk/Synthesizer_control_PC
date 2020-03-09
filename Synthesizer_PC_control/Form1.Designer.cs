@@ -858,6 +858,7 @@ namespace Synthesizer_PC_control
             this.RefInputShutdownCheckBox.TabIndex = 0;
             this.RefInputShutdownCheckBox.Text = "Reference input";
             this.RefInputShutdownCheckBox.UseVisualStyleBackColor = true;
+            this.RefInputShutdownCheckBox.CheckedChanged += new System.EventHandler(this.RefInputShutdownCheckBox_CheckedChanged);
             // 
             // VcoSettingsGroupBox
             // 

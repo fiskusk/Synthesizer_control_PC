@@ -727,6 +727,18 @@ namespace Synthesizer_PC_control.Controllers
                 SendData();
         }
 
+        public void  RefInputShutdownStateChanged(bool value)
+        {
+            serialPort.SetDisableSending(true, 32);
+
+            registers[4].SetResetOneBit(26, (BitState)Convert.ToUInt16(value));
+            shutdowns.SetReferenceInputShutdownState(value);
+
+            serialPort.SetDisableSending(false, 32);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
+        }
+
     #endregion
 
 #endregion
@@ -860,8 +872,8 @@ namespace Synthesizer_PC_control.Controllers
 
         private void GetShutDownAllStateFromRegister(UInt32 dataReg2)
         {
-            bool shutdownAllState = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 5));
-            shutdowns.SetShutdownAllState(shutdownAllState);
+            bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 5));
+            shutdowns.SetShutdownAllState(shutdown);
         }
     #endregion
 
@@ -931,6 +943,13 @@ namespace Synthesizer_PC_control.Controllers
             int index = (int)BitOperations.GetNBits(dataReg4, 1, 23);
             outFreqControl.SetFBPath(index);
         }
+
+        private void GetRefInputShutdownStateFromRegister(UInt32 dataReg4)
+        {
+            bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 26));
+            shutdowns.SetReferenceInputShutdownState(shutdown);
+        }
+
     #endregion
 
     #region Parsing register 5
@@ -980,6 +999,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetADividerValueFromRegister(reg);
                     GetOutBPathIndexFromRegister(reg);
                     GetFBPathIndexFromRegister(reg);
+                    GetRefInputShutdownStateFromRegister(reg);
                     break;
                 case 5:
                     break;
