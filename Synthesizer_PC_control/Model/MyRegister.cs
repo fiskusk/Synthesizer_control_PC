@@ -66,7 +66,7 @@ namespace Synthesizer_PC_control.Model
                     correctAddress = BitOperations.ChangeNBits(correctAddress, (UInt32)regNumber, 3, 0);
                     string correctAddressString = Convert.ToString(correctAddress, 16);
 
-                    if (!string.Equals(value, correctAddressString) )
+                    if (!string.Equals(value, correctAddressString, StringComparison.CurrentCultureIgnoreCase) )
                     {
                         value = correctAddressString;
                         ConsoleController.Console().Write(badAddressMsg);
