@@ -775,6 +775,18 @@ namespace Synthesizer_PC_control.Controllers
                 SendData();
         }
 
+        public void VcoShutDownStateChanged(bool value)
+        {
+            serialPort.SetDisableSending(true, 36);
+
+            registers[4].SetResetOneBit(11, (BitState)Convert.ToUInt16(value));
+            shutdowns.SetVcoShutdownState(value);
+
+            serialPort.SetDisableSending(false, 36);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
+        }
+
     #endregion
 
 #endregion
@@ -999,6 +1011,11 @@ namespace Synthesizer_PC_control.Controllers
             shutdowns.SetVcoLdoShutdownState(shutdown);
         }
 
+        private void GetVcoShutDownStateFromRegister(UInt32 dataReg4)
+        {
+            bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 11));
+            shutdowns.SetVcoShutdownState(shutdown);
+        }
 
     #endregion
 
@@ -1056,6 +1073,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetRefInputShutdownStateFromRegister(reg);
                     GetVcoDividerShutDownStateFromRegister(reg);
                     GetVcoLdoShutDownStateFromRegister(reg);
+                    GetVcoShutDownStateFromRegister(reg);
                     break;
                 case 5:
                     GetPllShutdownStateFromRegister(reg);

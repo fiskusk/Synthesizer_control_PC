@@ -739,6 +739,10 @@ namespace Synthesizer_PC_control
         {
             controller.VcoLdoShutDownStateChanged(VcoLdoShutDownCheckBox.Checked);
         }
+        private void VcoShutDownCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.VcoShutDownStateChanged(VcoShutDownCheckBox.Checked);
+        }
 
         #endregion
 

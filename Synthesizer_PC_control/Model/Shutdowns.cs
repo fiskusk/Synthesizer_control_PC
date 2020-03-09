@@ -128,6 +128,7 @@ namespace Synthesizer_PC_control.Model
             ui_PllShutdown.Checked = pllShutdownState;
             ui_VcoDividerShutdown.Checked = vcoDividerShutdownState;
             ui_VcoLdoShutdown.Checked = vcoLdoShutdownState;
+            ui_VcoShutdown.Checked = vcoShutdownState;
         }
     }
 }

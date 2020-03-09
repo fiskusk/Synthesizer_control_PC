@@ -818,6 +818,7 @@ namespace Synthesizer_PC_control
             this.VcoShutDownCheckBox.TabIndex = 0;
             this.VcoShutDownCheckBox.Text = "VCO";
             this.VcoShutDownCheckBox.UseVisualStyleBackColor = true;
+            this.VcoShutDownCheckBox.CheckedChanged += new System.EventHandler(this.VcoShutDownCheckBox_CheckedChanged);
             // 
             // PloPowerDownCheckBox
             // 
