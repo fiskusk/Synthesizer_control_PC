@@ -727,6 +727,10 @@ namespace Synthesizer_PC_control
         {
             controller.RefInputShutdownStateChanged(RefInputShutdownCheckBox.Checked);
         }
+        private void PllShutDownCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.PllShutDownStateChanged(PllShutDownCheckBox.Checked);
+        }
 
         #endregion
 

@@ -739,6 +739,18 @@ namespace Synthesizer_PC_control.Controllers
                 SendData();
         }
 
+        public void PllShutDownStateChanged(bool value)
+        {
+            serialPort.SetDisableSending(true, 33);
+
+            registers[5].SetResetOneBit(25, (BitState)Convert.ToUInt16(value));
+            shutdowns.SetPllShutdownState(value);
+
+            serialPort.SetDisableSending(false, 33);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
+        }
+
     #endregion
 
 #endregion
@@ -953,7 +965,11 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
 
     #region Parsing register 5
-
+        private void GetPllShutdownStateFromRegister(UInt32 dataReg5)
+        {
+            bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg5, 1, 25));
+            shutdowns.SetPllShutdownState(shutdown);
+        }
     #endregion
 
     #region Collection function
@@ -1002,6 +1018,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetRefInputShutdownStateFromRegister(reg);
                     break;
                 case 5:
+                    GetPllShutdownStateFromRegister(reg);
                     break;
             }
         }

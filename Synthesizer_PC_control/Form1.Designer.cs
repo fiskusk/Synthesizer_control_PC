@@ -807,6 +807,7 @@ namespace Synthesizer_PC_control
             this.PllShutDownCheckBox.TabIndex = 0;
             this.PllShutDownCheckBox.Text = "PLL";
             this.PllShutDownCheckBox.UseVisualStyleBackColor = true;
+            this.PllShutDownCheckBox.CheckedChanged += new System.EventHandler(this.PllShutDownCheckBox_CheckedChanged);
             // 
             // VcoShutDownCheckBox
             // 
