@@ -751,6 +751,30 @@ namespace Synthesizer_PC_control.Controllers
                 SendData();
         }
 
+        public void VcoDividerShutDownStateChanged(bool value)
+        {
+            serialPort.SetDisableSending(true, 34);
+
+            registers[4].SetResetOneBit(27, (BitState)Convert.ToUInt16(value));
+            shutdowns.SetVcoDividerShutdownState(value);
+
+            serialPort.SetDisableSending(false, 34);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
+        }
+
+        public void VcoLdoShutDownStateChanged(bool value)
+        {
+            serialPort.SetDisableSending(true, 35);
+
+            registers[4].SetResetOneBit(28, (BitState)Convert.ToUInt16(value));
+            shutdowns.SetVcoLdoShutdownState(value);
+
+            serialPort.SetDisableSending(false, 35);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
+        }
+
     #endregion
 
 #endregion
@@ -887,6 +911,7 @@ namespace Synthesizer_PC_control.Controllers
             bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 5));
             shutdowns.SetShutdownAllState(shutdown);
         }
+
     #endregion
 
     #region Parsing register 3
@@ -962,6 +987,19 @@ namespace Synthesizer_PC_control.Controllers
             shutdowns.SetReferenceInputShutdownState(shutdown);
         }
 
+        private void GetVcoDividerShutDownStateFromRegister(UInt32 dataReg4)
+        {
+            bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 27));
+            shutdowns.SetVcoDividerShutdownState(shutdown);
+        }
+
+        private void GetVcoLdoShutDownStateFromRegister(UInt32 dataReg4)
+        {
+            bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 28));
+            shutdowns.SetVcoLdoShutdownState(shutdown);
+        }
+
+
     #endregion
 
     #region Parsing register 5
@@ -1016,6 +1054,8 @@ namespace Synthesizer_PC_control.Controllers
                     GetOutBPathIndexFromRegister(reg);
                     GetFBPathIndexFromRegister(reg);
                     GetRefInputShutdownStateFromRegister(reg);
+                    GetVcoDividerShutDownStateFromRegister(reg);
+                    GetVcoLdoShutDownStateFromRegister(reg);
                     break;
                 case 5:
                     GetPllShutdownStateFromRegister(reg);

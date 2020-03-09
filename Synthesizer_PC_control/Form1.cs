@@ -731,6 +731,14 @@ namespace Synthesizer_PC_control
         {
             controller.PllShutDownStateChanged(PllShutDownCheckBox.Checked);
         }
+        private void VcoDividerShutdownCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.VcoDividerShutDownStateChanged(VcoDividerShutdownCheckBox.Checked);
+        }
+        private void VcoLdoShutDownCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.VcoLdoShutDownStateChanged(VcoLdoShutDownCheckBox.Checked);
+        }
 
         #endregion
 

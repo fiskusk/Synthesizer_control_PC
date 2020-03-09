@@ -839,6 +839,7 @@ namespace Synthesizer_PC_control
             this.VcoLdoShutDownCheckBox.TabIndex = 0;
             this.VcoLdoShutDownCheckBox.Text = "VCO LDO";
             this.VcoLdoShutDownCheckBox.UseVisualStyleBackColor = true;
+            this.VcoLdoShutDownCheckBox.CheckedChanged += new System.EventHandler(this.VcoLdoShutDownCheckBox_CheckedChanged);
             // 
             // VcoDividerShutdownCheckBox
             // 
@@ -849,6 +850,7 @@ namespace Synthesizer_PC_control
             this.VcoDividerShutdownCheckBox.TabIndex = 0;
             this.VcoDividerShutdownCheckBox.Text = "VCO divider";
             this.VcoDividerShutdownCheckBox.UseVisualStyleBackColor = true;
+            this.VcoDividerShutdownCheckBox.CheckedChanged += new System.EventHandler(this.VcoDividerShutdownCheckBox_CheckedChanged);
             // 
             // RefInputShutdownCheckBox
             // 
