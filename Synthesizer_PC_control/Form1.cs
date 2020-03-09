@@ -714,6 +714,16 @@ namespace Synthesizer_PC_control
         {
             controller.MuxPinModeIndexChanged(MuxPinModeCombobox.SelectedIndex);
         }
+        #endregion
+    
+#region Shutdown control group
+
+        
+        private void PloPowerDownCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.PloPowerDownStateChanged(PloPowerDownCheckBox.Checked);
+        }
+
 #endregion
     }
 }

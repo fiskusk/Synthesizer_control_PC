@@ -26,6 +26,7 @@ namespace Synthesizer_PC_control.Controllers
         public ChargePump chargePump;
         public PhaseDetector phaseDetector;
         public GenericControls genericControls;
+        public Shutdowns shutdowns;
 
         public Controller(Form1 view)
         {
@@ -117,6 +118,13 @@ namespace Synthesizer_PC_control.Controllers
                                               view.PfdPolarity);
 
             genericControls = new GenericControls(view.MuxPinModeCombobox);
+
+            shutdowns = new Shutdowns(view.PloPowerDownCheckBox,
+                                      view.RefInputShutdownCheckBox,
+                                      view.PllShutDownCheckBox,
+                                      view.VcoDividerShutdownCheckBox,
+                                      view.VcoLdoShutDownCheckBox, 
+                                      view.VcoShutDownCheckBox);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -705,6 +713,22 @@ namespace Synthesizer_PC_control.Controllers
         }
     #endregion
 
+    #region Shutdown controls group
+
+        public void PloPowerDownStateChanged(bool value)
+        {
+            serialPort.SetDisableSending(true, 31);
+
+            registers[2].SetResetOneBit(5, (BitState)Convert.ToUInt16(value));
+            shutdowns.SetShutdownAllState(value);
+
+            serialPort.SetDisableSending(false, 31);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
+        }
+
+    #endregion
+
 #endregion
 
 #region Functions for get values from register
@@ -833,6 +857,12 @@ namespace Synthesizer_PC_control.Controllers
             int index = (int)BitOperations.GetNBits(dataReg2, 3, 26);
             genericControls.SetMuxPinMode(index);
         }
+
+        private void GetShutDownAllStateFromRegister(UInt32 dataReg2)
+        {
+            bool shutdownAllState = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 5));
+            shutdowns.SetShutdownAllState(shutdownAllState);
+        }
     #endregion
 
     #region Parsing register 3
@@ -936,6 +966,7 @@ namespace Synthesizer_PC_control.Controllers
                     GetPrecisionFromRegister(reg);
                     GetPfdPositionFromRegister(reg);
                     GetMuxPinModeFromRegister(reg);
+                    GetShutDownAllStateFromRegister(reg);
                     break;
                 case 3:
                     GetClockDividerModeFromRegister(reg);

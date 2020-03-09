@@ -74,12 +74,12 @@ namespace Synthesizer_PC_control
             this.checkBox15 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.ShutDownGroupBox = new System.Windows.Forms.GroupBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.PllShutDownCheckBox = new System.Windows.Forms.CheckBox();
+            this.VcoShutDownCheckBox = new System.Windows.Forms.CheckBox();
+            this.PloPowerDownCheckBox = new System.Windows.Forms.CheckBox();
+            this.VcoLdoShutDownCheckBox = new System.Windows.Forms.CheckBox();
+            this.VcoDividerShutdownCheckBox = new System.Windows.Forms.CheckBox();
+            this.RefInputShutdownCheckBox = new System.Windows.Forms.CheckBox();
             this.VcoSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.checkBox14 = new System.Windows.Forms.CheckBox();
             this.checkBox13 = new System.Windows.Forms.CheckBox();
@@ -638,9 +638,6 @@ namespace Synthesizer_PC_control
             this.textBox2.Size = new System.Drawing.Size(140, 22);
             this.textBox2.TabIndex = 3;
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox2.TextChanged += new System.EventHandler(this.InputFreqTextBox_TextChanged);
-            this.textBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputFreqTextBox_KeyDown);
-            this.textBox2.LostFocus += new System.EventHandler(this.RefFTextBox_LostFocus);
             this.textBox2.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
             // 
             // textBox1
@@ -653,9 +650,6 @@ namespace Synthesizer_PC_control
             this.textBox1.Size = new System.Drawing.Size(140, 22);
             this.textBox1.TabIndex = 3;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.TextChanged += new System.EventHandler(this.InputFreqTextBox_TextChanged);
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputFreqTextBox_KeyDown);
-            this.textBox1.LostFocus += new System.EventHandler(this.RefFTextBox_LostFocus);
             this.textBox1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
             // 
             // button4
@@ -791,12 +785,12 @@ namespace Synthesizer_PC_control
             // 
             // ShutDownGroupBox
             // 
-            this.ShutDownGroupBox.Controls.Add(this.checkBox6);
-            this.ShutDownGroupBox.Controls.Add(this.checkBox5);
-            this.ShutDownGroupBox.Controls.Add(this.checkBox4);
-            this.ShutDownGroupBox.Controls.Add(this.checkBox3);
-            this.ShutDownGroupBox.Controls.Add(this.checkBox2);
-            this.ShutDownGroupBox.Controls.Add(this.checkBox1);
+            this.ShutDownGroupBox.Controls.Add(this.PllShutDownCheckBox);
+            this.ShutDownGroupBox.Controls.Add(this.VcoShutDownCheckBox);
+            this.ShutDownGroupBox.Controls.Add(this.PloPowerDownCheckBox);
+            this.ShutDownGroupBox.Controls.Add(this.VcoLdoShutDownCheckBox);
+            this.ShutDownGroupBox.Controls.Add(this.VcoDividerShutdownCheckBox);
+            this.ShutDownGroupBox.Controls.Add(this.RefInputShutdownCheckBox);
             this.ShutDownGroupBox.Location = new System.Drawing.Point(8, 621);
             this.ShutDownGroupBox.Name = "ShutDownGroupBox";
             this.ShutDownGroupBox.Size = new System.Drawing.Size(341, 100);
@@ -804,65 +798,66 @@ namespace Synthesizer_PC_control
             this.ShutDownGroupBox.TabStop = false;
             this.ShutDownGroupBox.Text = "Shutdown Controls";
             // 
-            // checkBox6
+            // PllShutDownCheckBox
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(12, 74);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(55, 21);
-            this.checkBox6.TabIndex = 0;
-            this.checkBox6.Text = "PLL";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.PllShutDownCheckBox.AutoSize = true;
+            this.PllShutDownCheckBox.Location = new System.Drawing.Point(12, 74);
+            this.PllShutDownCheckBox.Name = "PllShutDownCheckBox";
+            this.PllShutDownCheckBox.Size = new System.Drawing.Size(55, 21);
+            this.PllShutDownCheckBox.TabIndex = 0;
+            this.PllShutDownCheckBox.Text = "PLL";
+            this.PllShutDownCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // VcoShutDownCheckBox
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(194, 74);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(59, 21);
-            this.checkBox5.TabIndex = 0;
-            this.checkBox5.Text = "VCO";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.VcoShutDownCheckBox.AutoSize = true;
+            this.VcoShutDownCheckBox.Location = new System.Drawing.Point(194, 74);
+            this.VcoShutDownCheckBox.Name = "VcoShutDownCheckBox";
+            this.VcoShutDownCheckBox.Size = new System.Drawing.Size(59, 21);
+            this.VcoShutDownCheckBox.TabIndex = 0;
+            this.VcoShutDownCheckBox.Text = "VCO";
+            this.VcoShutDownCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // PloPowerDownCheckBox
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(12, 20);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(138, 21);
-            this.checkBox4.TabIndex = 0;
-            this.checkBox4.Text = "PLO Power down";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.PloPowerDownCheckBox.AutoSize = true;
+            this.PloPowerDownCheckBox.Location = new System.Drawing.Point(12, 20);
+            this.PloPowerDownCheckBox.Name = "PloPowerDownCheckBox";
+            this.PloPowerDownCheckBox.Size = new System.Drawing.Size(138, 21);
+            this.PloPowerDownCheckBox.TabIndex = 0;
+            this.PloPowerDownCheckBox.Text = "PLO Power down";
+            this.PloPowerDownCheckBox.UseVisualStyleBackColor = true;
+            this.PloPowerDownCheckBox.CheckedChanged += new System.EventHandler(this.PloPowerDownCheckBox_CheckedChanged);
             // 
-            // checkBox3
+            // VcoLdoShutDownCheckBox
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(194, 47);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(92, 21);
-            this.checkBox3.TabIndex = 0;
-            this.checkBox3.Text = "VCO LDO";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.VcoLdoShutDownCheckBox.AutoSize = true;
+            this.VcoLdoShutDownCheckBox.Location = new System.Drawing.Point(194, 47);
+            this.VcoLdoShutDownCheckBox.Name = "VcoLdoShutDownCheckBox";
+            this.VcoLdoShutDownCheckBox.Size = new System.Drawing.Size(92, 21);
+            this.VcoLdoShutDownCheckBox.TabIndex = 0;
+            this.VcoLdoShutDownCheckBox.Text = "VCO LDO";
+            this.VcoLdoShutDownCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // VcoDividerShutdownCheckBox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(194, 20);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(105, 21);
-            this.checkBox2.TabIndex = 0;
-            this.checkBox2.Text = "VCO divider";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.VcoDividerShutdownCheckBox.AutoSize = true;
+            this.VcoDividerShutdownCheckBox.Location = new System.Drawing.Point(194, 20);
+            this.VcoDividerShutdownCheckBox.Name = "VcoDividerShutdownCheckBox";
+            this.VcoDividerShutdownCheckBox.Size = new System.Drawing.Size(105, 21);
+            this.VcoDividerShutdownCheckBox.TabIndex = 0;
+            this.VcoDividerShutdownCheckBox.Text = "VCO divider";
+            this.VcoDividerShutdownCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // RefInputShutdownCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 47);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(131, 21);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Reference input";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.RefInputShutdownCheckBox.AutoSize = true;
+            this.RefInputShutdownCheckBox.Location = new System.Drawing.Point(12, 47);
+            this.RefInputShutdownCheckBox.Name = "RefInputShutdownCheckBox";
+            this.RefInputShutdownCheckBox.Size = new System.Drawing.Size(131, 21);
+            this.RefInputShutdownCheckBox.TabIndex = 0;
+            this.RefInputShutdownCheckBox.Text = "Reference input";
+            this.RefInputShutdownCheckBox.UseVisualStyleBackColor = true;
             // 
             // VcoSettingsGroupBox
             // 
@@ -2674,7 +2669,6 @@ namespace Synthesizer_PC_control
             this.InputFreqTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.InputFreqTextBox.TextChanged += new System.EventHandler(this.InputFreqTextBox_TextChanged);
             this.InputFreqTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputFreqTextBox_KeyDown);
-            this.InputFreqTextBox.LostFocus += new System.EventHandler(this.RefFTextBox_LostFocus);
             this.InputFreqTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
             // 
             // MHzLabel6
@@ -3150,13 +3144,7 @@ namespace Synthesizer_PC_control
         public ComboBox MuxPinModeCombobox;
         private Label MuxPinModeLabel;
         private GroupBox SynthModuleInfoGroupBox;
-        private CheckBox checkBox5;
-        private CheckBox checkBox4;
-        private CheckBox checkBox3;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
         private CheckBox checkBox7;
-        private CheckBox checkBox6;
         private CheckBox checkBox8;
         private CheckBox checkBox11;
         private CheckBox checkBox10;
@@ -3182,6 +3170,12 @@ namespace Synthesizer_PC_control
         public TextBox textBox1;
         private Button button4;
         private Button button3;
+        public CheckBox PloPowerDownCheckBox;
+        public CheckBox VcoShutDownCheckBox;
+        public CheckBox VcoLdoShutDownCheckBox;
+        public CheckBox VcoDividerShutdownCheckBox;
+        public CheckBox RefInputShutdownCheckBox;
+        public CheckBox PllShutDownCheckBox;
     }
 }
 
