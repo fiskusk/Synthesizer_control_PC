@@ -259,6 +259,14 @@ namespace Synthesizer_PC_control
             Reg4DoubleBufferedCheckBox.Enabled = command;
             IntNAutoModeWhenF0CheckBox.Enabled = command;
             RandNCountersResetCheckBox.Enabled = command;
+            AutoVcoSelectionCheckBox.Enabled = command;
+            VASTempCompCheckBox.Enabled     = command;
+            ManualVCOSelectNumericUpDown.Enabled = command;
+            BandSelClockDivNumericUpDown.Enabled = command;
+            MuteUntilLockDetectCheckBox.Enabled   = command; 
+            DelayToPreventFlickeringCheckBox.Enabled = command;
+            MuteUntilLockDelayCheckBox.Enabled   = command;
+            ClockDividerNumericUpDown.Enabled    = command;
         }
 
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
@@ -412,6 +420,10 @@ namespace Synthesizer_PC_control
                 LDSpeedAdjComboBox.Enabled = false;
             if (AutoLDFuncCheckBox.Checked)
                 LDFuncComboBox.Enabled = false;
+            if (AutoVcoSelectionCheckBox.Checked)
+                ManualVCOSelectNumericUpDown.Enabled = false;
+            else 
+                VASTempCompCheckBox.Enabled = false;
         }
 
 #endregion

@@ -45,23 +45,32 @@ namespace Synthesizer_PC_control.Model
         #region Setters
         public void SetOutAEnable(OutEnState value)
         {
-            this.outAEn = value;
+            if (this.outAEn != value)
+            {
+                this.outAEn = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetOutBEnable(OutEnState value)
         {
-            this.outBEn = value;
+            if (this.outBEn != value)
+            {
+                this.outBEn = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetOutAPwr(int value)
         {
-            this.outAPwr = value;
+            if (this.outAPwr != value)
+            {
+                this.outAPwr = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public bool SetOutBPwr(int value)

@@ -64,11 +64,10 @@ namespace Synthesizer_PC_control.Model
 
                     UInt32 correctAddress = UInt32.Parse(value, System.Globalization.NumberStyles.HexNumber);
                     correctAddress = BitOperations.ChangeNBits(correctAddress, (UInt32)regNumber, 3, 0);
-                    string correctAddressString = Convert.ToString(correctAddress, 16);
 
-                    if (!string.Equals(value, correctAddressString, StringComparison.CurrentCultureIgnoreCase) )
+                    if ( correctAddress != UInt32.Parse(value, System.Globalization.NumberStyles.HexNumber) )
                     {
-                        value = correctAddressString;
+                        value = Convert.ToString(correctAddress, 16);
                         ConsoleController.Console().Write(badAddressMsg);
                     }
                 }

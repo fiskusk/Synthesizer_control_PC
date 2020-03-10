@@ -31,6 +31,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_VcoShutdown             = ui_VcoShutdown;
         }
 
+        #region Setters
         public void SetShutdownAllState(bool value)
         {
             if (shutdownAllState != value)
@@ -90,7 +91,9 @@ namespace Synthesizer_PC_control.Model
                 UpdateUiElements();
             }
         }
+        #endregion
 
+        #region Getters
         public bool GetShutdownAllState()
         {
             return shutdownAllState;
@@ -120,6 +123,8 @@ namespace Synthesizer_PC_control.Model
         {
             return vcoShutdownState;
         }
+        
+        #endregion
         
         public void UpdateUiElements() 
         {

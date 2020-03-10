@@ -49,16 +49,22 @@ namespace Synthesizer_PC_control.Model
 
         public void SetOutAFreq(decimal value)
         {
-            this.fOutA = value;
+            if (this.fOutA != value)
+            {
+                this.fOutA = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetOutBFreq(decimal value)
         {
-            this.fOutB = value;
+            if (this.fOutB != value)
+            {
+                this.fOutB = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
         #endregion
 

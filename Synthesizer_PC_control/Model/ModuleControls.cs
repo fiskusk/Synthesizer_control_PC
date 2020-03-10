@@ -50,23 +50,32 @@ namespace Synthesizer_PC_control.Model
 
         public void SetOut1(bool value)
         {
-            isOut1On = value;
+            if (isOut1On != value)
+            {
+                isOut1On = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetOut2(bool value)
         {
-            isOut2On = value;
+            if (isOut2On != value)
+            {
+                isOut2On = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetIntRef(bool value)
         {
-            isIntRef = value;
+            if (isIntRef != value)
+            {
+                isIntRef = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public bool GetOut1State()

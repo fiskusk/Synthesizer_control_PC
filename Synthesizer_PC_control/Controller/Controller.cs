@@ -27,6 +27,7 @@ namespace Synthesizer_PC_control.Controllers
         public PhaseDetector phaseDetector;
         public GenericControls genericControls;
         public Shutdowns shutdowns;
+        public VcoControls vcoControls;
 
         public Controller(Form1 view)
         {
@@ -128,6 +129,15 @@ namespace Synthesizer_PC_control.Controllers
                                       view.VcoDividerShutdownCheckBox,
                                       view.VcoLdoShutDownCheckBox, 
                                       view.VcoShutDownCheckBox);
+
+            vcoControls = new VcoControls(view.AutoVcoSelectionCheckBox,
+                                          view.VASTempCompCheckBox,
+                                          view.MuteUntilLockDetectCheckBox,
+                                          view.DelayToPreventFlickeringCheckBox,
+                                          view.MuteUntilLockDelayCheckBox,
+                                          view.ManualVCOSelectNumericUpDown,
+                                          view.BandSelClockDivNumericUpDown, 
+                                          view.ClockDividerNumericUpDown); 
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -998,6 +1008,36 @@ namespace Synthesizer_PC_control.Controllers
             chargePump.SetCycleSlipMode(enabled);
         }
 
+        private void GetAutoVcoSelectionStateFromRegister(UInt32 dataReg3)
+        {
+            bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg3, 1, 25));
+            vcoControls.SetAutoVcoSelectionState(!enabled);
+        }
+
+        private void GetVASTempComStateFromRegister(UInt32 dataReg3)
+        {
+            bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg3, 1, 24));
+            vcoControls.SetVASTempComState(enabled);
+        }
+
+        private void GetManualVCOSelectValueFromRegister(UInt32 dataReg3)
+        {
+            UInt16 vcoValue = (UInt16)BitOperations.GetNBits(dataReg3, 6, 26);
+            vcoControls.SetManualVCOSelectValue(vcoValue);
+        }
+
+        private void GetDelayToPreventFlickeringStateFromRegister(UInt32 dataReg3)
+        {
+            bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg3, 1, 17));
+            vcoControls.SetDelayToPreventFlickeringState(enabled);
+        }
+
+        private void GetClockDividerValueFromRegister(UInt32 dataReg3)
+        {
+            UInt16 cdiv = (UInt16)BitOperations.GetNBits(dataReg3, 12, 3);
+            vcoControls.SetClockDividerValue(cdiv);
+        }
+
     #endregion
 
     #region Parsing register 4
@@ -1068,6 +1108,20 @@ namespace Synthesizer_PC_control.Controllers
             shutdowns.SetVcoShutdownState(shutdown);
         }
 
+        private void GetMuteUntilLockDetectStateFromRegister(UInt32 dataReg4)
+        {
+            bool mtld = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 10));
+            vcoControls.SetMuteUntilLockDetectState(mtld);
+        }
+
+        public void GetBandSelClockDivValueFromRegister(UInt32 dataReg4)
+        {
+            UInt16 msbs = (UInt16)BitOperations.GetNBits(dataReg4, 2, 24);
+            UInt16 lsbs = (UInt16)BitOperations.GetNBits(dataReg4, 8, 12);
+            UInt16 bandSelectClockDiv = (UInt16)((msbs << 8) + lsbs);
+            vcoControls.SetBandSelClockDivValue(bandSelectClockDiv);
+        }
+
     #endregion
 
     #region Parsing register 5
@@ -1121,6 +1175,11 @@ namespace Synthesizer_PC_control.Controllers
                 case 3:
                     GetClockDividerModeFromRegister(reg);
                     GetCycleSlipModeFromRegister(reg);
+                    GetAutoVcoSelectionStateFromRegister(reg);
+                    GetVASTempComStateFromRegister(reg);
+                    GetManualVCOSelectValueFromRegister(reg);
+                    GetDelayToPreventFlickeringStateFromRegister(reg);
+                    GetClockDividerValueFromRegister(reg);
                     break;
                 case 4:
                     GetOutAENStatusFromRegister(reg);
@@ -1134,6 +1193,8 @@ namespace Synthesizer_PC_control.Controllers
                     GetVcoDividerShutDownStateFromRegister(reg);
                     GetVcoLdoShutDownStateFromRegister(reg);
                     GetVcoShutDownStateFromRegister(reg);
+                    GetMuteUntilLockDetectStateFromRegister(reg);
+                    GetBandSelClockDivValueFromRegister(reg);
                     break;
                 case 5:
                     GetPllShutdownStateFromRegister(reg);

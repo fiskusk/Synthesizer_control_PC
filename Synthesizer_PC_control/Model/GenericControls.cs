@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Forms;
 
 namespace Synthesizer_PC_control.Model
@@ -25,30 +24,42 @@ namespace Synthesizer_PC_control.Model
         #region Setters
         public void SetMuxPinMode(int value)
         {
-            this.muxPinModeIndex = value;
+            if (muxPinModeIndex != value)
+            {
+                this.muxPinModeIndex = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetReg4DoubleBuffered(bool value)
         {
-            this.reg4DoubleBuffered = value;
+            if (reg4DoubleBuffered != value)
+            {
+                this.reg4DoubleBuffered = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetF0AutoIntNMode(bool value)
         {
-            this.f0AutoIntNMode = value;
+            if (f0AutoIntNMode != value)
+            {
+                this.f0AutoIntNMode = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetRandNCountersReset(bool value)
         {
-            this.RandNCountersReset = value;
+            if (RandNCountersReset != value)
+            {
+                this.RandNCountersReset = value;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
         #endregion
 
