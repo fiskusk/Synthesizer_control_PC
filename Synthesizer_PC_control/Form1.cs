@@ -756,7 +756,13 @@ namespace Synthesizer_PC_control
         
         private void AutoVcoSelectionCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.AutoVcoSelectionCheckedChanged(AutoVcoSelectionCheckBox.Checked);
+            controller.AutoVcoSelectionStateChanged(AutoVcoSelectionCheckBox.Checked);
+        }
+
+        
+        private void VASTempCompCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.VASTempComStateChanged(VASTempCompCheckBox.Checked);
         }
 #endregion
 

@@ -19,6 +19,8 @@ namespace Synthesizer_PC_control.Model
             this.ui_Reg4DoubleBuffered  = ui_Reg4DoubleBuffered;
             this.ui_F0AutoIntNMode      = ui_F0AutoIntNMode;
             this.ui_RandNCountersReset  = ui_RandNCountersReset;
+
+            this.muxPinModeIndex = 1;
         }
 
         #region Setters

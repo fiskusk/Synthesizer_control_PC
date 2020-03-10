@@ -710,7 +710,7 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
 
     #region VCO Settings Group
-        public void AutoVcoSelectionCheckedChanged(bool value)
+        public void AutoVcoSelectionStateChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
@@ -720,6 +720,21 @@ namespace Synthesizer_PC_control.Controllers
                 vcoControls.SetAutoVcoSelectionState(value);
 
                 serialPort.SetDisableSending(false, 40);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
+            }
+        }
+
+        public void VASTempComStateChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                serialPort.SetDisableSending(true, 41);
+
+                registers[3].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
+                vcoControls.SetVASTempComState(value);
+
+                serialPort.SetDisableSending(false, 41);
                 if (serialPort.GetDisableSending() == false)
                     SendData();
             }

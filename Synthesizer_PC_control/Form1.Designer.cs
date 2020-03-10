@@ -926,6 +926,7 @@ namespace Synthesizer_PC_control
             this.VASTempCompCheckBox.TabIndex = 0;
             this.VASTempCompCheckBox.Text = "VAS temperature compensation";
             this.VASTempCompCheckBox.UseVisualStyleBackColor = true;
+            this.VASTempCompCheckBox.CheckedChanged += new System.EventHandler(this.VASTempCompCheckBox_CheckedChanged);
             // 
             // AutoVcoSelectionCheckBox
             // 
