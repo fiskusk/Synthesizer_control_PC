@@ -739,6 +739,21 @@ namespace Synthesizer_PC_control.Controllers
                     SendData();
             }
         }
+
+        public void ManualVCOSelectValueChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                serialPort.SetDisableSending(true, 42);
+
+                registers[3].ChangeNBits((UInt32)value, 6, 26);
+                vcoControls.SetManualVCOSelectValue((UInt16)value);
+
+                serialPort.SetDisableSending(false, 42);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
+            }
+        }
     #endregion
 
     #region Generic Controls Group

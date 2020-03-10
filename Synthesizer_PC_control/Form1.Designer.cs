@@ -1002,6 +1002,7 @@ namespace Synthesizer_PC_control
             0,
             0,
             0});
+            this.ManualVCOSelectNumericUpDown.ValueChanged += new System.EventHandler(this.ManualVCOSelectNumericUpDown_ValueChanged);
             this.ManualVCOSelectNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
             // 
             // label4

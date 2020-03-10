@@ -764,6 +764,12 @@ namespace Synthesizer_PC_control
         {
             controller.VASTempComStateChanged(VASTempCompCheckBox.Checked);
         }
+
+        
+        private void ManualVCOSelectNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            controller.ManualVCOSelectValueChanged((int)ManualVCOSelectNumericUpDown.Value);
+        }
 #endregion
 
 #region Shutdown control group
