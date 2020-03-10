@@ -751,7 +751,15 @@ namespace Synthesizer_PC_control
             controller.RandNCountersResetStateChanged(RandNCountersResetCheckBox.Checked);
         }
         #endregion
-    
+
+#region VCO controls group
+        
+        private void AutoVcoSelectionCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.AutoVcoSelectionCheckedChanged(AutoVcoSelectionCheckBox.Checked);
+        }
+#endregion
+
 #region Shutdown control group
 
         
@@ -786,5 +794,6 @@ namespace Synthesizer_PC_control
         }
 
         #endregion
+
     }
 }

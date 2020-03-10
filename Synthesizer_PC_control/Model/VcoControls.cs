@@ -47,6 +47,8 @@ namespace Synthesizer_PC_control.Model
         {
             if (this.autoVcoSelectionState != value)
             {
+                this.autoVcoSelectionState = value;
+                
                 if (autoVcoSelectionState == true)
                 {
                     ui_ManualVCOSelect.Enabled = false;
@@ -57,7 +59,6 @@ namespace Synthesizer_PC_control.Model
                     ui_ManualVCOSelect.Enabled = true;
                     ui_VASTempCom.Enabled = false;
                 }
-                this.autoVcoSelectionState = value;
 
                 UpdateUiElements();
             }

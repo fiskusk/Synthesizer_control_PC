@@ -936,6 +936,7 @@ namespace Synthesizer_PC_control
             this.AutoVcoSelectionCheckBox.TabIndex = 0;
             this.AutoVcoSelectionCheckBox.Text = "Automatic VCO selection";
             this.AutoVcoSelectionCheckBox.UseVisualStyleBackColor = true;
+            this.AutoVcoSelectionCheckBox.CheckedChanged += new System.EventHandler(this.AutoVcoSelectionCheckBox_CheckedChanged);
             // 
             // BandSelClockDivNumericUpDown
             // 

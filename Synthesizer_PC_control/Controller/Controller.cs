@@ -710,6 +710,20 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
 
     #region VCO Settings Group
+        public void AutoVcoSelectionCheckedChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                serialPort.SetDisableSending(true, 40);
+
+                registers[3].SetResetOneBit(25, (BitState)Convert.ToUInt16(!value));
+                vcoControls.SetAutoVcoSelectionState(value);
+
+                serialPort.SetDisableSending(false, 40);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
+            }
+        }
     #endregion
 
     #region Generic Controls Group
