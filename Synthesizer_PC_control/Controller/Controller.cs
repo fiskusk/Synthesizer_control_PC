@@ -185,6 +185,7 @@ namespace Synthesizer_PC_control.Controllers
             {
                 serialPort.SendStringSerialPort("ref int");
                 refFreq.SetRefFreqValue(10);
+                vcoControls.CalcBandSelClockDivValue(10);
                 refFreq.ChangeRefInpUIEnabled(false);
                 moduleControls.SetIntRef(true);
             }
@@ -247,7 +248,11 @@ namespace Synthesizer_PC_control.Controllers
         public void ReferenceFrequencyValueChanged(string value)
         {
             if (refFreq.SetRefFreqValue(value) == true)
+            {
                 RecalcFreqInfo();
+                decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+                vcoControls.CalcBandSelClockDivValue(pfdFreq);
+            }
         }
 
         public void ReferenceDoublerStateChanged(bool value)
@@ -259,6 +264,8 @@ namespace Synthesizer_PC_control.Controllers
                 registers[2].SetResetOneBit(25, (BitState)Convert.ToUInt16(value));
                 refFreq.SetRefDoubler(value);
                 outFreqControl.RecalcRegsForNewPfdFreq(value);
+                decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+                vcoControls.CalcBandSelClockDivValue(pfdFreq);
 
                 serialPort.SetDisableSending(false, 5);
                 if (serialPort.GetDisableSending() == false)
@@ -275,6 +282,8 @@ namespace Synthesizer_PC_control.Controllers
                 registers[2].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
                 refFreq.SetRefDivBy2(value);
                 outFreqControl.RecalcRegsForNewPfdFreq(!value);
+                decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+                vcoControls.CalcBandSelClockDivValue(pfdFreq);
 
                 serialPort.SetDisableSending(false, 12);
                 if (serialPort.GetDisableSending() == false)
@@ -290,6 +299,8 @@ namespace Synthesizer_PC_control.Controllers
 
                 registers[2].ChangeNBits((UInt32)value, 10, 14);
                 refFreq.SetRDivider(value);
+                decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+                vcoControls.CalcBandSelClockDivValue(pfdFreq);
 
                 serialPort.SetDisableSending(false, 14);
                 if (serialPort.GetDisableSending() == false)
@@ -377,6 +388,8 @@ namespace Synthesizer_PC_control.Controllers
                 outFreqControl.SetSynthMode((SynthMode)value);
                 outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
                 refFreq.SetSynthModeInfoVariable((SynthMode)value);
+                decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+                vcoControls.CalcBandSelClockDivValue(pfdFreq);
 
                 if ((SynthMode)value == SynthMode.INTEGER)
                     chargePump.SetLinearityIndex(0);
@@ -732,6 +745,10 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SetDisableSending(true, 41);
 
                 registers[3].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
+                if (value == true)
+                    registers[5].ChangeNBits(0b11, 2, 29);
+                else
+                    registers[5].ChangeNBits(0b00, 2, 29);
                 vcoControls.SetVASTempComState(value);
 
                 serialPort.SetDisableSending(false, 41);
@@ -754,6 +771,44 @@ namespace Synthesizer_PC_control.Controllers
                     SendData();
             }
         }
+
+        public void BandSelClockDivValueChanged(int value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                serialPort.SetDisableSending(true, 43);
+
+                vcoControls.SetBandSelClockDivValue((UInt16)value);
+                value = vcoControls.GetBandSelClockDivValue();
+
+                UInt16 lsbs = (UInt16)(value & 0xFF);
+                UInt16 msbs = (UInt16)((UInt16)value & 0x300);
+                msbs = (UInt16)(msbs >> 8);
+
+                registers[4].ChangeNBits((UInt32)lsbs, 8, 12);
+                registers[4].ChangeNBits((UInt32)msbs, 2, 24);
+
+                serialPort.SetDisableSending(false, 43);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
+            }
+        }
+
+        public void MuteUntilLockDetectStateChanged(bool value)
+        {
+            if (serialPort.IsPortOpen())
+            {
+                serialPort.SetDisableSending(true, 44);
+
+                registers[4].SetResetOneBit(10, (BitState)Convert.ToUInt16(value));
+                vcoControls.SetMuteUntilLockDetectState(value);
+
+                serialPort.SetDisableSending(false, 44);
+                if (serialPort.GetDisableSending() == false)
+                    SendData();
+            }
+        }
+
     #endregion
 
     #region Generic Controls Group
@@ -892,6 +947,8 @@ namespace Synthesizer_PC_control.Controllers
             outFreqControl.SetSynthMode((SynthMode)value);
             outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
             refFreq.SetSynthModeInfoVariable((SynthMode)value);
+            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+            vcoControls.CalcBandSelClockDivValue(pfdFreq);
 
             if ((SynthMode)value == SynthMode.INTEGER)
                 chargePump.SetLinearityIndex(0);
@@ -945,18 +1002,24 @@ namespace Synthesizer_PC_control.Controllers
         {
             bool refDoubler = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25));
             refFreq.SetRefDoubler(refDoubler);
+            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+            vcoControls.CalcBandSelClockDivValue(pfdFreq);
         }
         
         private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
         {
             bool refDividerBy2 = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 24));
             refFreq.SetRefDivBy2(refDividerBy2);
+            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+            vcoControls.CalcBandSelClockDivValue(pfdFreq);
         }
 
         private void GetRDivValueFromRegister(UInt32 dataReg2)
         {
             UInt16 rDiv = (UInt16)BitOperations.GetNBits(dataReg2, 10, 14);
             refFreq.SetRDivider(rDiv);
+            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+            vcoControls.CalcBandSelClockDivValue(pfdFreq);
         }
 
         private void GetCPCurrentIndexFromRegister(UInt32 dataReg2)
@@ -1352,6 +1415,8 @@ namespace Synthesizer_PC_control.Controllers
             outFreqControl.SetSynthMode(calcRegs.mode);
             outFreqControl.SetIntNVal(calcRegs.intN);
             refFreq.SetRDivider(calcRegs.rDiv);
+            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+            vcoControls.CalcBandSelClockDivValue(pfdFreq);
             
 
             if (calcRegs.mode == SynthMode.FRACTIONAL)
@@ -1641,6 +1706,8 @@ namespace Synthesizer_PC_control.Controllers
             directFreqControl.SetDirectInputFreqValue(data.OutputFreqValue);
 
             refFreq.SetRefFreqValue(data.ReferenceFrequency);
+            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
+            vcoControls.CalcBandSelClockDivValue(pfdFreq);
 
             serialPort.SetSelectedPort(data.COM_port);
             refFreq.SetAutoLDSpeedAdj(data.AutoLDSpeedAdj);

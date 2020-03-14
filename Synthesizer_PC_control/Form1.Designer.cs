@@ -916,6 +916,7 @@ namespace Synthesizer_PC_control
             this.MuteUntilLockDetectCheckBox.TabIndex = 0;
             this.MuteUntilLockDetectCheckBox.Text = "RFOUT Mute until Lock Detect Mode";
             this.MuteUntilLockDetectCheckBox.UseVisualStyleBackColor = true;
+            this.MuteUntilLockDetectCheckBox.CheckedChanged += new System.EventHandler(this.MuteUntilLockDetectCheckBox_CheckedChanged);
             // 
             // VASTempCompCheckBox
             // 
@@ -962,6 +963,7 @@ namespace Synthesizer_PC_control
             0,
             0,
             0});
+            this.BandSelClockDivNumericUpDown.ValueChanged += new System.EventHandler(this.BandSelClockDivNumericUpDown_ValueChanged);
             this.BandSelClockDivNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
             // 
             // ClockDividerNumericUpDown

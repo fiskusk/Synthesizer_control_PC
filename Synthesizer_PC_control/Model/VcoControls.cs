@@ -48,7 +48,7 @@ namespace Synthesizer_PC_control.Model
             if (this.autoVcoSelectionState != value)
             {
                 this.autoVcoSelectionState = value;
-                
+
                 if (autoVcoSelectionState == true)
                 {
                     ui_ManualVCOSelect.Enabled = false;
@@ -114,6 +114,16 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
+        public void CalcBandSelClockDivValue(decimal pfdFreq)
+        {
+            UInt16 bandSelClockDivValue = (UInt16)(pfdFreq / 0.050M);
+            if (bandSelClockDivValue < 1)
+                bandSelClockDivValue = 1;
+            else if (bandSelClockDivValue > 1023)
+                bandSelClockDivValue = 1023;
+            SetBandSelClockDivValue(bandSelClockDivValue);
+        }
+
         public void SetBandSelClockDivValue(UInt16 value)
         {
             if (this.bandSelClockDivValue != value)
@@ -140,6 +150,11 @@ namespace Synthesizer_PC_control.Model
         public bool GetAutoVcoSelectionState()
         {
             return this.autoVcoSelectionState;
+        }
+
+        public UInt16 GetBandSelClockDivValue()
+        {
+            return this.bandSelClockDivValue;
         }
         #endregion
 

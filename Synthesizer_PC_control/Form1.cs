@@ -759,22 +759,29 @@ namespace Synthesizer_PC_control
             controller.AutoVcoSelectionStateChanged(AutoVcoSelectionCheckBox.Checked);
         }
 
-        
         private void VASTempCompCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             controller.VASTempComStateChanged(VASTempCompCheckBox.Checked);
         }
-
         
         private void ManualVCOSelectNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             controller.ManualVCOSelectValueChanged((int)ManualVCOSelectNumericUpDown.Value);
         }
-#endregion
-
-#region Shutdown control group
-
         
+        private void BandSelClockDivNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            controller.BandSelClockDivValueChanged((int)BandSelClockDivNumericUpDown.Value);
+        }
+
+        private void MuteUntilLockDetectCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            controller.MuteUntilLockDetectStateChanged(MuteUntilLockDetectCheckBox.Checked);
+        }
+        #endregion
+
+        #region Shutdown control group
+
         private void PloPowerDownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             controller.PloPowerDownStateChanged(PloPowerDownCheckBox.Checked);
