@@ -70,7 +70,7 @@ namespace Synthesizer_PC_control
             this.MuxPinModeCombobox = new System.Windows.Forms.ComboBox();
             this.MuxPinModeLabel = new System.Windows.Forms.Label();
             this.Reg4DoubleBufferedCheckBox = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.CalcCDIVCheckBox = new System.Windows.Forms.CheckBox();
             this.RandNCountersResetCheckBox = new System.Windows.Forms.CheckBox();
             this.IntNAutoModeWhenF0CheckBox = new System.Windows.Forms.CheckBox();
             this.ShutDownGroupBox = new System.Windows.Forms.GroupBox();
@@ -81,17 +81,21 @@ namespace Synthesizer_PC_control
             this.VcoDividerShutdownCheckBox = new System.Windows.Forms.CheckBox();
             this.RefInputShutdownCheckBox = new System.Windows.Forms.CheckBox();
             this.VcoSettingsGroupBox = new System.Windows.Forms.GroupBox();
-            this.MuteUntilLockDelayCheckBox = new System.Windows.Forms.CheckBox();
+            this.ShowDelayLabel = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.delayLabel = new System.Windows.Forms.Label();
+            this.AutoCDIVCalcCheckBox = new System.Windows.Forms.CheckBox();
             this.DelayToPreventFlickeringCheckBox = new System.Windows.Forms.CheckBox();
             this.MuteUntilLockDetectCheckBox = new System.Windows.Forms.CheckBox();
             this.VASTempCompCheckBox = new System.Windows.Forms.CheckBox();
             this.AutoVcoSelectionCheckBox = new System.Windows.Forms.CheckBox();
             this.BandSelClockDivNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.DelayInputNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.ClockDividerNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.ManualVCOSelectNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
+            this.BandSelectClockDivLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.ManualVcoLabel = new System.Windows.Forms.Label();
             this.PhaseDetectorGroupBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.LDPrecisionLabel = new System.Windows.Forms.Label();
@@ -247,6 +251,7 @@ namespace Synthesizer_PC_control
             this.ShutDownGroupBox.SuspendLayout();
             this.VcoSettingsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BandSelClockDivNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DelayInputNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClockDividerNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ManualVCOSelectNumericUpDown)).BeginInit();
             this.PhaseDetectorGroupBox.SuspendLayout();
@@ -703,7 +708,7 @@ namespace Synthesizer_PC_control
             this.genericControlsGroupBox.Controls.Add(this.MuxPinModeCombobox);
             this.genericControlsGroupBox.Controls.Add(this.MuxPinModeLabel);
             this.genericControlsGroupBox.Controls.Add(this.Reg4DoubleBufferedCheckBox);
-            this.genericControlsGroupBox.Controls.Add(this.checkBox10);
+            this.genericControlsGroupBox.Controls.Add(this.CalcCDIVCheckBox);
             this.genericControlsGroupBox.Controls.Add(this.RandNCountersResetCheckBox);
             this.genericControlsGroupBox.Controls.Add(this.IntNAutoModeWhenF0CheckBox);
             this.genericControlsGroupBox.Location = new System.Drawing.Point(355, 596);
@@ -754,15 +759,15 @@ namespace Synthesizer_PC_control
             this.Reg4DoubleBufferedCheckBox.UseVisualStyleBackColor = true;
             this.Reg4DoubleBufferedCheckBox.CheckedChanged += new System.EventHandler(this.Reg4DoubleBufferedCheckBox_CheckedChanged);
             // 
-            // checkBox10
+            // CalcCDIVCheckBox
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(13, 49);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(177, 21);
-            this.checkBox10.TabIndex = 0;
-            this.checkBox10.Text = "R and N counters reset";
-            this.checkBox10.UseVisualStyleBackColor = true;
+            this.CalcCDIVCheckBox.AutoSize = true;
+            this.CalcCDIVCheckBox.Location = new System.Drawing.Point(13, 49);
+            this.CalcCDIVCheckBox.Name = "CalcCDIVCheckBox";
+            this.CalcCDIVCheckBox.Size = new System.Drawing.Size(177, 21);
+            this.CalcCDIVCheckBox.TabIndex = 0;
+            this.CalcCDIVCheckBox.Text = "R and N counters reset";
+            this.CalcCDIVCheckBox.UseVisualStyleBackColor = true;
             // 
             // RandNCountersResetCheckBox
             // 
@@ -869,17 +874,21 @@ namespace Synthesizer_PC_control
             // 
             // VcoSettingsGroupBox
             // 
-            this.VcoSettingsGroupBox.Controls.Add(this.MuteUntilLockDelayCheckBox);
+            this.VcoSettingsGroupBox.Controls.Add(this.ShowDelayLabel);
+            this.VcoSettingsGroupBox.Controls.Add(this.label7);
+            this.VcoSettingsGroupBox.Controls.Add(this.delayLabel);
+            this.VcoSettingsGroupBox.Controls.Add(this.AutoCDIVCalcCheckBox);
             this.VcoSettingsGroupBox.Controls.Add(this.DelayToPreventFlickeringCheckBox);
             this.VcoSettingsGroupBox.Controls.Add(this.MuteUntilLockDetectCheckBox);
             this.VcoSettingsGroupBox.Controls.Add(this.VASTempCompCheckBox);
             this.VcoSettingsGroupBox.Controls.Add(this.AutoVcoSelectionCheckBox);
             this.VcoSettingsGroupBox.Controls.Add(this.BandSelClockDivNumericUpDown);
+            this.VcoSettingsGroupBox.Controls.Add(this.DelayInputNumericUpDown);
             this.VcoSettingsGroupBox.Controls.Add(this.ClockDividerNumericUpDown);
             this.VcoSettingsGroupBox.Controls.Add(this.ManualVCOSelectNumericUpDown);
-            this.VcoSettingsGroupBox.Controls.Add(this.label4);
+            this.VcoSettingsGroupBox.Controls.Add(this.BandSelectClockDivLabel);
             this.VcoSettingsGroupBox.Controls.Add(this.label5);
-            this.VcoSettingsGroupBox.Controls.Add(this.label3);
+            this.VcoSettingsGroupBox.Controls.Add(this.ManualVcoLabel);
             this.VcoSettingsGroupBox.Location = new System.Drawing.Point(356, 198);
             this.VcoSettingsGroupBox.Name = "VcoSettingsGroupBox";
             this.VcoSettingsGroupBox.Size = new System.Drawing.Size(341, 238);
@@ -887,15 +896,45 @@ namespace Synthesizer_PC_control
             this.VcoSettingsGroupBox.TabStop = false;
             this.VcoSettingsGroupBox.Text = "VCO settings";
             // 
-            // MuteUntilLockDelayCheckBox
+            // ShowDelayLabel
             // 
-            this.MuteUntilLockDelayCheckBox.AutoSize = true;
-            this.MuteUntilLockDelayCheckBox.Location = new System.Drawing.Point(12, 188);
-            this.MuteUntilLockDelayCheckBox.Name = "MuteUntilLockDelayCheckBox";
-            this.MuteUntilLockDelayCheckBox.Size = new System.Drawing.Size(165, 21);
-            this.MuteUntilLockDelayCheckBox.TabIndex = 0;
-            this.MuteUntilLockDelayCheckBox.Text = "Mute until Lock Delay";
-            this.MuteUntilLockDelayCheckBox.UseVisualStyleBackColor = true;
+            this.ShowDelayLabel.AutoSize = true;
+            this.ShowDelayLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ShowDelayLabel.Location = new System.Drawing.Point(276, 187);
+            this.ShowDelayLabel.Name = "ShowDelayLabel";
+            this.ShowDelayLabel.Size = new System.Drawing.Size(62, 17);
+            this.ShowDelayLabel.TabIndex = 20;
+            this.ShowDelayLabel.Text = "1000 ms";
+            this.ShowDelayLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(285, 213);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(26, 17);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "ms";
+            // 
+            // delayLabel
+            // 
+            this.delayLabel.AutoSize = true;
+            this.delayLabel.Location = new System.Drawing.Point(229, 186);
+            this.delayLabel.Name = "delayLabel";
+            this.delayLabel.Size = new System.Drawing.Size(48, 17);
+            this.delayLabel.TabIndex = 20;
+            this.delayLabel.Text = "Delay:";
+            // 
+            // AutoCDIVCalcCheckBox
+            // 
+            this.AutoCDIVCalcCheckBox.AutoSize = true;
+            this.AutoCDIVCalcCheckBox.Location = new System.Drawing.Point(12, 211);
+            this.AutoCDIVCalcCheckBox.Name = "AutoCDIVCalcCheckBox";
+            this.AutoCDIVCalcCheckBox.Size = new System.Drawing.Size(188, 21);
+            this.AutoCDIVCalcCheckBox.TabIndex = 0;
+            this.AutoCDIVCalcCheckBox.Text = "Calc CDIV to spec. delay:";
+            this.AutoCDIVCalcCheckBox.UseVisualStyleBackColor = true;
+            this.AutoCDIVCalcCheckBox.CheckedChanged += new System.EventHandler(this.AutoCDIVCalcCheckBox_CheckedChanged);
             // 
             // DelayToPreventFlickeringCheckBox
             // 
@@ -906,6 +945,7 @@ namespace Synthesizer_PC_control
             this.DelayToPreventFlickeringCheckBox.TabIndex = 0;
             this.DelayToPreventFlickeringCheckBox.Text = "Delay LD to MTLD function to prevent flickering";
             this.DelayToPreventFlickeringCheckBox.UseVisualStyleBackColor = true;
+            this.DelayToPreventFlickeringCheckBox.CheckedChanged += new System.EventHandler(this.DelayToPreventFlickeringCheckBox_CheckedChanged);
             // 
             // MuteUntilLockDetectCheckBox
             // 
@@ -966,9 +1006,30 @@ namespace Synthesizer_PC_control
             this.BandSelClockDivNumericUpDown.ValueChanged += new System.EventHandler(this.BandSelClockDivNumericUpDown_ValueChanged);
             this.BandSelClockDivNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
             // 
+            // DelayInputNumericUpDown
+            // 
+            this.DelayInputNumericUpDown.Location = new System.Drawing.Point(212, 211);
+            this.DelayInputNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.DelayInputNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.DelayInputNumericUpDown.Name = "DelayInputNumericUpDown";
+            this.DelayInputNumericUpDown.Size = new System.Drawing.Size(70, 22);
+            this.DelayInputNumericUpDown.TabIndex = 19;
+            this.DelayInputNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.DelayInputNumericUpDown.Value = new decimal(new int[] {
+            1024,
+            0,
+            0,
+            0});
+            this.DelayInputNumericUpDown.ValueChanged += new System.EventHandler(this.DelayInputNumericUpDown_ValueChanged);
+            this.DelayInputNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
+            // 
             // ClockDividerNumericUpDown
             // 
-            this.ClockDividerNumericUpDown.Location = new System.Drawing.Point(154, 210);
+            this.ClockDividerNumericUpDown.Location = new System.Drawing.Point(138, 185);
             this.ClockDividerNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.ClockDividerNumericUpDown.Maximum = new decimal(new int[] {
             4095,
@@ -984,6 +1045,7 @@ namespace Synthesizer_PC_control
             0,
             0,
             0});
+            this.ClockDividerNumericUpDown.ValueChanged += new System.EventHandler(this.ClockDividerNumericUpDown_ValueChanged);
             this.ClockDividerNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
             // 
             // ManualVCOSelectNumericUpDown
@@ -1007,32 +1069,32 @@ namespace Synthesizer_PC_control
             this.ManualVCOSelectNumericUpDown.ValueChanged += new System.EventHandler(this.ManualVCOSelectNumericUpDown_ValueChanged);
             this.ManualVCOSelectNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
             // 
-            // label4
+            // BandSelectClockDivLabel
             // 
-            this.label4.Location = new System.Drawing.Point(-5, 108);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(156, 17);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Band-Select clock div:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BandSelectClockDivLabel.Location = new System.Drawing.Point(-5, 108);
+            this.BandSelectClockDivLabel.Name = "BandSelectClockDivLabel";
+            this.BandSelectClockDivLabel.Size = new System.Drawing.Size(156, 17);
+            this.BandSelectClockDivLabel.TabIndex = 17;
+            this.BandSelectClockDivLabel.Text = "Band-Select clock div:";
+            this.BandSelectClockDivLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(12, 212);
+            this.label5.Location = new System.Drawing.Point(-4, 187);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(139, 17);
             this.label5.TabIndex = 17;
             this.label5.Text = "Clock divider value:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label3
+            // ManualVcoLabel
             // 
-            this.label3.Location = new System.Drawing.Point(12, 81);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(139, 17);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Manual VCO select:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ManualVcoLabel.Location = new System.Drawing.Point(12, 81);
+            this.ManualVcoLabel.Name = "ManualVcoLabel";
+            this.ManualVcoLabel.Size = new System.Drawing.Size(139, 17);
+            this.ManualVcoLabel.TabIndex = 17;
+            this.ManualVcoLabel.Text = "Manual VCO select:";
+            this.ManualVcoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // PhaseDetectorGroupBox
             // 
@@ -2943,6 +3005,7 @@ namespace Synthesizer_PC_control
             this.VcoSettingsGroupBox.ResumeLayout(false);
             this.VcoSettingsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BandSelClockDivNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DelayInputNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ClockDividerNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ManualVCOSelectNumericUpDown)).EndInit();
             this.PhaseDetectorGroupBox.ResumeLayout(false);
@@ -3156,13 +3219,13 @@ namespace Synthesizer_PC_control
         private GroupBox SynthModuleInfoGroupBox;
         public CheckBox IntNAutoModeWhenF0CheckBox;
         public CheckBox Reg4DoubleBufferedCheckBox;
-        private CheckBox checkBox10;
+        private CheckBox CalcCDIVCheckBox;
         private Label label2;
         public ComboBox FBPathComboBox;
         public NumericUpDown BandSelClockDivNumericUpDown;
         public NumericUpDown ManualVCOSelectNumericUpDown;
-        private Label label4;
-        private Label label3;
+        private Label BandSelectClockDivLabel;
+        private Label ManualVcoLabel;
         public NumericUpDown ClockDividerNumericUpDown;
         private Label label5;
         public CheckBox RandNCountersResetCheckBox;
@@ -3183,9 +3246,13 @@ namespace Synthesizer_PC_control
         public CheckBox PllShutDownCheckBox;
         public CheckBox AutoVcoSelectionCheckBox;
         public CheckBox VASTempCompCheckBox;
-        public CheckBox MuteUntilLockDelayCheckBox;
         public CheckBox DelayToPreventFlickeringCheckBox;
         public CheckBox MuteUntilLockDetectCheckBox;
+        private Label delayLabel;
+        public Label ShowDelayLabel;
+        private Label label7;
+        public CheckBox AutoCDIVCalcCheckBox;
+        public NumericUpDown DelayInputNumericUpDown;
     }
 }
 

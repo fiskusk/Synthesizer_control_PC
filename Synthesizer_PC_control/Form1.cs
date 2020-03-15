@@ -265,8 +265,9 @@ namespace Synthesizer_PC_control
             BandSelClockDivNumericUpDown.Enabled = command;
             MuteUntilLockDetectCheckBox.Enabled   = command; 
             DelayToPreventFlickeringCheckBox.Enabled = command;
-            MuteUntilLockDelayCheckBox.Enabled   = command;
             ClockDividerNumericUpDown.Enabled    = command;
+            AutoCDIVCalcCheckBox.Enabled         = command;
+            DelayInputNumericUpDown.Enabled      = command;
         }
 
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
@@ -424,6 +425,10 @@ namespace Synthesizer_PC_control
                 ManualVCOSelectNumericUpDown.Enabled = false;
             else 
                 VASTempCompCheckBox.Enabled = false;
+            if (!AutoCDIVCalcCheckBox.Checked)
+                DelayInputNumericUpDown.Enabled = false;
+            else
+                ClockDividerNumericUpDown.Enabled = false;
         }
 
 #endregion
@@ -733,22 +738,26 @@ namespace Synthesizer_PC_control
         
         private void MuxPinModeCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            controller.MuxPinModeIndexChanged(MuxPinModeCombobox.SelectedIndex);
+            if (isForm1Load)
+                controller.MuxPinModeIndexChanged(MuxPinModeCombobox.SelectedIndex);
         }
 
         private void Reg4DoubleBufferedCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.Reg4DoubleBufferedStateChanged(Reg4DoubleBufferedCheckBox.Checked);
+            if (isForm1Load)
+                controller.Reg4DoubleBufferedStateChanged(Reg4DoubleBufferedCheckBox.Checked);
         }
 
         private void IntNAutoModeWhenF0CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.IntNAutoModeWhenF0StateChanged(IntNAutoModeWhenF0CheckBox.Checked);
+            if (isForm1Load)
+                controller.IntNAutoModeWhenF0StateChanged(IntNAutoModeWhenF0CheckBox.Checked);
         }
 
         private void RandNCountersResetCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.RandNCountersResetStateChanged(RandNCountersResetCheckBox.Checked);
+            if (isForm1Load)
+                controller.RandNCountersResetStateChanged(RandNCountersResetCheckBox.Checked);
         }
         #endregion
 
@@ -756,62 +765,98 @@ namespace Synthesizer_PC_control
         
         private void AutoVcoSelectionCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.AutoVcoSelectionStateChanged(AutoVcoSelectionCheckBox.Checked);
+            if (isForm1Load)
+                controller.AutoVcoSelectionStateChanged(AutoVcoSelectionCheckBox.Checked);
         }
 
         private void VASTempCompCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.VASTempComStateChanged(VASTempCompCheckBox.Checked);
+            if (isForm1Load)
+                controller.VASTempComStateChanged(VASTempCompCheckBox.Checked);
         }
         
         private void ManualVCOSelectNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            controller.ManualVCOSelectValueChanged((int)ManualVCOSelectNumericUpDown.Value);
+            if (isForm1Load)
+                controller.ManualVCOSelectValueChanged((int)ManualVCOSelectNumericUpDown.Value);
         }
         
         private void BandSelClockDivNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            controller.BandSelClockDivValueChanged((int)BandSelClockDivNumericUpDown.Value);
+            if (isForm1Load)
+                controller.BandSelClockDivValueChanged((int)BandSelClockDivNumericUpDown.Value);
         }
 
         private void MuteUntilLockDetectCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.MuteUntilLockDetectStateChanged(MuteUntilLockDetectCheckBox.Checked);
+            if (isForm1Load)
+                controller.MuteUntilLockDetectStateChanged(MuteUntilLockDetectCheckBox.Checked);
         }
+        
+        private void DelayToPreventFlickeringCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (isForm1Load)
+                controller.DelayToPreventFlickeringStateChanged(DelayToPreventFlickeringCheckBox.Checked);
+        }
+
+        private void ClockDividerNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (isForm1Load)
+                controller.ClockDividerValueChanged((int)ClockDividerNumericUpDown.Value);
+        }
+
+        private void AutoCDIVCalcCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (isForm1Load)
+                controller.AutoCDIVCalcStateChanged(AutoCDIVCalcCheckBox.Checked);
+        }
+        
+        private void DelayInputNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (isForm1Load)
+                controller.DelayInputValueChanged((UInt16)DelayInputNumericUpDown.Value);
+        }
+
         #endregion
 
         #region Shutdown control group
 
         private void PloPowerDownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.PloPowerDownStateChanged(PloPowerDownCheckBox.Checked);
+            if (isForm1Load)
+                controller.PloPowerDownStateChanged(PloPowerDownCheckBox.Checked);
         }
 
         private void RefInputShutdownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.RefInputShutdownStateChanged(RefInputShutdownCheckBox.Checked);
+            if (isForm1Load)
+                controller.RefInputShutdownStateChanged(RefInputShutdownCheckBox.Checked);
         }
 
         private void PllShutDownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.PllShutDownStateChanged(PllShutDownCheckBox.Checked);
+            if (isForm1Load)
+                controller.PllShutDownStateChanged(PllShutDownCheckBox.Checked);
         }
 
         private void VcoDividerShutdownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.VcoDividerShutDownStateChanged(VcoDividerShutdownCheckBox.Checked);
+            if (isForm1Load)
+                controller.VcoDividerShutDownStateChanged(VcoDividerShutdownCheckBox.Checked);
         }
 
         private void VcoLdoShutDownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.VcoLdoShutDownStateChanged(VcoLdoShutDownCheckBox.Checked);
+            if (isForm1Load)
+                controller.VcoLdoShutDownStateChanged(VcoLdoShutDownCheckBox.Checked);
         }
 
         private void VcoShutDownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            controller.VcoShutDownStateChanged(VcoShutDownCheckBox.Checked);
+            if (isForm1Load)
+                controller.VcoShutDownStateChanged(VcoShutDownCheckBox.Checked);
         }
-
+        
         #endregion
 
     }
