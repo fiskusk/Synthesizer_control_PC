@@ -22,6 +22,8 @@ namespace Synthesizer_PC_control.Utilities
         public string COM_port { get; set; }
         public bool AutoLDSpeedAdj { get; set; }
         public bool AutoLDFunc { get; set; }
+        public bool AutoCDIVFunc { get; set; }
+        public UInt16 DelayInput { get; set; }
 
         public static SaveWindow GetDefaultSaveWindow()
         {
@@ -85,7 +87,9 @@ namespace Synthesizer_PC_control.Utilities
                 //COM_port = AvaibleCOMsComBox.Text
                 COM_port = "COM3",
                 AutoLDSpeedAdj = true,
-                AutoLDFunc = true
+                AutoLDFunc = true,
+                AutoCDIVFunc = true,
+                DelayInput = 20
             };
 
             return saved;

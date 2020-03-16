@@ -254,6 +254,7 @@ namespace Synthesizer_PC_control.Controllers
                 RecalcFreqInfo();
                 decimal pfdFreq = refFreq.decimal_GetPfdFreq();
                 vcoControls.CalcBandSelClockDivValue(pfdFreq);
+                CalcCDivValue();
             }
         }
 
@@ -265,9 +266,12 @@ namespace Synthesizer_PC_control.Controllers
 
                 registers[2].SetResetOneBit(25, (BitState)Convert.ToUInt16(value));
                 refFreq.SetRefDoubler(value);
+
                 outFreqControl.RecalcRegsForNewPfdFreq(value);
+
                 decimal pfdFreq = refFreq.decimal_GetPfdFreq();
                 vcoControls.CalcBandSelClockDivValue(pfdFreq);
+                CalcCDivValue();
 
                 serialPort.SetDisableSending(false, 5);
                 if (serialPort.GetDisableSending() == false)
@@ -286,6 +290,7 @@ namespace Synthesizer_PC_control.Controllers
                 outFreqControl.RecalcRegsForNewPfdFreq(!value);
                 decimal pfdFreq = refFreq.decimal_GetPfdFreq();
                 vcoControls.CalcBandSelClockDivValue(pfdFreq);
+                CalcCDivValue();
 
                 serialPort.SetDisableSending(false, 12);
                 if (serialPort.GetDisableSending() == false)
@@ -303,6 +308,7 @@ namespace Synthesizer_PC_control.Controllers
                 refFreq.SetRDivider(value);
                 decimal pfdFreq = refFreq.decimal_GetPfdFreq();
                 vcoControls.CalcBandSelClockDivValue(pfdFreq);
+                CalcCDivValue();
 
                 serialPort.SetDisableSending(false, 14);
                 if (serialPort.GetDisableSending() == false)
@@ -373,8 +379,8 @@ namespace Synthesizer_PC_control.Controllers
 
                 registers[1].ChangeNBits((UInt32)value, 12, 3);
                 outFreqControl.SetModVal(value);
-                decimal fPfd = refFreq.decimal_GetPfdFreq();
-                vcoControls.SetDelayLabel(value, fPfd);
+                
+                CalcCDivValue();
 
                 serialPort.SetDisableSending(false, 8);
                 if (serialPort.GetDisableSending() == false)
@@ -855,16 +861,7 @@ namespace Synthesizer_PC_control.Controllers
 
                 vcoControls.SetAutoCdivCalc(value);
 
-                if (value == true)
-                {
-                    UInt16 clockDividerValue;
-                    UInt16 delayMsValue = vcoControls.GetDelayInputValue();
-                    decimal fPfd = refFreq.decimal_GetPfdFreq();
-                    UInt16 mod = outFreqControl.uint16_GetModVal();
-                    clockDividerValue = (UInt16)(delayMsValue*fPfd*1000/mod);
-                    vcoControls.SetClockDividerValue(clockDividerValue);
-                    vcoControls.SetDelayLabel(mod, fPfd);
-                }
+                CalcCDivValue();
 
                 serialPort.SetDisableSending(false, 47);
                 if (serialPort.GetDisableSending() == false)
@@ -876,15 +873,21 @@ namespace Synthesizer_PC_control.Controllers
         {
             vcoControls.SetDelayInputValue(value);
 
-            if (vcoControls.GetAutoVcoSelectionState())
+            CalcCDivValue();
+        }
+
+        public void CalcCDivValue()
+        {
+            decimal fPfd = refFreq.decimal_GetPfdFreq();
+            UInt16 mod = outFreqControl.uint16_GetModVal();
+            
+            if (vcoControls.GetAutoCDiv())
             {
-                UInt16 clockDividerValue;
-                decimal fPfd = refFreq.decimal_GetPfdFreq();
-                UInt16 mod = outFreqControl.uint16_GetModVal();
-                clockDividerValue = (UInt16)(value*fPfd*1000/mod);
-                vcoControls.SetClockDividerValue(clockDividerValue);
-                vcoControls.SetDelayLabel(mod, fPfd);
+                UInt16 delayMsValue = vcoControls.GetDelayInputValue();
+                vcoControls.CalcCDIVValue(delayMsValue, fPfd, mod);
             }
+            
+            vcoControls.SetDelayLabel(mod, fPfd);
         }
 
     #endregion
@@ -1793,6 +1796,8 @@ namespace Synthesizer_PC_control.Controllers
             serialPort.SetSelectedPort(data.COM_port);
             refFreq.SetAutoLDSpeedAdj(data.AutoLDSpeedAdj);
             outFreqControl.SetAutoLDFunction(data.AutoLDFunc);
+            vcoControls.SetAutoCdivCalc(data.AutoCDIVFunc);
+            vcoControls.SetDelayInputValue(data.DelayInput);
 
             moduleControls.SetOut1(data.Out1En);
             moduleControls.SetOut2(data.Out2En);
@@ -1829,7 +1834,9 @@ namespace Synthesizer_PC_control.Controllers
                 Mem4 = new List<string>{},
                 COM_port = serialPort.GetSelectedPort(),
                 AutoLDSpeedAdj = refFreq.bool_GetAutoLdSpeedAdj(),
-                AutoLDFunc = outFreqControl.GetAutoLDFunctionIsChecked()
+                AutoLDFunc = outFreqControl.GetAutoLDFunctionIsChecked(),
+                AutoCDIVFunc = vcoControls.GetAutoCDiv(),
+                DelayInput = vcoControls.GetDelayInputValue()
             };
 
             for (int i = 0; i < 7; i++)

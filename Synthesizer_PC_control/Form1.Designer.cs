@@ -60,11 +60,11 @@ namespace Synthesizer_PC_control
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.ReadedVCOValue = new System.Windows.Forms.TextBox();
+            this.ReadedADCValueTextBox = new System.Windows.Forms.TextBox();
+            this.GetCurrentVCOButton = new System.Windows.Forms.Button();
+            this.GetADCValueButton = new System.Windows.Forms.Button();
+            this.ADCModeComboBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.genericControlsGroupBox = new System.Windows.Forms.GroupBox();
             this.MuxPinModeCombobox = new System.Windows.Forms.ComboBox();
@@ -620,11 +620,11 @@ namespace Synthesizer_PC_control
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.comboBox2);
+            this.groupBox1.Controls.Add(this.ReadedVCOValue);
+            this.groupBox1.Controls.Add(this.ReadedADCValueTextBox);
+            this.groupBox1.Controls.Add(this.GetCurrentVCOButton);
+            this.groupBox1.Controls.Add(this.GetADCValueButton);
+            this.groupBox1.Controls.Add(this.ADCModeComboBox);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Location = new System.Drawing.Point(537, 5);
             this.groupBox1.Name = "groupBox1";
@@ -633,66 +633,66 @@ namespace Synthesizer_PC_control
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Register 6 control";
             // 
-            // textBox2
+            // ReadedVCOValue
             // 
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(13, 161);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox2.MaxLength = 17;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(140, 22);
-            this.textBox2.TabIndex = 3;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox2.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
+            this.ReadedVCOValue.BackColor = System.Drawing.Color.White;
+            this.ReadedVCOValue.Location = new System.Drawing.Point(13, 161);
+            this.ReadedVCOValue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ReadedVCOValue.MaxLength = 17;
+            this.ReadedVCOValue.Name = "ReadedVCOValue";
+            this.ReadedVCOValue.Size = new System.Drawing.Size(140, 22);
+            this.ReadedVCOValue.TabIndex = 3;
+            this.ReadedVCOValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ReadedVCOValue.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
             // 
-            // textBox1
+            // ReadedADCValueTextBox
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(13, 107);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox1.MaxLength = 17;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(140, 22);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
+            this.ReadedADCValueTextBox.BackColor = System.Drawing.Color.White;
+            this.ReadedADCValueTextBox.Location = new System.Drawing.Point(13, 107);
+            this.ReadedADCValueTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ReadedADCValueTextBox.MaxLength = 17;
+            this.ReadedADCValueTextBox.Name = "ReadedADCValueTextBox";
+            this.ReadedADCValueTextBox.Size = new System.Drawing.Size(140, 22);
+            this.ReadedADCValueTextBox.TabIndex = 3;
+            this.ReadedADCValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ReadedADCValueTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
             // 
-            // button4
+            // GetCurrentVCOButton
             // 
-            this.button4.Location = new System.Drawing.Point(13, 133);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(141, 23);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Get current VCO";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.ExportIntoMememoryButton_Click);
+            this.GetCurrentVCOButton.Location = new System.Drawing.Point(13, 133);
+            this.GetCurrentVCOButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.GetCurrentVCOButton.Name = "GetCurrentVCOButton";
+            this.GetCurrentVCOButton.Size = new System.Drawing.Size(141, 23);
+            this.GetCurrentVCOButton.TabIndex = 9;
+            this.GetCurrentVCOButton.Text = "Get current VCO";
+            this.GetCurrentVCOButton.UseVisualStyleBackColor = true;
+            this.GetCurrentVCOButton.Click += new System.EventHandler(this.ExportIntoMememoryButton_Click);
             // 
-            // button3
+            // GetADCValueButton
             // 
-            this.button3.Location = new System.Drawing.Point(13, 79);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(140, 23);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Get ADC Value";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.ExportIntoMememoryButton_Click);
+            this.GetADCValueButton.Location = new System.Drawing.Point(13, 79);
+            this.GetADCValueButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.GetADCValueButton.Name = "GetADCValueButton";
+            this.GetADCValueButton.Size = new System.Drawing.Size(140, 23);
+            this.GetADCValueButton.TabIndex = 9;
+            this.GetADCValueButton.Text = "Get ADC Value";
+            this.GetADCValueButton.UseVisualStyleBackColor = true;
+            this.GetADCValueButton.Click += new System.EventHandler(this.ExportIntoMememoryButton_Click);
             // 
-            // comboBox2
+            // ADCModeComboBox
             // 
-            this.comboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.ADCModeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.ADCModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ADCModeComboBox.FormattingEnabled = true;
+            this.ADCModeComboBox.Items.AddRange(new object[] {
             "Temperature",
             "Tune pin"});
-            this.comboBox2.Location = new System.Drawing.Point(13, 46);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(140, 24);
-            this.comboBox2.TabIndex = 16;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
+            this.ADCModeComboBox.Location = new System.Drawing.Point(13, 46);
+            this.ADCModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ADCModeComboBox.Name = "ADCModeComboBox";
+            this.ADCModeComboBox.Size = new System.Drawing.Size(140, 24);
+            this.ADCModeComboBox.TabIndex = 16;
+            this.ADCModeComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -3232,12 +3232,12 @@ namespace Synthesizer_PC_control
         public Button button1;
         public Button button2;
         private GroupBox groupBox1;
-        public ComboBox comboBox2;
+        public ComboBox ADCModeComboBox;
         private Label label6;
-        public TextBox textBox2;
-        public TextBox textBox1;
-        private Button button4;
-        private Button button3;
+        public TextBox ReadedVCOValue;
+        public TextBox ReadedADCValueTextBox;
+        private Button GetCurrentVCOButton;
+        private Button GetADCValueButton;
         public CheckBox PloPowerDownCheckBox;
         public CheckBox VcoShutDownCheckBox;
         public CheckBox VcoLdoShutDownCheckBox;

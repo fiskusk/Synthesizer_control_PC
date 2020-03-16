@@ -116,6 +116,7 @@ namespace Synthesizer_PC_control.Model
         public void CalcBandSelClockDivValue(decimal pfdFreq)
         {
             UInt16 bandSelClockDivValue = (UInt16)(pfdFreq / 0.050M);
+
             SetBandSelClockDivValue(bandSelClockDivValue);
         }
 
@@ -131,6 +132,19 @@ namespace Synthesizer_PC_control.Model
 
                 UpdateUiElements();
             }
+        }
+
+        public void CalcCDIVValue(UInt16 delay, decimal fPfd, UInt16 mod)
+        {
+            UInt16 clockDividerValue;
+            try{
+                clockDividerValue = (UInt16)(delay*fPfd*1000/mod);
+            }
+            catch{
+                clockDividerValue = 4095;
+            }
+
+            SetClockDividerValue(clockDividerValue);
         }
 
         public void SetClockDividerValue(UInt16 value)
@@ -201,6 +215,11 @@ namespace Synthesizer_PC_control.Model
         {
             return this.delayInput;
         }
+
+        public bool GetAutoCDiv()
+        {
+            return this.autoCdivCalc;
+        }
         #endregion
 
 
@@ -214,6 +233,8 @@ namespace Synthesizer_PC_control.Model
             this.ui_BandSelClockDiv.Value           = bandSelClockDivValue;
             this.ui_ClockDivider.Value              = clockDividerValue;
             this.ui_DelayLabel.Text                 = delayMsValue.ToString("#### ms");
+            this.ui_AutoCDIVCalc.Checked            = autoCdivCalc;
+            this.ui_DelayInput.Value                = delayInput;
         }
     }
 }
