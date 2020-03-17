@@ -74,6 +74,7 @@
     <Compile Include="Model\GenericControls.cs" />
     <Compile Include="Model\Shutdowns.cs" />
     <Compile Include="Model\VcoControls.cs" />
+    <Compile Include="Model\ReadRegister.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utilities\BitOperations.cs" />
     <Compile Include="Utilities\GeneralUtilities.cs" />

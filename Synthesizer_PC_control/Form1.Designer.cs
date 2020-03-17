@@ -60,7 +60,7 @@ namespace Synthesizer_PC_control
             this.RegistersTabControl = new System.Windows.Forms.TabControl();
             this.RegistersPage = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ReadedVCOValue = new System.Windows.Forms.TextBox();
+            this.ReadedVCOValueTextBox = new System.Windows.Forms.TextBox();
             this.ReadedADCValueTextBox = new System.Windows.Forms.TextBox();
             this.GetCurrentVCOButton = new System.Windows.Forms.Button();
             this.GetADCValueButton = new System.Windows.Forms.Button();
@@ -620,7 +620,7 @@ namespace Synthesizer_PC_control
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.ReadedVCOValue);
+            this.groupBox1.Controls.Add(this.ReadedVCOValueTextBox);
             this.groupBox1.Controls.Add(this.ReadedADCValueTextBox);
             this.groupBox1.Controls.Add(this.GetCurrentVCOButton);
             this.groupBox1.Controls.Add(this.GetADCValueButton);
@@ -633,17 +633,17 @@ namespace Synthesizer_PC_control
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Register 6 control";
             // 
-            // ReadedVCOValue
+            // ReadedVCOValueTextBox
             // 
-            this.ReadedVCOValue.BackColor = System.Drawing.Color.White;
-            this.ReadedVCOValue.Location = new System.Drawing.Point(13, 161);
-            this.ReadedVCOValue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ReadedVCOValue.MaxLength = 17;
-            this.ReadedVCOValue.Name = "ReadedVCOValue";
-            this.ReadedVCOValue.Size = new System.Drawing.Size(140, 22);
-            this.ReadedVCOValue.TabIndex = 3;
-            this.ReadedVCOValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ReadedVCOValue.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
+            this.ReadedVCOValueTextBox.BackColor = System.Drawing.Color.White;
+            this.ReadedVCOValueTextBox.Location = new System.Drawing.Point(13, 161);
+            this.ReadedVCOValueTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ReadedVCOValueTextBox.MaxLength = 17;
+            this.ReadedVCOValueTextBox.Name = "ReadedVCOValueTextBox";
+            this.ReadedVCOValueTextBox.Size = new System.Drawing.Size(140, 22);
+            this.ReadedVCOValueTextBox.TabIndex = 3;
+            this.ReadedVCOValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ReadedVCOValueTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
             // 
             // ReadedADCValueTextBox
             // 
@@ -666,7 +666,7 @@ namespace Synthesizer_PC_control
             this.GetCurrentVCOButton.TabIndex = 9;
             this.GetCurrentVCOButton.Text = "Get current VCO";
             this.GetCurrentVCOButton.UseVisualStyleBackColor = true;
-            this.GetCurrentVCOButton.Click += new System.EventHandler(this.ExportIntoMememoryButton_Click);
+            this.GetCurrentVCOButton.Click += new System.EventHandler(this.GetCurrentVCOButton_Click);
             // 
             // GetADCValueButton
             // 
@@ -677,7 +677,6 @@ namespace Synthesizer_PC_control
             this.GetADCValueButton.TabIndex = 9;
             this.GetADCValueButton.Text = "Get ADC Value";
             this.GetADCValueButton.UseVisualStyleBackColor = true;
-            this.GetADCValueButton.Click += new System.EventHandler(this.ExportIntoMememoryButton_Click);
             // 
             // ADCModeComboBox
             // 
@@ -692,7 +691,6 @@ namespace Synthesizer_PC_control
             this.ADCModeComboBox.Name = "ADCModeComboBox";
             this.ADCModeComboBox.Size = new System.Drawing.Size(140, 24);
             this.ADCModeComboBox.TabIndex = 16;
-            this.ADCModeComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -3234,7 +3232,7 @@ namespace Synthesizer_PC_control
         private GroupBox groupBox1;
         public ComboBox ADCModeComboBox;
         private Label label6;
-        public TextBox ReadedVCOValue;
+        public TextBox ReadedVCOValueTextBox;
         public TextBox ReadedADCValueTextBox;
         private Button GetCurrentVCOButton;
         private Button GetADCValueButton;

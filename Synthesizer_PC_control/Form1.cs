@@ -311,6 +311,11 @@ namespace Synthesizer_PC_control
                                 controller.memory.GetRegister(4, i).SetValue(separrated[i+1]);
                             }
                             break;
+                        case "register6_vco":
+                            UInt32 reg6 = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);
+                            UInt16 currentVCO = (UInt16)Utilities.BitOperations.GetNBits(reg6, 6, 3);
+                            controller.readRegister.SetReadedCurrentVCO(currentVCO.ToString());
+                            break;
                     }
                 }
             }
@@ -819,7 +824,7 @@ namespace Synthesizer_PC_control
 
         #endregion
 
-        #region Shutdown control group
+#region Shutdown control group
 
         private void PloPowerDownCheckBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -856,8 +861,15 @@ namespace Synthesizer_PC_control
             if (isForm1Load)
                 controller.VcoShutDownStateChanged(VcoShutDownCheckBox.Checked);
         }
-        
-        #endregion
 
+#endregion
+
+#region Read Register 6 Control group
+        
+        private void GetCurrentVCOButton_Click(object sender, EventArgs e)
+        {
+            controller.GetCurrentVCO();
+        }
+#endregion
     }
 }

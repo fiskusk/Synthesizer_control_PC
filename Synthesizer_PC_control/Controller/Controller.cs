@@ -28,6 +28,7 @@ namespace Synthesizer_PC_control.Controllers
         public GenericControls genericControls;
         public Shutdowns shutdowns;
         public VcoControls vcoControls;
+        public ReadRegister readRegister;
 
         public Controller(Form1 view)
         {
@@ -139,7 +140,9 @@ namespace Synthesizer_PC_control.Controllers
                                           view.BandSelClockDivNumericUpDown, 
                                           view.ClockDividerNumericUpDown,
                                           view.AutoCDIVCalcCheckBox, 
-                                          view.DelayInputNumericUpDown); 
+                                          view.DelayInputNumericUpDown);
+
+            readRegister = new ReadRegister(view.ReadedVCOValueTextBox);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -2038,6 +2041,13 @@ namespace Synthesizer_PC_control.Controllers
 
         // TODO move into utillities???
         
+#endregion
+    
+#region Read Register 6 Control
+        public void GetCurrentVCO()
+        {
+            serialPort.SendStringSerialPort("plo read_reg6 vco");
+        }
 #endregion
     }
 }
