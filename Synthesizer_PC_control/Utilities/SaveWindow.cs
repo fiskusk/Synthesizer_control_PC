@@ -24,6 +24,7 @@ namespace Synthesizer_PC_control.Utilities
         public bool AutoLDFunc { get; set; }
         public bool AutoCDIVFunc { get; set; }
         public UInt16 DelayInput { get; set; }
+        public int AdcModeIndex { get; set; }
 
         public static SaveWindow GetDefaultSaveWindow()
         {
@@ -89,7 +90,8 @@ namespace Synthesizer_PC_control.Utilities
                 AutoLDSpeedAdj = true,
                 AutoLDFunc = true,
                 AutoCDIVFunc = true,
-                DelayInput = 20
+                DelayInput = 20,
+                AdcModeIndex = 0
             };
 
             return saved;

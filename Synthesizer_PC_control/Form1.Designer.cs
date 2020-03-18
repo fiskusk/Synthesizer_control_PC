@@ -677,6 +677,7 @@ namespace Synthesizer_PC_control
             this.GetADCValueButton.TabIndex = 9;
             this.GetADCValueButton.Text = "Get ADC Value";
             this.GetADCValueButton.UseVisualStyleBackColor = true;
+            this.GetADCValueButton.Click += new System.EventHandler(this.GetADCValueButton_Click);
             // 
             // ADCModeComboBox
             // 
@@ -691,6 +692,7 @@ namespace Synthesizer_PC_control
             this.ADCModeComboBox.Name = "ADCModeComboBox";
             this.ADCModeComboBox.Size = new System.Drawing.Size(140, 24);
             this.ADCModeComboBox.TabIndex = 16;
+            this.ADCModeComboBox.SelectedIndexChanged += new System.EventHandler(this.ADCModeComboBox_SelectedIndexChanged);
             // 
             // label6
             // 

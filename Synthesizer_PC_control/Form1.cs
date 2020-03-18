@@ -268,6 +268,11 @@ namespace Synthesizer_PC_control
             ClockDividerNumericUpDown.Enabled    = command;
             AutoCDIVCalcCheckBox.Enabled         = command;
             DelayInputNumericUpDown.Enabled      = command;
+            ADCModeComboBox.Enabled         = command;
+            GetADCValueButton.Enabled       = command;
+            ReadedADCValueTextBox.Enabled   = command;
+            GetCurrentVCOButton.Enabled     = command;
+            ReadedVCOValueTextBox.Enabled   = command;
         }
 
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
@@ -315,6 +320,18 @@ namespace Synthesizer_PC_control
                             UInt32 reg6 = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);
                             UInt16 currentVCO = (UInt16)Utilities.BitOperations.GetNBits(reg6, 6, 3);
                             controller.readRegister.SetReadedCurrentVCO(currentVCO.ToString());
+                            break;
+                        case "register6_temp":
+                            UInt32 reg = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);
+                            UInt16 ADCvalue = (UInt16)Utilities.BitOperations.GetNBits(reg, 7, 16);
+                            decimal temp = 95 - 1.14M * ADCvalue;
+                            controller.readRegister.SetReadededADC(temp.ToString() + " °C");
+                            break;
+                        case "register6_tune":
+                            UInt32 regSix = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);
+                            UInt16 ADCval = (UInt16)Utilities.BitOperations.GetNBits(regSix, 7, 16);
+                            decimal tune = 0.315M + 0.0165M * ADCval;
+                            controller.readRegister.SetReadededADC(tune.ToString() + " V");
                             break;
                     }
                 }
@@ -870,6 +887,17 @@ namespace Synthesizer_PC_control
         {
             controller.GetCurrentVCO();
         }
-#endregion
+
+        private void GetADCValueButton_Click(object sender, EventArgs e)
+        {
+            controller.GetADCValue();
+        }
+
+        private void ADCModeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            controller.AdcModeIndexChanged(ADCModeComboBox.SelectedIndex);
+        }
+
+        #endregion
     }
 }

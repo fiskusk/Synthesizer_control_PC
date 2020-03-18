@@ -142,7 +142,9 @@ namespace Synthesizer_PC_control.Controllers
                                           view.AutoCDIVCalcCheckBox, 
                                           view.DelayInputNumericUpDown);
 
-            readRegister = new ReadRegister(view.ReadedVCOValueTextBox);
+            readRegister = new ReadRegister(view.ReadedVCOValueTextBox,
+                                            view.ReadedADCValueTextBox,
+                                            view.ADCModeComboBox);
 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
@@ -1808,6 +1810,8 @@ namespace Synthesizer_PC_control.Controllers
             directFreqControl.SetActiveOut1(data.Out1En);
             directFreqControl.SetActiveOut2(data.Out2En);
 
+            readRegister.SetAdcMode((ReadRegister.AdcMode)data.AdcModeIndex);
+
             for (int i = 0; i < 7; i++)
             {
                 memory.GetRegister(1, i).SetValue(data.Mem1[i]);
@@ -1839,7 +1843,8 @@ namespace Synthesizer_PC_control.Controllers
                 AutoLDSpeedAdj = refFreq.bool_GetAutoLdSpeedAdj(),
                 AutoLDFunc = outFreqControl.GetAutoLDFunctionIsChecked(),
                 AutoCDIVFunc = vcoControls.GetAutoCDiv(),
-                DelayInput = vcoControls.GetDelayInputValue()
+                DelayInput = vcoControls.GetDelayInputValue(),
+                AdcModeIndex = (int)readRegister.GetAdcMode()
             };
 
             for (int i = 0; i < 7; i++)
@@ -2047,6 +2052,33 @@ namespace Synthesizer_PC_control.Controllers
         public void GetCurrentVCO()
         {
             serialPort.SendStringSerialPort("plo read_reg6 vco");
+        }
+
+        public void GetADCValue()
+        {
+            decimal fPfd = refFreq.decimal_GetPfdFreq();
+            UInt16 cdiv = (UInt16)(fPfd/0.1M);
+            if (cdiv < 1)
+                cdiv = 1;
+            else if (cdiv > 4095)
+                cdiv = 4095;
+            
+            UInt32 reg3 = registers[3].uint32_GetValue();
+            reg3 = BitOperations.ChangeNBits(reg3, cdiv, 12, 3);
+
+            if (readRegister.GetAdcMode() == ReadRegister.AdcMode.TEMPERATURE)
+            {
+                serialPort.SendStringSerialPort("plo read_reg6 temp " + Convert.ToString(reg3, 16));
+            }
+            else
+            {
+                serialPort.SendStringSerialPort("plo read_reg6 tune " + Convert.ToString(reg3, 16));
+            }
+        }
+
+        public void AdcModeIndexChanged(int value)
+        {
+            readRegister.SetAdcMode((ReadRegister.AdcMode)value);
         }
 #endregion
     }
