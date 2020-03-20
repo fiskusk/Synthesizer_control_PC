@@ -28,22 +28,16 @@ namespace Synthesizer_PC_control.Model
 
         public void SetReadedCurrentVCO(string value)
         {
-            if (value != readedCurrentVCO)
-            {
-                readedCurrentVCO = value;
+            readedCurrentVCO = value;
 
-                UpdateUiElements();
-            }
+            UpdateUiElements();
         }
 
         public void SetReadededADC(string value)
         {
-            if (value != readedADC)
-            {
-                readedADC = value;
+            readedADC = value;
 
-                UpdateUiElements();
-            }
+            UpdateUiElements();
         }
 
         public void SetAdcMode(AdcMode value)

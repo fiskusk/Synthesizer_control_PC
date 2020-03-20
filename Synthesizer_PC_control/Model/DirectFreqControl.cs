@@ -129,6 +129,27 @@ namespace Synthesizer_PC_control.Model
         {
             return this.directFreqInput;
         }
+
+        public bool GetActiveOut1()
+        {
+            return this.activeOut1;
+        }
+
+        public bool GetActiveOut2()
+        {
+            return this.activeOut2;
+        }
+
+        public string string_GetFreqAtOut1()
+        {
+            return this.freqAtOut1.ToString("0.000000");
+        }
+
+        public string string_GetFreqAtOut2()
+        {
+            return this.freqAtOut2;
+        }
+        
         #endregion
 
         public void UpdateUiElements()

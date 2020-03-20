@@ -104,8 +104,8 @@ namespace Synthesizer_PC_control
             this.LDPrecisionComboBox = new System.Windows.Forms.ComboBox();
             this.SigmaDeltaNoiseModeComboBox = new System.Windows.Forms.ComboBox();
             this.RegistersControlsGroupBox = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.LoadFromFileButton = new System.Windows.Forms.Button();
+            this.SaveIntoFileButton = new System.Windows.Forms.Button();
             this.MoveRegsIntoMemsGroupBox = new System.Windows.Forms.GroupBox();
             this.ExportIntoMem1Button = new System.Windows.Forms.Button();
             this.ExportIntoMem2Button = new System.Windows.Forms.Button();
@@ -1196,8 +1196,8 @@ namespace Synthesizer_PC_control
             this.RegistersControlsGroupBox.Controls.Add(this.WriteR5Button);
             this.RegistersControlsGroupBox.Controls.Add(this.Reg4Label);
             this.RegistersControlsGroupBox.Controls.Add(this.Reg0TextBox);
-            this.RegistersControlsGroupBox.Controls.Add(this.button2);
-            this.RegistersControlsGroupBox.Controls.Add(this.button1);
+            this.RegistersControlsGroupBox.Controls.Add(this.LoadFromFileButton);
+            this.RegistersControlsGroupBox.Controls.Add(this.SaveIntoFileButton);
             this.RegistersControlsGroupBox.Controls.Add(this.ForceLoadRegButton);
             this.RegistersControlsGroupBox.Controls.Add(this.WriteR4Button);
             this.RegistersControlsGroupBox.Controls.Add(this.Reg3TextBox);
@@ -1216,27 +1216,27 @@ namespace Synthesizer_PC_control
             this.RegistersControlsGroupBox.TabStop = false;
             this.RegistersControlsGroupBox.Text = "Registers controls";
             // 
-            // button2
+            // LoadFromFileButton
             // 
-            this.button2.Location = new System.Drawing.Point(275, 103);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(119, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Load From File";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.ForceLoadRegButton_Click);
+            this.LoadFromFileButton.Location = new System.Drawing.Point(275, 103);
+            this.LoadFromFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LoadFromFileButton.Name = "LoadFromFileButton";
+            this.LoadFromFileButton.Size = new System.Drawing.Size(119, 23);
+            this.LoadFromFileButton.TabIndex = 9;
+            this.LoadFromFileButton.Text = "Load From File";
+            this.LoadFromFileButton.UseVisualStyleBackColor = true;
+            this.LoadFromFileButton.Click += new System.EventHandler(this.LoadFromFileButton_Click);
             // 
-            // button1
+            // SaveIntoFileButton
             // 
-            this.button1.Location = new System.Drawing.Point(275, 76);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Save Into File";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.ForceLoadRegButton_Click);
+            this.SaveIntoFileButton.Location = new System.Drawing.Point(275, 76);
+            this.SaveIntoFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SaveIntoFileButton.Name = "SaveIntoFileButton";
+            this.SaveIntoFileButton.Size = new System.Drawing.Size(119, 23);
+            this.SaveIntoFileButton.TabIndex = 9;
+            this.SaveIntoFileButton.Text = "Save Into File";
+            this.SaveIntoFileButton.UseVisualStyleBackColor = true;
+            this.SaveIntoFileButton.Click += new System.EventHandler(this.SaveIntoFileButton_Click);
             // 
             // MoveRegsIntoMemsGroupBox
             // 
@@ -3229,8 +3229,8 @@ namespace Synthesizer_PC_control
         public NumericUpDown ClockDividerNumericUpDown;
         private Label label5;
         public CheckBox RandNCountersResetCheckBox;
-        public Button button1;
-        public Button button2;
+        public Button SaveIntoFileButton;
+        public Button LoadFromFileButton;
         private GroupBox groupBox1;
         public ComboBox ADCModeComboBox;
         private Label label6;

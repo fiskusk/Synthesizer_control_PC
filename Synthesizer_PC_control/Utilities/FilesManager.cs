@@ -42,6 +42,52 @@ namespace Synthesizer_PC_control.Utilities
             }
         }
 
+        public static bool SaveFile(out string filename)
+        {
+            SaveFileDialog file = new SaveFileDialog();
+            // string location = file.InitialDirectory;
+            //location = @"C:\Users\"
+            file.Title = "Save Configuration File";
+            file.Filter = "Json files (*.json)|*.json|All files (*.*)|*.*"; // default filter
+            file.FilterIndex = 1;
+            file.RestoreDirectory = true;
+
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                filename = file.FileName;
+                return true;
+            }
+            else
+            {
+                filename = String.Empty;
+                return false;
+            }
+        }
+
+        public static bool SaveFile(out string filename, string fileName)
+        {
+            SaveFileDialog file = new SaveFileDialog();
+            // string location = file.InitialDirectory;
+            //location = @"C:\Users\"
+            file.Title = "Save Configuration File";
+            file.Filter = "Json files (*.json)|*.json|All files (*.*)|*.*"; // default filter
+            file.FilterIndex = 1;
+            file.RestoreDirectory = true;
+            file.FileName = fileName;
+
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                filename = file.FileName;
+                return true;
+            }
+            else
+            {
+                filename = String.Empty;
+                return false;
+            }
+        }
+
+
         public static string GetFileNamePath(string fileName)
         {
             string actual_dir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
@@ -115,6 +161,20 @@ namespace Synthesizer_PC_control.Utilities
             }
         }
 
+        public static bool SaveDefRegsData(SaveDefaults saved, string path)
+        {
+            try
+            {
+                // serialize JSON to a string and then write string to a file
+                File.WriteAllText(path, JsonConvert.SerializeObject(saved, Formatting.Indented));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool LoadDefRegsData(out SaveDefaults settings_loaded)
         {
             try
@@ -122,6 +182,20 @@ namespace Synthesizer_PC_control.Utilities
                 string fileName = GetFileNamePath(@"default.json");
 
                 settings_loaded = JsonConvert.DeserializeObject<SaveDefaults>(File.ReadAllText(fileName));
+                return true;
+            }
+            catch
+            {
+                settings_loaded = null;
+                return false;
+            }
+        }
+
+        public static bool LoadDefRegsData(out SaveDefaults settings_loaded, string path)
+        {
+            try
+            {
+                settings_loaded = JsonConvert.DeserializeObject<SaveDefaults>(File.ReadAllText(path));
                 return true;
             }
             catch

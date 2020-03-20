@@ -273,6 +273,8 @@ namespace Synthesizer_PC_control
             ReadedADCValueTextBox.Enabled   = command;
             GetCurrentVCOButton.Enabled     = command;
             ReadedVCOValueTextBox.Enabled   = command;
+            SaveIntoFileButton.Enabled      = command;
+            LoadFromFileButton.Enabled      = command;
         }
 
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
@@ -415,6 +417,15 @@ namespace Synthesizer_PC_control
             controller.LoadDefRegsData();
         }
 
+        private void SaveIntoFileButton_Click(object sender, EventArgs e)
+        {
+            controller.SaveRegistersIntoFile();
+        }
+
+        private void LoadFromFileButton_Click(object sender, EventArgs e)
+        {
+            controller.LoadRegistersFromFile();
+        }
         public void ForceLoadRegButton_Click(object sender, EventArgs e)
         {
             controller.ForceLoadAllRegsIntoPlo();
@@ -899,5 +910,6 @@ namespace Synthesizer_PC_control
         }
 
         #endregion
+
     }
 }

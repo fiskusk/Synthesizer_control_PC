@@ -1661,6 +1661,7 @@ namespace Synthesizer_PC_control.Controllers
                 {
                     if (needUpdate[regNumber] == true)
                     {
+                        GetAllFromReg(regNumber);
                         switch (regNumber)
                         {
                             case 5:
@@ -1688,6 +1689,7 @@ namespace Synthesizer_PC_control.Controllers
                         }
                     }
                 }
+
                 if (needUpdate[0] || needUpdate[1] || needUpdate[2] || needUpdate[4])
                     RecalcFreqInfo();
             }
@@ -1874,7 +1876,9 @@ namespace Synthesizer_PC_control.Controllers
                 string text = "Default registers succesfuly loaded.";
                 ConsoleController.Console().Write(text);
                 LoadDefRegsFromFile(loadedData);
-                ForceLoadAllRegsIntoPlo();
+                serialPort.SetDisableSending(true, 49);
+                SendData();
+                serialPort.SetDisableSending(false, 49);
             }
             else
             {
@@ -1887,7 +1891,6 @@ namespace Synthesizer_PC_control.Controllers
 
         public void SaveDefRegsData()
         {
-
             bool success = FilesManager.SaveDefRegsData(CreateDefaultsData());
 
             if(success)
@@ -1910,6 +1913,13 @@ namespace Synthesizer_PC_control.Controllers
             {
                 registers[i].SetValue(data.Registers[i]);
             }
+            
+            if (data.Out1State != moduleControls.GetOut1State())
+                SwitchOut1();
+            if (data.Out2State != moduleControls.GetOut2State())
+                SwitchOut2();
+            if (data.RefState != moduleControls.GetRefState())
+                SwitchRef();
         }
 
         private SaveDefaults CreateDefaultsData()
@@ -1924,7 +1934,106 @@ namespace Synthesizer_PC_control.Controllers
                 saved.Registers.Add(this.registers[i].string_GetValue());
             }
 
+            saved.Out1State = moduleControls.GetOut1State();
+            saved.Out2State = moduleControls.GetOut2State();
+            saved.RefState  = moduleControls.GetRefState();
+
             return saved;
+        }
+
+        public void SaveRegistersIntoFile()
+        {
+            string test = null;
+
+            string freqOut1;
+            string freqOut2;
+            string refState;
+            string out1State;
+            string out2State;
+
+            bool internalRef = moduleControls.GetRefState();
+            if (internalRef == true)
+                refState = "IntRef";
+            else
+                refState = "ExtRef";
+            
+            bool out1StateBool = moduleControls.GetOut1State();
+            if (out1StateBool == true)
+            {
+                out1State = "Out1Act";
+                freqOut1 = "fOUT1_" + directFreqControl.string_GetFreqAtOut1() + "MHz_";
+            }
+            else
+            {
+                out1State = "Out1Dis";
+                freqOut1 =  string.Empty;
+            }
+            
+            bool out2StateBool = moduleControls.GetOut2State();
+            if (out2StateBool == true)
+            {
+                out2State = "Out2Act";
+                freqOut2 = "fOUT2_" + directFreqControl.string_GetFreqAtOut2()+ "MHz_";
+            }
+            else
+            {
+                out2State = "Out2Dis";
+                freqOut2 = string.Empty;
+            }
+
+            string defaultFileName = freqOut1.Replace(" ", string.Empty) + 
+                                     freqOut2.Replace(" ", string.Empty) + 
+                                     refState + "_" + out1State + "_" + out2State;
+
+
+            FilesManager.SaveFile(out test, defaultFileName);
+
+            if (test != string.Empty)
+            {
+                bool success = FilesManager.SaveDefRegsData(CreateDefaultsData(), test);
+
+                if(success)
+                {
+                    string text = "Currently registers succesfuly saved into file: '" + test + "'";
+                    ConsoleController.Console().Write(text);
+                }
+                else
+                {
+                    string text = "When saving registers occurs error!";
+                    ConsoleController.Console().Write(text);
+                    MessageBox.Show(text, "Error Catch",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public void LoadRegistersFromFile()
+        {
+            string test = null;
+            FilesManager.LoadFile(out test);
+
+            if (test != string.Empty)
+            {
+                SaveDefaults loadedData = new SaveDefaults();
+                bool success = FilesManager.LoadDefRegsData(out loadedData, test);
+
+                if (success)
+                {
+                    string text = "Currently registers succesfuly loaded from file: '" + test + "'";
+                    ConsoleController.Console().Write(text);
+                    LoadDefRegsFromFile(loadedData);
+                    serialPort.SetDisableSending(true, 48);
+                    SendData();
+                    serialPort.SetDisableSending(false, 48);
+                }
+                else
+                {
+                    string text = "When loading registers occurs error!";
+                    ConsoleController.Console().Write(text);
+                    MessageBox.Show(text, "Error Catch", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
     #endregion
