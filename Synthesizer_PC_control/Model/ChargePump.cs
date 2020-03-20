@@ -15,7 +15,6 @@ namespace Synthesizer_PC_control.Model
     }
     public class ChargePump : I_UiLinked
     {
-        private string badLinearityMsg = "Warning: In the current synthesizer mode setting, the linearity of the CP is incorrectly selected.";
         private string badCurrentMsg = "Warning: In 'Cycle Slip Reduction' or 'Fast-Lock' mode, the current value must be set to its minimum value.";
         private UInt16 rSet;
         private int currentIndex;
@@ -90,6 +89,27 @@ namespace Synthesizer_PC_control.Model
                 {
                     this.currentIndex = value;
                 }
+
+                UpdateUiElements();
+            }
+        }
+
+        public void SetLinearityIndex(int value, SynthMode synthMode)
+        {
+            if (linearityIndex != value)
+            {
+                if (synthMode == SynthMode.INTEGER)
+                {
+                    if (value != 0)
+                        value = 0;
+                }
+                else
+                {
+                    if (value == 0)
+                        value = 1;
+                }
+
+                this.linearityIndex = value;
 
                 UpdateUiElements();
             }
@@ -200,6 +220,11 @@ namespace Synthesizer_PC_control.Model
         {
             return disableHandler;
         }
+
+        public int GetLinearityIndex()
+        {
+            return linearityIndex;
+        }
         #endregion
 
         private void FillCurrentItemsFromRSetValue()
@@ -217,35 +242,6 @@ namespace Synthesizer_PC_control.Model
             ui_Current.DataSource = list;
 
             isFillCurrentCombobox = true;
-        }
-
-        public void CheckIfCorrectLinearityIsSelected(SynthMode synthMode)
-        {
-            if (synthMode == SynthMode.INTEGER)
-            {
-                if (linearityIndex != 0)
-                {
-                    ConsoleController.Console().Write(badLinearityMsg);
-                    ui_LinearityLabel.ForeColor = Color.Red;
-                }
-                else
-                {
-                    ui_LinearityLabel.ForeColor = Color.Black;
-                }
-            }
-            else
-            {
-                if (linearityIndex == 0)
-                {
-                    ConsoleController.Console().Write(badLinearityMsg);
-                    ui_LinearityLabel.ForeColor = Color.Red;
-                }
-                else
-                {
-                    ui_LinearityLabel.ForeColor = Color.Black;
-                }
-            }
-
         }
 
         public void UpdateUiElements()

@@ -408,14 +408,15 @@ namespace Synthesizer_PC_control.Controllers
                 registers[0].SetResetOneBit(31, (BitState)value);
                 outFreqControl.SetSynthMode((SynthMode)value);
                 outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
+
                 refFreq.SetSynthModeInfoVariable((SynthMode)value);
                 decimal pfdFreq = refFreq.decimal_GetPfdFreq();
                 vcoControls.CalcBandSelClockDivValue(pfdFreq);
 
                 if ((SynthMode)value == SynthMode.INTEGER)
-                    chargePump.SetLinearityIndex(0);
+                    chargePump.SetLinearityIndex(0, (SynthMode)value);
                 else
-                    chargePump.SetLinearityIndex(1);
+                    chargePump.SetLinearityIndex(1, (SynthMode)value);
 
                 serialPort.SetDisableSending(false, 1);
                 if (serialPort.GetDisableSending() == false)
@@ -598,11 +599,12 @@ namespace Synthesizer_PC_control.Controllers
             {
                 serialPort.SetDisableSending(true, 3);
 
-                registers[1].ChangeNBits((UInt32)value, 2, 29);
-                chargePump.SetLinearityIndex(value);
-
                 SynthMode synthMode = outFreqControl.GetSynthMode();
-                chargePump.CheckIfCorrectLinearityIsSelected(synthMode);
+                chargePump.SetLinearityIndex(value, synthMode);
+
+                value = chargePump.GetLinearityIndex();
+
+                registers[1].ChangeNBits((UInt32)value, 2, 29);
 
                 serialPort.SetDisableSending(false, 3);
                 if (serialPort.GetDisableSending() == false)
@@ -1038,16 +1040,10 @@ namespace Synthesizer_PC_control.Controllers
             UInt32 value = BitOperations.GetNBits(dataReg0, 1, 31);
             outFreqControl.SetSynthMode((SynthMode)value);
             outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
+
             refFreq.SetSynthModeInfoVariable((SynthMode)value);
             decimal pfdFreq = refFreq.decimal_GetPfdFreq();
             vcoControls.CalcBandSelClockDivValue(pfdFreq);
-
-            if ((SynthMode)value == SynthMode.INTEGER)
-                chargePump.SetLinearityIndex(0);
-            else
-                chargePump.SetLinearityIndex(1);
-
-            chargePump.CheckIfCorrectLinearityIsSelected((SynthMode)value);
         }
 
         private void GetIntNValueFromRegister(UInt32 dataReg0)
@@ -1666,6 +1662,12 @@ namespace Synthesizer_PC_control.Controllers
                 for (int regNumber = 5; regNumber >= 0; regNumber--)
                 {
                     if (needUpdate[regNumber] == true)
+                        GetAllFromReg(regNumber);
+                }
+
+                for (int regNumber = 5; regNumber >= 0; regNumber--)
+                {
+                    if (needUpdate[regNumber] == true)
                     {
                         GetAllFromReg(regNumber);
                         switch (regNumber)
@@ -2063,13 +2065,21 @@ namespace Synthesizer_PC_control.Controllers
         {
             sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
             int memoryNumber = int.Parse(sender);
+
+            ConsoleController.Console().Write("Memory " + memoryNumber.ToString() +
+                                        " imported!");
             
             for (int i = 0; i < 6; i++)
             {
                 registers[i].SetValue(memory.GetRegister(memoryNumber, i).string_GetValue());
             }
-            GetAllFromRegisters();
+            
+            serialPort.SetDisableSending(true, 50);
+
             GetAllFromControllReg(memoryNumber);
+
+            SendData();
+            serialPort.SetDisableSending(false, 50);
         }
         
         public void ExportMemory(string sender)
