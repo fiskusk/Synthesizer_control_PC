@@ -2098,42 +2098,16 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 0) == 1)
-                {
-                    moduleControls.SetOut1(true);
-                    directFreqControl.SetActiveOut1(true);
-                    serialPort.SendStringSerialPort("out 1 on");
-                }
-                else
-                {
-                    moduleControls.SetOut1(false);
-                    directFreqControl.SetActiveOut1(false);
-                    serialPort.SendStringSerialPort("out 1 off");
-                }
-                
-                if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 1) == 1)
-                {
-                    moduleControls.SetOut2(true);
-                    directFreqControl.SetActiveOut2(true);
-                    serialPort.SendStringSerialPort("out 2 on");
-                }
-                else
-                {
-                    moduleControls.SetOut2(false);
-                    directFreqControl.SetActiveOut2(false);
-                    serialPort.SendStringSerialPort("out 2 off");
-                }
-                
-                if (BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 2) == 0)
-                {
-                    moduleControls.SetIntRef(true);
-                    serialPort.SendStringSerialPort("ref int");
-                }
-                else
-                {
-                    moduleControls.SetIntRef(false);
-                    serialPort.SendStringSerialPort("ref ext");
-                }
+                UInt32 out1State = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 0);
+                UInt32 out2State = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 1);
+                UInt32 refState  = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 2);
+
+                if (Convert.ToBoolean(out1State) != moduleControls.GetOut1State())
+                    SwitchOut1();
+                if (Convert.ToBoolean(out2State) != moduleControls.GetOut2State())
+                    SwitchOut2();
+                if (!Convert.ToBoolean(refState) != moduleControls.GetRefState())
+                    SwitchRef();
             }
         }
 
