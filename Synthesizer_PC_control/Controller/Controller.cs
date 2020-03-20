@@ -160,24 +160,30 @@ namespace Synthesizer_PC_control.Controllers
     #region Synthesizer Module Controls Section
         public void SwitchOut1()
         {
-            if (moduleControls.GetOut1State())
+            bool state = moduleControls.GetOut1State();
+
+            if (state)
                 serialPort.SendStringSerialPort("out 1 off");
             else
                 serialPort.SendStringSerialPort("out 1 on");
 
-            moduleControls.SetOut1(!moduleControls.GetOut1State());
-            directFreqControl.SetActiveOut1(moduleControls.GetOut1State());
+            moduleControls.SetOut1(!state);
+            directFreqControl.SetActiveOut1(!state);
+            synthOutputControls.SetOutAEnable((OutEnState)Convert.ToInt16(!state));
         }
 
         public void SwitchOut2()
         {
-            if (moduleControls.GetOut2State())
+            bool state = moduleControls.GetOut2State();
+
+            if (state)
                 serialPort.SendStringSerialPort("out 2 off");
             else
                 serialPort.SendStringSerialPort("out 2 on");
 
-            moduleControls.SetOut2(!moduleControls.GetOut2State());
-            directFreqControl.SetActiveOut2(moduleControls.GetOut2State());
+            moduleControls.SetOut2(!state);
+            directFreqControl.SetActiveOut2(!state);
+            synthOutputControls.SetOutBEnable((OutEnState)Convert.ToInt16(!state));
         }
 
         public void SwitchRef()
@@ -1875,8 +1881,8 @@ namespace Synthesizer_PC_control.Controllers
             {
                 string text = "Default registers succesfuly loaded.";
                 ConsoleController.Console().Write(text);
-                LoadDefRegsFromFile(loadedData);
                 serialPort.SetDisableSending(true, 49);
+                LoadDefRegsFromFile(loadedData);
                 SendData();
                 serialPort.SetDisableSending(false, 49);
             }
@@ -2021,8 +2027,8 @@ namespace Synthesizer_PC_control.Controllers
                 {
                     string text = "Currently registers succesfuly loaded from file: '" + test + "'";
                     ConsoleController.Console().Write(text);
-                    LoadDefRegsFromFile(loadedData);
                     serialPort.SetDisableSending(true, 48);
+                    LoadDefRegsFromFile(loadedData);
                     SendData();
                     serialPort.SetDisableSending(false, 48);
                 }
