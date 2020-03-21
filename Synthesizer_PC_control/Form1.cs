@@ -284,11 +284,24 @@ namespace Synthesizer_PC_control
                 string text = controller.serialPort.ReadLine();
                 ConsoleController.Console().Write(text);
                 if (text == "plo locked")
-                    toolStripStatusLabel1.Text = "plo is locked";
+                {
+                    toolStripStatusLabel1.Text = "        plo is locked";
+                    LedOnPicBox.Visible = true;
+                    LedOffPicBox.Visible = false;
+
+                }
                 else if (text == "plo isn't locked")
-                    toolStripStatusLabel1.Text = "plo isn't locked!";
+                {
+                    toolStripStatusLabel1.Text = "        plo isn't locked!";
+                    LedOnPicBox.Visible = false;
+                    LedOffPicBox.Visible = true;
+                }
                 else if (text == "plo state is not known")
-                    toolStripStatusLabel1.Text = "plo state is not known";
+                {
+                    toolStripStatusLabel1.Text = "        plo state is not known";
+                    LedOnPicBox.Visible = false;
+                    LedOffPicBox.Visible = true;
+                }
                 else
                 {
                     string[] separrated = text.Split(' ');
@@ -448,7 +461,7 @@ namespace Synthesizer_PC_control
         private void PortButton_Click(object sender, EventArgs e)
         {
             EnableControls(controller.SwitchPort());
-            if (controller.moduleControls.GetRefState())
+            if (controller.moduleControls.GetIntRefState())
                 RefFTextBox.Enabled = false;
             if (AutoLDSpeedAdjCheckBox.Checked)
                 LDSpeedAdjComboBox.Enabled = false;
@@ -764,11 +777,15 @@ namespace Synthesizer_PC_control
             controller.SwitchOut2();
         }
 
+        private void IntExtShowLabel_Click(object sender, EventArgs e)
+        {
+            controller.SwitchRef();
+        }
 
         #endregion
 
-#region Generic controls Group
-        
+        #region Generic controls Group
+
         private void MuxPinModeCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (isForm1Load)
