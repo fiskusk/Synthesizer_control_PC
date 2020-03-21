@@ -166,6 +166,8 @@ namespace Synthesizer_PC_control
                position--;
             }
             sender.Text = item;
+            if (position < 0)
+                position = 0;
             sender.SelectionStart = position;
         }
 
