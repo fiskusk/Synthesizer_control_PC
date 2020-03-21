@@ -93,7 +93,8 @@ namespace Synthesizer_PC_control.Controllers
                                                       view.FreqAtOut1ShowLabel,
                                                       view.FreqAtOut2ShowLabel,
                                                       view.ActOut1ShowLabel,
-                                                      view.ActOut2ShowLabel);
+                                                      view.ActOut2ShowLabel,
+                                                      view.IntExtShowLabel);
 
             synthFreqInfo = new SynthFreqInfo(view.fVcoScreenLabel,
                                               view.fOutAScreenLabel,
@@ -188,11 +189,12 @@ namespace Synthesizer_PC_control.Controllers
 
         public void SwitchRef()
         {
-            if (moduleControls.GetRefState())
+            if (moduleControls.GetIntRefState())
             {
                 serialPort.SendStringSerialPort("ref ext");
                 refFreq.ChangeRefInpUIEnabled(true);
                 moduleControls.SetIntRef(false);
+                directFreqControl.SetIntRefState(false);
             }
             else
             {
@@ -201,6 +203,7 @@ namespace Synthesizer_PC_control.Controllers
                 vcoControls.CalcBandSelClockDivValue(10);
                 refFreq.ChangeRefInpUIEnabled(false);
                 moduleControls.SetIntRef(true);
+                directFreqControl.SetIntRefState(true);
             }
             RecalcFreqInfo();
         }
@@ -1600,7 +1603,7 @@ namespace Synthesizer_PC_control.Controllers
             else
                 serialPort.SendStringSerialPort("out 2 off");
             
-            if (moduleControls.GetRefState())
+            if (moduleControls.GetIntRefState())
                 serialPort.SendStringSerialPort("ref int");
             else
                 serialPort.SendStringSerialPort("ref ext");
@@ -1817,6 +1820,7 @@ namespace Synthesizer_PC_control.Controllers
             moduleControls.SetOut1(data.Out1En);
             moduleControls.SetOut2(data.Out2En);
             moduleControls.SetIntRef(data.IntRef);
+            directFreqControl.SetIntRefState(data.IntRef);
             directFreqControl.SetActiveOut1(data.Out1En);
             directFreqControl.SetActiveOut2(data.Out2En);
 
@@ -1831,7 +1835,7 @@ namespace Synthesizer_PC_control.Controllers
             }
 
             this.GetAllFromRegisters();
-            refFreq.ChangeRefInpUIEnabled(!moduleControls.GetRefState());
+            refFreq.ChangeRefInpUIEnabled(!moduleControls.GetIntRefState());
         }
 
         private SaveWindow CreateSaveWindow()
@@ -1844,7 +1848,7 @@ namespace Synthesizer_PC_control.Controllers
                 ReferenceFrequency = refFreq.string_GetRefFreqValue(),
                 Out1En = moduleControls.GetOut1State(),
                 Out2En = moduleControls.GetOut2State(),
-                IntRef = moduleControls.GetRefState(),
+                IntRef = moduleControls.GetIntRefState(),
                 Mem1 = new List<string>{},
                 Mem2 = new List<string>{},
                 Mem3 = new List<string>{},
@@ -1926,7 +1930,7 @@ namespace Synthesizer_PC_control.Controllers
                 SwitchOut1();
             if (data.Out2State != moduleControls.GetOut2State())
                 SwitchOut2();
-            if (data.RefState != moduleControls.GetRefState())
+            if (data.RefState != moduleControls.GetIntRefState())
                 SwitchRef();
         }
 
@@ -1944,7 +1948,7 @@ namespace Synthesizer_PC_control.Controllers
 
             saved.Out1State = moduleControls.GetOut1State();
             saved.Out2State = moduleControls.GetOut2State();
-            saved.RefState  = moduleControls.GetRefState();
+            saved.RefState  = moduleControls.GetIntRefState();
 
             return saved;
         }
@@ -1959,7 +1963,7 @@ namespace Synthesizer_PC_control.Controllers
             string out1State;
             string out2State;
 
-            bool internalRef = moduleControls.GetRefState();
+            bool internalRef = moduleControls.GetIntRefState();
             if (internalRef == true)
                 refState = "IntRef";
             else
@@ -2106,7 +2110,7 @@ namespace Synthesizer_PC_control.Controllers
                     SwitchOut1();
                 if (Convert.ToBoolean(out2State) != moduleControls.GetOut2State())
                     SwitchOut2();
-                if (!Convert.ToBoolean(refState) != moduleControls.GetRefState())
+                if (!Convert.ToBoolean(refState) != moduleControls.GetIntRefState())
                     SwitchRef();
             }
         }

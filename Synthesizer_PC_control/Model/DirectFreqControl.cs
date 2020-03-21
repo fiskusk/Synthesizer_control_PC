@@ -13,6 +13,7 @@ namespace Synthesizer_PC_control.Model
         private string freqAtOut2;
         private bool activeOut1;
         private bool activeOut2;
+        private bool intRefState;
         private readonly TextBox ui_directFreqInput;
         private readonly Label ui_deltaFreqLabel;
         private readonly Label ui_calcFreq;
@@ -20,10 +21,11 @@ namespace Synthesizer_PC_control.Model
         private readonly Label ui_freqAtOut2;
         private readonly Label ui_activeOut1;
         private readonly Label ui_activeOut2;
+        private readonly Label ui_intRefState;
         public DirectFreqControl(TextBox ui_directFreqInput, Label ui_deltaFreqLabel,
                                  Label ui_calcFreq, Label ui_freqAtOut1, 
                                  Label ui_freqAtOut2, Label ui_activeOut1, 
-                                 Label ui_activeOut2)
+                                 Label ui_activeOut2, Label ui_intRefState)
         {
             this.ui_directFreqInput = ui_directFreqInput;
             this.ui_deltaFreqLabel  = ui_deltaFreqLabel;
@@ -32,6 +34,7 @@ namespace Synthesizer_PC_control.Model
             this.ui_freqAtOut2      = ui_freqAtOut2;
             this.ui_activeOut1      = ui_activeOut1;
             this.ui_activeOut2      = ui_activeOut2;
+            this.ui_intRefState        = ui_intRefState;
 
             this.directFreqInput = 500.0M;
             this.deltaFreq = 0;
@@ -117,6 +120,13 @@ namespace Synthesizer_PC_control.Model
             UpdateUiElements();
         }
 
+        public void SetIntRefState(bool value)
+        {
+            this.intRefState = value;
+
+            UpdateUiElements();
+        }
+
         #endregion
 
         #region Getters
@@ -196,6 +206,11 @@ namespace Synthesizer_PC_control.Model
                 ui_activeOut2.Text = "OFF";
                 ui_activeOut2.BackColor = SystemColors.ControlDark;
             }
+
+            if (intRefState)
+                ui_intRefState.Text = "Internal";
+            else
+                ui_intRefState.Text = "External";
         }
 
     }
