@@ -253,17 +253,17 @@ namespace Synthesizer_PC_control
             this.MemoryOutput2Label = new System.Windows.Forms.Label();
             this.MemoryRefLabel = new System.Windows.Forms.Label();
             this.Mem1ActOut1ShowLabel = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
+            this.Mem1ActOut2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem1RefShowLabel = new System.Windows.Forms.Label();
+            this.Mem2ActOut1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem2ActOut2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem2RefShowLabel = new System.Windows.Forms.Label();
+            this.Mem3ActOut1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem3ActOut2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem3RefShowLabel = new System.Windows.Forms.Label();
+            this.Mem4ActOut1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem4ActOut2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem4RefShowLabel = new System.Windows.Forms.Label();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -2212,20 +2212,20 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.Controls.Add(this.ImportMem4Button);
             this.RegistersMemoryPage.Controls.Add(this.ImportMem3Button);
             this.RegistersMemoryPage.Controls.Add(this.ImportMem2Button);
-            this.RegistersMemoryPage.Controls.Add(this.label20);
-            this.RegistersMemoryPage.Controls.Add(this.label17);
-            this.RegistersMemoryPage.Controls.Add(this.label14);
-            this.RegistersMemoryPage.Controls.Add(this.label11);
-            this.RegistersMemoryPage.Controls.Add(this.label19);
+            this.RegistersMemoryPage.Controls.Add(this.Mem4RefShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem3RefShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem2RefShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem1RefShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem4ActOut2ShowLabel);
             this.RegistersMemoryPage.Controls.Add(this.ImportMem1Button);
-            this.RegistersMemoryPage.Controls.Add(this.label16);
+            this.RegistersMemoryPage.Controls.Add(this.Mem3ActOut2ShowLabel);
             this.RegistersMemoryPage.Controls.Add(this.SavReg3Label);
-            this.RegistersMemoryPage.Controls.Add(this.label18);
-            this.RegistersMemoryPage.Controls.Add(this.label13);
-            this.RegistersMemoryPage.Controls.Add(this.label15);
+            this.RegistersMemoryPage.Controls.Add(this.Mem4ActOut1ShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem2ActOut2ShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem3ActOut1ShowLabel);
             this.RegistersMemoryPage.Controls.Add(this.R0M4);
-            this.RegistersMemoryPage.Controls.Add(this.label12);
-            this.RegistersMemoryPage.Controls.Add(this.label10);
+            this.RegistersMemoryPage.Controls.Add(this.Mem2ActOut1ShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem1ActOut2ShowLabel);
             this.RegistersMemoryPage.Controls.Add(this.Mem1ActOut1ShowLabel);
             this.RegistersMemoryPage.Controls.Add(this.R0M3);
             this.RegistersMemoryPage.Controls.Add(this.LoadRegMemory);
@@ -3091,135 +3091,124 @@ namespace Synthesizer_PC_control
             this.Mem1ActOut1ShowLabel.TabIndex = 20;
             this.Mem1ActOut1ShowLabel.Text = "OFF";
             this.Mem1ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem1ActOut1ShowLabel.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
             // 
-            // label10
+            // Mem1ActOut2ShowLabel
             // 
-            this.label10.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label10.Location = new System.Drawing.Point(118, 237);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(39, 16);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "OFF";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label10.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
+            this.Mem1ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem1ActOut2ShowLabel.Location = new System.Drawing.Point(118, 237);
+            this.Mem1ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1ActOut2ShowLabel.Name = "Mem1ActOut2ShowLabel";
+            this.Mem1ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem1ActOut2ShowLabel.TabIndex = 20;
+            this.Mem1ActOut2ShowLabel.Text = "OFF";
+            this.Mem1ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label11
+            // Mem1RefShowLabel
             // 
-            this.label11.Location = new System.Drawing.Point(100, 261);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(75, 18);
-            this.label11.TabIndex = 20;
-            this.label11.Text = "External";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label11.Click += new System.EventHandler(this.IntExtShowLabel_Click);
+            this.Mem1RefShowLabel.Location = new System.Drawing.Point(100, 261);
+            this.Mem1RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1RefShowLabel.Name = "Mem1RefShowLabel";
+            this.Mem1RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem1RefShowLabel.TabIndex = 20;
+            this.Mem1RefShowLabel.Text = "External";
+            this.Mem1RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label12
+            // Mem2ActOut1ShowLabel
             // 
-            this.label12.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label12.Location = new System.Drawing.Point(208, 208);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(39, 16);
-            this.label12.TabIndex = 20;
-            this.label12.Text = "OFF";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label12.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
+            this.Mem2ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem2ActOut1ShowLabel.Location = new System.Drawing.Point(208, 208);
+            this.Mem2ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2ActOut1ShowLabel.Name = "Mem2ActOut1ShowLabel";
+            this.Mem2ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem2ActOut1ShowLabel.TabIndex = 20;
+            this.Mem2ActOut1ShowLabel.Text = "OFF";
+            this.Mem2ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label13
+            // Mem2ActOut2ShowLabel
             // 
-            this.label13.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label13.Location = new System.Drawing.Point(208, 237);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(39, 16);
-            this.label13.TabIndex = 20;
-            this.label13.Text = "OFF";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label13.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
+            this.Mem2ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem2ActOut2ShowLabel.Location = new System.Drawing.Point(208, 237);
+            this.Mem2ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2ActOut2ShowLabel.Name = "Mem2ActOut2ShowLabel";
+            this.Mem2ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem2ActOut2ShowLabel.TabIndex = 20;
+            this.Mem2ActOut2ShowLabel.Text = "OFF";
+            this.Mem2ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem2ActOut2ShowLabel.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
             // 
-            // label14
+            // Mem2RefShowLabel
             // 
-            this.label14.Location = new System.Drawing.Point(190, 261);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(75, 18);
-            this.label14.TabIndex = 20;
-            this.label14.Text = "External";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label14.Click += new System.EventHandler(this.IntExtShowLabel_Click);
+            this.Mem2RefShowLabel.Location = new System.Drawing.Point(190, 261);
+            this.Mem2RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2RefShowLabel.Name = "Mem2RefShowLabel";
+            this.Mem2RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem2RefShowLabel.TabIndex = 20;
+            this.Mem2RefShowLabel.Text = "External";
+            this.Mem2RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label15
+            // Mem3ActOut1ShowLabel
             // 
-            this.label15.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label15.Location = new System.Drawing.Point(298, 208);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(39, 16);
-            this.label15.TabIndex = 20;
-            this.label15.Text = "OFF";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label15.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
+            this.Mem3ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem3ActOut1ShowLabel.Location = new System.Drawing.Point(298, 208);
+            this.Mem3ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3ActOut1ShowLabel.Name = "Mem3ActOut1ShowLabel";
+            this.Mem3ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem3ActOut1ShowLabel.TabIndex = 20;
+            this.Mem3ActOut1ShowLabel.Text = "OFF";
+            this.Mem3ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label16
+            // Mem3ActOut2ShowLabel
             // 
-            this.label16.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label16.Location = new System.Drawing.Point(298, 237);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(39, 16);
-            this.label16.TabIndex = 20;
-            this.label16.Text = "OFF";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label16.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
+            this.Mem3ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem3ActOut2ShowLabel.Location = new System.Drawing.Point(298, 237);
+            this.Mem3ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3ActOut2ShowLabel.Name = "Mem3ActOut2ShowLabel";
+            this.Mem3ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem3ActOut2ShowLabel.TabIndex = 20;
+            this.Mem3ActOut2ShowLabel.Text = "OFF";
+            this.Mem3ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label17
+            // Mem3RefShowLabel
             // 
-            this.label17.Location = new System.Drawing.Point(280, 261);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(75, 18);
-            this.label17.TabIndex = 20;
-            this.label17.Text = "External";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label17.Click += new System.EventHandler(this.IntExtShowLabel_Click);
+            this.Mem3RefShowLabel.Location = new System.Drawing.Point(280, 261);
+            this.Mem3RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3RefShowLabel.Name = "Mem3RefShowLabel";
+            this.Mem3RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem3RefShowLabel.TabIndex = 20;
+            this.Mem3RefShowLabel.Text = "External";
+            this.Mem3RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label18
+            // Mem4ActOut1ShowLabel
             // 
-            this.label18.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label18.Location = new System.Drawing.Point(388, 208);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(39, 16);
-            this.label18.TabIndex = 20;
-            this.label18.Text = "OFF";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label18.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
+            this.Mem4ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem4ActOut1ShowLabel.Location = new System.Drawing.Point(388, 208);
+            this.Mem4ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4ActOut1ShowLabel.Name = "Mem4ActOut1ShowLabel";
+            this.Mem4ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem4ActOut1ShowLabel.TabIndex = 20;
+            this.Mem4ActOut1ShowLabel.Text = "OFF";
+            this.Mem4ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label19
+            // Mem4ActOut2ShowLabel
             // 
-            this.label19.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label19.Location = new System.Drawing.Point(388, 237);
-            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(39, 16);
-            this.label19.TabIndex = 20;
-            this.label19.Text = "OFF";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label19.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
+            this.Mem4ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem4ActOut2ShowLabel.Location = new System.Drawing.Point(388, 237);
+            this.Mem4ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4ActOut2ShowLabel.Name = "Mem4ActOut2ShowLabel";
+            this.Mem4ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem4ActOut2ShowLabel.TabIndex = 20;
+            this.Mem4ActOut2ShowLabel.Text = "OFF";
+            this.Mem4ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label20
+            // Mem4RefShowLabel
             // 
-            this.label20.Location = new System.Drawing.Point(370, 261);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(75, 18);
-            this.label20.TabIndex = 20;
-            this.label20.Text = "External";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label20.Click += new System.EventHandler(this.IntExtShowLabel_Click);
+            this.Mem4RefShowLabel.Location = new System.Drawing.Point(370, 261);
+            this.Mem4RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4RefShowLabel.Name = "Mem4RefShowLabel";
+            this.Mem4RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem4RefShowLabel.TabIndex = 20;
+            this.Mem4RefShowLabel.Text = "External";
+            this.Mem4RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -3512,21 +3501,21 @@ namespace Synthesizer_PC_control
         private PictureBox LedOffPicBox;
         private PictureBox LedOnPicBox;
         public Label IntExtShowLabel;
-        public Label label11;
-        public Label label10;
+        public Label Mem1RefShowLabel;
+        public Label Mem1ActOut2ShowLabel;
         public Label Mem1ActOut1ShowLabel;
         private Label MemoryRefLabel;
         private Label MemoryOutput2Label;
         private Label MemoryOutput1Label;
-        public Label label20;
-        public Label label17;
-        public Label label14;
-        public Label label19;
-        public Label label16;
-        public Label label18;
-        public Label label13;
-        public Label label15;
-        public Label label12;
+        public Label Mem4RefShowLabel;
+        public Label Mem3RefShowLabel;
+        public Label Mem2RefShowLabel;
+        public Label Mem4ActOut2ShowLabel;
+        public Label Mem3ActOut2ShowLabel;
+        public Label Mem4ActOut1ShowLabel;
+        public Label Mem2ActOut2ShowLabel;
+        public Label Mem3ActOut1ShowLabel;
+        public Label Mem2ActOut1ShowLabel;
     }
 }
 
