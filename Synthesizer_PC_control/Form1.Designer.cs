@@ -276,6 +276,16 @@ namespace Synthesizer_PC_control
             this.Mem3Freq2ShowLabel = new System.Windows.Forms.Label();
             this.Mem4Freq2ShowLabel = new System.Windows.Forms.Label();
             this.Mem1Freq2ShowLabel = new System.Windows.Forms.Label();
+            this.MemPwrALabel = new System.Windows.Forms.Label();
+            this.MemPwrBLabel = new System.Windows.Forms.Label();
+            this.Mem1PwrAShowLabel = new System.Windows.Forms.Label();
+            this.Mem1PwrBShowLabel = new System.Windows.Forms.Label();
+            this.Mem2PwrAShowLabel = new System.Windows.Forms.Label();
+            this.Mem2PwrBShowLabel = new System.Windows.Forms.Label();
+            this.Mem3PwrAShowLabel = new System.Windows.Forms.Label();
+            this.Mem3PwrBShowLabel = new System.Windows.Forms.Label();
+            this.Mem4PwrAShowLabel = new System.Windows.Forms.Label();
+            this.Mem4PwrBShowLabel = new System.Windows.Forms.Label();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -2281,6 +2291,16 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.Controls.Add(this.R5M3);
             this.RegistersMemoryPage.Controls.Add(this.R4M1);
             this.RegistersMemoryPage.Controls.Add(this.R5M2);
+            this.RegistersMemoryPage.Controls.Add(this.MemPwrBLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem4PwrBShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem3PwrBShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem2PwrBShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem4PwrAShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem3PwrAShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem2PwrAShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem1PwrBShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem1PwrAShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.MemPwrALabel);
             this.RegistersMemoryPage.Controls.Add(this.FreqOut2MemLabel);
             this.RegistersMemoryPage.Controls.Add(this.FreqOut1MemLabel);
             this.RegistersMemoryPage.Controls.Add(this.MemoryRefLabel);
@@ -2299,7 +2319,7 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem4Button
             // 
-            this.ImportMem4Button.Location = new System.Drawing.Point(424, 346);
+            this.ImportMem4Button.Location = new System.Drawing.Point(424, 402);
             this.ImportMem4Button.Name = "ImportMem4Button";
             this.ImportMem4Button.Size = new System.Drawing.Size(84, 49);
             this.ImportMem4Button.TabIndex = 21;
@@ -2309,7 +2329,7 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem3Button
             // 
-            this.ImportMem3Button.Location = new System.Drawing.Point(317, 346);
+            this.ImportMem3Button.Location = new System.Drawing.Point(317, 402);
             this.ImportMem3Button.Name = "ImportMem3Button";
             this.ImportMem3Button.Size = new System.Drawing.Size(84, 49);
             this.ImportMem3Button.TabIndex = 21;
@@ -2319,7 +2339,7 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem2Button
             // 
-            this.ImportMem2Button.Location = new System.Drawing.Point(210, 346);
+            this.ImportMem2Button.Location = new System.Drawing.Point(210, 402);
             this.ImportMem2Button.Name = "ImportMem2Button";
             this.ImportMem2Button.Size = new System.Drawing.Size(84, 49);
             this.ImportMem2Button.TabIndex = 21;
@@ -2385,7 +2405,7 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem1Button
             // 
-            this.ImportMem1Button.Location = new System.Drawing.Point(103, 346);
+            this.ImportMem1Button.Location = new System.Drawing.Point(103, 402);
             this.ImportMem1Button.Name = "ImportMem1Button";
             this.ImportMem1Button.Size = new System.Drawing.Size(84, 49);
             this.ImportMem1Button.TabIndex = 21;
@@ -3327,7 +3347,7 @@ namespace Synthesizer_PC_control
             this.FreqOut2MemLabel.Name = "FreqOut2MemLabel";
             this.FreqOut2MemLabel.Size = new System.Drawing.Size(81, 17);
             this.FreqOut2MemLabel.TabIndex = 16;
-            this.FreqOut2MemLabel.Text = "Freq. out 1:";
+            this.FreqOut2MemLabel.Text = "Freq. out 2:";
             // 
             // Mem2Freq2ShowLabel
             // 
@@ -3372,6 +3392,96 @@ namespace Synthesizer_PC_control
             this.Mem1Freq2ShowLabel.TabIndex = 22;
             this.Mem1Freq2ShowLabel.Text = "12000.000 000";
             this.Mem1Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // MemPwrALabel
+            // 
+            this.MemPwrALabel.AutoSize = true;
+            this.MemPwrALabel.Location = new System.Drawing.Point(17, 346);
+            this.MemPwrALabel.Name = "MemPwrALabel";
+            this.MemPwrALabel.Size = new System.Drawing.Size(76, 17);
+            this.MemPwrALabel.TabIndex = 16;
+            this.MemPwrALabel.Text = "Pwr. out A:";
+            // 
+            // MemPwrBLabel
+            // 
+            this.MemPwrBLabel.AutoSize = true;
+            this.MemPwrBLabel.Location = new System.Drawing.Point(17, 374);
+            this.MemPwrBLabel.Name = "MemPwrBLabel";
+            this.MemPwrBLabel.Size = new System.Drawing.Size(76, 17);
+            this.MemPwrBLabel.TabIndex = 16;
+            this.MemPwrBLabel.Text = "Pwr. out B:";
+            // 
+            // Mem1PwrAShowLabel
+            // 
+            this.Mem1PwrAShowLabel.AutoSize = true;
+            this.Mem1PwrAShowLabel.Location = new System.Drawing.Point(115, 346);
+            this.Mem1PwrAShowLabel.Name = "Mem1PwrAShowLabel";
+            this.Mem1PwrAShowLabel.Size = new System.Drawing.Size(60, 17);
+            this.Mem1PwrAShowLabel.TabIndex = 16;
+            this.Mem1PwrAShowLabel.Text = "+ 5 dBm";
+            // 
+            // Mem1PwrBShowLabel
+            // 
+            this.Mem1PwrBShowLabel.AutoSize = true;
+            this.Mem1PwrBShowLabel.Location = new System.Drawing.Point(115, 374);
+            this.Mem1PwrBShowLabel.Name = "Mem1PwrBShowLabel";
+            this.Mem1PwrBShowLabel.Size = new System.Drawing.Size(60, 17);
+            this.Mem1PwrBShowLabel.TabIndex = 16;
+            this.Mem1PwrBShowLabel.Text = "+ 2 dBm";
+            // 
+            // Mem2PwrAShowLabel
+            // 
+            this.Mem2PwrAShowLabel.AutoSize = true;
+            this.Mem2PwrAShowLabel.Location = new System.Drawing.Point(222, 346);
+            this.Mem2PwrAShowLabel.Name = "Mem2PwrAShowLabel";
+            this.Mem2PwrAShowLabel.Size = new System.Drawing.Size(60, 17);
+            this.Mem2PwrAShowLabel.TabIndex = 16;
+            this.Mem2PwrAShowLabel.Text = "+ 5 dBm";
+            // 
+            // Mem2PwrBShowLabel
+            // 
+            this.Mem2PwrBShowLabel.AutoSize = true;
+            this.Mem2PwrBShowLabel.Location = new System.Drawing.Point(222, 374);
+            this.Mem2PwrBShowLabel.Name = "Mem2PwrBShowLabel";
+            this.Mem2PwrBShowLabel.Size = new System.Drawing.Size(60, 17);
+            this.Mem2PwrBShowLabel.TabIndex = 16;
+            this.Mem2PwrBShowLabel.Text = "+ 2 dBm";
+            // 
+            // Mem3PwrAShowLabel
+            // 
+            this.Mem3PwrAShowLabel.AutoSize = true;
+            this.Mem3PwrAShowLabel.Location = new System.Drawing.Point(329, 346);
+            this.Mem3PwrAShowLabel.Name = "Mem3PwrAShowLabel";
+            this.Mem3PwrAShowLabel.Size = new System.Drawing.Size(60, 17);
+            this.Mem3PwrAShowLabel.TabIndex = 16;
+            this.Mem3PwrAShowLabel.Text = "+ 5 dBm";
+            // 
+            // Mem3PwrBShowLabel
+            // 
+            this.Mem3PwrBShowLabel.AutoSize = true;
+            this.Mem3PwrBShowLabel.Location = new System.Drawing.Point(329, 374);
+            this.Mem3PwrBShowLabel.Name = "Mem3PwrBShowLabel";
+            this.Mem3PwrBShowLabel.Size = new System.Drawing.Size(60, 17);
+            this.Mem3PwrBShowLabel.TabIndex = 16;
+            this.Mem3PwrBShowLabel.Text = "+ 2 dBm";
+            // 
+            // Mem4PwrAShowLabel
+            // 
+            this.Mem4PwrAShowLabel.AutoSize = true;
+            this.Mem4PwrAShowLabel.Location = new System.Drawing.Point(436, 346);
+            this.Mem4PwrAShowLabel.Name = "Mem4PwrAShowLabel";
+            this.Mem4PwrAShowLabel.Size = new System.Drawing.Size(60, 17);
+            this.Mem4PwrAShowLabel.TabIndex = 16;
+            this.Mem4PwrAShowLabel.Text = "+ 5 dBm";
+            // 
+            // Mem4PwrBShowLabel
+            // 
+            this.Mem4PwrBShowLabel.AutoSize = true;
+            this.Mem4PwrBShowLabel.Location = new System.Drawing.Point(436, 374);
+            this.Mem4PwrBShowLabel.Name = "Mem4PwrBShowLabel";
+            this.Mem4PwrBShowLabel.Size = new System.Drawing.Size(60, 17);
+            this.Mem4PwrBShowLabel.TabIndex = 16;
+            this.Mem4PwrBShowLabel.Text = "+ 2 dBm";
             // 
             // Form1
             // 
@@ -3691,6 +3801,16 @@ namespace Synthesizer_PC_control
         public Label Mem2Freq1ShowLabel;
         private Label FreqOut2MemLabel;
         private Label FreqOut1MemLabel;
+        private Label MemPwrBLabel;
+        private Label Mem4PwrBShowLabel;
+        private Label Mem3PwrBShowLabel;
+        private Label Mem2PwrBShowLabel;
+        private Label Mem4PwrAShowLabel;
+        private Label Mem3PwrAShowLabel;
+        private Label Mem2PwrAShowLabel;
+        private Label Mem1PwrBShowLabel;
+        private Label Mem1PwrAShowLabel;
+        private Label MemPwrALabel;
     }
 }
 
