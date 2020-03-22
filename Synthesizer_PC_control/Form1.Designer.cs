@@ -189,6 +189,8 @@ namespace Synthesizer_PC_control
             this.Mem1RefShowLabel = new System.Windows.Forms.Label();
             this.Mem4ActOut2ShowLabel = new System.Windows.Forms.Label();
             this.ImportMem1Button = new System.Windows.Forms.Button();
+            this.MemLoadFromFileButton = new System.Windows.Forms.Button();
+            this.MemSaveIntoFileButton = new System.Windows.Forms.Button();
             this.Mem3ActOut2ShowLabel = new System.Windows.Forms.Label();
             this.SavReg3Label = new System.Windows.Forms.Label();
             this.Mem4ActOut1ShowLabel = new System.Windows.Forms.Label();
@@ -264,6 +266,16 @@ namespace Synthesizer_PC_control
             this.RefSignalLabel = new System.Windows.Forms.Label();
             this.LedOffPicBox = new System.Windows.Forms.PictureBox();
             this.LedOnPicBox = new System.Windows.Forms.PictureBox();
+            this.Mem2Freq1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem1Freq1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem3Freq1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem4Freq1ShowLabel = new System.Windows.Forms.Label();
+            this.FreqOut1MemLabel = new System.Windows.Forms.Label();
+            this.FreqOut2MemLabel = new System.Windows.Forms.Label();
+            this.Mem2Freq2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem3Freq2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem4Freq2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem1Freq2ShowLabel = new System.Windows.Forms.Label();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -2209,6 +2221,14 @@ namespace Synthesizer_PC_control
             // 
             // RegistersMemoryPage
             // 
+            this.RegistersMemoryPage.Controls.Add(this.Mem1Freq2ShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem1Freq1ShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem4Freq2ShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem4Freq1ShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem3Freq2ShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem3Freq1ShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem2Freq2ShowLabel);
+            this.RegistersMemoryPage.Controls.Add(this.Mem2Freq1ShowLabel);
             this.RegistersMemoryPage.Controls.Add(this.ImportMem4Button);
             this.RegistersMemoryPage.Controls.Add(this.ImportMem3Button);
             this.RegistersMemoryPage.Controls.Add(this.ImportMem2Button);
@@ -2218,6 +2238,8 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.Controls.Add(this.Mem1RefShowLabel);
             this.RegistersMemoryPage.Controls.Add(this.Mem4ActOut2ShowLabel);
             this.RegistersMemoryPage.Controls.Add(this.ImportMem1Button);
+            this.RegistersMemoryPage.Controls.Add(this.MemLoadFromFileButton);
+            this.RegistersMemoryPage.Controls.Add(this.MemSaveIntoFileButton);
             this.RegistersMemoryPage.Controls.Add(this.Mem3ActOut2ShowLabel);
             this.RegistersMemoryPage.Controls.Add(this.SavReg3Label);
             this.RegistersMemoryPage.Controls.Add(this.Mem4ActOut1ShowLabel);
@@ -2259,6 +2281,8 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.Controls.Add(this.R5M3);
             this.RegistersMemoryPage.Controls.Add(this.R4M1);
             this.RegistersMemoryPage.Controls.Add(this.R5M2);
+            this.RegistersMemoryPage.Controls.Add(this.FreqOut2MemLabel);
+            this.RegistersMemoryPage.Controls.Add(this.FreqOut1MemLabel);
             this.RegistersMemoryPage.Controls.Add(this.MemoryRefLabel);
             this.RegistersMemoryPage.Controls.Add(this.MemoryOutput2Label);
             this.RegistersMemoryPage.Controls.Add(this.MemoryOutput1Label);
@@ -2275,7 +2299,7 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem4Button
             // 
-            this.ImportMem4Button.Location = new System.Drawing.Point(365, 287);
+            this.ImportMem4Button.Location = new System.Drawing.Point(424, 346);
             this.ImportMem4Button.Name = "ImportMem4Button";
             this.ImportMem4Button.Size = new System.Drawing.Size(84, 49);
             this.ImportMem4Button.TabIndex = 21;
@@ -2285,7 +2309,7 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem3Button
             // 
-            this.ImportMem3Button.Location = new System.Drawing.Point(275, 287);
+            this.ImportMem3Button.Location = new System.Drawing.Point(317, 346);
             this.ImportMem3Button.Name = "ImportMem3Button";
             this.ImportMem3Button.Size = new System.Drawing.Size(84, 49);
             this.ImportMem3Button.TabIndex = 21;
@@ -2295,7 +2319,7 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem2Button
             // 
-            this.ImportMem2Button.Location = new System.Drawing.Point(185, 287);
+            this.ImportMem2Button.Location = new System.Drawing.Point(210, 346);
             this.ImportMem2Button.Name = "ImportMem2Button";
             this.ImportMem2Button.Size = new System.Drawing.Size(84, 49);
             this.ImportMem2Button.TabIndex = 21;
@@ -2305,7 +2329,7 @@ namespace Synthesizer_PC_control
             // 
             // Mem4RefShowLabel
             // 
-            this.Mem4RefShowLabel.Location = new System.Drawing.Point(370, 261);
+            this.Mem4RefShowLabel.Location = new System.Drawing.Point(429, 261);
             this.Mem4RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem4RefShowLabel.Name = "Mem4RefShowLabel";
             this.Mem4RefShowLabel.Size = new System.Drawing.Size(75, 18);
@@ -2316,7 +2340,7 @@ namespace Synthesizer_PC_control
             // 
             // Mem3RefShowLabel
             // 
-            this.Mem3RefShowLabel.Location = new System.Drawing.Point(280, 261);
+            this.Mem3RefShowLabel.Location = new System.Drawing.Point(322, 261);
             this.Mem3RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem3RefShowLabel.Name = "Mem3RefShowLabel";
             this.Mem3RefShowLabel.Size = new System.Drawing.Size(75, 18);
@@ -2327,7 +2351,7 @@ namespace Synthesizer_PC_control
             // 
             // Mem2RefShowLabel
             // 
-            this.Mem2RefShowLabel.Location = new System.Drawing.Point(190, 261);
+            this.Mem2RefShowLabel.Location = new System.Drawing.Point(215, 261);
             this.Mem2RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem2RefShowLabel.Name = "Mem2RefShowLabel";
             this.Mem2RefShowLabel.Size = new System.Drawing.Size(75, 18);
@@ -2338,7 +2362,7 @@ namespace Synthesizer_PC_control
             // 
             // Mem1RefShowLabel
             // 
-            this.Mem1RefShowLabel.Location = new System.Drawing.Point(100, 261);
+            this.Mem1RefShowLabel.Location = new System.Drawing.Point(108, 261);
             this.Mem1RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem1RefShowLabel.Name = "Mem1RefShowLabel";
             this.Mem1RefShowLabel.Size = new System.Drawing.Size(75, 18);
@@ -2350,7 +2374,7 @@ namespace Synthesizer_PC_control
             // Mem4ActOut2ShowLabel
             // 
             this.Mem4ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem4ActOut2ShowLabel.Location = new System.Drawing.Point(388, 237);
+            this.Mem4ActOut2ShowLabel.Location = new System.Drawing.Point(447, 237);
             this.Mem4ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem4ActOut2ShowLabel.Name = "Mem4ActOut2ShowLabel";
             this.Mem4ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
@@ -2361,7 +2385,7 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem1Button
             // 
-            this.ImportMem1Button.Location = new System.Drawing.Point(95, 287);
+            this.ImportMem1Button.Location = new System.Drawing.Point(103, 346);
             this.ImportMem1Button.Name = "ImportMem1Button";
             this.ImportMem1Button.Size = new System.Drawing.Size(84, 49);
             this.ImportMem1Button.TabIndex = 21;
@@ -2369,10 +2393,32 @@ namespace Synthesizer_PC_control
             this.ImportMem1Button.UseVisualStyleBackColor = true;
             this.ImportMem1Button.Click += new System.EventHandler(this.ImportMememoryButton_Click);
             // 
+            // MemLoadFromFileButton
+            // 
+            this.MemLoadFromFileButton.Location = new System.Drawing.Point(524, 207);
+            this.MemLoadFromFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MemLoadFromFileButton.Name = "MemLoadFromFileButton";
+            this.MemLoadFromFileButton.Size = new System.Drawing.Size(174, 46);
+            this.MemLoadFromFileButton.TabIndex = 9;
+            this.MemLoadFromFileButton.Text = "Load From File";
+            this.MemLoadFromFileButton.UseVisualStyleBackColor = true;
+            this.MemLoadFromFileButton.Click += new System.EventHandler(this.MemLoadFromFileButton_Click);
+            // 
+            // MemSaveIntoFileButton
+            // 
+            this.MemSaveIntoFileButton.Location = new System.Drawing.Point(524, 157);
+            this.MemSaveIntoFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MemSaveIntoFileButton.Name = "MemSaveIntoFileButton";
+            this.MemSaveIntoFileButton.Size = new System.Drawing.Size(174, 46);
+            this.MemSaveIntoFileButton.TabIndex = 9;
+            this.MemSaveIntoFileButton.Text = "Save Into File";
+            this.MemSaveIntoFileButton.UseVisualStyleBackColor = true;
+            this.MemSaveIntoFileButton.Click += new System.EventHandler(this.MemSaveIntoFileButton_Click);
+            // 
             // Mem3ActOut2ShowLabel
             // 
             this.Mem3ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem3ActOut2ShowLabel.Location = new System.Drawing.Point(298, 237);
+            this.Mem3ActOut2ShowLabel.Location = new System.Drawing.Point(340, 237);
             this.Mem3ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem3ActOut2ShowLabel.Name = "Mem3ActOut2ShowLabel";
             this.Mem3ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
@@ -2393,7 +2439,7 @@ namespace Synthesizer_PC_control
             // Mem4ActOut1ShowLabel
             // 
             this.Mem4ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem4ActOut1ShowLabel.Location = new System.Drawing.Point(388, 208);
+            this.Mem4ActOut1ShowLabel.Location = new System.Drawing.Point(447, 208);
             this.Mem4ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem4ActOut1ShowLabel.Name = "Mem4ActOut1ShowLabel";
             this.Mem4ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
@@ -2405,7 +2451,7 @@ namespace Synthesizer_PC_control
             // Mem2ActOut2ShowLabel
             // 
             this.Mem2ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem2ActOut2ShowLabel.Location = new System.Drawing.Point(208, 237);
+            this.Mem2ActOut2ShowLabel.Location = new System.Drawing.Point(233, 237);
             this.Mem2ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem2ActOut2ShowLabel.Name = "Mem2ActOut2ShowLabel";
             this.Mem2ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
@@ -2417,7 +2463,7 @@ namespace Synthesizer_PC_control
             // Mem3ActOut1ShowLabel
             // 
             this.Mem3ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem3ActOut1ShowLabel.Location = new System.Drawing.Point(298, 208);
+            this.Mem3ActOut1ShowLabel.Location = new System.Drawing.Point(340, 208);
             this.Mem3ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem3ActOut1ShowLabel.Name = "Mem3ActOut1ShowLabel";
             this.Mem3ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
@@ -2430,7 +2476,7 @@ namespace Synthesizer_PC_control
             // 
             this.R0M4.BackColor = System.Drawing.Color.White;
             this.R0M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M4.Location = new System.Drawing.Point(365, 36);
+            this.R0M4.Location = new System.Drawing.Point(424, 36);
             this.R0M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R0M4.MaxLength = 8;
             this.R0M4.Name = "R0M4";
@@ -2442,7 +2488,7 @@ namespace Synthesizer_PC_control
             // Mem2ActOut1ShowLabel
             // 
             this.Mem2ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem2ActOut1ShowLabel.Location = new System.Drawing.Point(208, 208);
+            this.Mem2ActOut1ShowLabel.Location = new System.Drawing.Point(233, 208);
             this.Mem2ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem2ActOut1ShowLabel.Name = "Mem2ActOut1ShowLabel";
             this.Mem2ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
@@ -2454,7 +2500,7 @@ namespace Synthesizer_PC_control
             // Mem1ActOut2ShowLabel
             // 
             this.Mem1ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem1ActOut2ShowLabel.Location = new System.Drawing.Point(118, 237);
+            this.Mem1ActOut2ShowLabel.Location = new System.Drawing.Point(126, 237);
             this.Mem1ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem1ActOut2ShowLabel.Name = "Mem1ActOut2ShowLabel";
             this.Mem1ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
@@ -2466,7 +2512,7 @@ namespace Synthesizer_PC_control
             // Mem1ActOut1ShowLabel
             // 
             this.Mem1ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem1ActOut1ShowLabel.Location = new System.Drawing.Point(118, 208);
+            this.Mem1ActOut1ShowLabel.Location = new System.Drawing.Point(126, 208);
             this.Mem1ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem1ActOut1ShowLabel.Name = "Mem1ActOut1ShowLabel";
             this.Mem1ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
@@ -2479,7 +2525,7 @@ namespace Synthesizer_PC_control
             // 
             this.R0M3.BackColor = System.Drawing.Color.White;
             this.R0M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M3.Location = new System.Drawing.Point(275, 36);
+            this.R0M3.Location = new System.Drawing.Point(317, 36);
             this.R0M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R0M3.MaxLength = 8;
             this.R0M3.Name = "R0M3";
@@ -2490,23 +2536,23 @@ namespace Synthesizer_PC_control
             // 
             // LoadRegMemory
             // 
-            this.LoadRegMemory.Location = new System.Drawing.Point(489, 86);
+            this.LoadRegMemory.Location = new System.Drawing.Point(524, 87);
             this.LoadRegMemory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LoadRegMemory.Name = "LoadRegMemory";
-            this.LoadRegMemory.Size = new System.Drawing.Size(174, 43);
+            this.LoadRegMemory.Size = new System.Drawing.Size(174, 46);
             this.LoadRegMemory.TabIndex = 2;
-            this.LoadRegMemory.Text = "Read stored registers from synthesizer memory";
+            this.LoadRegMemory.Text = "Download Memory Data From Synthesizer Memory";
             this.LoadRegMemory.UseVisualStyleBackColor = true;
             this.LoadRegMemory.Click += new System.EventHandler(this.LoadRegMemory_Click);
             // 
             // SaveRegMemory
             // 
-            this.SaveRegMemory.Location = new System.Drawing.Point(489, 37);
+            this.SaveRegMemory.Location = new System.Drawing.Point(524, 37);
             this.SaveRegMemory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SaveRegMemory.Name = "SaveRegMemory";
-            this.SaveRegMemory.Size = new System.Drawing.Size(174, 43);
+            this.SaveRegMemory.Size = new System.Drawing.Size(174, 46);
             this.SaveRegMemory.TabIndex = 2;
-            this.SaveRegMemory.Text = "Load the registers into the synthesizer memory";
+            this.SaveRegMemory.Text = "Upload Memory Data Into Synthesizer";
             this.SaveRegMemory.UseVisualStyleBackColor = true;
             this.SaveRegMemory.Click += new System.EventHandler(this.SaveRegMemory_Click);
             // 
@@ -2514,7 +2560,7 @@ namespace Synthesizer_PC_control
             // 
             this.R0M2.BackColor = System.Drawing.Color.White;
             this.R0M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M2.Location = new System.Drawing.Point(185, 36);
+            this.R0M2.Location = new System.Drawing.Point(210, 36);
             this.R0M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R0M2.MaxLength = 8;
             this.R0M2.Name = "R0M2";
@@ -2527,7 +2573,7 @@ namespace Synthesizer_PC_control
             // 
             this.R0M1.BackColor = System.Drawing.Color.White;
             this.R0M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M1.Location = new System.Drawing.Point(95, 36);
+            this.R0M1.Location = new System.Drawing.Point(103, 36);
             this.R0M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R0M1.MaxLength = 8;
             this.R0M1.Name = "R0M1";
@@ -2538,7 +2584,7 @@ namespace Synthesizer_PC_control
             // 
             // Mem4Label
             // 
-            this.Mem4Label.Location = new System.Drawing.Point(365, 13);
+            this.Mem4Label.Location = new System.Drawing.Point(424, 13);
             this.Mem4Label.Name = "Mem4Label";
             this.Mem4Label.Size = new System.Drawing.Size(84, 17);
             this.Mem4Label.TabIndex = 10;
@@ -2547,7 +2593,7 @@ namespace Synthesizer_PC_control
             // 
             // Mem3Label
             // 
-            this.Mem3Label.Location = new System.Drawing.Point(275, 13);
+            this.Mem3Label.Location = new System.Drawing.Point(317, 13);
             this.Mem3Label.Name = "Mem3Label";
             this.Mem3Label.Size = new System.Drawing.Size(84, 17);
             this.Mem3Label.TabIndex = 10;
@@ -2556,7 +2602,7 @@ namespace Synthesizer_PC_control
             // 
             // Mem2Label
             // 
-            this.Mem2Label.Location = new System.Drawing.Point(185, 13);
+            this.Mem2Label.Location = new System.Drawing.Point(210, 13);
             this.Mem2Label.Name = "Mem2Label";
             this.Mem2Label.Size = new System.Drawing.Size(84, 17);
             this.Mem2Label.TabIndex = 10;
@@ -2565,7 +2611,7 @@ namespace Synthesizer_PC_control
             // 
             // Mem1Label
             // 
-            this.Mem1Label.Location = new System.Drawing.Point(95, 13);
+            this.Mem1Label.Location = new System.Drawing.Point(103, 13);
             this.Mem1Label.Name = "Mem1Label";
             this.Mem1Label.Size = new System.Drawing.Size(84, 17);
             this.Mem1Label.TabIndex = 10;
@@ -2594,7 +2640,7 @@ namespace Synthesizer_PC_control
             // 
             this.R1M4.BackColor = System.Drawing.Color.White;
             this.R1M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M4.Location = new System.Drawing.Point(365, 64);
+            this.R1M4.Location = new System.Drawing.Point(424, 64);
             this.R1M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R1M4.MaxLength = 8;
             this.R1M4.Name = "R1M4";
@@ -2607,7 +2653,7 @@ namespace Synthesizer_PC_control
             // 
             this.R1M3.BackColor = System.Drawing.Color.White;
             this.R1M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M3.Location = new System.Drawing.Point(275, 64);
+            this.R1M3.Location = new System.Drawing.Point(317, 64);
             this.R1M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R1M3.MaxLength = 8;
             this.R1M3.Name = "R1M3";
@@ -2620,7 +2666,7 @@ namespace Synthesizer_PC_control
             // 
             this.R1M2.BackColor = System.Drawing.Color.White;
             this.R1M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M2.Location = new System.Drawing.Point(185, 64);
+            this.R1M2.Location = new System.Drawing.Point(210, 64);
             this.R1M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R1M2.MaxLength = 8;
             this.R1M2.Name = "R1M2";
@@ -2633,7 +2679,7 @@ namespace Synthesizer_PC_control
             // 
             this.R1M1.BackColor = System.Drawing.Color.White;
             this.R1M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M1.Location = new System.Drawing.Point(95, 64);
+            this.R1M1.Location = new System.Drawing.Point(103, 64);
             this.R1M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R1M1.MaxLength = 8;
             this.R1M1.Name = "R1M1";
@@ -2655,7 +2701,7 @@ namespace Synthesizer_PC_control
             // 
             this.R2M4.BackColor = System.Drawing.Color.White;
             this.R2M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M4.Location = new System.Drawing.Point(365, 92);
+            this.R2M4.Location = new System.Drawing.Point(424, 92);
             this.R2M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R2M4.MaxLength = 8;
             this.R2M4.Name = "R2M4";
@@ -2668,7 +2714,7 @@ namespace Synthesizer_PC_control
             // 
             this.R2M3.BackColor = System.Drawing.Color.White;
             this.R2M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M3.Location = new System.Drawing.Point(275, 92);
+            this.R2M3.Location = new System.Drawing.Point(317, 92);
             this.R2M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R2M3.MaxLength = 8;
             this.R2M3.Name = "R2M3";
@@ -2681,7 +2727,7 @@ namespace Synthesizer_PC_control
             // 
             this.R2M2.BackColor = System.Drawing.Color.White;
             this.R2M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M2.Location = new System.Drawing.Point(185, 92);
+            this.R2M2.Location = new System.Drawing.Point(210, 92);
             this.R2M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R2M2.MaxLength = 8;
             this.R2M2.Name = "R2M2";
@@ -2694,7 +2740,7 @@ namespace Synthesizer_PC_control
             // 
             this.R2M1.BackColor = System.Drawing.Color.White;
             this.R2M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M1.Location = new System.Drawing.Point(95, 92);
+            this.R2M1.Location = new System.Drawing.Point(103, 92);
             this.R2M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R2M1.MaxLength = 8;
             this.R2M1.Name = "R2M1";
@@ -2707,7 +2753,7 @@ namespace Synthesizer_PC_control
             // 
             this.R3M4.BackColor = System.Drawing.Color.White;
             this.R3M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M4.Location = new System.Drawing.Point(365, 120);
+            this.R3M4.Location = new System.Drawing.Point(424, 120);
             this.R3M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R3M4.MaxLength = 8;
             this.R3M4.Name = "R3M4";
@@ -2720,7 +2766,7 @@ namespace Synthesizer_PC_control
             // 
             this.R3M3.BackColor = System.Drawing.Color.White;
             this.R3M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M3.Location = new System.Drawing.Point(275, 120);
+            this.R3M3.Location = new System.Drawing.Point(317, 120);
             this.R3M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R3M3.MaxLength = 8;
             this.R3M3.Name = "R3M3";
@@ -2733,7 +2779,7 @@ namespace Synthesizer_PC_control
             // 
             this.R3M2.BackColor = System.Drawing.Color.White;
             this.R3M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M2.Location = new System.Drawing.Point(185, 120);
+            this.R3M2.Location = new System.Drawing.Point(210, 120);
             this.R3M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R3M2.MaxLength = 8;
             this.R3M2.Name = "R3M2";
@@ -2746,7 +2792,7 @@ namespace Synthesizer_PC_control
             // 
             this.R3M1.BackColor = System.Drawing.Color.White;
             this.R3M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M1.Location = new System.Drawing.Point(95, 120);
+            this.R3M1.Location = new System.Drawing.Point(103, 120);
             this.R3M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R3M1.MaxLength = 8;
             this.R3M1.Name = "R3M1";
@@ -2768,7 +2814,7 @@ namespace Synthesizer_PC_control
             // 
             this.R4M4.BackColor = System.Drawing.Color.White;
             this.R4M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M4.Location = new System.Drawing.Point(365, 148);
+            this.R4M4.Location = new System.Drawing.Point(424, 148);
             this.R4M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R4M4.MaxLength = 8;
             this.R4M4.Name = "R4M4";
@@ -2781,7 +2827,7 @@ namespace Synthesizer_PC_control
             // 
             this.R4M3.BackColor = System.Drawing.Color.White;
             this.R4M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M3.Location = new System.Drawing.Point(275, 148);
+            this.R4M3.Location = new System.Drawing.Point(317, 148);
             this.R4M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R4M3.MaxLength = 8;
             this.R4M3.Name = "R4M3";
@@ -2794,7 +2840,7 @@ namespace Synthesizer_PC_control
             // 
             this.R5M4.BackColor = System.Drawing.Color.White;
             this.R5M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M4.Location = new System.Drawing.Point(365, 176);
+            this.R5M4.Location = new System.Drawing.Point(424, 176);
             this.R5M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R5M4.MaxLength = 8;
             this.R5M4.Name = "R5M4";
@@ -2807,7 +2853,7 @@ namespace Synthesizer_PC_control
             // 
             this.R4M2.BackColor = System.Drawing.Color.White;
             this.R4M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M2.Location = new System.Drawing.Point(185, 148);
+            this.R4M2.Location = new System.Drawing.Point(210, 148);
             this.R4M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R4M2.MaxLength = 8;
             this.R4M2.Name = "R4M2";
@@ -2820,7 +2866,7 @@ namespace Synthesizer_PC_control
             // 
             this.R5M3.BackColor = System.Drawing.Color.White;
             this.R5M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M3.Location = new System.Drawing.Point(275, 176);
+            this.R5M3.Location = new System.Drawing.Point(317, 176);
             this.R5M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R5M3.MaxLength = 8;
             this.R5M3.Name = "R5M3";
@@ -2833,7 +2879,7 @@ namespace Synthesizer_PC_control
             // 
             this.R4M1.BackColor = System.Drawing.Color.White;
             this.R4M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M1.Location = new System.Drawing.Point(95, 148);
+            this.R4M1.Location = new System.Drawing.Point(103, 148);
             this.R4M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R4M1.MaxLength = 8;
             this.R4M1.Name = "R4M1";
@@ -2846,7 +2892,7 @@ namespace Synthesizer_PC_control
             // 
             this.R5M2.BackColor = System.Drawing.Color.White;
             this.R5M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M2.Location = new System.Drawing.Point(185, 176);
+            this.R5M2.Location = new System.Drawing.Point(210, 176);
             this.R5M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R5M2.MaxLength = 8;
             this.R5M2.Name = "R5M2";
@@ -2895,7 +2941,7 @@ namespace Synthesizer_PC_control
             // 
             this.R5M1.BackColor = System.Drawing.Color.White;
             this.R5M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M1.Location = new System.Drawing.Point(95, 176);
+            this.R5M1.Location = new System.Drawing.Point(103, 176);
             this.R5M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.R5M1.MaxLength = 8;
             this.R5M1.Name = "R5M1";
@@ -3221,6 +3267,112 @@ namespace Synthesizer_PC_control
             this.LedOnPicBox.TabStop = false;
             this.LedOnPicBox.Visible = false;
             // 
+            // Mem2Freq1ShowLabel
+            // 
+            this.Mem2Freq1ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Mem2Freq1ShowLabel.Location = new System.Drawing.Point(200, 290);
+            this.Mem2Freq1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2Freq1ShowLabel.Name = "Mem2Freq1ShowLabel";
+            this.Mem2Freq1ShowLabel.Size = new System.Drawing.Size(104, 16);
+            this.Mem2Freq1ShowLabel.TabIndex = 22;
+            this.Mem2Freq1ShowLabel.Text = "6000.000 000";
+            this.Mem2Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem1Freq1ShowLabel
+            // 
+            this.Mem1Freq1ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Mem1Freq1ShowLabel.Location = new System.Drawing.Point(93, 290);
+            this.Mem1Freq1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1Freq1ShowLabel.Name = "Mem1Freq1ShowLabel";
+            this.Mem1Freq1ShowLabel.Size = new System.Drawing.Size(104, 16);
+            this.Mem1Freq1ShowLabel.TabIndex = 22;
+            this.Mem1Freq1ShowLabel.Text = "6000.000 000";
+            this.Mem1Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem3Freq1ShowLabel
+            // 
+            this.Mem3Freq1ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Mem3Freq1ShowLabel.Location = new System.Drawing.Point(307, 290);
+            this.Mem3Freq1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3Freq1ShowLabel.Name = "Mem3Freq1ShowLabel";
+            this.Mem3Freq1ShowLabel.Size = new System.Drawing.Size(104, 16);
+            this.Mem3Freq1ShowLabel.TabIndex = 22;
+            this.Mem3Freq1ShowLabel.Text = "6000.000 000";
+            this.Mem3Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem4Freq1ShowLabel
+            // 
+            this.Mem4Freq1ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Mem4Freq1ShowLabel.Location = new System.Drawing.Point(414, 290);
+            this.Mem4Freq1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4Freq1ShowLabel.Name = "Mem4Freq1ShowLabel";
+            this.Mem4Freq1ShowLabel.Size = new System.Drawing.Size(104, 16);
+            this.Mem4Freq1ShowLabel.TabIndex = 22;
+            this.Mem4Freq1ShowLabel.Text = "6000.000 000";
+            this.Mem4Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // FreqOut1MemLabel
+            // 
+            this.FreqOut1MemLabel.AutoSize = true;
+            this.FreqOut1MemLabel.Location = new System.Drawing.Point(11, 290);
+            this.FreqOut1MemLabel.Name = "FreqOut1MemLabel";
+            this.FreqOut1MemLabel.Size = new System.Drawing.Size(81, 17);
+            this.FreqOut1MemLabel.TabIndex = 16;
+            this.FreqOut1MemLabel.Text = "Freq. out 1:";
+            // 
+            // FreqOut2MemLabel
+            // 
+            this.FreqOut2MemLabel.AutoSize = true;
+            this.FreqOut2MemLabel.Location = new System.Drawing.Point(11, 318);
+            this.FreqOut2MemLabel.Name = "FreqOut2MemLabel";
+            this.FreqOut2MemLabel.Size = new System.Drawing.Size(81, 17);
+            this.FreqOut2MemLabel.TabIndex = 16;
+            this.FreqOut2MemLabel.Text = "Freq. out 1:";
+            // 
+            // Mem2Freq2ShowLabel
+            // 
+            this.Mem2Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Mem2Freq2ShowLabel.Location = new System.Drawing.Point(200, 318);
+            this.Mem2Freq2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2Freq2ShowLabel.Name = "Mem2Freq2ShowLabel";
+            this.Mem2Freq2ShowLabel.Size = new System.Drawing.Size(104, 16);
+            this.Mem2Freq2ShowLabel.TabIndex = 22;
+            this.Mem2Freq2ShowLabel.Text = "12000.000 000";
+            this.Mem2Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem3Freq2ShowLabel
+            // 
+            this.Mem3Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Mem3Freq2ShowLabel.Location = new System.Drawing.Point(307, 318);
+            this.Mem3Freq2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3Freq2ShowLabel.Name = "Mem3Freq2ShowLabel";
+            this.Mem3Freq2ShowLabel.Size = new System.Drawing.Size(104, 16);
+            this.Mem3Freq2ShowLabel.TabIndex = 22;
+            this.Mem3Freq2ShowLabel.Text = "12000.000 000";
+            this.Mem3Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem4Freq2ShowLabel
+            // 
+            this.Mem4Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Mem4Freq2ShowLabel.Location = new System.Drawing.Point(414, 318);
+            this.Mem4Freq2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4Freq2ShowLabel.Name = "Mem4Freq2ShowLabel";
+            this.Mem4Freq2ShowLabel.Size = new System.Drawing.Size(104, 16);
+            this.Mem4Freq2ShowLabel.TabIndex = 22;
+            this.Mem4Freq2ShowLabel.Text = "12000.000 000";
+            this.Mem4Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem1Freq2ShowLabel
+            // 
+            this.Mem1Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Mem1Freq2ShowLabel.Location = new System.Drawing.Point(93, 318);
+            this.Mem1Freq2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1Freq2ShowLabel.Name = "Mem1Freq2ShowLabel";
+            this.Mem1Freq2ShowLabel.Size = new System.Drawing.Size(104, 16);
+            this.Mem1Freq2ShowLabel.TabIndex = 22;
+            this.Mem1Freq2ShowLabel.Text = "12000.000 000";
+            this.Mem1Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3527,6 +3679,18 @@ namespace Synthesizer_PC_control
         public Label Mem2ActOut2ShowLabel;
         public Label Mem3ActOut1ShowLabel;
         public Label Mem2ActOut1ShowLabel;
+        public Button MemLoadFromFileButton;
+        public Button MemSaveIntoFileButton;
+        public Label Mem1Freq2ShowLabel;
+        public Label Mem1Freq1ShowLabel;
+        public Label Mem4Freq2ShowLabel;
+        public Label Mem4Freq1ShowLabel;
+        public Label Mem3Freq2ShowLabel;
+        public Label Mem3Freq1ShowLabel;
+        public Label Mem2Freq2ShowLabel;
+        public Label Mem2Freq1ShowLabel;
+        private Label FreqOut2MemLabel;
+        private Label FreqOut1MemLabel;
     }
 }
 
