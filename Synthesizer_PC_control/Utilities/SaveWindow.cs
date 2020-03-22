@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Synthesizer_PC_control.Utilities
 {
@@ -85,7 +82,6 @@ namespace Synthesizer_PC_control.Utilities
                     "00400005",
                     "00000001"
                 },
-                //COM_port = AvaibleCOMsComBox.Text
                 COM_port = "COM3",
                 AutoLDSpeedAdj = true,
                 AutoLDFunc = true,
