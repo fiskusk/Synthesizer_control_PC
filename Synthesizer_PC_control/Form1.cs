@@ -234,8 +234,16 @@ namespace Synthesizer_PC_control
             ActOut1ShowLabel.Enabled        = command;
             if (!command)
             {
-                ActOut1ShowLabel.BackColor  = SystemColors.ScrollBar;
-                ActOut2ShowLabel.BackColor  = SystemColors.ScrollBar;
+                ActOut1ShowLabel.BackColor      = SystemColors.ScrollBar;
+                ActOut2ShowLabel.BackColor      = SystemColors.ScrollBar;
+                Mem1ActOut1ShowLabel.BackColor  = SystemColors.ScrollBar;
+                Mem2ActOut1ShowLabel.BackColor  = SystemColors.ScrollBar;
+                Mem3ActOut1ShowLabel.BackColor  = SystemColors.ScrollBar;
+                Mem4ActOut1ShowLabel.BackColor  = SystemColors.ScrollBar;
+                Mem1ActOut2ShowLabel.BackColor  = SystemColors.ScrollBar;
+                Mem2ActOut2ShowLabel.BackColor  = SystemColors.ScrollBar;
+                Mem3ActOut2ShowLabel.BackColor  = SystemColors.ScrollBar;
+                Mem4ActOut2ShowLabel.BackColor  = SystemColors.ScrollBar;
             }
             ActOut2ShowLabel.Enabled        = command;
             FreqAtOut1ShowLabel.Enabled     = command;
@@ -275,6 +283,18 @@ namespace Synthesizer_PC_control
             ReadedVCOValueTextBox.Enabled   = command;
             SaveIntoFileButton.Enabled      = command;
             LoadFromFileButton.Enabled      = command;
+            Mem1ActOut1ShowLabel.Enabled    = command;
+            Mem2ActOut1ShowLabel.Enabled    = command;
+            Mem3ActOut1ShowLabel.Enabled    = command;
+            Mem4ActOut1ShowLabel.Enabled    = command;
+            Mem1ActOut2ShowLabel.Enabled    = command;
+            Mem2ActOut2ShowLabel.Enabled    = command;
+            Mem3ActOut2ShowLabel.Enabled    = command;
+            Mem4ActOut2ShowLabel.Enabled    = command;
+            Mem1RefShowLabel.Enabled    = command;
+            Mem2RefShowLabel.Enabled    = command;
+            Mem3RefShowLabel.Enabled    = command;
+            Mem4RefShowLabel.Enabled    = command;
         }
 
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
@@ -312,24 +332,28 @@ namespace Synthesizer_PC_control
                             {
                                 controller.memory.GetRegister(1, i).SetValue(separrated[i+1]);
                             }
+                            controller.SetMemOutsAndRefFromControlReg(1);
                             break;
                         case "stored_data_2":
-                            for (int i = 0; i < 6; i++)
+                            for (int i = 0; i < 7; i++)
                             {
                                 controller.memory.GetRegister(2, i).SetValue(separrated[i+1]);
                             }
+                            controller.SetMemOutsAndRefFromControlReg(2);
                             break;
                         case "stored_data_3":
-                            for (int i = 0; i < 6; i++)
+                            for (int i = 0; i < 7; i++)
                             {
                                 controller.memory.GetRegister(3, i).SetValue(separrated[i+1]);
                             }
+                            controller.SetMemOutsAndRefFromControlReg(3);
                             break;
                         case "stored_data_4":
-                            for (int i = 0; i < 6; i++)
+                            for (int i = 0; i < 7; i++)
                             {
                                 controller.memory.GetRegister(4, i).SetValue(separrated[i+1]);
                             }
+                            controller.SetMemOutsAndRefFromControlReg(4);
                             break;
                         case "register6_vco":
                             UInt32 reg6 = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);
@@ -505,6 +529,17 @@ namespace Synthesizer_PC_control
         private void MemoryRegister_TextChanged(object sender, EventArgs e)
         {
             controller.SetMemoryRegisterValue(((TextBox)(sender)).Name, ((TextBox)(sender)).Text);
+        }
+
+        private void MemActOutShowLabel_Click(object sender, EventArgs e)
+        {
+            controller.MemActOutSwitch(((Label)(sender)).Name);
+        }
+
+        
+        private void MemRefShowLabel_Click(object sender, EventArgs e)
+        {
+            controller.MemIntRefStateSwitch(((Label)(sender)).Name);
         }
 
 #endregion
@@ -784,7 +819,7 @@ namespace Synthesizer_PC_control
 
         #endregion
 
-        #region Generic controls Group
+#region Generic controls Group
 
         private void MuxPinModeCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -809,7 +844,8 @@ namespace Synthesizer_PC_control
             if (isForm1Load)
                 controller.RandNCountersResetStateChanged(RandNCountersResetCheckBox.Checked);
         }
-        #endregion
+
+#endregion
 
 #region VCO controls group
         

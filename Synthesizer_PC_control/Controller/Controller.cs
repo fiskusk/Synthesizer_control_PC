@@ -1480,6 +1480,7 @@ namespace Synthesizer_PC_control.Controllers
             synthFreqInfo.SetOutBFreq(fOutB);
             directFreqControl.SetFreqAtOut1(fOutA);
             directFreqControl.SetFreqAtOut2(fOutB * 2);
+            memory.UpdateUiElements();
         }
 
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
@@ -1834,6 +1835,11 @@ namespace Synthesizer_PC_control.Controllers
                 memory.GetRegister(4, i).SetValue(data.Mem4[i]);
             }
 
+            for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
+            {
+               SetMemOutsAndRefFromControlReg(memoryNumber);
+            }
+
             this.GetAllFromRegisters();
             refFreq.ChangeRefInpUIEnabled(!moduleControls.GetIntRefState());
         }
@@ -2096,6 +2102,75 @@ namespace Synthesizer_PC_control.Controllers
                 memory.GetRegister(memoryNumber, i).SetValue(registers[i].string_GetValue());
             }
             memory.GetRegister(memoryNumber, 6).SetValue(moduleControls.GetControlRegister());
+
+            SetMemOutsAndRefFromControlReg((UInt16)memoryNumber);
+        }
+
+        public void SetMemOutsAndRefFromControlReg(UInt16 memoryNumber)
+        {
+            UInt32 out1State = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 0);
+            UInt32 out2State = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 1);
+            UInt32 refState  = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 2);
+
+            memory.SetMemOut1State(Convert.ToBoolean(out1State), memoryNumber);
+            memory.SetMemOut2State(Convert.ToBoolean(out2State), memoryNumber);
+            memory.SetMemIntRefState(!Convert.ToBoolean(refState), memoryNumber);
+        }
+
+        public void MemActOutSwitch(string sender)
+        {
+            int memoryNumber;
+            int outNumber;
+
+            sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
+            outNumber = int.Parse(Convert.ToString(sender[1]));
+            memoryNumber = int.Parse(Convert.ToString(sender[0]));
+
+            switch (outNumber)
+            {
+                case 1:
+                    SwitchMemActOut1(memoryNumber);
+                    break;
+                case 2:
+                    SwitchMemActOut2(memoryNumber);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void MemIntRefStateSwitch(string sender)
+        {
+            int memoryNumber;
+
+            sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
+            memoryNumber = int.Parse(Convert.ToString(sender[0]));
+
+            SwitchRefIntState(memoryNumber);
+        }
+
+        public void SwitchMemActOut1(int memNum)
+        {
+            bool state = memory.GetMemOut1State(memNum);
+
+            memory.SetMemOut1State(!state, memNum);
+            memory.GetRegister(memNum, 6).SetResetOneBit(0, (BitState)Convert.ToUInt16(!state));
+        }
+
+        public void SwitchMemActOut2(int memNum)
+        {
+            bool state = memory.GetMemOut2State(memNum);
+
+            memory.SetMemOut2State(!state, memNum);
+            memory.GetRegister(memNum, 6).SetResetOneBit(1, (BitState)Convert.ToUInt16(!state));
+        }
+
+        public void SwitchRefIntState(int memNum)
+        {
+            bool state = memory.GetIntRefState(memNum);
+
+            memory.SetMemIntRefState(!state, memNum);
+            memory.GetRegister(memNum, 6).SetResetOneBit(2, (BitState)Convert.ToUInt16(state));
         }
 
         public void GetAllFromControllReg(int memoryNumber)

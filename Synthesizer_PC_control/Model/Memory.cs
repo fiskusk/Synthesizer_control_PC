@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Synthesizer_PC_control.Model
 {
@@ -9,6 +10,14 @@ namespace Synthesizer_PC_control.Model
         private MyRegister[] registersMemory2;
         private MyRegister[] registersMemory3;
         private MyRegister[] registersMemory4;
+
+        private bool[] memActiveOut1;
+        private bool[] memActiveOut2;
+        private bool[] memIntRefState;
+
+        private readonly Label[] ui_memActiveOut1;
+        private readonly Label[] ui_memActiveOut2;
+        private readonly Label[] ui_memIntRefState;
 
         public Memory(MyRegister[] registersMemory1, MyRegister[] registersMemory2,
                       MyRegister[] registersMemory3, MyRegister[] registersMemory4)
@@ -60,6 +69,27 @@ namespace Synthesizer_PC_control.Model
             var mem4ControlReg = new MyRegister(string.Empty);
 
             registersMemory4 = new MyRegister[] {mem4Reg0, mem4Reg1, mem4Reg2, mem4Reg3, mem4Reg4, mem4Reg5, mem4ControlReg};
+
+
+            ui_memActiveOut1 = new Label[] {view.Mem1ActOut1ShowLabel,
+                                            view.Mem2ActOut1ShowLabel,
+                                            view.Mem3ActOut1ShowLabel,
+                                            view.Mem4ActOut1ShowLabel};
+
+            ui_memActiveOut2 = new Label[] {view.Mem1ActOut2ShowLabel,
+                                            view.Mem2ActOut2ShowLabel,
+                                            view.Mem3ActOut2ShowLabel,
+                                            view.Mem4ActOut2ShowLabel};
+
+
+            ui_memIntRefState = new Label[] {view.Mem1RefShowLabel,
+                                             view.Mem2RefShowLabel,
+                                             view.Mem3RefShowLabel,
+                                             view.Mem4RefShowLabel};
+
+            memActiveOut1 = new bool[] {false, false, false, false};
+            memActiveOut2 = new bool[] {false, false, false, false};
+            memIntRefState = new bool[] {false, false, false, false};
         }
 
         public MyRegister GetRegister(int memory, int regIndex)
@@ -79,6 +109,42 @@ namespace Synthesizer_PC_control.Model
                 default:
                     return null;
             }
+        }
+
+        public bool GetMemOut1State(int memory)
+        {
+            return memActiveOut1[--memory];
+        }
+
+        public bool GetMemOut2State(int memory)
+        {
+            return memActiveOut2[--memory];
+        }
+
+        public bool GetIntRefState(int memory)
+        {
+            return memIntRefState[--memory];
+        }
+
+        public void SetMemOut1State(bool state, int memory)
+        {
+            memActiveOut1[--memory] = state;
+
+            UpdateUiElements();
+        }
+
+        public void SetMemOut2State(bool state, int memory)
+        {
+            memActiveOut2[--memory] = state;
+
+            UpdateUiElements();
+        }
+
+        public void SetMemIntRefState(bool state, int memory)
+        {
+            memIntRefState[--memory] = state;
+
+            UpdateUiElements();
         }
 
         /// <summary>
@@ -101,6 +167,36 @@ namespace Synthesizer_PC_control.Model
             foreach (var register in registersMemory4)
             {
                 register.UpdateUiElements();
+            }
+
+            for (UInt16 i = 0; i <= 3; i++)
+            {
+                if (memActiveOut1[i])
+                {
+                    ui_memActiveOut1[i].Text = "On";
+                    ui_memActiveOut1[i].BackColor = Color.LimeGreen;
+                }
+                else
+                {
+                    ui_memActiveOut1[i].Text = "Off";
+                    ui_memActiveOut1[i].BackColor = SystemColors.ControlDark;
+                }
+
+                if (memActiveOut2[i])
+                {
+                    ui_memActiveOut2[i].Text = "On";
+                    ui_memActiveOut2[i].BackColor = Color.LimeGreen;
+                }
+                else
+                {
+                    ui_memActiveOut2[i].Text = "Off";
+                    ui_memActiveOut2[i].BackColor = SystemColors.ControlDark;
+                }
+
+                if (memIntRefState[i])
+                    ui_memIntRefState[i].Text = "Internal";
+                else
+                    ui_memIntRefState[i].Text = "External";
             }
         }
     }
