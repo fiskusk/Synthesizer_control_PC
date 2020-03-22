@@ -295,6 +295,25 @@ namespace Synthesizer_PC_control
             Mem2RefShowLabel.Enabled    = command;
             Mem3RefShowLabel.Enabled    = command;
             Mem4RefShowLabel.Enabled    = command;
+            MemSaveIntoFileButton.Enabled   = command;
+            MemLoadFromFileButton.Enabled   = command;
+            Mem1Freq1ShowLabel.Enabled  = command;
+            Mem2Freq1ShowLabel.Enabled  = command;
+            Mem3Freq1ShowLabel.Enabled  = command;
+            Mem4Freq1ShowLabel.Enabled  = command;
+            Mem1Freq2ShowLabel.Enabled  = command;
+            Mem2Freq2ShowLabel.Enabled  = command;
+            Mem3Freq2ShowLabel.Enabled  = command;
+            Mem4Freq2ShowLabel.Enabled  = command;
+            Mem1PwrAShowLabel.Enabled   = command;
+            Mem2PwrAShowLabel.Enabled   = command;
+            Mem3PwrAShowLabel.Enabled   = command;
+            Mem4PwrAShowLabel.Enabled   = command;
+            Mem1PwrBShowLabel.Enabled   = command;
+            Mem2PwrBShowLabel.Enabled   = command;
+            Mem3PwrBShowLabel.Enabled   = command;
+            Mem4PwrBShowLabel.Enabled   = command;
+            
         }
 
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
