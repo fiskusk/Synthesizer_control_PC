@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.IO;
 using System.Windows.Forms;
-using System.Drawing;
 using System.Diagnostics;
 using Newtonsoft.Json;
-using static Synthesizer_PC_control.Form1;
 
 namespace Synthesizer_PC_control.Utilities
 {
@@ -206,5 +199,38 @@ namespace Synthesizer_PC_control.Utilities
         }
 
     #endregion
+    
+    #region Memory registers part
+
+        public static bool SaveMemRegsData(SaveMemories saved, string path)
+        {
+            try
+            {
+                // serialize JSON to a string and then write string to a file
+                File.WriteAllText(path, JsonConvert.SerializeObject(saved, Formatting.Indented));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool LoadMemRegsData(out SaveMemories settings_loaded, string path)
+        {
+            try
+            {
+                settings_loaded = JsonConvert.DeserializeObject<SaveMemories>(File.ReadAllText(path));
+                return true;
+            }
+            catch
+            {
+                settings_loaded = null;
+                return false;
+            }
+        }
+
+    #endregion
+
     }
 }

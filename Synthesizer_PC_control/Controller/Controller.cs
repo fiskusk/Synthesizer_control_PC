@@ -1759,7 +1759,7 @@ namespace Synthesizer_PC_control.Controllers
 
 #region Load and Save Data
 
-    #region  Workspace data part
+    #region Workspace data part
         public void LoadSavedWorkspaceData()
         {
             SaveWindow loadedData = new SaveWindow();
@@ -1827,18 +1827,7 @@ namespace Synthesizer_PC_control.Controllers
 
             readRegister.SetAdcMode((ReadRegister.AdcMode)data.AdcModeIndex);
 
-            for (int i = 0; i < 7; i++)
-            {
-                memory.GetRegister(1, i).SetValue(data.Mem1[i]);
-                memory.GetRegister(2, i).SetValue(data.Mem2[i]);
-                memory.GetRegister(3, i).SetValue(data.Mem3[i]);
-                memory.GetRegister(4, i).SetValue(data.Mem4[i]);
-            }
-
-            for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
-            {
-               SetMemOutsAndRefFromControlReg(memoryNumber);
-            }
+            LoadMemoryRegsFromFile(data);
 
             this.GetAllFromRegisters();
             refFreq.ChangeRefInpUIEnabled(!moduleControls.GetIntRefState());
@@ -1959,52 +1948,13 @@ namespace Synthesizer_PC_control.Controllers
             return saved;
         }
 
+    #endregion
+    
+    #region Registers data part
         public void SaveRegistersIntoFile()
         {
             string test = null;
-
-            string freqOut1;
-            string freqOut2;
-            string refState;
-            string out1State;
-            string out2State;
-
-            bool internalRef = moduleControls.GetIntRefState();
-            if (internalRef == true)
-                refState = "IntRef";
-            else
-                refState = "ExtRef";
-            
-            bool out1StateBool = moduleControls.GetOut1State();
-            if (out1StateBool == true)
-            {
-                out1State = "Out1Act";
-                freqOut1 = "fOUT1_" + directFreqControl.string_GetFreqAtOut1() + "MHz_";
-            }
-            else
-            {
-                out1State = "Out1Dis";
-                freqOut1 =  string.Empty;
-            }
-            
-            bool out2StateBool = moduleControls.GetOut2State();
-            if (out2StateBool == true)
-            {
-                out2State = "Out2Act";
-                freqOut2 = "fOUT2_" + directFreqControl.string_GetFreqAtOut2()+ "MHz_";
-            }
-            else
-            {
-                out2State = "Out2Dis";
-                freqOut2 = string.Empty;
-            }
-
-            string defaultFileName = freqOut1.Replace(" ", string.Empty) + 
-                                     freqOut2.Replace(" ", string.Empty) + 
-                                     refState + "_" + out1State + "_" + out2State;
-
-
-            FilesManager.SaveFile(out test, defaultFileName);
+            FilesManager.SaveFile(out test, GetDefaultRegistersFileName());
 
             if (test != string.Empty)
             {
@@ -2054,6 +2004,170 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        public string GetDefaultRegistersFileName()
+        {
+            string freqOut1;
+            string freqOut2;
+            string refState;
+            string out1State;
+            string out2State;
+
+            bool internalRef = moduleControls.GetIntRefState();
+            if (internalRef == true)
+                refState = "IntRef";
+            else
+                refState = "ExtRef";
+            
+            bool out1StateBool = moduleControls.GetOut1State();
+            if (out1StateBool == true)
+            {
+                out1State = "Out1Act";
+                freqOut1 = "fOUT1_" + directFreqControl.string_GetFreqAtOut1() + "MHz_";
+            }
+            else
+            {
+                out1State = "Out1Dis";
+                freqOut1 =  string.Empty;
+            }
+            
+            bool out2StateBool = moduleControls.GetOut2State();
+            if (out2StateBool == true)
+            {
+                out2State = "Out2Act";
+                freqOut2 = "fOUT2_" + directFreqControl.string_GetFreqAtOut2()+ "MHz_";
+            }
+            else
+            {
+                out2State = "Out2Dis";
+                freqOut2 = string.Empty;
+            }
+
+            string defaultFileName = freqOut1.Replace(" ", string.Empty) + 
+                                        freqOut2.Replace(" ", string.Empty) + 
+                                        refState + "_" + out1State + "_" + out2State;
+                                    
+            return defaultFileName;
+        }
+
+    #endregion 
+
+    #region Memory Data part
+    public void SaveRegMemoriesIntoFile()
+    {
+        string test = null;
+        FilesManager.SaveFile(out test, GetDefaultMemoryFileName());
+
+        if (test != string.Empty)
+        {
+            bool success = FilesManager.SaveMemRegsData(CreateMemoryData(), test);
+
+            if(success)
+            {
+                string text = "Currently memory set succesfuly saved into file: '" + test + "'";
+                ConsoleController.Console().Write(text);
+            }
+            else
+            {
+                string text = "When saving memory set occurs error!";
+                ConsoleController.Console().Write(text);
+                MessageBox.Show(text, "Error Catch",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+
+    public void LoadRegMemoriesFromFile()
+    {
+        string test = null;
+
+        FilesManager.LoadFile(out test);
+
+        if (test != string.Empty)
+        {
+            SaveMemories loadedData = new SaveMemories();
+            bool success = FilesManager.LoadMemRegsData(out loadedData, test);
+
+            if (success)
+            {
+                string text = "Currently registers succesfuly loaded from file: '" + test + "'";
+                ConsoleController.Console().Write(text);
+                serialPort.SetDisableSending(true, 48);
+                LoadMemoryRegsFromFile(loadedData);
+                SendData();
+                serialPort.SetDisableSending(false, 48);
+            }
+            else
+            {
+                string text = "When loading registers occurs error!";
+                ConsoleController.Console().Write(text);
+                MessageBox.Show(text, "Error Catch", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+    }
+
+    public SaveMemories CreateMemoryData()
+    {
+        SaveMemories saved = new SaveMemories
+            {
+                Mem1 = new List<string>{},
+                Mem2 = new List<string>{},
+                Mem3 = new List<string>{},
+                Mem4 = new List<string>{}
+            };
+
+            for (int i = 0; i < 7; i++)
+            {
+                saved.Mem1.Add(memory.GetRegister(1, i).string_GetValue());
+                saved.Mem2.Add(memory.GetRegister(2, i).string_GetValue());
+                saved.Mem3.Add(memory.GetRegister(3, i).string_GetValue());
+                saved.Mem4.Add(memory.GetRegister(4, i).string_GetValue());
+            }
+
+            return saved;
+    }
+
+    public void LoadMemoryRegsFromFile(SaveMemories data)
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            memory.GetRegister(1, i).SetValue(data.Mem1[i]);
+            memory.GetRegister(2, i).SetValue(data.Mem2[i]);
+            memory.GetRegister(3, i).SetValue(data.Mem3[i]);
+            memory.GetRegister(4, i).SetValue(data.Mem4[i]);
+        }
+
+        for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
+        {
+            SetMemOutsAndRefFromControlReg(memoryNumber);
+        }
+    }
+
+    public void LoadMemoryRegsFromFile(SaveWindow data)
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            memory.GetRegister(1, i).SetValue(data.Mem1[i]);
+            memory.GetRegister(2, i).SetValue(data.Mem2[i]);
+            memory.GetRegister(3, i).SetValue(data.Mem3[i]);
+            memory.GetRegister(4, i).SetValue(data.Mem4[i]);
+        }
+
+        for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
+        {
+            SetMemOutsAndRefFromControlReg(memoryNumber);
+        }
+    }
+
+    public string GetDefaultMemoryFileName()
+    {
+        string defaultFileName;
+        
+        defaultFileName = "memorySet";
+
+        return defaultFileName;
+    }
+    
     #endregion
 
 #endregion

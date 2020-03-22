@@ -542,9 +542,19 @@ namespace Synthesizer_PC_control
             controller.MemIntRefStateSwitch(((Label)(sender)).Name);
         }
 
-#endregion
+        private void MemSaveIntoFileButton_Click(object sender, EventArgs e)
+        {
+            controller.SaveRegMemoriesIntoFile();
+        }
 
-#region Output Controls group
+        private void MemLoadFromFileButton_Click(object sender, EventArgs e)
+        {
+            controller.LoadRegMemoriesFromFile();
+        }
+
+        #endregion
+
+        #region Output Controls group
         private void OutAEn_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (isForm1Load)
