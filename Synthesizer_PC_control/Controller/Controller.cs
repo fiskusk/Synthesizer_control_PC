@@ -205,7 +205,7 @@ namespace Synthesizer_PC_control.Controllers
                 moduleControls.SetIntRef(true);
                 directFreqControl.SetIntRefState(true);
             }
-            RecalcFreqInfo();
+            RecalcWorkingFreqInfo();
         }
 
         public void PloModuleInit()
@@ -265,7 +265,7 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (refFreq.SetRefFreqValue(value) == true)
             {
-                RecalcFreqInfo();
+                RecalcWorkingFreqInfo();
                 decimal pfdFreq = refFreq.decimal_GetPfdFreq();
                 vcoControls.CalcBandSelClockDivValue(pfdFreq);
                 CalcCDivValue();
@@ -1410,14 +1410,14 @@ namespace Synthesizer_PC_control.Controllers
             {
                 GetAllFromReg(i);
             }
-            RecalcFreqInfo(); 
+            RecalcWorkingFreqInfo(); 
         }
     #endregion
 
 #endregion
 
 #region Some magic calculations
-        public void RecalcFreqInfo()
+        public void RecalcWorkingFreqInfo()
         {
             UInt16 aDiv     = outFreqControl.uint16_GetADivVal();
             UInt16 intN     = outFreqControl.uint16_GetIntNVal();
@@ -1426,13 +1426,34 @@ namespace Synthesizer_PC_control.Controllers
             SynthMode mode  = outFreqControl.GetSynthMode();
             int outBpath    = outFreqControl.GetOutBPathIndex();
             int FBpath      = outFreqControl.GetFBPathIndex();
-
-            decimal fPfd = refFreq.decimal_GetPfdFreq();
+            decimal fPfd    = refFreq.decimal_GetPfdFreq();
 
             decimal fOutA = 0;
             decimal fOutB = 0;
             decimal fVco = 0;
 
+            CalcFreqInfo(intN, fracN, mod, aDiv, mode, outBpath, FBpath, fPfd, 
+                         out fOutA, out fOutB, out fVco);
+
+            if (synthFreqInfo.SetVcoFreq(fVco) == false)
+            {
+                directFreqControl.SetFreqAtOut1(0);
+                directFreqControl.SetFreqAtOut2(0);
+                
+                return;
+            }
+            synthFreqInfo.SetOutAFreq(fOutA);
+            synthFreqInfo.SetOutBFreq(fOutB);
+            directFreqControl.SetFreqAtOut1(fOutA);
+            directFreqControl.SetFreqAtOut2(fOutB * 2);
+            memory.UpdateUiElements();
+        }
+
+        public void CalcFreqInfo(UInt16 intN, UInt16 fracN, UInt16 mod, UInt16 aDiv, 
+                                SynthMode mode, int outBpath, int FBpath, decimal fPfd,
+                                out decimal fOutA, out decimal fOutB, out decimal fVco)
+        {
+            fVco = 0;
             if (mode == SynthMode.INTEGER)
             {
                 if (FBpath == 1)
@@ -1468,19 +1489,6 @@ namespace Synthesizer_PC_control.Controllers
                 fOutB = fOutA;
             else
                 fOutB = fVco;
-
-            if (synthFreqInfo.SetVcoFreq(fVco) == false)
-            {
-                directFreqControl.SetFreqAtOut1(0);
-                directFreqControl.SetFreqAtOut2(0);
-                
-                return;
-            }
-            synthFreqInfo.SetOutAFreq(fOutA);
-            synthFreqInfo.SetOutBFreq(fOutB);
-            directFreqControl.SetFreqAtOut1(fOutA);
-            directFreqControl.SetFreqAtOut2(fOutB * 2);
-            memory.UpdateUiElements();
         }
 
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
@@ -1636,7 +1644,7 @@ namespace Synthesizer_PC_control.Controllers
                 if (regNumber == 1 || regNumber == 2)
                     ApplyChangeReg(0);
                 if (regNumber != 3 || regNumber != 5)
-                    RecalcFreqInfo();
+                    RecalcWorkingFreqInfo();
             }
         }
 
@@ -1703,7 +1711,7 @@ namespace Synthesizer_PC_control.Controllers
                 }
 
                 if (needUpdate[0] || needUpdate[1] || needUpdate[2] || needUpdate[4])
-                    RecalcFreqInfo();
+                    RecalcWorkingFreqInfo();
             }
         }
 
