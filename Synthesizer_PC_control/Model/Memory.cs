@@ -14,10 +14,18 @@ namespace Synthesizer_PC_control.Model
         private bool[] memActiveOut1;
         private bool[] memActiveOut2;
         private bool[] memIntRefState;
+        private decimal[] memFreq1Value;
+        private decimal[] memFreq2Value;
+        private int[] memPwrAIndex;
+        private int[] memPwrBIndex;
 
         private readonly Label[] ui_memActiveOut1;
         private readonly Label[] ui_memActiveOut2;
         private readonly Label[] ui_memIntRefState;
+        private readonly Label[] ui_memFreq1Value;
+        private readonly Label[] ui_memFreq2Value;
+        private readonly Label[] ui_memPwrAIndex;
+        private readonly Label[] ui_memPwrBIndex;
 
         public Memory(MyRegister[] registersMemory1, MyRegister[] registersMemory2,
                       MyRegister[] registersMemory3, MyRegister[] registersMemory4)
@@ -87,9 +95,33 @@ namespace Synthesizer_PC_control.Model
                                              view.Mem3RefShowLabel,
                                              view.Mem4RefShowLabel};
 
+            ui_memFreq1Value = new Label[] {view.Mem1Freq1ShowLabel,
+                                            view.Mem2Freq1ShowLabel,
+                                            view.Mem3Freq1ShowLabel,
+                                            view.Mem4Freq1ShowLabel};
+
+            ui_memFreq2Value = new Label[] {view.Mem1Freq2ShowLabel,
+                                            view.Mem2Freq2ShowLabel,
+                                            view.Mem3Freq2ShowLabel,
+                                            view.Mem4Freq2ShowLabel};
+
+            ui_memPwrAIndex = new Label[] {view.Mem1PwrAShowLabel,
+                                           view.Mem2PwrAShowLabel,
+                                           view.Mem3PwrAShowLabel,
+                                           view.Mem4PwrAShowLabel};
+
+            ui_memPwrBIndex = new Label[] {view.Mem1PwrBShowLabel,
+                                           view.Mem2PwrBShowLabel,
+                                           view.Mem3PwrBShowLabel,
+                                           view.Mem4PwrBShowLabel};
+
             memActiveOut1 = new bool[] {false, false, false, false};
             memActiveOut2 = new bool[] {false, false, false, false};
             memIntRefState = new bool[] {false, false, false, false};
+            memFreq1Value = new decimal[] {0, 0, 0, 0};
+            memFreq2Value = new decimal[] {0, 0, 0, 0};
+            memPwrAIndex = new int[] {0, 0, 0, 0};
+            memPwrBIndex = new int[] {0, 0, 3, 0};
         }
 
         public MyRegister GetRegister(int memory, int regIndex)
@@ -128,24 +160,75 @@ namespace Synthesizer_PC_control.Model
 
         public void SetMemOut1State(bool state, int memory)
         {
-            memActiveOut1[--memory] = state;
+            if (state != memActiveOut1[--memory])
+            {
+                memActiveOut1[memory] = state;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetMemOut2State(bool state, int memory)
         {
-            memActiveOut2[--memory] = state;
+            if (state != memActiveOut2[--memory])
+            {
+                memActiveOut2[memory] = state;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
 
         public void SetMemIntRefState(bool state, int memory)
         {
-            memIntRefState[--memory] = state;
+            if (state != memIntRefState[--memory])
+            {
+                memIntRefState[memory] = state;
 
-            UpdateUiElements();
+                UpdateUiElements();
+            }
         }
+
+        public void SetMemFreq1Value(decimal value, UInt16 memoryNumber)
+        {
+            if (value != memFreq1Value[--memoryNumber])
+            {
+                memFreq1Value[memoryNumber] = value;
+
+                UpdateUiElements();
+            }
+
+        }
+        public void SetMemFreq2Value(decimal value, UInt16 memoryNumber)
+        {
+            if (value != memFreq2Value[--memoryNumber])
+            {
+                memFreq2Value[memoryNumber] = value;
+
+                UpdateUiElements();
+            }
+
+        }
+        public void SetMemPwrAIndex(int value, UInt16 memoryNumber)
+        {
+            if (value != memPwrAIndex[--memoryNumber])
+            {
+                memPwrAIndex[memoryNumber] = value;
+
+                UpdateUiElements();
+            }
+
+        }
+        public void SetMemPwrBIndex(int value, UInt16 memoryNumber)
+        {
+            if (value != memPwrBIndex[--memoryNumber])
+            {
+                memPwrBIndex[memoryNumber] = value;
+
+                UpdateUiElements();
+            }
+
+        }
+        
 
         /// <summary>
         /// Call this to refresh all registers in memory.
@@ -197,6 +280,64 @@ namespace Synthesizer_PC_control.Model
                     ui_memIntRefState[i].Text = "Internal";
                 else
                     ui_memIntRefState[i].Text = "External";
+                
+                if (memFreq1Value[i] == 0)
+                    ui_memFreq1Value[i].Text = "-";
+                else
+                    ui_memFreq1Value[i].Text = memFreq1Value[i].ToString("0.000 000");
+                
+                if (memFreq2Value[i] == 0)
+                    ui_memFreq2Value[i].Text = "-";
+                else
+                    ui_memFreq2Value[i].Text = memFreq2Value[i].ToString("0.000 000");
+
+                switch (memPwrAIndex[i])
+                {
+                    case 0:
+                        ui_memPwrAIndex[i].Text = "- 4 dBm";
+                        ui_memPwrAIndex[i].ForeColor = Color.Black;
+                        break;
+                    case 1:
+                        ui_memPwrAIndex[i].Text = "- 1 dBm";
+                        ui_memPwrAIndex[i].ForeColor = Color.Black;
+                        break;
+                    case 2:
+                        ui_memPwrAIndex[i].Text = "+ 2 dBm";
+                        ui_memPwrAIndex[i].ForeColor = Color.Black;
+                        break;
+                    case 3:
+                        ui_memPwrAIndex[i].Text = "+ 5 dBm";
+                        ui_memPwrAIndex[i].ForeColor = Color.Black;
+                        break;
+                    default:
+                        ui_memPwrAIndex[i].Text = "Disabled";
+                        ui_memPwrAIndex[i].ForeColor = Color.Red;
+                        break;
+                }
+
+                switch (memPwrBIndex[i])
+                {
+                    case 0:
+                        ui_memPwrAIndex[i].Text = "- 4 dBm";
+                        ui_memPwrBIndex[i].ForeColor = Color.Black;
+                        break;
+                    case 1:
+                        ui_memPwrBIndex[i].Text = "- 1 dBm";
+                        ui_memPwrBIndex[i].ForeColor = Color.Black;
+                        break;
+                    case 2:
+                        ui_memPwrBIndex[i].Text = "+ 2 dBm";
+                        ui_memPwrBIndex[i].ForeColor = Color.Black;
+                        break;
+                    case 3:
+                        ui_memPwrBIndex[i].Text = "!!!+ 5 dBm!!!";
+                        ui_memPwrBIndex[i].ForeColor = Color.Red;
+                        break;
+                    default:
+                        ui_memPwrBIndex[i].Text = "Disabled";
+                        ui_memPwrBIndex[i].ForeColor = Color.Red;
+                        break;
+                }
             }
         }
     }

@@ -352,6 +352,7 @@ namespace Synthesizer_PC_control
                                 controller.memory.GetRegister(1, i).SetValue(separrated[i+1]);
                             }
                             controller.SetMemOutsAndRefFromControlReg(1);
+                            controller.RecalcMemoryInfo(1);
                             break;
                         case "stored_data_2":
                             for (int i = 0; i < 7; i++)
@@ -359,6 +360,7 @@ namespace Synthesizer_PC_control
                                 controller.memory.GetRegister(2, i).SetValue(separrated[i+1]);
                             }
                             controller.SetMemOutsAndRefFromControlReg(2);
+                            controller.RecalcMemoryInfo(2);
                             break;
                         case "stored_data_3":
                             for (int i = 0; i < 7; i++)
@@ -366,6 +368,7 @@ namespace Synthesizer_PC_control
                                 controller.memory.GetRegister(3, i).SetValue(separrated[i+1]);
                             }
                             controller.SetMemOutsAndRefFromControlReg(3);
+                            controller.RecalcMemoryInfo(3);
                             break;
                         case "stored_data_4":
                             for (int i = 0; i < 7; i++)
@@ -373,6 +376,7 @@ namespace Synthesizer_PC_control
                                 controller.memory.GetRegister(4, i).SetValue(separrated[i+1]);
                             }
                             controller.SetMemOutsAndRefFromControlReg(4);
+                            controller.RecalcMemoryInfo(4);
                             break;
                         case "register6_vco":
                             UInt32 reg6 = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);

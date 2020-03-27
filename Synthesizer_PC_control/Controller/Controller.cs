@@ -1449,6 +1449,62 @@ namespace Synthesizer_PC_control.Controllers
             memory.UpdateUiElements();
         }
 
+        public void RecalcMemoryInfo(UInt16 memoryNumber)
+        {
+            UInt32 dataReg0 = memory.GetRegister(memoryNumber, 0).uint32_GetValue();
+            UInt32 dataReg1 = memory.GetRegister(memoryNumber, 1).uint32_GetValue();
+            UInt32 dataReg2 = memory.GetRegister(memoryNumber, 2).uint32_GetValue();
+            UInt32 dataReg4 = memory.GetRegister(memoryNumber, 4).uint32_GetValue();
+
+            UInt16 intN = (UInt16)BitOperations.GetNBits(dataReg0, 16, 15);
+            UInt16 fracN = (UInt16)BitOperations.GetNBits(dataReg0, 12, 3);
+            UInt16 mod = (UInt16)BitOperations.GetNBits(dataReg1, 12, 3);
+            UInt16 aDiv = (UInt16)BitOperations.GetNBits(dataReg4, 3, 20);
+            aDiv = (UInt16)(1 << aDiv);
+            SynthMode mode = (SynthMode)BitOperations.GetNBits(dataReg0, 1, 31);
+            int outBpath = (int)BitOperations.GetNBits(dataReg4, 1, 9);
+            int FBpath = (int)BitOperations.GetNBits(dataReg4, 1, 23);
+
+            UInt16 refDoubler = (UInt16)BitOperations.GetNBits(dataReg2, 1, 25);
+            UInt16 refDividerBy2 = (UInt16)BitOperations.GetNBits(dataReg2, 1, 24);
+            UInt16 rDiv = (UInt16)BitOperations.GetNBits(dataReg2, 10, 14);
+
+            decimal fPfd = 10.0M * (1 + refDoubler) / (decimal)(rDiv * (1 + refDividerBy2));
+
+            decimal fOutA;
+            decimal fOutB;
+            decimal fVco;
+
+            CalcFreqInfo(intN, fracN, mod, aDiv, mode, outBpath, FBpath, fPfd, 
+                         out fOutA, out fOutB, out fVco);
+
+            if (memory.GetMemOut1State(memoryNumber))
+                memory.SetMemFreq1Value(fOutA, memoryNumber);
+            else
+                memory.SetMemFreq1Value(0, memoryNumber);
+
+            if (memory.GetMemOut2State(memoryNumber))
+                memory.SetMemFreq2Value(2 * fOutB, memoryNumber);
+            else
+                memory.SetMemFreq2Value(0, memoryNumber);
+
+            int outAPwr = (int)BitOperations.GetNBits(dataReg4, 2, 3);
+            int outBPwr = (int)BitOperations.GetNBits(dataReg4, 2, 6);
+            OutEnState outAEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 5);
+            OutEnState outBEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 8);
+
+            if (outAEn == OutEnState.ENABLE)
+                memory.SetMemPwrAIndex(outAPwr, memoryNumber);
+            else
+                memory.SetMemPwrAIndex(-1, memoryNumber);
+
+            if (outBEn == OutEnState.ENABLE)
+                memory.SetMemPwrBIndex(outBPwr, memoryNumber);
+            else
+                memory.SetMemPwrBIndex(-1, memoryNumber);
+            
+        }
+
         public void CalcFreqInfo(UInt16 intN, UInt16 fracN, UInt16 mod, UInt16 aDiv, 
                                 SynthMode mode, int outBpath, int FBpath, decimal fPfd,
                                 out decimal fOutA, out decimal fOutB, out decimal fVco)
@@ -2148,6 +2204,7 @@ namespace Synthesizer_PC_control.Controllers
         for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
         {
             SetMemOutsAndRefFromControlReg(memoryNumber);
+            RecalcMemoryInfo(memoryNumber);
         }
     }
 
@@ -2164,6 +2221,7 @@ namespace Synthesizer_PC_control.Controllers
         for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
         {
             SetMemOutsAndRefFromControlReg(memoryNumber);
+            RecalcMemoryInfo(memoryNumber);
         }
     }
 
@@ -2226,6 +2284,7 @@ namespace Synthesizer_PC_control.Controllers
             memory.GetRegister(memoryNumber, 6).SetValue(moduleControls.GetControlRegister());
 
             SetMemOutsAndRefFromControlReg((UInt16)memoryNumber);
+            RecalcMemoryInfo((UInt16)memoryNumber);
         }
 
         public void SetMemOutsAndRefFromControlReg(UInt16 memoryNumber)
@@ -2277,6 +2336,11 @@ namespace Synthesizer_PC_control.Controllers
 
             memory.SetMemOut1State(!state, memNum);
             memory.GetRegister(memNum, 6).SetResetOneBit(0, (BitState)Convert.ToUInt16(!state));
+
+            if (state)
+                memory.SetMemFreq1Value(0, (UInt16)memNum);
+            else
+                RecalcMemoryInfo((UInt16)memNum);
         }
 
         public void SwitchMemActOut2(int memNum)
@@ -2285,6 +2349,11 @@ namespace Synthesizer_PC_control.Controllers
 
             memory.SetMemOut2State(!state, memNum);
             memory.GetRegister(memNum, 6).SetResetOneBit(1, (BitState)Convert.ToUInt16(!state));
+
+            if (state)
+                memory.SetMemFreq2Value(0, (UInt16)memNum);
+            else
+                RecalcMemoryInfo((UInt16)memNum);
         }
 
         public void SwitchRefIntState(int memNum)
