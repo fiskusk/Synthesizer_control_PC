@@ -6,6 +6,12 @@ using Newtonsoft.Json;
 
 namespace Synthesizer_PC_control.Utilities
 {
+    public enum DataType
+    {
+        DEFAULTS = 1,
+        WINDOW = 2,
+        MEMORY = 3
+    }
     class FilesManager
     {
         /// <summary>
@@ -98,6 +104,8 @@ namespace Synthesizer_PC_control.Utilities
             {
                 string fileName = GetFileNamePath(@"saved_workspace.json");
 
+                saved.dataType = DataType.WINDOW;   // set saved type as WINDOW
+
                 // serialize JSON to a string and then write string to a file
                 File.WriteAllText(fileName, JsonConvert.SerializeObject(saved, Formatting.Indented));
                 return true;
@@ -110,6 +118,7 @@ namespace Synthesizer_PC_control.Utilities
 
         public static bool LoadSavedWorkspaceData(out SaveWindow settings_loaded)
         {
+            bool success;
             try
             {
                 string fileName = GetFileNamePath(@"saved_workspace.json");
@@ -119,14 +128,19 @@ namespace Synthesizer_PC_control.Utilities
                 {
                     settings_loaded = SaveWindow.GetDefaultSaveWindow();
                     SaveWorkspaceData(settings_loaded);
+                    success = true;
                 }
                 else
                 {
                     settings_loaded = JsonConvert.DeserializeObject<SaveWindow>(File.ReadAllText(fileName));
+                    if (settings_loaded.dataType != DataType.WINDOW)
+                        success = false;
+                    else
+                        success = true;
                 }
 
                 // now exists, so load it into workspace, but use save window from before
-                return true;
+                return success;
             }
             catch
             {
@@ -144,6 +158,8 @@ namespace Synthesizer_PC_control.Utilities
             {
                 string fileName = GetFileNamePath(@"default.json");
 
+                saved.dataType = DataType.DEFAULTS;
+
                 // serialize JSON to a string and then write string to a file
                 File.WriteAllText(fileName, JsonConvert.SerializeObject(saved, Formatting.Indented));
                 return true;
@@ -158,6 +174,7 @@ namespace Synthesizer_PC_control.Utilities
         {
             try
             {
+                saved.dataType = DataType.DEFAULTS;
                 // serialize JSON to a string and then write string to a file
                 File.WriteAllText(path, JsonConvert.SerializeObject(saved, Formatting.Indented));
                 return true;
@@ -172,10 +189,16 @@ namespace Synthesizer_PC_control.Utilities
         {
             try
             {
+                bool success;
                 string fileName = GetFileNamePath(@"default.json");
 
                 settings_loaded = JsonConvert.DeserializeObject<SaveDefaults>(File.ReadAllText(fileName));
-                return true;
+
+                if (settings_loaded.dataType != DataType.DEFAULTS)
+                    success = false;
+                else
+                    success = true;
+                return success;
             }
             catch
             {
@@ -188,8 +211,15 @@ namespace Synthesizer_PC_control.Utilities
         {
             try
             {
+                bool success;
+                
                 settings_loaded = JsonConvert.DeserializeObject<SaveDefaults>(File.ReadAllText(path));
-                return true;
+                
+                if (settings_loaded.dataType != DataType.DEFAULTS)
+                    success = false;
+                else
+                    success = true;
+                return success;
             }
             catch
             {
@@ -206,8 +236,11 @@ namespace Synthesizer_PC_control.Utilities
         {
             try
             {
+                saved.dataType = DataType.MEMORY;
+
                 // serialize JSON to a string and then write string to a file
                 File.WriteAllText(path, JsonConvert.SerializeObject(saved, Formatting.Indented));
+
                 return true;
             }
             catch
@@ -220,8 +253,14 @@ namespace Synthesizer_PC_control.Utilities
         {
             try
             {
+                bool success;
                 settings_loaded = JsonConvert.DeserializeObject<SaveMemories>(File.ReadAllText(path));
-                return true;
+
+                if (settings_loaded.dataType != DataType.MEMORY)
+                    success = false;
+                else
+                    success = true;
+                return success;
             }
             catch
             {

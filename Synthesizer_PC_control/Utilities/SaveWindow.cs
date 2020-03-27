@@ -5,6 +5,7 @@ namespace Synthesizer_PC_control.Utilities
 {
     public class SaveWindow
     {
+        public DataType dataType { get; set; }
         public IList<string> Registers { get; set; }
         public UInt16 RSetValue { get; set; }
         public string OutputFreqValue { get; set; }

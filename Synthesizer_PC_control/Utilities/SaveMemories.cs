@@ -4,6 +4,7 @@ namespace Synthesizer_PC_control.Utilities
 {
     public class SaveMemories
     {
+        public DataType dataType { get; set; }
         public IList<string> Mem1 { get; set; }
         public IList<string> Mem2 { get; set; }
         public IList<string> Mem3 { get; set; }

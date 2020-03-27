@@ -4,6 +4,7 @@ namespace Synthesizer_PC_control.Utilities
 {
     public class SaveDefaults
     {
+        public DataType dataType { get; set; }
         public IList<string> Registers { get; set; }
         public bool Out1State { get; set; }
         public bool Out2State { get; set; }
