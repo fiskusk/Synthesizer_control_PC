@@ -1549,18 +1549,23 @@ namespace Synthesizer_PC_control.Controllers
 
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
         {
+            // set input desired freq into direct Freq Control class
             directFreqControl.SetDirectInputFreqValue(value);
 
+            // this disable sending into serial port, if any value make changes (event)
             serialPort.SetDisableSending(true, 13);
 
+            // get input freq back from direct Freq Control class 
             decimal f_input = directFreqControl.decimal_GetDirectInputFreqVal();
 
-            bool isDoubled = refFreq.GetIsDoubled();
-            bool isDivBy2 = refFreq.GetIsDividedBy2();
-            decimal refInFreq = refFreq.decimal_GetRefFreqValue();
-            int outBPathIndex = outFreqControl.GetOutBPathIndex();
-            int FBPathIndex   = outFreqControl.GetFBPathIndex();
+            // get reference input states
+            bool isDoubled = refFreq.GetIsDoubled();    // ref doubler state
+            bool isDivBy2 = refFreq.GetIsDividedBy2();  // ref divider by 2 state
+            decimal refInFreq = refFreq.decimal_GetRefFreqValue();  // reference frequency
+            int outBPathIndex = outFreqControl.GetOutBPathIndex();  // synth OUTB path select (0 - VCO divided, 1 - VCO fundamental)
+            int FBPathIndex   = outFreqControl.GetFBPathIndex();    // VCO to N counter feedback mode (0 - divided, 1 - fundamental)
 
+            // calculate new register settings
             CalcRegs calcRegs = CalcRegisters.CalcRegistersFromInput(f_input, 
                                                                      refInFreq, 
                                                                      isDoubled, 
@@ -1568,58 +1573,48 @@ namespace Synthesizer_PC_control.Controllers
                                                                      outBPathIndex,
                                                                      FBPathIndex);
 
-            outFreqControl.SetADivVal((UInt16)calcRegs.aDivIndex);
-            refFreq.SetAutoLDSpeedAdj(true);
-            outFreqControl.SetAutoLDFunction(true);
-            outFreqControl.SetSynthMode(calcRegs.mode);
-            outFreqControl.SetIntNVal(calcRegs.intN);
-            refFreq.SetRDivider(calcRegs.rDiv);
-            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-            vcoControls.CalcBandSelClockDivValue(pfdFreq);
+            outFreqControl.SetADivVal((UInt16)calcRegs.aDivIndex);  // set new calculated ADiv index value
+            refFreq.SetAutoLDSpeedAdj(true);            // set Auto LDSpeed Adjustment
+            outFreqControl.SetAutoLDFunction(true);     // set Auto LD funtion
+            outFreqControl.SetSynthMode(calcRegs.mode); // set new calculated synthesizer mode
+            outFreqControl.SetIntNVal(calcRegs.intN);   // set new calculated IntN Value
+            refFreq.SetRDivider(calcRegs.rDiv);         // set new calculated R divider value
+            decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // get new f_PFD with respect new R div value
+            vcoControls.CalcBandSelClockDivValue(pfdFreq);  // set new band clock divider 
             
-
+            // if mode was calculated as Fractional, so set Mod and FracN values
             if (calcRegs.mode == SynthMode.FRACTIONAL)
             {
-                outFreqControl.SetModVal(calcRegs.mod);
-                outFreqControl.SetFracNVal(calcRegs.fracN);
+                outFreqControl.SetModVal(calcRegs.mod);     // set Frac value
+                outFreqControl.SetFracNVal(calcRegs.fracN); // set Mod value
             }
 
-            if (f_input <= 6000)
-            {
-                synthOutputControls.SetOutAEnable(OutEnState.ENABLE);
-                synthOutputControls.SetOutBEnable(OutEnState.DISABLE);
-            }
-            else
-            {
-                synthOutputControls.SetOutAEnable(OutEnState.DISABLE);
-                synthOutputControls.SetOutBEnable(OutEnState.ENABLE);
-            }
+            RecalcWorkingFreqInfo(); // reload frequency info
 
-            serialPort.SetDisableSending(false, 13);
-            if (serialPort.GetDisableSending() == false)
-                SendData();
-            
-            decimal delta;
+            decimal delta;  // delta frequency variable
+
+            // get synthesizer frequency at each output
             decimal f_out_A = synthFreqInfo.decimal_GetOutAFreq();
             decimal f_out_B = synthFreqInfo.decimal_GetOutBFreq();
-
+            
+            // set correct module frequency at each output
             directFreqControl.SetFreqAtOut1(f_out_A);
             directFreqControl.SetFreqAtOut2(2*f_out_B);
 
+            // activate/deactivate corrensponding outputs on synthesizer and whole module by frequency range
             if (f_input <= 6000)
             {
                 if (!moduleControls.GetOut1State())
                 {
-                    serialPort.SendStringSerialPort("out 1 on");
-                    moduleControls.SetOut1(true);
-                    directFreqControl.SetActiveOut1(true);
+                    SwitchOut1();
                 }
+
                 if (moduleControls.GetOut2State())
                 {
-                    serialPort.SendStringSerialPort("out 2 off");
-                    moduleControls.SetOut2(false);
-                    directFreqControl.SetActiveOut2(false);
+                    SwitchOut2();
                 }
+
+                // calc delta freq between currently set frequency at synth. output and desired frequency
                 delta = (f_out_A - f_input) * 1e6M;
                 directFreqControl.SetCalcFreq(f_out_A);
             }
@@ -1627,21 +1622,25 @@ namespace Synthesizer_PC_control.Controllers
             {
                 if (moduleControls.GetOut1State())
                 {
-                    serialPort.SendStringSerialPort("out 1 off");
-                    moduleControls.SetOut1(false);
-                    directFreqControl.SetActiveOut1(false);
+                    SwitchOut1();
                 }
-                if (!moduleControls.GetOut2State()) 
+
+                if (!moduleControls.GetOut2State())
                 {
-                    serialPort.SendStringSerialPort("out 2 on");
-                    moduleControls.SetOut2(true);
-                    directFreqControl.SetActiveOut2(true);
+                    SwitchOut2();
                 }
+
                 delta = (f_out_B * 2 - f_input) * 1e6M;
                 directFreqControl.SetCalcFreq(f_out_B * 2);
             }
 
+            // set delta freq into GUI
             directFreqControl.SetDeltaFreqValue(delta);
+            // Try send data
+            serialPort.SetDisableSending(false, 13);
+            if (serialPort.GetDisableSending() == false)
+                SendData();
+            
         }
 #endregion
 
