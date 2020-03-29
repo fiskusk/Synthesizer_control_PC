@@ -52,6 +52,16 @@ namespace Synthesizer_PC_control.Model
 
         public void SetDirectInputFreqValue(decimal value)
         {
+            if (value < 23.5M || value > 12000)
+            {
+                if (value < 23.5M)
+                    value = 23.5M;
+                else
+                    value = 12000;
+                MessageBox.Show("The value entered is outside the allowed range for output frequency <23.5M - 12000>", "Output freq value out of range!", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }
+
             this.directFreqInput = value;
 
             UpdateUiElements();
@@ -164,15 +174,6 @@ namespace Synthesizer_PC_control.Model
 
         public void UpdateUiElements()
         {
-            if (directFreqInput < 23.5M || directFreqInput > 12000)
-            {
-                if (directFreqInput < 23.5M)
-                    directFreqInput = 23.5M;
-                else
-                    directFreqInput = 12000;
-                MessageBox.Show("The value entered is outside the allowed range for output frequency <23.5M - 12000>", "Output freq value out of range!", 
-                MessageBoxButtons.OK, MessageBoxIcon.Error); 
-            }
             ui_directFreqInput.Text = directFreqInput.ToString("0.000 000");
 
             if (Math.Abs(deltaFreq) > 10)
