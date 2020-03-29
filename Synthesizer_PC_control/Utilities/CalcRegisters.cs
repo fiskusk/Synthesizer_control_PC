@@ -301,7 +301,7 @@ namespace Synthesizer_PC_control.Utilities
             rDivValue = rDivValueIn;
             intN = (UInt16)intNIn;
 
-            Fractions.Fraction pokus = new Fractions.Fraction();
+            Fractions.Fraction fracPart = new Fractions.Fraction();
 
             double accuracy;
             int correction=1000;
@@ -313,11 +313,11 @@ namespace Synthesizer_PC_control.Utilities
                 do
                 {
                     if (remainder > 0.0000000001M)
-                        pokus = Fractions.RealToFraction((double)remainder, accuracy);
+                        fracPart = Fractions.RealToFraction((double)remainder, accuracy);
                     cnt++;
                     accuracy = accuracy*10;
-                } while ((pokus.D < 2 || pokus.D > 4095) && accuracy <= 0.00001*correction);
-                if ((pokus.D < 2 || pokus.D > 4095))
+                } while ((fracPart.D < 2 || fracPart.D > 4095) && accuracy <= 0.00001*correction);
+                if ((fracPart.D < 2 || fracPart.D > 4095))
                 {
                     rDivValue++;
                     CalcIntNFromFrequency(frequency, rDivValue,  out intN, 
@@ -328,9 +328,9 @@ namespace Synthesizer_PC_control.Utilities
                         success = false;
                     }
                 }
-            } while((pokus.D < 2 || pokus.D > 4095) && accuracy < 1);
+            } while((fracPart.D < 2 || fracPart.D > 4095) && accuracy < 1);
 
-            if ((pokus.D < 2 || pokus.D > 4095))
+            if ((fracPart.D < 2 || fracPart.D > 4095))
             {
                 success = false;
                 rDivValue = 1;
@@ -340,8 +340,8 @@ namespace Synthesizer_PC_control.Utilities
                 success = true;
             }
 
-            mod = (UInt16)pokus.D;
-            fracN = (UInt16)pokus.N;
+            mod = (UInt16)fracPart.D;
+            fracN = (UInt16)fracPart.N;
 
             return success;
         }
