@@ -3,27 +3,110 @@ using System.Collections.Generic;
 
 namespace Synthesizer_PC_control.Utilities
 {
+    /// <summary>
+    /// A class that contains variables to store user data in a window.
+    /// </summary>
     public class SaveWindow
     {
+        /// <summary>
+        /// Determines what type of data it is (1-defaults, 2-window, 3-memory)
+        /// </summary>
         public DataType dataType { get; set; }
-        public IList<string> Registers { get; set; }
-        public UInt16 RSetValue { get; set; }
-        public string OutputFreqValue { get; set; }
-        public string ReferenceFrequency { get; set; }
-        public bool Out1En { get; set; }
-        public bool Out2En { get; set; }
-        public bool IntRef { get; set; }
-        public IList<string> Mem1 { get; set; }
-        public IList<string> Mem2 { get; set; }
-        public IList<string> Mem3 { get; set; }
-        public IList<string> Mem4 { get; set; }
-        public string COM_port { get; set; }
-        public bool AutoLDSpeedAdj { get; set; }
-        public bool AutoLDFunc { get; set; }
-        public bool AutoCDIVFunc { get; set; }
-        public UInt16 DelayInput { get; set; }
-        public int AdcModeIndex { get; set; }
 
+        /// <summary>
+        /// Holds register 0-5 values
+        /// </summary>
+        public IList<string> Registers { get; set; }
+
+        /// <summary>
+        /// Holds resistor value for set charge pump current
+        /// </summary>
+        public UInt16 RSetValue { get; set; }
+
+        /// <summary>
+        /// Holds value from direct freq input
+        /// </summary>
+        public string OutputFreqValue { get; set; }
+
+        /// <summary>
+        /// // Holds last entered reference signal frequency value
+        /// </summary>
+        public string ReferenceFrequency { get; set; }
+        
+        /// <summary>
+        /// It holds module output 1 state (true - On, false - Off)
+        /// </summary>
+        public bool Out1En { get; set; }
+
+        /// <summary>
+        /// // It holds module output 2 state (true - On, false - Off)
+        /// </summary>
+        public bool Out2En { get; set; }
+        
+        /// <summary>
+        /// It hold if was sellected Internal reference (true) or External (false)
+        /// </summary>
+        /// <value></value>
+        public bool IntRef { get; set; }
+        
+        /// <summary>
+        /// It holds memory 1 registers
+        /// </summary>
+        public IList<string> Mem1 { get; set; }
+        
+        /// <summary>
+        /// It holds memory 2 registers
+        /// </summary>
+        public IList<string> Mem2 { get; set; }
+
+        /// <summary>
+        /// It holds memory 3 registers
+        /// </summary>
+        public IList<string> Mem3 { get; set; }
+
+        /// <summary>
+        /// It holds memory 4 registers
+        /// </summary>
+        public IList<string> Mem4 { get; set; }
+
+        /// <summary>
+        /// It holds last successfully used COM-port
+        /// </summary>
+        public string COM_port { get; set; }
+
+        /// <summary>
+        /// It holds auto LD speed adjustment 
+        /// (true - automaticaly compute LD speed adj., 
+        /// false - user must set LD speed manualy from combobox values)
+        /// </summary>
+        public bool AutoLDSpeedAdj { get; set; }
+
+        /// <summary>
+        /// It holds auto LD function 
+        /// (true - automaticaly compute LD function, 
+        /// false - user must set LD funct. manualy from combobox values )
+        /// </summary>
+        public bool AutoLDFunc { get; set; }
+        
+        /// <summary>
+        /// It holds automatic CDIV compute from user delay input
+        /// </summary>
+        public bool AutoCDIVFunc { get; set; }
+
+        /// <summary>
+        /// User delay input value in miliseconds
+        /// </summary>
+        public UInt16 DelayInput { get; set; }
+
+        /// <summary>
+        /// ADC Mode index (0 - temperature mode, 1 - Tune pin)
+        /// </summary>
+        public int AdcModeIndex { get; set; } 
+
+        /// <summary>
+        /// It include default values for SaveWindow
+        /// </summary>
+        /// <returns>Default values for saving window</returns>
         public static SaveWindow GetDefaultSaveWindow()
         {
             SaveWindow saved = new SaveWindow
