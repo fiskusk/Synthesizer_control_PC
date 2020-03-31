@@ -32,10 +32,6 @@ namespace Synthesizer_PC_control.Controllers
 
         public Controller(Form1 view)
         {
-            // TODO FILIP ... Hey, try this! Hey! It works! :)
-            /*string test = null;
-            FilesManager.LoadFile(out test);*/
-
             serialPort = new MySerialPort(view, view.PortButton, 
                                           view.AvaibleCOMsComBox);
             serialPort.GetAvaliablePorts();
@@ -362,7 +358,7 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SetDisableSending(true, 6);
 
                 registers[0].ChangeNBits((UInt32)value, 16, 15);
-                outFreqControl.SetIntNVal(value);
+                outFreqControl.SetIntNVal(value); 
 
                 serialPort.SetDisableSending(false, 6);
                 if (serialPort.GetDisableSending() == false)
@@ -1341,6 +1337,10 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
 
     #region Collection function
+        /// <summary>
+        /// This function parse all values from the specified synthesizer register
+        /// </summary>
+        /// <param name="index"> Specified register value (0-5) </param>
         public void GetAllFromReg(int index)
         {
             UInt32 reg = registers[index].uint32_GetValue();
@@ -1401,9 +1401,15 @@ namespace Synthesizer_PC_control.Controllers
                     GetPllShutdownStateFromRegister(reg);
                     GetIntNAutoModeWhenF0StateFromRegister(reg);
                     break;
+                default:
+                    break;
             }
         }
 
+        /// <summary>
+        /// this function parse all values from each synthesizer register
+        /// and updates the frequency info
+        /// </summary>
         public void GetAllFromRegisters()
         {
             for (int i = 5; i >= 0; i--)
@@ -1417,8 +1423,13 @@ namespace Synthesizer_PC_control.Controllers
 #endregion
 
 #region Some magic calculations
+
+        /// <summary>
+        /// Updates the frequency info
+        /// </summary>
         public void RecalcWorkingFreqInfo()
         {
+            // get importat values from models
             UInt16 aDiv     = outFreqControl.uint16_GetADivVal();
             UInt16 intN     = outFreqControl.uint16_GetIntNVal();
             UInt16 fracN    = outFreqControl.uint16_GetFracNVal();
@@ -1435,27 +1446,36 @@ namespace Synthesizer_PC_control.Controllers
             CalcFreqInfo(intN, fracN, mod, aDiv, mode, outBpath, FBpath, fPfd, 
                          out fOutA, out fOutB, out fVco);
 
+            // if VCO freq is beyond limits set zeros into direct freq module group and return
             if (synthFreqInfo.SetVcoFreq(fVco) == false)
             {
                 directFreqControl.SetFreqAtOut1(0);
                 directFreqControl.SetFreqAtOut2(0);
-                
-                return;
             }
-            synthFreqInfo.SetOutAFreq(fOutA);
-            synthFreqInfo.SetOutBFreq(fOutB);
-            directFreqControl.SetFreqAtOut1(fOutA);
-            directFreqControl.SetFreqAtOut2(fOutB * 2);
-            memory.UpdateUiElements();
+            else
+            {
+                synthFreqInfo.SetOutAFreq(fOutA);
+                synthFreqInfo.SetOutBFreq(fOutB);
+                directFreqControl.SetFreqAtOut1(fOutA);
+                directFreqControl.SetFreqAtOut2(fOutB * 2);
+                memory.UpdateUiElements();
+            }
         }
 
+        /// <summary>
+        /// This function updates some properties resulting from 
+        /// 0 - 5 synthesizer registers for the specified memory number.
+        /// </summary>
+        /// <param name="memoryNumber"> specified memory number </param>
         public void RecalcMemoryInfo(UInt16 memoryNumber)
-        {
+        {  
+            // get important memory register values
             UInt32 dataReg0 = memory.GetRegister(memoryNumber, 0).uint32_GetValue();
             UInt32 dataReg1 = memory.GetRegister(memoryNumber, 1).uint32_GetValue();
             UInt32 dataReg2 = memory.GetRegister(memoryNumber, 2).uint32_GetValue();
             UInt32 dataReg4 = memory.GetRegister(memoryNumber, 4).uint32_GetValue();
 
+            // parsing important values for calc freq info
             UInt16 intN = (UInt16)BitOperations.GetNBits(dataReg0, 16, 15);
             UInt16 fracN = (UInt16)BitOperations.GetNBits(dataReg0, 12, 3);
             UInt16 mod = (UInt16)BitOperations.GetNBits(dataReg1, 12, 3);
@@ -1469,15 +1489,18 @@ namespace Synthesizer_PC_control.Controllers
             UInt16 refDividerBy2 = (UInt16)BitOperations.GetNBits(dataReg2, 1, 24);
             UInt16 rDiv = (UInt16)BitOperations.GetNBits(dataReg2, 10, 14);
 
+            // calculate frequency at phase frequency detector from parsed values
             decimal fPfd = 10.0M * (1 + refDoubler) / (decimal)(rDiv * (1 + refDividerBy2));
 
             decimal fOutA;
             decimal fOutB;
             decimal fVco;
 
+            // get freq at out A, B
             CalcFreqInfo(intN, fracN, mod, aDiv, mode, outBpath, FBpath, fPfd, 
                          out fOutA, out fOutB, out fVco);
-
+            
+            // set this values into models
             if (memory.GetMemOut1State(memoryNumber))
                 memory.SetMemFreq1Value(fOutA, memoryNumber);
             else
@@ -1488,11 +1511,13 @@ namespace Synthesizer_PC_control.Controllers
             else
                 memory.SetMemFreq2Value(0, memoryNumber);
 
+            // parsing important values for output power and status info
             int outAPwr = (int)BitOperations.GetNBits(dataReg4, 2, 3);
             int outBPwr = (int)BitOperations.GetNBits(dataReg4, 2, 6);
             OutEnState outAEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 5);
             OutEnState outBEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 8);
 
+            // set these values into models
             if (outAEn == OutEnState.ENABLE)
                 memory.SetMemPwrAIndex(outAPwr, memoryNumber);
             else
@@ -1505,6 +1530,21 @@ namespace Synthesizer_PC_control.Controllers
             
         }
 
+        /// <summary>
+        /// This function is used to obtain the frequency at the synthesizer
+        /// outputs A and B and the frequency at the VCO output
+        /// </summary>
+        /// <param name="intN"> Int-N value </param>
+        /// <param name="fracN"> Frac-N value </param>
+        /// <param name="mod"> modulus value </param>
+        /// <param name="aDiv"> A-divider value </param>
+        /// <param name="mode"> Synthesize mode (fractional/integer) </param>
+        /// <param name="outBpath"> OutB internal path </param>
+        /// <param name="FBpath"> VCO to N counter internal path </param>
+        /// <param name="fPfd"> frequency at phase freq input </param>
+        /// <param name="fOutA"> frequency at output A </param>
+        /// <param name="fOutB"> frequency at output A </param>
+        /// <param name="fVco"> frequency at VCO output </param>
         public void CalcFreqInfo(UInt16 intN, UInt16 fracN, UInt16 mod, UInt16 aDiv, 
                                 SynthMode mode, int outBpath, int FBpath, decimal fPfd,
                                 out decimal fOutA, out decimal fOutB, out decimal fVco)
@@ -1532,7 +1572,7 @@ namespace Synthesizer_PC_control.Controllers
                 }
                 else
                 {
-                    if (aDiv <=16)
+                    if (aDiv <= 16)
                         fVco = (intN + (fracN / (mod*1.0M) ) ) * fPfd * aDiv;
                     else if (aDiv > 16)
                         fVco = (intN + (fracN / (mod*1.0M) ) ) * fPfd * 16;
@@ -1823,18 +1863,24 @@ namespace Synthesizer_PC_control.Controllers
 #region Load and Save Data
 
     #region Workspace data part
+        /// <summary>
+        /// Loads saved data from file */saved_workspace.json into workspace
+        /// </summary>
         public void LoadSavedWorkspaceData()
         {
             SaveWindow loadedData = new SaveWindow();
             bool success = FilesManager.LoadSavedWorkspaceData(out loadedData);
 
+            // if success print message into console and load data into workspace
             if (success)
             {
                 string text = "Workspace data succesfuly loaded.";
                 ConsoleController.Console().Write(text);
 
-                LoadWorkspaceDataFromFile(loadedData);
+                LoadDataIntoWorkspace(loadedData);
             }
+
+            //print error message
             else
             {
                 MessageBox.Show("When loading worskspace data occurs error!", "Error Catch",
@@ -1842,11 +1888,15 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// Save the current window status into file */saved_workspace.json 
+        /// so that it can be reloaded when the program starts.
+        /// </summary>
         public void SaveWorkspaceData()
         {
-
             bool success = FilesManager.SaveWorkspaceData(CreateSaveWindow());
 
+            // print message into console, if saving was successfull or was not
             if(success)
             {
                 string text = "Workspace data succesfuly saved.";
@@ -1860,7 +1910,11 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
-        public void LoadWorkspaceDataFromFile(SaveWindow data)
+        /// <summary>
+        /// Loads data into the workspace
+        /// </summary>
+        /// <param name="data"> data to be loaded into the workspace </param>
+        public void LoadDataIntoWorkspace(SaveWindow data)
         {
             // registers
             MyRegister.SetValues(registers, data.Registers.ToArray());
@@ -1896,6 +1950,10 @@ namespace Synthesizer_PC_control.Controllers
             refFreq.ChangeRefInpUIEnabled(!moduleControls.GetIntRefState());
         }
 
+        /// <summary>
+        /// Reads individual items from the models and returns them as SaveWindow.
+        /// </summary>
+        /// <returns></returns>
         private SaveWindow CreateSaveWindow()
         {
             SaveWindow saved = new SaveWindow
@@ -2190,6 +2248,11 @@ namespace Synthesizer_PC_control.Controllers
             return saved;
     }
 
+
+    /// <summary>
+    /// Load memory registers from input date
+    /// </summary>
+    /// <param name="data"> data to be loaded</param>
     public void LoadMemoryRegsFromFile(SaveMemories data)
     {
         for (int i = 0; i < 7; i++)
@@ -2207,8 +2270,13 @@ namespace Synthesizer_PC_control.Controllers
         }
     }
 
+    /// <summary>
+    /// Load data into workspace
+    /// </summary>
+    /// <param name="data"> data to be loaded </param>
     public void LoadMemoryRegsFromFile(SaveWindow data)
-    {
+    {   
+        // load memory 1-4 registers 0-6 (6 is control register for module controls)
         for (int i = 0; i < 7; i++)
         {
             memory.GetRegister(1, i).SetValue(data.Mem1[i]);
@@ -2217,6 +2285,7 @@ namespace Synthesizer_PC_control.Controllers
             memory.GetRegister(4, i).SetValue(data.Mem4[i]);
         }
 
+        // for all memories fill additional information
         for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
         {
             SetMemOutsAndRefFromControlReg(memoryNumber);
@@ -2286,12 +2355,19 @@ namespace Synthesizer_PC_control.Controllers
             RecalcMemoryInfo((UInt16)memoryNumber);
         }
 
+        /// <summary>
+        /// For the specified memory number, it reads data from 
+        /// the control register and set into the memory synthesizer controls group
+        /// </summary>
+        /// <param name="memoryNumber"> memory number </param>
         public void SetMemOutsAndRefFromControlReg(UInt16 memoryNumber)
         {
+            // get all states from control register model data
             UInt32 out1State = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 0);
             UInt32 out2State = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 1);
             UInt32 refState  = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 2);
 
+            // set them into appropriate models
             memory.SetMemOut1State(Convert.ToBoolean(out1State), memoryNumber);
             memory.SetMemOut2State(Convert.ToBoolean(out2State), memoryNumber);
             memory.SetMemIntRefState(!Convert.ToBoolean(refState), memoryNumber);
