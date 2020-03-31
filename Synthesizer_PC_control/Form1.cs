@@ -2,51 +2,41 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-
 using Synthesizer_PC_control.Controllers;
 using Synthesizer_PC_control.Properties;
-
-
-/* 
-TODO CRITICAL
-Jak updatovat element tak aby přepsal ui, ale nespůsobil event na view??
-Otestovat jak funguje click?
-
-Co potřebujeme:
-view -textBox edit-> controller - upraví hodnotu-> MyModelObject (ten zavolá updateUiElements)
--edituje textBox2-> Zachytí text box edit událost na view?
-
-controller lock?
-view lock?
-
-*/
 
 namespace Synthesizer_PC_control
 {
     public partial class Form1 : Form
         {
-        //private MyRegister[] registers;
         private Controller controller;
         private bool isForm1Load;
         bool windowInitialized;
 
         public Form1()
         {
-            isForm1Load = false;
-            InitializeComponent();
-            this.Load += Form1_Load;
+            isForm1Load = false;        // set to false, Form loading
+            InitializeComponent();      // initialize components
+            this.Load += Form1_Load;    // load form1
         
             controller = new Controller(this);
 
 
-            controller.LoadSavedWorkspaceData();
+            controller.LoadSavedWorkspaceData();    // load workspace data
             isForm1Load = true;
             EnableControls(false);
         }
 
+        /// <summary>
+        /// Form looading routine. This code is reload window position 
+        /// and state from saved values. Code is inspired from this discuss.
+        /// https://stackoverflow.com/questions/937298/restoring-window-size-position-with-multiple-monitors?noredirect=1&lq=1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void Form1_Load(object sender, EventArgs e)
         {
-            // this is the default
+            // set this as the default
             this.Visible = false;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.WindowsDefaultBounds;
@@ -68,9 +58,11 @@ namespace Synthesizer_PC_control
                 this.StartPosition = FormStartPosition.WindowsDefaultLocation;
 
             }
+
+            // set default size of window
             this.Size = new System.Drawing.Size(821, 771);
             this.Visible = true;
-            windowInitialized = true;
+            windowInitialized = true;       // window initialized
         }
 
         private bool IsVisibleOnAnyScreen(Rectangle rect)
@@ -86,6 +78,11 @@ namespace Synthesizer_PC_control
             return false;
         }
 
+        /// <summary>
+        /// this routine runs when you close the application.
+        /// It store actual state and postion.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnClosed(EventArgs e)
         {
              base.OnClosed(e);
@@ -103,16 +100,7 @@ namespace Synthesizer_PC_control
                     break;
             }
 
-            # region msorens: this code does *not* handle minimized/maximized window.
-
-            // reset window state to normal to get the correct bounds
-            // also make the form invisible to prevent distracting the user
-            //this.Visible = false;
-            //this.WindowState = FormWindowState.Normal;
-            //Settings.Default.WindowPosition = this.DesktopBounds;
-
-            # endregion
-
+            // save current state
             Settings.Default.Save();
         }
 
@@ -128,8 +116,10 @@ namespace Synthesizer_PC_control
             TrackWindowState();
         }
 
-        // On a move or resize in Normal state, record the new values as they occur.
-        // This solves the problem of closing the app when minimized or maximized.
+        /// <summary>
+        /// On a move or resize in Normal state, record the new values as they occur.
+        /// This solves the problem of closing the app when minimized or maximized.
+        /// </summary>
         private void TrackWindowState()
         {
             // Don't record the window setup, otherwise we lose the persistent values!
@@ -140,7 +130,12 @@ namespace Synthesizer_PC_control
                 Settings.Default.WindowPosition = this.DesktopBounds;
             }
         }
-        
+
+        /// <summary>
+        /// When user close program, store workspace data into json file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             controller.SaveWorkspaceData();
