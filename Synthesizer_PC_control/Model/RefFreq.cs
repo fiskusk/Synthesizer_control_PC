@@ -8,7 +8,7 @@ using Synthesizer_PC_control.Controllers;
 namespace Synthesizer_PC_control.Model
 {
     /// <summary>
-    /// This class is used to handle the synthesizer reference frequency 
+    /// This class is used to handle the reference frequency of PLO
     /// (doubler, divider/2, R-divider, reference frequency, PFD frequency, 
     /// Lock-Detect speed, auto compute LD-Speed).
     /// </summary>
@@ -92,7 +92,9 @@ namespace Synthesizer_PC_control.Model
         private readonly Label ui_internalRefLabel;
 
         /// <summary>
-        /// Constructor for operations with reference frequency of PLO
+        /// Constructor for operations with reference frequency of PLO.
+        /// (doubler, divider/2, R-divider, reference frequency, PFD frequency, 
+        /// Lock-Detect speed, auto compute LD-Speed).
         /// </summary>
         /// <param name="ui_refInFreq"> TextBox UI element for reference input frequency </param>
         /// <param name="ui_refDoubler"> CheckBox UI element for control ref. doubler </param>
