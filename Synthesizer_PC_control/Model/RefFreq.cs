@@ -151,7 +151,8 @@ namespace Synthesizer_PC_control.Model
         #region Setters
 
         /// <summary>
-        /// This function set PLO mode and then recalc PFD frequency
+        /// This function set PLO mode, change maximum PFD freq value
+        /// and then recalc PFD frequency
         /// </summary>
         /// <param name="value"> synthesizer mode </param>
         public void SetSynthModeInfoVariable(SynthMode value)
@@ -185,7 +186,8 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Function set reference frequency from decimal value
+        /// Function check is value is beyond limits, adjust it if necessary, 
+        /// and then set reference frequency
         /// </summary>
         /// <param name="value"> input decimal value </param>
         /// <returns> model value was changed or was not </returns>
