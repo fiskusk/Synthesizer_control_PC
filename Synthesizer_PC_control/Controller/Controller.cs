@@ -36,11 +36,12 @@ namespace Synthesizer_PC_control.Controllers
         /// <param name="view"> view handle </param>
         public Controller(Form1 view)
         {
-            // create serial port model
+            // create mdoel of serial port 
             serialPort = new MySerialPort(view, view.PortButton, 
                                           view.AvaibleCOMsComBox);
             serialPort.GetAvaliablePorts();
 
+            // create model of currently syntesizer registery settings
             var reg0 = new MyRegister(String.Empty, view.Reg0TextBox);
             var reg1 = new MyRegister(String.Empty, view.Reg1TextBox);
             var reg2 = new MyRegister(String.Empty, view.Reg2TextBox);
@@ -48,9 +49,9 @@ namespace Synthesizer_PC_control.Controllers
             var reg4 = new MyRegister(String.Empty, view.Reg4TextBox);
             var reg5 = new MyRegister(String.Empty, view.Reg5TextBox);
 
-            // create currently syntesizer registery settings model
             registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
 
+            // here program store what registry values were sent
             var old_reg0 = new MyRegister(String.Empty);
             var old_reg1 = new MyRegister(String.Empty);
             var old_reg2 = new MyRegister(String.Empty);
@@ -58,19 +59,18 @@ namespace Synthesizer_PC_control.Controllers
             var old_reg4 = new MyRegister(String.Empty);
             var old_reg5 = new MyRegister(String.Empty);
 
-            // here program store what registry values were sent
             old_registers = new MyRegister[] {old_reg0, old_reg1, old_reg2, 
                                               old_reg3, old_reg4, old_reg5};
 
-            // create synthesizer module memory model
+            // create model of synthesizer module memory
             memory = new Memory(view);
 
-            // create module controls model
+            // create model of module controls
             moduleControls = new ModuleControls(view.Out1Button,
                                                 view.Out2Button,
                                                 view.RefButton);
 
-            // create referece frequency model
+            // create model of referece frequency 
             refFreq = new RefFreq(view.RefFTextBox,
                                   view.RefDoublerCheckBox, 
                                   view.DivideBy2CheckBox, 
@@ -81,6 +81,7 @@ namespace Synthesizer_PC_control.Controllers
                                   view.LDSpeedAdjLabel,
                                   view.InternalLabel);
 
+            // create model of output frequency control 
             outFreqControl = new OutFreqControl(view.IntNNumUpDown,
                                                 view.FracNNumUpDown,
                                                 view.ModNumUpDown,
@@ -470,7 +471,7 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SetDisableSending(true, 2);
 
                 registers[2].SetResetOneBit(8, (BitState)value);
-                outFreqControl.SetLDFunction(value);
+                outFreqControl.SetLDFunctionIndex(value);
                 outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
 
                 serialPort.SetDisableSending(false, 2);
@@ -1137,7 +1138,7 @@ namespace Synthesizer_PC_control.Controllers
         private void GetLDFunctionIndexFromRegister(UInt32 dataReg2)
         {
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 8);
-            outFreqControl.SetLDFunction(index);
+            outFreqControl.SetLDFunctionIndex(index);
             if (serialPort.IsPortOpen())
                 outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
         }
