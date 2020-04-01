@@ -30,8 +30,13 @@ namespace Synthesizer_PC_control.Controllers
         public VcoControls vcoControls;
         public ReadRegister readRegister;
 
+        /// <summary>
+        /// Controller constructor
+        /// </summary>
+        /// <param name="view"> view handle </param>
         public Controller(Form1 view)
         {
+            // create serial port model
             serialPort = new MySerialPort(view, view.PortButton, 
                                           view.AvaibleCOMsComBox);
             serialPort.GetAvaliablePorts();
@@ -43,6 +48,7 @@ namespace Synthesizer_PC_control.Controllers
             var reg4 = new MyRegister(String.Empty, view.Reg4TextBox);
             var reg5 = new MyRegister(String.Empty, view.Reg5TextBox);
 
+            // create currently syntesizer registery settings model
             registers = new MyRegister[] { reg0, reg1, reg2, reg3, reg4, reg5};
 
             var old_reg0 = new MyRegister(String.Empty);
@@ -52,15 +58,19 @@ namespace Synthesizer_PC_control.Controllers
             var old_reg4 = new MyRegister(String.Empty);
             var old_reg5 = new MyRegister(String.Empty);
 
+            // here program store what registry values were sent
             old_registers = new MyRegister[] {old_reg0, old_reg1, old_reg2, 
                                               old_reg3, old_reg4, old_reg5};
 
+            // create synthesizer module memory model
             memory = new Memory(view);
 
+            // create module controls model
             moduleControls = new ModuleControls(view.Out1Button,
                                                 view.Out2Button,
                                                 view.RefButton);
 
+            // create referece frequency model
             refFreq = new RefFreq(view.RefFTextBox,
                                   view.RefDoublerCheckBox, 
                                   view.DivideBy2CheckBox, 
@@ -188,7 +198,7 @@ namespace Synthesizer_PC_control.Controllers
             if (moduleControls.GetIntRefState())
             {
                 serialPort.SendStringSerialPort("ref ext");
-                refFreq.ChangeRefInpUIEnabled(true);
+                refFreq.SetIntRefInpEnabled(true);
                 moduleControls.SetIntRef(false);
                 directFreqControl.SetIntRefState(false);
             }
@@ -197,7 +207,7 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SendStringSerialPort("ref int");
                 refFreq.SetRefFreqValue(10);
                 vcoControls.CalcBandSelClockDivValue(10);
-                refFreq.ChangeRefInpUIEnabled(false);
+                refFreq.SetIntRefInpEnabled(false);
                 moduleControls.SetIntRef(true);
                 directFreqControl.SetIntRefState(true);
             }
@@ -333,7 +343,7 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SetDisableSending(true, 15);
 
                 registers[2].SetResetOneBit(31, (BitState)value);
-                refFreq.SetLDSpeedAdj(value);
+                refFreq.SetLDSpeedAdjIndex(value);
 
                 serialPort.SetDisableSending(false, 15);
                 if (serialPort.GetDisableSending() == false)
@@ -1121,7 +1131,7 @@ namespace Synthesizer_PC_control.Controllers
         private void GetLDSpeedAdjIndexFromRegister(UInt32 dataReg2)
         {
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 31);
-            refFreq.SetLDSpeedAdj(index);
+            refFreq.SetLDSpeedAdjIndex(index);
         }
 
         private void GetLDFunctionIndexFromRegister(UInt32 dataReg2)
@@ -1947,7 +1957,7 @@ namespace Synthesizer_PC_control.Controllers
             LoadMemoryRegsFromFile(data);
 
             this.GetAllFromRegisters();
-            refFreq.ChangeRefInpUIEnabled(!moduleControls.GetIntRefState());
+            refFreq.SetIntRefInpEnabled(!moduleControls.GetIntRefState());
         }
 
         /// <summary>
