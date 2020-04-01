@@ -104,6 +104,7 @@ namespace Synthesizer_PC_control.Controllers
                                                       view.ActOut2ShowLabel,
                                                       view.IntExtShowLabel);
 
+            // create model of synthesizer frequency info
             synthFreqInfo = new SynthFreqInfo(view.fVcoScreenLabel,
                                               view.fOutAScreenLabel,
                                               view.fOutBScreenLabel);
