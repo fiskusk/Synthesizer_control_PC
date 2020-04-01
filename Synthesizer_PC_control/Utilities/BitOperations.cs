@@ -15,7 +15,8 @@ namespace Synthesizer_PC_control.Utilities
     /// <summary>
     /// A static class that contains functions for handling numbers at the base of bits.
     /// Includes a function to set and reset a specific bit in a 32-bit number,
-    /// change specific N bits to a new value
+    /// change specific N bits to a new value, gets N bits from an unsigned 
+    /// 32-bit number from a specific position
     /// </summary>
     static class BitOperations
     {
@@ -24,7 +25,7 @@ namespace Synthesizer_PC_control.Utilities
         /// </summary>
         /// <param name="val"> 32-bit usigned integer number to change </param>
         /// <param name="bit"> number of bit in 32-bit unsigned integer number to change </param>
-        /// <param name="bitState"> Bit state to change to. (RESET or SET)</param>
+        /// <param name="bitState"> Bit state to change to. (RESET or SET) </param>
         /// <returns> new changed value </returns>
         public static UInt32 SetResetOneBit(UInt32 val, UInt16 bit, BitState bitState)
         {
