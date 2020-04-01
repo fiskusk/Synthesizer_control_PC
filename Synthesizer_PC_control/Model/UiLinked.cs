@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Synthesizer_PC_control.Model
+﻿namespace Synthesizer_PC_control.Model
 {
+    /// <summary>
+    /// Specifies important components in the interface
+    /// </summary>
     interface I_UiLinked
     {
         void UpdateUiElements();
