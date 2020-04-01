@@ -94,6 +94,7 @@ namespace Synthesizer_PC_control.Controllers
                                                 view.LDfuncLabel,
                                                 view.FBPathComboBox);
 
+            // create model of direct frequency input control
             directFreqControl = new DirectFreqControl(view.InputFreqTextBox, 
                                                       view.DeltaShowLabel,
                                                       view.CalcFreqShowLabel,
