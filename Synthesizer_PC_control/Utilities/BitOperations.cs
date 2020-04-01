@@ -14,13 +14,13 @@ namespace Synthesizer_PC_control.Utilities
 
     /// <summary>
     /// A static class that contains functions for handling numbers at the base of bits.
-    /// Includes a function to set and reset a concave bit in a 32-bit number,
+    /// Includes a function to set and reset a specific bit in a 32-bit number,
     /// change specific N bits to a new value
     /// </summary>
     static class BitOperations
     {
         /// <summary>
-        /// This function set and reset a concave bit in a 32-bit number
+        /// This function set and reset a specific bit in a 32-bit number
         /// </summary>
         /// <param name="val"> 32-bit usigned integer number to change </param>
         /// <param name="bit"> number of bit in 32-bit unsigned integer number to change </param>
