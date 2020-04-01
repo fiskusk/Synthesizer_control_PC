@@ -4,23 +4,60 @@ using Synthesizer_PC_control.Controllers;
 
 namespace Synthesizer_PC_control.Model
 {
+    /// <summary>
+    /// Enumerable for synthesizer output enebled state
+    /// </summary>
     public enum OutEnState
     {
         DISABLE,
         ENABLE
     }
 
+    /// <summary>
+    /// This class is used to handle the synthesizer output controls.
+    /// (controls for enable synthesizer output A and B, 
+    /// controls for control synthesizer output power at out A and B)
+    /// </summary>
     public class SynthOutputControls : I_UiLinked
     {
+        // error messages
         private string wrongBPwrMsg = "Warning: Output power at 'Out B' is limited to maximum +2 dBm. This limitation is due to the frequency doubler circuit used at Out 2";
+
+        /// <summary>
+        /// state at synthesizer output A 
+        /// </summary>
         private OutEnState outAEn;
+
+        /// <summary>
+        /// state at synthesizer output B
+        /// </summary>
         private OutEnState outBEn;
-        private int outAPwr;
-        private int outBPwr;
+
+        /// <summary>
+        /// Synthesizer output A index
+        /// </summary>
+        private int outAPwrIndex;
+
+        /// <summary>
+        /// Synthesizer output B index
+        /// </summary>
+        private int outBPwrIndex;
+
+        // hold UI elements for synthesizer frequency info group
         private readonly ComboBox ui_outAEnable;
         private readonly ComboBox ui_outBEnable;
         private readonly ComboBox ui_outAPwr;
         private readonly ComboBox ui_outBPwr;
+
+        /// <summary>
+        /// Constructor for the synthesizer output controls.
+        /// (controls for enable synthesizer output A and B, 
+        /// controls for control synthesizer output power at out A and B)
+        /// </summary>
+        /// <param name="ui_outAEnable"> ComboBox UI element for synthesize output A enabling control </param>
+        /// <param name="ui_outBEnable"> ComboBox UI element for synthesize output B enabling control </param>
+        /// <param name="ui_outAPwr"> ComboBox UI element for synthesizer output A power control </param>
+        /// <param name="ui_outBPwr"> ComboBox UI element for synthesizer output B power control </param>
         public SynthOutputControls(ComboBox ui_outAEnable, ComboBox ui_outBEnable,
                                    ComboBox ui_outAPwr, ComboBox ui_outBPwr)
         {
@@ -36,13 +73,29 @@ namespace Synthesizer_PC_control.Model
 
             outAEn  = OutEnState.DISABLE;
             outBEn  = OutEnState.DISABLE;
-            outAPwr = 0;
-            outBPwr = 0;
+            outAPwrIndex = 0;
+            outBPwrIndex = 0;
 
             UpdateUiElements();
         }
 
+        /// <summary>
+        /// Updates all graphic user elements
+        /// </summary>
+        public void UpdateUiElements()
+        {
+            this.ui_outAEnable.SelectedIndex = (int)outAEn;
+            this.ui_outBEnable.SelectedIndex = (int)outBEn;
+            this.ui_outAPwr.SelectedIndex = outAPwrIndex;
+            this.ui_outBPwr.SelectedIndex = outBPwrIndex;
+        }
+
         #region Setters
+
+        /// <summary>
+        /// This function set state for synthesizer output A
+        /// </summary>
+        /// <param name="value"> enable or disable out A </param>
         public void SetOutAEnable(OutEnState value)
         {
             if (this.outAEn != value)
@@ -53,6 +106,10 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
+        /// <summary>
+        /// This function set state for synthesizer output B
+        /// </summary>
+        /// <param name="value"> enable or disable out B </param>
         public void SetOutBEnable(OutEnState value)
         {
             if (this.outBEn != value)
@@ -63,22 +120,36 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
+        /// <summary>
+        /// This function set power at synthesizer output A
+        /// </summary>
+        /// <param name="value"> index value (0 is -4dBm, 1 is -1dBm, 2 is +2dBm, 3 is +5dBm) </param>
         public void SetOutAPwr(int value)
         {
-            if (this.outAPwr != value)
+            if (this.outAPwrIndex != value)
             {
-                this.outAPwr = value;
+                this.outAPwrIndex = value;
 
                 UpdateUiElements();
             }
         }
 
+        /// <summary>
+        /// This function set power at synthesizer output B.
+        /// If set 3, will be set current value at model and print error msg into console
+        /// </summary>
+        /// <param name="value"> index value 
+        /// (0 is -4dBm, 1 is -1dBm, 2 is +2dBm, 3 is +5dBm 
+        /// [last value is not possible, because maximum power at frequency 
+        /// doubler connected at output B is +3dBm]) 
+        /// </param>
+        /// <returns> success of operation </returns>
         public bool SetOutBPwr(int value)
         {
             bool state;
             if (value == 3)
             {
-                value = outBPwr;
+                value = outBPwrIndex;
                 ConsoleController.Console().Write(wrongBPwrMsg);
                 state = false;
             }
@@ -87,7 +158,7 @@ namespace Synthesizer_PC_control.Model
                 state = true;
             }
 
-            this.outBPwr = value;
+            this.outBPwrIndex = value;
 
             UpdateUiElements();
 
@@ -96,18 +167,16 @@ namespace Synthesizer_PC_control.Model
         #endregion
 
         #region Getters
+
+        /// <summary>
+        /// This function return current index of sellected power at output B
+        /// </summary>
+        /// <returns> current index of sellected power at output B </returns>
         public int GetOutBPwrIndex()
         {
-            return outBPwr;
+            return outBPwrIndex;
         }
-        #endregion
 
-        public void UpdateUiElements()
-        {
-            this.ui_outAEnable.SelectedIndex = (int)outAEn;
-            this.ui_outBEnable.SelectedIndex = (int)outBEn;
-            this.ui_outAPwr.SelectedIndex = outAPwr;
-            this.ui_outBPwr.SelectedIndex = outBPwr;
-        }
+        #endregion
     }
 }

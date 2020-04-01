@@ -109,6 +109,7 @@ namespace Synthesizer_PC_control.Controllers
                                               view.fOutAScreenLabel,
                                               view.fOutBScreenLabel);
 
+            // create model of synthesizer output controls
             synthOutputControls = new SynthOutputControls(view.OutAEn_ComboBox,
                                                           view.OutBEn_ComboBox,
                                                           view.OutAPwr_ComboBox,
