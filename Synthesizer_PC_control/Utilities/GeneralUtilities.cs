@@ -8,13 +8,25 @@ namespace Synthesizer_PC_control.Utilities
 {
     static class GeneralUtilities
     {
+        /// <summary>
+        /// It compares whether the string arrays match
+        /// </summary>
+        /// <param name="firstStringArray"> first string to compare </param>
+        /// <param name="secondStringArray"> second string to compare </param>
+        /// <returns> result whether string arrays match </returns>
         public static bool CompareStringArrays(string[] firstStringArray, string[] secondStringArray)
         {
             bool found = false;
+
+            // any array is empty
             if (firstStringArray == null || secondStringArray == null)
                 return false;
+
+            // array lengths vary
             if (firstStringArray.Length < secondStringArray.Length || firstStringArray.Length > secondStringArray.Length)
                 return false;
+                
+            // searches if all items in the array are present
             foreach(string part1 in firstStringArray)
             {
                 found = false;
@@ -29,6 +41,13 @@ namespace Synthesizer_PC_control.Utilities
             return found;
         }
 
+
+        /// <summary>
+        /// Determines if the string input value is in the string array
+        /// </summary>
+        /// <param name="value"> the text string to be searched for </param>
+        /// <param name="arrayValues">an array of text strings in which the value will be searched </param>
+        /// <returns> located or not </returns>
         public static bool IsStringLocatedInArray(string value, string[] arrayValues)
         {
             if (arrayValues == null)
@@ -40,36 +59,5 @@ namespace Synthesizer_PC_control.Utilities
             }
             return false;
         }
-
-
-        /*
-            float a;
-            int b;
-            GeneralUtilities.IsWithin(a, (float)b, (float)b);
-        */
-        /* TODO Lukas IsWhithin and crop fnc? 
-        public static bool IsWithin<T>(T value, T min, T max) where T : IComparable
-        {
-            if(value >= min && value <= max)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public static int Crop(int value, int min, int max)
-        {
-            if(value > max)
-            {
-                value = max;
-            }
-            else if(value < min)
-            {
-                value = min;
-            }
-
-            return value;
-        }
-        */
     }
 }
