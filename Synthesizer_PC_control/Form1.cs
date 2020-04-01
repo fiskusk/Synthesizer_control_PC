@@ -141,6 +141,10 @@ namespace Synthesizer_PC_control
             controller.SaveWorkspaceData();
         }
 
+        /// <summary>
+        /// This function controls the status of UI elements whether they are enabled or disabled
+        /// </summary>
+        /// <param name="command"> controls enabled or not </param>
         public void EnableControls(bool command)
         {
             AvaibleCOMsComBox.Enabled       = !command;
