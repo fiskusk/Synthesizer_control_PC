@@ -78,6 +78,29 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
+        /// Updates all graphic user elements
+        /// </summary>
+        public void UpdateUiElements() 
+        { 
+            if(IsPortOpen())    // Port is open
+            { 
+                ui_openClosed.Text = "Close Port"; 
+            } 
+            else 
+            { 
+                ui_openClosed.Text = "Open Port"; 
+            } 
+            
+            // check if avaliable ports changed
+            if (!GeneralUtilities.CompareStringArrays((string[])ui_avaliablePorts.DataSource, avaliablePorts))
+                ui_avaliablePorts.DataSource = avaliablePorts;
+
+            ui_avaliablePorts.Text = selectedPort;
+        }
+
+        #region Setters
+
+        /// <summary>
         /// Set the currently selected port to the class.
         /// </summary>
         /// <param name="value"> name of actual selected port </param>
@@ -128,6 +151,10 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
+        #endregion
+
+        #region Getters
+
         /// <summary>
         /// This feature gets the status of disabling sending to serial port
         /// </summary>
@@ -145,6 +172,19 @@ namespace Synthesizer_PC_control.Model
         {
             return selectedPort;
         }
+
+        /// <summary>
+        /// Use this function to get available ports on your computer
+        /// </summary>
+        public void GetAvaliablePorts() 
+        { 
+            avaliablePorts = SerialPort.GetPortNames(); 
+            UpdateUiElements(); 
+        } 
+
+        #endregion
+
+        #region Other Serial Port Functions
 
         /// <summary>
         /// Open serial port. Fixed baud rate 115200
@@ -214,16 +254,7 @@ namespace Synthesizer_PC_control.Model
             { 
                 return false; 
             } 
-        } 
-        
-        /// <summary>
-        /// Use this function to get available ports on your computer
-        /// </summary>
-        public void GetAvaliablePorts() 
-        { 
-            avaliablePorts = SerialPort.GetPortNames(); 
-            UpdateUiElements(); 
-        } 
+        }
 
         /// <summary>
         /// The function retrieves new data from the serial line 
@@ -281,27 +312,8 @@ namespace Synthesizer_PC_control.Model
         {
             if (dontRunHandler) return;    // if disabled return back
             viewHandle.Invoke(new MyDelegate(viewHandle.ProccesReceivedData), e); 
-        } 
+        }
 
-        /// <summary>
-        /// Updates all graphic user elements
-        /// </summary>
-        public void UpdateUiElements() 
-        { 
-            if(IsPortOpen())    // Port is open
-            { 
-                ui_openClosed.Text = "Close Port"; 
-            } 
-            else 
-            { 
-                ui_openClosed.Text = "Open Port"; 
-            } 
-            
-            // check if avaliable ports changed
-            if (!GeneralUtilities.CompareStringArrays((string[])ui_avaliablePorts.DataSource, avaliablePorts))
-                ui_avaliablePorts.DataSource = avaliablePorts;
-
-            ui_avaliablePorts.Text = selectedPort;
-        } 
+        #endregion
     } 
 } 
