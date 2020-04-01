@@ -60,7 +60,7 @@ namespace Synthesizer_PC_control.Model
         private bool dontRunHandler; 
 
         /// <summary>
-        /// Constructor for MySerialPort
+        /// Constructor for work with the serial port.
         /// </summary>
         /// <param name="viewHandle"> view handle for the whole Form1 </param>
         /// <param name="ui_openClosed"> UI button for open/closed port </param>

@@ -74,7 +74,7 @@ namespace Synthesizer_PC_control.Model
         private readonly Label[] ui_memPwrBIndex;
 
         /// <summary>
-        /// Constructor for Memory class
+        /// Constructor for the synthesizer module memory.
         /// </summary>
         /// <param name="registersMemory1"> registers for memory 1 as MyRegister[] </param>
         /// <param name="registersMemory2"> registers for memory 2 as MyRegister[] </param>
@@ -90,7 +90,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Constructor for Memory class
+        /// Constructor for the synthesizer module memory.
         /// </summary>
         /// <param name="view"> handle for all Form1 </param>
         public Memory(Form1 view)

@@ -30,7 +30,7 @@ namespace Synthesizer_PC_control.Model
         private readonly Button ui_intExtRef;
         
         /// <summary>
-        /// Constructor for ModuleControls
+        /// Constructor for the synthesizer module states (outputs, reference signal).
         /// </summary>
         /// <param name="ui_out1OnOff"> UI element for module output 1 button </param>
         /// <param name="ui_out2OnOff"> UI element for module output 2 button </param>

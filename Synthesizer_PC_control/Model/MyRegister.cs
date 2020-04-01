@@ -30,7 +30,7 @@ namespace Synthesizer_PC_control.Model
         private readonly bool updateUI;
 
         /// <summary>
-        /// Constructor for MyRegister, which doesn't have UI element
+        /// Constructor for work with registers, which doesn't have UI element
         /// </summary>
         /// <param name="value"> value of this MyRegister</param>
         public MyRegister(string value)
@@ -40,7 +40,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Constructor for MyRegister, which have UI element
+        /// Constructor for work with sythesizer registers, which have UI element
         /// </summary>
         /// <param name="value"> value of this MyRegister </param>
         /// <param name="uiElement"> Assigned UI element </param>
