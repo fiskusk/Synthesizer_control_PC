@@ -13,20 +13,69 @@ namespace Synthesizer_PC_control.Model
         FRACTIONAL,
         INTEGER
     }
+
+    /// <summary>
+    /// This class is used to handle output frequency controls of the PLO.
+    /// (Int-N, Frac-N, modus, mode, A-divider, Phase setting, Lock-Detect function, 
+    /// automatic computing LD-Function, PLO output B signal path, 
+    /// VCO to Int counter feedback path)
+    /// </summary>
     public class OutFreqControl : I_UiLinked
     {
+        // error messages
         private string wrongLDFncMsg = "Warning: The 'Lock-Detect function' is set to the wrong lock type due to the synthesizer mode set.";
 
+        /// <summary>
+        /// Integer-N value
+        /// </summary>
         private UInt16 intN;
+
+        /// <summary>
+        /// Fractional-N value
+        /// </summary>
         private UInt16 fracN;
+
+        /// <summary>
+        /// modulus value
+        /// </summary>
         private UInt16 mod;
+
+        /// <summary>
+        /// synthesizer mode
+        /// </summary>
         private SynthMode mode;
+
+        /// <summary>
+        /// VCO output to out A-divider value
+        /// </summary>
         private UInt16 aDiv;
+
+        /// <summary>
+        /// phase correction value
+        /// </summary>
         private UInt16 phaseP;
-        private int LDFunction;
+
+        /// <summary>
+        /// Lock-Detect function
+        /// </summary>
+        private int LDFunctionIndex;
+
+        /// <summary>
+        /// auto-computinf LD-function value
+        /// </summary>
         private bool autoLDFunction;
+
+        /// <summary>
+        /// OutB internal path
+        /// </summary>
         private int outBPath;
+
+        /// <summary>
+        /// VCO to N counter internal path
+        /// </summary>
         private int FBPath;
+
+        // hold UI elements for PLO output frequency controls group
         private readonly NumericUpDown ui_intN;
         private readonly NumericUpDown ui_fracN;
         private readonly NumericUpDown ui_mod;
@@ -39,6 +88,23 @@ namespace Synthesizer_PC_control.Model
         private readonly ComboBox ui_outBPath;
         private readonly ComboBox ui_FBPath;
 
+        /// <summary>
+        /// Constructor for operations with output frequency controls of the PLO.
+        /// (Int-N, Frac-N, modus, mode, A-divider, Phase setting, Lock-Detect function, 
+        /// automatic computing LD-Function, PLO output B signal path, 
+        /// VCO to Int counter feedback path)
+        /// </summary>
+        /// <param name="ui_intN"> NumericUpDown UI element for Int-N value </param>
+        /// <param name="ui_fracN"> NumericUpDown UI element for Frac-N value </param>
+        /// <param name="ui_mod"> NumericUpDown UI element for modulus value </param>
+        /// <param name="ui_mode"> ComboBox UI element for synthesizer mode </param>
+        /// <param name="ui_aDiv"> ComboBox UI element for A-divider</param>
+        /// <param name="ui_phaseP"> NumericUpDown UI element for phase correction </param>
+        /// <param name="ui_LDFunction"> ComboBox UI element for Lock-Detect function </param>
+        /// <param name="ui_autoLDFunction"> CheckBox UI element for auto computing LD-function </param>
+        /// <param name="ui_outBPath"> ComboBox UI element for outBpath select </param>
+        /// <param name="ui_LDFunctionLabel"> Label UI element for LD function label</param>
+        /// <param name="ui_FBPath"> ComboBox UI element for VCO to N-counter feedback path </param>
         public OutFreqControl(NumericUpDown ui_intN, NumericUpDown ui_fracN, 
                               NumericUpDown ui_mod, ComboBox ui_mode, 
                               ComboBox ui_aDiv, NumericUpDown ui_phaseP,
@@ -61,11 +127,33 @@ namespace Synthesizer_PC_control.Model
             intN    = 400;
             fracN   = 0;
             mod     = 125;
+        }
 
-            //UpdateUiElements();
+        /// <summary>
+        /// Updates all graphic user elements
+        /// </summary>
+        public void UpdateUiElements()
+        {
+            this.ui_intN.Value  = intN;
+            this.ui_fracN.Value = fracN;
+            this.ui_mod.Value   = mod;
+            this.ui_mode.SelectedIndex = (int)mode;
+            this.ui_aDiv.SelectedIndex = aDiv;
+            this.ui_phaseP.Value = phaseP;
+            this.ui_LDFunction.SelectedIndex = LDFunctionIndex;
+            this.ui_autoLDFunction.Checked = autoLDFunction;
+            this.ui_outBPath.SelectedIndex = outBPath;
+            this.ui_FBPath.SelectedIndex = FBPath;
         }
 
         #region Setters
+
+        /// <summary>
+        /// Function first check if new value is beyond limits. 
+        /// If yes, change it to minimum or maximum. Then set new value
+        /// update UI elements.
+        /// </summary>
+        /// <param name="value"> new UInt16 Int-N value </param>
         public void SetIntNVal(UInt16 value)
         {
             if (intN != value)
@@ -81,6 +169,12 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
+        /// <summary>
+        /// Function first check if new value is beyond limits. 
+        /// If yes, change it to minimum or maximum. Then set new value
+        /// update UI elements.
+        /// </summary>
+        /// <param name="value"> new UInt16 Frac-N value </param>
         public void SetFracNVal(UInt16 value)
         {
             if (fracN != value)
@@ -96,6 +190,12 @@ namespace Synthesizer_PC_control.Model
             }
         }
         
+        /// <summary>
+        /// Function first check if new value is beyond limits. 
+        /// If yes, change it to minimum or maximum. Then set new value, 
+        /// update maximum for Frac-N and update UI elements.
+        /// </summary>
+        /// <param name="value"> new UInt16 Mod value </param>
         public void SetModVal(UInt16 value)
         {
             if (mod != value)
@@ -112,7 +212,13 @@ namespace Synthesizer_PC_control.Model
                 UpdateUiElements();
             }
         }
-
+        
+        /// <summary>
+        /// Function first set new Int-N minimum and maximum limits according to
+        /// PLO mode and if is enabled auto-LD-Function set appropriate value.
+        /// Then set new PLO mode value and update UI elements.
+        /// </summary>
+        /// <param name="value"> new mode (FRACTIONAL/ INTEGER) </param>
         public void SetSynthMode(SynthMode value)
         {
             if (mode != value)
@@ -122,14 +228,14 @@ namespace Synthesizer_PC_control.Model
                     ui_intN.Minimum = 19;
                     ui_intN.Maximum = 4091;
                     if (autoLDFunction)
-                        LDFunction = 0;
+                        LDFunctionIndex = 0;
                 }
                 else
                 {
                     ui_intN.Minimum = 16;
                     ui_intN.Maximum = 65535;
                     if (autoLDFunction)
-                        LDFunction = 1;
+                        LDFunctionIndex = 1;
                 }
 
                 this.mode = value;
@@ -138,6 +244,10 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
+        /// <summary>
+        /// Set new A-divider value
+        /// </summary>
+        /// <param name="value"> UInt16 A-divider value </param>
         public void SetADivVal(UInt16 value)
         {
             if (aDiv != value)
@@ -148,6 +258,11 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
+        /// <summary>
+        /// First check if new value is beyond limit, adjust it if neccessary
+        /// and then set new phase value
+        /// </summary>
+        /// <param name="value"> new UInt16 Phase-P value </param>
         public void SetPPhaseVal(UInt16 value)
         {
             if (phaseP != value)
@@ -163,16 +278,25 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
-        public void SetLDFunction(int value)
+        /// <summary>
+        /// Set new Lock-Detect function index
+        /// </summary>
+        /// <param name="value"> new LD-function index (0 - Frac-N lock detect, 1 - Int-N lock detect) </param>
+        public void SetLDFunctionIndex(int value)
         {
-            if (LDFunction != value)
+            if (LDFunctionIndex != value)
             {
-                this.LDFunction = value;
+                this.LDFunctionIndex = value;
 
                 UpdateUiElements();
             }
         }
 
+        /// <summary>
+        /// Enable/Disable auto computing LD-function. If enabled set 
+        /// appropriate LD-function index value.
+        /// </summary>
+        /// <param name="value"> true - enabled, false - disabled </param>
         public void SetAutoLDFunction(bool value)
         {
             if (autoLDFunction != value)
@@ -182,15 +306,19 @@ namespace Synthesizer_PC_control.Model
                 if (value)
                 {
                     if (mode == SynthMode.FRACTIONAL)
-                        LDFunction = 0;
+                        LDFunctionIndex = 0;
                     else
-                        LDFunction = 1;
+                        LDFunctionIndex = 1;
                 }
 
                 UpdateUiElements();
             }
         }
 
+        /// <summary>
+        /// Set new output B internal path value
+        /// </summary>
+        /// <param name="value"> 0 - Out B from divided VCO output, 1 - Out B from fundamental frequency </param>
         public void SetOutBPath(int value)
         {
             if (outBPath != value)
@@ -201,6 +329,10 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
+        /// <summary>
+        /// Set new VCO to N-counter feedback path
+        /// </summary>
+        /// <param name="value"> 0 - Divided, 1 - Fundamental </param>
         public void SetFBPath(int value)
         {
             if (FBPath != value)
@@ -214,56 +346,100 @@ namespace Synthesizer_PC_control.Model
         #endregion
 
         #region Getters
+        /// <summary>
+        /// Function for get Int-N value
+        /// </summary>
+        /// <returns> UInt16 Int-N value </returns>
         public UInt16 uint16_GetIntNVal()
         {
             return intN;
         }
 
+        /// <summary>
+        /// Function for get Frac-N value
+        /// </summary>
+        /// <returns> UInt16 Frac-N value </returns>
         public UInt16 uint16_GetFracNVal()
         {
             return fracN;
         }
 
+        /// <summary>
+        /// Function for get modus value
+        /// </summary>
+        /// <returns> UInt16 modus value </returns>
         public UInt16 uint16_GetModVal()
         {
             return mod;
         }
 
+        /// <summary>
+        /// Function for get PLO mode value
+        /// </summary>
+        /// <returns> PLO mode </returns>
         public SynthMode GetSynthMode()
         {
             return mode;
         }
 
+        /// <summary>
+        /// Function for get A-divider value
+        /// </summary>
+        /// <returns> UInt16 A-Divider value </returns>
         public UInt16 uint16_GetADivVal()
         {
             return (UInt16)(1 << aDiv);
         }
 
+        /// <summary>
+        /// Function for get A-divider index
+        /// </summary>
+        /// <returns> A-divider index </returns>
         public UInt16 SelectedIndex_GetADivVal()
         {
             return aDiv;
         }
 
+        /// <summary>
+        /// Function for get Phase-P value
+        /// </summary>
+        /// <returns> Phase-P value </returns>
         public UInt16 uint16_GetPhasePVal()
         {
             return phaseP;
         }
 
+        /// <summary>
+        /// Function for get Lock-Detect function index
+        /// </summary>
+        /// <returns> LD-function index (0 - Frac-N lock detect, 1 - Int-N lock detect)</returns>
         public int GetLDFunctionIndex()
         {
-            return LDFunction;
+            return LDFunctionIndex;
         }
 
+        /// <summary>
+        /// Get status auto LD-function computing
+        /// </summary>
+        /// <returns>true - LD-func auto set, false - disabled auto set LD-func </returns>
         public bool GetAutoLDFunctionIsChecked()
         {
             return autoLDFunction;
         }
 
+        /// <summary>
+        /// Get output B internal path
+        /// </summary>
+        /// <returns> 0 - Out B from divided VCO output, 1 - Out B from fundamental frequency </returns>
         public int GetOutBPathIndex()
         {
             return outBPath;
         }
 
+        /// <summary>
+        /// Get VCO to N-counter feedback path
+        /// </summary>
+        /// <returns> 0 - Divided, 1 - Fundamental </returns>
         public int GetFBPathIndex()
         {
             return FBPath;
@@ -271,6 +447,14 @@ namespace Synthesizer_PC_control.Model
 
         #endregion
 
+        #region Other output frequency control functions
+
+        /// <summary>
+        /// Function recalc new Int-N and modus values 
+        /// for reference frequency doubled/divided-by-two. This allows 
+        /// As a result, the output frequency does not change.
+        /// </summary>
+        /// <param name="value"> true - reference doubler activated, false - reference div-by-2 activated </param>
         public void RecalcRegsForNewPfdFreq(bool value)
         {
             if (value == true)
@@ -285,11 +469,17 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
+        /// <summary>
+        /// This function used for check if appropriate mode 
+        /// due to LD-function is selected. If not, print into console error 
+        /// message end set ForeColor to Red.
+        /// </summary>
+        /// <param name="forceApply"> Forced to check settings </param>
         public void CheckIfLDfuncToAppropriateModeIsSellected(bool forceApply)
         {
             if (autoLDFunction == false || forceApply ==  true)
             {
-                if (LDFunction == 0)
+                if (LDFunctionIndex == 0)
                 {
                     if (mode == SynthMode.FRACTIONAL)
                         ui_LDFunctionLabel.ForeColor = Color.Black;
@@ -312,18 +502,6 @@ namespace Synthesizer_PC_control.Model
             }
         }
 
-        public void UpdateUiElements()
-        {
-            this.ui_intN.Value  = intN;
-            this.ui_fracN.Value = fracN;
-            this.ui_mod.Value   = mod;
-            this.ui_mode.SelectedIndex = (int)mode;
-            this.ui_aDiv.SelectedIndex = aDiv;
-            this.ui_phaseP.Value = phaseP;
-            this.ui_LDFunction.SelectedIndex = LDFunction;
-            this.ui_autoLDFunction.Checked = autoLDFunction;
-            this.ui_outBPath.SelectedIndex = outBPath;
-            this.ui_FBPath.SelectedIndex = FBPath;
-        }
+        #endregion
     }
 }
