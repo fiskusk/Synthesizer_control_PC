@@ -39,9 +39,9 @@ namespace Synthesizer_PC_control.Model
         /// Constructor for the synthesizer frequency info. 
         /// (frequency at synthesizer output A and B, VCO)
         /// </summary>
-        /// <param name="ui_fVco"></param>
-        /// <param name="ui_fOutA"></param>
-        /// <param name="ui_fOutB"></param>
+        /// <param name="ui_fVco">Label UI element for frequency at VCO </param>
+        /// <param name="ui_fOutA">Label UI element for frequency at synthesizer output A </param>
+        /// <param name="ui_fOutB">Label UI element for frequency at synthesizer output B </param>
         public SynthFreqInfo(Label ui_fVco, Label ui_fOutA, Label ui_fOutB)
         {
             this.ui_fVco  = ui_fVco;
