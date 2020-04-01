@@ -4,7 +4,10 @@ using System.Drawing;
 using Synthesizer_PC_control.Controllers;
 
 namespace Synthesizer_PC_control.Model
-{
+{   
+    /// <summary>
+    /// Enumerable for synthesizer mode. It can be FRACTIONAL mode or INTEGER mode.
+    /// </summary>
     public enum SynthMode
     {
         FRACTIONAL,
