@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Synthesizer_PC_control.Utilities
 {
+    /// <summary>
+    /// General purpose utilities. It contains functions for searching 
+    /// a text string in a string array and function for comparing two string fields
+    /// </summary>
     static class GeneralUtilities
     {
         /// <summary>
