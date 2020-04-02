@@ -115,6 +115,7 @@ namespace Synthesizer_PC_control.Controllers
                                                           view.OutAPwr_ComboBox,
                                                           view.OutBPwr_ComboBox);
 
+            // create model of charge pump controls
             chargePump = new ChargePump(view.RSetTextBox,
                                         view.CPCurrentComboBox,
                                         view.CPLinearityComboBox,
