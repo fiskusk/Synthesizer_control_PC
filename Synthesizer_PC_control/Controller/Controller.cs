@@ -138,7 +138,7 @@ namespace Synthesizer_PC_control.Controllers
                                                   view.IntNAutoModeWhenF0CheckBox,
                                                   view.RandNCountersResetCheckBox);
 
-            // 
+            // create model of shudown controls
             shutdowns = new Shutdowns(view.PloPowerDownCheckBox,
                                       view.RefInputShutdownCheckBox,
                                       view.PllShutDownCheckBox,
