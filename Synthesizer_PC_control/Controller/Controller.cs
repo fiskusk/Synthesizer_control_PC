@@ -132,11 +132,13 @@ namespace Synthesizer_PC_control.Controllers
                                               view.LDPrecisionComboBox,
                                               view.PfdPolarity);
 
+            // create model of generic controls
             genericControls = new GenericControls(view.MuxPinModeCombobox,
                                                   view.Reg4DoubleBufferedCheckBox,
                                                   view.IntNAutoModeWhenF0CheckBox,
                                                   view.RandNCountersResetCheckBox);
 
+            // 
             shutdowns = new Shutdowns(view.PloPowerDownCheckBox,
                                       view.RefInputShutdownCheckBox,
                                       view.PllShutDownCheckBox,
