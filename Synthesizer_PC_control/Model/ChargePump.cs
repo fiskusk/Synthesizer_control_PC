@@ -78,7 +78,7 @@ namespace Synthesizer_PC_control.Model
         /// </summary>
         private bool disableHandler = false;
 
-        // hold UI elements for direct frequency controls group
+        // hold UI elements for charge pump controls group
         private readonly TextBox ui_Rset;
         private readonly ComboBox ui_Current;
         private readonly ComboBox ui_Linearity;
