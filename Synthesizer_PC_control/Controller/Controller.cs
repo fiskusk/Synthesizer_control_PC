@@ -127,6 +127,7 @@ namespace Synthesizer_PC_control.Controllers
                                         view.CPLinearityLabel,
                                         view.PhaseAdjustmentModeCheckbox);
 
+            // create model of phase detector controls
             phaseDetector = new PhaseDetector(view.SigmaDeltaNoiseModeComboBox,
                                               view.LDPrecisionComboBox,
                                               view.PfdPolarity);
@@ -735,7 +736,7 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SetDisableSending(true, 27);
 
                 registers[2].SetResetOneBit(7, (BitState)value);
-                phaseDetector.SetPrecision(value);
+                phaseDetector.SetPrecisionIndex(value);
 
                 serialPort.SetDisableSending(false, 27);
                 if (serialPort.GetDisableSending() == false)
@@ -1164,7 +1165,7 @@ namespace Synthesizer_PC_control.Controllers
         private void GetPrecisionFromRegister(UInt32 dataReg2)
         {
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 7);
-            phaseDetector.SetPrecision(index);
+            phaseDetector.SetPrecisionIndex(index);
         }
 
         private void GetPfdPositionFromRegister(UInt32 dataReg2)
