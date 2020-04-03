@@ -123,7 +123,12 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set power at synthesizer output A
         /// </summary>
-        /// <param name="value"> index value (0 is -4dBm, 1 is -1dBm, 2 is +2dBm, 3 is +5dBm) </param>
+        /// <param name="value"> 
+        ///     0 is -4dBm, 
+        ///     1 is -1dBm, 
+        ///     2 is +2dBm, 
+        ///     3 is +5dBm
+        /// </param>
         public void SetOutAPwr(int value)
         {
             if (this.outAPwrIndex != value)
@@ -138,10 +143,14 @@ namespace Synthesizer_PC_control.Model
         /// This function set power at synthesizer output B.
         /// If set 3, will be set current value at model and print error msg into console
         /// </summary>
-        /// <param name="value"> index value 
-        /// (0 is -4dBm, 1 is -1dBm, 2 is +2dBm, 3 is +5dBm 
-        /// [last value is not possible, because maximum power at frequency 
-        /// doubler connected at output B is +3dBm]) 
+        /// <param name="value"> 
+        ///     index value 
+        ///     0 is -4dBm, 
+        ///     1 is -1dBm, 
+        ///     2 is +2dBm, 
+        ///     3 is +5dBm 
+        ///     [last value is not possible, because maximum power at frequency 
+        ///     doubler connected at output B is +3dBm]) 
         /// </param>
         /// <returns> success of operation </returns>
         public bool SetOutBPwr(int value)

@@ -48,6 +48,9 @@ namespace Synthesizer_PC_control.Model
             UpdateUiElements();
         }
 
+        /// <summary>
+        /// hold UI elements for module controls group
+        /// </summary>
         public void UpdateUiElements() 
         { 
             if(out1State)    // Out 1 is active
@@ -98,7 +101,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function get synthesizer module output 1 state
         /// </summary>
-        /// <returns> true - active, false - disabled </returns>
+        /// <returns> 
+        ///     true - active, 
+        ///     false - disabled 
+        /// </returns>
         public bool GetOut1State()
         {
             return out1State;
@@ -107,7 +113,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function get synthesizer module output 2 state
         /// </summary>
-        /// <returns> true - active, false - disabled </returns>
+        /// <returns> 
+        ///     true - active, 
+        ///     false - disabled 
+        /// </returns>
         public bool GetOut2State()
         {
             return out2State;
@@ -116,7 +125,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function get synthesizer module internal reference state
         /// </summary>
-        /// <returns> true - internal, false - external </returns>
+        /// <returns> 
+        ///     true - internal, 
+        ///     false - external 
+        /// </returns>
         public bool GetIntRefState()
         {
             return intRefState;
@@ -129,7 +141,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Use this function to set synth. output 1
         /// </summary>
-        /// <param name="value"> true - enable, false - disable </param>
+        /// <param name="value"> 
+        ///     true - enable, 
+        ///     false - disable 
+        /// </param>
         public void SetOut1(bool value)
         {
             if (out1State != value)
@@ -143,7 +158,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Use this function to set synth. output 2
         /// </summary>
-        /// <param name="value"> true - enable, false - disable </param>
+        /// <param name="value"> 
+        ///     true - enable, 
+        ///     false - disable 
+        /// </param>
         public void SetOut2(bool value)
         {
             if (out2State != value)
@@ -157,7 +175,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Use this function to set synth. signal reference
         /// </summary>
-        /// <param name="value"> true - internal, false - external </param>
+        /// <param name="value"> 
+        ///     true - internal, 
+        ///     false - external 
+        /// </param>
         public void SetIntRef(bool value)
         {
             if (intRefState != value)

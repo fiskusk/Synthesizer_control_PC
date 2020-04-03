@@ -223,7 +223,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Set reference frequency doubler state, check limits a then recalc PFD freq.
         /// </summary>
-        /// <param name="value">true - doubler active, false - doubler disabled </param>
+        /// <param name="value">
+        ///     true - doubler active, 
+        ///     false - doubler disabled 
+        /// </param>
         public void SetRefDoubler(bool value)
         {
             if (value != isDoubled)
@@ -258,7 +261,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Set reference frequency divider by two and recalc PFD frequency
         /// </summary>
-        /// <param name="value">true - divider by two enabled, false - disabled </param>
+        /// <param name="value">
+        ///     true - divider by two enabled, 
+        ///     false - disabled 
+        /// </param>
         public void SetRefDivBy2(bool value)
         {
             if (isDivBy2 != value)
@@ -298,7 +304,11 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Set Lock-Detect speed adjustment index and check if setting is correct
         /// </summary>
-        /// <param name="value"> Lock-Detect speed adjustment (0 - PFD freq > 32, 1 - PFD freq <= 32)</param>
+        /// <param name="value"> 
+        ///     Lock-Detect speed adjustment 
+        ///     0 - PFD freq > 32, 
+        ///     1 - PFD freq <= 32
+        /// </param>
         public void SetLDSpeedAdjIndex(int value)
         {
             if (LDSpeedAdjIndex != value)
@@ -337,7 +347,10 @@ namespace Synthesizer_PC_control.Model
         /// It enable/disable auto calculating correct LD speed adj index.
         /// If it enabled, set correct LD speed and update UI elements.
         /// </summary>
-        /// <param name="value"> true - enabled, false - disabled </param>
+        /// <param name="value"> 
+        ///     true - enabled, 
+        ///     false - disabled 
+        /// </param>
         public void SetAutoLDSpeedAdj(bool value)
         {
             if (autoLdSpeedAdj != value)
@@ -360,7 +373,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// It set whether internal reference is active or is active external
         /// </summary>
-        /// <param name="state"> true - internal, false - external </param>
+        /// <param name="state"> 
+        ///     true - internal, 
+        ///     false - external 
+        /// </param>
         public void SetIntRefInpEnabled(bool state)
         {
             this.intRefState = state;
@@ -393,7 +409,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Get state if reference frequency is doubled or not
         /// </summary>
-        /// <returns> true - doubler enabled, false - doubler disabled </returns>
+        /// <returns> 
+        ///     true - doubler enabled, 
+        ///     false - doubler disabled
+        /// </returns>
         public bool GetIsDoubled()
         {
             return this.isDoubled;
@@ -402,7 +421,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         ///  Get state if reference frequency is divided by two or not
         /// </summary>
-        /// <returns> true - divided by two enabled, false - disabled </returns>
+        /// <returns> 
+        ///     true - divided by two enabled, 
+        ///     false - disabled 
+        /// </returns>
         public bool GetIsDividedBy2()
         {
             return this.isDivBy2;
@@ -429,7 +451,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Get state if auto LD-speed computing is enabled, or disabled
         /// </summary>
-        /// <returns> true - compute LD-speed automaticaly, false - user manual mode </returns>
+        /// <returns> 
+        ///     true - compute LD-speed automaticaly, 
+        ///     false - user manual mode 
+        /// </returns>
         public bool bool_GetAutoLdSpeedAdj()
         {
             return this.autoLdSpeedAdj;

@@ -64,14 +64,14 @@ namespace Synthesizer_PC_control.Model
         /// (direct frequency input, delta frequency, calculated frequency, 
         /// frequency and enabled state of output 1 and 2, internal or external ref state) 
         /// </summary>
-        /// <param name="ui_directFreqInput">TextBox UI element for direct frequency input </param>
-        /// <param name="ui_deltaFreqLabel">Label UI element for delta frequency value </param>
-        /// <param name="ui_calcFreq">Label UI element for calculated frequency valu e</param>
-        /// <param name="ui_freqAtOut1">Label UI element for frequency at output 1 </param>
-        /// <param name="ui_freqAtOut2">Label UI element for frequency at output 2 </param>
-        /// <param name="ui_activeOut1">Label UI element for state if output 1 is active </param>
-        /// <param name="ui_activeOut2">Label UI element for state if output 1 is active </param>
-        /// <param name="ui_intRefState">Label UI element for internal or external reference state </param>
+        /// <param name="ui_directFreqInput"> TextBox UI element for direct frequency input </param>
+        /// <param name="ui_deltaFreqLabel"> Label UI element for delta frequency value </param>
+        /// <param name="ui_calcFreq"> Label UI element for calculated frequency valu e</param>
+        /// <param name="ui_freqAtOut1"> Label UI element for frequency at output 1 </param>
+        /// <param name="ui_freqAtOut2"> Label UI element for frequency at output 2 </param>
+        /// <param name="ui_activeOut1"> Label UI element for state if output 1 is active </param>
+        /// <param name="ui_activeOut2"> Label UI element for state if output 1 is active </param>
+        /// <param name="ui_intRefState"> Label UI element for internal or external reference state </param>
         public DirectFreqControl(TextBox ui_directFreqInput, Label ui_deltaFreqLabel,
                                  Label ui_calcFreq, Label ui_freqAtOut1, 
                                  Label ui_freqAtOut2, Label ui_activeOut1, 
@@ -254,7 +254,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set if synthesizer module output 1 is active or not
         /// </summary>
-        /// <param name="value"> state of synth. module output 1 (0 - output disabled, 1 - output enabled) </param>
+        /// <param name="value"> 
+        ///     0 - output disabled, 
+        ///     1 - output enabled 
+        /// </param>
         public void SetActiveOut1(bool value)
         {
             this.activeOut1 = value;
@@ -265,7 +268,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set if synthesizer module output 2 is active or not
         /// </summary>
-        /// <param name="value"> state of synth. module output 2 (0 - output disabled, 1 - output enabled) </param>
+        /// <param name="value"> 
+        ///     0 - output disabled, 
+        ///     1 - output enabled
+        /// </param>
         public void SetActiveOut2(bool value)
         {
             this.activeOut2 = value;
@@ -277,7 +283,10 @@ namespace Synthesizer_PC_control.Model
         /// This function set state if synthesizer module has sellected 
         /// internal or external reference
         /// </summary>
-        /// <param name="value"> 0 - external reference, 1 - internal reference </param>
+        /// <param name="value">
+        ///     0 - external reference, 
+        ///     1 - internal reference 
+        /// </param>
         public void SetIntRefState(bool value)
         {
             this.intRefState = value;

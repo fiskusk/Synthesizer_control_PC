@@ -330,7 +330,10 @@ namespace Synthesizer_PC_control.Model
         /// This function return if specific memory have active output 1
         /// </summary>
         /// <param name="memory"> memory number (1-4) </param>
-        /// <returns> true if enabled, false if disabled </returns>
+        /// <returns> 
+        ///     true if enabled, 
+        ///     false if disabled 
+        /// </returns>
         public bool GetMemOut1State(int memory)
         {
             return memActiveOut1[--memory];
@@ -340,7 +343,10 @@ namespace Synthesizer_PC_control.Model
         /// This function return if specific memory have active output 2
         /// </summary>
         /// <param name="memory"> memory number (1-4) </param>
-        /// <returns> true if enabled, false if disabled </returns>
+        /// <returns> 
+        ///     true if enabled, 
+        ///     false if disabled 
+        /// </returns>
         public bool GetMemOut2State(int memory)
         {
             return memActiveOut2[--memory];
@@ -350,7 +356,10 @@ namespace Synthesizer_PC_control.Model
         /// This function return if specific memory have active internal reference or external 
         /// </summary>
         /// <param name="memory"> memory number (1-4) </param>
-        /// <returns> true - internal reference, false - external reference </returns>
+        /// <returns> 
+        ///     true - internal reference, 
+        ///     false - external reference 
+        /// </returns>
         public bool GetIntRefState(int memory)
         {
             return memIntRefState[--memory];
@@ -363,7 +372,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set state of active output 1 for specific memory 
         /// </summary>
-        /// <param name="state"> true if enabled, false if disabled </param>
+        /// <param name="state"> 
+        ///     true if enabled, 
+        ///     false if disabled 
+        /// </param>
         /// <param name="memory"> specific memory number (1-4) </param>
         public void SetMemOut1State(bool state, int memory)
         {
@@ -378,7 +390,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set state of active output 2 for specific memory 
         /// </summary>
-        /// <param name="state"> true if enabled, false if disabled </param>
+        /// <param name="state"> 
+        ///     true if enabled, 
+        ///     false if disabled 
+        /// </param>
         /// <param name="memory"> specific memory number (1-4) </param>
         public void SetMemOut2State(bool state, int memory)
         {
@@ -393,7 +408,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set internal reference state for specific memory 
         /// </summary>
-        /// <param name="state"> true if internal, false if external </param>
+        /// <param name="state"> 
+        ///     true if internal, 
+        ///     false if external 
+        /// </param>
         /// <param name="memory"> specific memory number (1-4) </param>
         public void SetMemIntRefState(bool state, int memory)
         {
@@ -440,12 +458,13 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set index of power at synthesizer output A for specific memory 
         /// </summary>
-        /// <param name="value"> index of power 
-        /// ('0' for "-4dBm", 
-        ///  '1' for "-1dBm", 
-        ///  '2' for "+2dBm", 
-        ///  '3' for "+5dBm", 
-        ///  otherwise "Disabled" )
+        /// <param name="value"> 
+        ///     index of power 
+        ///     ('0' for "-4dBm", 
+        ///     '1' for "-1dBm", 
+        ///     '2' for "+2dBm", 
+        ///     '3' for "+5dBm", 
+        ///     otherwise "Disabled" )
         /// </param>
         /// <param name="memoryNumber"> specific memory number (1-4) </param>
         public void SetMemPwrAIndex(int value, UInt16 memoryNumber)
@@ -462,12 +481,13 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set index of power at synthesizer output B for specific memory 
         /// </summary>
-        /// <param name="value"> index of power 
-        /// ('0' for "-4dBm", 
-        ///  '1' for "-1dBm", 
-        ///  '2' for "+2dBm", 
-        ///  '3' for "!!!+5dBm!!!" [this value is disabled, because freq doubler allow max +3dBm at his input],
-        ///  otherwise "Disabled" )
+        /// <param name="value"> 
+        ///     index of power 
+        ///     ('0' for "-4dBm", 
+        ///     '1' for "-1dBm", 
+        ///     '2' for "+2dBm", 
+        ///     '3' for "!!!+5dBm!!!" [this value is disabled, because freq doubler allow max +3dBm at his input],
+        ///     otherwise "Disabled" )
         /// </param>
         /// <param name="memoryNumber"> specific memory number (1-4) </param>
         public void SetMemPwrBIndex(int value, UInt16 memoryNumber)

@@ -58,7 +58,11 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set phase detector noise mode index
         /// </summary>
-        /// <param name="value"> 0 - Low-Noise mode, 2 - Low-spur mode 1, 3 - Low-spur mode 2 </param>
+        /// <param name="value"> 
+        ///     0 - Low-Noise mode, 
+        ///     2 - Low-spur mode 1, 
+        ///     3 - Low-spur mode 2 
+        /// </param>
         public void SetNoiseMode(int value)
         {
             this.noiseModeIndex = value;
@@ -69,7 +73,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set phase detector precision
         /// </summary>
-        /// <param name="value"> 0 - 10ns, 1 - 6ns </param>
+        /// <param name="value"> 
+        ///     0 - 10ns, 
+        ///     1 - 6ns
+        /// </param>
         public void SetPrecisionIndex(int value)
         {
             this.precisionIndex = value;
@@ -80,7 +87,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set PFD polarity
         /// </summary>
-        /// <param name="value"> 0 - negative, 1 - positive (default) </param>
+        /// <param name="value"> 
+        ///     0 - negative, 
+        ///     1 - positive (default) 
+        /// </param>
         public void SetPfdPolarity(int value)
         {
             this.pfdPolarity = value;

@@ -281,7 +281,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Set new Lock-Detect function index
         /// </summary>
-        /// <param name="value"> new LD-function index (0 - Frac-N lock detect, 1 - Int-N lock detect) </param>
+        /// <param name="value"> 
+        ///     0 - Frac-N lock detect, 
+        ///     1 - Int-N lock detect 
+        /// </param>
         public void SetLDFunctionIndex(int value)
         {
             if (LDFunctionIndex != value)
@@ -296,7 +299,10 @@ namespace Synthesizer_PC_control.Model
         /// Enable/Disable auto computing LD-function. If enabled set 
         /// appropriate LD-function index value.
         /// </summary>
-        /// <param name="value"> true - enabled, false - disabled </param>
+        /// <param name="value"> 
+        ///     true - enabled, 
+        ///     false - disabled 
+        /// </param>
         public void SetAutoLDFunction(bool value)
         {
             if (autoLDFunction != value)
@@ -318,7 +324,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Set new output B internal path value
         /// </summary>
-        /// <param name="value"> 0 - Out B from divided VCO output, 1 - Out B from fundamental frequency </param>
+        /// <param name="value"> 
+        ///     0 - Out B from divided VCO output, 
+        ///     1 - Out B from fundamental frequency 
+        /// </param>
         public void SetOutBPath(int value)
         {
             if (outBPath != value)
@@ -332,7 +341,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Set new VCO to N-counter feedback path
         /// </summary>
-        /// <param name="value"> 0 - Divided, 1 - Fundamental </param>
+        /// <param name="value"> 
+        ///     0 - Divided, 
+        ///     1 - Fundamental 
+        /// </param>
         public void SetFBPath(int value)
         {
             if (FBPath != value)
@@ -412,7 +424,11 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Function for get Lock-Detect function index
         /// </summary>
-        /// <returns> LD-function index (0 - Frac-N lock detect, 1 - Int-N lock detect)</returns>
+        /// <returns> 
+        ///     LD-function index 
+        ///     0 - Frac-N lock detect, 
+        ///     1 - Int-N lock detect
+        /// </returns>
         public int GetLDFunctionIndex()
         {
             return LDFunctionIndex;
@@ -421,7 +437,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Get status auto LD-function computing
         /// </summary>
-        /// <returns>true - LD-func auto set, false - disabled auto set LD-func </returns>
+        /// <returns> 
+        ///     true - LD-func auto set, 
+        ///     false - disabled auto set LD-func 
+        /// </returns>
         public bool GetAutoLDFunctionIsChecked()
         {
             return autoLDFunction;
@@ -430,7 +449,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Get output B internal path
         /// </summary>
-        /// <returns> 0 - Out B from divided VCO output, 1 - Out B from fundamental frequency </returns>
+        /// <returns> 
+        ///     0 - Out B from divided VCO output, 
+        ///     1 - Out B from fundamental frequency 
+        /// </returns>
         public int GetOutBPathIndex()
         {
             return outBPath;
@@ -439,7 +461,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Get VCO to N-counter feedback path
         /// </summary>
-        /// <returns> 0 - Divided, 1 - Fundamental </returns>
+        /// <returns> 
+        ///     0 - Divided, 
+        ///     1 - Fundamental 
+        /// </returns>
         public int GetFBPathIndex()
         {
             return FBPath;
@@ -454,7 +479,10 @@ namespace Synthesizer_PC_control.Model
         /// for reference frequency doubled/divided-by-two. This allows 
         /// As a result, the output frequency does not change.
         /// </summary>
-        /// <param name="value"> true - reference doubler activated, false - reference div-by-2 activated </param>
+        /// <param name="value"> 
+        ///     true - reference doubler activated, 
+        ///     false - reference div-by-2 activated 
+        /// </param>
         public void RecalcRegsForNewPfdFreq(bool value)
         {
             if (value == true)

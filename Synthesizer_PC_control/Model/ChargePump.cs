@@ -1,7 +1,6 @@
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Drawing;
 
 using Synthesizer_PC_control.Controllers;
 
@@ -202,7 +201,8 @@ namespace Synthesizer_PC_control.Model
         /// it must be 0. For Fractional-N it can be 1-3. This function autoset
         /// correct value.
         /// </summary>
-        /// <param name="value"> index of charge pump linearity. 
+        /// <param name="value"> 
+        ///     index of charge pump linearity. 
         ///     0 - Disables the CP linearity mode (integer-N mode),
         ///     1 - CP linearity 10% mode (frac-N mode),
         ///     2 - CP linearity 20% mode (frac-N mode),
@@ -233,7 +233,8 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function force set linearity index
         /// </summary>
-        /// <param name="value"> index of charge pump linearity. 
+        /// <param name="value"> 
+        ///     index of charge pump linearity. 
         ///     0 - Disables the CP linearity mode (integer-N mode),
         ///     1 - CP linearity 10% mode (frac-N mode),
         ///     2 - CP linearity 20% mode (frac-N mode),
@@ -252,7 +253,8 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set charge pump test mode index
         /// </summary>
-        /// <param name="value"> charge pump test mode index 
+        /// <param name="value"> 
+        ///     charge pump test mode index 
         ///     0 - normal mode,
         ///     1 - Long Reset mode,
         ///     2 - Force CP into source mode,
@@ -272,7 +274,10 @@ namespace Synthesizer_PC_control.Model
         /// This function control fast lock mode. If enabled, current index is set 
         /// to minimum value (zero) and phase Adjustment is disabled
         /// </summary>
-        /// <param name="value"> true - fast lock enabled, false - fast lock disabled </param>
+        /// <param name="value"> 
+        ///     true - fast lock enabled, 
+        ///     false - fast lock disabled 
+        /// </param>
         public void SetFastLockMode(bool value)
         {
             if (fastLockEnabled != value)
@@ -295,7 +300,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set phase adjustment mode
         /// </summary>
-        /// <param name="value"> true - enabled, false - disabled </param>
+        /// <param name="value"> 
+        ///     true - enabled,
+        ///     false - disabled 
+        /// </param>
         public void SetPhaseAdjustmentMode(bool value)
         {
             if (phaseAdjustmentEnabled != value)
@@ -315,7 +323,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set cycle slip mode. If true, current index set to zero.
         /// </summary>
-        /// <param name="value"> true - enabled, false - disabled </param>
+        /// <param name="value"> 
+        ///     true - enabled, 
+        ///     false - disabled 
+        /// </param>
         public void SetCycleSlipMode(bool value)
         {
             if (cycleSlipReductEnabled != value)
@@ -334,7 +345,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function set charge pump tri-state mode
         /// </summary>
-        /// <param name="value"> true - enabled, false - disabled </param>
+        /// <param name="value"> 
+        ///     true - enabled, 
+        ///     false - disabled 
+        /// </param>
         public void SetTriStateMode(bool value)
         {
             if (triStateEnabled != value)
@@ -351,7 +365,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function get if current combobox is Filed
         /// </summary>
-        /// <returns> true - combobox is filed, false - combobox isn't filled </returns>
+        /// <returns> 
+        ///     true - combobox is filed, 
+        ///     false - combobox isn't filled 
+        /// </returns>
         public bool isCurrentComboboxFilled()
         {
             return isFillCurrentCombobox;
@@ -369,7 +386,10 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// This function get if execution is enabled or disabled
         /// </summary>
-        /// <returns> true - excecution disabled, false - excecution enabled </returns>
+        /// <returns> 
+        ///     true - excecution disabled, 
+        ///     false - excecution enabled 
+        /// </returns>
         public bool GetDisableHandler()
         {
             return disableHandler;
