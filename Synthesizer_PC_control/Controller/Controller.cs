@@ -138,7 +138,7 @@ namespace Synthesizer_PC_control.Controllers
                                                   view.IntNAutoModeWhenF0CheckBox,
                                                   view.RandNCountersResetCheckBox);
 
-            // create model of shudown controls
+            // create model of shutdown controls
             shutdowns = new Shutdowns(view.PloPowerDownCheckBox,
                                       view.RefInputShutdownCheckBox,
                                       view.PllShutDownCheckBox,
@@ -146,6 +146,7 @@ namespace Synthesizer_PC_control.Controllers
                                       view.VcoLdoShutDownCheckBox, 
                                       view.VcoShutDownCheckBox);
 
+            // create model of VCO controls
             vcoControls = new VcoControls(view.AutoVcoSelectionCheckBox,
                                           view.VASTempCompCheckBox,
                                           view.MuteUntilLockDetectCheckBox,
@@ -841,7 +842,7 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SetDisableSending(true, 44);
 
                 registers[4].SetResetOneBit(10, (BitState)Convert.ToUInt16(value));
-                vcoControls.SetMuteUntilLockDetectState(value);
+                vcoControls.SetMuteUntilLockDetectMode(value);
 
                 serialPort.SetDisableSending(false, 44);
                 if (serialPort.GetDisableSending() == false)
@@ -1326,7 +1327,7 @@ namespace Synthesizer_PC_control.Controllers
         private void GetMuteUntilLockDetectStateFromRegister(UInt32 dataReg4)
         {
             bool mtld = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 10));
-            vcoControls.SetMuteUntilLockDetectState(mtld);
+            vcoControls.SetMuteUntilLockDetectMode(mtld);
         }
 
         public void GetBandSelClockDivValueFromRegister(UInt32 dataReg4)
