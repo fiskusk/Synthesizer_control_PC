@@ -52,7 +52,7 @@ namespace Synthesizer_PC_control.Utilities
         /// <summary>
         /// Get file name path for save using basic Windows Forms dialog
         /// </summary>
-        /// <param name="fileNamePath"> output file name path</param>
+        /// <param name="fileNamePath"> output file name path </param>
         /// <returns> success of operation </returns>
         public static bool SaveFile(out string fileNamePath)
         {
