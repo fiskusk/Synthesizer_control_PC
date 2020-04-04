@@ -9,7 +9,7 @@ using Synthesizer_PC_control.Model;
 namespace Synthesizer_PC_control.Controllers
 {
     /// <summary>
-    /// Console object, holding a lick to Ui. Uses Singleton pattern.
+    /// Console object, holding a link to Ui. Uses Singleton pattern.
     /// </summary>
     class ConsoleController : I_UiLinked
     {
@@ -21,12 +21,21 @@ namespace Synthesizer_PC_control.Controllers
             public readonly DateTime logTime;   // Logged time.
             public readonly string logText;     // logged text.
 
-            ///Constructors (default time is Time.Now)
+            /// <summary>
+            /// Constructor (default time is Time.Now)
+            /// </summary>
+            /// <param name="logText"> logged text </param>
             public LogItem(string logText)
             {
                 this.logTime = DateTime.Now;
                 this.logText = logText;
             }
+
+            /// <summary>
+            /// constructor with adjustable time
+            /// </summary>
+            /// <param name="logTime"> Logged time </param>
+            /// <param name="logText"> logged text </param>
             public LogItem(DateTime logTime, string logText)
             {
                 this.logTime = logTime;
@@ -36,7 +45,7 @@ namespace Synthesizer_PC_control.Controllers
             /// <summary>
             /// To String override.
             /// </summary>
-            /// <returns>Formatted logged time and text.</returns>
+            /// <returns> Formatted logged time and text. </returns>
             public override string ToString()
             {
                 string formatted = logTime.ToString("HH:mm:ss: ") + logText;
@@ -110,8 +119,11 @@ namespace Synthesizer_PC_control.Controllers
         /// <summary>
         /// Stores text and writes it to ui.
         /// Usage: ConsoleController.Console().Write("text");
+        /// If the text starts with "Warning:", this beginning will be highlighted 
+        /// by red bold text in the console. Other texts will be printed 
+        /// as normal text (black regular text).
         /// </summary>
-        /// <param name="message">Text to write.</param>
+        /// <param name="message"> Text to write. </param>
         public void Write(string message)
         {
             var item = new LogItem(message);
@@ -122,8 +134,9 @@ namespace Synthesizer_PC_control.Controllers
 
             //uiElement.AppendText(Environment.NewLine + item.ToString());
 
-            if(item.logText.Contains("Warning:"))
+            if(item.logText.Contains("Warning:")) 
             {                
+                // this print red highlighted time: Warning: and residue normal black
                 AppendFormattedText(uiElement, item.logTime.ToString("HH:mm:ss: ") , Color.Red, true, HorizontalAlignment.Left);
                 AppendFormattedText(uiElement, "Warning: ", Color.Red, true, HorizontalAlignment.Left);
                 string text = item.logText.Replace("Warning: ", string.Empty);
@@ -131,14 +144,25 @@ namespace Synthesizer_PC_control.Controllers
             }
             else
             {
+                // normal format print
                 AppendFormattedText(uiElement, item.logTime.ToString("HH:mm:ss: ") , Color.Black, true, HorizontalAlignment.Left);
                 AppendFormattedText(uiElement, item.logText , Color.Black, false, HorizontalAlignment.Left);
             }
 
-            uiElement.AppendText("\r\n");
+            uiElement.AppendText("\r\n"); // terminate by CR+LF 
 
         }
 
+        /// <summary>
+        /// This code is inspirated here:<br/>
+        /// https://stackoverflow.com/questions/22321456/how-to-append-rtf-text-in-richtextbox-win-c-sharp/25694247#25694247
+        /// Append formatted text to a Rich Text Box control
+        /// </summary>
+        /// <param name="rtb"> Rich Text Box to which horizontal bar is to be added </param>
+        /// <param name="text"> Text to be appended to Rich Text Box </param>
+        /// <param name="textColour"> Colour of text to be appended </param>
+        /// <param name="isBold"> Flag indicating whether appended text is bold </param>
+        /// <param name="alignment"> Horizontal alignment of appended text </param>
         private void AppendFormattedText(RichTextBox rtb, string text, Color textColour, Boolean isBold, HorizontalAlignment alignment)
         {
             int start = rtb.TextLength;

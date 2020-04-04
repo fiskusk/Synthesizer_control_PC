@@ -159,6 +159,7 @@ namespace Synthesizer_PC_control.Controllers
                                             view.ReadedADCValueTextBox,
                                             view.ADCModeComboBox);
 
+            // intialize console with RichTextBox 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
 
