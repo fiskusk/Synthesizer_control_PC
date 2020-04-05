@@ -14,7 +14,7 @@ namespace Synthesizer_PC_control.Utilities
         public DataType dataType { get; set; }
 
         /// <summary>
-        /// Holds register 0-5 values
+        /// Holds PLO register 0-5 values
         /// </summary>
         public IList<string> Registers { get; set; }
 
@@ -46,7 +46,6 @@ namespace Synthesizer_PC_control.Utilities
         /// <summary>
         /// It hold if was sellected Internal reference (true) or External (false)
         /// </summary>
-        /// <value></value>
         public bool IntRef { get; set; }
         
         /// <summary>
