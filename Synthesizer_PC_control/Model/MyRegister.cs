@@ -101,23 +101,31 @@ namespace Synthesizer_PC_control.Model
             {
                 if (updateUI) // if value has UI element, check that the registry address is set correctly
                 {
-                    // get uiElementName and parse only numbers
-                    string sender = string.Join("", uiElement.Name.ToCharArray().Where(Char.IsDigit));
-                    // now get first number and store it as register number
-                    int regNumber = int.Parse(Convert.ToString(sender[0]));
-                    // convert the input string to uint32 number
-                    UInt32 uint32_inputValue = UInt32.Parse(value, System.Globalization.NumberStyles.HexNumber);
-
-                    // get current address from input value and parse it as UInt32 number
-                    UInt32 correctedAddress = uint32_inputValue;
-                    // Now set the correct address from the previously obtained registration number
-                    correctedAddress = BitOperations.ChangeNBits(correctedAddress, (UInt32)regNumber, 3, 0);
-
-                    // Now find out if the corrected value differs from the input value and write error message.
-                    if ( correctedAddress != uint32_inputValue )
+                    try
                     {
-                        value = Convert.ToString(correctedAddress, 16);
-                        ConsoleController.Console().Write(badAddressMsg);
+                        // get uiElementName and parse only numbers
+                        string sender = string.Join("", uiElement.Name.ToCharArray().Where(Char.IsDigit));
+                        // now get first number and store it as register number
+                        int regNumber = int.Parse(Convert.ToString(sender[0]));
+                        // convert the input string to uint32 number
+                        UInt32 uint32_inputValue = UInt32.Parse(value, System.Globalization.NumberStyles.HexNumber);
+
+                        // get current address from input value and parse it as UInt32 number
+                        UInt32 correctedAddress = uint32_inputValue;
+                        // Now set the correct address from the previously obtained registration number
+                        correctedAddress = BitOperations.ChangeNBits(correctedAddress, (UInt32)regNumber, 3, 0);
+
+                        // Now find out if the corrected value differs from the input value and write error message.
+                        if ( correctedAddress != uint32_inputValue )
+                        {
+                            value = Convert.ToString(correctedAddress, 16);
+                            ConsoleController.Console().Write(badAddressMsg);
+                        }
+                    }
+                    catch
+                    {
+                        value = this.value;
+                        ConsoleController.Console().Write("bad value");
                     }
                 }
                 this.value = value;
