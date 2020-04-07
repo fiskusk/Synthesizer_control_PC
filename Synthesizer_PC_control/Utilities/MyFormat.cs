@@ -3,22 +3,53 @@ using System.Windows.Forms;
 
 namespace Synthesizer_PC_control
 {
+    /// <summary>
+    /// My formating utilities. 
+    /// 
+    /// It contains functions for checking hexadecimal 
+    /// or integer characters from keyboard input. Another function is checking
+    /// and formatted print in the following format '12345.125 214'. 
+    /// 
+    /// Functions that add or subtract one by the direction of the mouse wheel or 
+    /// the up / down arrow. Other functions add / subtract one by the cursor 
+    /// position in a number that is in the format '12345.125 214'.
+    /// </summary>
     static class MyFormat
     {
+        /// <summary>
+        /// This function is for checking hexadecimal characters from keyboard input
+        /// </summary>
+        /// <param name="sender"> 
+        /// TextBox-type graphic element, where you need to check the input format
+        /// </param>
         public static void CheckIfHasHexInput(TextBox sender)
         {
-            string item = sender.Text;
-            int n = 0;
-            if (!int.TryParse(item, System.Globalization.NumberStyles.HexNumber, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                item != String.Empty)
+            string item = sender.Text;  // get text string from UI element
+
+            int position;
+            position = sender.SelectionStart;
+
+            for (UInt16 i = 0; i < item.Length; i++)
             {
-                int position = sender.SelectionStart-1;
-                item = item.Remove(position, 1);
-                sender.Text = item;
-                sender.SelectionStart = position;
+                // check if number has hexadecimal characters
+                if (!( (item[i] >= '0' && item[i] <= '9') || 
+                      (item[i] >= 'A' && item[i] <= 'F') || 
+                      (item[i] >= 'a' && item[i] <= 'f')) )
+                {
+                    item = item.Remove(i, 1);
+                    i--;
+                    position--;
+                }
             }
+
+            sender.Text = item;
+            sender.SelectionStart = position;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
         public static void CheckIfHasDecimalInput(TextBox sender)
         {
             string item = sender.Text;
@@ -157,20 +188,37 @@ namespace Synthesizer_PC_control
             sender.SelectionStart = position;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
         public static void CheckIfHasIntegerInput(TextBox sender)
         {
-            string item = sender.Text;
-            int n = 0;
-            if (!int.TryParse(item, System.Globalization.NumberStyles.Integer, System.Globalization.NumberFormatInfo.CurrentInfo, out n) &&
-                item != String.Empty)
+            string item = sender.Text;  // get text string from UI element
+
+            int position;
+            position = sender.SelectionStart;
+
+            for (UInt16 i = 0; i < item.Length; i++)
             {
-                int position = sender.SelectionStart-1;
-                item = item.Remove(position, 1);
-                sender.Text = item;
-                sender.SelectionStart = position;
+                // check if number has integer characters
+                if ( !(item[i] >= '0' && item[i] <= '9'))
+                {
+                    item = item.Remove(i, 1);
+                    i--;
+                    position--;
+                }
             }
+
+            sender.Text = item;
+            sender.SelectionStart = position;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static void ScrollHandlerFunction(NumericUpDown sender, MouseEventArgs e)
         {
             HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
@@ -186,6 +234,12 @@ namespace Synthesizer_PC_control
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public static int ScrollByPositionOfCursor(TextBox sender, MouseEventArgs e)
         {
             string f_input_string = sender.Text;
@@ -237,6 +291,12 @@ namespace Synthesizer_PC_control
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static int UpDownKeyIncDecFunc(TextBox sender, Keys key)
         {
             string f_input_string = sender.Text;
