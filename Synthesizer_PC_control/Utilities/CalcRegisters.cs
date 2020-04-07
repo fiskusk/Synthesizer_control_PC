@@ -1,8 +1,7 @@
 using System;
 using Synthesizer_PC_control.Model;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
+using System.Diagnostics;
 
 namespace Synthesizer_PC_control.Utilities
 {
@@ -108,55 +107,39 @@ namespace Synthesizer_PC_control.Utilities
             static_FBPathIndex    = FBPathIndex;            // FIXME implement FBPath into calculations
 
             /// <summary>
+            /// variable range of calculated frequencies
+            /// </summary>
+            int halfRange;
+
+            if (f_input <= 1500)
+                halfRange = 50;
+            else if (f_input <= 3000)
+                halfRange = 100;
+            else if (f_input <= 6000)
+                halfRange = 210;
+            else
+                halfRange = 500;
+
+            /// <summary>
+            /// length of buffer for calculated settings
+            /// </summary>
+            int bufferLength = halfRange * 2 + 1;
+
+            /// <summary>
             ///  variable for store each calc register  
             /// </summary>
-            CalcRegs[] calculatedSettings = new CalcRegs[100];  
+            CalcRegs[] calculatedSettings = new CalcRegs[bufferLength];  
             
-            /// <summary>
-            /// calc in parralel task 50x by 1Hz decrement, including f_input value
-            /// </summary>
-            Action calcJob1 = () => 
+            var stopWatch = Stopwatch.StartNew();
+
+            decimal f_start = f_input - halfRange * 0.000001M;
+            Parallel.For(0, bufferLength, i =>
             {
-                // initial value. In first step include f_input value
-                decimal copyFInputDown = f_input + 0.000001M;
-                ThreadPool.SetMinThreads(50,50);
+                //Console.WriteLine("Thread Id= {0}", Thread.CurrentThread.ManagedThreadId);
+                calculatedSettings[i] = CalcRegSettings(f_start + i * 0.000001M);
+            });
 
-                ParallelEnumerable.Range(0, 50).WithDegreeOfParallelism(50).ForAll(i =>
-                {
-                    // in each step decrese frequency by 1Hz
-                    copyFInputDown = copyFInputDown - 0.000001M;
-                    // and recalculate new settings and store it into array
-                    calculatedSettings[i] = CalcRegSettings(copyFInputDown);
-                });
-            };
-
-            /// <summary>
-            /// calc in parralel task 50x by 1Hz increment
-            /// </summary>
-            Action calcJob2 = () => 
-            {
-                // initial value.
-                decimal copyFInputUp = f_input;
-                ThreadPool.SetMinThreads(50,50);    
-
-                ParallelEnumerable.Range(50, 50).WithDegreeOfParallelism(50).ForAll(i =>
-                {
-                    // in each step increase frequency by 1Hz
-                    copyFInputUp = copyFInputUp + 0.000001M;
-                    // and recalculate new settings and store it into array
-                    calculatedSettings[i] = CalcRegSettings(copyFInputUp);
-                });
-            };
-
-            // start this tasks
-            var tasks = new[] {
-                Task.Factory.StartNew(calcJob1),
-                Task.Factory.StartNew(calcJob2)
-            };
-
-            // wait for all task, here sometimes freeze at any time
-            Task.WaitAll(tasks);
-
+            Console.WriteLine("execution time = {0} ms", stopWatch.Elapsed.TotalMilliseconds);
 
             // now find mimimum delta and return corrensponding values
             int indexOfMinimum = 0;
@@ -175,6 +158,8 @@ namespace Synthesizer_PC_control.Utilities
         private static int GetIndexForMinDelta(decimal f_input, CalcRegs[] calculatedSettings)
         {
             int indexOfMinimum = 0;
+            if (f_input > 6000)
+                f_input = f_input / 2;
             decimal deltaMinimum = Math.Abs((f_input - calculatedSettings[indexOfMinimum].calcFreq) * 1e6M);
             decimal delta;
 
@@ -435,7 +420,7 @@ namespace Synthesizer_PC_control.Utilities
                     }
                 }
             } while((fracPart.D < 2 || fracPart.D > 4095) && accuracy < 1);
-            
+
             if ((fracPart.D < 2 || fracPart.D > 4095))
             {
                 success = false;
