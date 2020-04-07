@@ -125,7 +125,7 @@ namespace Synthesizer_PC_control.Model
                     catch
                     {
                         value = this.value;
-                        ConsoleController.Console().Write("bad value");
+                        ConsoleController.Console().Write("Bad register value entered. Restore last used.");
                     }
                 }
                 this.value = value;
