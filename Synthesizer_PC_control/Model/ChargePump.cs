@@ -28,7 +28,7 @@ namespace Synthesizer_PC_control.Model
         private string badCurrentMsg = "Warning: In 'Cycle Slip Reduction' or 'Fast-Lock' mode, the current value must be set to its minimum value.";
 
         /// <summary>
-        /// Resistor that set current of charge pump (CP)
+        /// Resistor value that set current of charge pump (CP)
         /// </summary>
         private UInt16 rSet;
 
@@ -168,7 +168,10 @@ namespace Synthesizer_PC_control.Model
         /// <param name="value"> string resistor value, determinates current of CP </param>
         public void SetRSetValue(string value)
         {
-            SetRSetValue(Convert.ToUInt16(value));
+            if (value != string.Empty)
+                SetRSetValue(Convert.ToUInt16(value));
+            else
+                UpdateUiElements();
         }
 
         /// <summary>
