@@ -6,8 +6,8 @@ namespace Synthesizer_PC_control
     /// <summary>
     /// My formating utilities. 
     /// 
-    /// It contains functions for checking hexadecimal 
-    /// or integer characters from keyboard input. Another function is checking
+    /// It contains functions for checking if text input has hexadecimal 
+    /// or integer format. Another function is checking
     /// and formatted print in the following format '12345.125 214'. 
     /// 
     /// Functions that add or subtract one by the direction of the mouse wheel or 
@@ -17,7 +17,7 @@ namespace Synthesizer_PC_control
     static class MyFormat
     {
         /// <summary>
-        /// This function is for checking hexadecimal characters from keyboard input
+        /// This function is for checking if text has hexadecimal format
         /// </summary>
         /// <param name="sender"> 
         /// TextBox-type graphic element, where you need to check the input format
@@ -27,11 +27,12 @@ namespace Synthesizer_PC_control
             string item = sender.Text;  // get text string from UI element
 
             int position;
-            position = sender.SelectionStart;
+            position = sender.SelectionStart; // get cursor position
 
+            // goes through the entire text character by character
             for (UInt16 i = 0; i < item.Length; i++)
             {
-                // check if number has hexadecimal characters
+                // check if text has hexadecimal characters
                 if (!( (item[i] >= '0' && item[i] <= '9') || 
                       (item[i] >= 'A' && item[i] <= 'F') || 
                       (item[i] >= 'a' && item[i] <= 'f')) )
@@ -42,25 +43,28 @@ namespace Synthesizer_PC_control
                 }
             }
 
-            sender.Text = item;
-            sender.SelectionStart = position;
+            sender.Text = item;     // restores the edited text to the sender
+            sender.SelectionStart = position;   // restores correct cursor position
         }
 
         /// <summary>
-        /// 
+        /// This function is for checking decimal characters from keyboard input
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">
+        /// TextBox-type graphic element, where you need to check the input format
+        /// </param>
         public static void CheckIfHasDecimalInput(TextBox sender)
         {
-            string item = sender.Text;
+            string item = sender.Text;  // get text string from UI element
             int position;
-            position = sender.SelectionStart;
-            bool[] commaIsHere = new bool[item.Length];
+            position = sender.SelectionStart;   // get cursor position
+            bool[] commaIsHere = new bool[item.Length]; // here will be flag for comma presence
             UInt16 commaCounter = 0;
 
+            // goes through the entire text character by character
             for (UInt16 i = 0; i < item.Length; i++)
             {
-                // check if number with . or , decimal separator input. 
+                // make sure it's a decimal number ('.' and ',' separators allowed)
                 // Spaces for separates orders are allowed
                 if (!((item[i] >= '0' && item[i] <= '9') || 
                        item[i] == ' ' || item[i] == '.' || item[i] == ','))
@@ -73,6 +77,7 @@ namespace Synthesizer_PC_control
                 // now check, if spaces or decimal separators doesn't repeat
                 else if (i == 0)
                 {
+                    // first character cannot be space, comma separator
                     if ((item[i] == ' ') ||
                         (item[i] == '.') ||
                         (item[i] == ',') ||
@@ -90,6 +95,7 @@ namespace Synthesizer_PC_control
                 }
                 else if (i == item.Length - 1)
                 {
+                    // last character cannot be space, comma separator
                     if ((item[i] == ' ' && item[i-1] == ' ') ||
                         (item[i] == '.' && item[i-1] == '.') ||
                         (item[i] == ',' && item[i-1] == ',') ||
@@ -103,6 +109,8 @@ namespace Synthesizer_PC_control
                         position--;
                     }
                 }
+                // two consecutive characters cannot be 'space' and 'space', 
+                // all combinations of comma separators (...,,. ,,)
                 else if ((item[i] == ' ' && item[i-1] == ' ') ||
                     (item[i] == ' ' && item[i+1] == ' ') ||
                     (item[i] == '.' && item[i-1] == '.') ||
@@ -119,7 +127,8 @@ namespace Synthesizer_PC_control
                     position--;
                 }
 
-                // here counts how many decimal separators inputs
+                // now the number of commas in the text is calculated
+                // it also saves the comma position
                 if (i <= item.Length)
                 {
                     if (item[i] == ',' || item[i] == '.')
@@ -132,6 +141,7 @@ namespace Synthesizer_PC_control
                 }
             }
 
+            // if the number of commas in the text is exactly two
             if (commaCounter == 2)
             {
                 for (int i = 0; i < item.Length; i++)
@@ -146,6 +156,8 @@ namespace Synthesizer_PC_control
                     }
                 }
             }
+
+            // if the number of commas in the text is greater than two
             if (commaCounter > 2)
             {
                 for (int i = item.Length - 1; i >= 0; i--)
@@ -154,6 +166,8 @@ namespace Synthesizer_PC_control
                     if (commaIsHere[i] == true)
                     {
                         item = item.Remove(i, 1);
+
+                        // remove a comma flag by removing it from the field
                         for (int x = i; x < item.Length; x++) {
                             commaIsHere[x] = commaIsHere[x + 1];
                         }
@@ -161,13 +175,17 @@ namespace Synthesizer_PC_control
                         i--;
                         position--;
                     }
+                    // forces the loop to end
                     if (commaCounter == 1)
                         i = 0;
                 }
             }
             
+            // replace the decimal point with a dot
             item = item.Replace(',', '.');
-            int comma_position = item.IndexOf(".");
+            int comma_position = item.IndexOf("."); // get comma position
+
+            // here the corresponding format of the separation of thousandths is created
             if (position == comma_position + 4  && comma_position != -1)
             {
                item = item.Insert(comma_position + 4, " ");
@@ -175,29 +193,33 @@ namespace Synthesizer_PC_control
             }
             if (item.IndexOf(" ") != comma_position + 4)
             {
+                // removes a space that is in an inappropriate place
                 item = item.Replace(" ", string.Empty);
             }
             if (position == comma_position + 9 && comma_position != -1)
             {
-               item = item.Remove(comma_position + 8, 1);
-               position--;
+                // if the last or first character is a comma, it deletes it
+                item = item.Remove(comma_position + 8, 1);
+                position--;
             }
-            sender.Text = item;
-            if (position < 0)
+            sender.Text = item;     // restores the edited text to the sender
+            if (position < 0)       // cursor position cannot less than zero
                 position = 0;
-            sender.SelectionStart = position;
+            sender.SelectionStart = position;   // restores correct cursor position
         }
 
         /// <summary>
-        /// 
+        /// This function is for checking integer characters from keyboard input
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">
+        /// TextBox-type graphic element, where you need to check the input format
+        /// </param>
         public static void CheckIfHasIntegerInput(TextBox sender)
         {
             string item = sender.Text;  // get text string from UI element
 
             int position;
-            position = sender.SelectionStart;
+            position = sender.SelectionStart;   // get cursor position
 
             for (UInt16 i = 0; i < item.Length; i++)
             {
@@ -210,23 +232,25 @@ namespace Synthesizer_PC_control
                 }
             }
 
-            sender.Text = item;
-            sender.SelectionStart = position;
-        }
+            sender.Text = item;     // restores the edited text to the sender
+            sender.SelectionStart = position;   // restores correct cursor position
+        }   
 
         /// <summary>
-        /// 
+        /// Function that add or subtract one by the direction of the mouse wheel
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> sender of NumericUpDown type </param>
+        /// <param name="e"> mouse event argument </param>
         public static void ScrollHandlerFunction(NumericUpDown sender, MouseEventArgs e)
         {
             HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
-            handledArgs.Handled = true;
+            handledArgs.Handled = true; // event processed 
             try{
-                sender.Value += (handledArgs.Delta > 0) ? 1 : -1;
+                sender.Value += (handledArgs.Delta > 0) ? 1 : -1;   // try to increment/decrement
             }
             catch{
+                // An event was detected when the number was out of range. 
+                // Sets the minimum or maximum value.
                 if (sender.Value < sender.Minimum)
                     sender.Value = sender.Minimum;
                 else if (sender.Value > sender.Maximum)
@@ -235,100 +259,95 @@ namespace Synthesizer_PC_control
         }
 
         /// <summary>
-        /// 
+        /// Function that add or subtract one by the direction of the mouse 
+        /// wheel at appropriate cursor position
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        /// <returns></returns>
+        /// <param name="sender"> sender of TextBox type </param>
+        /// <param name="e"> mouse event argument </param>
+        /// <returns>
+        /// position of cursor in the text
+        /// </returns>
         public static int ScrollByPositionOfCursor(TextBox sender, MouseEventArgs e)
         {
-            string f_input_string = sender.Text;
-            f_input_string = f_input_string.Replace(" ", string.Empty);
-            f_input_string = f_input_string.Replace(".", ",");
-
-            double f_input = double.Parse(f_input_string);
-
             HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
-            handledArgs.Handled = true;
-            try{
-                int comma_position = f_input_string.IndexOf(",");
-                int position = sender.SelectionStart-1;
-                double delenec;
-                if (position >= 0)
-                {
-                    if ((position-comma_position) <= 0)
-                    {
-                        if ((position-comma_position) < 0)
-                            delenec = Math.Pow(10, position + 1 - comma_position);
-                        else
-                            delenec = Math.Pow(10, position - comma_position);
-                    }
-                    else
-                    {
-                        if ((position-comma_position) <= 3)
-                            delenec = Math.Pow(10, position - comma_position);
-                        else
-                            delenec = Math.Pow(10, position - 1 - comma_position);
-                    }
-                    double increment = 1/(delenec);
-                    f_input = (handledArgs.Delta > 0) ? f_input += increment : f_input -= increment;
-                    f_input_string = string.Format("{0:f8}", f_input);
-                    sender.Text = f_input_string;
-                    if (comma_position == f_input_string.IndexOf(",") || comma_position == -1)
-                        return position + 1;
-                    else if ((comma_position == (f_input_string.IndexOf(",")) - 1))
-                        return position + 2;
-                    else
-                        return position;
-                }
-                else
-                {
-                    return position + 1;
-                }
-            }
-            catch{
-                return 0;
-            }
+            handledArgs.Handled = true;     // event processed 
+
+            return UpDownByPosition(sender, handledArgs.Delta > 0);
         }
 
         /// <summary>
-        /// 
+        /// Function that add or subtract one by the up/down arrow keys 
+        /// at appropriate cursor position
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
+        /// <param name="sender"> sender of TextBox type </param>
+        /// <param name="key"> mouse event argument </param>
+        /// <returns>
+        /// position of cursor in the text
+        /// </returns>
         public static int UpDownKeyIncDecFunc(TextBox sender, Keys key)
         {
-            string f_input_string = sender.Text;
-            f_input_string = f_input_string.Replace(" ", string.Empty);
-            f_input_string = f_input_string.Replace(".", ",");
+            return UpDownByPosition(sender, key == Keys.Up);
+        }
 
-            double f_input = double.Parse(f_input_string);
+        /// <summary>
+        /// Function that add or subtract one
+        /// </summary>
+        /// <param name="sender"> sender of TextBox type </param>
+        /// <param name="up"> flag whether to add or subtract </param>
+        /// <returns>
+        /// position of cursor in the text
+        /// </returns>
+        private static int UpDownByPosition(TextBox sender, bool up)
+        {
+            string f_input_string = sender.Text;    // get text string from UI element
+            f_input_string = f_input_string.Replace(" ", string.Empty);     // remove spaces
+            f_input_string = f_input_string.Replace(".", ",");  // , replace by .
+
+            double f_input = double.Parse(f_input_string);  // string -> number
+            int position = sender.SelectionStart-1;     // here get cursor position
 
             try{
-                int comma_position = f_input_string.IndexOf(",");
-                int position = sender.SelectionStart-1;
-                double delenec;
+                int comma_position = f_input_string.IndexOf(",");   // get position of comma
+                double factor;
+
                 if (position >= 0)
                 {
+                    // the cursor position is before or just after the decimal point
+                    // for example:     12|34,254 125 or
+                    //                  1234|,254 125 or
+                    //                  1234,|254 125
                     if ((position-comma_position) <= 0)
                     {
                         if ((position-comma_position) < 0)
-                            delenec = Math.Pow(10, position + 1 - comma_position);
+                            factor = Math.Pow(10, position + 1 - comma_position);
                         else
-                            delenec = Math.Pow(10, position - comma_position);
+                            factor = Math.Pow(10, position - comma_position);
                     }
+                    // the cursor position is after the decimal point
+                    // for example:     1234,2|54 125 or
+                    //                  1234,254| 125 or
+                    //                  1234,254 1|25
                     else
                     {
                         if ((position-comma_position) <= 3)
-                            delenec = Math.Pow(10, position - comma_position);
+                            // the cursor position is somewhere in the range of thousands
+                            // for example #,1|23 456 or #,12|3 456 or #,123| 456
+                            factor = Math.Pow(10, position - comma_position);
                         else
-                            delenec = Math.Pow(10, position - 1 - comma_position);
+                            // compensation of the space between thousandths and tens of thousands
+                            factor = Math.Pow(10, position - 1 - comma_position);
                     }
-                    double increment = 1/(delenec);
-                    f_input = (key == Keys.Up) ? f_input += increment : f_input -= increment;
+
+                    // get increment
+                    double increment = 1/(factor);
+                    // increment or decrement input value
+                    f_input = (up) ? f_input += increment : f_input -= increment;
+                    // convert back into string
                     f_input_string = string.Format("{0:f8}", f_input);
+                    // restores the edited text to the sender
                     sender.Text = f_input_string;
+
+                    // fix position of cursor and return them
                     if (comma_position == f_input_string.IndexOf(",") || comma_position == -1)
                         return position + 1;
                     else if ((comma_position == (f_input_string.IndexOf(",")) - 1))
@@ -338,11 +357,14 @@ namespace Synthesizer_PC_control
                 }
                 else
                 {
+                    // If the cursor position is at the beginning of the text, 
+                    // no further action is taken and the function returns 
+                    // the position increased by one
                     return position + 1;
                 }
             }
             catch{
-                return 0;
+                return 0;   // position must be greather or equal than zero
             }
         }
     }
