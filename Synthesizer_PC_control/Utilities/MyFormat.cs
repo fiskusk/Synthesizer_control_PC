@@ -316,9 +316,11 @@ namespace Synthesizer_PC_control
                     // for example:     12|34,254 125 or
                     //                  1234|,254 125 or
                     //                  1234,|254 125
-                    if ((position-comma_position) <= 0)
+                    if ((position - comma_position) <= 0)
                     {
-                        if ((position-comma_position) < 0)
+                        if (position == 0 && f_input_string[0] == '1' && up == false && decimal.Parse(f_input_string.Remove(0,1)) == 0)
+                            factor = Math.Pow(10, position + 2 - comma_position);
+                        else if ((position - comma_position) < 0)
                             factor = Math.Pow(10, position + 1 - comma_position);
                         else
                             factor = Math.Pow(10, position - comma_position);
@@ -329,7 +331,7 @@ namespace Synthesizer_PC_control
                     //                  1234,254 1|25
                     else
                     {
-                        if ((position-comma_position) <= 3)
+                        if ((position - comma_position) <= 3)
                             // the cursor position is somewhere in the range of thousands
                             // for example #,1|23 456 or #,12|3 456 or #,123| 456
                             factor = Math.Pow(10, position - comma_position);
@@ -339,7 +341,7 @@ namespace Synthesizer_PC_control
                     }
 
                     // get increment
-                    double increment = 1/(factor);
+                    double increment = 1 / factor;
                     // increment or decrement input value
                     f_input = (up) ? f_input += increment : f_input -= increment;
                     // convert back into string
