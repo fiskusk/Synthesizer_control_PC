@@ -302,7 +302,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// sets Lock-Detect speed adjustment index and check if setting is correct
+        /// Sets Lock-Detect speed adjustment index and check if setting is correct.
         /// </summary>
         /// <param name="value"> 
         ///     Lock-Detect speed adjustment 

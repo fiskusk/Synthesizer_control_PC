@@ -185,7 +185,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Call this to refresh all registers in memory.
+        /// Call this to refresh all UI elements in memory.
         /// </summary>
         public void UpdateUiElements()
         {
