@@ -163,7 +163,9 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Parse string Rset value and set as UInt16
+        /// Parse string Rset value and set as UInt16. Then check new value 
+        /// for Rset if is beyond limits, adjust it if neccessary. Then 
+        /// calculate new currents for appropriate indexes and update UI elements.
         /// </summary>
         /// <param name="value"> string resistor value, determinates current of CP </param>
         public void SetRSetValue(string value)
