@@ -480,8 +480,8 @@ namespace Synthesizer_PC_control.Model
         /// As a result, the output frequency does not change.
         /// </summary>
         /// <param name="value"> 
-        ///     true - reference doubler activated, 
-        ///     false - reference div-by-2 activated 
+        ///     true - calcs for reference doubler, 
+        ///     false - calcs for reference div-by-2 
         /// </param>
         public void RecalcRegsForNewPfdFreq(bool value)
         {

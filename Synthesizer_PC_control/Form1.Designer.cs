@@ -701,7 +701,6 @@ namespace Synthesizer_PC_control
             this.ReadedVCOValueTextBox.Size = new System.Drawing.Size(140, 22);
             this.ReadedVCOValueTextBox.TabIndex = 3;
             this.ReadedVCOValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ReadedVCOValueTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
             // 
             // ReadedADCValueTextBox
             // 
@@ -713,7 +712,6 @@ namespace Synthesizer_PC_control
             this.ReadedADCValueTextBox.Size = new System.Drawing.Size(140, 22);
             this.ReadedADCValueTextBox.TabIndex = 3;
             this.ReadedADCValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ReadedADCValueTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
             // 
             // GetCurrentVCOButton
             // 
@@ -2134,7 +2132,7 @@ namespace Synthesizer_PC_control
             this.RefFTextBox.TextChanged += new System.EventHandler(this.RefFTextBox_TextChanged);
             this.RefFTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RefFTextBox_KeyDown);
             this.RefFTextBox.LostFocus += new System.EventHandler(this.RefFTextBox_LostFocus);
-            this.RefFTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
+            this.RefFTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.FrequencyTextBox_MouseWheel);
             // 
             // DivideBy2CheckBox
             // 
@@ -3155,7 +3153,7 @@ namespace Synthesizer_PC_control
             this.InputFreqTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.InputFreqTextBox.TextChanged += new System.EventHandler(this.InputFreqTextBox_TextChanged);
             this.InputFreqTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputFreqTextBox_KeyDown);
-            this.InputFreqTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.TextBoxScrollHandlerFunction);
+            this.InputFreqTextBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.FrequencyTextBox_MouseWheel);
             // 
             // MHzLabel6
             // 

@@ -828,9 +828,9 @@ namespace Synthesizer_PC_control
             controller.FreqTextBoxBehavior(((TextBox)(sender)), e);
         }
 
-        private void TextBoxScrollHandlerFunction(object sender, MouseEventArgs e)
+        private void FrequencyTextBox_MouseWheel(object sender, MouseEventArgs e)
         {
-            controller.TextBoxHandlerFunc((TextBox)(sender), e);
+            controller.FreqTextBoxMouseWheelFunc((TextBox)(sender), e);
         }
 
         

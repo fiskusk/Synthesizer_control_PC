@@ -315,134 +315,112 @@ namespace Synthesizer_PC_control.Controllers
 #endregion
     
     #region Reference Frequency Controls Group
+
         /// <summary>
-        /// Performs an action based on keyboard input in the TextBox UI element. 
-        /// The input has a frequency format, ie 12345.678 901.
+        /// Set new reference frequency and perform changes
         /// </summary>
-        /// <param name="sender"> sender as TextBox UI elemnt</param>
-        /// <param name="e"> key event arguments </param>
-        public void FreqTextBoxBehavior(TextBox sender, KeyEventArgs e)
-        {
-            int position = sender.SelectionStart;   // get position of cursor
-
-            if (e.KeyCode == Keys.Back)
-            {
-                // backspace key pressed
-                string text = sender.Text;      // get text from UI element
-                int commaPosition = text.IndexOf(".");  // get position of comma
-                if (position == commaPosition + 5  && commaPosition != -1)
-                {
-                    // comma is present and cursor position is here: 12345.678 |901
-                    // so change position, new cursor position will be 12345.678| 901
-                    // this allow delete thousands number, if cursor is behind space separator
-                    position = commaPosition + 4;
-                }
-            }
-            else if (e.KeyCode == Keys.Space)
-            {
-                // spaces not allowed
-                e.SuppressKeyPress = true;  // causes the space key to be ignored
-            }
-            else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
-            {
-                // proccess up/down keys
-                position = MyFormat.UpDownKeyIncDecFunc(sender, e.KeyCode);   // performs the action itself
-
-                // procces new inc/dec value by sender name
-                if (sender.Name == "InputFreqTextBox")  
-                    CalcSynthesizerRegValuesFromInpFreq(sender.Text);
-                else if (sender.Name == "RefFTextBox")
-                    ReferenceFrequencyValueChanged(sender.Text);
-
-                e.SuppressKeyPress = true;  // confirm that key is proccessed
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                // confirmation key pressed, proccess value
-                if (sender.Name == "InputFreqTextBox")
-                    CalcSynthesizerRegValuesFromInpFreq(sender.Text);
-                else if (sender.Name == "RefFTextBox")
-                    ReferenceFrequencyValueChanged(sender.Text);
-            }
-            
-            sender.SelectionStart = position;
-        }
-
-        public void TextBoxHandlerFunc(TextBox sender, MouseEventArgs e)
-        {
-            int cursorPosition = MyFormat.ScrollByPositionOfCursor(sender, e);
-            if (sender.Name == "InputFreqTextBox")
-                CalcSynthesizerRegValuesFromInpFreq(sender.Text);
-            else if (sender.Name == "RefFTextBox")
-                ReferenceFrequencyValueChanged(sender.Text);
-            sender.SelectionStart = cursorPosition;
-        }
-
+        /// <param name="value"> new reference frequency value </param>
         public void ReferenceFrequencyValueChanged(string value)
         {
             if (refFreq.SetRefFreqValue(value) == true)
             {
+                // value was changed, so recalc working frequency info
                 RecalcWorkingFreqInfo();
+                // SetRefFreqValue automaticaly recalc frequency at PFD input, 
+                // so we want get it and recalc new Band select clock divider value
+                // and recalculate C-divider value
                 decimal pfdFreq = refFreq.decimal_GetPfdFreq();
                 vcoControls.CalcBandSelClockDivValue(pfdFreq);
                 CalcCDivValue();
             }
         }
 
+        /// <summary>
+        /// Set reference doubler state. Then recalculate the register values 
+        /// so that the output frequency does not change. Get new PFD frequency
+        /// and recalculate band select clock divider and C-divider values
+        /// </summary>
+        /// <param name="value"> 
+        ///     State of reference doubler. 
+        ///     true - enabled,
+        ///     false - disabled
+        /// </param>
         public void ReferenceDoublerStateChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 5);
+                serialPort.SetDisableSending(true, 5);      // disable sending
 
+                // set new state into register 2 bit 25
                 registers[2].SetResetOneBit(25, (BitState)Convert.ToUInt16(value));
-                refFreq.SetRefDoubler(value);
+                refFreq.SetRefDoubler(value);   // set into model
 
+                // recalc new IntN, FracN and mod values for fix frequency
                 outFreqControl.RecalcRegsForNewPfdFreq(value);
 
-                decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-                vcoControls.CalcBandSelClockDivValue(pfdFreq);
-                CalcCDivValue();
+                decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // get new PFD freq
+                vcoControls.CalcBandSelClockDivValue(pfdFreq);  // recalc band select clock divider
+                CalcCDivValue();    // recalc C-div value
 
-                serialPort.SetDisableSending(false, 5);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 5);         // try enable sending
+                if (serialPort.GetDisableSending() == false)    // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Set new reference divider by two. Then recalculate the register values 
+        /// so that the output frequency does not change. Get new PFD frequency
+        /// and recalculate band select clock divider and C-divider values
+        /// </summary>
+        /// <param name="value">
+        ///     State of reference divider by two. 
+        ///     true - enabled,
+        ///     false - disabled
+        /// </param>
         public void ReferenceDivBy2StateChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 12);
+                serialPort.SetDisableSending(true, 12);         // disable sending
 
+                // sets new state into register 2 bit 24
                 registers[2].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
-                refFreq.SetRefDivBy2(value);
-                outFreqControl.RecalcRegsForNewPfdFreq(!value);
-                decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-                vcoControls.CalcBandSelClockDivValue(pfdFreq);
-                CalcCDivValue();
+                refFreq.SetRefDivBy2(value);    // set into model
 
-                serialPort.SetDisableSending(false, 12);
-                if (serialPort.GetDisableSending() == false)
+                // recalc new IntN, FracN and mod values for fix frequency
+                outFreqControl.RecalcRegsForNewPfdFreq(!value);
+
+                decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // get new PFD freq
+                vcoControls.CalcBandSelClockDivValue(pfdFreq);  // recalc band select clock divider
+                CalcCDivValue();    // recalc C-div value
+
+                serialPort.SetDisableSending(false, 12);         // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Set new reference R-divider value.
+        /// </summary>
+        /// <param name="value"></param>
         public void ReferenceRDividerValueChanged(UInt16 value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 14);
+                serialPort.SetDisableSending(true, 14);         // disable sending
 
+                // sets new state into register 2 bits 14-23
                 registers[2].ChangeNBits((UInt32)value, 10, 14);
                 refFreq.SetRDivider(value);
+
                 decimal pfdFreq = refFreq.decimal_GetPfdFreq();
                 vcoControls.CalcBandSelClockDivValue(pfdFreq);
                 CalcCDivValue();
 
-                serialPort.SetDisableSending(false, 14);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 14);         // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
@@ -451,13 +429,13 @@ namespace Synthesizer_PC_control.Controllers
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 15);
+                serialPort.SetDisableSending(true, 15);          // disable sending
 
                 registers[2].SetResetOneBit(31, (BitState)value);
                 refFreq.SetLDSpeedAdjIndex(value);
 
-                serialPort.SetDisableSending(false, 15);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 15);         // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
@@ -1151,6 +1129,84 @@ namespace Synthesizer_PC_control.Controllers
 
     #endregion
 
+    #region Functions for TextBox
+
+        /// <summary>
+        /// Performs an action based on keyboard input in the TextBox UI element. 
+        /// The input has a frequency format, ie 12345.678 901.
+        /// </summary>
+        /// <param name="sender"> sender as TextBox UI elemnt</param>
+        /// <param name="e"> key event arguments </param>
+        public void FreqTextBoxBehavior(TextBox sender, KeyEventArgs e)
+        {
+            int position = sender.SelectionStart;   // get position of cursor
+
+            if (e.KeyCode == Keys.Back)
+            {
+                // backspace key pressed
+                string text = sender.Text;      // get text from UI element
+                int commaPosition = text.IndexOf(".");  // get position of comma
+                if (position == commaPosition + 5  && commaPosition != -1)
+                {
+                    // comma is present and cursor position is here: 12345.678 |901
+                    // so change position, new cursor position will be 12345.678| 901
+                    // this allow delete thousands number, if cursor is behind space separator
+                    position = commaPosition + 4;
+                }
+            }
+            else if (e.KeyCode == Keys.Space)
+            {
+                // spaces not allowed
+                e.SuppressKeyPress = true;  // causes the space key to be ignored
+            }
+            else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                // proccess up/down keys
+                position = MyFormat.UpDownKeyIncDecFunc(sender, e.KeyCode);   // performs the action itself
+
+                // procces new inc/dec value by sender name
+                if (sender.Name == "InputFreqTextBox")  
+                    CalcSynthesizerRegValuesFromInpFreq(sender.Text);
+                else if (sender.Name == "RefFTextBox")
+                    ReferenceFrequencyValueChanged(sender.Text);
+
+                e.SuppressKeyPress = true;  // confirm that key is proccessed
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                // confirmation key pressed, proccess value
+                if (sender.Name == "InputFreqTextBox")
+                    CalcSynthesizerRegValuesFromInpFreq(sender.Text);
+                else if (sender.Name == "RefFTextBox")
+                    ReferenceFrequencyValueChanged(sender.Text);
+            }
+            
+            sender.SelectionStart = position; // set new cursor position
+        }
+
+        /// <summary>
+        /// Performs an action based on mouse scroll wheelt in the TextBox UI element. 
+        /// The input has a frequency format, ie 12345.678 901.
+        /// </summary>
+        /// <param name="sender"> sender as TextBox UI element </param>
+        /// <param name="e"> key event arguments </param>
+        public void FreqTextBoxMouseWheelFunc(TextBox sender, MouseEventArgs e)
+        {
+            // perform action
+            int cursorPosition = MyFormat.ScrollByPositionOfCursor(sender, e);
+
+            // apply changes, procces new inc/dec value by sender name
+            if (sender.Name == "InputFreqTextBox")
+                CalcSynthesizerRegValuesFromInpFreq(sender.Text);
+            else if (sender.Name == "RefFTextBox")
+                ReferenceFrequencyValueChanged(sender.Text);
+
+            // set new changed cursor position
+            sender.SelectionStart = cursorPosition;
+        }
+
+    #endregion
+
 #endregion
 
 #region Functions for obtaining individual values from registers
@@ -1546,7 +1602,8 @@ namespace Synthesizer_PC_control.Controllers
 #region Some magic calculations
 
         /// <summary>
-        /// Updates the frequency info
+        /// Updates the frequency info. If VCO frequency is beyond limits, it set
+        /// freq. at outputs A and B to zero.
         /// </summary>
         public void RecalcWorkingFreqInfo()
         {
