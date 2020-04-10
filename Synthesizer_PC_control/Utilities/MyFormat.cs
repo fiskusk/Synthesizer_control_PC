@@ -303,41 +303,104 @@ namespace Synthesizer_PC_control
             f_input_string = f_input_string.Replace(" ", string.Empty);     // remove spaces
             f_input_string = f_input_string.Replace(".", ",");  // , replace by .
 
-            double f_input = double.Parse(f_input_string);  // string -> number
-            int position = sender.SelectionStart-1;     // here get cursor position
+            double f_input = double.Parse(f_input_string);      // string -> number
+            int position = sender.SelectionStart;               // here get cursor position
+            int comma_position = f_input_string.IndexOf(",");   // get position of comma
 
             try{
-                int comma_position = f_input_string.IndexOf(",");   // get position of comma
                 double factor;
 
-                if (position >= 0)
+                if (position >= 1)
                 {
-                    // the cursor position is before or just after the decimal point
-                    // for example:     12|34,254 125 or
-                    //                  1234|,254 125 or
-                    //                  1234,|254 125
-                    if ((position - comma_position) <= 0)
+                    if ((position - comma_position) <= 1)
                     {
-                        if (position == 0 && f_input_string[0] == '1' && up == false && decimal.Parse(f_input_string.Remove(0,1)) == 0)
-                            factor = Math.Pow(10, position + 2 - comma_position);
-                        else if ((position - comma_position) < 0)
+                        // the cursor position is before or just after the decimal point
+                        // for example:     12|34,254 125 or
+                        //                  1234|,254 125 or
+                        //                  1234,|254 125
+                        if (position == 1 && f_input_string[0] == '1' && up == false && 
+                            decimal.Parse(f_input_string.Remove(0,1)) < 23.5M)
+                        {
+                            // 1|025.2056 down -> 9|25.2056
                             factor = Math.Pow(10, position + 1 - comma_position);
-                        else
+                        }
+                        else if ((position - comma_position) < 1)
+                        {
+                            // the cursor is before comma 12|34,254 125 or 1234|,254 125
                             factor = Math.Pow(10, position - comma_position);
+                            // fix cursor position
+                            if (f_input_string[position - 1] == '9' && up == true)
+                            {
+                                // increment number is 9
+                                if (position == 1)
+                                    // position is at first number (ie. 9|25.25)
+                                    position++;
+                                else
+                                {
+                                    // position is somewhere here (ie. 99|95.236 or 999|5.)
+                                    // get remaining string (99 or 999)
+                                    string remainingString = f_input_string.Remove(position, f_input_string.Length - position);
+                                    bool success =  true;
+                                    
+                                    // check if remaining string has all characters '9'
+                                    for (UInt16 i = 0; i < remainingString.Length; i++)
+                                    {
+                                        // check if number has integer characters
+                                        if ( remainingString[i] != '9')
+                                        {
+                                            success = false;
+                                        }
+                                    }
+                                    // if all numbers are 9, next number will be 10095.236 or 10005.0
+                                    if (success)
+                                        position++;
+                                }
+                            }
+                            else if (f_input_string[position - 1] == '0' && up == false)
+                            {
+                                // decrement number is 10
+                                if (position == 2 && decimal.Parse(f_input_string.Remove(2, f_input_string.Length - 2)) == 10M)
+                                    // position is at second number (ie. 10|25.25)
+                                    position--;
+                                else
+                                {
+                                    // position is somewhere here (ie. 100|5.236 or 1000|.236)
+                                    // get remaining string (100 or 1000)
+                                    string remainingString = f_input_string.Remove(position - 1, f_input_string.Length - position - 1);
+                                    bool success =  true;
+                                    
+                                    // check if remaining string has all characters 100 or 1000
+                                    for (UInt16 i = 1; i < remainingString.Length; i++)
+                                    {
+                                        // check if number has integer characters
+                                        if ( remainingString[i] != '0')
+                                        {
+                                            success = false;
+                                        }
+                                    }
+                                    // if all numbers are 000, next number will be 995.236 or 999.236
+                                    if (success)
+                                        position--;
+                                }
+                            }
+                        }
+                        else
+                            // the cursor is just after the decimal point
+                            factor = Math.Pow(10, position - 1 - comma_position);
                     }
-                    // the cursor position is after the decimal point
-                    // for example:     1234,2|54 125 or
-                    //                  1234,254| 125 or
-                    //                  1234,254 1|25
                     else
                     {
-                        if ((position - comma_position) <= 3)
+                        // the cursor position is after the decimal point
+                        // for example:     1234,2|54 125 or
+                        //                  1234,254| 125 or
+                        //                  1234,254 1|25
+                        if ((position - comma_position) <= 4)
                             // the cursor position is somewhere in the range of thousands
                             // for example #,1|23 456 or #,12|3 456 or #,123| 456
-                            factor = Math.Pow(10, position - comma_position);
+                            factor = Math.Pow(10, position - 1 - comma_position);
                         else
                             // compensation of the space between thousandths and tens of thousands
-                            factor = Math.Pow(10, position - 1 - comma_position);
+                            factor = Math.Pow(10, position - 2 - comma_position);
                     }
 
                     // get increment
@@ -349,20 +412,14 @@ namespace Synthesizer_PC_control
                     // restores the edited text to the sender
                     sender.Text = f_input_string;
 
-                    // fix position of cursor and return them
-                    if (comma_position == f_input_string.IndexOf(",") || comma_position == -1)
-                        return position + 1;
-                    else if ((comma_position == (f_input_string.IndexOf(",")) - 1))
-                        return position + 2;
-                    else
-                        return position;
+                    return position;
                 }
                 else
                 {
                     // If the cursor position is at the beginning of the text, 
                     // no further action is taken and the function returns 
                     // the position increased by one
-                    return position + 1;
+                    return position;
                 }
             }
             catch{
