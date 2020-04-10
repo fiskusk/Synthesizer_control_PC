@@ -169,6 +169,10 @@ namespace Synthesizer_PC_control.Utilities
 
                 if (delta < deltaMinimum)
                 {
+                    if ( (calculatedSettings[i].mode == SynthMode.FRACTIONAL && 
+                          calculatedSettings[i].intN >= 19) ||
+                          (calculatedSettings[i].mode == SynthMode.INTEGER && 
+                          calculatedSettings[i].intN >= 16) )
                     deltaMinimum = delta;
                     indexOfMinimum = i;
                 }
@@ -340,7 +344,7 @@ namespace Synthesizer_PC_control.Utilities
             {
                 divAIndex = 6;
             }
-            else if (value >= 23.5M && value < 46.875M)
+            else if (value >= 23.4375M && value < 46.875M)
             {
                 divAIndex = 7;
             }
