@@ -329,16 +329,15 @@ namespace Synthesizer_PC_control.Controllers
                 // SetRefFreqValue automaticaly recalc frequency at PFD input, 
                 // so we want get it and recalc new Band select clock divider value
                 // and recalculate C-divider value
-                decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-                vcoControls.CalcBandSelClockDivValue(pfdFreq);
-                CalcCDivValue();
+                CalcsValsRelatedToPfdFreq(true);    // recalc related values
             }
         }
 
         /// <summary>
         /// Sets reference doubler state. Then recalculate the register values 
         /// so that the output frequency does not change. Get new PFD frequency
-        /// and recalculate band select clock divider and C-divider values
+        /// and recalculate band select clock divider and C-divider values.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value"> 
         ///     State of reference doubler. 
@@ -358,9 +357,7 @@ namespace Synthesizer_PC_control.Controllers
                 // recalc new IntN, FracN and mod values for fix frequency
                 outFreqControl.RecalcRegsForNewPfdFreq(value);
 
-                decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // gets new PFD freq
-                vcoControls.CalcBandSelClockDivValue(pfdFreq);  // recalc band select clock divider
-                CalcCDivValue();    // recalc C-div value
+                CalcsValsRelatedToPfdFreq(true);    // recalc related values
 
                 serialPort.SetDisableSending(false, 5);         // try enable sending
                 if (serialPort.GetDisableSending() == false)    // if success send new data
@@ -371,7 +368,8 @@ namespace Synthesizer_PC_control.Controllers
         /// <summary>
         /// sets new reference divider by two. Then recalculate the register values 
         /// so that the output frequency does not change. Get new PFD frequency
-        /// and recalculate band select clock divider and C-divider values
+        /// and recalculate band select clock divider and C-divider values.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value">
         ///     State of reference divider by two. 
@@ -391,9 +389,7 @@ namespace Synthesizer_PC_control.Controllers
                 // recalc new IntN, FracN and mod values for fix frequency
                 outFreqControl.RecalcRegsForNewPfdFreq(!value);
 
-                decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // gets new PFD freq
-                vcoControls.CalcBandSelClockDivValue(pfdFreq);  // recalc band select clock divider
-                CalcCDivValue();    // recalc C-div value
+                CalcsValsRelatedToPfdFreq(true);    // recalc related values
 
                 serialPort.SetDisableSending(false, 12);         // try enable sending
                 if (serialPort.GetDisableSending() == false)     // if success send new data
@@ -402,7 +398,9 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// sets new reference R-divider value.
+        /// Sets new reference R-divider value. Then it gets new PFD frequency 
+        /// and recalc band select clock divider and C-divider value
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value"></param>
         public void ReferenceRDividerValueChanged(UInt16 value)
@@ -413,11 +411,9 @@ namespace Synthesizer_PC_control.Controllers
 
                 // sets new state into register 2 bits 14-23
                 registers[2].ChangeNBits((UInt32)value, 10, 14);
-                refFreq.SetRDivider(value);
+                refFreq.SetRDivider(value);         // sets into model
 
-                decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-                vcoControls.CalcBandSelClockDivValue(pfdFreq);
-                CalcCDivValue();
+                CalcsValsRelatedToPfdFreq(true);    // recalc related values
 
                 serialPort.SetDisableSending(false, 14);         // try enable sending
                 if (serialPort.GetDisableSending() == false)     // if success send new data
@@ -425,14 +421,24 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// Sets Lock-Detect speed adjustment index.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     Lock-Detect speed adjustment 
+        ///     0 - PFD freq > 32, 
+        ///     1 - PFD freq <= 32
+        /// </param>
         public void LDSpeedAdjIndexChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
                 serialPort.SetDisableSending(true, 15);          // disable sending
-
+                
+                // sets new state into register 2 bit 31
                 registers[2].SetResetOneBit(31, (BitState)value);
-                refFreq.SetLDSpeedAdjIndex(value);
+                refFreq.SetLDSpeedAdjIndex(value);  // sets into model
 
                 serialPort.SetDisableSending(false, 15);         // try enable sending
                 if (serialPort.GetDisableSending() == false)     // if success send new data
@@ -440,6 +446,10 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// Enable or disable automatic LD speed setting
+        /// </summary>
+        /// <param name="value"></param>
         public void AutoLDSpeedAdjChanged(bool value)
         {
             if (serialPort.IsPortOpen())
@@ -450,124 +460,184 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
 
     #region Output Frequency Controls Group
+
+        /// <summary>
+        /// Sets new Integer-N value. If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> new IntN value </param>
         public void IntNValueChanged(UInt16 value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 6);
+                serialPort.SetDisableSending(true, 6);          // disable sending
 
+                // sets new value into register 0 bits 15-30
                 registers[0].ChangeNBits((UInt32)value, 16, 15);
-                outFreqControl.SetIntNVal(value); 
+                outFreqControl.SetIntNVal(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 6);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 6);          // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new Fractional-N value. If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> new Frac-N value </param>
         public void FracNValueChanged(UInt16 value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 7);
+                serialPort.SetDisableSending(true, 7);          // disable sending
 
+                // sets new value into register 0 bits 3-14
                 registers[0].ChangeNBits((UInt32)value, 12, 3);
-                outFreqControl.SetFracNVal(value);
+                outFreqControl.SetFracNVal(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 7);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 7);          // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new modulus value and recalc C-Divider value.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> new modulus value </param>
         public void ModValueChanged(UInt16 value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 8);
+                serialPort.SetDisableSending(true, 8);          // disable sending
 
+                // sets new value into register 1 bits 3-14
                 registers[1].ChangeNBits((UInt32)value, 12, 3);
-                outFreqControl.SetModVal(value);
+                outFreqControl.SetModVal(value);   // sets into model
                 
-                CalcCDivValue();
+                CalcCDivValue();    // recalculate C-divider value
 
-                serialPort.SetDisableSending(false, 8);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 8);          // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new synthesizer mode. Then check if the correct LD function 
+        /// corresponding to the set synthesizer mode is set, sets this mode 
+        /// into ref freq. model, recalculate PFD related values and sets
+        /// the appropriate linearity index of the charging pump to the synthesizer mode.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> new synthesizer mode indexs </param>
         public void SynthModeChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 1);
+                serialPort.SetDisableSending(true, 1);          // disable sending
 
+                // sets new mode into register 0 bit 31
                 registers[0].SetResetOneBit(31, (BitState)value);
-                outFreqControl.SetSynthMode((SynthMode)value);
+                outFreqControl.SetSynthMode((SynthMode)value);   // sets into model
+
+                // checks if the correct LD function corresponding to the set 
+                // synthesizer mode is set
                 outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
 
+                // sets mode into reference frequency model
                 refFreq.SetSynthModeInfoVariable((SynthMode)value);
-                decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-                vcoControls.CalcBandSelClockDivValue(pfdFreq);
 
+                CalcsValsRelatedToPfdFreq(false);    // recalc related values
+
+                // sets the appropriate linearity index of the charging pump 
+                // to the synthesizer mode
                 if ((SynthMode)value == SynthMode.INTEGER)
                     chargePump.SetLinearityIndex(0, (SynthMode)value);
                 else
                     chargePump.SetLinearityIndex(1, (SynthMode)value);
 
-                serialPort.SetDisableSending(false, 1);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 1);          // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new A-divider value.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> new A-divider value </param>
         public void ADivValueChanged(UInt16 value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 9);
+                serialPort.SetDisableSending(true, 9);          // disable sending
 
+                // sets new value into register 4 bits 20-22
                 registers[4].ChangeNBits((UInt32)value, 3, 20);
-                outFreqControl.SetADivVal(value);
+                outFreqControl.SetADivVal(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 9);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 9);          // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new phase-P value.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> new phase-P value </param>
         public void PhasePValueChanged(UInt16 value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 10);
+                serialPort.SetDisableSending(true, 10);          // disable sending
 
+                // sets new value into register 1 bits 15-26
                 registers[1].ChangeNBits((UInt32)value, 12, 15);
-                outFreqControl.SetPPhaseVal(value);
+                outFreqControl.SetPPhaseVal(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 10);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 10);          // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new lock-detect function value.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> new lock-detect function value </param>
         public void LDFunctionIndexChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 2);
+                serialPort.SetDisableSending(true, 2);           // disable sending
 
+                // sets new LD function into register 2 bit 8
                 registers[2].SetResetOneBit(8, (BitState)value);
-                outFreqControl.SetLDFunctionIndex(value);
+                outFreqControl.SetLDFunctionIndex(value);   // sets into model
+
+                // checks if the correct LD value corresponding to the set 
+                // synthesizer mode is set
                 outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
 
-                serialPort.SetDisableSending(false, 2);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 2);          // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Enable or disable automatic lock-detect setting.
+        /// </summary>
+        /// <param name="value">
+        ///     true = do automatic setting LD func
+        ///     false = does not automatic setting LD func
+        /// </param>
         public void AutoLDFuncCheckedChanged(bool value)
         {
             if (serialPort.IsPortOpen())
@@ -577,94 +647,149 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// Sets new output B internal path value.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> new output B internal path value </param>
         public void OutBPathIndexChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 11);
+                serialPort.SetDisableSending(true, 11);          // disable sending
 
+                // sets new value into register 4 bit 9
                 registers[4].SetResetOneBit(9, (BitState)value);
-                outFreqControl.SetOutBPath(value);
+                outFreqControl.SetOutBPath(value);      // sets into model
 
-                serialPort.SetDisableSending(false, 11);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 11);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new VCO to N-counter feedback path.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> new VCO to N-counter feedback path </param>
         public void FBPathIndexChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 30);
+                serialPort.SetDisableSending(true, 30);          // disable sending
 
+                // sets new value into register 4 bit 23
                 registers[4].SetResetOneBit(23, (BitState)value);
-                outFreqControl.SetFBPath(value);
+                outFreqControl.SetFBPath(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 30);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 30);          // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
     #endregion
 
     #region Synthesizer Output Controls Group
+
+        /// <summary>
+        /// Enable or disable output A.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> 
+        ///     0 - disabled
+        ///     1 - enabled
+        /// </param>
         public void OutAEnStateChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 16);
+                serialPort.SetDisableSending(true, 16);          // disable sending
 
+                // sets new state into register 4 bit 5
                 registers[4].SetResetOneBit(5, (BitState)value);
-                synthOutputControls.SetOutAEnable((OutEnState)value);
+                synthOutputControls.SetOutAEnable((OutEnState)value);   // sets into model
 
-                serialPort.SetDisableSending(false, 16);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 16);          // try enable sending
+                if (serialPort.GetDisableSending() == false)     // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Enable or disable output B.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> 
+        ///     0 - disabled
+        ///     1 - enabled
+        /// </param>
         public void OutBEnStateChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 17);
+                serialPort.SetDisableSending(true, 17);          // disable sending
 
+                // sets new state into register 4 bit 8
                 registers[4].SetResetOneBit(8, (BitState)value);
-                synthOutputControls.SetOutBEnable((OutEnState)value);
+                synthOutputControls.SetOutBEnable((OutEnState)value);   // sets into model
 
-                serialPort.SetDisableSending(false, 17);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 17);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Set new output A power by index.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> 
+        ///     0 = -4 dBm,
+        ///     1 = -1 dBm,
+        ///     2 = +2 dBm,
+        ///     3 = +5 dBm
+        /// </param>
         public void OutAPwrValueChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 18);
+                serialPort.SetDisableSending(true, 18);          // disable sending
 
+                // sets new value into register 4 bits 3, 4
                 registers[4].ChangeNBits((UInt32)value, 2, 3);
-                synthOutputControls.SetOutAPwr(value);
+                synthOutputControls.SetOutAPwr(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 18);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 18);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Set new output B power by index. Index 3 for +5 dBm is disabled due to
+        /// frequency doubler at output (has +3 dBm maximul level at input)
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> 
+        ///     0 = -4 dBm,
+        ///     1 = -1 dBm,
+        ///     2 = +2 dBm,
+        ///     3 = +5 dBm
+        /// </param>
         public void OutBPwrValueChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 19);
+                serialPort.SetDisableSending(true, 19);          // disable sending
 
+                // sets into model and if operation is success
+                // sets new state into register 4 bits 6, 7, 
                 if (synthOutputControls.SetOutBPwr(value))
                     registers[4].ChangeNBits((UInt32)synthOutputControls.GetOutBPwrIndex(), 2, 6);
-
-                serialPort.SetDisableSending(false, 19);
-                if (serialPort.GetDisableSending() == false)
+   
+                serialPort.SetDisableSending(false, 19);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
@@ -987,6 +1112,27 @@ namespace Synthesizer_PC_control.Controllers
             CalcCDivValue();
         }
 
+        /// <summary>
+        /// This function get PFD frequency from model and recalculate calc
+        /// band select clock divider value and if neccessary recalculate
+        /// C-divider value
+        /// </summary>
+        /// <param name="calcCDivVal">
+        ///     true = recalculate C-divider value
+        ///     false = does not recalculate C-divider value
+        /// </param>
+        public void CalcsValsRelatedToPfdFreq(bool calcCDivVal)
+        {
+            // gets new PFD freq
+            decimal pfdFreq = refFreq.decimal_GetPfdFreq(); 
+             
+            // recalc band select clock divider
+            vcoControls.CalcBandSelClockDivValue(pfdFreq);
+
+            if (calcCDivVal)
+                CalcCDivValue();    // if neccessary recalc C-div value
+        }
+
         public void CalcCDivValue()
         {
             decimal fPfd = refFreq.decimal_GetPfdFreq();
@@ -1218,8 +1364,7 @@ namespace Synthesizer_PC_control.Controllers
             outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
 
             refFreq.SetSynthModeInfoVariable((SynthMode)value);
-            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-            vcoControls.CalcBandSelClockDivValue(pfdFreq);
+            CalcsValsRelatedToPfdFreq(false);    // recalc related values
         }
 
         private void GetIntNValueFromRegister(UInt32 dataReg0)
@@ -1269,24 +1414,21 @@ namespace Synthesizer_PC_control.Controllers
         {
             bool refDoubler = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25));
             refFreq.SetRefDoubler(refDoubler);
-            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-            vcoControls.CalcBandSelClockDivValue(pfdFreq);
+            CalcsValsRelatedToPfdFreq(false);    // recalc related values
         }
         
         private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
         {
             bool refDividerBy2 = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 24));
             refFreq.SetRefDivBy2(refDividerBy2);
-            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-            vcoControls.CalcBandSelClockDivValue(pfdFreq);
+            CalcsValsRelatedToPfdFreq(false);    // recalc related values
         }
 
         private void GetRDivValueFromRegister(UInt32 dataReg2)
         {
             UInt16 rDiv = (UInt16)BitOperations.GetNBits(dataReg2, 10, 14);
             refFreq.SetRDivider(rDiv);
-            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-            vcoControls.CalcBandSelClockDivValue(pfdFreq);
+            CalcsValsRelatedToPfdFreq(false);    // recalc related values
         }
 
         private void GetCPCurrentIndexFromRegister(UInt32 dataReg2)
@@ -1624,19 +1766,20 @@ namespace Synthesizer_PC_control.Controllers
             CalcFreqInfo(intN, fracN, mod, aDiv, mode, outBpath, FBpath, fPfd, 
                          out fOutA, out fOutB, out fVco);
 
-            // if VCO freq is beyond limits set zeros into direct freq module group and return
             if (synthFreqInfo.SetVcoFreq(fVco) == false)
             {
+                // if VCO freq is beyond limits set zeros into direct freq module group and return
                 directFreqControl.SetFreqAtOut1(0);
                 directFreqControl.SetFreqAtOut2(0);
             }
             else
             {
+                // sets new frequencies into appropriate models
                 synthFreqInfo.SetOutAFreq(fOutA);
                 synthFreqInfo.SetOutBFreq(fOutB);
                 directFreqControl.SetFreqAtOut1(fOutA);
                 directFreqControl.SetFreqAtOut2(fOutB * 2);
-                memory.UpdateUiElements();
+                memory.UpdateUiElements();  
             }
         }
 
@@ -1797,8 +1940,7 @@ namespace Synthesizer_PC_control.Controllers
             outFreqControl.SetSynthMode(calcRegs.mode); // sets new calculated synthesizer mode
             outFreqControl.SetIntNVal(calcRegs.intN);   // sets new calculated IntN Value
             refFreq.SetRDivider(calcRegs.rDiv);         // sets new calculated R divider value
-            decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // gets new f_PFD with respect new R div value
-            vcoControls.CalcBandSelClockDivValue(pfdFreq);  // sets new band clock divider 
+            CalcsValsRelatedToPfdFreq(false);           // recalc related values
             
             // if mode was calculated as Fractional, so set Mod and FracN values
             if (calcRegs.mode == SynthMode.FRACTIONAL)
@@ -2104,8 +2246,7 @@ namespace Synthesizer_PC_control.Controllers
             directFreqControl.SetDirectInputFreqValue(data.OutputFreqValue);
 
             refFreq.SetRefFreqValue(data.ReferenceFrequency);
-            decimal pfdFreq = refFreq.decimal_GetPfdFreq();
-            vcoControls.CalcBandSelClockDivValue(pfdFreq);
+            CalcsValsRelatedToPfdFreq(false);    // recalc related values
 
             serialPort.SetSelectedPort(data.COM_port);
             refFreq.SetAutoLDSpeedAdj(data.AutoLDSpeedAdj);
