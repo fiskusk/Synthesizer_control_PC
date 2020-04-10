@@ -62,7 +62,7 @@ namespace Synthesizer_PC_control.Model
         #region Setters
         /// <summary>
         /// At first this function check if new value is beyond limits, if yes then
-        /// set freq at out A/B to zero and print into console error message.
+        /// sets freq at out A/B to zero and print into console error message.
         /// If no set new VCO frecuency and update UI elements.
         /// </summary>
         /// <param name="value"> new VCO frequency as decimal value </param>

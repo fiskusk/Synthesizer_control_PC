@@ -69,7 +69,7 @@ namespace Synthesizer_PC_control.Model
         #region Setters
 
         /// <summary>
-        /// Set mux configuration index.
+        /// Sets mux configuration index.
         /// </summary>
         /// <param name="value">
         ///     0 - Three-state output
@@ -161,7 +161,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Get register 4 double buffered mode (by register 0)
+        /// gets register 4 double buffered mode (by register 0)
         /// </summary>
         /// <returns>
         ///     0 - disabled

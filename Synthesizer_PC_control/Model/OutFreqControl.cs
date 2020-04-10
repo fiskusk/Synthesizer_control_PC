@@ -245,7 +245,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Set new A-divider value
+        /// Sets new A-divider value
         /// </summary>
         /// <param name="value"> UInt16 A-divider value </param>
         public void SetADivVal(UInt16 value)
@@ -279,7 +279,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Set new Lock-Detect function index
+        /// Sets new Lock-Detect function index
         /// </summary>
         /// <param name="value"> 
         ///     0 - Frac-N lock detect, 
@@ -322,7 +322,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Set new output B internal path value
+        /// Sets new output B internal path value
         /// </summary>
         /// <param name="value"> 
         ///     0 - Out B from divided VCO output, 
@@ -339,7 +339,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Set new VCO to N-counter feedback path
+        /// Sets new VCO to N-counter feedback path
         /// </summary>
         /// <param name="value"> 
         ///     0 - Divided, 
@@ -435,7 +435,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Get status auto LD-function computing
+        /// gets status auto LD-function computing
         /// </summary>
         /// <returns> 
         ///     true - LD-func auto set, 
@@ -447,7 +447,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Get output B internal path
+        /// gets output B internal path
         /// </summary>
         /// <returns> 
         ///     0 - Out B from divided VCO output, 
@@ -459,7 +459,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Get VCO to N-counter feedback path
+        /// gets VCO to N-counter feedback path
         /// </summary>
         /// <returns> 
         ///     0 - Divided, 

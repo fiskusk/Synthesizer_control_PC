@@ -99,7 +99,7 @@ namespace Synthesizer_PC_control.Utilities
                                                     int outBPathIndex,
                                                     int FBPathIndex)
         {
-            // set static parameters (these param have fixed value)
+            // sets static parameters (these param have fixed value)
             static_refInFreq      = refInFreq;
             static_isDoubled      = isDoubled;
             static_isDivBy2       = isDivBy2;
@@ -212,7 +212,7 @@ namespace Synthesizer_PC_control.Utilities
             if (remainder > 0.0000000001M)
             {
                 // if remainder is greater than approx. zero, then calculate fractional part
-                mode = SynthMode.FRACTIONAL;    // set mode as Fractional
+                mode = SynthMode.FRACTIONAL;    // sets mode as Fractional
 
                 bool success;
                 success = TryToCalcFractPart(remainder, rDivValue, 
@@ -303,9 +303,9 @@ namespace Synthesizer_PC_control.Utilities
                 }
             }
 
-            intN = (UInt16)intN_decimal;        // get integer part of Int-N
+            intN = (UInt16)intN_decimal;        // gets integer part of Int-N
 
-            remainder = intN_decimal - intN;    // get remainder of the division
+            remainder = intN_decimal - intN;    // gets remainder of the division
         }
 
         /// <summary>
@@ -435,8 +435,8 @@ namespace Synthesizer_PC_control.Utilities
                 success = true;
             }
 
-            mod = (UInt16)fracPart.D;       // get modulus value
-            fracN = (UInt16)fracPart.N;     // get Fractional-N value
+            mod = (UInt16)fracPart.D;       // gets modulus value
+            fracN = (UInt16)fracPart.N;     // gets Fractional-N value
 
             return success;
         }

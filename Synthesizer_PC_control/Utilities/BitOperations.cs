@@ -30,7 +30,7 @@ namespace Synthesizer_PC_control.Utilities
         public static UInt32 SetResetOneBit(UInt32 val, UInt16 bit, BitState bitState)
         {
             if (bitState == BitState.SET)
-                val |= unchecked((UInt32)(1<<bit));     // set appropriate bit
+                val |= unchecked((UInt32)(1<<bit));     // sets appropriate bit
             else
                 val &= ~unchecked((UInt32)(1<<bit));    // reset appropriate bit
 

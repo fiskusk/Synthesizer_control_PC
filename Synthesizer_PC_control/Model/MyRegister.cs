@@ -78,7 +78,7 @@ namespace Synthesizer_PC_control.Model
         }
         
         /// <summary>
-        /// Get string representation of register value as hexadecimal number
+        /// gets string representation of register value as hexadecimal number
         /// </summary>
         /// <returns> string hexadecimal register value </returns>
         public string string_GetValue()
@@ -103,14 +103,14 @@ namespace Synthesizer_PC_control.Model
                 {
                     try
                     {
-                        // get uiElementName and parse only numbers
+                        // gets uiElementName and parse only numbers
                         string sender = string.Join("", uiElement.Name.ToCharArray().Where(Char.IsDigit));
                         // now get first number and store it as register number
                         int regNumber = int.Parse(Convert.ToString(sender[0]));
                         // convert the input string to uint32 number
                         UInt32 uint32_inputValue = UInt32.Parse(value, System.Globalization.NumberStyles.HexNumber);
 
-                        // get current address from input value and parse it as UInt32 number
+                        // gets current address from input value and parse it as UInt32 number
                         UInt32 correctedAddress = uint32_inputValue;
                         // Now set the correct address from the previously obtained registration number
                         correctedAddress = BitOperations.ChangeNBits(correctedAddress, (UInt32)regNumber, 3, 0);
@@ -170,9 +170,9 @@ namespace Synthesizer_PC_control.Model
         /// <param name="startingBit"> The bit from which the value will change </param>
         public void ChangeNBits(UInt32 changingValue, int N, int startingBit)
         {
-            UInt32 reg = this.uint32_GetValue();    // get original register value as number
+            UInt32 reg = this.uint32_GetValue();    // gets original register value as number
             reg =  BitOperations.ChangeNBits(reg, changingValue, N, startingBit);
-            this.SetValue(reg); // Set new value into model
+            this.SetValue(reg); // Sets new value into model
         }
 
         /// <summary>

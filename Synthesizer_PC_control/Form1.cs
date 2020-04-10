@@ -15,7 +15,7 @@ namespace Synthesizer_PC_control
 
         public Form1()
         {
-            isForm1Load = false;        // set to false, Form loading
+            isForm1Load = false;        // sets to false, Form loading
             InitializeComponent();      // initialize components
             this.Load += Form1_Load;    // load form1
         
@@ -36,7 +36,7 @@ namespace Synthesizer_PC_control
         /// <param name="e"></param>
         void Form1_Load(object sender, EventArgs e)
         {
-            // set this as the default
+            // sets this as the default
             this.Visible = false;
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.WindowsDefaultBounds;
@@ -59,7 +59,7 @@ namespace Synthesizer_PC_control
 
             }
 
-            // set default size of window
+            // sets default size of window
             this.Size = new System.Drawing.Size(821, 771);
             this.Visible = true;
             windowInitialized = true;       // window initialized
@@ -614,7 +614,7 @@ namespace Synthesizer_PC_control
                 e.DrawBackground();
 
                 // Using winwaed's advice for selected items:
-                // Set the brush according to whether the item is selected or not
+                // sets the brush according to whether the item is selected or not
                 Brush brush = ( (e.State & DrawItemState.Selected) > 0) ? SystemBrushes.HighlightText : SystemBrushes.ControlText;
                 e.Graphics.DrawString(comboBox.Items[e.Index].ToString(), comboBox.Font, brush, e.Bounds);
 
@@ -629,7 +629,7 @@ namespace Synthesizer_PC_control
             e.DrawBackground();
 
             // Using winwaed's advice for selected items:
-            // Set the brush according to whether the item is selected or not
+            // sets the brush according to whether the item is selected or not
             Brush brush = ( Convert.ToUInt16(e.State & DrawItemState.Selected) == 1 ) ? SystemBrushes.HighlightText : SystemBrushes.ControlText;
             e.Graphics.DrawString(comboBox.Items[e.Index].ToString(), comboBox.Font, brush, e.Bounds);
 

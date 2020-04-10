@@ -50,7 +50,7 @@ namespace Synthesizer_PC_control.Utilities
         }
 
         /// <summary>
-        /// Get file name path for save using basic Windows Forms dialog
+        /// gets file name path for save using basic Windows Forms dialog
         /// </summary>
         /// <param name="fileNamePath"> output file name path </param>
         /// <returns> success of operation </returns>
@@ -77,7 +77,7 @@ namespace Synthesizer_PC_control.Utilities
         }
 
         /// <summary>
-        /// Get file name path for save using basic Windows Forms dialog
+        /// gets file name path for save using basic Windows Forms dialog
         /// with predefined file name
         /// </summary>
         /// <param name="fileNamePath"> output path to fileName </param>
@@ -132,7 +132,7 @@ namespace Synthesizer_PC_control.Utilities
             {
                 string fileName = GetFileNamePath(@"saved_workspace.json");
 
-                data.dataType = DataType.WINDOW;   // set saved type as WINDOW
+                data.dataType = DataType.WINDOW;   // sets saved type as WINDOW
 
                 // serialize JSON to a string and then write string to a file
                 File.WriteAllText(fileName, JsonConvert.SerializeObject(data, Formatting.Indented));
@@ -199,7 +199,7 @@ namespace Synthesizer_PC_control.Utilities
             {
                 string fileName = GetFileNamePath(@"default.json");
 
-                data.dataType = DataType.DEFAULTS;  // set saved type as DEFAULTS
+                data.dataType = DataType.DEFAULTS;  // sets saved type as DEFAULTS
 
                 // serialize JSON to a string and then write string to a file
                 File.WriteAllText(fileName, JsonConvert.SerializeObject(data, Formatting.Indented));
@@ -221,7 +221,7 @@ namespace Synthesizer_PC_control.Utilities
         {
             try
             {
-                data.dataType = DataType.DEFAULTS;  // set saved type as DEFAULTS
+                data.dataType = DataType.DEFAULTS;  // sets saved type as DEFAULTS
                 // serialize JSON to a string and then write string to a file
                 File.WriteAllText(path, JsonConvert.SerializeObject(data, Formatting.Indented));
                 return true;
@@ -302,7 +302,7 @@ namespace Synthesizer_PC_control.Utilities
         {
             try
             {
-                data.dataType = DataType.MEMORY;    // set saved type as MEMORY
+                data.dataType = DataType.MEMORY;    // sets saved type as MEMORY
 
                 // serialize JSON to a string and then write string to a file
                 File.WriteAllText(path, JsonConvert.SerializeObject(data, Formatting.Indented));

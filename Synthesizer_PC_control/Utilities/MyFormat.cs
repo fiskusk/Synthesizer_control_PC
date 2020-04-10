@@ -24,10 +24,10 @@ namespace Synthesizer_PC_control
         /// </param>
         public static void CheckIfHasHexInput(TextBox sender)
         {
-            string item = sender.Text;  // get text string from UI element
+            string item = sender.Text;  // gets text string from UI element
 
             int position;
-            position = sender.SelectionStart; // get cursor position
+            position = sender.SelectionStart; // gets cursor position
 
             // goes through the entire text character by character
             for (UInt16 i = 0; i < item.Length; i++)
@@ -55,9 +55,9 @@ namespace Synthesizer_PC_control
         /// </param>
         public static void CheckIfHasDecimalInput(TextBox sender)
         {
-            string item = sender.Text;  // get text string from UI element
+            string item = sender.Text;  // gets text string from UI element
             int position;
-            position = sender.SelectionStart;   // get cursor position
+            position = sender.SelectionStart;   // gets cursor position
             bool[] commaIsHere = new bool[item.Length]; // here will be flag for comma presence
             UInt16 commaCounter = 0;
 
@@ -183,7 +183,7 @@ namespace Synthesizer_PC_control
             
             // replace the decimal point with a dot
             item = item.Replace(',', '.');
-            int comma_position = item.IndexOf("."); // get comma position
+            int comma_position = item.IndexOf("."); // gets comma position
 
             // here the corresponding format of the separation of thousandths is created
             if (position == comma_position + 4  && comma_position != -1)
@@ -216,10 +216,10 @@ namespace Synthesizer_PC_control
         /// </param>
         public static void CheckIfHasIntegerInput(TextBox sender)
         {
-            string item = sender.Text;  // get text string from UI element
+            string item = sender.Text;  // gets text string from UI element
 
             int position;
-            position = sender.SelectionStart;   // get cursor position
+            position = sender.SelectionStart;   // gets cursor position
 
             for (UInt16 i = 0; i < item.Length; i++)
             {
@@ -299,13 +299,13 @@ namespace Synthesizer_PC_control
         /// </returns>
         private static int UpDownByPosition(TextBox sender, bool up)
         {
-            string f_input_string = sender.Text;    // get text string from UI element
+            string f_input_string = sender.Text;    // gets text string from UI element
             f_input_string = f_input_string.Replace(" ", string.Empty);     // remove spaces
             f_input_string = f_input_string.Replace(".", ",");  // , replace by .
 
             double f_input = double.Parse(f_input_string);      // string -> number
             int position = sender.SelectionStart;               // here get cursor position
-            int comma_position = f_input_string.IndexOf(",");   // get position of comma
+            int comma_position = f_input_string.IndexOf(",");   // gets position of comma
 
             try{
                 double factor;
@@ -338,7 +338,7 @@ namespace Synthesizer_PC_control
                                 else
                                 {
                                     // position is somewhere here (ie. 99|95.236 or 999|5.)
-                                    // get remaining string (99 or 999)
+                                    // gets remaining string (99 or 999)
                                     string remainingString = f_input_string.Remove(position, f_input_string.Length - position);
                                     bool success =  true;
                                     
@@ -365,7 +365,7 @@ namespace Synthesizer_PC_control
                                 else
                                 {
                                     // position is somewhere here (ie. 100|5.236 or 1000|.236)
-                                    // get remaining string (100 or 1000)
+                                    // gets remaining string (100 or 1000)
                                     string remainingString = f_input_string.Remove(position - 1, f_input_string.Length - position - 1);
                                     bool success =  true;
                                     
@@ -403,7 +403,7 @@ namespace Synthesizer_PC_control
                             factor = Math.Pow(10, position - 2 - comma_position);
                     }
 
-                    // get increment
+                    // gets increment
                     double increment = 1 / factor;
                     // increment or decrement input value
                     f_input = (up) ? f_input += increment : f_input -= increment;

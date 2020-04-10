@@ -95,7 +95,7 @@ namespace Synthesizer_PC_control.Model
         #region Setters
 
         /// <summary>
-        /// Set the currently selected port to the class.
+        /// Sets the currently selected port to the class.
         /// </summary>
         /// <param name="value"> name of actual selected port </param>
         public void SetSelectedPort(string value)
@@ -201,7 +201,7 @@ namespace Synthesizer_PC_control.Model
                 port.WriteTimeout = 500;    // timeout for sending data (500 ms)
                 port.Open();                // open serial port
                 port.NewLine = "\r";        // identifier of new line is set to "\r" (carriege return CR)
-                port.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler); // set new data recieved handler 
+                port.DataReceived += new SerialDataReceivedEventHandler(MyDataReceivedHandler); // sets new data recieved handler 
  
                 UpdateUiElements();
                 return true; 

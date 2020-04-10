@@ -214,7 +214,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Set frequency at synthesizer module output 1
+        /// Sets frequency at synthesizer module output 1
         /// </summary>
         /// <param name="value"> decimal representation synthesizer module frequency at output 1 </param>
         public void SetFreqAtOut1(decimal value)

@@ -296,7 +296,7 @@ namespace Synthesizer_PC_control.Controllers
             else
             {
                 serialPort.SendStringSerialPort("ref int");
-                refFreq.SetRefFreqValue(10);    // set fix 10 MHz frequency
+                refFreq.SetRefFreqValue(10);    // sets fix 10 MHz frequency
                 vcoControls.CalcBandSelClockDivValue(10);   // recalc band select clock divider
                 refFreq.SetIntRefInpEnabled(false); // disable UI element
                 moduleControls.SetIntRef(true);
@@ -317,7 +317,7 @@ namespace Synthesizer_PC_control.Controllers
     #region Reference Frequency Controls Group
 
         /// <summary>
-        /// Set new reference frequency and perform changes
+        /// Sets new reference frequency and perform changes
         /// </summary>
         /// <param name="value"> new reference frequency value </param>
         public void ReferenceFrequencyValueChanged(string value)
@@ -336,7 +336,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Set reference doubler state. Then recalculate the register values 
+        /// Sets reference doubler state. Then recalculate the register values 
         /// so that the output frequency does not change. Get new PFD frequency
         /// and recalculate band select clock divider and C-divider values
         /// </summary>
@@ -351,14 +351,14 @@ namespace Synthesizer_PC_control.Controllers
             {
                 serialPort.SetDisableSending(true, 5);      // disable sending
 
-                // set new state into register 2 bit 25
+                // sets new state into register 2 bit 25
                 registers[2].SetResetOneBit(25, (BitState)Convert.ToUInt16(value));
-                refFreq.SetRefDoubler(value);   // set into model
+                refFreq.SetRefDoubler(value);   // sets into model
 
                 // recalc new IntN, FracN and mod values for fix frequency
                 outFreqControl.RecalcRegsForNewPfdFreq(value);
 
-                decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // get new PFD freq
+                decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // gets new PFD freq
                 vcoControls.CalcBandSelClockDivValue(pfdFreq);  // recalc band select clock divider
                 CalcCDivValue();    // recalc C-div value
 
@@ -369,7 +369,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Set new reference divider by two. Then recalculate the register values 
+        /// sets new reference divider by two. Then recalculate the register values 
         /// so that the output frequency does not change. Get new PFD frequency
         /// and recalculate band select clock divider and C-divider values
         /// </summary>
@@ -386,12 +386,12 @@ namespace Synthesizer_PC_control.Controllers
 
                 // sets new state into register 2 bit 24
                 registers[2].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
-                refFreq.SetRefDivBy2(value);    // set into model
+                refFreq.SetRefDivBy2(value);    // sets into model
 
                 // recalc new IntN, FracN and mod values for fix frequency
                 outFreqControl.RecalcRegsForNewPfdFreq(!value);
 
-                decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // get new PFD freq
+                decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // gets new PFD freq
                 vcoControls.CalcBandSelClockDivValue(pfdFreq);  // recalc band select clock divider
                 CalcCDivValue();    // recalc C-div value
 
@@ -402,7 +402,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Set new reference R-divider value.
+        /// sets new reference R-divider value.
         /// </summary>
         /// <param name="value"></param>
         public void ReferenceRDividerValueChanged(UInt16 value)
@@ -1139,13 +1139,13 @@ namespace Synthesizer_PC_control.Controllers
         /// <param name="e"> key event arguments </param>
         public void FreqTextBoxBehavior(TextBox sender, KeyEventArgs e)
         {
-            int position = sender.SelectionStart;   // get position of cursor
+            int position = sender.SelectionStart;   // gets position of cursor
 
             if (e.KeyCode == Keys.Back)
             {
                 // backspace key pressed
-                string text = sender.Text;      // get text from UI element
-                int commaPosition = text.IndexOf(".");  // get position of comma
+                string text = sender.Text;      // gets text from UI element
+                int commaPosition = text.IndexOf(".");  // gets position of comma
                 if (position == commaPosition + 5  && commaPosition != -1)
                 {
                     // comma is present and cursor position is here: 12345.678 |901
@@ -1181,7 +1181,7 @@ namespace Synthesizer_PC_control.Controllers
                     ReferenceFrequencyValueChanged(sender.Text);
             }
             
-            sender.SelectionStart = position; // set new cursor position
+            sender.SelectionStart = position; // sets new cursor position
         }
 
         /// <summary>
@@ -1201,7 +1201,7 @@ namespace Synthesizer_PC_control.Controllers
             else if (sender.Name == "RefFTextBox")
                 ReferenceFrequencyValueChanged(sender.Text);
 
-            // set new changed cursor position
+            // sets new changed cursor position
             sender.SelectionStart = cursorPosition;
         }
 
@@ -1607,7 +1607,7 @@ namespace Synthesizer_PC_control.Controllers
         /// </summary>
         public void RecalcWorkingFreqInfo()
         {
-            // get importat values from models
+            // gets importat values from models
             UInt16 aDiv     = outFreqControl.uint16_GetADivVal();
             UInt16 intN     = outFreqControl.uint16_GetIntNVal();
             UInt16 fracN    = outFreqControl.uint16_GetFracNVal();
@@ -1647,7 +1647,7 @@ namespace Synthesizer_PC_control.Controllers
         /// <param name="memoryNumber"> specified memory number </param>
         public void RecalcMemoryInfo(UInt16 memoryNumber)
         {  
-            // get important memory register values
+            // gets important memory register values
             UInt32 dataReg0 = memory.GetRegister(memoryNumber, 0).uint32_GetValue();
             UInt32 dataReg1 = memory.GetRegister(memoryNumber, 1).uint32_GetValue();
             UInt32 dataReg2 = memory.GetRegister(memoryNumber, 2).uint32_GetValue();
@@ -1674,11 +1674,11 @@ namespace Synthesizer_PC_control.Controllers
             decimal fOutB;
             decimal fVco;
 
-            // get freq at out A, B
+            // gets freq at out A, B
             CalcFreqInfo(intN, fracN, mod, aDiv, mode, outBpath, FBpath, fPfd, 
                          out fOutA, out fOutB, out fVco);
             
-            // set this values into models
+            // sets this values into models
             if (memory.GetMemOut1State(memoryNumber))
                 memory.SetMemFreq1Value(fOutA, memoryNumber);
             else
@@ -1695,7 +1695,7 @@ namespace Synthesizer_PC_control.Controllers
             OutEnState outAEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 5);
             OutEnState outBEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 8);
 
-            // set these values into models
+            // sets these values into models
             if (outAEn == OutEnState.ENABLE)
                 memory.SetMemPwrAIndex(outAPwr, memoryNumber);
             else
@@ -1767,16 +1767,16 @@ namespace Synthesizer_PC_control.Controllers
 
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
         {
-            // set input desired freq into direct Freq Control class
+            // sets input desired freq into direct Freq Control class
             directFreqControl.SetDirectInputFreqValue(value);
 
             // this disable sending into serial port, if any value make changes (event)
             serialPort.SetDisableSending(true, 13);
 
-            // get input freq back from direct Freq Control class 
+            // gets input freq back from direct Freq Control class 
             decimal f_input = directFreqControl.decimal_GetDirectInputFreqVal();
 
-            // get reference input states
+            // gets reference input states
             bool isDoubled = refFreq.GetIsDoubled();    // ref doubler state
             bool isDivBy2 = refFreq.GetIsDividedBy2();  // ref divider by 2 state
             decimal refInFreq = refFreq.decimal_GetRefFreqValue();  // reference frequency
@@ -1791,31 +1791,31 @@ namespace Synthesizer_PC_control.Controllers
                                                                      outBPathIndex,
                                                                      FBPathIndex);
 
-            outFreqControl.SetADivVal((UInt16)calcRegs.aDivIndex);  // set new calculated ADiv index value
-            refFreq.SetAutoLDSpeedAdj(true);            // set Auto LDSpeed Adjustment
-            outFreqControl.SetAutoLDFunction(true);     // set Auto LD funtion
-            outFreqControl.SetSynthMode(calcRegs.mode); // set new calculated synthesizer mode
-            outFreqControl.SetIntNVal(calcRegs.intN);   // set new calculated IntN Value
-            refFreq.SetRDivider(calcRegs.rDiv);         // set new calculated R divider value
-            decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // get new f_PFD with respect new R div value
-            vcoControls.CalcBandSelClockDivValue(pfdFreq);  // set new band clock divider 
+            outFreqControl.SetADivVal((UInt16)calcRegs.aDivIndex);  // sets new calculated ADiv index value
+            refFreq.SetAutoLDSpeedAdj(true);            // sets Auto LDSpeed Adjustment
+            outFreqControl.SetAutoLDFunction(true);     // sets Auto LD funtion
+            outFreqControl.SetSynthMode(calcRegs.mode); // sets new calculated synthesizer mode
+            outFreqControl.SetIntNVal(calcRegs.intN);   // sets new calculated IntN Value
+            refFreq.SetRDivider(calcRegs.rDiv);         // sets new calculated R divider value
+            decimal pfdFreq = refFreq.decimal_GetPfdFreq(); // gets new f_PFD with respect new R div value
+            vcoControls.CalcBandSelClockDivValue(pfdFreq);  // sets new band clock divider 
             
             // if mode was calculated as Fractional, so set Mod and FracN values
             if (calcRegs.mode == SynthMode.FRACTIONAL)
             {
-                outFreqControl.SetModVal(calcRegs.mod);     // set Frac value
-                outFreqControl.SetFracNVal(calcRegs.fracN); // set Mod value
+                outFreqControl.SetModVal(calcRegs.mod);     // sets Frac value
+                outFreqControl.SetFracNVal(calcRegs.fracN); // sets Mod value
             }
 
             RecalcWorkingFreqInfo(); // reload frequency info
 
             decimal delta;  // delta frequency variable
 
-            // get synthesizer frequency at each output
+            // gets synthesizer frequency at each output
             decimal f_out_A = synthFreqInfo.decimal_GetOutAFreq();
             decimal f_out_B = synthFreqInfo.decimal_GetOutBFreq();
             
-            // set correct module frequency at each output
+            // sets correct module frequency at each output
             directFreqControl.SetFreqAtOut1(f_out_A);
             directFreqControl.SetFreqAtOut2(2*f_out_B);
 
@@ -1852,7 +1852,7 @@ namespace Synthesizer_PC_control.Controllers
                 directFreqControl.SetCalcFreq(f_out_B * 2);
             }
 
-            // set delta freq into GUI
+            // sets delta freq into GUI
             directFreqControl.SetDeltaFreqValue(delta);
             // Try send data
             serialPort.SetDisableSending(false, 13);
@@ -2540,12 +2540,12 @@ namespace Synthesizer_PC_control.Controllers
         /// <param name="memoryNumber"> memory number </param>
         public void SetMemOutsAndRefFromControlReg(UInt16 memoryNumber)
         {
-            // get all states from control register model data
+            // gets all states from control register model data
             UInt32 out1State = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 0);
             UInt32 out2State = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 1);
             UInt32 refState  = BitOperations.GetNBits(memory.GetRegister(memoryNumber, 6).uint32_GetValue(), 1, 2);
 
-            // set them into appropriate models
+            // sets them into appropriate models
             memory.SetMemOut1State(Convert.ToBoolean(out1State), memoryNumber);
             memory.SetMemOut2State(Convert.ToBoolean(out2State), memoryNumber);
             memory.SetMemIntRefState(!Convert.ToBoolean(refState), memoryNumber);

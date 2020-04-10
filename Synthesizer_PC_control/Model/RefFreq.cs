@@ -221,7 +221,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Set reference frequency doubler state, check limits a then recalc PFD freq.
+        /// sets reference frequency doubler state, check limits a then recalc PFD freq.
         /// </summary>
         /// <param name="value">
         ///     true - doubler active, 
@@ -259,7 +259,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Set reference frequency divider by two and recalc PFD frequency
+        /// sets reference frequency divider by two and recalc PFD frequency
         /// </summary>
         /// <param name="value">
         ///     true - divider by two enabled, 
@@ -278,7 +278,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Set R-divider value, check limits and recalc PFD frequency
+        /// sets R-divider value, check limits and recalc PFD frequency
         /// </summary>
         /// <param name="value"> R-divider UInt16 value </param>
         public void SetRDivider(UInt16 value)
@@ -302,7 +302,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Set Lock-Detect speed adjustment index and check if setting is correct
+        /// sets Lock-Detect speed adjustment index and check if setting is correct
         /// </summary>
         /// <param name="value"> 
         ///     Lock-Detect speed adjustment 
@@ -389,7 +389,7 @@ namespace Synthesizer_PC_control.Model
         #region Getters
         
         /// <summary>
-        /// Get reference frequency value as string.
+        /// gets reference frequency value as string.
         /// </summary>
         /// <returns> string ref. freq. </returns>
         public string string_GetRefFreqValue()
@@ -398,7 +398,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Get reference frequency value as decimal number
+        /// gets reference frequency value as decimal number
         /// </summary>
         /// <returns> decimal ref. freq. number </returns>
         public decimal decimal_GetRefFreqValue()
@@ -407,7 +407,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Get state if reference frequency is doubled or not
+        /// gets state if reference frequency is doubled or not
         /// </summary>
         /// <returns> 
         ///     true - doubler enabled, 
@@ -431,7 +431,7 @@ namespace Synthesizer_PC_control.Model
         }
         
         /// <summary>
-        /// Get UInt16 R-divider value.
+        /// gets UInt16 R-divider value.
         /// </summary>
         /// <returns> UInt16 R-divider value </returns>
         public UInt16 uint16_GetRefDividerValue()
@@ -440,7 +440,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Get decimal value of PFD frequency
+        /// gets decimal value of PFD frequency
         /// </summary>
         /// <returns> decimal value of PFD frequency </returns>
         public decimal decimal_GetPfdFreq()
@@ -449,7 +449,7 @@ namespace Synthesizer_PC_control.Model
         }
 
         /// <summary>
-        /// Get state if auto LD-speed computing is enabled, or disabled
+        /// gets state if auto LD-speed computing is enabled, or disabled
         /// </summary>
         /// <returns> 
         ///     true - compute LD-speed automaticaly, 
