@@ -7,23 +7,89 @@ using Synthesizer_PC_control.Utilities;
 
 namespace Synthesizer_PC_control.Controllers
 {
+    /// <summary>
+    /// Controller object for all models
+    /// </summary>
     class Controller
     {
+        /// <summary>
+        /// Serial comunication
+        /// </summary>
         public readonly MySerialPort serialPort;
+
+        /// <summary>
+        /// Currently syntesizer registery settings (registers 0-5)
+        /// </summary>
         public MyRegister[] registers;
-        public Memory memory;
+        
+        /// <summary>
+        /// Here program store what registry values were sent
+        /// </summary>
         public MyRegister[] old_registers;
+
+        /// <summary>
+        /// Synthesizer module memory
+        /// </summary>
+        public Memory memory;
+
+        /// <summary>
+        /// Module controls (Out1, Out2, Int/Ext signal reference)
+        /// </summary>
         public ModuleControls moduleControls;
+
+        /// <summary>
+        /// PLO reference frequency contorols
+        /// </summary>
         public RefFreq refFreq;
+
+        /// <summary>
+        /// PLO output frequency controls
+        /// </summary>
         public OutFreqControl outFreqControl;
+
+        /// <summary>
+        /// Direct frequency input control
+        /// </summary>
         public DirectFreqControl directFreqControl;
+
+        /// <summary>
+        /// PLO frequency info
+        /// </summary>
         public SynthFreqInfo synthFreqInfo;
+
+        /// <summary>
+        /// controls for PLO outputs (OutA, OutB)
+        /// </summary>
         public SynthOutputControls synthOutputControls;
+
+        /// <summary>
+        /// PLO charge pump controls
+        /// </summary>
         public ChargePump chargePump;
+
+        /// <summary>
+        /// PLO phase detector controls
+        /// </summary>
         public PhaseDetector phaseDetector;
+
+        /// <summary>
+        /// Generic PLO controls
+        /// </summary>
         public GenericControls genericControls;
+
+        /// <summary>
+        /// PLO shutdowns control
+        /// </summary>
         public Shutdowns shutdowns;
+
+        /// <summary>
+        /// PLO VCO controls
+        /// </summary>
         public VcoControls vcoControls;
+
+        /// <summary>
+        /// PLO register for read (Register 6)
+        /// </summary>
         public ReadRegister readRegister;
 
         /// <summary>
@@ -32,7 +98,7 @@ namespace Synthesizer_PC_control.Controllers
         /// <param name="view"> view handle </param>
         public Controller(Form1 view)
         {
-            // create mdoel of serial port 
+            // create model of serial port 
             serialPort = new MySerialPort(view, view.PortButton, 
                                           view.AvaibleCOMsComBox);
             serialPort.GetAvaliablePorts();
@@ -163,8 +229,12 @@ namespace Synthesizer_PC_control.Controllers
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
         }
 
-#region Change Functions for individual controls
+#region Action functions for each control
     #region Serial Port Section
+        /// <summary>
+        /// The function applies a port change for the serial interface.
+        /// </summary>
+        /// <param name="value"> port name as string </param>
         public void SelectedSerialPortChanged(string value)
         {
             serialPort.SetSelectedPort(value);
@@ -172,6 +242,10 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
 
     #region Synthesizer Module Controls Section
+        /// <summary>
+        /// The function switches output 1 status.
+        /// It also sets the corresponding state on the PLO OutA output.
+        /// </summary>
         public void SwitchOut1()
         {
             bool state = moduleControls.GetOut1State();
@@ -186,6 +260,10 @@ namespace Synthesizer_PC_control.Controllers
             synthOutputControls.SetOutAEnable((OutEnState)Convert.ToInt16(!state));
         }
 
+        /// <summary>
+        /// The function switches output 2 status.
+        /// It also sets the corresponding state on the PLO OutB output.
+        /// </summary>
         public void SwitchOut2()
         {
             bool state = moduleControls.GetOut2State();
@@ -200,6 +278,12 @@ namespace Synthesizer_PC_control.Controllers
             synthOutputControls.SetOutBEnable((OutEnState)Convert.ToInt16(!state));
         }
 
+        /// <summary>
+        /// The function switches signal reference status.
+        /// If internal reference is to be set, the value of the reference 
+        /// frequency changes exactly 10 MHz and makes it impossible to adjust 
+        /// the value.
+        /// </summary>
         public void SwitchRef()
         {
             if (moduleControls.GetIntRefState())
@@ -212,55 +296,75 @@ namespace Synthesizer_PC_control.Controllers
             else
             {
                 serialPort.SendStringSerialPort("ref int");
-                refFreq.SetRefFreqValue(10);
-                vcoControls.CalcBandSelClockDivValue(10);
-                refFreq.SetIntRefInpEnabled(false);
+                refFreq.SetRefFreqValue(10);    // set fix 10 MHz frequency
+                vcoControls.CalcBandSelClockDivValue(10);   // recalc band select clock divider
+                refFreq.SetIntRefInpEnabled(false); // disable UI element
                 moduleControls.SetIntRef(true);
                 directFreqControl.SetIntRefState(true);
             }
             RecalcWorkingFreqInfo();
         }
-
+        
+        /// <summary>
+        /// Send initialize command into synthesizer module
+        /// </summary>
         public void PloModuleInit()
         {
             serialPort.SendStringSerialPort("PLO init");
         }
 #endregion
     
-    #region Reference Frequency Controls Group 
+    #region Reference Frequency Controls Group
+        /// <summary>
+        /// Performs an action based on keyboard input in the TextBox UI element. 
+        /// The input has a frequency format, ie 12345.678 901.
+        /// </summary>
+        /// <param name="sender"> sender as TextBox UI elemnt</param>
+        /// <param name="e"> key event arguments </param>
         public void FreqTextBoxBehavior(TextBox sender, KeyEventArgs e)
         {
-            int position = sender.SelectionStart;
+            int position = sender.SelectionStart;   // get position of cursor
+
             if (e.KeyCode == Keys.Back)
             {
-                string text = sender.Text;
-                int commaPosition = text.IndexOf(".");
+                // backspace key pressed
+                string text = sender.Text;      // get text from UI element
+                int commaPosition = text.IndexOf(".");  // get position of comma
                 if (position == commaPosition + 5  && commaPosition != -1)
                 {
-                   position = commaPosition + 4;
+                    // comma is present and cursor position is here: 12345.678 |901
+                    // so change position, new cursor position will be 12345.678| 901
+                    // this allow delete thousands number, if cursor is behind space separator
+                    position = commaPosition + 4;
                 }
             }
             else if (e.KeyCode == Keys.Space)
             {
-                e.SuppressKeyPress = true;
+                // spaces not allowed
+                e.SuppressKeyPress = true;  // causes the space key to be ignored
             }
             else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
-                int cursorPosition = MyFormat.UpDownKeyIncDecFunc(sender, e.KeyCode);
+                // proccess up/down keys
+                position = MyFormat.UpDownKeyIncDecFunc(sender, e.KeyCode);   // performs the action itself
+
+                // procces new inc/dec value by sender name
                 if (sender.Name == "InputFreqTextBox")  
                     CalcSynthesizerRegValuesFromInpFreq(sender.Text);
                 else if (sender.Name == "RefFTextBox")
                     ReferenceFrequencyValueChanged(sender.Text);
-                sender.SelectionStart = cursorPosition;
-                e.SuppressKeyPress = true;
+
+                e.SuppressKeyPress = true;  // confirm that key is proccessed
             }
             else if (e.KeyCode == Keys.Enter)
             {
+                // confirmation key pressed, proccess value
                 if (sender.Name == "InputFreqTextBox")
                     CalcSynthesizerRegValuesFromInpFreq(sender.Text);
                 else if (sender.Name == "RefFTextBox")
                     ReferenceFrequencyValueChanged(sender.Text);
             }
+            
             sender.SelectionStart = position;
         }
 
@@ -1049,7 +1153,7 @@ namespace Synthesizer_PC_control.Controllers
 
 #endregion
 
-#region Functions for get values from register
+#region Functions for obtaining individual values from registers
     #region Parsing register 0
         private void GetFracIntModeStatusFromRegister(UInt32 dataReg0)
         {
@@ -2542,5 +2646,6 @@ namespace Synthesizer_PC_control.Controllers
             readRegister.SetAdcMode((ReadRegister.AdcMode)value);
         }
 #endregion
+    
     }
 }
