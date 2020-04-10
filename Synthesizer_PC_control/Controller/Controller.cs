@@ -741,7 +741,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Set new output A power by index.
+        /// Sets new output A power by index.
         /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value"> 
@@ -767,7 +767,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Set new output B power by index. Index 3 for +5 dBm is disabled due to
+        /// Sets new output B power by index. Index 3 for +5 dBm is disabled due to
         /// frequency doubler at output (has +3 dBm maximul level at input)
         /// If sending is enabled, send new registers into PLO.
         /// </summary>
@@ -796,123 +796,192 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
 
     #region Charge Pump Group
+        /// <summary>
+        /// Sets new R-set resistor value into CP model. This model calculate 
+        /// new CP current and fill this values into combobox.
+        /// </summary>
+        /// <param name="value"> new R-set resistor value </param>
         public void GetCPCurrentFromTextBox(string value)
         {
             chargePump.SetRSetValue(value);
         }
         
+        /// <summary>
+        /// Sets new charge pump current by index.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> charge pump current index </param>
         public void CPCurrentIndexChanged(int value)
         {
             if (serialPort.IsPortOpen() && chargePump.isCurrentComboboxFilled())
             {
-                serialPort.SetDisableSending(true, 20);
+                serialPort.SetDisableSending(true, 20);          // disable sending
 
+                // sets new value into register 2 bits 9-12
                 registers[2].ChangeNBits((UInt32)value, 4, 9);
-                chargePump.SetCurrentIndex(value);
+                chargePump.SetCurrentIndex(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 20);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 20);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new linearity index with respect currently set synth. mode.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> new linearity index </param>
         public void CPLinearityIndexChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 3);
+                serialPort.SetDisableSending(true, 3);          // disable sending
 
+                // gets synth. mode
                 SynthMode synthMode = outFreqControl.GetSynthMode();
-                chargePump.SetLinearityIndex(value, synthMode);
+                // sets into model with respect synth. mode
+                chargePump.SetLinearityIndex(value, synthMode);   
 
+                // returns back a potentially corrected value
                 value = chargePump.GetLinearityIndex();
 
+                // sets new value into register 1 bits 29,30
                 registers[1].ChangeNBits((UInt32)value, 2, 29);
 
-                serialPort.SetDisableSending(false, 3);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 3);           // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new charge pump mode by index.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value"> 
+        ///     charge pump test mode index 
+        ///     0 - normal mode,
+        ///     1 - Long Reset mode,
+        ///     2 - Force CP into source mode,
+        ///     3 - Force CP into sink mode.
+        /// </param>
         public void CPTestModeIndexChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 21);
+                serialPort.SetDisableSending(true, 21);          // disable sending
 
+                // sets new value into register 1 bits 27-28
                 registers[1].ChangeNBits((UInt32)value, 2, 27);
-                chargePump.SetTestModeIndex(value);
+                chargePump.SetTestModeIndex(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 21);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 21);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new charge pump fast-lock mode state.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     Fast-lock state:
+        ///     true - fast lock mode, 
+        ///     false - mute until lock detect state 
+        /// </param>
         public void CPFastLockCheckedChanged(bool value)
         {
             if (serialPort.IsPortOpen() && !chargePump.GetDisableHandler())
             {
-                serialPort.SetDisableSending(true, 22);
+                serialPort.SetDisableSending(true, 22);          // disable sending
 
+                // sets new value into register 3 bits 15-16
                 if (value)
                     registers[3].ChangeNBits(Convert.ToUInt32(ClockDividerMode.FastLockEnable), 2, 15);
                 else
                     registers[3].ChangeNBits(Convert.ToUInt32(ClockDividerMode.MuteUntilLockDelay), 2, 15);
                 
-                chargePump.SetFastLockMode(value);
+                chargePump.SetFastLockMode(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 22);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 22);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets phase adjustment mode state.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     Phase mode state:
+        ///     true - phase adjusment mode,
+        ///     false - mute until lock detect state 
+        /// </param>
         public void PhaseAdjustmentCheckedChanged(bool value)
         {
             if (serialPort.IsPortOpen() && !chargePump.GetDisableHandler())
             {
-                serialPort.SetDisableSending(true, 23);
+                serialPort.SetDisableSending(true, 23);     // disable sending
+
+                // sets new value into register 3 bits 15-16
                 if (value)
                     registers[3].ChangeNBits(Convert.ToUInt32(ClockDividerMode.PhaseAdjustment), 2, 15);
                 else
                     registers[3].ChangeNBits(Convert.ToUInt32(ClockDividerMode.MuteUntilLockDelay), 2, 15);
                 
-                chargePump.SetPhaseAdjustmentMode(value);
+                chargePump.SetPhaseAdjustmentMode(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 23);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 23);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets charge pump cycle slip mode state
+        /// </summary>
+        /// <param name="value"> 
+        ///     true - enabled, 
+        ///     false - disabled 
+        /// </param>
         public void CPCycleSlipCheckedChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 24);
+                serialPort.SetDisableSending(true, 24);     // disable sending
 
+                // sets new value into register 3 bit 18
                 registers[3].SetResetOneBit(18, (BitState)Convert.ToUInt16(value));
-                chargePump.SetCycleSlipMode(value);
+                chargePump.SetCycleSlipMode(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 24);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 24);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets charge pump tri-state mode
+        /// </summary>
+        /// <param name="value">
+        ///     true - enabled, 
+        ///     false - disabled 
+        /// </param>
         public void CPTristateCheckedChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 25);
+                serialPort.SetDisableSending(true, 25);     // disable sending
 
+                // sets new value into register 2 bit 4
                 registers[2].SetResetOneBit(4, (BitState)Convert.ToUInt16(value));
-                chargePump.SetTriStateMode(value);
+                chargePump.SetTriStateMode(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 25);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 25);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
@@ -920,196 +989,286 @@ namespace Synthesizer_PC_control.Controllers
         #endregion
 
     #region Phase Detector Group
+
+        /// <summary>
+        /// Sets noise mode value
+        /// </summary>
+        /// <param name="value">
+        ///     0 - Low-Noise mode, 
+        ///     1 - Low-spur mode 1, 
+        ///     2 - Low-spur mode 2 
+        /// </param>
         public void SDNoiseModeIndexChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 26);
+                serialPort.SetDisableSending(true, 26);     // disable sending
 
-                phaseDetector.SetNoiseMode(value);
+                phaseDetector.SetNoiseMode(value);  // sets into model
+                // adjusts the value
                 if (value == 1 || value == 2)
                     value++;
+                // sets new value into register 2 bits 29, 30
                 registers[2].ChangeNBits((UInt32)value, 2, 29);
 
-                serialPort.SetDisableSending(false, 26);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 26);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets lock-detect precision by index
+        /// </summary>
+        /// <param name="value">
+        ///     0 - 10ns, 
+        ///     1 - 6ns
+        /// </param>
         public void LDPrecisionIndexChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 27);
+                serialPort.SetDisableSending(true, 27);     // disable sending
 
+                // sets new value into register 2 bit 7
                 registers[2].SetResetOneBit(7, (BitState)value);
-                phaseDetector.SetPrecisionIndex(value);
+                phaseDetector.SetPrecisionIndex(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 27);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 27);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets PFD polarity
+        /// </summary>
+        /// <param name="value">
+        ///     0 - negative, 
+        ///     1 - positive (default) 
+        /// </param>
         public void PositivePdfCheckedChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 28);
+                serialPort.SetDisableSending(true, 28);     // disable sending
 
+                // sets new value into register 2 bit 6
                 registers[2].SetResetOneBit(6, (BitState)value);
-                phaseDetector.SetPfdPolarity(value);
+                phaseDetector.SetPfdPolarity(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 28);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 28);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
     #endregion
 
     #region VCO Settings Group
+
+        /// <summary>
+        /// Enable/disable automatic VCO selection
+        /// </summary>
+        /// <param name="value">
+        ///     false = disabled automatic VCO selection,
+        ///     true = enabled automatic VCO selection
+        /// </param>
         public void AutoVcoSelectionStateChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 40);
+                serialPort.SetDisableSending(true, 40);     // disable sending
 
+                // sets new state into register 3 bit 25
                 registers[3].SetResetOneBit(25, (BitState)Convert.ToUInt16(!value));
-                vcoControls.SetAutoVcoSelectionState(value);
+                vcoControls.SetAutoVcoSelectionState(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 40);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 40);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets VAS response to temperature drift
+        /// </summary>
+        /// <param name="value">
+        ///     false = VAS temperature compensation disabled,
+        ///     true =  VAS temperature compensation enabled
+        /// </param>
         public void VASTempComStateChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 41);
+                serialPort.SetDisableSending(true, 41);     // disable sending
 
+                // sets new state into register 3 bit 24
                 registers[3].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
                 if (value == true)
                     registers[5].ChangeNBits(0b11, 2, 29);
                 else
                     registers[5].ChangeNBits(0b00, 2, 29);
-                vcoControls.SetVASTempComState(value);
 
-                serialPort.SetDisableSending(false, 41);
-                if (serialPort.GetDisableSending() == false)
+                vcoControls.SetVASTempComState(value);   // sets into model
+
+                serialPort.SetDisableSending(false, 41);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Manual selection of VCO and VCO sub-band when VAS is disabled
+        /// </summary>
+        /// <param name="value"> value 0 - 63 (64 VCos) </param>
         public void ManualVCOSelectValueChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 42);
+                serialPort.SetDisableSending(true, 42);     // disable sending
 
+                // sets new value into register 3 bits 26-31
                 registers[3].ChangeNBits((UInt32)value, 6, 26);
-                vcoControls.SetManualVCOSelectValue((UInt16)value);
+                vcoControls.SetManualVCOSelectValue((UInt16)value);   // sets into model
 
-                serialPort.SetDisableSending(false, 42);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 42);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets new band select clock divider value
+        /// </summary>
+        /// <param name="value"> BS clock divider value (1-1023) </param>
         public void BandSelClockDivValueChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 43);
+                serialPort.SetDisableSending(true, 43);     // disable sending
 
+                // sets into model
                 vcoControls.SetBandSelClockDivValue((UInt16)value);
+                // returns back corrected value
                 value = vcoControls.GetBandSelClockDivValue();
 
+                // splits the value into most significant bits and least significant bits
                 UInt16 lsbs = (UInt16)(value & 0xFF);
                 UInt16 msbs = (UInt16)((UInt16)value & 0x300);
                 msbs = (UInt16)(msbs >> 8);
 
+                // sets new value into register 4 bits 12-19 (lsbs) and 24, 25 (msbs) 
                 registers[4].ChangeNBits((UInt32)lsbs, 8, 12);
                 registers[4].ChangeNBits((UInt32)msbs, 2, 24);
-
-                serialPort.SetDisableSending(false, 43);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 43);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets RFOUT Mute until Lock Detect Mode
+        /// </summary>
+        /// <param name="value">
+        ///     false = Disables RFOUT Mute until Lock Detect Mode,
+        ///     true = Enables RFOUT Mute until Lock Detect Mode
+        /// </param>
         public void MuteUntilLockDetectStateChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 44);
+                serialPort.SetDisableSending(true, 44);     // disable sending
 
+                // sets new value into register 4 bit 10
                 registers[4].SetResetOneBit(10, (BitState)Convert.ToUInt16(value));
-                vcoControls.SetMuteUntilLockDetectMode(value);
+                vcoControls.SetMuteUntilLockDetectMode(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 44);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 44);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets mute delay
+        /// </summary>
+        /// <param name="value">
+        ///     false = Do not delay LD to MTLD function to prevent flickering,
+        ///     true = Delay LD to MTLD function to prevent flickering
+        /// </param>
         public void DelayToPreventFlickeringStateChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 45);
+                serialPort.SetDisableSending(true, 45);     // disable sending
 
+                // sets new value into register 3 bit 17
                 registers[3].SetResetOneBit(17, (BitState)Convert.ToUInt16(value));
-                vcoControls.SetDelayToPreventFlickeringState(value);
+                vcoControls.SetDelayToPreventFlickeringState(value);   // sets into model
 
-                serialPort.SetDisableSending(false, 45);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 45);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets 12-bit clock divider value.
+        /// </summary>
+        /// <param name="value"> CDIV value (1 - 4095) </param>
         public void ClockDividerValueChanged(int value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 46);
+                serialPort.SetDisableSending(true, 46);     // disable sending
 
-                vcoControls.SetClockDividerValue((UInt16)value);
-                UInt16 modValue = outFreqControl.uint16_GetModVal();
-                decimal fPfd = refFreq.decimal_GetPfdFreq();
-                vcoControls.SetDelayLabel(modValue, fPfd);
+                vcoControls.SetClockDividerValue((UInt16)value);   // sets into model
 
+                UInt16 modValue = outFreqControl.uint16_GetModVal();    // gets modus value
+                decimal fPfd = refFreq.decimal_GetPfdFreq();    // gets PFD frequency
+                vcoControls.SetDelayLabel(modValue, fPfd);      // calculcate and set delay label
+
+                // sets new value into register 3 bits 3-14
                 registers[3].ChangeNBits((UInt32)value, 12, 3);
 
-                serialPort.SetDisableSending(false, 46);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 46);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Sets automatic C-divider calculations
+        /// </summary>
+        /// <param name="value">
+        ///     false = automatic CDIV calculation Disabled,
+        ///     true = automatic CDIV calculation Enabled
+        /// </param>
         public void AutoCDIVCalcStateChanged(bool value)
         {
             if (serialPort.IsPortOpen())
             {
-                serialPort.SetDisableSending(true, 47);
+                serialPort.SetDisableSending(true, 47);     // disable sending
 
-                vcoControls.SetAutoCdivCalc(value);
+                vcoControls.SetAutoCdivCalc(value);     // sets into model
 
-                CalcCDivValue();
+                CalcCDivValue();    // recalculate C-divider value
 
-                serialPort.SetDisableSending(false, 47);
-                if (serialPort.GetDisableSending() == false)
+                serialPort.SetDisableSending(false, 47);          // try enable sending
+                if (serialPort.GetDisableSending() == false)      // if success send new data
                     SendData();
             }
         }
 
+        /// <summary>
+        /// Recalculate delay
+        /// </summary>
+        /// <param name="value"> ms integer value </param>
         public void DelayInputValueChanged(UInt16 value)
         {
-            vcoControls.SetDelayInputValue(value);
+            vcoControls.SetDelayInputValue(value); // sets into model
 
-            CalcCDivValue();
+            CalcCDivValue();    // recalculate C-divider value
         }
 
         /// <summary>
@@ -1133,17 +1292,22 @@ namespace Synthesizer_PC_control.Controllers
                 CalcCDivValue();    // if neccessary recalc C-div value
         }
 
+        /// <summary>
+        /// Calculate C-divider value
+        /// </summary>
         public void CalcCDivValue()
         {
-            decimal fPfd = refFreq.decimal_GetPfdFreq();
-            UInt16 mod = outFreqControl.uint16_GetModVal();
+            decimal fPfd = refFreq.decimal_GetPfdFreq();    // gets PFD frequency
+            UInt16 mod = outFreqControl.uint16_GetModVal(); // gets modus value
             
             if (vcoControls.GetAutoCDiv())
             {
+                // if automatic C-div value calculations enabled, then recalculate it
                 UInt16 delayMsValue = vcoControls.GetDelayInputValue();
                 vcoControls.CalcCDIVValue(delayMsValue, fPfd, mod);
             }
             
+            // recalculate delay
             vcoControls.SetDelayLabel(mod, fPfd);
         }
 
