@@ -941,7 +941,8 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Sets charge pump cycle slip mode state
+        /// Sets charge pump cycle slip mode state.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value"> 
         ///     true - enabled, 
@@ -964,7 +965,8 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Sets charge pump tri-state mode
+        /// Sets charge pump tri-state mode.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value">
         ///     true - enabled, 
@@ -991,7 +993,7 @@ namespace Synthesizer_PC_control.Controllers
     #region Phase Detector Group
 
         /// <summary>
-        /// Sets noise mode value
+        /// Sets noise mode value. If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value">
         ///     0 - Low-Noise mode, 
@@ -1018,7 +1020,8 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Sets lock-detect precision by index
+        /// Sets lock-detect precision by index.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value">
         ///     0 - 10ns, 
@@ -1041,7 +1044,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Sets PFD polarity
+        /// Sets PFD polarity. If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value">
         ///     0 - negative, 
@@ -1067,7 +1070,8 @@ namespace Synthesizer_PC_control.Controllers
     #region VCO Settings Group
 
         /// <summary>
-        /// Enable/disable automatic VCO selection
+        /// Enable/disable automatic VCO selection.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value">
         ///     false = disabled automatic VCO selection,
@@ -1090,7 +1094,8 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Sets VAS response to temperature drift
+        /// Sets VAS response to temperature drift.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value">
         ///     false = VAS temperature compensation disabled,
@@ -1118,7 +1123,8 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Manual selection of VCO and VCO sub-band when VAS is disabled
+        /// Manual selection of VCO and VCO sub-band when VAS is disabled.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value"> value 0 - 63 (64 VCos) </param>
         public void ManualVCOSelectValueChanged(int value)
@@ -1138,7 +1144,8 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Sets new band select clock divider value
+        /// Sets new band select clock divider value.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value"> BS clock divider value (1-1023) </param>
         public void BandSelClockDivValueChanged(int value)
@@ -1167,7 +1174,8 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Sets RFOUT Mute until Lock Detect Mode
+        /// Sets RFOUT Mute until Lock Detect Mode.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value">
         ///     false = Disables RFOUT Mute until Lock Detect Mode,
@@ -1190,7 +1198,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Sets mute delay
+        /// Sets mute delay. If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value">
         ///     false = Do not delay LD to MTLD function to prevent flickering,
@@ -1213,7 +1221,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Sets 12-bit clock divider value.
+        /// Sets 12-bit clock divider value. If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value"> CDIV value (1 - 4095) </param>
         public void ClockDividerValueChanged(int value)
@@ -1238,7 +1246,8 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// Sets automatic C-divider calculations
+        /// Sets automatic C-divider calculations.
+        /// If sending is enabled, send new registers into PLO.
         /// </summary>
         /// <param name="value">
         ///     false = automatic CDIV calculation Disabled,
@@ -1314,126 +1323,226 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
 
     #region Generic Controls Group
+
+        /// <summary>
+        /// Sets new mux pin mode by index value.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     0 - Three-state output
+        ///     1 - D_VDD
+        ///     2 - D_GND
+        ///     3 - R-divider output
+        ///     4 - N-divider output/2
+        ///     5 - Analog lock detect
+        ///     6 - Digital lock detect
+        ///     7 - Sync Input
+        ///     8-11 - Reserved
+        ///     12 - Read SPI registers 06
+        ///     13-15 - Reserved
+        /// </param>
         public void MuxPinModeIndexChanged(int value)
         {
-            serialPort.SetDisableSending(true, 29);
+            serialPort.SetDisableSending(true, 29);     // disable sending
 
+            // sets new mode into register 2 bits 26-28
             registers[2].ChangeNBits((UInt32)value, 3, 26);
-            genericControls.SetMuxPinMode(value);
+            genericControls.SetMuxPinMode(value);   // sets into model
 
-            serialPort.SetDisableSending(false, 29);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 29);          // try enable sending
+            if (serialPort.GetDisableSending() == false)      // if success send new data
                 SendData();
         }
 
+        /// <summary>
+        /// Sets register 4 double buffered mode (by register 0)
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     false - disabled
+        ///     true - enabled
+        /// </param>
         public void Reg4DoubleBufferedStateChanged(bool value)
         {
-            serialPort.SetDisableSending(true, 37);
+            serialPort.SetDisableSending(true, 37);     // disable sending
 
+            // sets new mode into register 2 bit 13
             registers[2].SetResetOneBit(13, (BitState)Convert.ToUInt16(value));
-            genericControls.SetReg4DoubleBuffered(value);
+            genericControls.SetReg4DoubleBuffered(value);   // sets into model
 
-            serialPort.SetDisableSending(false, 37);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 37);          // try enable sending
+            if (serialPort.GetDisableSending() == false)      // if success send new data
                 SendData();
         }
 
+        /// <summary>
+        /// Sets integer mode for F = 0
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     true = If F[11:0] = 0, then fractional-N mode is set
+        ///     false = If F[11:0] = 0, then integer-N mode is auto set
+        ///     </param>
         public void IntNAutoModeWhenF0StateChanged(bool value) // TODO test it on SA
         {
-            serialPort.SetDisableSending(true, 38);
+            serialPort.SetDisableSending(true, 38);     // disable sending
 
+            // sets new mode into register 5 bit 24
             registers[5].SetResetOneBit(24, (BitState)Convert.ToUInt16(value));
-            genericControls.SetF0AutoIntNMode(value);
+            genericControls.SetF0AutoIntNMode(value);   // sets into model
 
-            serialPort.SetDisableSending(false, 38);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 38);          // try enable sending
+            if (serialPort.GetDisableSending() == false)      // if success send new data
                 SendData();
         }
 
+        /// <summary>
+        /// Sets counter reset mode.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     false = Normal operation
+        ///     true =  R and N counters reset
+        /// </param>
         public void RandNCountersResetStateChanged(bool value)
         {
-            serialPort.SetDisableSending(true, 39);
+            serialPort.SetDisableSending(true, 39);     // disable sending
 
+            // sets new mode into register 2 bit 3
             registers[2].SetResetOneBit(3, (BitState)Convert.ToUInt16(value));
-            genericControls.SetRandNCountersReset(value);
+            genericControls.SetRandNCountersReset(value);   // sets into model
 
-            serialPort.SetDisableSending(false, 39);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 39);          // try enable sending
+            if (serialPort.GetDisableSending() == false)      // if success send new data
                 SendData();
         }
     #endregion
 
     #region Shutdown controls group
 
+        /// <summary>
+        /// Sets  new synthesizer shutdown mode
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     false = Normal mode,
+        ///     true = Device shutdown
+        /// </param>
         public void PloPowerDownStateChanged(bool value)
         {
-            serialPort.SetDisableSending(true, 31);
-
+            serialPort.SetDisableSending(true, 31);     // disable sending
+        
+            // sets new mode into register 2 bit 5
             registers[2].SetResetOneBit(5, (BitState)Convert.ToUInt16(value));
-            shutdowns.SetShutdownAllState(value);
+            shutdowns.SetShutdownAllState(value);   // sets into model
 
-            serialPort.SetDisableSending(false, 31);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 31);          // try enable sending
+            if (serialPort.GetDisableSending() == false)      // if success send new data
                 SendData();
         }
 
+        /// <summary>
+        /// Sets Shutdown Reference input mode
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     false = Enables Reference Input,
+        ///     true = Disables Reference Input
+        /// </param>
         public void  RefInputShutdownStateChanged(bool value)
         {
-            serialPort.SetDisableSending(true, 32);
+            serialPort.SetDisableSending(true, 32);     // disable sending
 
+            // sets new mode into register 4 bit 26
             registers[4].SetResetOneBit(26, (BitState)Convert.ToUInt16(value));
-            shutdowns.SetReferenceInputShutdownState(value);
+            shutdowns.SetReferenceInputShutdownState(value);   // sets into model
 
-            serialPort.SetDisableSending(false, 32);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 32);          // try enable sending
+            if (serialPort.GetDisableSending() == false)      // if success send new data
                 SendData();
         }
 
+        /// <summary>
+        /// Sets Shutdown PLL mode.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     false = Enables PLL,
+        ///     true = Disables PLL
+        /// </param>
         public void PllShutDownStateChanged(bool value)
         {
-            serialPort.SetDisableSending(true, 33);
+            serialPort.SetDisableSending(true, 33);     // disable sending
 
+            // sets new mode into register 5 bit 25
             registers[5].SetResetOneBit(25, (BitState)Convert.ToUInt16(value));
-            shutdowns.SetPllShutdownState(value);
+            shutdowns.SetPllShutdownState(value);   // sets into model
 
-            serialPort.SetDisableSending(false, 33);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 33);          // try enable sending
+            if (serialPort.GetDisableSending() == false)      // if success send new data
                 SendData();
         }
 
+        /// <summary>
+        /// Sets Shutdown VCO Divider mode.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     false = Enables VCO Divider,
+        ///     true = Disables VCO Divider
+        /// </param>
         public void VcoDividerShutDownStateChanged(bool value)
         {
-            serialPort.SetDisableSending(true, 34);
+            serialPort.SetDisableSending(true, 34);     // disable sending
 
+            // sets new mode into register 4 bit 27
             registers[4].SetResetOneBit(27, (BitState)Convert.ToUInt16(value));
-            shutdowns.SetVcoDividerShutdownState(value);
+            shutdowns.SetVcoDividerShutdownState(value);   // sets into model
 
-            serialPort.SetDisableSending(false, 34);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 34);          // try enable sending
+            if (serialPort.GetDisableSending() == false)      // if success send new data
                 SendData();
         }
 
+        /// <summary>
+        /// Sets Shutdown VCO LDO mode.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     false = Enables VCO LDO,
+        ///     true = Disables VCO LDO
+        /// </param>
         public void VcoLdoShutDownStateChanged(bool value)
         {
-            serialPort.SetDisableSending(true, 35);
+            serialPort.SetDisableSending(true, 35);     // disable sending
 
+            // sets new mode into register 4 bit 28
             registers[4].SetResetOneBit(28, (BitState)Convert.ToUInt16(value));
-            shutdowns.SetVcoLdoShutdownState(value);
+            shutdowns.SetVcoLdoShutdownState(value);   // sets into model
 
-            serialPort.SetDisableSending(false, 35);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 35);          // try enable sending
+            if (serialPort.GetDisableSending() == false)      // if success send new data
                 SendData();
         }
 
+        /// <summary>
+        /// Sets VCO Shutdown mode.
+        /// If sending is enabled, send new registers into PLO.
+        /// </summary>
+        /// <param name="value">
+        ///     false = Enables VCO,
+        ///     true = Disables VCO
+        /// </param>
         public void VcoShutDownStateChanged(bool value)
         {
-            serialPort.SetDisableSending(true, 36);
+            serialPort.SetDisableSending(true, 36);     // disable sending
 
+            // sets new mode into register 4 bit 11
             registers[4].SetResetOneBit(11, (BitState)Convert.ToUInt16(value));
-            shutdowns.SetVcoShutdownState(value);
+            shutdowns.SetVcoShutdownState(value);   // sets into model
 
-            serialPort.SetDisableSending(false, 36);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 36);          // try enable sending
+            if (serialPort.GetDisableSending() == false)      // if success send new data
                 SendData();
         }
 
