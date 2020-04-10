@@ -134,7 +134,7 @@ namespace Synthesizer_PC_control.Model
         /// <summary>
         /// Function set direct frequency input string.
         /// It remove all spaces and replace dot decimal separator by comma separator.
-        /// If input string is empty, value was minimum possible (23,5 MHz)
+        /// If input string is empty, value was minimum possible (23,4375 MHz)
         /// </summary>
         /// <param name="value"> input direct frequency string </param>
         public void SetDirectInputFreqValue(string value)
@@ -143,7 +143,7 @@ namespace Synthesizer_PC_control.Model
             value = value.Replace(".", ",");
 
             if (value == string.Empty)
-                value = "23,5";
+                value = "23,4375";
 
             SetDirectInputFreqValue(Convert.ToDecimal(value));
         }
@@ -155,13 +155,13 @@ namespace Synthesizer_PC_control.Model
         /// <param name="value"> input decimal value </param>
         public void SetDirectInputFreqValue(decimal value)
         {
-            if (value < 23.5M || value > 12000)
+            if (value < 23.4375M || value > 12000)
             {
-                if (value < 23.5M)
-                    value = 23.5M;
+                if (value < 23.4375M)
+                    value = 23.4375M;
                 else
                     value = 12000;
-                MessageBox.Show("The value entered is outside the allowed range for output frequency <23.5M - 12000>", "Output freq value out of range!", 
+                MessageBox.Show("The value entered is outside the allowed range for output frequency <23.4375 - 12000>", "Output freq value out of range!", 
                 MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }
 

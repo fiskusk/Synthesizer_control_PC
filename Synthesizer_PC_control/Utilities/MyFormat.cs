@@ -319,7 +319,7 @@ namespace Synthesizer_PC_control
                         //                  1234|,254 125 or
                         //                  1234,|254 125
                         if (position == 1 && f_input_string[0] == '1' && up == false && 
-                            decimal.Parse(f_input_string.Remove(0,1)) < 23.5M)
+                            decimal.Parse(f_input_string.Remove(0,1)) < 23.4375M)
                         {
                             // 1|025.2056 down -> 9|25.2056
                             factor = Math.Pow(10, position + 1 - comma_position);
