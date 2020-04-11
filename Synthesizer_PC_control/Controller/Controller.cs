@@ -230,6 +230,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
 #region Action functions for each control
+
     #region Serial Port Section
         /// <summary>
         /// The function applies a port change for the serial interface.
@@ -1630,156 +1631,278 @@ namespace Synthesizer_PC_control.Controllers
 
 #region Functions for obtaining individual values from registers
     #region Parsing register 0
+
+        /// <summary>
+        /// Gets and sets mode from register 0
+        /// </summary>
+        /// <param name="dataReg0"> register 0 </param>
         private void GetFracIntModeStatusFromRegister(UInt32 dataReg0)
         {
+            // gets 31. bit from input data register 0
             UInt32 value = BitOperations.GetNBits(dataReg0, 1, 31);
-            outFreqControl.SetSynthMode((SynthMode)value);
-            outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
 
+            outFreqControl.SetSynthMode((SynthMode)value);  // sets into model
+            outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false); // check LD function
+
+            // set mode into reference frequeny class
             refFreq.SetSynthModeInfoVariable((SynthMode)value);
+
             CalcsValsRelatedToPfdFreq(false);    // recalc related values
         }
 
+        /// <summary>
+        /// Gets and sets Integer-N value from register 0
+        /// </summary>
+        /// <param name="dataReg0"> register 0 </param>
         private void GetIntNValueFromRegister(UInt32 dataReg0)
         {
+            // gets bits 15-30 from input data register 0
             UInt16 IntN = (UInt16)BitOperations.GetNBits(dataReg0, 16, 15);
-            outFreqControl.SetIntNVal(IntN);
+            outFreqControl.SetIntNVal(IntN); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets Fractional-N value from register 0
+        /// </summary>
+        /// <param name="dataReg0"> register 0 </param>
         private void GetFracNValueFromRegister(UInt32 dataReg0)
         {
+            // gets bits 3-14 from input data register 0
             UInt16 FracN = (UInt16)BitOperations.GetNBits(dataReg0, 12, 3);
-            outFreqControl.SetFracNVal(FracN);
+            outFreqControl.SetFracNVal(FracN); // sets into model
         }
     #endregion
 
     #region Parsing register 1
+
+        /// <summary>
+        /// Gets and sets modus value from register 1
+        /// </summary>
+        /// <param name="dataReg1"> register 1 </param>
         private void GetModValueFromRegister(UInt32 dataReg1)
         {
+            // gets bits 3-14 from input data register 1
             UInt16 mod = (UInt16)BitOperations.GetNBits(dataReg1, 12, 3);
-            outFreqControl.SetModVal(mod);
-            decimal fPfd = refFreq.decimal_GetPfdFreq();
+            outFreqControl.SetModVal(mod); // sets into model
 
+            // gets PFD frequency and recalc delay from these values
+            decimal fPfd = refFreq.decimal_GetPfdFreq();
             vcoControls.SetDelayLabel(mod, fPfd);
         }
 
+        /// <summary>
+        /// Gets and sets phase-P value from register 1
+        /// </summary>
+        /// <param name="dataReg1"> register 1 </param>
         private void GetPhasePValueFromRegister(UInt32 dataReg1)
         {
+            // gets bits 15-26 from input data register 1
             UInt16 phaseP = (UInt16)BitOperations.GetNBits(dataReg1, 12, 15);
-            outFreqControl.SetPPhaseVal(phaseP);
+            outFreqControl.SetPPhaseVal(phaseP); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets charge pump linearity value from register 1
+        /// </summary>
+        /// <param name="dataReg1"> register 1 </param>
         private void GetCPLinearityFromRegister(UInt32 dataReg1)
         {
+            // gets bits 29, 30 from input data register 1
             int index = (int)BitOperations.GetNBits(dataReg1, 2, 29);
-            chargePump.SetLinearityIndex(index);
+            chargePump.SetLinearityIndex(index); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets charge pump test mode value from register 1
+        /// </summary>
+        /// <param name="dataReg1"> register 1 </param>
         private void GetCPTestModeFromRegister(UInt32 dataReg1)
         {
+            // gets bits 27, 28 from input data register 1
             int index = (int)BitOperations.GetNBits(dataReg1, 2, 27);
-            chargePump.SetTestModeIndex(index);
+            chargePump.SetTestModeIndex(index); // sets into model
         }
     #endregion
 
     #region Parsing register 2
+
+        /// <summary>
+        /// Gets and sets reference signal doubler state from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetRefDoublerStatusFromRegister(UInt32 dataReg2)
         {
+            // gets bit 25 from input data register 2
             bool refDoubler = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 25));
-            refFreq.SetRefDoubler(refDoubler);
+            refFreq.SetRefDoubler(refDoubler); // sets into model
             CalcsValsRelatedToPfdFreq(false);    // recalc related values
         }
         
+        /// <summary>
+        /// Gets and sets reference signal divider by 2 state from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetRefDividerStatusFromRegister(UInt32 dataReg2)
         {
+            // gets bit 24 from input data register 2
             bool refDividerBy2 = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 24));
-            refFreq.SetRefDivBy2(refDividerBy2);
+            refFreq.SetRefDivBy2(refDividerBy2); // sets into model
             CalcsValsRelatedToPfdFreq(false);    // recalc related values
         }
 
+        /// <summary>
+        /// Gets and sets reference R-divider value from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetRDivValueFromRegister(UInt32 dataReg2)
         {
+            // gets bits 14-23 from input data register 2
             UInt16 rDiv = (UInt16)BitOperations.GetNBits(dataReg2, 10, 14);
-            refFreq.SetRDivider(rDiv);
+            refFreq.SetRDivider(rDiv); // sets into model
             CalcsValsRelatedToPfdFreq(false);    // recalc related values
         }
 
+        /// <summary>
+        /// Gets and sets charge pump current index from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetCPCurrentIndexFromRegister(UInt32 dataReg2)
         {
+            // gets bits 9-12 from input data register 2
             int index = (int)BitOperations.GetNBits(dataReg2, 4, 9);
-            chargePump.SetCurrentIndex(index);
+            chargePump.SetCurrentIndex(index); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets lock-detect speed adjustment index from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetLDSpeedAdjIndexFromRegister(UInt32 dataReg2)
         {
+            // gets bit 31 from input data register 2
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 31);
-            refFreq.SetLDSpeedAdjIndex(index);
+            refFreq.SetLDSpeedAdjIndex(index); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets lock-detect function index from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetLDFunctionIndexFromRegister(UInt32 dataReg2)
         {
+            // gets bit 8 from input data register 2
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 8);
-            outFreqControl.SetLDFunctionIndex(index);
-            if (serialPort.IsPortOpen())
+            outFreqControl.SetLDFunctionIndex(index); // sets into model
+            if (serialPort.IsPortOpen())    // if port is open, check if correct LD func is sellected
                 outFreqControl.CheckIfLDfuncToAppropriateModeIsSellected(false);
         }
 
+        /// <summary>
+        /// Gets and sets charge pump tri-state mode from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetTriStateModeFromRegister(UInt32 dataReg2)
         {
+            // gets bit 4 from input data register 2
             bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 4));
-            chargePump.SetTriStateMode(enabled);
+            chargePump.SetTriStateMode(enabled); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets phase detector noise mode from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetNoiseModeFromRegister(UInt32 dataReg2)
         {
+            // gets bits 29, 30 from input data register 2
             int index = (int)BitOperations.GetNBits(dataReg2, 2, 29);
+
+            // fix values 2 and 3 -> 1 and 2, for model compabilitiy
             if (index == 2 || index == 3)
                 index--;
-            phaseDetector.SetNoiseMode(index);
+            phaseDetector.SetNoiseMode(index); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets phase detector precision value from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetPrecisionFromRegister(UInt32 dataReg2)
         {
+            // gets bit 7 from input data register 2
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 7);
-            phaseDetector.SetPrecisionIndex(index);
+            phaseDetector.SetPrecisionIndex(index); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets phase detector polarity from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetPfdPositionFromRegister(UInt32 dataReg2)
         {
+            // gets bit 6 from input data register 2
             int index = (int)BitOperations.GetNBits(dataReg2, 1, 6);
-            phaseDetector.SetPfdPolarity(index);
+            phaseDetector.SetPfdPolarity(index); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets mux pin mode from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetMuxPinModeFromRegister(UInt32 dataReg2)
         {
+            // gets bits 26 - 28 from input data register 2
             int index = (int)BitOperations.GetNBits(dataReg2, 3, 26);
-            genericControls.SetMuxPinMode(index);
+            genericControls.SetMuxPinMode(index); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets shutdown entire synthesizer mode from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetShutDownAllStateFromRegister(UInt32 dataReg2)
         {
+            // gets bit 5 from input data register 2
             bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 5));
-            shutdowns.SetShutdownAllState(shutdown);
+            shutdowns.SetShutdownAllState(shutdown); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets automatic register 4 double buffering by reg. 0 from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetReg4DoubleBufferedStateFromRegister(UInt32 dataReg2)
         {
+            // gets bit 13 from input data register 2
             bool state = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 13));
-            genericControls.SetReg4DoubleBuffered(state);
+            genericControls.SetReg4DoubleBuffered(state); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets R and N counter reset mode from register 2
+        /// </summary>
+        /// <param name="dataReg2"> register 2 </param>
         private void GetRandNCountersResetStateFromRegister(UInt32 dataReg2)
         {
+            // gets bit 3 from input data register 2
             bool state = Convert.ToBoolean(BitOperations.GetNBits(dataReg2, 1, 3));
-            genericControls.SetRandNCountersReset(state);
+            genericControls.SetRandNCountersReset(state); // sets into model
         }
 
     #endregion
 
     #region Parsing register 3
+
+        /// <summary>
+        /// Gets and sets clock divider mode from register 3
+        /// </summary>
+        /// <param name="dataReg3"> register 3 </param>
         private void GetClockDividerModeFromRegister(UInt32 dataReg3)
         {
+            // gets bits 15, 16 from input data register 3
             ClockDividerMode cdm = (ClockDividerMode)BitOperations.GetNBits(dataReg3, 2, 15);
+
+            // sets into model
             if (cdm == ClockDividerMode.FastLockEnable)
                 chargePump.SetFastLockMode(true);
             else
@@ -1791,139 +1914,247 @@ namespace Synthesizer_PC_control.Controllers
                 chargePump.SetPhaseAdjustmentMode(false);
         }
 
+        /// <summary>
+        /// Gets and sets charge pump cycle slip mode from register 3
+        /// </summary>
+        /// <param name="dataReg3"> register 3 </param>
         private void GetCycleSlipModeFromRegister(UInt32 dataReg3)
         {
+            // gets bit 18 from input data register 3
             bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg3, 1, 18));
-            chargePump.SetCycleSlipMode(enabled);
+            chargePump.SetCycleSlipMode(enabled);   // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets automatic VCO selection mode from register 3
+        /// </summary>
+        /// <param name="dataReg3"> register 3 </param>
         private void GetAutoVcoSelectionStateFromRegister(UInt32 dataReg3)
         {
+            // gets bit 25 from input data register 3
             bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg3, 1, 25));
-            vcoControls.SetAutoVcoSelectionState(!enabled);
+            vcoControls.SetAutoVcoSelectionState(!enabled); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets VCO auto selection with temperature compensation from register 3
+        /// </summary>
+        /// <param name="dataReg3"> register 3 </param>
         private void GetVASTempComStateFromRegister(UInt32 dataReg3)
         {
+            // gets bit 24 from input data register 3
             bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg3, 1, 24));
-            vcoControls.SetVASTempComState(enabled);
+            vcoControls.SetVASTempComState(enabled);    // sets into model
         }
-
+        
+        /// <summary>
+        /// Gets and sets manual VCO selection mode from register 3
+        /// </summary>
+        /// <param name="dataReg3"> register 3 </param>
         private void GetManualVCOSelectValueFromRegister(UInt32 dataReg3)
         {
+            // gets bits 26 - 31 from input data register 3
             UInt16 vcoValue = (UInt16)BitOperations.GetNBits(dataReg3, 6, 26);
-            vcoControls.SetManualVCOSelectValue(vcoValue);
+            vcoControls.SetManualVCOSelectValue(vcoValue);  // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets delay mode to prevent flickering from register 3
+        /// </summary>
+        /// <param name="dataReg3"> register 3 </param>
         private void GetDelayToPreventFlickeringStateFromRegister(UInt32 dataReg3)
         {
+            // gets bit 17 from input data register 3
             bool enabled = Convert.ToBoolean(BitOperations.GetNBits(dataReg3, 1, 17));
-            vcoControls.SetDelayToPreventFlickeringState(enabled);
+            vcoControls.SetDelayToPreventFlickeringState(enabled);  // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets clock divider value from register 3
+        /// </summary>
+        /// <param name="dataReg3"> register 3 </param>
         private void GetClockDividerValueFromRegister(UInt32 dataReg3)
         {
+            // gets bits 3-14 from input data register 3
             UInt16 cdiv = (UInt16)BitOperations.GetNBits(dataReg3, 12, 3);
-            vcoControls.SetClockDividerValue(cdiv);
+            vcoControls.SetClockDividerValue(cdiv); // sets into model
         }
 
     #endregion
 
     #region Parsing register 4
+
+        /// <summary>
+        /// Gets and sets output A state from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         private void GetOutAENStatusFromRegister(UInt32 dataReg4)
         {
+            // gets bit 5 from input data register 4
             OutEnState outAEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 5);
-            synthOutputControls.SetOutAEnable(outAEn);
+            synthOutputControls.SetOutAEnable(outAEn); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets output B state from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         private void GetOutBENStatusFromRegister(UInt32 dataReg4)
         {
+            // gets bit 8 from input data register 4
             OutEnState outBEn = (OutEnState)BitOperations.GetNBits(dataReg4, 1, 8);
-            synthOutputControls.SetOutBEnable(outBEn);
+            synthOutputControls.SetOutBEnable(outBEn); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets output A power level from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         private void GetOutAPwrStatusFromRegister(UInt32 dataReg4)
         {
+            // gets bits 3, 4  from input data register 4
             int outAPwr = (int)BitOperations.GetNBits(dataReg4, 2, 3);
-            synthOutputControls.SetOutAPwr(outAPwr);
+            synthOutputControls.SetOutAPwr(outAPwr); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets output B power level from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         private void GetOutBPwrStatusFromRegister(UInt32 dataReg4)
         {
-            int outBPwr = (int)BitOperations.GetNBits(dataReg4, 2, 6);
+            // gets bits 6, 7 from input data register 4
+            int outBPwr = (int)BitOperations.GetNBits(dataReg4, 2, 6); 
+            // sets into model and if not successfull, fix register value into correct level
             if (!synthOutputControls.SetOutBPwr(outBPwr))
                 registers[4].ChangeNBits((UInt32)synthOutputControls.GetOutBPwrIndex(), 2, 6);
         }
 
+        /// <summary>
+        /// Gets and sets A-divider value from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         private void GetADividerValueFromRegister(UInt32 dataReg4)
         {
+            // gets bits 20-22 from input data register 4
             UInt16 aDiv = (UInt16)BitOperations.GetNBits(dataReg4, 3, 20);
-            outFreqControl.SetADivVal(aDiv);
+            outFreqControl.SetADivVal(aDiv); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets output B internal path index from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         public void GetOutBPathIndexFromRegister(UInt32 dataReg4)
         {
+            // gets bit 9 from input data register 4
             int index = (int)BitOperations.GetNBits(dataReg4, 1, 9);
-            outFreqControl.SetOutBPath(index);
+            outFreqControl.SetOutBPath(index); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets VCO to N-counter internal path from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         public void GetFBPathIndexFromRegister(UInt32 dataReg4)
         {
+            // gets bit 23 from input data register 4
             int index = (int)BitOperations.GetNBits(dataReg4, 1, 23);
-            outFreqControl.SetFBPath(index);
+            outFreqControl.SetFBPath(index); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets reference input shutdown state from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         private void GetRefInputShutdownStateFromRegister(UInt32 dataReg4)
         {
+            // gets bit 26 from input data register 4
             bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 26));
-            shutdowns.SetReferenceInputShutdownState(shutdown);
+            shutdowns.SetReferenceInputShutdownState(shutdown); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets VCO divider shutdown state from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         private void GetVcoDividerShutDownStateFromRegister(UInt32 dataReg4)
         {
+            // gets bit 27 from input data register 4
             bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 27));
-            shutdowns.SetVcoDividerShutdownState(shutdown);
+            shutdowns.SetVcoDividerShutdownState(shutdown); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets VCO LDO shutdown state from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         private void GetVcoLdoShutDownStateFromRegister(UInt32 dataReg4)
         {
+            // gets bit 28 from input data register 4
             bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 28));
-            shutdowns.SetVcoLdoShutdownState(shutdown);
+            shutdowns.SetVcoLdoShutdownState(shutdown); // sets into model
         }
 
+        /// <summary>
+        /// Gets and VCO shutdown state from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         private void GetVcoShutDownStateFromRegister(UInt32 dataReg4)
         {
+            // gets bit 11 from input data register 4
             bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 11));
-            shutdowns.SetVcoShutdownState(shutdown);
+            shutdowns.SetVcoShutdownState(shutdown); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets mute until lock-detect mode from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         private void GetMuteUntilLockDetectStateFromRegister(UInt32 dataReg4)
         {
+            // gets bit 10 from input data register 4
             bool mtld = Convert.ToBoolean(BitOperations.GetNBits(dataReg4, 1, 10));
-            vcoControls.SetMuteUntilLockDetectMode(mtld);
+            vcoControls.SetMuteUntilLockDetectMode(mtld); // sets into model
         }
 
+        /// <summary>
+        /// Gets and sets band select clock divider value from register 4
+        /// </summary>
+        /// <param name="dataReg4"> register 4 </param>
         public void GetBandSelClockDivValueFromRegister(UInt32 dataReg4)
         {
+            // gets bits 12-19 and 24, 25 from input data register 4
             UInt16 msbs = (UInt16)BitOperations.GetNBits(dataReg4, 2, 24);
             UInt16 lsbs = (UInt16)BitOperations.GetNBits(dataReg4, 8, 12);
-            UInt16 bandSelectClockDiv = (UInt16)((msbs << 8) + lsbs);
-            vcoControls.SetBandSelClockDivValue(bandSelectClockDiv);
+            UInt16 bandSelectClockDiv = (UInt16)((msbs << 8) + lsbs);  // join msbs and lsbs
+            vcoControls.SetBandSelClockDivValue(bandSelectClockDiv); // sets into model
         }
 
     #endregion
 
     #region Parsing register 5
+
+        /// <summary>
+        /// Gets and sets PLL shutdown mode from register 5
+        /// </summary>
+        /// <param name="dataReg5"> register 5 </param>
         private void GetPllShutdownStateFromRegister(UInt32 dataReg5)
         {
+            // gets bit 25 from input data register 5
             bool shutdown = Convert.ToBoolean(BitOperations.GetNBits(dataReg5, 1, 25));
-            shutdowns.SetPllShutdownState(shutdown);
+            shutdowns.SetPllShutdownState(shutdown); // sets into model
         }
         
+        /// <summary>
+        /// Gets and sets auto Integer-N mode, when Frac-N = 0 from register 5
+        /// </summary>
+        /// <param name="dataReg5"> register 5 </param>
         private void GetIntNAutoModeWhenF0StateFromRegister(UInt32 dataReg5)
         {
+            // gets bit 24 from input data register 5
             bool state = Convert.ToBoolean(BitOperations.GetNBits(dataReg5, 1, 24));
-            genericControls.SetF0AutoIntNMode(state);
+            genericControls.SetF0AutoIntNMode(state); // sets into model
         }
 
     #endregion
@@ -1935,6 +2166,7 @@ namespace Synthesizer_PC_control.Controllers
         /// <param name="index"> Specified register value (0-5) </param>
         public void GetAllFromReg(int index)
         {
+            // gets appropriate register value
             UInt32 reg = registers[index].uint32_GetValue();
             switch (index)
             {
@@ -1999,7 +2231,7 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// this function parse all values from each synthesizer register
+        /// This function parse all values from each synthesizer register
         /// and updates the frequency info
         /// </summary>
         public void GetAllFromRegisters()
