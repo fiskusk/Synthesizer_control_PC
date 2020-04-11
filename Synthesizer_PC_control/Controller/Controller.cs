@@ -2289,8 +2289,8 @@ namespace Synthesizer_PC_control.Controllers
         }
 
         /// <summary>
-        /// This function updates some properties resulting from 
-        /// 0 - 5 synthesizer registers for the specified memory number.
+        /// This function updates some properties for registry memory resulting 
+        /// from 0 - 5 synthesizer registers for the specified memory number.
         /// Especially it is frequency at output 1 and 2, output A and B state 
         /// and power level for memory number.
         /// </summary>
@@ -2918,6 +2918,7 @@ namespace Synthesizer_PC_control.Controllers
                 //print error message and show message box warning
                 string text = "When loading default registers occurs error!";
                 ConsoleController.Console().Write(text);
+
                 MessageBox.Show("File default.json with include settings for registers, doesn't exist. First create it by click to Set As Def Button", "File defaults.txt doesn't exist", 
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -2941,6 +2942,7 @@ namespace Synthesizer_PC_control.Controllers
                 //print error message and show message box warning
                 string text = "When saving default registers occurs error!";
                 ConsoleController.Console().Write(text);
+
                 MessageBox.Show(text, "Error Catch",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -3019,6 +3021,7 @@ namespace Synthesizer_PC_control.Controllers
                     // print error message into console and messageBox
                     string text = "When saving registers occurs error!";
                     ConsoleController.Console().Write(text);
+
                     MessageBox.Show(text, "Error Catch",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -3055,6 +3058,7 @@ namespace Synthesizer_PC_control.Controllers
                     // print error message into console and messageBox
                     string text = "When loading registers occurs error!";
                     ConsoleController.Console().Write(text);
+
                     MessageBox.Show(text, "Error Catch", 
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -3114,194 +3118,244 @@ namespace Synthesizer_PC_control.Controllers
 
     #region Memory Data part
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public void SaveRegMemoriesIntoFile()
-    {
-        string test = null;
-        FilesManager.SaveFile(out test, GetDefaultMemoryFileName());
-
-        if (test != string.Empty)
+        /// <summary>
+        /// Saves the registry memories into file. Using Window Form dialog. Default 
+        // file name "memorySet".
+        /// </summary>
+        public void SaveRegMemoriesIntoFile()
         {
-            bool success = FilesManager.SaveMemRegsData(CreateMemoryData(), test);
+            string test = null; // file parh
+            FilesManager.SaveFile(out test, GetDefaultMemoryFileName()); // get file path using window form dialog
 
-            if(success)
+            if (test != string.Empty)
             {
-                string text = "Currently memory set succesfuly saved into file: '" + test + "'";
-                ConsoleController.Console().Write(text);
-            }
-            else
-            {
-                string text = "When saving memory set occurs error!";
-                ConsoleController.Console().Write(text);
-                MessageBox.Show(text, "Error Catch",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // save currently set registry memories into file
+                bool success = FilesManager.SaveMemRegsData(CreateMemoryData(), test);
+
+                if(success)
+                {
+                    // print success into console
+                    string text = "Currently memory set succesfuly saved into file: '" + test + "'";
+                    ConsoleController.Console().Write(text);
+                }
+                else
+                {
+                    // print error message into console and messageBox
+                    string text = "When saving memory set occurs error!";
+                    ConsoleController.Console().Write(text);
+
+                    MessageBox.Show(text, "Error Catch",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
-    }
 
-    public void LoadRegMemoriesFromFile()
-    {
-        string test = null;
-
-        FilesManager.LoadFile(out test);
-
-        if (test != string.Empty)
+        /// <summary>
+        /// Loads the registry memories from file into workspace. Using Window Form 
+        /// dialog.
+        /// </summary>
+        public void LoadRegMemoriesFromFile()
         {
-            SaveMemories loadedData = new SaveMemories();
-            bool success = FilesManager.LoadMemRegsData(out loadedData, test);
+            string test = null; // file path
 
-            if (success)
+            FilesManager.LoadFile(out test);    // gets file path using window form dialog
+
+            if (test != string.Empty)
             {
-                string text = "Currently registers succesfuly loaded from file: '" + test + "'";
-                ConsoleController.Console().Write(text);
-                serialPort.SetDisableSending(true, 48);
-                LoadMemoryRegsFromFile(loadedData);
-                SendData();
-                serialPort.SetDisableSending(false, 48);
-            }
-            else
-            {
-                string text = "When loading registers occurs error!";
-                ConsoleController.Console().Write(text);
-                MessageBox.Show(text, "Error Catch", 
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                SaveMemories loadedData = new SaveMemories();
+                bool success = FilesManager.LoadMemRegsData(out loadedData, test); // load data
+
+                if (success)
+                {
+                    // print success into console
+                    string text = "Currently registers succesfuly loaded from file: '" + test + "'";
+                    ConsoleController.Console().Write(text);
+
+                    serialPort.SetDisableSending(true, 48); // disable sending
+                    LoadMemoryRegsFromFile(loadedData);     // load data into workspace
+                    SendData();                             // send data
+                    serialPort.SetDisableSending(false, 48);// enable sending
+                }
+                else
+                {
+                    // print error message into console and messageBox
+                    string text = "When loading registers occurs error!";
+                    ConsoleController.Console().Write(text);
+
+                    MessageBox.Show(text, "Error Catch", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
-    }
 
-    public SaveMemories CreateMemoryData()
-    {
-        SaveMemories saved = new SaveMemories
-            {
-                Mem1 = new List<string>{},
-                Mem2 = new List<string>{},
-                Mem3 = new List<string>{},
-                Mem4 = new List<string>{}
-            };
+        /// <summary>
+        /// Function gets all neccessary states and values from model and
+        /// they form as SaveMemories class.
+        /// </summary>
+        /// <returns> registry memories data </returns>
+        public SaveMemories CreateMemoryData()
+        {
+            SaveMemories saved = new SaveMemories
+                {
+                    Mem1 = new List<string>{},
+                    Mem2 = new List<string>{},
+                    Mem3 = new List<string>{},
+                    Mem4 = new List<string>{}
+                };
 
+                for (int i = 0; i < 7; i++)
+                {
+                    saved.Mem1.Add(memory.GetRegister(1, i).string_GetValue());
+                    saved.Mem2.Add(memory.GetRegister(2, i).string_GetValue());
+                    saved.Mem3.Add(memory.GetRegister(3, i).string_GetValue());
+                    saved.Mem4.Add(memory.GetRegister(4, i).string_GetValue());
+                }
+
+                return saved;
+        }
+
+
+        /// <summary>
+        /// Load memory registers from input data into workspace.
+        /// </summary>
+        /// <param name="data"> data to be loaded </param>
+        public void LoadMemoryRegsFromFile(SaveMemories data)
+        {
             for (int i = 0; i < 7; i++)
             {
-                saved.Mem1.Add(memory.GetRegister(1, i).string_GetValue());
-                saved.Mem2.Add(memory.GetRegister(2, i).string_GetValue());
-                saved.Mem3.Add(memory.GetRegister(3, i).string_GetValue());
-                saved.Mem4.Add(memory.GetRegister(4, i).string_GetValue());
+                memory.GetRegister(1, i).SetValue(data.Mem1[i]);
+                memory.GetRegister(2, i).SetValue(data.Mem2[i]);
+                memory.GetRegister(3, i).SetValue(data.Mem3[i]);
+                memory.GetRegister(4, i).SetValue(data.Mem4[i]);
             }
 
-            return saved;
-    }
-
-
-    /// <summary>
-    /// Load memory registers from input date
-    /// </summary>
-    /// <param name="data"> data to be loaded</param>
-    public void LoadMemoryRegsFromFile(SaveMemories data)
-    {
-        for (int i = 0; i < 7; i++)
-        {
-            memory.GetRegister(1, i).SetValue(data.Mem1[i]);
-            memory.GetRegister(2, i).SetValue(data.Mem2[i]);
-            memory.GetRegister(3, i).SetValue(data.Mem3[i]);
-            memory.GetRegister(4, i).SetValue(data.Mem4[i]);
+            for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
+            {
+                SetMemOutsAndRefFromControlReg(memoryNumber);
+                RecalcMemoryInfo(memoryNumber);
+            }
         }
 
-        for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
-        {
-            SetMemOutsAndRefFromControlReg(memoryNumber);
-            RecalcMemoryInfo(memoryNumber);
+        /// <summary>
+        /// Load data into workspace
+        /// </summary>
+        /// <param name="data"> data to be loaded </param>
+        public void LoadMemoryRegsFromFile(SaveWindow data)
+        {   
+            // load memory 1-4 registers 0-6 (6 is control register for module controls)
+            for (int i = 0; i < 7; i++)
+            {
+                memory.GetRegister(1, i).SetValue(data.Mem1[i]);
+                memory.GetRegister(2, i).SetValue(data.Mem2[i]);
+                memory.GetRegister(3, i).SetValue(data.Mem3[i]);
+                memory.GetRegister(4, i).SetValue(data.Mem4[i]);
+            }
+
+            // for all memories fill additional information
+            for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
+            {
+                SetMemOutsAndRefFromControlReg(memoryNumber);
+                RecalcMemoryInfo(memoryNumber);
+            }
         }
-    }
 
-    /// <summary>
-    /// Load data into workspace
-    /// </summary>
-    /// <param name="data"> data to be loaded </param>
-    public void LoadMemoryRegsFromFile(SaveWindow data)
-    {   
-        // load memory 1-4 registers 0-6 (6 is control register for module controls)
-        for (int i = 0; i < 7; i++)
+        /// <summary>
+        /// This function create default file name.
+        /// </summary>
+        /// <returns></returns>
+        public string GetDefaultMemoryFileName()
         {
-            memory.GetRegister(1, i).SetValue(data.Mem1[i]);
-            memory.GetRegister(2, i).SetValue(data.Mem2[i]);
-            memory.GetRegister(3, i).SetValue(data.Mem3[i]);
-            memory.GetRegister(4, i).SetValue(data.Mem4[i]);
+            string defaultFileName;
+            
+            defaultFileName = "memorySet";
+
+            return defaultFileName;
         }
-
-        // for all memories fill additional information
-        for (UInt16 memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
-        {
-            SetMemOutsAndRefFromControlReg(memoryNumber);
-            RecalcMemoryInfo(memoryNumber);
-        }
-    }
-
-    public string GetDefaultMemoryFileName()
-    {
-        string defaultFileName;
-        
-        defaultFileName = "memorySet";
-
-        return defaultFileName;
-    }
     
     #endregion
 
 #endregion
     
 #region Memory operation
+
+        /// <summary>
+        /// Sets memory register by memory number and register number, 
+        /// that function gets from input UI sender name
+        /// </summary>
+        /// <param name="sender"> sender UI name </param>
+        /// <param name="value"> register value </param>
         public void SetMemoryRegisterValue(string sender, string value)
         {
-            int memoryNumber;
-            int registerNumber;
+            int memoryNumber;   // number of memory
+            int registerNumber; // number of register
 
+            // get from sender name only digits
             sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
+            // first character is register number, second is memory number
             registerNumber = int.Parse(Convert.ToString(sender[0]));
             memoryNumber = int.Parse(Convert.ToString(sender[1]));
             
+            // set new registry value for specific memory and register
             memory.GetRegister(memoryNumber, registerNumber).SetValue(value);
         }
 
+        /// <summary>
+        /// Imports memory registers into the workspace and loads them into the synthesizer.
+        /// </summary>
+        /// <param name="sender"> UI sender name </param>
         public void ImportMemory(string sender)
         {
+            // gets memory number from sender UI name
             sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
             int memoryNumber = int.Parse(sender);
 
-            ConsoleController.Console().Write("Memory " + memoryNumber.ToString() +
-                                        " imported!");
-            
+            // import each register
             for (int i = 0; i < 6; i++)
             {
                 registers[i].SetValue(memory.GetRegister(memoryNumber, i).string_GetValue());
             }
             
-            serialPort.SetDisableSending(true, 50);
+            serialPort.SetDisableSending(true, 50);     // disable sending
 
-            GetAllFromControllReg(memoryNumber);
+            GetAllFromControllReg(memoryNumber); // get all individual controlls from all registers
 
-            SendData();
-            serialPort.SetDisableSending(false, 50);
+            SendData();     // send into PLO
+            serialPort.SetDisableSending(false, 50);    // enable sending
+
+            // print into console
+            ConsoleController.Console().Write("Memory " + memoryNumber.ToString() +
+                                        " imported!");
         }
         
+        /// <summary>
+        /// This function exports the current registers to the memory section. 
+        /// It also exports the current module controls settings.
+        /// </summary>
+        /// <param name="sender"></param>
         public void ExportMemory(string sender)
         {
             sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
-            int memoryNumber = int.Parse(sender);
+            int memoryNumber = int.Parse(sender);   // get memory number
 
+            // export current registers to the memory section
             for (int i = 0; i < 6; i++)
             {
                 memory.GetRegister(memoryNumber, i).SetValue(registers[i].string_GetValue());
             }
+            
+            // export module controls states
             memory.GetRegister(memoryNumber, 6).SetValue(moduleControls.GetControlRegister());
 
-            SetMemOutsAndRefFromControlReg((UInt16)memoryNumber);
-            RecalcMemoryInfo((UInt16)memoryNumber);
+            // sets module controls model for memory section
+            SetMemOutsAndRefFromControlReg((UInt16)memoryNumber); 
+            // sets new frequency info for appropriate memory number
+            RecalcMemoryInfo((UInt16)memoryNumber); 
         }
 
         /// <summary>
         /// For the specified memory number, it reads data from 
-        /// the control register and set into the memory synthesizer controls group
+        /// the control register and set into the memory synthesizer controls 
+        /// group model
         /// </summary>
         /// <param name="memoryNumber"> memory number </param>
         public void SetMemOutsAndRefFromControlReg(UInt16 memoryNumber)
@@ -3317,14 +3371,19 @@ namespace Synthesizer_PC_control.Controllers
             memory.SetMemIntRefState(!Convert.ToBoolean(refState), memoryNumber);
         }
 
+        /// <summary>
+        /// Performs output state switching in the memory section. Gets memory 
+        /// number and output number from sender name.
+        /// </summary>
+        /// <param name="sender"> sender UI name </param>
         public void MemActOutSwitch(string sender)
         {
             int memoryNumber;
             int outNumber;
 
             sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
-            outNumber = int.Parse(Convert.ToString(sender[1]));
-            memoryNumber = int.Parse(Convert.ToString(sender[0]));
+            memoryNumber = int.Parse(Convert.ToString(sender[0]));  // first character is memory number
+            outNumber = int.Parse(Convert.ToString(sender[1])); // second char is output number
 
             switch (outNumber)
             {
@@ -3339,50 +3398,91 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// Switches the reference signal for the memory section. Gets memory 
+        /// number from sender name.
+        /// </summary>
+        /// <param name="sender"> sender UI name </param>
         public void MemIntRefStateSwitch(string sender)
         {
             int memoryNumber;
 
             sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
-            memoryNumber = int.Parse(Convert.ToString(sender[0]));
+            memoryNumber = int.Parse(Convert.ToString(sender[0]));  // gets memory number
 
             SwitchRefIntState(memoryNumber);
         }
 
+        /// <summary>
+        /// Performs output 1 state switching in the memory section. Also adjust 
+        /// state in module control register.
+        /// </summary>
+        /// <param name="memNum"> memory number as integer number </param>
         public void SwitchMemActOut1(int memNum)
         {
-            bool state = memory.GetMemOut1State(memNum);
+            // gets curent memory output 1 state
+            bool state = memory.GetMemOut1State(memNum);    
 
+            // sets the negated value back
             memory.SetMemOut1State(!state, memNum);
+            // it also adjusts the value in the module control register
             memory.GetRegister(memNum, 6).SetResetOneBit(0, (BitState)Convert.ToUInt16(!state));
 
+            // When the output is off, it sets into model zero value. 
+            // As a result, nothing is written into the UI.
+            // If it is on, recalculate memory info
             if (state)
                 memory.SetMemFreq1Value(0, (UInt16)memNum);
             else
                 RecalcMemoryInfo((UInt16)memNum);
         }
 
+        /// <summary>
+        /// Performs output 2 state switching in the memory section. Also adjust 
+        /// state in module control register.
+        /// </summary>
+        /// <param name="memNum"> memory number as integer number </param>
         public void SwitchMemActOut2(int memNum)
         {
+            // gets curent memory output 1 state
             bool state = memory.GetMemOut2State(memNum);
 
+            // sets the negated value back
             memory.SetMemOut2State(!state, memNum);
+            // it also adjusts the value in the module control register
             memory.GetRegister(memNum, 6).SetResetOneBit(1, (BitState)Convert.ToUInt16(!state));
 
+            // When the output is off, it sets into model zero value. 
+            // As a result, nothing is written into the UI.
+            // If it is on, recalculate memory info
             if (state)
                 memory.SetMemFreq2Value(0, (UInt16)memNum);
             else
                 RecalcMemoryInfo((UInt16)memNum);
         }
 
+        /// <summary>
+        /// Switches the reference signal for the memory section. Also adjust 
+        /// state in module control register.
+        /// </summary>
+        /// <param name="memNum"> memory number by integer number </param>
         public void SwitchRefIntState(int memNum)
         {
+            // gets curent memory reference signal
             bool state = memory.GetIntRefState(memNum);
 
+            // sets the negated value back
             memory.SetMemIntRefState(!state, memNum);
+
+            // and also adjusts the value in the module control register
             memory.GetRegister(memNum, 6).SetResetOneBit(2, (BitState)Convert.ToUInt16(state));
         }
 
+        /// <summary>
+        /// This function allows you to set all states from the module controls register 
+        /// into models (out1, 2, int/ext ref). For specific memory number
+        /// </summary>
+        /// <param name="memoryNumber"> memory number </param>
         public void GetAllFromControllReg(int memoryNumber)
         {
             if (serialPort.IsPortOpen())
@@ -3400,15 +3500,27 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// This function sends command for module memory erase
+        /// </summary>
         private void CleanSavedRegisters()
         {
             string data = String.Format("plo data clean");
             serialPort.SendStringSerialPort(data);
         }
 
+        /// <summary>
+        /// This function sends memory erase command and then create text string
+        /// for memory PLO registers and module control register and in correct 
+        /// format sends into synthesizer module. This will repeat for all
+        /// four memories.
+        /// 
+        /// The erase memory command must be sent to the module before new data 
+        /// is written. Writing is possible only with empty memory.
+        /// </summary>
         public void SaveRegsIntoPloMemory()
         {
-            CleanSavedRegisters();
+            CleanSavedRegisters();  // send erase command
             if (serialPort.IsPortOpen())
             {
                 for (int memoryNumber = 1; memoryNumber <= 4; memoryNumber++)
@@ -3427,33 +3539,50 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// This function sends a query about the currently loaded memory data 
+        /// in the synthesizer module. The synthesizer module responds with 
+        /// a string to which ProccesReceivedData() function responds.
+        /// </summary>
         public void LoadRegsFromPloMemory()
         {
             serialPort.SendStringSerialPort("plo data stored?");
         }
-
-        // TODO move into utillities???
         
 #endregion
     
 #region Read Register 6 Control
+
+        /// <summary>
+        /// Sends a command to the module to return the currently selected VCO.
+        /// </summary>
         public void GetCurrentVCO()
         {
             serialPort.SendStringSerialPort("plo read_reg6 vco");
         }
 
+        /// <summary>
+        /// Functions for obtaining data from ADC.
+        /// </summary>
         public void GetADCValue()
         {
+            // first it neccessary calculate C-divider for ADC conversion clock
             decimal fPfd = refFreq.decimal_GetPfdFreq();
             UInt16 cdiv = (UInt16)(fPfd/0.1M);
+
+            // if beyond limits, fix it
             if (cdiv < 1)
                 cdiv = 1;
             else if (cdiv > 4095)
                 cdiv = 4095;
             
+            // get register 3 and temporarily set calculated CDIV
             UInt32 reg3 = registers[3].uint32_GetValue();
             reg3 = BitOperations.ChangeNBits(reg3, cdiv, 12, 3);
 
+            // Depending on the ADC mode you have set, the synthesizer will 
+            // ask for the value. The synthesizer module responds with 
+            /// a string to which ProccesReceivedData() function responds.
             if (readRegister.GetAdcMode() == ReadRegister.AdcMode.TEMPERATURE)
             {
                 serialPort.SendStringSerialPort("plo read_reg6 temp " + Convert.ToString(reg3, 16));
@@ -3464,6 +3593,10 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// This function set into model current set ADC mode index
+        /// </summary>
+        /// <param name="value"> adc mode index </param>
         public void AdcModeIndexChanged(int value)
         {
             readRegister.SetAdcMode((ReadRegister.AdcMode)value);

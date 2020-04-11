@@ -315,12 +315,19 @@ namespace Synthesizer_PC_control
             
         }
 
+        /// <summary>
+        /// If new data arrives via the serial line, 
+        /// this function is called, in which incoming data is processed.
+        /// </summary>
+        /// <param name="Object"></param>
         public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
         {
             try
             {
-                string text = controller.serialPort.ReadLine();
-                ConsoleController.Console().Write(text);
+                string text = controller.serialPort.ReadLine();     // read line of new data
+                ConsoleController.Console().Write(text);            // write actual readed data
+                // Displays the synthesizer locked status information into 
+                // the status strip. Also shows LedOn or LedOff picture
                 if (text == "plo locked")
                 {
                     toolStripStatusLabel1.Text = "        plo is locked";
@@ -342,53 +349,75 @@ namespace Synthesizer_PC_control
                 }
                 else
                 {
+                    // the received string contains other data
+                    // therefore it divides them into individual parts and these 
+                    // are further recognized
                     string[] separrated = text.Split(' ');
                     switch (separrated[0])
                     {
                         case "stored_data_1":
+                            // data stored in memory 1
                             for (int i = 0; i < 7; i++)
                             {
+                                // for all registers, including module control register,
+                                // set it into memory 1 model
                                 controller.memory.GetRegister(1, i).SetValue(separrated[i+1]);
                             }
+                            // refresh memory 1 info 
                             controller.SetMemOutsAndRefFromControlReg(1);
                             controller.RecalcMemoryInfo(1);
                             break;
                         case "stored_data_2":
+                            // data stored in memory 2
                             for (int i = 0; i < 7; i++)
                             {
+                                // for all registers, including module control register,
+                                // set it into memory 2 model
                                 controller.memory.GetRegister(2, i).SetValue(separrated[i+1]);
                             }
+                            // refresh memory 2 info 
                             controller.SetMemOutsAndRefFromControlReg(2);
                             controller.RecalcMemoryInfo(2);
                             break;
                         case "stored_data_3":
+                            // data stored in memory 3
                             for (int i = 0; i < 7; i++)
                             {
+                                // for all registers, including module control register,
+                                // set it into memory 3 model
                                 controller.memory.GetRegister(3, i).SetValue(separrated[i+1]);
                             }
+                            // refresh memory 3 info 
                             controller.SetMemOutsAndRefFromControlReg(3);
                             controller.RecalcMemoryInfo(3);
                             break;
                         case "stored_data_4":
+                            // data stored in memory 4
                             for (int i = 0; i < 7; i++)
                             {
+                                // for all registers, including module control register,
+                                // set it into memory 4 model
                                 controller.memory.GetRegister(4, i).SetValue(separrated[i+1]);
                             }
+                            // refresh memory 4 info 
                             controller.SetMemOutsAndRefFromControlReg(4);
                             controller.RecalcMemoryInfo(4);
                             break;
                         case "register6_vco":
+                            // readed VCO number
                             UInt32 reg6 = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);
                             UInt16 currentVCO = (UInt16)Utilities.BitOperations.GetNBits(reg6, 6, 3);
                             controller.readRegister.SetReadedCurrentVCO(currentVCO.ToString());
                             break;
                         case "register6_temp":
+                             // readed temperature 
                             UInt32 reg = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);
                             UInt16 ADCvalue = (UInt16)Utilities.BitOperations.GetNBits(reg, 7, 16);
                             decimal temp = 95 - 1.14M * ADCvalue;
                             controller.readRegister.SetReadededADC(temp.ToString() + " °C");
                             break;
                         case "register6_tune":
+                            // readed voltage at Tune pin
                             UInt32 regSix = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);
                             UInt16 ADCval = (UInt16)Utilities.BitOperations.GetNBits(regSix, 7, 16);
                             decimal tune = 0.315M + 0.0165M * ADCval;
@@ -399,7 +428,7 @@ namespace Synthesizer_PC_control
             }
             catch
             {
-                
+                // catch error 
             }
         }
 
