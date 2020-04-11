@@ -11,7 +11,7 @@ namespace Synthesizer_PC_control.Model
     class MySerialPort : I_UiLinked 
     {
         // error messages
-        private string[] noSelectedPortMsg = {"No valid serial port name is selected. Please select it from the menu and then try to connect again.", "No serial port is selected."};
+        private string[] noneSelectedPortMsg = {"No valid serial port name is selected. Please select it from the menu and then try to connect again.", "No serial port is selected."};
         private string[] cannotOpenPortMsg = {"Cannot open COM port. Please select valid Synthesizer COM port or check connection.", "Invalid COM port"};
         private string[] devDoesNotWork = {"Device doesn't work", "COM Port Error"};
 
@@ -181,16 +181,17 @@ namespace Synthesizer_PC_control.Model
         #region Other Serial Port Functions
 
         /// <summary>
-        /// Open serial port. Fixed baud rate 115200
+        /// Open serial port. Fixed baud rate 115200, DTR enabled, 
+        /// read and write timeout 500 ms, line separator is "\r" (CR-carriege return)
         /// </summary>
         /// <returns> success of operation </returns>
         public bool OpenPort() 
         {
             if (selectedPort == null)
             {
-                MessageBox.Show(noSelectedPortMsg[0], noSelectedPortMsg[1], 
+                MessageBox.Show(noneSelectedPortMsg[0], noneSelectedPortMsg[1], 
                 MessageBoxButtons.OK, MessageBoxIcon.Error); 
-                ConsoleController.Console().Write("Warning: " + noSelectedPortMsg[0]);
+                ConsoleController.Console().Write("Warning: " + noneSelectedPortMsg[0]);
                 return false;
             }
             try 
