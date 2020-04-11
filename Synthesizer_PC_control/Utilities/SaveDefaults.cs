@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace Synthesizer_PC_control.Utilities
 {
+    /// <summary>
+    /// Class for default registers values, outputs and reference input states
+    /// </summary>
     public class SaveDefaults
     {
         /// <summary>

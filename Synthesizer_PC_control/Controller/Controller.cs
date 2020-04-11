@@ -2291,6 +2291,8 @@ namespace Synthesizer_PC_control.Controllers
         /// <summary>
         /// This function updates some properties resulting from 
         /// 0 - 5 synthesizer registers for the specified memory number.
+        /// Especially it is frequency at output 1 and 2, output A and B state 
+        /// and power level for memory number.
         /// </summary>
         /// <param name="memoryNumber"> specified memory number </param>
         public void RecalcMemoryInfo(UInt16 memoryNumber)
@@ -2413,6 +2415,10 @@ namespace Synthesizer_PC_control.Controllers
                 fOutB = fVco;
         }
 
+        /// <summary>
+        /// This function calculate registers values for desired synthesizer frequency.
+        /// </summary>
+        /// <param name="value"> desired frequency as string </param>
         public void CalcSynthesizerRegValuesFromInpFreq(string value)
         {
             // sets input desired freq into direct Freq Control class
@@ -2511,8 +2517,12 @@ namespace Synthesizer_PC_control.Controllers
 
 #region Serial port
 
+        /// <summary>
+        /// Force sends all registers into synthesizer including module control states.
+        /// </summary>
         public void ForceLoadAllRegsIntoPlo()
-        {
+        {   
+            // sends all PLO registers 
             for (int i = 5; i >= 0; i--)
             {
                 if (!serialPort.IsPortOpen())
@@ -2520,8 +2530,9 @@ namespace Synthesizer_PC_control.Controllers
                 ApplyChangeReg(i);
             }
 
-            GetAllFromRegisters();
+            GetAllFromRegisters();  // reflesh all register values
 
+            // sends module control states
             if (moduleControls.GetOut1State())
                 serialPort.SendStringSerialPort("out 1 on");
             else
@@ -2538,21 +2549,34 @@ namespace Synthesizer_PC_control.Controllers
                 serialPort.SendStringSerialPort("ref ext");
         }
 
-        public void CheckAndApplyRegChanges(string sender, string value)
+        /// <summary>
+        /// This function force set new register value into model and
+        /// sends it into synthesizer by sender UI name.
+        /// </summary>
+        /// <param name="sender"> sender name </param>
+        /// <param name="value"> register value to send </param>
+        public void SetAndSendRegChangesIntoPlo(string sender, string value)
         {
-            serialPort.SetDisableSending(true, 4);
+            serialPort.SetDisableSending(true, 4);          // disable sending
 
+            // parse register number from UI element name
             sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
             int regNumber = int.Parse(sender);
 
-            registers[regNumber].SetValue(value);
-            GetAllFromReg(regNumber);
+            registers[regNumber].SetValue(value);   // set this register into model
+            GetAllFromReg(regNumber);               // get all from this register
 
-            serialPort.SetDisableSending(false, 4);
-            if (serialPort.GetDisableSending() == false)
+            serialPort.SetDisableSending(false, 4);          // try enable sending
+            if (serialPort.GetDisableSending() == false)     // if success send new data
                 SendData();
         }
 
+        /// <summary>
+        /// This function sends a new registry value to the synthesizer only if 
+        /// the new value differs from the last sent value. This prevents 
+        /// the same registry values from being sent again accidentally.
+        /// </summary>
+        /// <param name="regNumber"> register number value (0-5) </param>
         public void CheckAndApplyRegChanges(int regNumber)
         {
             if ((serialPort.IsPortOpen()) && 
@@ -2560,27 +2584,46 @@ namespace Synthesizer_PC_control.Controllers
                                 old_registers[regNumber].string_GetValue(),
                                 StringComparison.CurrentCultureIgnoreCase)))
             {
+                // only if new value differs from old value
                 ApplyChangeReg(regNumber);
                 if (regNumber == 1 || regNumber == 2)
-                    ApplyChangeReg(0);
+                    ApplyChangeReg(0); // these registers must be double bufferef by register 0
                 if (regNumber != 3 || regNumber != 5)
-                    RecalcWorkingFreqInfo();
+                    RecalcWorkingFreqInfo();    // recalculate frequency info for registers 1, 2, 4
             }
         }
 
+        /// <summary>
+        /// This function first parse register number from sender name and then
+        /// sends a new registry value to the synthesizer only if 
+        /// the new value differs from the last sent value. This prevents 
+        /// the same registry values from being sent again accidentally.
+        /// </summary>
+        /// <param name="sender"> sender name </param>
         public void CheckAndApplyRegChanges(string sender)
         {
+            // parse register number from sender UI element name
             sender = string.Join("", sender.ToCharArray().Where(Char.IsDigit));
             int regNumber = int.Parse(sender);
 
             CheckAndApplyRegChanges(regNumber);
         }
 
+        /// <summary>
+        /// Function for send data into PLO. The function is called only after 
+        /// sending has been unblocked and this is based on a unique ID. 
+        /// Only the initial request can unblock sending. This ensures that all 
+        /// edits are sent at once.
+        /// </summary>
         private void SendData()
         {
             if (serialPort.IsPortOpen())
             {
-                bool[] needUpdate = new bool[6];
+                // only at opened port
+                bool[] needUpdate = new bool[6];    // flag if register need send
+
+                // compares the current values with those last sent and 
+                // sets a flag for updating.
                 for (int regNumber = 0; regNumber <= 5; regNumber++)
                 {
                     if ((!string.Equals(registers[regNumber].string_GetValue(), 
@@ -2591,6 +2634,7 @@ namespace Synthesizer_PC_control.Controllers
                         needUpdate[regNumber] = false;
                 }
 
+                // Separates individual data only from registers that need updating.
                 for (int regNumber = 5; regNumber >= 0; regNumber--)
                 {
                     if (needUpdate[regNumber] == true)
@@ -2601,6 +2645,7 @@ namespace Synthesizer_PC_control.Controllers
                 {
                     if (needUpdate[regNumber] == true)
                     {
+                        // sends data only if flag is enabled
                         GetAllFromReg(regNumber);
                         switch (regNumber)
                         {
@@ -2609,7 +2654,9 @@ namespace Synthesizer_PC_control.Controllers
                                 break;
                             case 4:
                                 ApplyChangeReg(4);
-                                if (genericControls.GetReg4DoubleBuffered()) // TODO test me on SA, comment needUpdate true flag and test it
+                                // if PLO is set to automatic Reg 4 double buffered by Reg 0
+                                // changes need not be applied by manually uploading registry 0
+                                if (!genericControls.GetReg4DoubleBuffered()) // TODO test me on SA, comment needUpdate true flag and test it
                                     needUpdate[0] = true;
                                 break;
                             case 3:
@@ -2617,11 +2664,11 @@ namespace Synthesizer_PC_control.Controllers
                                 break;
                             case 2:
                                 ApplyChangeReg(2);
-                                needUpdate[0] = true;
+                                needUpdate[0] = true; // it need double buffered by reg 0
                                 break;
                             case 1:
                                 ApplyChangeReg(1);
-                                needUpdate[0] = true;
+                                needUpdate[0] = true; // it need double buffered by reg 0
                                 break;
                             default:
                                 ApplyChangeReg(0);
@@ -2631,45 +2678,72 @@ namespace Synthesizer_PC_control.Controllers
                 }
 
                 if (needUpdate[0] || needUpdate[1] || needUpdate[2] || needUpdate[4])
-                    RecalcWorkingFreqInfo();
+                    RecalcWorkingFreqInfo(); // recalculate frequency info
             }
         }
 
+        /// <summary>
+        /// The function first obtains the given register and then sends 
+        /// its value to the serial link in the appropriate format. 
+        /// The value is also stored in old_registers, which is used to 
+        /// determine if the current value differs from the last sent.
+        /// </summary>
+        /// <param name="index"> register number </param>
         public void ApplyChangeReg(int index)
         {
             if (serialPort.IsPortOpen())
             {
-                string value = registers[index].string_GetValue();
-                old_registers[index].SetValue(value);
+                string value = registers[index].string_GetValue();  // gets register
+                old_registers[index].SetValue(value);   // backup this value
 
+                // create text string in appropriate format
                 string data = String.Format("plo set_register {0}", value);
-                serialPort.SendStringSerialPort(data);
+                serialPort.SendStringSerialPort(data); // send into serial link
             }
         }
 
+        /// <summary>
+        /// Open/close serial port. When closing port, it save workspace data into file.
+        /// </summary>
+        /// <returns> 
+        ///     false if port is closed,
+        ///     true if port is opened
+        /// </returns>
         public bool SwitchPort()
         {
             if(serialPort.IsPortOpen())
             {
+                // serial port is open, close it
                 serialPort.ClosePort();
-                SaveWorkspaceData();
-                return false;
+                SaveWorkspaceData();    // save workspace data
+                return false;   // port is closed
             }
             else
             {
-                return OpenPort();
+                return OpenPort();  // try to open port
             }
         }
 
+        /// <summary>
+        /// Function for open serial link port. If the opening succeeds, 
+        /// it loads all the registers into the PLO and saves the current window 
+        /// state to a file if there is no error during the upload.
+        /// </summary>
+        /// <returns>
+        ///     true = port was successfully opened,
+        ///     false = port was not successfully opened
+        /// </returns>
         private bool OpenPort()
         {
+            // try to open serial link port
             bool success = serialPort.OpenPort();
 
             if (success)
             {
-                ForceLoadAllRegsIntoPlo();
+                ForceLoadAllRegsIntoPlo();  // send all registers into PLO
                 if (serialPort.IsPortOpen())
                 {
+                    // if still port open save current window into file
                     success = true;
                     SaveWorkspaceData();
                 }
@@ -2688,6 +2762,7 @@ namespace Synthesizer_PC_control.Controllers
 #region Load and Save Data
 
     #region Workspace data part
+
         /// <summary>
         /// Loads saved data from file */saved_workspace.json into workspace
         /// </summary>
@@ -2696,25 +2771,24 @@ namespace Synthesizer_PC_control.Controllers
             SaveWindow loadedData = new SaveWindow();
             bool success = FilesManager.LoadSavedWorkspaceData(out loadedData);
 
-            // if success print message into console and load data into workspace
             if (success)
             {
+                // if success print message into console and load data into workspace
                 string text = "Workspace data succesfuly loaded.";
                 ConsoleController.Console().Write(text);
 
                 LoadDataIntoWorkspace(loadedData);
             }
-
-            //print error message
             else
             {
+                //print error message
                 MessageBox.Show("When loading worskspace data occurs error!", "Error Catch",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         /// <summary>
-        /// Save the current window status into file */saved_workspace.json 
+        /// Saves the current window status into file */saved_workspace.json 
         /// so that it can be reloaded when the program starts.
         /// </summary>
         public void SaveWorkspaceData()
@@ -2777,7 +2851,7 @@ namespace Synthesizer_PC_control.Controllers
         /// <summary>
         /// Reads individual items from the models and returns them as SaveWindow.
         /// </summary>
-        /// <returns></returns>
+        /// <returns> loaded workspace data </returns>
         private SaveWindow CreateSaveWindow()
         {
             SaveWindow saved = new SaveWindow
@@ -2818,6 +2892,10 @@ namespace Synthesizer_PC_control.Controllers
 
     #region Default registers part
 
+        /// <summary>
+        /// Loads saved default registers from file */default.json into workspace 
+        /// and send it into PLO
+        /// </summary>
         public void LoadDefRegsData()
         {
             SaveDefaults loadedData = new SaveDefaults();
@@ -2825,15 +2903,19 @@ namespace Synthesizer_PC_control.Controllers
 
             if (success)
             {
+                // if success print message into console and load data into workspace
                 string text = "Default registers succesfuly loaded.";
                 ConsoleController.Console().Write(text);
-                serialPort.SetDisableSending(true, 49);
-                LoadDefRegsFromFile(loadedData);
-                SendData();
-                serialPort.SetDisableSending(false, 49);
+
+
+                serialPort.SetDisableSending(true, 49); // disable sending
+                LoadDefRegsFromFile(loadedData);        // load data into workspace
+                SendData();                             // send data
+                serialPort.SetDisableSending(false, 49); // enable sending
             }
             else
             {
+                //print error message and show message box warning
                 string text = "When loading default registers occurs error!";
                 ConsoleController.Console().Write(text);
                 MessageBox.Show("File default.json with include settings for registers, doesn't exist. First create it by click to Set As Def Button", "File defaults.txt doesn't exist", 
@@ -2841,17 +2923,22 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// Saves the registers as defaults into file */default.json
+        /// </summary>
         public void SaveDefRegsData()
         {
             bool success = FilesManager.SaveDefRegsData(CreateDefaultsData());
 
             if(success)
             {
+                // if success print message into console
                 string text = "Default registers succesfuly saved.";
                 ConsoleController.Console().Write(text);
             }
             else
             {
+                //print error message and show message box warning
                 string text = "When saving default registers occurs error!";
                 ConsoleController.Console().Write(text);
                 MessageBox.Show(text, "Error Catch",
@@ -2859,6 +2946,10 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// Loads default registers data into the workspace
+        /// </summary>
+        /// <param name="data"> default data to be loaded </param>
         public void LoadDefRegsFromFile(SaveDefaults data)
         {
             for (int i = 0; i < 6; i++)
@@ -2874,6 +2965,11 @@ namespace Synthesizer_PC_control.Controllers
                 SwitchRef();
         }
 
+        /// <summary>
+        /// Function gets all neccessary states and values from model and
+        /// they form a SaveDefaults class.
+        /// </summary>
+        /// <returns> defaults data </returns>
         private SaveDefaults CreateDefaultsData()
         {
             SaveDefaults saved = new SaveDefaults
@@ -2896,22 +2992,31 @@ namespace Synthesizer_PC_control.Controllers
     #endregion
     
     #region Registers data part
+
+        /// <summary>
+        /// Saves the registers into file. Using Window Form dialog. Default 
+        /// file name is by current module states.
+        /// </summary>
         public void SaveRegistersIntoFile()
         {
-            string test = null;
+            string test = null;     // file name path including file name
+            // gets file name with path using Window form dialog
             FilesManager.SaveFile(out test, GetDefaultRegistersFileName());
 
             if (test != string.Empty)
             {
+                // only if path with file name does not empty
                 bool success = FilesManager.SaveDefRegsData(CreateDefaultsData(), test);
 
                 if(success)
                 {
+                    // print success into console
                     string text = "Currently registers succesfuly saved into file: '" + test + "'";
                     ConsoleController.Console().Write(text);
                 }
                 else
                 {
+                    // print error message into console and messageBox
                     string text = "When saving registers occurs error!";
                     ConsoleController.Console().Write(text);
                     MessageBox.Show(text, "Error Catch",
@@ -2920,9 +3025,13 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        /// Loads the registers from file into workspace. Using Window Form 
+        /// dialog.
+        /// </summary>
         public void LoadRegistersFromFile()
         {
-            string test = null;
+            string test = null; // file name path including file name
             FilesManager.LoadFile(out test);
 
             if (test != string.Empty)
@@ -2932,15 +3041,18 @@ namespace Synthesizer_PC_control.Controllers
 
                 if (success)
                 {
+                    // if successfully loaded print msg into console and load it into workspace and send it into PLO
                     string text = "Currently registers succesfuly loaded from file: '" + test + "'";
                     ConsoleController.Console().Write(text);
-                    serialPort.SetDisableSending(true, 48);
-                    LoadDefRegsFromFile(loadedData);
-                    SendData();
-                    serialPort.SetDisableSending(false, 48);
+
+                    serialPort.SetDisableSending(true, 48); // disable sending
+                    LoadDefRegsFromFile(loadedData);        // load data into workspace
+                    SendData();                             // send data
+                    serialPort.SetDisableSending(false, 48); // enable sending
                 }
                 else
                 {
+                    // print error message into console and messageBox
                     string text = "When loading registers occurs error!";
                     ConsoleController.Console().Write(text);
                     MessageBox.Show(text, "Error Catch", 
@@ -2949,6 +3061,10 @@ namespace Synthesizer_PC_control.Controllers
             }
         }
 
+        /// <summary>
+        ///  This function create default file name by current module states.
+        /// </summary>
+        /// <returns> default file name by current module states </returns>
         public string GetDefaultRegistersFileName()
         {
             string freqOut1;
@@ -2997,6 +3113,10 @@ namespace Synthesizer_PC_control.Controllers
     #endregion 
 
     #region Memory Data part
+
+    /// <summary>
+    /// 
+    /// </summary>
     public void SaveRegMemoriesIntoFile()
     {
         string test = null;

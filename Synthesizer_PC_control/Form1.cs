@@ -442,13 +442,13 @@ namespace Synthesizer_PC_control
         {
             if (e.KeyCode == Keys.Enter)
             {
-                controller.CheckAndApplyRegChanges((((TextBox)(sender)).Name), ((TextBox)(sender)).Text);
+                controller.SetAndSendRegChangesIntoPlo((((TextBox)(sender)).Name), ((TextBox)(sender)).Text);
             }
         }
 
         private void RegisterTextBox_LostFocus(object sender, EventArgs e)
         {
-            controller.CheckAndApplyRegChanges((((TextBox)(sender)).Name), ((TextBox)(sender)).Text);
+            controller.SetAndSendRegChangesIntoPlo((((TextBox)(sender)).Name), ((TextBox)(sender)).Text);
         }
 
         private void WriteRegisterButton_Click(object sender, EventArgs e)
