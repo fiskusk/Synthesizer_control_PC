@@ -104,7 +104,7 @@ namespace Synthesizer_PC_control.Utilities
             static_isDoubled      = isDoubled;
             static_isDivBy2       = isDivBy2;
             static_outBPathIndex  = outBPathIndex;
-            static_FBPathIndex    = FBPathIndex;            // FIXME implement FBPath into calculations
+            static_FBPathIndex    = FBPathIndex;
 
             /// <summary>
             /// variable range of calculated frequencies

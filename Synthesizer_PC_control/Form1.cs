@@ -320,7 +320,7 @@ namespace Synthesizer_PC_control
         /// this function is called, in which incoming data is processed.
         /// </summary>
         /// <param name="Object"></param>
-        public void ProccesReceivedData(object Object)  // FIXME LUKAS need transform to OOD
+        public void ProccesReceivedData(object Object)
         {
             try
             {
@@ -492,7 +492,7 @@ namespace Synthesizer_PC_control
 
         private void CheckAndApllyChangesForm1_Click(object sender, EventArgs e)
         {
-            Reg0Label.Focus();  // TODO pohlídat, k cemu toto sakra je
+            Reg0Label.Focus();
         }
 
         private void SetAsDefaultRegButton_Click(object sender, EventArgs e)

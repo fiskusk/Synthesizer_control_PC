@@ -3295,7 +3295,6 @@ namespace Synthesizer_PC_control.Controllers
             registerNumber = int.Parse(Convert.ToString(sender[0]));
             memoryNumber = int.Parse(Convert.ToString(sender[1]));
             
-            // TODO fix this when write characters. Its bug.
             // set new registry value for specific memory and register
             memory.GetRegister(memoryNumber, registerNumber).SetValue(value);
         }
