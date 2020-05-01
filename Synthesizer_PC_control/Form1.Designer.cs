@@ -672,7 +672,7 @@ namespace Synthesizer_PC_control
             this.RegistersPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersPage.Size = new System.Drawing.Size(709, 818);
             this.RegistersPage.TabIndex = 0;
-            this.RegistersPage.Text = "Direct Control Of Registers";
+            this.RegistersPage.Text = "Direct control of registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
             this.RegistersPage.Click += new System.EventHandler(this.RegistersPage_Click);
             // 
@@ -772,7 +772,7 @@ namespace Synthesizer_PC_control
             this.genericControlsGroupBox.Size = new System.Drawing.Size(341, 125);
             this.genericControlsGroupBox.TabIndex = 31;
             this.genericControlsGroupBox.TabStop = false;
-            this.genericControlsGroupBox.Text = "Generic Controls";
+            this.genericControlsGroupBox.Text = "Generic controls";
             // 
             // MuxPinModeCombobox
             // 
@@ -860,7 +860,7 @@ namespace Synthesizer_PC_control
             this.ShutDownGroupBox.Size = new System.Drawing.Size(341, 100);
             this.ShutDownGroupBox.TabIndex = 30;
             this.ShutDownGroupBox.TabStop = false;
-            this.ShutDownGroupBox.Text = "Shutdown Controls";
+            this.ShutDownGroupBox.Text = "Shutdown controls";
             // 
             // PllShutDownCheckBox
             // 
@@ -1165,7 +1165,7 @@ namespace Synthesizer_PC_control
             this.PhaseDetectorGroupBox.Size = new System.Drawing.Size(341, 86);
             this.PhaseDetectorGroupBox.TabIndex = 28;
             this.PhaseDetectorGroupBox.TabStop = false;
-            this.PhaseDetectorGroupBox.Text = "Phase Detector";
+            this.PhaseDetectorGroupBox.Text = "Phase detector";
             // 
             // label1
             // 
@@ -1191,7 +1191,7 @@ namespace Synthesizer_PC_control
             this.SDNoiseModeLabel.Name = "SDNoiseModeLabel";
             this.SDNoiseModeLabel.Size = new System.Drawing.Size(120, 17);
             this.SDNoiseModeLabel.TabIndex = 17;
-            this.SDNoiseModeLabel.Text = "S-D Noise Mode:";
+            this.SDNoiseModeLabel.Text = "S-D noise mode:";
             this.SDNoiseModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // PfdPolarity
@@ -1372,7 +1372,7 @@ namespace Synthesizer_PC_control
             this.ChargePumpGroupBox.Size = new System.Drawing.Size(341, 147);
             this.ChargePumpGroupBox.TabIndex = 26;
             this.ChargePumpGroupBox.TabStop = false;
-            this.ChargePumpGroupBox.Text = "Charge Pump";
+            this.ChargePumpGroupBox.Text = "Charge pump";
             // 
             // PhaseAdjustmentModeCheckbox
             // 
@@ -1665,7 +1665,7 @@ namespace Synthesizer_PC_control
             this.OutInfoGroupBox.Size = new System.Drawing.Size(216, 75);
             this.OutInfoGroupBox.TabIndex = 24;
             this.OutInfoGroupBox.TabStop = false;
-            this.OutInfoGroupBox.Text = "Output Frequency Info";
+            this.OutInfoGroupBox.Text = "Output frequency info";
             // 
             // fOutALabel
             // 
@@ -1782,7 +1782,7 @@ namespace Synthesizer_PC_control
             this.FreqControlGroupBox.Size = new System.Drawing.Size(341, 195);
             this.FreqControlGroupBox.TabIndex = 23;
             this.FreqControlGroupBox.TabStop = false;
-            this.FreqControlGroupBox.Text = "Output Frequency Control";
+            this.FreqControlGroupBox.Text = "Output frequency control";
             // 
             // label2
             // 
@@ -2066,7 +2066,7 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.Size = new System.Drawing.Size(341, 122);
             this.RefFreqGroupBox.TabIndex = 22;
             this.RefFreqGroupBox.TabStop = false;
-            this.RefFreqGroupBox.Text = "Reference Frequency";
+            this.RefFreqGroupBox.Text = "Reference frequency";
             // 
             // LDSpeedAdjLabel
             // 
@@ -2260,7 +2260,7 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersMemoryPage.Size = new System.Drawing.Size(709, 818);
             this.RegistersMemoryPage.TabIndex = 1;
-            this.RegistersMemoryPage.Text = "Registers Memory";
+            this.RegistersMemoryPage.Text = "Registers memory";
             this.RegistersMemoryPage.UseVisualStyleBackColor = true;
             // 
             // Mem1Freq2ShowLabel
