@@ -100,10 +100,8 @@ namespace Synthesizer_PC_control
             this.PhaseDetectorGroupBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.LDPrecisionLabel = new System.Windows.Forms.Label();
-            this.SDNoiseModeLabel = new System.Windows.Forms.Label();
             this.PfdPolarity = new System.Windows.Forms.ComboBox();
             this.LDPrecisionComboBox = new System.Windows.Forms.ComboBox();
-            this.SigmaDeltaNoiseModeComboBox = new System.Windows.Forms.ComboBox();
             this.RegistersControlsGroupBox = new System.Windows.Forms.GroupBox();
             this.LoadFromFileButton = new System.Windows.Forms.Button();
             this.SaveIntoFileButton = new System.Windows.Forms.Button();
@@ -147,10 +145,12 @@ namespace Synthesizer_PC_control
             this.FreqControlGroupBox = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.RFoutBPathLabel = new System.Windows.Forms.Label();
+            this.SDNoiseModeLabel = new System.Windows.Forms.Label();
             this.LDfuncLabel = new System.Windows.Forms.Label();
             this.ADivComboBox = new System.Windows.Forms.ComboBox();
             this.FracNLabel = new System.Windows.Forms.Label();
             this.ModeIntFracComboBox = new System.Windows.Forms.ComboBox();
+            this.SigmaDeltaNoiseModeComboBox = new System.Windows.Forms.ComboBox();
             this.FBPathComboBox = new System.Windows.Forms.ComboBox();
             this.RFoutBPathComboBox = new System.Windows.Forms.ComboBox();
             this.LDFuncComboBox = new System.Windows.Forms.ComboBox();
@@ -333,6 +333,7 @@ namespace Synthesizer_PC_control
             // 
             // PortButton
             // 
+            this.PortButton.AccessibleDescription = "";
             this.PortButton.Location = new System.Drawing.Point(22, 11);
             this.PortButton.Margin = new System.Windows.Forms.Padding(4);
             this.PortButton.Name = "PortButton";
@@ -348,7 +349,7 @@ namespace Synthesizer_PC_control
             this.Out1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Out1Button.Name = "Out1Button";
             this.Out1Button.Size = new System.Drawing.Size(100, 28);
-            this.Out1Button.TabIndex = 1;
+            this.Out1Button.TabIndex = 3;
             this.Out1Button.Text = "Out 1 Off";
             this.Out1Button.UseVisualStyleBackColor = true;
             this.Out1Button.Click += new System.EventHandler(this.Out1Button_Click);
@@ -359,7 +360,7 @@ namespace Synthesizer_PC_control
             this.Out2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Out2Button.Name = "Out2Button";
             this.Out2Button.Size = new System.Drawing.Size(100, 28);
-            this.Out2Button.TabIndex = 1;
+            this.Out2Button.TabIndex = 4;
             this.Out2Button.Text = "Out 2 Off";
             this.Out2Button.UseVisualStyleBackColor = true;
             this.Out2Button.Click += new System.EventHandler(this.Out2Button_Click);
@@ -384,7 +385,7 @@ namespace Synthesizer_PC_control
             this.Reg0TextBox.MaxLength = 8;
             this.Reg0TextBox.Name = "Reg0TextBox";
             this.Reg0TextBox.Size = new System.Drawing.Size(88, 22);
-            this.Reg0TextBox.TabIndex = 3;
+            this.Reg0TextBox.TabIndex = 0;
             this.Reg0TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg0TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg0TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
@@ -417,7 +418,7 @@ namespace Synthesizer_PC_control
             this.Reg1TextBox.MaxLength = 8;
             this.Reg1TextBox.Name = "Reg1TextBox";
             this.Reg1TextBox.Size = new System.Drawing.Size(88, 22);
-            this.Reg1TextBox.TabIndex = 6;
+            this.Reg1TextBox.TabIndex = 2;
             this.Reg1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg1TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg1TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
@@ -441,7 +442,7 @@ namespace Synthesizer_PC_control
             this.Reg2TextBox.MaxLength = 8;
             this.Reg2TextBox.Name = "Reg2TextBox";
             this.Reg2TextBox.Size = new System.Drawing.Size(88, 22);
-            this.Reg2TextBox.TabIndex = 8;
+            this.Reg2TextBox.TabIndex = 4;
             this.Reg2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg2TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg2TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
@@ -465,7 +466,7 @@ namespace Synthesizer_PC_control
             this.Reg3TextBox.MaxLength = 8;
             this.Reg3TextBox.Name = "Reg3TextBox";
             this.Reg3TextBox.Size = new System.Drawing.Size(88, 22);
-            this.Reg3TextBox.TabIndex = 8;
+            this.Reg3TextBox.TabIndex = 6;
             this.Reg3TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg3TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg3TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
@@ -513,7 +514,7 @@ namespace Synthesizer_PC_control
             this.Reg5TextBox.MaxLength = 8;
             this.Reg5TextBox.Name = "Reg5TextBox";
             this.Reg5TextBox.Size = new System.Drawing.Size(88, 22);
-            this.Reg5TextBox.TabIndex = 8;
+            this.Reg5TextBox.TabIndex = 10;
             this.Reg5TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg5TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg5TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
@@ -525,7 +526,7 @@ namespace Synthesizer_PC_control
             this.RefButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RefButton.Name = "RefButton";
             this.RefButton.Size = new System.Drawing.Size(100, 28);
-            this.RefButton.TabIndex = 1;
+            this.RefButton.TabIndex = 5;
             this.RefButton.Text = "Ext Ref";
             this.RefButton.UseVisualStyleBackColor = true;
             this.RefButton.Click += new System.EventHandler(this.RefButton_Click);
@@ -536,7 +537,7 @@ namespace Synthesizer_PC_control
             this.SetAsDefaultRegButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SetAsDefaultRegButton.Name = "SetAsDefaultRegButton";
             this.SetAsDefaultRegButton.Size = new System.Drawing.Size(119, 23);
-            this.SetAsDefaultRegButton.TabIndex = 9;
+            this.SetAsDefaultRegButton.TabIndex = 12;
             this.SetAsDefaultRegButton.Text = "Set As Def";
             this.SetAsDefaultRegButton.UseVisualStyleBackColor = true;
             this.SetAsDefaultRegButton.Click += new System.EventHandler(this.SetAsDefaultRegButton_Click);
@@ -547,7 +548,7 @@ namespace Synthesizer_PC_control
             this.ForceLoadRegButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ForceLoadRegButton.Name = "ForceLoadRegButton";
             this.ForceLoadRegButton.Size = new System.Drawing.Size(119, 23);
-            this.ForceLoadRegButton.TabIndex = 9;
+            this.ForceLoadRegButton.TabIndex = 16;
             this.ForceLoadRegButton.Text = "Force Load All";
             this.ForceLoadRegButton.UseVisualStyleBackColor = true;
             this.ForceLoadRegButton.Click += new System.EventHandler(this.ForceLoadRegButton_Click);
@@ -558,7 +559,7 @@ namespace Synthesizer_PC_control
             this.LoadDefRegButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LoadDefRegButton.Name = "LoadDefRegButton";
             this.LoadDefRegButton.Size = new System.Drawing.Size(119, 23);
-            this.LoadDefRegButton.TabIndex = 9;
+            this.LoadDefRegButton.TabIndex = 13;
             this.LoadDefRegButton.Text = "Load Def";
             this.LoadDefRegButton.UseVisualStyleBackColor = true;
             this.LoadDefRegButton.Click += new System.EventHandler(this.LoadDefRegButton_Click);
@@ -571,7 +572,7 @@ namespace Synthesizer_PC_control
             this.AvaibleCOMsComBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.AvaibleCOMsComBox.Name = "AvaibleCOMsComBox";
             this.AvaibleCOMsComBox.Size = new System.Drawing.Size(99, 24);
-            this.AvaibleCOMsComBox.TabIndex = 10;
+            this.AvaibleCOMsComBox.TabIndex = 1;
             this.AvaibleCOMsComBox.DropDown += new System.EventHandler(this.AvaibleCOMsComBox_DropDown);
             this.AvaibleCOMsComBox.SelectedIndexChanged += new System.EventHandler(this.AvaibleCOMsComBox_SelectedIndexChanged);
             // 
@@ -581,7 +582,7 @@ namespace Synthesizer_PC_control
             this.WriteR0Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR0Button.Name = "WriteR0Button";
             this.WriteR0Button.Size = new System.Drawing.Size(80, 23);
-            this.WriteR0Button.TabIndex = 11;
+            this.WriteR0Button.TabIndex = 1;
             this.WriteR0Button.Text = "Write R0";
             this.WriteR0Button.UseVisualStyleBackColor = true;
             this.WriteR0Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
@@ -592,7 +593,7 @@ namespace Synthesizer_PC_control
             this.WriteR1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR1Button.Name = "WriteR1Button";
             this.WriteR1Button.Size = new System.Drawing.Size(80, 23);
-            this.WriteR1Button.TabIndex = 11;
+            this.WriteR1Button.TabIndex = 3;
             this.WriteR1Button.Text = "Write R1";
             this.WriteR1Button.UseVisualStyleBackColor = true;
             this.WriteR1Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
@@ -603,7 +604,7 @@ namespace Synthesizer_PC_control
             this.WriteR2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR2Button.Name = "WriteR2Button";
             this.WriteR2Button.Size = new System.Drawing.Size(80, 23);
-            this.WriteR2Button.TabIndex = 11;
+            this.WriteR2Button.TabIndex = 5;
             this.WriteR2Button.Text = "Write R2";
             this.WriteR2Button.UseVisualStyleBackColor = true;
             this.WriteR2Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
@@ -614,7 +615,7 @@ namespace Synthesizer_PC_control
             this.WriteR3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR3Button.Name = "WriteR3Button";
             this.WriteR3Button.Size = new System.Drawing.Size(80, 23);
-            this.WriteR3Button.TabIndex = 11;
+            this.WriteR3Button.TabIndex = 7;
             this.WriteR3Button.Text = "Write R3";
             this.WriteR3Button.UseVisualStyleBackColor = true;
             this.WriteR3Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
@@ -625,7 +626,7 @@ namespace Synthesizer_PC_control
             this.WriteR4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.WriteR4Button.Name = "WriteR4Button";
             this.WriteR4Button.Size = new System.Drawing.Size(80, 23);
-            this.WriteR4Button.TabIndex = 11;
+            this.WriteR4Button.TabIndex = 9;
             this.WriteR4Button.Text = "Write R4";
             this.WriteR4Button.UseVisualStyleBackColor = true;
             this.WriteR4Button.Click += new System.EventHandler(this.WriteRegisterButton_Click);
@@ -650,7 +651,7 @@ namespace Synthesizer_PC_control
             this.RegistersTabControl.Name = "RegistersTabControl";
             this.RegistersTabControl.SelectedIndex = 0;
             this.RegistersTabControl.Size = new System.Drawing.Size(717, 847);
-            this.RegistersTabControl.TabIndex = 12;
+            this.RegistersTabControl.TabIndex = 8;
             // 
             // RegistersPage
             // 
@@ -687,7 +688,7 @@ namespace Synthesizer_PC_control
             this.groupBox1.Location = new System.Drawing.Point(537, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(160, 187);
-            this.groupBox1.TabIndex = 32;
+            this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Register 6 control";
             // 
@@ -699,7 +700,7 @@ namespace Synthesizer_PC_control
             this.ReadedVCOValueTextBox.MaxLength = 17;
             this.ReadedVCOValueTextBox.Name = "ReadedVCOValueTextBox";
             this.ReadedVCOValueTextBox.Size = new System.Drawing.Size(140, 22);
-            this.ReadedVCOValueTextBox.TabIndex = 3;
+            this.ReadedVCOValueTextBox.TabIndex = 4;
             this.ReadedVCOValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ReadedADCValueTextBox
@@ -710,7 +711,7 @@ namespace Synthesizer_PC_control
             this.ReadedADCValueTextBox.MaxLength = 17;
             this.ReadedADCValueTextBox.Name = "ReadedADCValueTextBox";
             this.ReadedADCValueTextBox.Size = new System.Drawing.Size(140, 22);
-            this.ReadedADCValueTextBox.TabIndex = 3;
+            this.ReadedADCValueTextBox.TabIndex = 2;
             this.ReadedADCValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // GetCurrentVCOButton
@@ -719,7 +720,7 @@ namespace Synthesizer_PC_control
             this.GetCurrentVCOButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GetCurrentVCOButton.Name = "GetCurrentVCOButton";
             this.GetCurrentVCOButton.Size = new System.Drawing.Size(141, 23);
-            this.GetCurrentVCOButton.TabIndex = 9;
+            this.GetCurrentVCOButton.TabIndex = 3;
             this.GetCurrentVCOButton.Text = "Get current VCO";
             this.GetCurrentVCOButton.UseVisualStyleBackColor = true;
             this.GetCurrentVCOButton.Click += new System.EventHandler(this.GetCurrentVCOButton_Click);
@@ -730,7 +731,7 @@ namespace Synthesizer_PC_control
             this.GetADCValueButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GetADCValueButton.Name = "GetADCValueButton";
             this.GetADCValueButton.Size = new System.Drawing.Size(140, 23);
-            this.GetADCValueButton.TabIndex = 9;
+            this.GetADCValueButton.TabIndex = 1;
             this.GetADCValueButton.Text = "Get ADC Value";
             this.GetADCValueButton.UseVisualStyleBackColor = true;
             this.GetADCValueButton.Click += new System.EventHandler(this.GetADCValueButton_Click);
@@ -747,7 +748,7 @@ namespace Synthesizer_PC_control
             this.ADCModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ADCModeComboBox.Name = "ADCModeComboBox";
             this.ADCModeComboBox.Size = new System.Drawing.Size(140, 24);
-            this.ADCModeComboBox.TabIndex = 16;
+            this.ADCModeComboBox.TabIndex = 0;
             this.ADCModeComboBox.SelectedIndexChanged += new System.EventHandler(this.ADCModeComboBox_SelectedIndexChanged);
             // 
             // label6
@@ -770,7 +771,7 @@ namespace Synthesizer_PC_control
             this.genericControlsGroupBox.Location = new System.Drawing.Point(355, 596);
             this.genericControlsGroupBox.Name = "genericControlsGroupBox";
             this.genericControlsGroupBox.Size = new System.Drawing.Size(341, 125);
-            this.genericControlsGroupBox.TabIndex = 31;
+            this.genericControlsGroupBox.TabIndex = 9;
             this.genericControlsGroupBox.TabStop = false;
             this.genericControlsGroupBox.Text = "Generic controls";
             // 
@@ -792,7 +793,7 @@ namespace Synthesizer_PC_control
             this.MuxPinModeCombobox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MuxPinModeCombobox.Name = "MuxPinModeCombobox";
             this.MuxPinModeCombobox.Size = new System.Drawing.Size(160, 24);
-            this.MuxPinModeCombobox.TabIndex = 16;
+            this.MuxPinModeCombobox.TabIndex = 0;
             this.MuxPinModeCombobox.SelectedIndexChanged += new System.EventHandler(this.MuxPinModeCombobox_SelectedIndexChanged);
             // 
             // MuxPinModeLabel
@@ -810,7 +811,7 @@ namespace Synthesizer_PC_control
             this.Reg4DoubleBufferedCheckBox.Location = new System.Drawing.Point(12, 49);
             this.Reg4DoubleBufferedCheckBox.Name = "Reg4DoubleBufferedCheckBox";
             this.Reg4DoubleBufferedCheckBox.Size = new System.Drawing.Size(264, 21);
-            this.Reg4DoubleBufferedCheckBox.TabIndex = 0;
+            this.Reg4DoubleBufferedCheckBox.TabIndex = 1;
             this.Reg4DoubleBufferedCheckBox.Text = "Register 4 double bufered with reg. 0";
             this.Reg4DoubleBufferedCheckBox.UseVisualStyleBackColor = true;
             this.Reg4DoubleBufferedCheckBox.CheckedChanged += new System.EventHandler(this.Reg4DoubleBufferedCheckBox_CheckedChanged);
@@ -831,7 +832,7 @@ namespace Synthesizer_PC_control
             this.RandNCountersResetCheckBox.Location = new System.Drawing.Point(12, 103);
             this.RandNCountersResetCheckBox.Name = "RandNCountersResetCheckBox";
             this.RandNCountersResetCheckBox.Size = new System.Drawing.Size(177, 21);
-            this.RandNCountersResetCheckBox.TabIndex = 0;
+            this.RandNCountersResetCheckBox.TabIndex = 3;
             this.RandNCountersResetCheckBox.Text = "R and N counters reset";
             this.RandNCountersResetCheckBox.UseVisualStyleBackColor = true;
             this.RandNCountersResetCheckBox.CheckedChanged += new System.EventHandler(this.RandNCountersResetCheckBox_CheckedChanged);
@@ -842,7 +843,7 @@ namespace Synthesizer_PC_control
             this.IntNAutoModeWhenF0CheckBox.Location = new System.Drawing.Point(12, 76);
             this.IntNAutoModeWhenF0CheckBox.Name = "IntNAutoModeWhenF0CheckBox";
             this.IntNAutoModeWhenF0CheckBox.Size = new System.Drawing.Size(264, 21);
-            this.IntNAutoModeWhenF0CheckBox.TabIndex = 0;
+            this.IntNAutoModeWhenF0CheckBox.TabIndex = 2;
             this.IntNAutoModeWhenF0CheckBox.Text = "Integer-N mode auto set, if FracN = 0";
             this.IntNAutoModeWhenF0CheckBox.UseVisualStyleBackColor = true;
             this.IntNAutoModeWhenF0CheckBox.CheckedChanged += new System.EventHandler(this.IntNAutoModeWhenF0CheckBox_CheckedChanged);
@@ -858,7 +859,7 @@ namespace Synthesizer_PC_control
             this.ShutDownGroupBox.Location = new System.Drawing.Point(8, 621);
             this.ShutDownGroupBox.Name = "ShutDownGroupBox";
             this.ShutDownGroupBox.Size = new System.Drawing.Size(341, 100);
-            this.ShutDownGroupBox.TabIndex = 30;
+            this.ShutDownGroupBox.TabIndex = 5;
             this.ShutDownGroupBox.TabStop = false;
             this.ShutDownGroupBox.Text = "Shutdown controls";
             // 
@@ -868,7 +869,7 @@ namespace Synthesizer_PC_control
             this.PllShutDownCheckBox.Location = new System.Drawing.Point(12, 74);
             this.PllShutDownCheckBox.Name = "PllShutDownCheckBox";
             this.PllShutDownCheckBox.Size = new System.Drawing.Size(55, 21);
-            this.PllShutDownCheckBox.TabIndex = 0;
+            this.PllShutDownCheckBox.TabIndex = 4;
             this.PllShutDownCheckBox.Text = "PLL";
             this.PllShutDownCheckBox.UseVisualStyleBackColor = true;
             this.PllShutDownCheckBox.CheckedChanged += new System.EventHandler(this.PllShutDownCheckBox_CheckedChanged);
@@ -879,7 +880,7 @@ namespace Synthesizer_PC_control
             this.VcoShutDownCheckBox.Location = new System.Drawing.Point(194, 74);
             this.VcoShutDownCheckBox.Name = "VcoShutDownCheckBox";
             this.VcoShutDownCheckBox.Size = new System.Drawing.Size(59, 21);
-            this.VcoShutDownCheckBox.TabIndex = 0;
+            this.VcoShutDownCheckBox.TabIndex = 5;
             this.VcoShutDownCheckBox.Text = "VCO";
             this.VcoShutDownCheckBox.UseVisualStyleBackColor = true;
             this.VcoShutDownCheckBox.CheckedChanged += new System.EventHandler(this.VcoShutDownCheckBox_CheckedChanged);
@@ -901,7 +902,7 @@ namespace Synthesizer_PC_control
             this.VcoLdoShutDownCheckBox.Location = new System.Drawing.Point(194, 47);
             this.VcoLdoShutDownCheckBox.Name = "VcoLdoShutDownCheckBox";
             this.VcoLdoShutDownCheckBox.Size = new System.Drawing.Size(92, 21);
-            this.VcoLdoShutDownCheckBox.TabIndex = 0;
+            this.VcoLdoShutDownCheckBox.TabIndex = 3;
             this.VcoLdoShutDownCheckBox.Text = "VCO LDO";
             this.VcoLdoShutDownCheckBox.UseVisualStyleBackColor = true;
             this.VcoLdoShutDownCheckBox.CheckedChanged += new System.EventHandler(this.VcoLdoShutDownCheckBox_CheckedChanged);
@@ -912,7 +913,7 @@ namespace Synthesizer_PC_control
             this.VcoDividerShutdownCheckBox.Location = new System.Drawing.Point(194, 20);
             this.VcoDividerShutdownCheckBox.Name = "VcoDividerShutdownCheckBox";
             this.VcoDividerShutdownCheckBox.Size = new System.Drawing.Size(105, 21);
-            this.VcoDividerShutdownCheckBox.TabIndex = 0;
+            this.VcoDividerShutdownCheckBox.TabIndex = 1;
             this.VcoDividerShutdownCheckBox.Text = "VCO divider";
             this.VcoDividerShutdownCheckBox.UseVisualStyleBackColor = true;
             this.VcoDividerShutdownCheckBox.CheckedChanged += new System.EventHandler(this.VcoDividerShutdownCheckBox_CheckedChanged);
@@ -923,7 +924,7 @@ namespace Synthesizer_PC_control
             this.RefInputShutdownCheckBox.Location = new System.Drawing.Point(12, 47);
             this.RefInputShutdownCheckBox.Name = "RefInputShutdownCheckBox";
             this.RefInputShutdownCheckBox.Size = new System.Drawing.Size(131, 21);
-            this.RefInputShutdownCheckBox.TabIndex = 0;
+            this.RefInputShutdownCheckBox.TabIndex = 2;
             this.RefInputShutdownCheckBox.Text = "Reference input";
             this.RefInputShutdownCheckBox.UseVisualStyleBackColor = true;
             this.RefInputShutdownCheckBox.CheckedChanged += new System.EventHandler(this.RefInputShutdownCheckBox_CheckedChanged);
@@ -948,7 +949,7 @@ namespace Synthesizer_PC_control
             this.VcoSettingsGroupBox.Location = new System.Drawing.Point(356, 198);
             this.VcoSettingsGroupBox.Name = "VcoSettingsGroupBox";
             this.VcoSettingsGroupBox.Size = new System.Drawing.Size(341, 238);
-            this.VcoSettingsGroupBox.TabIndex = 29;
+            this.VcoSettingsGroupBox.TabIndex = 6;
             this.VcoSettingsGroupBox.TabStop = false;
             this.VcoSettingsGroupBox.Text = "VCO settings";
             // 
@@ -987,7 +988,7 @@ namespace Synthesizer_PC_control
             this.AutoCDIVCalcCheckBox.Location = new System.Drawing.Point(12, 211);
             this.AutoCDIVCalcCheckBox.Name = "AutoCDIVCalcCheckBox";
             this.AutoCDIVCalcCheckBox.Size = new System.Drawing.Size(188, 21);
-            this.AutoCDIVCalcCheckBox.TabIndex = 0;
+            this.AutoCDIVCalcCheckBox.TabIndex = 7;
             this.AutoCDIVCalcCheckBox.Text = "Calc CDIV to spec. delay:";
             this.AutoCDIVCalcCheckBox.UseVisualStyleBackColor = true;
             this.AutoCDIVCalcCheckBox.CheckedChanged += new System.EventHandler(this.AutoCDIVCalcCheckBox_CheckedChanged);
@@ -998,7 +999,7 @@ namespace Synthesizer_PC_control
             this.DelayToPreventFlickeringCheckBox.Location = new System.Drawing.Point(12, 161);
             this.DelayToPreventFlickeringCheckBox.Name = "DelayToPreventFlickeringCheckBox";
             this.DelayToPreventFlickeringCheckBox.Size = new System.Drawing.Size(328, 21);
-            this.DelayToPreventFlickeringCheckBox.TabIndex = 0;
+            this.DelayToPreventFlickeringCheckBox.TabIndex = 5;
             this.DelayToPreventFlickeringCheckBox.Text = "Delay LD to MTLD function to prevent flickering";
             this.DelayToPreventFlickeringCheckBox.UseVisualStyleBackColor = true;
             this.DelayToPreventFlickeringCheckBox.CheckedChanged += new System.EventHandler(this.DelayToPreventFlickeringCheckBox_CheckedChanged);
@@ -1009,7 +1010,7 @@ namespace Synthesizer_PC_control
             this.MuteUntilLockDetectCheckBox.Location = new System.Drawing.Point(12, 134);
             this.MuteUntilLockDetectCheckBox.Name = "MuteUntilLockDetectCheckBox";
             this.MuteUntilLockDetectCheckBox.Size = new System.Drawing.Size(261, 21);
-            this.MuteUntilLockDetectCheckBox.TabIndex = 0;
+            this.MuteUntilLockDetectCheckBox.TabIndex = 4;
             this.MuteUntilLockDetectCheckBox.Text = "RFOUT Mute until Lock Detect Mode";
             this.MuteUntilLockDetectCheckBox.UseVisualStyleBackColor = true;
             this.MuteUntilLockDetectCheckBox.CheckedChanged += new System.EventHandler(this.MuteUntilLockDetectCheckBox_CheckedChanged);
@@ -1020,7 +1021,7 @@ namespace Synthesizer_PC_control
             this.VASTempCompCheckBox.Location = new System.Drawing.Point(12, 54);
             this.VASTempCompCheckBox.Name = "VASTempCompCheckBox";
             this.VASTempCompCheckBox.Size = new System.Drawing.Size(230, 21);
-            this.VASTempCompCheckBox.TabIndex = 0;
+            this.VASTempCompCheckBox.TabIndex = 1;
             this.VASTempCompCheckBox.Text = "VAS temperature compensation";
             this.VASTempCompCheckBox.UseVisualStyleBackColor = true;
             this.VASTempCompCheckBox.CheckedChanged += new System.EventHandler(this.VASTempCompCheckBox_CheckedChanged);
@@ -1052,7 +1053,7 @@ namespace Synthesizer_PC_control
             0});
             this.BandSelClockDivNumericUpDown.Name = "BandSelClockDivNumericUpDown";
             this.BandSelClockDivNumericUpDown.Size = new System.Drawing.Size(83, 22);
-            this.BandSelClockDivNumericUpDown.TabIndex = 19;
+            this.BandSelClockDivNumericUpDown.TabIndex = 3;
             this.BandSelClockDivNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.BandSelClockDivNumericUpDown.Value = new decimal(new int[] {
             64,
@@ -1073,7 +1074,7 @@ namespace Synthesizer_PC_control
             0});
             this.DelayInputNumericUpDown.Name = "DelayInputNumericUpDown";
             this.DelayInputNumericUpDown.Size = new System.Drawing.Size(70, 22);
-            this.DelayInputNumericUpDown.TabIndex = 19;
+            this.DelayInputNumericUpDown.TabIndex = 8;
             this.DelayInputNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.DelayInputNumericUpDown.Value = new decimal(new int[] {
             1024,
@@ -1094,7 +1095,7 @@ namespace Synthesizer_PC_control
             0});
             this.ClockDividerNumericUpDown.Name = "ClockDividerNumericUpDown";
             this.ClockDividerNumericUpDown.Size = new System.Drawing.Size(83, 22);
-            this.ClockDividerNumericUpDown.TabIndex = 19;
+            this.ClockDividerNumericUpDown.TabIndex = 6;
             this.ClockDividerNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ClockDividerNumericUpDown.Value = new decimal(new int[] {
             64,
@@ -1115,7 +1116,7 @@ namespace Synthesizer_PC_control
             0});
             this.ManualVCOSelectNumericUpDown.Name = "ManualVCOSelectNumericUpDown";
             this.ManualVCOSelectNumericUpDown.Size = new System.Drawing.Size(83, 22);
-            this.ManualVCOSelectNumericUpDown.TabIndex = 19;
+            this.ManualVCOSelectNumericUpDown.TabIndex = 2;
             this.ManualVCOSelectNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ManualVCOSelectNumericUpDown.Value = new decimal(new int[] {
             64,
@@ -1161,7 +1162,7 @@ namespace Synthesizer_PC_control
             this.PhaseDetectorGroupBox.Location = new System.Drawing.Point(8, 557);
             this.PhaseDetectorGroupBox.Name = "PhaseDetectorGroupBox";
             this.PhaseDetectorGroupBox.Size = new System.Drawing.Size(341, 58);
-            this.PhaseDetectorGroupBox.TabIndex = 28;
+            this.PhaseDetectorGroupBox.TabIndex = 4;
             this.PhaseDetectorGroupBox.TabStop = false;
             this.PhaseDetectorGroupBox.Text = "Phase detector";
             // 
@@ -1183,15 +1184,6 @@ namespace Synthesizer_PC_control
             this.LDPrecisionLabel.Text = "LD precision:";
             this.LDPrecisionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // SDNoiseModeLabel
-            // 
-            this.SDNoiseModeLabel.Location = new System.Drawing.Point(-1, 196);
-            this.SDNoiseModeLabel.Name = "SDNoiseModeLabel";
-            this.SDNoiseModeLabel.Size = new System.Drawing.Size(120, 17);
-            this.SDNoiseModeLabel.TabIndex = 17;
-            this.SDNoiseModeLabel.Text = "S-D noise mode:";
-            this.SDNoiseModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // PfdPolarity
             // 
             this.PfdPolarity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
@@ -1204,7 +1196,7 @@ namespace Synthesizer_PC_control
             this.PfdPolarity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PfdPolarity.Name = "PfdPolarity";
             this.PfdPolarity.Size = new System.Drawing.Size(61, 24);
-            this.PfdPolarity.TabIndex = 16;
+            this.PfdPolarity.TabIndex = 1;
             this.PfdPolarity.SelectedIndexChanged += new System.EventHandler(this.PfdPolarity_SelectedIndexChanged);
             // 
             // LDPrecisionComboBox
@@ -1219,24 +1211,8 @@ namespace Synthesizer_PC_control
             this.LDPrecisionComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LDPrecisionComboBox.Name = "LDPrecisionComboBox";
             this.LDPrecisionComboBox.Size = new System.Drawing.Size(67, 24);
-            this.LDPrecisionComboBox.TabIndex = 16;
+            this.LDPrecisionComboBox.TabIndex = 0;
             this.LDPrecisionComboBox.SelectedIndexChanged += new System.EventHandler(this.LDPrecisionComboBox_SelectedIndexChanged);
-            // 
-            // SigmaDeltaNoiseModeComboBox
-            // 
-            this.SigmaDeltaNoiseModeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.SigmaDeltaNoiseModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SigmaDeltaNoiseModeComboBox.FormattingEnabled = true;
-            this.SigmaDeltaNoiseModeComboBox.Items.AddRange(new object[] {
-            "Low-noise Mode",
-            "Low-spur Mode 1",
-            "Low-spur Mode 2"});
-            this.SigmaDeltaNoiseModeComboBox.Location = new System.Drawing.Point(125, 193);
-            this.SigmaDeltaNoiseModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SigmaDeltaNoiseModeComboBox.Name = "SigmaDeltaNoiseModeComboBox";
-            this.SigmaDeltaNoiseModeComboBox.Size = new System.Drawing.Size(144, 24);
-            this.SigmaDeltaNoiseModeComboBox.TabIndex = 16;
-            this.SigmaDeltaNoiseModeComboBox.SelectedIndexChanged += new System.EventHandler(this.SDNoiseModeComboBox_SelectedIndexChanged);
             // 
             // RegistersControlsGroupBox
             // 
@@ -1266,7 +1242,7 @@ namespace Synthesizer_PC_control
             this.RegistersControlsGroupBox.Location = new System.Drawing.Point(7, 5);
             this.RegistersControlsGroupBox.Name = "RegistersControlsGroupBox";
             this.RegistersControlsGroupBox.Size = new System.Drawing.Size(400, 187);
-            this.RegistersControlsGroupBox.TabIndex = 22;
+            this.RegistersControlsGroupBox.TabIndex = 0;
             this.RegistersControlsGroupBox.TabStop = false;
             this.RegistersControlsGroupBox.Text = "Registers controls";
             // 
@@ -1276,7 +1252,7 @@ namespace Synthesizer_PC_control
             this.LoadFromFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LoadFromFileButton.Name = "LoadFromFileButton";
             this.LoadFromFileButton.Size = new System.Drawing.Size(119, 23);
-            this.LoadFromFileButton.TabIndex = 9;
+            this.LoadFromFileButton.TabIndex = 15;
             this.LoadFromFileButton.Text = "Load From File";
             this.LoadFromFileButton.UseVisualStyleBackColor = true;
             this.LoadFromFileButton.Click += new System.EventHandler(this.LoadFromFileButton_Click);
@@ -1287,7 +1263,7 @@ namespace Synthesizer_PC_control
             this.SaveIntoFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SaveIntoFileButton.Name = "SaveIntoFileButton";
             this.SaveIntoFileButton.Size = new System.Drawing.Size(119, 23);
-            this.SaveIntoFileButton.TabIndex = 9;
+            this.SaveIntoFileButton.TabIndex = 14;
             this.SaveIntoFileButton.Text = "Save Into File";
             this.SaveIntoFileButton.UseVisualStyleBackColor = true;
             this.SaveIntoFileButton.Click += new System.EventHandler(this.SaveIntoFileButton_Click);
@@ -1301,7 +1277,7 @@ namespace Synthesizer_PC_control
             this.MoveRegsIntoMemsGroupBox.Location = new System.Drawing.Point(413, 5);
             this.MoveRegsIntoMemsGroupBox.Name = "MoveRegsIntoMemsGroupBox";
             this.MoveRegsIntoMemsGroupBox.Size = new System.Drawing.Size(120, 187);
-            this.MoveRegsIntoMemsGroupBox.TabIndex = 27;
+            this.MoveRegsIntoMemsGroupBox.TabIndex = 1;
             this.MoveRegsIntoMemsGroupBox.TabStop = false;
             this.MoveRegsIntoMemsGroupBox.Text = "Export currently set registers into Memory tab";
             // 
@@ -1368,7 +1344,7 @@ namespace Synthesizer_PC_control
             this.ChargePumpGroupBox.Name = "ChargePumpGroupBox";
             this.ChargePumpGroupBox.Padding = new System.Windows.Forms.Padding(4);
             this.ChargePumpGroupBox.Size = new System.Drawing.Size(341, 147);
-            this.ChargePumpGroupBox.TabIndex = 26;
+            this.ChargePumpGroupBox.TabIndex = 7;
             this.ChargePumpGroupBox.TabStop = false;
             this.ChargePumpGroupBox.Text = "Charge pump";
             // 
@@ -1380,7 +1356,7 @@ namespace Synthesizer_PC_control
             this.PhaseAdjustmentModeCheckbox.Margin = new System.Windows.Forms.Padding(4);
             this.PhaseAdjustmentModeCheckbox.Name = "PhaseAdjustmentModeCheckbox";
             this.PhaseAdjustmentModeCheckbox.Size = new System.Drawing.Size(121, 21);
-            this.PhaseAdjustmentModeCheckbox.TabIndex = 18;
+            this.PhaseAdjustmentModeCheckbox.TabIndex = 5;
             this.PhaseAdjustmentModeCheckbox.Text = "Phase Adjust.:";
             this.PhaseAdjustmentModeCheckbox.UseVisualStyleBackColor = true;
             this.PhaseAdjustmentModeCheckbox.CheckedChanged += new System.EventHandler(this.PhaseAdjustmentModeCheckbox_CheckedChanged);
@@ -1393,7 +1369,7 @@ namespace Synthesizer_PC_control
             this.CPCycleSlipCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPCycleSlipCheckBox.Name = "CPCycleSlipCheckBox";
             this.CPCycleSlipCheckBox.Size = new System.Drawing.Size(134, 21);
-            this.CPCycleSlipCheckBox.TabIndex = 18;
+            this.CPCycleSlipCheckBox.TabIndex = 7;
             this.CPCycleSlipCheckBox.Text = "Cycle Slip Mode:";
             this.CPCycleSlipCheckBox.UseVisualStyleBackColor = true;
             this.CPCycleSlipCheckBox.CheckedChanged += new System.EventHandler(this.CPCycleSlipCheckBox_CheckedChanged);
@@ -1407,7 +1383,7 @@ namespace Synthesizer_PC_control
             this.CPTriStateOutCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPTriStateOutCheckBox.Name = "CPTriStateOutCheckBox";
             this.CPTriStateOutCheckBox.Size = new System.Drawing.Size(129, 21);
-            this.CPTriStateOutCheckBox.TabIndex = 18;
+            this.CPTriStateOutCheckBox.TabIndex = 6;
             this.CPTriStateOutCheckBox.Text = "Tristate Output:";
             this.CPTriStateOutCheckBox.UseVisualStyleBackColor = true;
             this.CPTriStateOutCheckBox.CheckedChanged += new System.EventHandler(this.CPTriStateOutCheckBox_CheckedChanged);
@@ -1421,7 +1397,7 @@ namespace Synthesizer_PC_control
             this.CPFastLockCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.CPFastLockCheckBox.Name = "CPFastLockCheckBox";
             this.CPFastLockCheckBox.Size = new System.Drawing.Size(95, 21);
-            this.CPFastLockCheckBox.TabIndex = 18;
+            this.CPFastLockCheckBox.TabIndex = 4;
             this.CPFastLockCheckBox.Text = "Fast Lock:";
             this.CPFastLockCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.CPFastLockCheckBox.UseVisualStyleBackColor = true;
@@ -1436,7 +1412,7 @@ namespace Synthesizer_PC_control
             this.RSetTextBox.MaxLength = 5;
             this.RSetTextBox.Name = "RSetTextBox";
             this.RSetTextBox.Size = new System.Drawing.Size(53, 22);
-            this.RSetTextBox.TabIndex = 3;
+            this.RSetTextBox.TabIndex = 0;
             this.RSetTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RSetTextBox.TextChanged += new System.EventHandler(this.RSetTextBox_TextChanged);
             this.RSetTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RSetTextBox_KeyDown);
@@ -1456,7 +1432,7 @@ namespace Synthesizer_PC_control
             this.CPTestComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPTestComboBox.Name = "CPTestComboBox";
             this.CPTestComboBox.Size = new System.Drawing.Size(116, 24);
-            this.CPTestComboBox.TabIndex = 16;
+            this.CPTestComboBox.TabIndex = 3;
             this.CPTestComboBox.SelectedIndexChanged += new System.EventHandler(this.CPTestComboBox_SelectedIndexChanged);
             // 
             // CPLinearityComboBox
@@ -1473,7 +1449,7 @@ namespace Synthesizer_PC_control
             this.CPLinearityComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPLinearityComboBox.Name = "CPLinearityComboBox";
             this.CPLinearityComboBox.Size = new System.Drawing.Size(116, 24);
-            this.CPLinearityComboBox.TabIndex = 16;
+            this.CPLinearityComboBox.TabIndex = 2;
             this.CPLinearityComboBox.SelectedIndexChanged += new System.EventHandler(this.CPLinearityComboBox_SelectedIndexChanged);
             // 
             // CPTestLabel
@@ -1494,7 +1470,7 @@ namespace Synthesizer_PC_control
             this.CPCurrentComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.CPCurrentComboBox.Name = "CPCurrentComboBox";
             this.CPCurrentComboBox.Size = new System.Drawing.Size(116, 24);
-            this.CPCurrentComboBox.TabIndex = 16;
+            this.CPCurrentComboBox.TabIndex = 1;
             this.CPCurrentComboBox.SelectedIndexChanged += new System.EventHandler(this.CPCurrentComboBox_SelectedIndexChanged);
             // 
             // CPLinearityLabel
@@ -1539,7 +1515,7 @@ namespace Synthesizer_PC_control
             this.OutputControlsGroupBox.Name = "OutputControlsGroupBox";
             this.OutputControlsGroupBox.Padding = new System.Windows.Forms.Padding(4);
             this.OutputControlsGroupBox.Size = new System.Drawing.Size(459, 75);
-            this.OutputControlsGroupBox.TabIndex = 25;
+            this.OutputControlsGroupBox.TabIndex = 10;
             this.OutputControlsGroupBox.TabStop = false;
             this.OutputControlsGroupBox.Text = "Output Controls";
             // 
@@ -1593,7 +1569,7 @@ namespace Synthesizer_PC_control
             this.OutBPwr_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OutBPwr_ComboBox.Name = "OutBPwr_ComboBox";
             this.OutBPwr_ComboBox.Size = new System.Drawing.Size(100, 23);
-            this.OutBPwr_ComboBox.TabIndex = 16;
+            this.OutBPwr_ComboBox.TabIndex = 3;
             this.OutBPwr_ComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OutBPwr_ComboBox_DrawItem);
             this.OutBPwr_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutBPwr_ComboBox_SelectedIndexChanged);
             // 
@@ -1609,7 +1585,7 @@ namespace Synthesizer_PC_control
             this.OutAEn_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OutAEn_ComboBox.Name = "OutAEn_ComboBox";
             this.OutAEn_ComboBox.Size = new System.Drawing.Size(100, 24);
-            this.OutAEn_ComboBox.TabIndex = 16;
+            this.OutAEn_ComboBox.TabIndex = 0;
             this.OutAEn_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutAEn_ComboBox_SelectedIndexChanged);
             // 
             // OutAPwr_ComboBox
@@ -1626,7 +1602,7 @@ namespace Synthesizer_PC_control
             this.OutAPwr_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OutAPwr_ComboBox.Name = "OutAPwr_ComboBox";
             this.OutAPwr_ComboBox.Size = new System.Drawing.Size(100, 23);
-            this.OutAPwr_ComboBox.TabIndex = 16;
+            this.OutAPwr_ComboBox.TabIndex = 1;
             this.OutAPwr_ComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OutAPwr_ComboBox_DrawItem);
             this.OutAPwr_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutAPwr_ComboBox_SelectedIndexChanged);
             // 
@@ -1642,7 +1618,7 @@ namespace Synthesizer_PC_control
             this.OutBEn_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.OutBEn_ComboBox.Name = "OutBEn_ComboBox";
             this.OutBEn_ComboBox.Size = new System.Drawing.Size(100, 24);
-            this.OutBEn_ComboBox.TabIndex = 16;
+            this.OutBEn_ComboBox.TabIndex = 2;
             this.OutBEn_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutBEn_ComboBox_SelectedIndexChanged);
             // 
             // OutInfoGroupBox
@@ -1780,7 +1756,7 @@ namespace Synthesizer_PC_control
             this.FreqControlGroupBox.Name = "FreqControlGroupBox";
             this.FreqControlGroupBox.Padding = new System.Windows.Forms.Padding(4);
             this.FreqControlGroupBox.Size = new System.Drawing.Size(341, 223);
-            this.FreqControlGroupBox.TabIndex = 23;
+            this.FreqControlGroupBox.TabIndex = 3;
             this.FreqControlGroupBox.TabStop = false;
             this.FreqControlGroupBox.Text = "Output frequency control";
             // 
@@ -1801,6 +1777,15 @@ namespace Synthesizer_PC_control
             this.RFoutBPathLabel.TabIndex = 17;
             this.RFoutBPathLabel.Text = "RFoutB path:";
             this.RFoutBPathLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // SDNoiseModeLabel
+            // 
+            this.SDNoiseModeLabel.Location = new System.Drawing.Point(-1, 196);
+            this.SDNoiseModeLabel.Name = "SDNoiseModeLabel";
+            this.SDNoiseModeLabel.Size = new System.Drawing.Size(120, 17);
+            this.SDNoiseModeLabel.TabIndex = 17;
+            this.SDNoiseModeLabel.Text = "S-D noise mode:";
+            this.SDNoiseModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LDfuncLabel
             // 
@@ -1828,7 +1813,7 @@ namespace Synthesizer_PC_control
             this.ADivComboBox.Location = new System.Drawing.Point(226, 50);
             this.ADivComboBox.Name = "ADivComboBox";
             this.ADivComboBox.Size = new System.Drawing.Size(106, 24);
-            this.ADivComboBox.TabIndex = 20;
+            this.ADivComboBox.TabIndex = 4;
             this.ADivComboBox.SelectedIndexChanged += new System.EventHandler(this.ADivComboBox_SelectedIndexChanged);
             // 
             // FracNLabel
@@ -1852,8 +1837,24 @@ namespace Synthesizer_PC_control
             this.ModeIntFracComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ModeIntFracComboBox.Name = "ModeIntFracComboBox";
             this.ModeIntFracComboBox.Size = new System.Drawing.Size(106, 24);
-            this.ModeIntFracComboBox.TabIndex = 16;
+            this.ModeIntFracComboBox.TabIndex = 3;
             this.ModeIntFracComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
+            // 
+            // SigmaDeltaNoiseModeComboBox
+            // 
+            this.SigmaDeltaNoiseModeComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.SigmaDeltaNoiseModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SigmaDeltaNoiseModeComboBox.FormattingEnabled = true;
+            this.SigmaDeltaNoiseModeComboBox.Items.AddRange(new object[] {
+            "Low-noise Mode",
+            "Low-spur Mode 1",
+            "Low-spur Mode 2"});
+            this.SigmaDeltaNoiseModeComboBox.Location = new System.Drawing.Point(125, 193);
+            this.SigmaDeltaNoiseModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SigmaDeltaNoiseModeComboBox.Name = "SigmaDeltaNoiseModeComboBox";
+            this.SigmaDeltaNoiseModeComboBox.Size = new System.Drawing.Size(144, 24);
+            this.SigmaDeltaNoiseModeComboBox.TabIndex = 10;
+            this.SigmaDeltaNoiseModeComboBox.SelectedIndexChanged += new System.EventHandler(this.SDNoiseModeComboBox_SelectedIndexChanged);
             // 
             // FBPathComboBox
             // 
@@ -1867,7 +1868,7 @@ namespace Synthesizer_PC_control
             this.FBPathComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.FBPathComboBox.Name = "FBPathComboBox";
             this.FBPathComboBox.Size = new System.Drawing.Size(150, 24);
-            this.FBPathComboBox.TabIndex = 16;
+            this.FBPathComboBox.TabIndex = 9;
             this.FBPathComboBox.SelectedIndexChanged += new System.EventHandler(this.FBPathComboBox_SelectedIndexChanged);
             // 
             // RFoutBPathComboBox
@@ -1882,7 +1883,7 @@ namespace Synthesizer_PC_control
             this.RFoutBPathComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RFoutBPathComboBox.Name = "RFoutBPathComboBox";
             this.RFoutBPathComboBox.Size = new System.Drawing.Size(150, 24);
-            this.RFoutBPathComboBox.TabIndex = 16;
+            this.RFoutBPathComboBox.TabIndex = 8;
             this.RFoutBPathComboBox.SelectedIndexChanged += new System.EventHandler(this.RFoutBPathComboBox_SelectedIndexChanged);
             // 
             // LDFuncComboBox
@@ -1897,7 +1898,7 @@ namespace Synthesizer_PC_control
             this.LDFuncComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LDFuncComboBox.Name = "LDFuncComboBox";
             this.LDFuncComboBox.Size = new System.Drawing.Size(150, 24);
-            this.LDFuncComboBox.TabIndex = 16;
+            this.LDFuncComboBox.TabIndex = 6;
             this.LDFuncComboBox.SelectedIndexChanged += new System.EventHandler(this.LDFuncComboBox_SelectedIndexChanged);
             // 
             // AutoLDFuncCheckBox
@@ -1908,7 +1909,7 @@ namespace Synthesizer_PC_control
             this.AutoLDFuncCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.AutoLDFuncCheckBox.Name = "AutoLDFuncCheckBox";
             this.AutoLDFuncCheckBox.Size = new System.Drawing.Size(58, 21);
-            this.AutoLDFuncCheckBox.TabIndex = 21;
+            this.AutoLDFuncCheckBox.TabIndex = 7;
             this.AutoLDFuncCheckBox.Text = "auto";
             this.AutoLDFuncCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.AutoLDFuncCheckBox.UseVisualStyleBackColor = true;
@@ -1975,7 +1976,7 @@ namespace Synthesizer_PC_control
             0});
             this.IntNNumUpDown.Name = "IntNNumUpDown";
             this.IntNNumUpDown.Size = new System.Drawing.Size(83, 22);
-            this.IntNNumUpDown.TabIndex = 19;
+            this.IntNNumUpDown.TabIndex = 0;
             this.IntNNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.IntNNumUpDown.Value = new decimal(new int[] {
             400,
@@ -2001,7 +2002,7 @@ namespace Synthesizer_PC_control
             0});
             this.ModNumUpDown.Name = "ModNumUpDown";
             this.ModNumUpDown.Size = new System.Drawing.Size(83, 22);
-            this.ModNumUpDown.TabIndex = 19;
+            this.ModNumUpDown.TabIndex = 2;
             this.ModNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ModNumUpDown.Value = new decimal(new int[] {
             125,
@@ -2022,7 +2023,7 @@ namespace Synthesizer_PC_control
             0});
             this.FracNNumUpDown.Name = "FracNNumUpDown";
             this.FracNNumUpDown.Size = new System.Drawing.Size(83, 22);
-            this.FracNNumUpDown.TabIndex = 19;
+            this.FracNNumUpDown.TabIndex = 1;
             this.FracNNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.FracNNumUpDown.ValueChanged += new System.EventHandler(this.FracNNumUpDown_ValueChanged);
             this.FracNNumUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
@@ -2038,7 +2039,7 @@ namespace Synthesizer_PC_control
             0});
             this.PhasePNumericUpDown.Name = "PhasePNumericUpDown";
             this.PhasePNumericUpDown.Size = new System.Drawing.Size(83, 22);
-            this.PhasePNumericUpDown.TabIndex = 19;
+            this.PhasePNumericUpDown.TabIndex = 5;
             this.PhasePNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.PhasePNumericUpDown.ValueChanged += new System.EventHandler(this.PhasePNumUpDown_ValueChanged);
             this.PhasePNumericUpDown.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.NumericUpDwScrollHandlerFunction);
@@ -2064,7 +2065,7 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.Name = "RefFreqGroupBox";
             this.RefFreqGroupBox.Padding = new System.Windows.Forms.Padding(4);
             this.RefFreqGroupBox.Size = new System.Drawing.Size(341, 122);
-            this.RefFreqGroupBox.TabIndex = 22;
+            this.RefFreqGroupBox.TabIndex = 2;
             this.RefFreqGroupBox.TabStop = false;
             this.RefFreqGroupBox.Text = "Reference frequency";
             // 
@@ -2093,7 +2094,7 @@ namespace Synthesizer_PC_control
             0});
             this.RDivUpDown.Name = "RDivUpDown";
             this.RDivUpDown.Size = new System.Drawing.Size(83, 22);
-            this.RDivUpDown.TabIndex = 19;
+            this.RDivUpDown.TabIndex = 1;
             this.RDivUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RDivUpDown.Value = new decimal(new int[] {
             400,
@@ -2115,7 +2116,7 @@ namespace Synthesizer_PC_control
             this.LDSpeedAdjComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LDSpeedAdjComboBox.Name = "LDSpeedAdjComboBox";
             this.LDSpeedAdjComboBox.Size = new System.Drawing.Size(144, 24);
-            this.LDSpeedAdjComboBox.TabIndex = 16;
+            this.LDSpeedAdjComboBox.TabIndex = 4;
             this.LDSpeedAdjComboBox.SelectedIndexChanged += new System.EventHandler(this.LDSpeedAdjComboBox_SelectedIndexChanged);
             // 
             // RefFTextBox
@@ -2127,7 +2128,7 @@ namespace Synthesizer_PC_control
             this.RefFTextBox.MaxLength = 10;
             this.RefFTextBox.Name = "RefFTextBox";
             this.RefFTextBox.Size = new System.Drawing.Size(89, 22);
-            this.RefFTextBox.TabIndex = 3;
+            this.RefFTextBox.TabIndex = 0;
             this.RefFTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RefFTextBox.TextChanged += new System.EventHandler(this.RefFTextBox_TextChanged);
             this.RefFTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RefFTextBox_KeyDown);
@@ -2142,7 +2143,7 @@ namespace Synthesizer_PC_control
             this.DivideBy2CheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.DivideBy2CheckBox.Name = "DivideBy2CheckBox";
             this.DivideBy2CheckBox.Size = new System.Drawing.Size(28, 38);
-            this.DivideBy2CheckBox.TabIndex = 21;
+            this.DivideBy2CheckBox.TabIndex = 3;
             this.DivideBy2CheckBox.Text = "÷2";
             this.DivideBy2CheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.DivideBy2CheckBox.UseVisualStyleBackColor = true;
@@ -2156,7 +2157,7 @@ namespace Synthesizer_PC_control
             this.AutoLDSpeedAdjCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.AutoLDSpeedAdjCheckBox.Name = "AutoLDSpeedAdjCheckBox";
             this.AutoLDSpeedAdjCheckBox.Size = new System.Drawing.Size(40, 38);
-            this.AutoLDSpeedAdjCheckBox.TabIndex = 21;
+            this.AutoLDSpeedAdjCheckBox.TabIndex = 5;
             this.AutoLDSpeedAdjCheckBox.Text = "auto";
             this.AutoLDSpeedAdjCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.AutoLDSpeedAdjCheckBox.UseVisualStyleBackColor = true;
@@ -2170,7 +2171,7 @@ namespace Synthesizer_PC_control
             this.RefDoublerCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.RefDoublerCheckBox.Name = "RefDoublerCheckBox";
             this.RefDoublerCheckBox.Size = new System.Drawing.Size(26, 38);
-            this.RefDoublerCheckBox.TabIndex = 21;
+            this.RefDoublerCheckBox.TabIndex = 2;
             this.RefDoublerCheckBox.Text = "x2";
             this.RefDoublerCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.RefDoublerCheckBox.UseVisualStyleBackColor = true;
@@ -2292,7 +2293,7 @@ namespace Synthesizer_PC_control
             this.SynthOutputsInfoGroupBox.Location = new System.Drawing.Point(3, 374);
             this.SynthOutputsInfoGroupBox.Name = "SynthOutputsInfoGroupBox";
             this.SynthOutputsInfoGroupBox.Size = new System.Drawing.Size(520, 173);
-            this.SynthOutputsInfoGroupBox.TabIndex = 25;
+            this.SynthOutputsInfoGroupBox.TabIndex = 1;
             this.SynthOutputsInfoGroupBox.TabStop = false;
             this.SynthOutputsInfoGroupBox.Text = "Synthesizer Outputs Info";
             // 
@@ -2350,7 +2351,7 @@ namespace Synthesizer_PC_control
             this.Mem1Freq1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem1Freq1ShowLabel.Name = "Mem1Freq1ShowLabel";
             this.Mem1Freq1ShowLabel.Size = new System.Drawing.Size(111, 16);
-            this.Mem1Freq1ShowLabel.TabIndex = 22;
+            this.Mem1Freq1ShowLabel.TabIndex = 0;
             this.Mem1Freq1ShowLabel.Text = "6000.000 000";
             this.Mem1Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -2638,7 +2639,7 @@ namespace Synthesizer_PC_control
             this.Mem1ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem1ActOut1ShowLabel.Name = "Mem1ActOut1ShowLabel";
             this.Mem1ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.Mem1ActOut1ShowLabel.TabIndex = 20;
+            this.Mem1ActOut1ShowLabel.TabIndex = 0;
             this.Mem1ActOut1ShowLabel.Text = "OFF";
             this.Mem1ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Mem1ActOut1ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
@@ -2650,7 +2651,7 @@ namespace Synthesizer_PC_control
             this.Mem1ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem1ActOut2ShowLabel.Name = "Mem1ActOut2ShowLabel";
             this.Mem1ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.Mem1ActOut2ShowLabel.TabIndex = 20;
+            this.Mem1ActOut2ShowLabel.TabIndex = 1;
             this.Mem1ActOut2ShowLabel.Text = "OFF";
             this.Mem1ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Mem1ActOut2ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
@@ -2754,7 +2755,7 @@ namespace Synthesizer_PC_control
             this.Mem1RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Mem1RefShowLabel.Name = "Mem1RefShowLabel";
             this.Mem1RefShowLabel.Size = new System.Drawing.Size(75, 18);
-            this.Mem1RefShowLabel.TabIndex = 20;
+            this.Mem1RefShowLabel.TabIndex = 2;
             this.Mem1RefShowLabel.Text = "External";
             this.Mem1RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Mem1RefShowLabel.Click += new System.EventHandler(this.MemRefShowLabel_Click);
@@ -2798,7 +2799,7 @@ namespace Synthesizer_PC_control
             this.RegMemoryGroupBox.Location = new System.Drawing.Point(2, 5);
             this.RegMemoryGroupBox.Name = "RegMemoryGroupBox";
             this.RegMemoryGroupBox.Size = new System.Drawing.Size(520, 221);
-            this.RegMemoryGroupBox.TabIndex = 23;
+            this.RegMemoryGroupBox.TabIndex = 0;
             this.RegMemoryGroupBox.TabStop = false;
             this.RegMemoryGroupBox.Text = "Registers Memory";
             // 
@@ -2820,7 +2821,7 @@ namespace Synthesizer_PC_control
             this.R5M1.MaxLength = 8;
             this.R5M1.Name = "R5M1";
             this.R5M1.Size = new System.Drawing.Size(84, 22);
-            this.R5M1.TabIndex = 20;
+            this.R5M1.TabIndex = 5;
             this.R5M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R5M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2842,7 +2843,7 @@ namespace Synthesizer_PC_control
             this.R5M2.MaxLength = 8;
             this.R5M2.Name = "R5M2";
             this.R5M2.Size = new System.Drawing.Size(84, 22);
-            this.R5M2.TabIndex = 20;
+            this.R5M2.TabIndex = 11;
             this.R5M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R5M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2855,7 +2856,7 @@ namespace Synthesizer_PC_control
             this.R4M1.MaxLength = 8;
             this.R4M1.Name = "R4M1";
             this.R4M1.Size = new System.Drawing.Size(84, 22);
-            this.R4M1.TabIndex = 19;
+            this.R4M1.TabIndex = 4;
             this.R4M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R4M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2868,7 +2869,7 @@ namespace Synthesizer_PC_control
             this.R5M3.MaxLength = 8;
             this.R5M3.Name = "R5M3";
             this.R5M3.Size = new System.Drawing.Size(84, 22);
-            this.R5M3.TabIndex = 20;
+            this.R5M3.TabIndex = 17;
             this.R5M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R5M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2881,7 +2882,7 @@ namespace Synthesizer_PC_control
             this.R4M2.MaxLength = 8;
             this.R4M2.Name = "R4M2";
             this.R4M2.Size = new System.Drawing.Size(84, 22);
-            this.R4M2.TabIndex = 19;
+            this.R4M2.TabIndex = 10;
             this.R4M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R4M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2894,7 +2895,7 @@ namespace Synthesizer_PC_control
             this.R5M4.MaxLength = 8;
             this.R5M4.Name = "R5M4";
             this.R5M4.Size = new System.Drawing.Size(84, 22);
-            this.R5M4.TabIndex = 20;
+            this.R5M4.TabIndex = 23;
             this.R5M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R5M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2907,7 +2908,7 @@ namespace Synthesizer_PC_control
             this.R4M3.MaxLength = 8;
             this.R4M3.Name = "R4M3";
             this.R4M3.Size = new System.Drawing.Size(84, 22);
-            this.R4M3.TabIndex = 19;
+            this.R4M3.TabIndex = 16;
             this.R4M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R4M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2920,7 +2921,7 @@ namespace Synthesizer_PC_control
             this.R4M4.MaxLength = 8;
             this.R4M4.Name = "R4M4";
             this.R4M4.Size = new System.Drawing.Size(84, 22);
-            this.R4M4.TabIndex = 19;
+            this.R4M4.TabIndex = 22;
             this.R4M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R4M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2942,7 +2943,7 @@ namespace Synthesizer_PC_control
             this.R3M1.MaxLength = 8;
             this.R3M1.Name = "R3M1";
             this.R3M1.Size = new System.Drawing.Size(84, 22);
-            this.R3M1.TabIndex = 18;
+            this.R3M1.TabIndex = 3;
             this.R3M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2955,7 +2956,7 @@ namespace Synthesizer_PC_control
             this.R3M2.MaxLength = 8;
             this.R3M2.Name = "R3M2";
             this.R3M2.Size = new System.Drawing.Size(84, 22);
-            this.R3M2.TabIndex = 18;
+            this.R3M2.TabIndex = 9;
             this.R3M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2968,7 +2969,7 @@ namespace Synthesizer_PC_control
             this.R3M3.MaxLength = 8;
             this.R3M3.Name = "R3M3";
             this.R3M3.Size = new System.Drawing.Size(84, 22);
-            this.R3M3.TabIndex = 18;
+            this.R3M3.TabIndex = 15;
             this.R3M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2981,7 +2982,7 @@ namespace Synthesizer_PC_control
             this.R3M4.MaxLength = 8;
             this.R3M4.Name = "R3M4";
             this.R3M4.Size = new System.Drawing.Size(84, 22);
-            this.R3M4.TabIndex = 18;
+            this.R3M4.TabIndex = 21;
             this.R3M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -2994,7 +2995,7 @@ namespace Synthesizer_PC_control
             this.R2M1.MaxLength = 8;
             this.R2M1.Name = "R2M1";
             this.R2M1.Size = new System.Drawing.Size(84, 22);
-            this.R2M1.TabIndex = 17;
+            this.R2M1.TabIndex = 2;
             this.R2M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3007,7 +3008,7 @@ namespace Synthesizer_PC_control
             this.R2M2.MaxLength = 8;
             this.R2M2.Name = "R2M2";
             this.R2M2.Size = new System.Drawing.Size(84, 22);
-            this.R2M2.TabIndex = 17;
+            this.R2M2.TabIndex = 8;
             this.R2M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3020,7 +3021,7 @@ namespace Synthesizer_PC_control
             this.R2M3.MaxLength = 8;
             this.R2M3.Name = "R2M3";
             this.R2M3.Size = new System.Drawing.Size(84, 22);
-            this.R2M3.TabIndex = 17;
+            this.R2M3.TabIndex = 14;
             this.R2M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3033,7 +3034,7 @@ namespace Synthesizer_PC_control
             this.R2M4.MaxLength = 8;
             this.R2M4.Name = "R2M4";
             this.R2M4.Size = new System.Drawing.Size(84, 22);
-            this.R2M4.TabIndex = 17;
+            this.R2M4.TabIndex = 20;
             this.R2M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3055,7 +3056,7 @@ namespace Synthesizer_PC_control
             this.R1M1.MaxLength = 8;
             this.R1M1.Name = "R1M1";
             this.R1M1.Size = new System.Drawing.Size(84, 22);
-            this.R1M1.TabIndex = 12;
+            this.R1M1.TabIndex = 1;
             this.R1M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R1M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3077,7 +3078,7 @@ namespace Synthesizer_PC_control
             this.R1M2.MaxLength = 8;
             this.R1M2.Name = "R1M2";
             this.R1M2.Size = new System.Drawing.Size(84, 22);
-            this.R1M2.TabIndex = 12;
+            this.R1M2.TabIndex = 7;
             this.R1M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R1M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3090,7 +3091,7 @@ namespace Synthesizer_PC_control
             this.R1M3.MaxLength = 8;
             this.R1M3.Name = "R1M3";
             this.R1M3.Size = new System.Drawing.Size(84, 22);
-            this.R1M3.TabIndex = 12;
+            this.R1M3.TabIndex = 13;
             this.R1M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R1M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3103,7 +3104,7 @@ namespace Synthesizer_PC_control
             this.R1M4.MaxLength = 8;
             this.R1M4.Name = "R1M4";
             this.R1M4.Size = new System.Drawing.Size(84, 22);
-            this.R1M4.TabIndex = 12;
+            this.R1M4.TabIndex = 19;
             this.R1M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R1M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3125,7 +3126,7 @@ namespace Synthesizer_PC_control
             this.R0M4.MaxLength = 8;
             this.R0M4.Name = "R0M4";
             this.R0M4.Size = new System.Drawing.Size(84, 22);
-            this.R0M4.TabIndex = 9;
+            this.R0M4.TabIndex = 18;
             this.R0M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3174,7 +3175,7 @@ namespace Synthesizer_PC_control
             this.R0M3.MaxLength = 8;
             this.R0M3.Name = "R0M3";
             this.R0M3.Size = new System.Drawing.Size(84, 22);
-            this.R0M3.TabIndex = 9;
+            this.R0M3.TabIndex = 12;
             this.R0M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3187,7 +3188,7 @@ namespace Synthesizer_PC_control
             this.R0M1.MaxLength = 8;
             this.R0M1.Name = "R0M1";
             this.R0M1.Size = new System.Drawing.Size(84, 22);
-            this.R0M1.TabIndex = 9;
+            this.R0M1.TabIndex = 0;
             this.R0M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3200,7 +3201,7 @@ namespace Synthesizer_PC_control
             this.R0M2.MaxLength = 8;
             this.R0M2.Name = "R0M2";
             this.R0M2.Size = new System.Drawing.Size(84, 22);
-            this.R0M2.TabIndex = 9;
+            this.R0M2.TabIndex = 6;
             this.R0M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
@@ -3209,7 +3210,7 @@ namespace Synthesizer_PC_control
             this.ImportMem4Button.Location = new System.Drawing.Point(420, 553);
             this.ImportMem4Button.Name = "ImportMem4Button";
             this.ImportMem4Button.Size = new System.Drawing.Size(84, 49);
-            this.ImportMem4Button.TabIndex = 21;
+            this.ImportMem4Button.TabIndex = 7;
             this.ImportMem4Button.Text = "Import Memory 4";
             this.ImportMem4Button.UseVisualStyleBackColor = true;
             this.ImportMem4Button.Click += new System.EventHandler(this.ImportMememoryButton_Click);
@@ -3219,7 +3220,7 @@ namespace Synthesizer_PC_control
             this.ImportMem3Button.Location = new System.Drawing.Point(313, 553);
             this.ImportMem3Button.Name = "ImportMem3Button";
             this.ImportMem3Button.Size = new System.Drawing.Size(84, 49);
-            this.ImportMem3Button.TabIndex = 21;
+            this.ImportMem3Button.TabIndex = 6;
             this.ImportMem3Button.Text = "Import Memory 3";
             this.ImportMem3Button.UseVisualStyleBackColor = true;
             this.ImportMem3Button.Click += new System.EventHandler(this.ImportMememoryButton_Click);
@@ -3229,7 +3230,7 @@ namespace Synthesizer_PC_control
             this.ImportMem2Button.Location = new System.Drawing.Point(206, 553);
             this.ImportMem2Button.Name = "ImportMem2Button";
             this.ImportMem2Button.Size = new System.Drawing.Size(84, 49);
-            this.ImportMem2Button.TabIndex = 21;
+            this.ImportMem2Button.TabIndex = 5;
             this.ImportMem2Button.Text = "Import Memory 2";
             this.ImportMem2Button.UseVisualStyleBackColor = true;
             this.ImportMem2Button.Click += new System.EventHandler(this.ImportMememoryButton_Click);
@@ -3239,7 +3240,7 @@ namespace Synthesizer_PC_control
             this.ImportMem1Button.Location = new System.Drawing.Point(99, 553);
             this.ImportMem1Button.Name = "ImportMem1Button";
             this.ImportMem1Button.Size = new System.Drawing.Size(84, 49);
-            this.ImportMem1Button.TabIndex = 21;
+            this.ImportMem1Button.TabIndex = 4;
             this.ImportMem1Button.Text = "Import Memory 1";
             this.ImportMem1Button.UseVisualStyleBackColor = true;
             this.ImportMem1Button.Click += new System.EventHandler(this.ImportMememoryButton_Click);
@@ -3250,7 +3251,7 @@ namespace Synthesizer_PC_control
             this.MemLoadFromFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MemLoadFromFileButton.Name = "MemLoadFromFileButton";
             this.MemLoadFromFileButton.Size = new System.Drawing.Size(174, 46);
-            this.MemLoadFromFileButton.TabIndex = 9;
+            this.MemLoadFromFileButton.TabIndex = 3;
             this.MemLoadFromFileButton.Text = "Load From File";
             this.MemLoadFromFileButton.UseVisualStyleBackColor = true;
             this.MemLoadFromFileButton.Click += new System.EventHandler(this.MemLoadFromFileButton_Click);
@@ -3261,7 +3262,7 @@ namespace Synthesizer_PC_control
             this.MemSaveIntoFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MemSaveIntoFileButton.Name = "MemSaveIntoFileButton";
             this.MemSaveIntoFileButton.Size = new System.Drawing.Size(174, 46);
-            this.MemSaveIntoFileButton.TabIndex = 9;
+            this.MemSaveIntoFileButton.TabIndex = 2;
             this.MemSaveIntoFileButton.Text = "Save Into File";
             this.MemSaveIntoFileButton.UseVisualStyleBackColor = true;
             this.MemSaveIntoFileButton.Click += new System.EventHandler(this.MemSaveIntoFileButton_Click);
@@ -3272,7 +3273,7 @@ namespace Synthesizer_PC_control
             this.LoadRegMemory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LoadRegMemory.Name = "LoadRegMemory";
             this.LoadRegMemory.Size = new System.Drawing.Size(174, 46);
-            this.LoadRegMemory.TabIndex = 2;
+            this.LoadRegMemory.TabIndex = 1;
             this.LoadRegMemory.Text = "Download Memory Data From Synthesizer Memory";
             this.LoadRegMemory.UseVisualStyleBackColor = true;
             this.LoadRegMemory.Click += new System.EventHandler(this.LoadRegMemory_Click);
@@ -3283,7 +3284,7 @@ namespace Synthesizer_PC_control
             this.SaveRegMemory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SaveRegMemory.Name = "SaveRegMemory";
             this.SaveRegMemory.Size = new System.Drawing.Size(174, 46);
-            this.SaveRegMemory.TabIndex = 2;
+            this.SaveRegMemory.TabIndex = 0;
             this.SaveRegMemory.Text = "Upload Memory Data Into Synthesizer";
             this.SaveRegMemory.UseVisualStyleBackColor = true;
             this.SaveRegMemory.Click += new System.EventHandler(this.SaveRegMemory_Click);
@@ -3296,7 +3297,7 @@ namespace Synthesizer_PC_control
             this.RegistersGroupBox.Name = "RegistersGroupBox";
             this.RegistersGroupBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersGroupBox.Size = new System.Drawing.Size(717, 780);
-            this.RegistersGroupBox.TabIndex = 13;
+            this.RegistersGroupBox.TabIndex = 9;
             this.RegistersGroupBox.TabStop = false;
             this.RegistersGroupBox.Text = "PLO MAX2871 Registers Settings";
             // 
@@ -3325,7 +3326,7 @@ namespace Synthesizer_PC_control
             this.InputFreqTextBox.MaxLength = 17;
             this.InputFreqTextBox.Name = "InputFreqTextBox";
             this.InputFreqTextBox.Size = new System.Drawing.Size(109, 22);
-            this.InputFreqTextBox.TabIndex = 3;
+            this.InputFreqTextBox.TabIndex = 0;
             this.InputFreqTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.InputFreqTextBox.TextChanged += new System.EventHandler(this.InputFreqTextBox_TextChanged);
             this.InputFreqTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InputFreqTextBox_KeyDown);
@@ -3336,7 +3337,7 @@ namespace Synthesizer_PC_control
             this.MHzLabel6.Location = new System.Drawing.Point(262, 23);
             this.MHzLabel6.Name = "MHzLabel6";
             this.MHzLabel6.Size = new System.Drawing.Size(40, 17);
-            this.MHzLabel6.TabIndex = 17;
+            this.MHzLabel6.TabIndex = 1;
             this.MHzLabel6.Text = "MHz";
             this.MHzLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -3346,7 +3347,7 @@ namespace Synthesizer_PC_control
             this.DeltaShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DeltaShowLabel.Name = "DeltaShowLabel";
             this.DeltaShowLabel.Size = new System.Drawing.Size(109, 16);
-            this.DeltaShowLabel.TabIndex = 20;
+            this.DeltaShowLabel.TabIndex = 1;
             this.DeltaShowLabel.Text = "0";
             this.DeltaShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -3355,7 +3356,7 @@ namespace Synthesizer_PC_control
             this.HzLabel.Location = new System.Drawing.Point(262, 70);
             this.HzLabel.Name = "HzLabel";
             this.HzLabel.Size = new System.Drawing.Size(40, 17);
-            this.HzLabel.TabIndex = 17;
+            this.HzLabel.TabIndex = 1;
             this.HzLabel.Text = "Hz";
             this.HzLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -3365,7 +3366,7 @@ namespace Synthesizer_PC_control
             this.DeltaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DeltaLabel.Name = "DeltaLabel";
             this.DeltaLabel.Size = new System.Drawing.Size(138, 18);
-            this.DeltaLabel.TabIndex = 20;
+            this.DeltaLabel.TabIndex = 1;
             this.DeltaLabel.Text = "Delta frequency:";
             this.DeltaLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -3375,7 +3376,7 @@ namespace Synthesizer_PC_control
             this.InputFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.InputFreqLabel.Name = "InputFreqLabel";
             this.InputFreqLabel.Size = new System.Drawing.Size(138, 16);
-            this.InputFreqLabel.TabIndex = 20;
+            this.InputFreqLabel.TabIndex = 1;
             this.InputFreqLabel.Text = "Output frequency:";
             this.InputFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -3393,7 +3394,7 @@ namespace Synthesizer_PC_control
             this.DirectFreqContrGroupBox.Location = new System.Drawing.Point(11, 81);
             this.DirectFreqContrGroupBox.Name = "DirectFreqContrGroupBox";
             this.DirectFreqContrGroupBox.Size = new System.Drawing.Size(334, 95);
-            this.DirectFreqContrGroupBox.TabIndex = 22;
+            this.DirectFreqContrGroupBox.TabIndex = 6;
             this.DirectFreqContrGroupBox.TabStop = false;
             this.DirectFreqContrGroupBox.Text = "Direct output frequency control";
             // 
@@ -3402,7 +3403,7 @@ namespace Synthesizer_PC_control
             this.MHzLabel7.Location = new System.Drawing.Point(263, 46);
             this.MHzLabel7.Name = "MHzLabel7";
             this.MHzLabel7.Size = new System.Drawing.Size(40, 17);
-            this.MHzLabel7.TabIndex = 17;
+            this.MHzLabel7.TabIndex = 1;
             this.MHzLabel7.Text = "MHz";
             this.MHzLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -3412,7 +3413,7 @@ namespace Synthesizer_PC_control
             this.CalcFreqShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CalcFreqShowLabel.Name = "CalcFreqShowLabel";
             this.CalcFreqShowLabel.Size = new System.Drawing.Size(109, 16);
-            this.CalcFreqShowLabel.TabIndex = 20;
+            this.CalcFreqShowLabel.TabIndex = 1;
             this.CalcFreqShowLabel.Text = "0";
             this.CalcFreqShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -3422,7 +3423,7 @@ namespace Synthesizer_PC_control
             this.CalcFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CalcFreqLabel.Name = "CalcFreqLabel";
             this.CalcFreqLabel.Size = new System.Drawing.Size(138, 18);
-            this.CalcFreqLabel.TabIndex = 20;
+            this.CalcFreqLabel.TabIndex = 1;
             this.CalcFreqLabel.Text = "Calculated freq.:";
             this.CalcFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -3473,7 +3474,7 @@ namespace Synthesizer_PC_control
             this.ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActOut2ShowLabel.Name = "ActOut2ShowLabel";
             this.ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.ActOut2ShowLabel.TabIndex = 20;
+            this.ActOut2ShowLabel.TabIndex = 1;
             this.ActOut2ShowLabel.Text = "OFF";
             this.ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ActOut2ShowLabel.Click += new System.EventHandler(this.ActOut2ShowLabel_Click);
@@ -3495,7 +3496,7 @@ namespace Synthesizer_PC_control
             this.ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ActOut1ShowLabel.Name = "ActOut1ShowLabel";
             this.ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.ActOut1ShowLabel.TabIndex = 20;
+            this.ActOut1ShowLabel.TabIndex = 0;
             this.ActOut1ShowLabel.Text = "OFF";
             this.ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ActOut1ShowLabel.Click += new System.EventHandler(this.ActOut1ShowLabel_Click);
@@ -3538,7 +3539,7 @@ namespace Synthesizer_PC_control
             this.ConsoleRichTextBox.ReadOnly = true;
             this.ConsoleRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 563);
-            this.ConsoleRichTextBox.TabIndex = 23;
+            this.ConsoleRichTextBox.TabIndex = 8;
             this.ConsoleRichTextBox.Text = "";
             // 
             // SynthModuleInfoGroupBox
@@ -3558,7 +3559,7 @@ namespace Synthesizer_PC_control
             this.SynthModuleInfoGroupBox.Location = new System.Drawing.Point(11, 182);
             this.SynthModuleInfoGroupBox.Name = "SynthModuleInfoGroupBox";
             this.SynthModuleInfoGroupBox.Size = new System.Drawing.Size(334, 115);
-            this.SynthModuleInfoGroupBox.TabIndex = 21;
+            this.SynthModuleInfoGroupBox.TabIndex = 7;
             this.SynthModuleInfoGroupBox.TabStop = false;
             this.SynthModuleInfoGroupBox.Text = "Synthesizer module info";
             // 
@@ -3568,7 +3569,7 @@ namespace Synthesizer_PC_control
             this.IntExtShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.IntExtShowLabel.Name = "IntExtShowLabel";
             this.IntExtShowLabel.Size = new System.Drawing.Size(106, 18);
-            this.IntExtShowLabel.TabIndex = 20;
+            this.IntExtShowLabel.TabIndex = 2;
             this.IntExtShowLabel.Text = "External";
             this.IntExtShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.IntExtShowLabel.Click += new System.EventHandler(this.IntExtShowLabel_Click);
