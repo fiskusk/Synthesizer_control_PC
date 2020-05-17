@@ -243,6 +243,9 @@ namespace Synthesizer_PC_control
                 Mem2ActOut2ShowLabel.BackColor  = SystemColors.ScrollBar;
                 Mem3ActOut2ShowLabel.BackColor  = SystemColors.ScrollBar;
                 Mem4ActOut2ShowLabel.BackColor  = SystemColors.ScrollBar;
+                toolStripStatusLabel1.Text = "";
+                LedOnPicBox.Visible = false;
+                LedOffPicBox.Visible = false;
             }
             ActOut2ShowLabel.Enabled        = command;
             FreqAtOut1ShowLabel.Enabled     = command;
@@ -312,7 +315,6 @@ namespace Synthesizer_PC_control
             Mem2PwrBShowLabel.Enabled   = command;
             Mem3PwrBShowLabel.Enabled   = command;
             Mem4PwrBShowLabel.Enabled   = command;
-            
         }
 
         /// <summary>
