@@ -180,83 +180,94 @@ namespace Synthesizer_PC_control
             this.MHzLabel3 = new System.Windows.Forms.Label();
             this.pfdFreqLabel = new System.Windows.Forms.Label();
             this.RegistersMemoryPage = new System.Windows.Forms.TabPage();
+            this.SynthOutputsInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.Mem1Freq2ShowLabel = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.Mem1Freq1ShowLabel = new System.Windows.Forms.Label();
+            this.FreqOut2MemLabel = new System.Windows.Forms.Label();
             this.Mem4Freq2ShowLabel = new System.Windows.Forms.Label();
+            this.FreqOut1MemLabel = new System.Windows.Forms.Label();
             this.Mem4Freq1ShowLabel = new System.Windows.Forms.Label();
+            this.MemPwrALabel = new System.Windows.Forms.Label();
             this.Mem3Freq2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem1PwrAShowLabel = new System.Windows.Forms.Label();
             this.Mem3Freq1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem1PwrBShowLabel = new System.Windows.Forms.Label();
             this.Mem2Freq2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem2PwrAShowLabel = new System.Windows.Forms.Label();
             this.Mem2Freq1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem3PwrAShowLabel = new System.Windows.Forms.Label();
+            this.Mem4PwrAShowLabel = new System.Windows.Forms.Label();
+            this.Mem2PwrBShowLabel = new System.Windows.Forms.Label();
+            this.Mem3PwrBShowLabel = new System.Windows.Forms.Label();
+            this.Mem4PwrBShowLabel = new System.Windows.Forms.Label();
+            this.MemPwrBLabel = new System.Windows.Forms.Label();
+            this.SyntModuleControlsGroupBox = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Mem4ActOut1ShowLabel = new System.Windows.Forms.Label();
+            this.MemoryOutput1Label = new System.Windows.Forms.Label();
+            this.MemoryOutput2Label = new System.Windows.Forms.Label();
+            this.MemoryRefLabel = new System.Windows.Forms.Label();
+            this.Mem1ActOut1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem1ActOut2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem2ActOut1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem3ActOut1ShowLabel = new System.Windows.Forms.Label();
+            this.Mem2ActOut2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem4RefShowLabel = new System.Windows.Forms.Label();
+            this.Mem3ActOut2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem3RefShowLabel = new System.Windows.Forms.Label();
+            this.Mem4ActOut2ShowLabel = new System.Windows.Forms.Label();
+            this.Mem2RefShowLabel = new System.Windows.Forms.Label();
+            this.Mem1RefShowLabel = new System.Windows.Forms.Label();
+            this.RegMemoryGroupBox = new System.Windows.Forms.GroupBox();
+            this.SavReg0Label = new System.Windows.Forms.Label();
+            this.R5M1 = new System.Windows.Forms.TextBox();
+            this.SavReg5Label = new System.Windows.Forms.Label();
+            this.R5M2 = new System.Windows.Forms.TextBox();
+            this.R4M1 = new System.Windows.Forms.TextBox();
+            this.R5M3 = new System.Windows.Forms.TextBox();
+            this.R4M2 = new System.Windows.Forms.TextBox();
+            this.R5M4 = new System.Windows.Forms.TextBox();
+            this.R4M3 = new System.Windows.Forms.TextBox();
+            this.R4M4 = new System.Windows.Forms.TextBox();
+            this.SavReg4Label = new System.Windows.Forms.Label();
+            this.R3M1 = new System.Windows.Forms.TextBox();
+            this.R3M2 = new System.Windows.Forms.TextBox();
+            this.R3M3 = new System.Windows.Forms.TextBox();
+            this.R3M4 = new System.Windows.Forms.TextBox();
+            this.R2M1 = new System.Windows.Forms.TextBox();
+            this.R2M2 = new System.Windows.Forms.TextBox();
+            this.R2M3 = new System.Windows.Forms.TextBox();
+            this.R2M4 = new System.Windows.Forms.TextBox();
+            this.SavReg2Label = new System.Windows.Forms.Label();
+            this.R1M1 = new System.Windows.Forms.TextBox();
+            this.SavReg3Label = new System.Windows.Forms.Label();
+            this.R1M2 = new System.Windows.Forms.TextBox();
+            this.R1M3 = new System.Windows.Forms.TextBox();
+            this.R1M4 = new System.Windows.Forms.TextBox();
+            this.SavReg1Label = new System.Windows.Forms.Label();
+            this.R0M4 = new System.Windows.Forms.TextBox();
+            this.Mem1Label = new System.Windows.Forms.Label();
+            this.Mem2Label = new System.Windows.Forms.Label();
+            this.Mem3Label = new System.Windows.Forms.Label();
+            this.Mem4Label = new System.Windows.Forms.Label();
+            this.R0M3 = new System.Windows.Forms.TextBox();
+            this.R0M1 = new System.Windows.Forms.TextBox();
+            this.R0M2 = new System.Windows.Forms.TextBox();
             this.ImportMem4Button = new System.Windows.Forms.Button();
             this.ImportMem3Button = new System.Windows.Forms.Button();
             this.ImportMem2Button = new System.Windows.Forms.Button();
-            this.Mem4RefShowLabel = new System.Windows.Forms.Label();
-            this.Mem3RefShowLabel = new System.Windows.Forms.Label();
-            this.Mem2RefShowLabel = new System.Windows.Forms.Label();
-            this.Mem1RefShowLabel = new System.Windows.Forms.Label();
-            this.Mem4ActOut2ShowLabel = new System.Windows.Forms.Label();
             this.ImportMem1Button = new System.Windows.Forms.Button();
             this.MemLoadFromFileButton = new System.Windows.Forms.Button();
             this.MemSaveIntoFileButton = new System.Windows.Forms.Button();
-            this.Mem3ActOut2ShowLabel = new System.Windows.Forms.Label();
-            this.SavReg3Label = new System.Windows.Forms.Label();
-            this.Mem4ActOut1ShowLabel = new System.Windows.Forms.Label();
-            this.Mem2ActOut2ShowLabel = new System.Windows.Forms.Label();
-            this.Mem3ActOut1ShowLabel = new System.Windows.Forms.Label();
-            this.R0M4 = new System.Windows.Forms.TextBox();
-            this.Mem2ActOut1ShowLabel = new System.Windows.Forms.Label();
-            this.Mem1ActOut2ShowLabel = new System.Windows.Forms.Label();
-            this.Mem1ActOut1ShowLabel = new System.Windows.Forms.Label();
-            this.R0M3 = new System.Windows.Forms.TextBox();
             this.LoadRegMemory = new System.Windows.Forms.Button();
             this.SaveRegMemory = new System.Windows.Forms.Button();
-            this.R0M2 = new System.Windows.Forms.TextBox();
-            this.R0M1 = new System.Windows.Forms.TextBox();
-            this.Mem4Label = new System.Windows.Forms.Label();
-            this.Mem3Label = new System.Windows.Forms.Label();
-            this.Mem2Label = new System.Windows.Forms.Label();
-            this.Mem1Label = new System.Windows.Forms.Label();
-            this.SavReg0Label = new System.Windows.Forms.Label();
-            this.SavReg1Label = new System.Windows.Forms.Label();
-            this.R1M4 = new System.Windows.Forms.TextBox();
-            this.R1M3 = new System.Windows.Forms.TextBox();
-            this.R1M2 = new System.Windows.Forms.TextBox();
-            this.R1M1 = new System.Windows.Forms.TextBox();
-            this.SavReg2Label = new System.Windows.Forms.Label();
-            this.R2M4 = new System.Windows.Forms.TextBox();
-            this.R2M3 = new System.Windows.Forms.TextBox();
-            this.R2M2 = new System.Windows.Forms.TextBox();
-            this.R2M1 = new System.Windows.Forms.TextBox();
-            this.R3M4 = new System.Windows.Forms.TextBox();
-            this.R3M3 = new System.Windows.Forms.TextBox();
-            this.R3M2 = new System.Windows.Forms.TextBox();
-            this.R3M1 = new System.Windows.Forms.TextBox();
-            this.SavReg4Label = new System.Windows.Forms.Label();
-            this.R4M4 = new System.Windows.Forms.TextBox();
-            this.R4M3 = new System.Windows.Forms.TextBox();
-            this.R5M4 = new System.Windows.Forms.TextBox();
-            this.R4M2 = new System.Windows.Forms.TextBox();
-            this.R5M3 = new System.Windows.Forms.TextBox();
-            this.R4M1 = new System.Windows.Forms.TextBox();
-            this.R5M2 = new System.Windows.Forms.TextBox();
-            this.MemPwrBLabel = new System.Windows.Forms.Label();
-            this.Mem4PwrBShowLabel = new System.Windows.Forms.Label();
-            this.Mem3PwrBShowLabel = new System.Windows.Forms.Label();
-            this.Mem2PwrBShowLabel = new System.Windows.Forms.Label();
-            this.Mem4PwrAShowLabel = new System.Windows.Forms.Label();
-            this.Mem3PwrAShowLabel = new System.Windows.Forms.Label();
-            this.Mem2PwrAShowLabel = new System.Windows.Forms.Label();
-            this.Mem1PwrBShowLabel = new System.Windows.Forms.Label();
-            this.Mem1PwrAShowLabel = new System.Windows.Forms.Label();
-            this.MemPwrALabel = new System.Windows.Forms.Label();
-            this.FreqOut2MemLabel = new System.Windows.Forms.Label();
-            this.FreqOut1MemLabel = new System.Windows.Forms.Label();
-            this.MemoryRefLabel = new System.Windows.Forms.Label();
-            this.MemoryOutput2Label = new System.Windows.Forms.Label();
-            this.MemoryOutput1Label = new System.Windows.Forms.Label();
-            this.SavReg5Label = new System.Windows.Forms.Label();
-            this.R5M1 = new System.Windows.Forms.TextBox();
             this.RegistersGroupBox = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -286,17 +297,6 @@ namespace Synthesizer_PC_control
             this.RefSignalLabel = new System.Windows.Forms.Label();
             this.LedOffPicBox = new System.Windows.Forms.PictureBox();
             this.LedOnPicBox = new System.Windows.Forms.PictureBox();
-            this.RegMemoryGroupBox = new System.Windows.Forms.GroupBox();
-            this.SyntModuleControlsGroupBox = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.SynthOutputsInfoGroupBox = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.RegistersTabControl.SuspendLayout();
             this.RegistersPage.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -321,14 +321,14 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RDivUpDown)).BeginInit();
             this.RegistersMemoryPage.SuspendLayout();
+            this.SynthOutputsInfoGroupBox.SuspendLayout();
+            this.SyntModuleControlsGroupBox.SuspendLayout();
+            this.RegMemoryGroupBox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.DirectFreqContrGroupBox.SuspendLayout();
             this.SynthModuleInfoGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LedOffPicBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LedOnPicBox)).BeginInit();
-            this.RegMemoryGroupBox.SuspendLayout();
-            this.SyntModuleControlsGroupBox.SuspendLayout();
-            this.SynthOutputsInfoGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // PortButton
@@ -1156,20 +1156,18 @@ namespace Synthesizer_PC_control
             // 
             this.PhaseDetectorGroupBox.Controls.Add(this.label1);
             this.PhaseDetectorGroupBox.Controls.Add(this.LDPrecisionLabel);
-            this.PhaseDetectorGroupBox.Controls.Add(this.SDNoiseModeLabel);
             this.PhaseDetectorGroupBox.Controls.Add(this.PfdPolarity);
             this.PhaseDetectorGroupBox.Controls.Add(this.LDPrecisionComboBox);
-            this.PhaseDetectorGroupBox.Controls.Add(this.SigmaDeltaNoiseModeComboBox);
-            this.PhaseDetectorGroupBox.Location = new System.Drawing.Point(8, 529);
+            this.PhaseDetectorGroupBox.Location = new System.Drawing.Point(8, 557);
             this.PhaseDetectorGroupBox.Name = "PhaseDetectorGroupBox";
-            this.PhaseDetectorGroupBox.Size = new System.Drawing.Size(341, 86);
+            this.PhaseDetectorGroupBox.Size = new System.Drawing.Size(341, 58);
             this.PhaseDetectorGroupBox.TabIndex = 28;
             this.PhaseDetectorGroupBox.TabStop = false;
             this.PhaseDetectorGroupBox.Text = "Phase detector";
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(172, 55);
+            this.label1.Location = new System.Drawing.Point(172, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(96, 17);
             this.label1.TabIndex = 17;
@@ -1178,7 +1176,7 @@ namespace Synthesizer_PC_control
             // 
             // LDPrecisionLabel
             // 
-            this.LDPrecisionLabel.Location = new System.Drawing.Point(1, 55);
+            this.LDPrecisionLabel.Location = new System.Drawing.Point(1, 25);
             this.LDPrecisionLabel.Name = "LDPrecisionLabel";
             this.LDPrecisionLabel.Size = new System.Drawing.Size(96, 17);
             this.LDPrecisionLabel.TabIndex = 17;
@@ -1187,7 +1185,7 @@ namespace Synthesizer_PC_control
             // 
             // SDNoiseModeLabel
             // 
-            this.SDNoiseModeLabel.Location = new System.Drawing.Point(6, 24);
+            this.SDNoiseModeLabel.Location = new System.Drawing.Point(-1, 196);
             this.SDNoiseModeLabel.Name = "SDNoiseModeLabel";
             this.SDNoiseModeLabel.Size = new System.Drawing.Size(120, 17);
             this.SDNoiseModeLabel.TabIndex = 17;
@@ -1202,7 +1200,7 @@ namespace Synthesizer_PC_control
             this.PfdPolarity.Items.AddRange(new object[] {
             "neg",
             "pos"});
-            this.PfdPolarity.Location = new System.Drawing.Point(274, 52);
+            this.PfdPolarity.Location = new System.Drawing.Point(274, 22);
             this.PfdPolarity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PfdPolarity.Name = "PfdPolarity";
             this.PfdPolarity.Size = new System.Drawing.Size(61, 24);
@@ -1217,7 +1215,7 @@ namespace Synthesizer_PC_control
             this.LDPrecisionComboBox.Items.AddRange(new object[] {
             "10 ns",
             " 6  ns"});
-            this.LDPrecisionComboBox.Location = new System.Drawing.Point(103, 52);
+            this.LDPrecisionComboBox.Location = new System.Drawing.Point(103, 22);
             this.LDPrecisionComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LDPrecisionComboBox.Name = "LDPrecisionComboBox";
             this.LDPrecisionComboBox.Size = new System.Drawing.Size(67, 24);
@@ -1233,7 +1231,7 @@ namespace Synthesizer_PC_control
             "Low-noise Mode",
             "Low-spur Mode 1",
             "Low-spur Mode 2"});
-            this.SigmaDeltaNoiseModeComboBox.Location = new System.Drawing.Point(132, 21);
+            this.SigmaDeltaNoiseModeComboBox.Location = new System.Drawing.Point(125, 193);
             this.SigmaDeltaNoiseModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SigmaDeltaNoiseModeComboBox.Name = "SigmaDeltaNoiseModeComboBox";
             this.SigmaDeltaNoiseModeComboBox.Size = new System.Drawing.Size(144, 24);
@@ -1758,10 +1756,12 @@ namespace Synthesizer_PC_control
             // 
             this.FreqControlGroupBox.Controls.Add(this.label2);
             this.FreqControlGroupBox.Controls.Add(this.RFoutBPathLabel);
+            this.FreqControlGroupBox.Controls.Add(this.SDNoiseModeLabel);
             this.FreqControlGroupBox.Controls.Add(this.LDfuncLabel);
             this.FreqControlGroupBox.Controls.Add(this.ADivComboBox);
             this.FreqControlGroupBox.Controls.Add(this.FracNLabel);
             this.FreqControlGroupBox.Controls.Add(this.ModeIntFracComboBox);
+            this.FreqControlGroupBox.Controls.Add(this.SigmaDeltaNoiseModeComboBox);
             this.FreqControlGroupBox.Controls.Add(this.FBPathComboBox);
             this.FreqControlGroupBox.Controls.Add(this.RFoutBPathComboBox);
             this.FreqControlGroupBox.Controls.Add(this.LDFuncComboBox);
@@ -1779,7 +1779,7 @@ namespace Synthesizer_PC_control
             this.FreqControlGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.FreqControlGroupBox.Name = "FreqControlGroupBox";
             this.FreqControlGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.FreqControlGroupBox.Size = new System.Drawing.Size(341, 195);
+            this.FreqControlGroupBox.Size = new System.Drawing.Size(341, 223);
             this.FreqControlGroupBox.TabIndex = 23;
             this.FreqControlGroupBox.TabStop = false;
             this.FreqControlGroupBox.Text = "Output frequency control";
@@ -2263,6 +2263,66 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.Text = "Registers memory";
             this.RegistersMemoryPage.UseVisualStyleBackColor = true;
             // 
+            // SynthOutputsInfoGroupBox
+            // 
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.label13);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.label12);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.label10);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem1Freq2ShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.label11);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem1Freq1ShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.FreqOut2MemLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem4Freq2ShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.FreqOut1MemLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem4Freq1ShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.MemPwrALabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem3Freq2ShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem1PwrAShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem3Freq1ShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem1PwrBShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem2Freq2ShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem2PwrAShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem2Freq1ShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem3PwrAShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem4PwrAShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem2PwrBShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem3PwrBShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem4PwrBShowLabel);
+            this.SynthOutputsInfoGroupBox.Controls.Add(this.MemPwrBLabel);
+            this.SynthOutputsInfoGroupBox.Location = new System.Drawing.Point(3, 374);
+            this.SynthOutputsInfoGroupBox.Name = "SynthOutputsInfoGroupBox";
+            this.SynthOutputsInfoGroupBox.Size = new System.Drawing.Size(520, 173);
+            this.SynthOutputsInfoGroupBox.TabIndex = 25;
+            this.SynthOutputsInfoGroupBox.TabStop = false;
+            this.SynthOutputsInfoGroupBox.Text = "Synthesizer Outputs Info";
+            // 
+            // label13
+            // 
+            this.label13.Location = new System.Drawing.Point(418, 29);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(84, 17);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "Memory 4";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label12
+            // 
+            this.label12.Location = new System.Drawing.Point(311, 29);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(84, 17);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Memory 3";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(97, 29);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(84, 17);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "Memory 1";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Mem1Freq2ShowLabel
             // 
             this.Mem1Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -2273,6 +2333,15 @@ namespace Synthesizer_PC_control
             this.Mem1Freq2ShowLabel.TabIndex = 22;
             this.Mem1Freq2ShowLabel.Text = "12000.000 000";
             this.Mem1Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(204, 29);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(84, 17);
+            this.label11.TabIndex = 10;
+            this.label11.Text = "Memory 2";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem1Freq1ShowLabel
             // 
@@ -2285,6 +2354,15 @@ namespace Synthesizer_PC_control
             this.Mem1Freq1ShowLabel.Text = "6000.000 000";
             this.Mem1Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // FreqOut2MemLabel
+            // 
+            this.FreqOut2MemLabel.AutoSize = true;
+            this.FreqOut2MemLabel.Location = new System.Drawing.Point(6, 85);
+            this.FreqOut2MemLabel.Name = "FreqOut2MemLabel";
+            this.FreqOut2MemLabel.Size = new System.Drawing.Size(81, 17);
+            this.FreqOut2MemLabel.TabIndex = 16;
+            this.FreqOut2MemLabel.Text = "Freq. out 2:";
+            // 
             // Mem4Freq2ShowLabel
             // 
             this.Mem4Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -2295,6 +2373,15 @@ namespace Synthesizer_PC_control
             this.Mem4Freq2ShowLabel.TabIndex = 22;
             this.Mem4Freq2ShowLabel.Text = "12000.000 000";
             this.Mem4Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // FreqOut1MemLabel
+            // 
+            this.FreqOut1MemLabel.AutoSize = true;
+            this.FreqOut1MemLabel.Location = new System.Drawing.Point(6, 57);
+            this.FreqOut1MemLabel.Name = "FreqOut1MemLabel";
+            this.FreqOut1MemLabel.Size = new System.Drawing.Size(81, 17);
+            this.FreqOut1MemLabel.TabIndex = 16;
+            this.FreqOut1MemLabel.Text = "Freq. out 1:";
             // 
             // Mem4Freq1ShowLabel
             // 
@@ -2307,6 +2394,15 @@ namespace Synthesizer_PC_control
             this.Mem4Freq1ShowLabel.Text = "6000.000 000";
             this.Mem4Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // MemPwrALabel
+            // 
+            this.MemPwrALabel.AutoSize = true;
+            this.MemPwrALabel.Location = new System.Drawing.Point(11, 113);
+            this.MemPwrALabel.Name = "MemPwrALabel";
+            this.MemPwrALabel.Size = new System.Drawing.Size(76, 17);
+            this.MemPwrALabel.TabIndex = 16;
+            this.MemPwrALabel.Text = "Pwr. out A:";
+            // 
             // Mem3Freq2ShowLabel
             // 
             this.Mem3Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -2317,6 +2413,15 @@ namespace Synthesizer_PC_control
             this.Mem3Freq2ShowLabel.TabIndex = 22;
             this.Mem3Freq2ShowLabel.Text = "12000.000 000";
             this.Mem3Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem1PwrAShowLabel
+            // 
+            this.Mem1PwrAShowLabel.Location = new System.Drawing.Point(91, 113);
+            this.Mem1PwrAShowLabel.Name = "Mem1PwrAShowLabel";
+            this.Mem1PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem1PwrAShowLabel.TabIndex = 16;
+            this.Mem1PwrAShowLabel.Text = "+ 5 dBm";
+            this.Mem1PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem3Freq1ShowLabel
             // 
@@ -2329,6 +2434,15 @@ namespace Synthesizer_PC_control
             this.Mem3Freq1ShowLabel.Text = "6000.000 000";
             this.Mem3Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Mem1PwrBShowLabel
+            // 
+            this.Mem1PwrBShowLabel.Location = new System.Drawing.Point(91, 141);
+            this.Mem1PwrBShowLabel.Name = "Mem1PwrBShowLabel";
+            this.Mem1PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem1PwrBShowLabel.TabIndex = 16;
+            this.Mem1PwrBShowLabel.Text = "+ 2 dBm";
+            this.Mem1PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Mem2Freq2ShowLabel
             // 
             this.Mem2Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -2340,6 +2454,15 @@ namespace Synthesizer_PC_control
             this.Mem2Freq2ShowLabel.Text = "12000.000 000";
             this.Mem2Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Mem2PwrAShowLabel
+            // 
+            this.Mem2PwrAShowLabel.Location = new System.Drawing.Point(198, 113);
+            this.Mem2PwrAShowLabel.Name = "Mem2PwrAShowLabel";
+            this.Mem2PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem2PwrAShowLabel.TabIndex = 16;
+            this.Mem2PwrAShowLabel.Text = "+ 5 dBm";
+            this.Mem2PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Mem2Freq1ShowLabel
             // 
             this.Mem2Freq1ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -2350,6 +2473,736 @@ namespace Synthesizer_PC_control
             this.Mem2Freq1ShowLabel.TabIndex = 22;
             this.Mem2Freq1ShowLabel.Text = "6000.000 000";
             this.Mem2Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem3PwrAShowLabel
+            // 
+            this.Mem3PwrAShowLabel.Location = new System.Drawing.Point(305, 113);
+            this.Mem3PwrAShowLabel.Name = "Mem3PwrAShowLabel";
+            this.Mem3PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem3PwrAShowLabel.TabIndex = 16;
+            this.Mem3PwrAShowLabel.Text = "+ 5 dBm";
+            this.Mem3PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem4PwrAShowLabel
+            // 
+            this.Mem4PwrAShowLabel.Location = new System.Drawing.Point(412, 113);
+            this.Mem4PwrAShowLabel.Name = "Mem4PwrAShowLabel";
+            this.Mem4PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem4PwrAShowLabel.TabIndex = 16;
+            this.Mem4PwrAShowLabel.Text = "+ 5 dBm";
+            this.Mem4PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem2PwrBShowLabel
+            // 
+            this.Mem2PwrBShowLabel.Location = new System.Drawing.Point(198, 141);
+            this.Mem2PwrBShowLabel.Name = "Mem2PwrBShowLabel";
+            this.Mem2PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem2PwrBShowLabel.TabIndex = 16;
+            this.Mem2PwrBShowLabel.Text = "+ 2 dBm";
+            this.Mem2PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem3PwrBShowLabel
+            // 
+            this.Mem3PwrBShowLabel.Location = new System.Drawing.Point(305, 141);
+            this.Mem3PwrBShowLabel.Name = "Mem3PwrBShowLabel";
+            this.Mem3PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem3PwrBShowLabel.TabIndex = 16;
+            this.Mem3PwrBShowLabel.Text = "!!!+5 dBm!!!";
+            this.Mem3PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem4PwrBShowLabel
+            // 
+            this.Mem4PwrBShowLabel.Location = new System.Drawing.Point(412, 141);
+            this.Mem4PwrBShowLabel.Name = "Mem4PwrBShowLabel";
+            this.Mem4PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem4PwrBShowLabel.TabIndex = 16;
+            this.Mem4PwrBShowLabel.Text = "+ 2 dBm";
+            this.Mem4PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // MemPwrBLabel
+            // 
+            this.MemPwrBLabel.AutoSize = true;
+            this.MemPwrBLabel.Location = new System.Drawing.Point(11, 141);
+            this.MemPwrBLabel.Name = "MemPwrBLabel";
+            this.MemPwrBLabel.Size = new System.Drawing.Size(76, 17);
+            this.MemPwrBLabel.TabIndex = 16;
+            this.MemPwrBLabel.Text = "Pwr. out B:";
+            // 
+            // SyntModuleControlsGroupBox
+            // 
+            this.SyntModuleControlsGroupBox.Controls.Add(this.label3);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.label4);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.label8);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.label9);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem4ActOut1ShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.MemoryOutput1Label);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.MemoryOutput2Label);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.MemoryRefLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem1ActOut1ShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem1ActOut2ShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem2ActOut1ShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem3ActOut1ShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem2ActOut2ShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem4RefShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem3ActOut2ShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem3RefShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem4ActOut2ShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem2RefShowLabel);
+            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem1RefShowLabel);
+            this.SyntModuleControlsGroupBox.Location = new System.Drawing.Point(2, 232);
+            this.SyntModuleControlsGroupBox.Name = "SyntModuleControlsGroupBox";
+            this.SyntModuleControlsGroupBox.Size = new System.Drawing.Size(520, 136);
+            this.SyntModuleControlsGroupBox.TabIndex = 24;
+            this.SyntModuleControlsGroupBox.TabStop = false;
+            this.SyntModuleControlsGroupBox.Text = "Synthesizer Module Controls";
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(418, 27);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 17);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Memory 4";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(311, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 17);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Memory 3";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(204, 27);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 17);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "Memory 2";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(97, 27);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(84, 17);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Memory 1";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem4ActOut1ShowLabel
+            // 
+            this.Mem4ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem4ActOut1ShowLabel.Location = new System.Drawing.Point(441, 55);
+            this.Mem4ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4ActOut1ShowLabel.Name = "Mem4ActOut1ShowLabel";
+            this.Mem4ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem4ActOut1ShowLabel.TabIndex = 20;
+            this.Mem4ActOut1ShowLabel.Text = "OFF";
+            this.Mem4ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem4ActOut1ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
+            // 
+            // MemoryOutput1Label
+            // 
+            this.MemoryOutput1Label.AutoSize = true;
+            this.MemoryOutput1Label.Location = new System.Drawing.Point(20, 55);
+            this.MemoryOutput1Label.Name = "MemoryOutput1Label";
+            this.MemoryOutput1Label.Size = new System.Drawing.Size(67, 17);
+            this.MemoryOutput1Label.TabIndex = 16;
+            this.MemoryOutput1Label.Text = "Output 1:";
+            // 
+            // MemoryOutput2Label
+            // 
+            this.MemoryOutput2Label.AutoSize = true;
+            this.MemoryOutput2Label.Location = new System.Drawing.Point(20, 83);
+            this.MemoryOutput2Label.Name = "MemoryOutput2Label";
+            this.MemoryOutput2Label.Size = new System.Drawing.Size(67, 17);
+            this.MemoryOutput2Label.TabIndex = 16;
+            this.MemoryOutput2Label.Text = "Output 2:";
+            // 
+            // MemoryRefLabel
+            // 
+            this.MemoryRefLabel.AutoSize = true;
+            this.MemoryRefLabel.Location = new System.Drawing.Point(9, 109);
+            this.MemoryRefLabel.Name = "MemoryRefLabel";
+            this.MemoryRefLabel.Size = new System.Drawing.Size(78, 17);
+            this.MemoryRefLabel.TabIndex = 16;
+            this.MemoryRefLabel.Text = "Reference:";
+            // 
+            // Mem1ActOut1ShowLabel
+            // 
+            this.Mem1ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem1ActOut1ShowLabel.Location = new System.Drawing.Point(120, 55);
+            this.Mem1ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1ActOut1ShowLabel.Name = "Mem1ActOut1ShowLabel";
+            this.Mem1ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem1ActOut1ShowLabel.TabIndex = 20;
+            this.Mem1ActOut1ShowLabel.Text = "OFF";
+            this.Mem1ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem1ActOut1ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
+            // 
+            // Mem1ActOut2ShowLabel
+            // 
+            this.Mem1ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem1ActOut2ShowLabel.Location = new System.Drawing.Point(120, 84);
+            this.Mem1ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1ActOut2ShowLabel.Name = "Mem1ActOut2ShowLabel";
+            this.Mem1ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem1ActOut2ShowLabel.TabIndex = 20;
+            this.Mem1ActOut2ShowLabel.Text = "OFF";
+            this.Mem1ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem1ActOut2ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
+            // 
+            // Mem2ActOut1ShowLabel
+            // 
+            this.Mem2ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem2ActOut1ShowLabel.Location = new System.Drawing.Point(227, 55);
+            this.Mem2ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2ActOut1ShowLabel.Name = "Mem2ActOut1ShowLabel";
+            this.Mem2ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem2ActOut1ShowLabel.TabIndex = 20;
+            this.Mem2ActOut1ShowLabel.Text = "OFF";
+            this.Mem2ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem2ActOut1ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
+            // 
+            // Mem3ActOut1ShowLabel
+            // 
+            this.Mem3ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem3ActOut1ShowLabel.Location = new System.Drawing.Point(334, 55);
+            this.Mem3ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3ActOut1ShowLabel.Name = "Mem3ActOut1ShowLabel";
+            this.Mem3ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem3ActOut1ShowLabel.TabIndex = 20;
+            this.Mem3ActOut1ShowLabel.Text = "OFF";
+            this.Mem3ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem3ActOut1ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
+            // 
+            // Mem2ActOut2ShowLabel
+            // 
+            this.Mem2ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem2ActOut2ShowLabel.Location = new System.Drawing.Point(227, 84);
+            this.Mem2ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2ActOut2ShowLabel.Name = "Mem2ActOut2ShowLabel";
+            this.Mem2ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem2ActOut2ShowLabel.TabIndex = 20;
+            this.Mem2ActOut2ShowLabel.Text = "OFF";
+            this.Mem2ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem2ActOut2ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
+            // 
+            // Mem4RefShowLabel
+            // 
+            this.Mem4RefShowLabel.Location = new System.Drawing.Point(423, 108);
+            this.Mem4RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4RefShowLabel.Name = "Mem4RefShowLabel";
+            this.Mem4RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem4RefShowLabel.TabIndex = 20;
+            this.Mem4RefShowLabel.Text = "External";
+            this.Mem4RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem4RefShowLabel.Click += new System.EventHandler(this.MemRefShowLabel_Click);
+            // 
+            // Mem3ActOut2ShowLabel
+            // 
+            this.Mem3ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem3ActOut2ShowLabel.Location = new System.Drawing.Point(334, 84);
+            this.Mem3ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3ActOut2ShowLabel.Name = "Mem3ActOut2ShowLabel";
+            this.Mem3ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem3ActOut2ShowLabel.TabIndex = 20;
+            this.Mem3ActOut2ShowLabel.Text = "OFF";
+            this.Mem3ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem3ActOut2ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
+            // 
+            // Mem3RefShowLabel
+            // 
+            this.Mem3RefShowLabel.Location = new System.Drawing.Point(316, 108);
+            this.Mem3RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3RefShowLabel.Name = "Mem3RefShowLabel";
+            this.Mem3RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem3RefShowLabel.TabIndex = 20;
+            this.Mem3RefShowLabel.Text = "External";
+            this.Mem3RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem3RefShowLabel.Click += new System.EventHandler(this.MemRefShowLabel_Click);
+            // 
+            // Mem4ActOut2ShowLabel
+            // 
+            this.Mem4ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.Mem4ActOut2ShowLabel.Location = new System.Drawing.Point(441, 84);
+            this.Mem4ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4ActOut2ShowLabel.Name = "Mem4ActOut2ShowLabel";
+            this.Mem4ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem4ActOut2ShowLabel.TabIndex = 20;
+            this.Mem4ActOut2ShowLabel.Text = "OFF";
+            this.Mem4ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem4ActOut2ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
+            // 
+            // Mem2RefShowLabel
+            // 
+            this.Mem2RefShowLabel.Location = new System.Drawing.Point(209, 108);
+            this.Mem2RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2RefShowLabel.Name = "Mem2RefShowLabel";
+            this.Mem2RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem2RefShowLabel.TabIndex = 20;
+            this.Mem2RefShowLabel.Text = "External";
+            this.Mem2RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem2RefShowLabel.Click += new System.EventHandler(this.MemRefShowLabel_Click);
+            // 
+            // Mem1RefShowLabel
+            // 
+            this.Mem1RefShowLabel.Location = new System.Drawing.Point(102, 108);
+            this.Mem1RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1RefShowLabel.Name = "Mem1RefShowLabel";
+            this.Mem1RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem1RefShowLabel.TabIndex = 20;
+            this.Mem1RefShowLabel.Text = "External";
+            this.Mem1RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Mem1RefShowLabel.Click += new System.EventHandler(this.MemRefShowLabel_Click);
+            // 
+            // RegMemoryGroupBox
+            // 
+            this.RegMemoryGroupBox.Controls.Add(this.SavReg0Label);
+            this.RegMemoryGroupBox.Controls.Add(this.R5M1);
+            this.RegMemoryGroupBox.Controls.Add(this.SavReg5Label);
+            this.RegMemoryGroupBox.Controls.Add(this.R5M2);
+            this.RegMemoryGroupBox.Controls.Add(this.R4M1);
+            this.RegMemoryGroupBox.Controls.Add(this.R5M3);
+            this.RegMemoryGroupBox.Controls.Add(this.R4M2);
+            this.RegMemoryGroupBox.Controls.Add(this.R5M4);
+            this.RegMemoryGroupBox.Controls.Add(this.R4M3);
+            this.RegMemoryGroupBox.Controls.Add(this.R4M4);
+            this.RegMemoryGroupBox.Controls.Add(this.SavReg4Label);
+            this.RegMemoryGroupBox.Controls.Add(this.R3M1);
+            this.RegMemoryGroupBox.Controls.Add(this.R3M2);
+            this.RegMemoryGroupBox.Controls.Add(this.R3M3);
+            this.RegMemoryGroupBox.Controls.Add(this.R3M4);
+            this.RegMemoryGroupBox.Controls.Add(this.R2M1);
+            this.RegMemoryGroupBox.Controls.Add(this.R2M2);
+            this.RegMemoryGroupBox.Controls.Add(this.R2M3);
+            this.RegMemoryGroupBox.Controls.Add(this.R2M4);
+            this.RegMemoryGroupBox.Controls.Add(this.SavReg2Label);
+            this.RegMemoryGroupBox.Controls.Add(this.R1M1);
+            this.RegMemoryGroupBox.Controls.Add(this.SavReg3Label);
+            this.RegMemoryGroupBox.Controls.Add(this.R1M2);
+            this.RegMemoryGroupBox.Controls.Add(this.R1M3);
+            this.RegMemoryGroupBox.Controls.Add(this.R1M4);
+            this.RegMemoryGroupBox.Controls.Add(this.SavReg1Label);
+            this.RegMemoryGroupBox.Controls.Add(this.R0M4);
+            this.RegMemoryGroupBox.Controls.Add(this.Mem1Label);
+            this.RegMemoryGroupBox.Controls.Add(this.Mem2Label);
+            this.RegMemoryGroupBox.Controls.Add(this.Mem3Label);
+            this.RegMemoryGroupBox.Controls.Add(this.Mem4Label);
+            this.RegMemoryGroupBox.Controls.Add(this.R0M3);
+            this.RegMemoryGroupBox.Controls.Add(this.R0M1);
+            this.RegMemoryGroupBox.Controls.Add(this.R0M2);
+            this.RegMemoryGroupBox.Location = new System.Drawing.Point(2, 5);
+            this.RegMemoryGroupBox.Name = "RegMemoryGroupBox";
+            this.RegMemoryGroupBox.Size = new System.Drawing.Size(520, 221);
+            this.RegMemoryGroupBox.TabIndex = 23;
+            this.RegMemoryGroupBox.TabStop = false;
+            this.RegMemoryGroupBox.Text = "Registers Memory";
+            // 
+            // SavReg0Label
+            // 
+            this.SavReg0Label.AutoSize = true;
+            this.SavReg0Label.Location = new System.Drawing.Point(10, 51);
+            this.SavReg0Label.Name = "SavReg0Label";
+            this.SavReg0Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg0Label.TabIndex = 10;
+            this.SavReg0Label.Text = "Register 0:";
+            // 
+            // R5M1
+            // 
+            this.R5M1.BackColor = System.Drawing.Color.White;
+            this.R5M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R5M1.Location = new System.Drawing.Point(97, 188);
+            this.R5M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R5M1.MaxLength = 8;
+            this.R5M1.Name = "R5M1";
+            this.R5M1.Size = new System.Drawing.Size(84, 22);
+            this.R5M1.TabIndex = 20;
+            this.R5M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R5M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // SavReg5Label
+            // 
+            this.SavReg5Label.AutoSize = true;
+            this.SavReg5Label.Location = new System.Drawing.Point(10, 191);
+            this.SavReg5Label.Name = "SavReg5Label";
+            this.SavReg5Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg5Label.TabIndex = 16;
+            this.SavReg5Label.Text = "Register 5:";
+            // 
+            // R5M2
+            // 
+            this.R5M2.BackColor = System.Drawing.Color.White;
+            this.R5M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R5M2.Location = new System.Drawing.Point(204, 188);
+            this.R5M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R5M2.MaxLength = 8;
+            this.R5M2.Name = "R5M2";
+            this.R5M2.Size = new System.Drawing.Size(84, 22);
+            this.R5M2.TabIndex = 20;
+            this.R5M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R5M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R4M1
+            // 
+            this.R4M1.BackColor = System.Drawing.Color.White;
+            this.R4M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R4M1.Location = new System.Drawing.Point(97, 160);
+            this.R4M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R4M1.MaxLength = 8;
+            this.R4M1.Name = "R4M1";
+            this.R4M1.Size = new System.Drawing.Size(84, 22);
+            this.R4M1.TabIndex = 19;
+            this.R4M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R5M3
+            // 
+            this.R5M3.BackColor = System.Drawing.Color.White;
+            this.R5M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R5M3.Location = new System.Drawing.Point(311, 188);
+            this.R5M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R5M3.MaxLength = 8;
+            this.R5M3.Name = "R5M3";
+            this.R5M3.Size = new System.Drawing.Size(84, 22);
+            this.R5M3.TabIndex = 20;
+            this.R5M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R5M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R4M2
+            // 
+            this.R4M2.BackColor = System.Drawing.Color.White;
+            this.R4M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R4M2.Location = new System.Drawing.Point(204, 160);
+            this.R4M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R4M2.MaxLength = 8;
+            this.R4M2.Name = "R4M2";
+            this.R4M2.Size = new System.Drawing.Size(84, 22);
+            this.R4M2.TabIndex = 19;
+            this.R4M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R5M4
+            // 
+            this.R5M4.BackColor = System.Drawing.Color.White;
+            this.R5M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R5M4.Location = new System.Drawing.Point(418, 188);
+            this.R5M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R5M4.MaxLength = 8;
+            this.R5M4.Name = "R5M4";
+            this.R5M4.Size = new System.Drawing.Size(84, 22);
+            this.R5M4.TabIndex = 20;
+            this.R5M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R5M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R4M3
+            // 
+            this.R4M3.BackColor = System.Drawing.Color.White;
+            this.R4M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R4M3.Location = new System.Drawing.Point(311, 160);
+            this.R4M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R4M3.MaxLength = 8;
+            this.R4M3.Name = "R4M3";
+            this.R4M3.Size = new System.Drawing.Size(84, 22);
+            this.R4M3.TabIndex = 19;
+            this.R4M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R4M4
+            // 
+            this.R4M4.BackColor = System.Drawing.Color.White;
+            this.R4M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R4M4.Location = new System.Drawing.Point(418, 160);
+            this.R4M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R4M4.MaxLength = 8;
+            this.R4M4.Name = "R4M4";
+            this.R4M4.Size = new System.Drawing.Size(84, 22);
+            this.R4M4.TabIndex = 19;
+            this.R4M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // SavReg4Label
+            // 
+            this.SavReg4Label.AutoSize = true;
+            this.SavReg4Label.Location = new System.Drawing.Point(10, 163);
+            this.SavReg4Label.Name = "SavReg4Label";
+            this.SavReg4Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg4Label.TabIndex = 15;
+            this.SavReg4Label.Text = "Register 4:";
+            // 
+            // R3M1
+            // 
+            this.R3M1.BackColor = System.Drawing.Color.White;
+            this.R3M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R3M1.Location = new System.Drawing.Point(97, 132);
+            this.R3M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R3M1.MaxLength = 8;
+            this.R3M1.Name = "R3M1";
+            this.R3M1.Size = new System.Drawing.Size(84, 22);
+            this.R3M1.TabIndex = 18;
+            this.R3M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R3M2
+            // 
+            this.R3M2.BackColor = System.Drawing.Color.White;
+            this.R3M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R3M2.Location = new System.Drawing.Point(204, 132);
+            this.R3M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R3M2.MaxLength = 8;
+            this.R3M2.Name = "R3M2";
+            this.R3M2.Size = new System.Drawing.Size(84, 22);
+            this.R3M2.TabIndex = 18;
+            this.R3M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R3M3
+            // 
+            this.R3M3.BackColor = System.Drawing.Color.White;
+            this.R3M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R3M3.Location = new System.Drawing.Point(311, 132);
+            this.R3M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R3M3.MaxLength = 8;
+            this.R3M3.Name = "R3M3";
+            this.R3M3.Size = new System.Drawing.Size(84, 22);
+            this.R3M3.TabIndex = 18;
+            this.R3M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R3M4
+            // 
+            this.R3M4.BackColor = System.Drawing.Color.White;
+            this.R3M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R3M4.Location = new System.Drawing.Point(418, 132);
+            this.R3M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R3M4.MaxLength = 8;
+            this.R3M4.Name = "R3M4";
+            this.R3M4.Size = new System.Drawing.Size(84, 22);
+            this.R3M4.TabIndex = 18;
+            this.R3M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R2M1
+            // 
+            this.R2M1.BackColor = System.Drawing.Color.White;
+            this.R2M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R2M1.Location = new System.Drawing.Point(97, 104);
+            this.R2M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R2M1.MaxLength = 8;
+            this.R2M1.Name = "R2M1";
+            this.R2M1.Size = new System.Drawing.Size(84, 22);
+            this.R2M1.TabIndex = 17;
+            this.R2M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R2M2
+            // 
+            this.R2M2.BackColor = System.Drawing.Color.White;
+            this.R2M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R2M2.Location = new System.Drawing.Point(204, 104);
+            this.R2M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R2M2.MaxLength = 8;
+            this.R2M2.Name = "R2M2";
+            this.R2M2.Size = new System.Drawing.Size(84, 22);
+            this.R2M2.TabIndex = 17;
+            this.R2M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R2M3
+            // 
+            this.R2M3.BackColor = System.Drawing.Color.White;
+            this.R2M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R2M3.Location = new System.Drawing.Point(311, 104);
+            this.R2M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R2M3.MaxLength = 8;
+            this.R2M3.Name = "R2M3";
+            this.R2M3.Size = new System.Drawing.Size(84, 22);
+            this.R2M3.TabIndex = 17;
+            this.R2M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R2M4
+            // 
+            this.R2M4.BackColor = System.Drawing.Color.White;
+            this.R2M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R2M4.Location = new System.Drawing.Point(418, 104);
+            this.R2M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R2M4.MaxLength = 8;
+            this.R2M4.Name = "R2M4";
+            this.R2M4.Size = new System.Drawing.Size(84, 22);
+            this.R2M4.TabIndex = 17;
+            this.R2M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // SavReg2Label
+            // 
+            this.SavReg2Label.AutoSize = true;
+            this.SavReg2Label.Location = new System.Drawing.Point(10, 107);
+            this.SavReg2Label.Name = "SavReg2Label";
+            this.SavReg2Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg2Label.TabIndex = 14;
+            this.SavReg2Label.Text = "Register 2:";
+            // 
+            // R1M1
+            // 
+            this.R1M1.BackColor = System.Drawing.Color.White;
+            this.R1M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R1M1.Location = new System.Drawing.Point(97, 76);
+            this.R1M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R1M1.MaxLength = 8;
+            this.R1M1.Name = "R1M1";
+            this.R1M1.Size = new System.Drawing.Size(84, 22);
+            this.R1M1.TabIndex = 12;
+            this.R1M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R1M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // SavReg3Label
+            // 
+            this.SavReg3Label.AutoSize = true;
+            this.SavReg3Label.Location = new System.Drawing.Point(10, 135);
+            this.SavReg3Label.Name = "SavReg3Label";
+            this.SavReg3Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg3Label.TabIndex = 13;
+            this.SavReg3Label.Text = "Register 3:";
+            // 
+            // R1M2
+            // 
+            this.R1M2.BackColor = System.Drawing.Color.White;
+            this.R1M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R1M2.Location = new System.Drawing.Point(204, 76);
+            this.R1M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R1M2.MaxLength = 8;
+            this.R1M2.Name = "R1M2";
+            this.R1M2.Size = new System.Drawing.Size(84, 22);
+            this.R1M2.TabIndex = 12;
+            this.R1M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R1M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R1M3
+            // 
+            this.R1M3.BackColor = System.Drawing.Color.White;
+            this.R1M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R1M3.Location = new System.Drawing.Point(311, 76);
+            this.R1M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R1M3.MaxLength = 8;
+            this.R1M3.Name = "R1M3";
+            this.R1M3.Size = new System.Drawing.Size(84, 22);
+            this.R1M3.TabIndex = 12;
+            this.R1M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R1M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R1M4
+            // 
+            this.R1M4.BackColor = System.Drawing.Color.White;
+            this.R1M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R1M4.Location = new System.Drawing.Point(418, 76);
+            this.R1M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R1M4.MaxLength = 8;
+            this.R1M4.Name = "R1M4";
+            this.R1M4.Size = new System.Drawing.Size(84, 22);
+            this.R1M4.TabIndex = 12;
+            this.R1M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R1M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // SavReg1Label
+            // 
+            this.SavReg1Label.AutoSize = true;
+            this.SavReg1Label.Location = new System.Drawing.Point(10, 79);
+            this.SavReg1Label.Name = "SavReg1Label";
+            this.SavReg1Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg1Label.TabIndex = 11;
+            this.SavReg1Label.Text = "Register 1:";
+            // 
+            // R0M4
+            // 
+            this.R0M4.BackColor = System.Drawing.Color.White;
+            this.R0M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R0M4.Location = new System.Drawing.Point(418, 48);
+            this.R0M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R0M4.MaxLength = 8;
+            this.R0M4.Name = "R0M4";
+            this.R0M4.Size = new System.Drawing.Size(84, 22);
+            this.R0M4.TabIndex = 9;
+            this.R0M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // Mem1Label
+            // 
+            this.Mem1Label.Location = new System.Drawing.Point(97, 25);
+            this.Mem1Label.Name = "Mem1Label";
+            this.Mem1Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem1Label.TabIndex = 10;
+            this.Mem1Label.Text = "Memory 1";
+            this.Mem1Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem2Label
+            // 
+            this.Mem2Label.Location = new System.Drawing.Point(204, 25);
+            this.Mem2Label.Name = "Mem2Label";
+            this.Mem2Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem2Label.TabIndex = 10;
+            this.Mem2Label.Text = "Memory 2";
+            this.Mem2Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem3Label
+            // 
+            this.Mem3Label.Location = new System.Drawing.Point(311, 25);
+            this.Mem3Label.Name = "Mem3Label";
+            this.Mem3Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem3Label.TabIndex = 10;
+            this.Mem3Label.Text = "Memory 3";
+            this.Mem3Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Mem4Label
+            // 
+            this.Mem4Label.Location = new System.Drawing.Point(418, 25);
+            this.Mem4Label.Name = "Mem4Label";
+            this.Mem4Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem4Label.TabIndex = 10;
+            this.Mem4Label.Text = "Memory 4";
+            this.Mem4Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // R0M3
+            // 
+            this.R0M3.BackColor = System.Drawing.Color.White;
+            this.R0M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R0M3.Location = new System.Drawing.Point(311, 48);
+            this.R0M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R0M3.MaxLength = 8;
+            this.R0M3.Name = "R0M3";
+            this.R0M3.Size = new System.Drawing.Size(84, 22);
+            this.R0M3.TabIndex = 9;
+            this.R0M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R0M1
+            // 
+            this.R0M1.BackColor = System.Drawing.Color.White;
+            this.R0M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R0M1.Location = new System.Drawing.Point(97, 48);
+            this.R0M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R0M1.MaxLength = 8;
+            this.R0M1.Name = "R0M1";
+            this.R0M1.Size = new System.Drawing.Size(84, 22);
+            this.R0M1.TabIndex = 9;
+            this.R0M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
+            // 
+            // R0M2
+            // 
+            this.R0M2.BackColor = System.Drawing.Color.White;
+            this.R0M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.R0M2.Location = new System.Drawing.Point(204, 48);
+            this.R0M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R0M2.MaxLength = 8;
+            this.R0M2.Name = "R0M2";
+            this.R0M2.Size = new System.Drawing.Size(84, 22);
+            this.R0M2.TabIndex = 9;
+            this.R0M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // ImportMem4Button
             // 
@@ -2380,62 +3233,6 @@ namespace Synthesizer_PC_control
             this.ImportMem2Button.Text = "Import Memory 2";
             this.ImportMem2Button.UseVisualStyleBackColor = true;
             this.ImportMem2Button.Click += new System.EventHandler(this.ImportMememoryButton_Click);
-            // 
-            // Mem4RefShowLabel
-            // 
-            this.Mem4RefShowLabel.Location = new System.Drawing.Point(423, 108);
-            this.Mem4RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem4RefShowLabel.Name = "Mem4RefShowLabel";
-            this.Mem4RefShowLabel.Size = new System.Drawing.Size(75, 18);
-            this.Mem4RefShowLabel.TabIndex = 20;
-            this.Mem4RefShowLabel.Text = "External";
-            this.Mem4RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem4RefShowLabel.Click += new System.EventHandler(this.MemRefShowLabel_Click);
-            // 
-            // Mem3RefShowLabel
-            // 
-            this.Mem3RefShowLabel.Location = new System.Drawing.Point(316, 108);
-            this.Mem3RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem3RefShowLabel.Name = "Mem3RefShowLabel";
-            this.Mem3RefShowLabel.Size = new System.Drawing.Size(75, 18);
-            this.Mem3RefShowLabel.TabIndex = 20;
-            this.Mem3RefShowLabel.Text = "External";
-            this.Mem3RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem3RefShowLabel.Click += new System.EventHandler(this.MemRefShowLabel_Click);
-            // 
-            // Mem2RefShowLabel
-            // 
-            this.Mem2RefShowLabel.Location = new System.Drawing.Point(209, 108);
-            this.Mem2RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem2RefShowLabel.Name = "Mem2RefShowLabel";
-            this.Mem2RefShowLabel.Size = new System.Drawing.Size(75, 18);
-            this.Mem2RefShowLabel.TabIndex = 20;
-            this.Mem2RefShowLabel.Text = "External";
-            this.Mem2RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem2RefShowLabel.Click += new System.EventHandler(this.MemRefShowLabel_Click);
-            // 
-            // Mem1RefShowLabel
-            // 
-            this.Mem1RefShowLabel.Location = new System.Drawing.Point(102, 108);
-            this.Mem1RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem1RefShowLabel.Name = "Mem1RefShowLabel";
-            this.Mem1RefShowLabel.Size = new System.Drawing.Size(75, 18);
-            this.Mem1RefShowLabel.TabIndex = 20;
-            this.Mem1RefShowLabel.Text = "External";
-            this.Mem1RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem1RefShowLabel.Click += new System.EventHandler(this.MemRefShowLabel_Click);
-            // 
-            // Mem4ActOut2ShowLabel
-            // 
-            this.Mem4ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem4ActOut2ShowLabel.Location = new System.Drawing.Point(441, 84);
-            this.Mem4ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem4ActOut2ShowLabel.Name = "Mem4ActOut2ShowLabel";
-            this.Mem4ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.Mem4ActOut2ShowLabel.TabIndex = 20;
-            this.Mem4ActOut2ShowLabel.Text = "OFF";
-            this.Mem4ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem4ActOut2ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
             // 
             // ImportMem1Button
             // 
@@ -2469,125 +3266,6 @@ namespace Synthesizer_PC_control
             this.MemSaveIntoFileButton.UseVisualStyleBackColor = true;
             this.MemSaveIntoFileButton.Click += new System.EventHandler(this.MemSaveIntoFileButton_Click);
             // 
-            // Mem3ActOut2ShowLabel
-            // 
-            this.Mem3ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem3ActOut2ShowLabel.Location = new System.Drawing.Point(334, 84);
-            this.Mem3ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem3ActOut2ShowLabel.Name = "Mem3ActOut2ShowLabel";
-            this.Mem3ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.Mem3ActOut2ShowLabel.TabIndex = 20;
-            this.Mem3ActOut2ShowLabel.Text = "OFF";
-            this.Mem3ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem3ActOut2ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
-            // 
-            // SavReg3Label
-            // 
-            this.SavReg3Label.AutoSize = true;
-            this.SavReg3Label.Location = new System.Drawing.Point(10, 135);
-            this.SavReg3Label.Name = "SavReg3Label";
-            this.SavReg3Label.Size = new System.Drawing.Size(77, 17);
-            this.SavReg3Label.TabIndex = 13;
-            this.SavReg3Label.Text = "Register 3:";
-            // 
-            // Mem4ActOut1ShowLabel
-            // 
-            this.Mem4ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem4ActOut1ShowLabel.Location = new System.Drawing.Point(441, 55);
-            this.Mem4ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem4ActOut1ShowLabel.Name = "Mem4ActOut1ShowLabel";
-            this.Mem4ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.Mem4ActOut1ShowLabel.TabIndex = 20;
-            this.Mem4ActOut1ShowLabel.Text = "OFF";
-            this.Mem4ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem4ActOut1ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
-            // 
-            // Mem2ActOut2ShowLabel
-            // 
-            this.Mem2ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem2ActOut2ShowLabel.Location = new System.Drawing.Point(227, 84);
-            this.Mem2ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem2ActOut2ShowLabel.Name = "Mem2ActOut2ShowLabel";
-            this.Mem2ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.Mem2ActOut2ShowLabel.TabIndex = 20;
-            this.Mem2ActOut2ShowLabel.Text = "OFF";
-            this.Mem2ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem2ActOut2ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
-            // 
-            // Mem3ActOut1ShowLabel
-            // 
-            this.Mem3ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem3ActOut1ShowLabel.Location = new System.Drawing.Point(334, 55);
-            this.Mem3ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem3ActOut1ShowLabel.Name = "Mem3ActOut1ShowLabel";
-            this.Mem3ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.Mem3ActOut1ShowLabel.TabIndex = 20;
-            this.Mem3ActOut1ShowLabel.Text = "OFF";
-            this.Mem3ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem3ActOut1ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
-            // 
-            // R0M4
-            // 
-            this.R0M4.BackColor = System.Drawing.Color.White;
-            this.R0M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M4.Location = new System.Drawing.Point(418, 48);
-            this.R0M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R0M4.MaxLength = 8;
-            this.R0M4.Name = "R0M4";
-            this.R0M4.Size = new System.Drawing.Size(84, 22);
-            this.R0M4.TabIndex = 9;
-            this.R0M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R0M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // Mem2ActOut1ShowLabel
-            // 
-            this.Mem2ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem2ActOut1ShowLabel.Location = new System.Drawing.Point(227, 55);
-            this.Mem2ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem2ActOut1ShowLabel.Name = "Mem2ActOut1ShowLabel";
-            this.Mem2ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.Mem2ActOut1ShowLabel.TabIndex = 20;
-            this.Mem2ActOut1ShowLabel.Text = "OFF";
-            this.Mem2ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem2ActOut1ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
-            // 
-            // Mem1ActOut2ShowLabel
-            // 
-            this.Mem1ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem1ActOut2ShowLabel.Location = new System.Drawing.Point(120, 84);
-            this.Mem1ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem1ActOut2ShowLabel.Name = "Mem1ActOut2ShowLabel";
-            this.Mem1ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.Mem1ActOut2ShowLabel.TabIndex = 20;
-            this.Mem1ActOut2ShowLabel.Text = "OFF";
-            this.Mem1ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem1ActOut2ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
-            // 
-            // Mem1ActOut1ShowLabel
-            // 
-            this.Mem1ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem1ActOut1ShowLabel.Location = new System.Drawing.Point(120, 55);
-            this.Mem1ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Mem1ActOut1ShowLabel.Name = "Mem1ActOut1ShowLabel";
-            this.Mem1ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
-            this.Mem1ActOut1ShowLabel.TabIndex = 20;
-            this.Mem1ActOut1ShowLabel.Text = "OFF";
-            this.Mem1ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.Mem1ActOut1ShowLabel.Click += new System.EventHandler(this.MemActOutShowLabel_Click);
-            // 
-            // R0M3
-            // 
-            this.R0M3.BackColor = System.Drawing.Color.White;
-            this.R0M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M3.Location = new System.Drawing.Point(311, 48);
-            this.R0M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R0M3.MaxLength = 8;
-            this.R0M3.Name = "R0M3";
-            this.R0M3.Size = new System.Drawing.Size(84, 22);
-            this.R0M3.TabIndex = 9;
-            this.R0M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R0M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
             // LoadRegMemory
             // 
             this.LoadRegMemory.Location = new System.Drawing.Point(527, 87);
@@ -2609,508 +3287,6 @@ namespace Synthesizer_PC_control
             this.SaveRegMemory.Text = "Upload Memory Data Into Synthesizer";
             this.SaveRegMemory.UseVisualStyleBackColor = true;
             this.SaveRegMemory.Click += new System.EventHandler(this.SaveRegMemory_Click);
-            // 
-            // R0M2
-            // 
-            this.R0M2.BackColor = System.Drawing.Color.White;
-            this.R0M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M2.Location = new System.Drawing.Point(204, 48);
-            this.R0M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R0M2.MaxLength = 8;
-            this.R0M2.Name = "R0M2";
-            this.R0M2.Size = new System.Drawing.Size(84, 22);
-            this.R0M2.TabIndex = 9;
-            this.R0M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R0M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R0M1
-            // 
-            this.R0M1.BackColor = System.Drawing.Color.White;
-            this.R0M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M1.Location = new System.Drawing.Point(97, 48);
-            this.R0M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R0M1.MaxLength = 8;
-            this.R0M1.Name = "R0M1";
-            this.R0M1.Size = new System.Drawing.Size(84, 22);
-            this.R0M1.TabIndex = 9;
-            this.R0M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R0M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // Mem4Label
-            // 
-            this.Mem4Label.Location = new System.Drawing.Point(418, 25);
-            this.Mem4Label.Name = "Mem4Label";
-            this.Mem4Label.Size = new System.Drawing.Size(84, 17);
-            this.Mem4Label.TabIndex = 10;
-            this.Mem4Label.Text = "Memory 4";
-            this.Mem4Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Mem3Label
-            // 
-            this.Mem3Label.Location = new System.Drawing.Point(311, 25);
-            this.Mem3Label.Name = "Mem3Label";
-            this.Mem3Label.Size = new System.Drawing.Size(84, 17);
-            this.Mem3Label.TabIndex = 10;
-            this.Mem3Label.Text = "Memory 3";
-            this.Mem3Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Mem2Label
-            // 
-            this.Mem2Label.Location = new System.Drawing.Point(204, 25);
-            this.Mem2Label.Name = "Mem2Label";
-            this.Mem2Label.Size = new System.Drawing.Size(84, 17);
-            this.Mem2Label.TabIndex = 10;
-            this.Mem2Label.Text = "Memory 2";
-            this.Mem2Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Mem1Label
-            // 
-            this.Mem1Label.Location = new System.Drawing.Point(97, 25);
-            this.Mem1Label.Name = "Mem1Label";
-            this.Mem1Label.Size = new System.Drawing.Size(84, 17);
-            this.Mem1Label.TabIndex = 10;
-            this.Mem1Label.Text = "Memory 1";
-            this.Mem1Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // SavReg0Label
-            // 
-            this.SavReg0Label.AutoSize = true;
-            this.SavReg0Label.Location = new System.Drawing.Point(10, 51);
-            this.SavReg0Label.Name = "SavReg0Label";
-            this.SavReg0Label.Size = new System.Drawing.Size(77, 17);
-            this.SavReg0Label.TabIndex = 10;
-            this.SavReg0Label.Text = "Register 0:";
-            // 
-            // SavReg1Label
-            // 
-            this.SavReg1Label.AutoSize = true;
-            this.SavReg1Label.Location = new System.Drawing.Point(10, 79);
-            this.SavReg1Label.Name = "SavReg1Label";
-            this.SavReg1Label.Size = new System.Drawing.Size(77, 17);
-            this.SavReg1Label.TabIndex = 11;
-            this.SavReg1Label.Text = "Register 1:";
-            // 
-            // R1M4
-            // 
-            this.R1M4.BackColor = System.Drawing.Color.White;
-            this.R1M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M4.Location = new System.Drawing.Point(418, 76);
-            this.R1M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R1M4.MaxLength = 8;
-            this.R1M4.Name = "R1M4";
-            this.R1M4.Size = new System.Drawing.Size(84, 22);
-            this.R1M4.TabIndex = 12;
-            this.R1M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R1M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R1M3
-            // 
-            this.R1M3.BackColor = System.Drawing.Color.White;
-            this.R1M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M3.Location = new System.Drawing.Point(311, 76);
-            this.R1M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R1M3.MaxLength = 8;
-            this.R1M3.Name = "R1M3";
-            this.R1M3.Size = new System.Drawing.Size(84, 22);
-            this.R1M3.TabIndex = 12;
-            this.R1M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R1M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R1M2
-            // 
-            this.R1M2.BackColor = System.Drawing.Color.White;
-            this.R1M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M2.Location = new System.Drawing.Point(204, 76);
-            this.R1M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R1M2.MaxLength = 8;
-            this.R1M2.Name = "R1M2";
-            this.R1M2.Size = new System.Drawing.Size(84, 22);
-            this.R1M2.TabIndex = 12;
-            this.R1M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R1M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R1M1
-            // 
-            this.R1M1.BackColor = System.Drawing.Color.White;
-            this.R1M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M1.Location = new System.Drawing.Point(97, 76);
-            this.R1M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R1M1.MaxLength = 8;
-            this.R1M1.Name = "R1M1";
-            this.R1M1.Size = new System.Drawing.Size(84, 22);
-            this.R1M1.TabIndex = 12;
-            this.R1M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R1M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // SavReg2Label
-            // 
-            this.SavReg2Label.AutoSize = true;
-            this.SavReg2Label.Location = new System.Drawing.Point(10, 107);
-            this.SavReg2Label.Name = "SavReg2Label";
-            this.SavReg2Label.Size = new System.Drawing.Size(77, 17);
-            this.SavReg2Label.TabIndex = 14;
-            this.SavReg2Label.Text = "Register 2:";
-            // 
-            // R2M4
-            // 
-            this.R2M4.BackColor = System.Drawing.Color.White;
-            this.R2M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M4.Location = new System.Drawing.Point(418, 104);
-            this.R2M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R2M4.MaxLength = 8;
-            this.R2M4.Name = "R2M4";
-            this.R2M4.Size = new System.Drawing.Size(84, 22);
-            this.R2M4.TabIndex = 17;
-            this.R2M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R2M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R2M3
-            // 
-            this.R2M3.BackColor = System.Drawing.Color.White;
-            this.R2M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M3.Location = new System.Drawing.Point(311, 104);
-            this.R2M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R2M3.MaxLength = 8;
-            this.R2M3.Name = "R2M3";
-            this.R2M3.Size = new System.Drawing.Size(84, 22);
-            this.R2M3.TabIndex = 17;
-            this.R2M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R2M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R2M2
-            // 
-            this.R2M2.BackColor = System.Drawing.Color.White;
-            this.R2M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M2.Location = new System.Drawing.Point(204, 104);
-            this.R2M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R2M2.MaxLength = 8;
-            this.R2M2.Name = "R2M2";
-            this.R2M2.Size = new System.Drawing.Size(84, 22);
-            this.R2M2.TabIndex = 17;
-            this.R2M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R2M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R2M1
-            // 
-            this.R2M1.BackColor = System.Drawing.Color.White;
-            this.R2M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M1.Location = new System.Drawing.Point(97, 104);
-            this.R2M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R2M1.MaxLength = 8;
-            this.R2M1.Name = "R2M1";
-            this.R2M1.Size = new System.Drawing.Size(84, 22);
-            this.R2M1.TabIndex = 17;
-            this.R2M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R2M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R3M4
-            // 
-            this.R3M4.BackColor = System.Drawing.Color.White;
-            this.R3M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M4.Location = new System.Drawing.Point(418, 132);
-            this.R3M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R3M4.MaxLength = 8;
-            this.R3M4.Name = "R3M4";
-            this.R3M4.Size = new System.Drawing.Size(84, 22);
-            this.R3M4.TabIndex = 18;
-            this.R3M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R3M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R3M3
-            // 
-            this.R3M3.BackColor = System.Drawing.Color.White;
-            this.R3M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M3.Location = new System.Drawing.Point(311, 132);
-            this.R3M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R3M3.MaxLength = 8;
-            this.R3M3.Name = "R3M3";
-            this.R3M3.Size = new System.Drawing.Size(84, 22);
-            this.R3M3.TabIndex = 18;
-            this.R3M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R3M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R3M2
-            // 
-            this.R3M2.BackColor = System.Drawing.Color.White;
-            this.R3M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M2.Location = new System.Drawing.Point(204, 132);
-            this.R3M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R3M2.MaxLength = 8;
-            this.R3M2.Name = "R3M2";
-            this.R3M2.Size = new System.Drawing.Size(84, 22);
-            this.R3M2.TabIndex = 18;
-            this.R3M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R3M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R3M1
-            // 
-            this.R3M1.BackColor = System.Drawing.Color.White;
-            this.R3M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M1.Location = new System.Drawing.Point(97, 132);
-            this.R3M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R3M1.MaxLength = 8;
-            this.R3M1.Name = "R3M1";
-            this.R3M1.Size = new System.Drawing.Size(84, 22);
-            this.R3M1.TabIndex = 18;
-            this.R3M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R3M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // SavReg4Label
-            // 
-            this.SavReg4Label.AutoSize = true;
-            this.SavReg4Label.Location = new System.Drawing.Point(10, 163);
-            this.SavReg4Label.Name = "SavReg4Label";
-            this.SavReg4Label.Size = new System.Drawing.Size(77, 17);
-            this.SavReg4Label.TabIndex = 15;
-            this.SavReg4Label.Text = "Register 4:";
-            // 
-            // R4M4
-            // 
-            this.R4M4.BackColor = System.Drawing.Color.White;
-            this.R4M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M4.Location = new System.Drawing.Point(418, 160);
-            this.R4M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R4M4.MaxLength = 8;
-            this.R4M4.Name = "R4M4";
-            this.R4M4.Size = new System.Drawing.Size(84, 22);
-            this.R4M4.TabIndex = 19;
-            this.R4M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R4M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R4M3
-            // 
-            this.R4M3.BackColor = System.Drawing.Color.White;
-            this.R4M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M3.Location = new System.Drawing.Point(311, 160);
-            this.R4M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R4M3.MaxLength = 8;
-            this.R4M3.Name = "R4M3";
-            this.R4M3.Size = new System.Drawing.Size(84, 22);
-            this.R4M3.TabIndex = 19;
-            this.R4M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R4M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R5M4
-            // 
-            this.R5M4.BackColor = System.Drawing.Color.White;
-            this.R5M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M4.Location = new System.Drawing.Point(418, 188);
-            this.R5M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R5M4.MaxLength = 8;
-            this.R5M4.Name = "R5M4";
-            this.R5M4.Size = new System.Drawing.Size(84, 22);
-            this.R5M4.TabIndex = 20;
-            this.R5M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R5M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R4M2
-            // 
-            this.R4M2.BackColor = System.Drawing.Color.White;
-            this.R4M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M2.Location = new System.Drawing.Point(204, 160);
-            this.R4M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R4M2.MaxLength = 8;
-            this.R4M2.Name = "R4M2";
-            this.R4M2.Size = new System.Drawing.Size(84, 22);
-            this.R4M2.TabIndex = 19;
-            this.R4M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R4M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R5M3
-            // 
-            this.R5M3.BackColor = System.Drawing.Color.White;
-            this.R5M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M3.Location = new System.Drawing.Point(311, 188);
-            this.R5M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R5M3.MaxLength = 8;
-            this.R5M3.Name = "R5M3";
-            this.R5M3.Size = new System.Drawing.Size(84, 22);
-            this.R5M3.TabIndex = 20;
-            this.R5M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R5M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R4M1
-            // 
-            this.R4M1.BackColor = System.Drawing.Color.White;
-            this.R4M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M1.Location = new System.Drawing.Point(97, 160);
-            this.R4M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R4M1.MaxLength = 8;
-            this.R4M1.Name = "R4M1";
-            this.R4M1.Size = new System.Drawing.Size(84, 22);
-            this.R4M1.TabIndex = 19;
-            this.R4M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R4M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // R5M2
-            // 
-            this.R5M2.BackColor = System.Drawing.Color.White;
-            this.R5M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M2.Location = new System.Drawing.Point(204, 188);
-            this.R5M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R5M2.MaxLength = 8;
-            this.R5M2.Name = "R5M2";
-            this.R5M2.Size = new System.Drawing.Size(84, 22);
-            this.R5M2.TabIndex = 20;
-            this.R5M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R5M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
-            // 
-            // MemPwrBLabel
-            // 
-            this.MemPwrBLabel.AutoSize = true;
-            this.MemPwrBLabel.Location = new System.Drawing.Point(11, 141);
-            this.MemPwrBLabel.Name = "MemPwrBLabel";
-            this.MemPwrBLabel.Size = new System.Drawing.Size(76, 17);
-            this.MemPwrBLabel.TabIndex = 16;
-            this.MemPwrBLabel.Text = "Pwr. out B:";
-            // 
-            // Mem4PwrBShowLabel
-            // 
-            this.Mem4PwrBShowLabel.Location = new System.Drawing.Point(412, 141);
-            this.Mem4PwrBShowLabel.Name = "Mem4PwrBShowLabel";
-            this.Mem4PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
-            this.Mem4PwrBShowLabel.TabIndex = 16;
-            this.Mem4PwrBShowLabel.Text = "+ 2 dBm";
-            this.Mem4PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Mem3PwrBShowLabel
-            // 
-            this.Mem3PwrBShowLabel.Location = new System.Drawing.Point(305, 141);
-            this.Mem3PwrBShowLabel.Name = "Mem3PwrBShowLabel";
-            this.Mem3PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
-            this.Mem3PwrBShowLabel.TabIndex = 16;
-            this.Mem3PwrBShowLabel.Text = "!!!+5 dBm!!!";
-            this.Mem3PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Mem2PwrBShowLabel
-            // 
-            this.Mem2PwrBShowLabel.Location = new System.Drawing.Point(198, 141);
-            this.Mem2PwrBShowLabel.Name = "Mem2PwrBShowLabel";
-            this.Mem2PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
-            this.Mem2PwrBShowLabel.TabIndex = 16;
-            this.Mem2PwrBShowLabel.Text = "+ 2 dBm";
-            this.Mem2PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Mem4PwrAShowLabel
-            // 
-            this.Mem4PwrAShowLabel.Location = new System.Drawing.Point(412, 113);
-            this.Mem4PwrAShowLabel.Name = "Mem4PwrAShowLabel";
-            this.Mem4PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
-            this.Mem4PwrAShowLabel.TabIndex = 16;
-            this.Mem4PwrAShowLabel.Text = "+ 5 dBm";
-            this.Mem4PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Mem3PwrAShowLabel
-            // 
-            this.Mem3PwrAShowLabel.Location = new System.Drawing.Point(305, 113);
-            this.Mem3PwrAShowLabel.Name = "Mem3PwrAShowLabel";
-            this.Mem3PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
-            this.Mem3PwrAShowLabel.TabIndex = 16;
-            this.Mem3PwrAShowLabel.Text = "+ 5 dBm";
-            this.Mem3PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Mem2PwrAShowLabel
-            // 
-            this.Mem2PwrAShowLabel.Location = new System.Drawing.Point(198, 113);
-            this.Mem2PwrAShowLabel.Name = "Mem2PwrAShowLabel";
-            this.Mem2PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
-            this.Mem2PwrAShowLabel.TabIndex = 16;
-            this.Mem2PwrAShowLabel.Text = "+ 5 dBm";
-            this.Mem2PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Mem1PwrBShowLabel
-            // 
-            this.Mem1PwrBShowLabel.Location = new System.Drawing.Point(91, 141);
-            this.Mem1PwrBShowLabel.Name = "Mem1PwrBShowLabel";
-            this.Mem1PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
-            this.Mem1PwrBShowLabel.TabIndex = 16;
-            this.Mem1PwrBShowLabel.Text = "+ 2 dBm";
-            this.Mem1PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Mem1PwrAShowLabel
-            // 
-            this.Mem1PwrAShowLabel.Location = new System.Drawing.Point(91, 113);
-            this.Mem1PwrAShowLabel.Name = "Mem1PwrAShowLabel";
-            this.Mem1PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
-            this.Mem1PwrAShowLabel.TabIndex = 16;
-            this.Mem1PwrAShowLabel.Text = "+ 5 dBm";
-            this.Mem1PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // MemPwrALabel
-            // 
-            this.MemPwrALabel.AutoSize = true;
-            this.MemPwrALabel.Location = new System.Drawing.Point(11, 113);
-            this.MemPwrALabel.Name = "MemPwrALabel";
-            this.MemPwrALabel.Size = new System.Drawing.Size(76, 17);
-            this.MemPwrALabel.TabIndex = 16;
-            this.MemPwrALabel.Text = "Pwr. out A:";
-            // 
-            // FreqOut2MemLabel
-            // 
-            this.FreqOut2MemLabel.AutoSize = true;
-            this.FreqOut2MemLabel.Location = new System.Drawing.Point(6, 85);
-            this.FreqOut2MemLabel.Name = "FreqOut2MemLabel";
-            this.FreqOut2MemLabel.Size = new System.Drawing.Size(81, 17);
-            this.FreqOut2MemLabel.TabIndex = 16;
-            this.FreqOut2MemLabel.Text = "Freq. out 2:";
-            // 
-            // FreqOut1MemLabel
-            // 
-            this.FreqOut1MemLabel.AutoSize = true;
-            this.FreqOut1MemLabel.Location = new System.Drawing.Point(6, 57);
-            this.FreqOut1MemLabel.Name = "FreqOut1MemLabel";
-            this.FreqOut1MemLabel.Size = new System.Drawing.Size(81, 17);
-            this.FreqOut1MemLabel.TabIndex = 16;
-            this.FreqOut1MemLabel.Text = "Freq. out 1:";
-            // 
-            // MemoryRefLabel
-            // 
-            this.MemoryRefLabel.AutoSize = true;
-            this.MemoryRefLabel.Location = new System.Drawing.Point(9, 109);
-            this.MemoryRefLabel.Name = "MemoryRefLabel";
-            this.MemoryRefLabel.Size = new System.Drawing.Size(78, 17);
-            this.MemoryRefLabel.TabIndex = 16;
-            this.MemoryRefLabel.Text = "Reference:";
-            // 
-            // MemoryOutput2Label
-            // 
-            this.MemoryOutput2Label.AutoSize = true;
-            this.MemoryOutput2Label.Location = new System.Drawing.Point(20, 83);
-            this.MemoryOutput2Label.Name = "MemoryOutput2Label";
-            this.MemoryOutput2Label.Size = new System.Drawing.Size(67, 17);
-            this.MemoryOutput2Label.TabIndex = 16;
-            this.MemoryOutput2Label.Text = "Output 2:";
-            // 
-            // MemoryOutput1Label
-            // 
-            this.MemoryOutput1Label.AutoSize = true;
-            this.MemoryOutput1Label.Location = new System.Drawing.Point(20, 55);
-            this.MemoryOutput1Label.Name = "MemoryOutput1Label";
-            this.MemoryOutput1Label.Size = new System.Drawing.Size(67, 17);
-            this.MemoryOutput1Label.TabIndex = 16;
-            this.MemoryOutput1Label.Text = "Output 1:";
-            // 
-            // SavReg5Label
-            // 
-            this.SavReg5Label.AutoSize = true;
-            this.SavReg5Label.Location = new System.Drawing.Point(10, 191);
-            this.SavReg5Label.Name = "SavReg5Label";
-            this.SavReg5Label.Size = new System.Drawing.Size(77, 17);
-            this.SavReg5Label.TabIndex = 16;
-            this.SavReg5Label.Text = "Register 5:";
-            // 
-            // R5M1
-            // 
-            this.R5M1.BackColor = System.Drawing.Color.White;
-            this.R5M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M1.Location = new System.Drawing.Point(97, 188);
-            this.R5M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.R5M1.MaxLength = 8;
-            this.R5M1.Name = "R5M1";
-            this.R5M1.Size = new System.Drawing.Size(84, 22);
-            this.R5M1.TabIndex = 20;
-            this.R5M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R5M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // RegistersGroupBox
             // 
@@ -3429,182 +3605,6 @@ namespace Synthesizer_PC_control
             this.LedOnPicBox.TabStop = false;
             this.LedOnPicBox.Visible = false;
             // 
-            // RegMemoryGroupBox
-            // 
-            this.RegMemoryGroupBox.Controls.Add(this.SavReg0Label);
-            this.RegMemoryGroupBox.Controls.Add(this.R5M1);
-            this.RegMemoryGroupBox.Controls.Add(this.SavReg5Label);
-            this.RegMemoryGroupBox.Controls.Add(this.R5M2);
-            this.RegMemoryGroupBox.Controls.Add(this.R4M1);
-            this.RegMemoryGroupBox.Controls.Add(this.R5M3);
-            this.RegMemoryGroupBox.Controls.Add(this.R4M2);
-            this.RegMemoryGroupBox.Controls.Add(this.R5M4);
-            this.RegMemoryGroupBox.Controls.Add(this.R4M3);
-            this.RegMemoryGroupBox.Controls.Add(this.R4M4);
-            this.RegMemoryGroupBox.Controls.Add(this.SavReg4Label);
-            this.RegMemoryGroupBox.Controls.Add(this.R3M1);
-            this.RegMemoryGroupBox.Controls.Add(this.R3M2);
-            this.RegMemoryGroupBox.Controls.Add(this.R3M3);
-            this.RegMemoryGroupBox.Controls.Add(this.R3M4);
-            this.RegMemoryGroupBox.Controls.Add(this.R2M1);
-            this.RegMemoryGroupBox.Controls.Add(this.R2M2);
-            this.RegMemoryGroupBox.Controls.Add(this.R2M3);
-            this.RegMemoryGroupBox.Controls.Add(this.R2M4);
-            this.RegMemoryGroupBox.Controls.Add(this.SavReg2Label);
-            this.RegMemoryGroupBox.Controls.Add(this.R1M1);
-            this.RegMemoryGroupBox.Controls.Add(this.SavReg3Label);
-            this.RegMemoryGroupBox.Controls.Add(this.R1M2);
-            this.RegMemoryGroupBox.Controls.Add(this.R1M3);
-            this.RegMemoryGroupBox.Controls.Add(this.R1M4);
-            this.RegMemoryGroupBox.Controls.Add(this.SavReg1Label);
-            this.RegMemoryGroupBox.Controls.Add(this.R0M4);
-            this.RegMemoryGroupBox.Controls.Add(this.Mem1Label);
-            this.RegMemoryGroupBox.Controls.Add(this.Mem2Label);
-            this.RegMemoryGroupBox.Controls.Add(this.Mem3Label);
-            this.RegMemoryGroupBox.Controls.Add(this.Mem4Label);
-            this.RegMemoryGroupBox.Controls.Add(this.R0M3);
-            this.RegMemoryGroupBox.Controls.Add(this.R0M1);
-            this.RegMemoryGroupBox.Controls.Add(this.R0M2);
-            this.RegMemoryGroupBox.Location = new System.Drawing.Point(2, 5);
-            this.RegMemoryGroupBox.Name = "RegMemoryGroupBox";
-            this.RegMemoryGroupBox.Size = new System.Drawing.Size(520, 221);
-            this.RegMemoryGroupBox.TabIndex = 23;
-            this.RegMemoryGroupBox.TabStop = false;
-            this.RegMemoryGroupBox.Text = "Registers Memory";
-            // 
-            // SyntModuleControlsGroupBox
-            // 
-            this.SyntModuleControlsGroupBox.Controls.Add(this.label3);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.label4);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.label8);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.label9);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem4ActOut1ShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.MemoryOutput1Label);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.MemoryOutput2Label);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.MemoryRefLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem1ActOut1ShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem1ActOut2ShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem2ActOut1ShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem3ActOut1ShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem2ActOut2ShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem4RefShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem3ActOut2ShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem3RefShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem4ActOut2ShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem2RefShowLabel);
-            this.SyntModuleControlsGroupBox.Controls.Add(this.Mem1RefShowLabel);
-            this.SyntModuleControlsGroupBox.Location = new System.Drawing.Point(2, 232);
-            this.SyntModuleControlsGroupBox.Name = "SyntModuleControlsGroupBox";
-            this.SyntModuleControlsGroupBox.Size = new System.Drawing.Size(520, 136);
-            this.SyntModuleControlsGroupBox.TabIndex = 24;
-            this.SyntModuleControlsGroupBox.TabStop = false;
-            this.SyntModuleControlsGroupBox.Text = "Synthesizer Module Controls";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(418, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 17);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Memory 4";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(311, 27);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 17);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Memory 3";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(204, 27);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(84, 17);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Memory 2";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(97, 27);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(84, 17);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Memory 1";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // SynthOutputsInfoGroupBox
-            // 
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.label13);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.label12);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.label10);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem1Freq2ShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.label11);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem1Freq1ShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.FreqOut2MemLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem4Freq2ShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.FreqOut1MemLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem4Freq1ShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.MemPwrALabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem3Freq2ShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem1PwrAShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem3Freq1ShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem1PwrBShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem2Freq2ShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem2PwrAShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem2Freq1ShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem3PwrAShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem4PwrAShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem2PwrBShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem3PwrBShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem4PwrBShowLabel);
-            this.SynthOutputsInfoGroupBox.Controls.Add(this.MemPwrBLabel);
-            this.SynthOutputsInfoGroupBox.Location = new System.Drawing.Point(3, 374);
-            this.SynthOutputsInfoGroupBox.Name = "SynthOutputsInfoGroupBox";
-            this.SynthOutputsInfoGroupBox.Size = new System.Drawing.Size(520, 173);
-            this.SynthOutputsInfoGroupBox.TabIndex = 25;
-            this.SynthOutputsInfoGroupBox.TabStop = false;
-            this.SynthOutputsInfoGroupBox.Text = "Synthesizer Outputs Info";
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(97, 29);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(84, 17);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "Memory 1";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(204, 29);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(84, 17);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "Memory 2";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label12
-            // 
-            this.label12.Location = new System.Drawing.Point(311, 29);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(84, 17);
-            this.label12.TabIndex = 10;
-            this.label12.Text = "Memory 3";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label13
-            // 
-            this.label13.Location = new System.Drawing.Point(418, 29);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(84, 17);
-            this.label13.TabIndex = 10;
-            this.label13.Text = "Memory 4";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3663,6 +3663,12 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RDivUpDown)).EndInit();
             this.RegistersMemoryPage.ResumeLayout(false);
+            this.SynthOutputsInfoGroupBox.ResumeLayout(false);
+            this.SynthOutputsInfoGroupBox.PerformLayout();
+            this.SyntModuleControlsGroupBox.ResumeLayout(false);
+            this.SyntModuleControlsGroupBox.PerformLayout();
+            this.RegMemoryGroupBox.ResumeLayout(false);
+            this.RegMemoryGroupBox.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.DirectFreqContrGroupBox.ResumeLayout(false);
@@ -3670,12 +3676,6 @@ namespace Synthesizer_PC_control
             this.SynthModuleInfoGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.LedOffPicBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LedOnPicBox)).EndInit();
-            this.RegMemoryGroupBox.ResumeLayout(false);
-            this.RegMemoryGroupBox.PerformLayout();
-            this.SyntModuleControlsGroupBox.ResumeLayout(false);
-            this.SyntModuleControlsGroupBox.PerformLayout();
-            this.SynthOutputsInfoGroupBox.ResumeLayout(false);
-            this.SynthOutputsInfoGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
