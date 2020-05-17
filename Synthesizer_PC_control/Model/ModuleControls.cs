@@ -28,6 +28,7 @@ namespace Synthesizer_PC_control.Model
         private readonly Button ui_out1OnOff;
         private readonly Button ui_out2OnOff;
         private readonly Button ui_intExtRef;
+        private readonly Button ui_ploInit;
         
         /// <summary>
         /// Constructor for the synthesizer module states (outputs, reference signal).
@@ -35,15 +36,31 @@ namespace Synthesizer_PC_control.Model
         /// <param name="ui_out1OnOff"> UI element for module output 1 button </param>
         /// <param name="ui_out2OnOff"> UI element for module output 2 button </param>
         /// <param name="ui_intExtRef"> UI element for module reference button </param>
-        public ModuleControls(Button ui_out1OnOff, Button ui_out2OnOff, Button ui_intExtRef)
+        /// <param name="ui_ploInit"> UI element for initialize PLO sequence </param>
+        public ModuleControls(Button ui_out1OnOff, Button ui_out2OnOff, 
+                              Button ui_intExtRef, Button ui_ploInit)
         {
             this.ui_out1OnOff = ui_out1OnOff;
             this.ui_out2OnOff = ui_out2OnOff;
             this.ui_intExtRef = ui_intExtRef;
+            this.ui_ploInit   = ui_ploInit;
 
             out1State = false;
             out2State = false;
             intRefState = false;
+
+            ToolTip toolTip1 = new ToolTip();
+
+            // Set up the delays for the ToolTip.
+            toolTip1.AutoPopDelay = Utilities.GeneralUtilities.autoPopDelay;
+            toolTip1.InitialDelay = Utilities.GeneralUtilities.initialDelay;
+            toolTip1.ReshowDelay = Utilities.GeneralUtilities.reshowDelay;
+
+            // Set up the ToolTip text for the UI elements.
+            toolTip1.SetToolTip(this.ui_out1OnOff, "Activate or deactivate synthesizer module output 1");
+            toolTip1.SetToolTip(this.ui_out2OnOff, "Activate or deactivate synthesizer module output 2");
+            toolTip1.SetToolTip(this.ui_intExtRef, "Selection of reference signal source");
+            toolTip1.SetToolTip(this.ui_ploInit, "Executes the initialization procedure for the PLO");
 
             UpdateUiElements();
         }

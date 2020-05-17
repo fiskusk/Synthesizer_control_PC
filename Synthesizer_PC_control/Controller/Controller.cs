@@ -130,7 +130,8 @@ namespace Synthesizer_PC_control.Controllers
             // create model of module controls
             moduleControls = new ModuleControls(view.Out1Button,
                                                 view.Out2Button,
-                                                view.RefButton);
+                                                view.RefButton,
+                                                view.PloInitButton);
 
             // create model of referece frequency 
             refFreq = new RefFreq(view.RefFTextBox,
