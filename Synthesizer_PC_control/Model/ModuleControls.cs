@@ -49,19 +49,6 @@ namespace Synthesizer_PC_control.Model
             out2State = false;
             intRefState = false;
 
-            ToolTip toolTip1 = new ToolTip();
-
-            // Set up the delays for the ToolTip.
-            toolTip1.AutoPopDelay = Utilities.GeneralUtilities.autoPopDelay;
-            toolTip1.InitialDelay = Utilities.GeneralUtilities.initialDelay;
-            toolTip1.ReshowDelay = Utilities.GeneralUtilities.reshowDelay;
-
-            // Set up the ToolTip text for the UI elements.
-            toolTip1.SetToolTip(this.ui_out1OnOff, "Activate or deactivate synthesizer module output 1");
-            toolTip1.SetToolTip(this.ui_out2OnOff, "Activate or deactivate synthesizer module output 2");
-            toolTip1.SetToolTip(this.ui_intExtRef, "Selection of reference signal source");
-            toolTip1.SetToolTip(this.ui_ploInit, "Executes the initialization procedure for the PLO");
-
             UpdateUiElements();
         }
 

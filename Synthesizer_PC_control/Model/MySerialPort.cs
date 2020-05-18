@@ -68,17 +68,6 @@ namespace Synthesizer_PC_control.Model
  
             dontRunHandler = false; 
 
-            ToolTip toolTip1 = new ToolTip();
-
-            // Set up the delays for the ToolTip.
-            toolTip1.AutoPopDelay = Utilities.GeneralUtilities.autoPopDelay;
-            toolTip1.InitialDelay = Utilities.GeneralUtilities.initialDelay;
-            toolTip1.ReshowDelay = Utilities.GeneralUtilities.reshowDelay;
-
-            // Set up the ToolTip text for the UI.
-            toolTip1.SetToolTip(this.ui_openClosed, "Click to estabilish or close connection to the synthesizer board");
-            toolTip1.SetToolTip(this.ui_avaliablePorts, "Detected COM ports. Updated when the list is expanded");
- 
             UpdateUiElements(); 
         }
 

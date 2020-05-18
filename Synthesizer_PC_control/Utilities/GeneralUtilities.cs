@@ -13,13 +13,6 @@ namespace Synthesizer_PC_control.Utilities
     static class GeneralUtilities
     {
         /// <summary>
-        /// global delays for toolTips
-        /// </summary>
-        public static int autoPopDelay = 5000;
-        public static int initialDelay = 1000;
-        public static int reshowDelay = 250;
-
-        /// <summary>
         /// It compares whether the string arrays match
         /// </summary>
         /// <param name="firstStringArray"> first string to compare </param>

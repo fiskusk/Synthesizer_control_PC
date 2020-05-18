@@ -21,10 +21,44 @@ namespace Synthesizer_PC_control
         
             controller = new Controller(this);
 
+            InitializeToolTip();
+
 
             controller.LoadSavedWorkspaceData();    // load workspace data
             isForm1Load = true;
             EnableControls(false);
+        }
+
+        private void InitializeToolTip()
+        {
+            ToolTip toolTip1 = new ToolTip();
+
+            // Set up the delays for the ToolTip.
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 1000;
+            toolTip1.ReshowDelay = 250;
+
+            // Set up the ToolTip text for the Serial Port UI elements.
+            toolTip1.SetToolTip(this.PortButton, "Click to estabilish or close connection to the synthesizer board");
+            toolTip1.SetToolTip(this.AvaibleCOMsComBox, "Detected COM ports. Updated when the list is expanded");
+
+            // Set up the ToolTip text for the Module Controls UI elements.
+            toolTip1.SetToolTip(this.Out1Button, "Activate or deactivate synthesizer module output 1");
+            toolTip1.SetToolTip(this.Out2Button, "Activate or deactivate synthesizer module output 2");
+            toolTip1.SetToolTip(this.RefButton, "Selection of reference signal source");
+            toolTip1.SetToolTip(this.PloInitButton, "Executes the initialization procedure for the PLO");
+
+            // Set up the ToolTip text for the DirectFreqControl UI elements.
+            toolTip1.SetToolTip(this.InputFreqTextBox, "Input field for calculating registers based on the entered frequency. \r\nAccepts decimal point and comma. Depending on the cursor position, \r\nyou can increment, decrement the digit to the left of the cursor.");
+            toolTip1.SetToolTip(this.DeltaShowLabel, "Deviation of the real frequency from the specified frequency");
+            toolTip1.SetToolTip(this.CalcFreqShowLabel, "Real current synthesizer frequency");
+            toolTip1.SetToolTip(this.FreqAtOut1ShowLabel, "Frequency at the first output of the synthesizer module");
+            toolTip1.SetToolTip(this.FreqAtOut2ShowLabel, "Frequency at the second output of the synthesizer module");
+            toolTip1.SetToolTip(this.ActOut1ShowLabel, "Status of the first output. Click to activate / deactivate");
+            toolTip1.SetToolTip(this.ActOut2ShowLabel, "Status of the second output. Click to activate / deactivate");
+            toolTip1.SetToolTip(this.IntExtShowLabel, "Reference signal source status. Click to switch");
+
+
         }
 
         /// <summary>
