@@ -2519,7 +2519,9 @@ namespace Synthesizer_PC_control.Controllers
 #region Serial port
 
         /// <summary>
-        /// Force sends all registers into synthesizer including module control states.
+        /// Forces all registers to be sent to the synthesizer module, 
+        /// including the states of the module outputs and the reference 
+        /// signal source.
         /// </summary>
         public void ForceLoadAllRegsIntoPlo()
         {   
