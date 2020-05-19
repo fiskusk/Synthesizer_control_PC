@@ -8,7 +8,7 @@ using Synthesizer_PC_control.Properties;
 namespace Synthesizer_PC_control
 {
     public partial class Form1 : Form
-        {
+    {
         private Controller controller;
         private bool isForm1Load;
         bool windowInitialized;
@@ -22,7 +22,6 @@ namespace Synthesizer_PC_control
             controller = new Controller(this);
 
             InitializeToolTip();
-
 
             controller.LoadSavedWorkspaceData();    // load workspace data
             isForm1Load = true;
@@ -461,6 +460,44 @@ Click to switch");
             "Power at output A of the MAX2871 circuit for memory 4.");
             toolTip1.SetToolTip(this.Mem4PwrBShowLabel, 
             "Power at output B of the MAX2871 circuit for memory 4.");
+
+            toolTip1.SetToolTip(this.ImportMem1Button, 
+            @"Click to move the register settings, 
+including the module output settings 
+and the reference signal source 
+for memory 1, to the workspace");
+            toolTip1.SetToolTip(this.ImportMem2Button, 
+            @"Click to move the register settings, 
+including the module output settings 
+and the reference signal source 
+for memory 2, to the workspace");
+            toolTip1.SetToolTip(this.ImportMem3Button, 
+            @"Click to move the register settings, 
+including the module output settings 
+and the reference signal source 
+for memory 3, to the workspace");
+            toolTip1.SetToolTip(this.ImportMem4Button, 
+            @"Click to move the register settings, 
+including the module output settings 
+and the reference signal source 
+for memory 4, to the workspace");
+
+            toolTip1.SetToolTip(this.SaveRegMemory, 
+            @"Loads register settings, including module output 
+and reference signal source settings for memories, 
+into the synthesizer module.");
+            toolTip1.SetToolTip(this.LoadRegMemory, 
+            @"Gets register settings, including module output 
+settings and a reference signal source for memories 
+from the synthesizer module.");
+            toolTip1.SetToolTip(this.MemSaveIntoFileButton, 
+            @"Saves the current register settings, 
+module output and reference source settings 
+for memories to a file on your computer.");
+            toolTip1.SetToolTip(this.MemLoadFromFileButton, 
+            @"Loads the register settings, module output 
+and reference source settings for
+memories to a file on your computer.");
         }
 
         /// <summary>
