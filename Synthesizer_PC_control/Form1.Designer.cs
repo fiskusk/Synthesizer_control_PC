@@ -1762,7 +1762,7 @@ namespace Synthesizer_PC_control
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(-3, 168);
+            this.label2.Location = new System.Drawing.Point(26, 166);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(100, 17);
             this.label2.TabIndex = 17;
@@ -1771,7 +1771,7 @@ namespace Synthesizer_PC_control
             // 
             // RFoutBPathLabel
             // 
-            this.RFoutBPathLabel.Location = new System.Drawing.Point(-3, 140);
+            this.RFoutBPathLabel.Location = new System.Drawing.Point(26, 138);
             this.RFoutBPathLabel.Name = "RFoutBPathLabel";
             this.RFoutBPathLabel.Size = new System.Drawing.Size(100, 17);
             this.RFoutBPathLabel.TabIndex = 17;
@@ -1780,7 +1780,7 @@ namespace Synthesizer_PC_control
             // 
             // SDNoiseModeLabel
             // 
-            this.SDNoiseModeLabel.Location = new System.Drawing.Point(-1, 196);
+            this.SDNoiseModeLabel.Location = new System.Drawing.Point(6, 194);
             this.SDNoiseModeLabel.Name = "SDNoiseModeLabel";
             this.SDNoiseModeLabel.Size = new System.Drawing.Size(120, 17);
             this.SDNoiseModeLabel.TabIndex = 17;
@@ -1789,7 +1789,7 @@ namespace Synthesizer_PC_control
             // 
             // LDfuncLabel
             // 
-            this.LDfuncLabel.Location = new System.Drawing.Point(10, 110);
+            this.LDfuncLabel.Location = new System.Drawing.Point(39, 110);
             this.LDfuncLabel.Name = "LDfuncLabel";
             this.LDfuncLabel.Size = new System.Drawing.Size(87, 17);
             this.LDfuncLabel.TabIndex = 17;
@@ -1849,10 +1849,10 @@ namespace Synthesizer_PC_control
             "Low-noise Mode",
             "Low-spur Mode 1",
             "Low-spur Mode 2"});
-            this.SigmaDeltaNoiseModeComboBox.Location = new System.Drawing.Point(125, 193);
+            this.SigmaDeltaNoiseModeComboBox.Location = new System.Drawing.Point(132, 191);
             this.SigmaDeltaNoiseModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.SigmaDeltaNoiseModeComboBox.Name = "SigmaDeltaNoiseModeComboBox";
-            this.SigmaDeltaNoiseModeComboBox.Size = new System.Drawing.Size(144, 24);
+            this.SigmaDeltaNoiseModeComboBox.Size = new System.Drawing.Size(150, 24);
             this.SigmaDeltaNoiseModeComboBox.TabIndex = 10;
             this.SigmaDeltaNoiseModeComboBox.SelectedIndexChanged += new System.EventHandler(this.SDNoiseModeComboBox_SelectedIndexChanged);
             // 
@@ -1864,7 +1864,7 @@ namespace Synthesizer_PC_control
             this.FBPathComboBox.Items.AddRange(new object[] {
             "VCO divided",
             "VCO fundamental"});
-            this.FBPathComboBox.Location = new System.Drawing.Point(103, 165);
+            this.FBPathComboBox.Location = new System.Drawing.Point(132, 163);
             this.FBPathComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.FBPathComboBox.Name = "FBPathComboBox";
             this.FBPathComboBox.Size = new System.Drawing.Size(150, 24);
@@ -1879,7 +1879,7 @@ namespace Synthesizer_PC_control
             this.RFoutBPathComboBox.Items.AddRange(new object[] {
             "VCO divided",
             "VCO fundamental"});
-            this.RFoutBPathComboBox.Location = new System.Drawing.Point(103, 137);
+            this.RFoutBPathComboBox.Location = new System.Drawing.Point(132, 135);
             this.RFoutBPathComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RFoutBPathComboBox.Name = "RFoutBPathComboBox";
             this.RFoutBPathComboBox.Size = new System.Drawing.Size(150, 24);
@@ -1894,7 +1894,7 @@ namespace Synthesizer_PC_control
             this.LDFuncComboBox.Items.AddRange(new object[] {
             "Frac-N Lock-det.",
             "Int-N Lock-det."});
-            this.LDFuncComboBox.Location = new System.Drawing.Point(103, 107);
+            this.LDFuncComboBox.Location = new System.Drawing.Point(132, 107);
             this.LDFuncComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LDFuncComboBox.Name = "LDFuncComboBox";
             this.LDFuncComboBox.Size = new System.Drawing.Size(150, 24);
@@ -1904,11 +1904,11 @@ namespace Synthesizer_PC_control
             // AutoLDFuncCheckBox
             // 
             this.AutoLDFuncCheckBox.AutoSize = true;
-            this.AutoLDFuncCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.AutoLDFuncCheckBox.Location = new System.Drawing.Point(260, 109);
+            this.AutoLDFuncCheckBox.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.AutoLDFuncCheckBox.Location = new System.Drawing.Point(3, 103);
             this.AutoLDFuncCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.AutoLDFuncCheckBox.Name = "AutoLDFuncCheckBox";
-            this.AutoLDFuncCheckBox.Size = new System.Drawing.Size(58, 21);
+            this.AutoLDFuncCheckBox.Size = new System.Drawing.Size(40, 38);
             this.AutoLDFuncCheckBox.TabIndex = 7;
             this.AutoLDFuncCheckBox.Text = "auto";
             this.AutoLDFuncCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -2071,7 +2071,7 @@ namespace Synthesizer_PC_control
             // 
             // LDSpeedAdjLabel
             // 
-            this.LDSpeedAdjLabel.Location = new System.Drawing.Point(1, 90);
+            this.LDSpeedAdjLabel.Location = new System.Drawing.Point(38, 90);
             this.LDSpeedAdjLabel.Name = "LDSpeedAdjLabel";
             this.LDSpeedAdjLabel.Size = new System.Drawing.Size(148, 17);
             this.LDSpeedAdjLabel.TabIndex = 17;
@@ -2112,7 +2112,7 @@ namespace Synthesizer_PC_control
             this.LDSpeedAdjComboBox.Items.AddRange(new object[] {
             "fPFD <= 32 MHz",
             "fPFD  >  32 MHz"});
-            this.LDSpeedAdjComboBox.Location = new System.Drawing.Point(154, 87);
+            this.LDSpeedAdjComboBox.Location = new System.Drawing.Point(191, 87);
             this.LDSpeedAdjComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LDSpeedAdjComboBox.Name = "LDSpeedAdjComboBox";
             this.LDSpeedAdjComboBox.Size = new System.Drawing.Size(144, 24);
@@ -2153,7 +2153,7 @@ namespace Synthesizer_PC_control
             // 
             this.AutoLDSpeedAdjCheckBox.AutoSize = true;
             this.AutoLDSpeedAdjCheckBox.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.AutoLDSpeedAdjCheckBox.Location = new System.Drawing.Point(302, 81);
+            this.AutoLDSpeedAdjCheckBox.Location = new System.Drawing.Point(2, 81);
             this.AutoLDSpeedAdjCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.AutoLDSpeedAdjCheckBox.Name = "AutoLDSpeedAdjCheckBox";
             this.AutoLDSpeedAdjCheckBox.Size = new System.Drawing.Size(40, 38);
