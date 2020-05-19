@@ -34,31 +34,433 @@ namespace Synthesizer_PC_control
             ToolTip toolTip1 = new ToolTip();
 
             // Set up the delays for the ToolTip.
-            toolTip1.AutoPopDelay = 5000;
+            toolTip1.AutoPopDelay = 10000;
             toolTip1.InitialDelay = 1000;
             toolTip1.ReshowDelay = 250;
 
             // Set up the ToolTip text for the Serial Port UI elements.
-            toolTip1.SetToolTip(this.PortButton, "Click to estabilish or close connection to the synthesizer board");
-            toolTip1.SetToolTip(this.AvaibleCOMsComBox, "Detected COM ports. Updated when the list is expanded");
+            toolTip1.SetToolTip(this.PortButton, 
+            "Click to estabilish or close connection to the synthesizer board");
+            toolTip1.SetToolTip(this.AvaibleCOMsComBox, 
+            "Detected COM ports. Updated when the list is expanded");
 
             // Set up the ToolTip text for the Module Controls UI elements.
-            toolTip1.SetToolTip(this.Out1Button, "Activate or deactivate synthesizer module output 1");
-            toolTip1.SetToolTip(this.Out2Button, "Activate or deactivate synthesizer module output 2");
-            toolTip1.SetToolTip(this.RefButton, "Selection of reference signal source");
-            toolTip1.SetToolTip(this.PloInitButton, "Executes the initialization procedure for the PLO");
+            toolTip1.SetToolTip(this.Out1Button, 
+            "Activate or deactivate synthesizer module output 1");
+            toolTip1.SetToolTip(this.Out2Button, 
+            "Activate or deactivate synthesizer module output 2");
+            toolTip1.SetToolTip(this.RefButton, 
+            "Selection of reference signal source");
+            toolTip1.SetToolTip(this.PloInitButton, 
+            "Executes the initialization procedure for the PLO");
 
             // Set up the ToolTip text for the DirectFreqControl UI elements.
-            toolTip1.SetToolTip(this.InputFreqTextBox, "Input field for calculating registers based on the entered frequency. \r\nAccepts decimal point and comma. Depending on the cursor position, \r\nyou can increment, decrement the digit to the left of the cursor.");
-            toolTip1.SetToolTip(this.DeltaShowLabel, "Deviation of the real frequency from the specified frequency");
-            toolTip1.SetToolTip(this.CalcFreqShowLabel, "Real current synthesizer frequency");
-            toolTip1.SetToolTip(this.FreqAtOut1ShowLabel, "Frequency at the first output of the synthesizer module");
-            toolTip1.SetToolTip(this.FreqAtOut2ShowLabel, "Frequency at the second output of the synthesizer module");
-            toolTip1.SetToolTip(this.ActOut1ShowLabel, "Status of the first output. Click to activate / deactivate");
-            toolTip1.SetToolTip(this.ActOut2ShowLabel, "Status of the second output. Click to activate / deactivate");
-            toolTip1.SetToolTip(this.IntExtShowLabel, "Reference signal source status. Click to switch");
+            toolTip1.SetToolTip(this.InputFreqTextBox, 
+            @"Input field for calculating registers based on the entered frequency. 
+Accepts decimal point and comma. Depending on the cursor position, 
+you can increment, decrement the digit to the left of the cursor.");
+            toolTip1.SetToolTip(this.DeltaShowLabel, 
+            @"Deviation of the real frequency from the specified frequency
+Delta greater than 10 Hz is highlighted in red");
+            toolTip1.SetToolTip(this.CalcFreqShowLabel, 
+            "Calculated actual current synthesizer frequency");
+            toolTip1.SetToolTip(this.FreqAtOut1ShowLabel, 
+            "Frequency at the first output of the synthesizer module");
+            toolTip1.SetToolTip(this.FreqAtOut2ShowLabel, 
+            "Frequency at the second output of the synthesizer module");
+            toolTip1.SetToolTip(this.ActOut1ShowLabel, 
+            @"Status of the first output. 
+Click to activate / deactivate");
+            toolTip1.SetToolTip(this.ActOut2ShowLabel, 
+            @"Status of the second output. 
+Click to activate / deactivate");
+            toolTip1.SetToolTip(this.IntExtShowLabel, 
+            @"Reference signal source status. 
+Click to switch");
 
+            // Set up the ToolTip text for the Register Controls UI elements.
+            toolTip1.SetToolTip(this.Reg0TextBox, 
+            "The value of the 32-bit register 0 in hexadecimal");
+            toolTip1.SetToolTip(this.Reg1TextBox, 
+            "The value of the 32-bit register 1 in hexadecimal");
+            toolTip1.SetToolTip(this.Reg2TextBox, 
+            "The value of the 32-bit register 2 in hexadecimal");
+            toolTip1.SetToolTip(this.Reg3TextBox, 
+            "The value of the 32-bit register 3 in hexadecimal");
+            toolTip1.SetToolTip(this.Reg4TextBox, 
+            "The value of the 32-bit register 4 in hexadecimal");
+            toolTip1.SetToolTip(this.Reg5TextBox, 
+            "The value of the 32-bit register 5 in hexadecimal");
 
+            toolTip1.SetToolTip(this.WriteR0Button, 
+            @"If the entered register value 0 differs from the last one sent, 
+it sends it to the synthesizer module.");
+            toolTip1.SetToolTip(this.WriteR1Button, 
+            @"If the entered register value 1 differs from the last one sent, 
+it sends it to the synthesizer module.");
+            toolTip1.SetToolTip(this.WriteR2Button, 
+            @"If the entered register value 2 differs from the last one sent, 
+it sends it to the synthesizer module.");
+            toolTip1.SetToolTip(this.WriteR3Button, 
+            @"If the entered register value 3 differs from the last one sent, 
+it sends it to the synthesizer module.");
+            toolTip1.SetToolTip(this.WriteR4Button, 
+            @"If the entered register value 4 differs from the last one sent, 
+it sends it to the synthesizer module.");
+            toolTip1.SetToolTip(this.WriteR5Button, 
+            @"If the entered register value 5 differs from the last one sent, 
+it sends it to the synthesizer module.");
+
+            toolTip1.SetToolTip(this.SetAsDefaultRegButton, 
+            @"Sets the currently specified registers as default. 
+Including the registers, the states of the module outputs 
+and the selection of the reference signal are also stored. 
+The default settings are saved in the \conf\default.json file");
+            toolTip1.SetToolTip(this.LoadDefRegButton, 
+            @"Loads previously saved default registers, including output 
+states and reference signal source, into the workspace");
+            toolTip1.SetToolTip(this.SaveIntoFileButton,
+            @"Opens a windows dialog to save the current register settings, 
+including output states and reference signal source");
+            toolTip1.SetToolTip(this.LoadFromFileButton,
+            @"Opens a windows dialog to load the current register settings, 
+including output states and reference signal source");
+            toolTip1.SetToolTip(this.ForceLoadRegButton,
+            @"Forces all registers to be sent to the synthesizer module, 
+including the states of the module outputs and the reference signal source");
+
+            // Set up the ToolTip text for Export to memory tab UI elements.
+            string exportMsgString = 
+            @"Exports the currently set registers, including the status 
+of the outputs and the reference signal source, to the memory tab.";
+            toolTip1.SetToolTip(this.ExportIntoMem1Button, exportMsgString);
+            toolTip1.SetToolTip(this.ExportIntoMem2Button, exportMsgString);
+            toolTip1.SetToolTip(this.ExportIntoMem3Button, exportMsgString);
+            toolTip1.SetToolTip(this.ExportIntoMem4Button, exportMsgString);
+
+            // Set up the ToolTip text for Reference frequency control UI elements.
+            toolTip1.SetToolTip(this.RefFTextBox, 
+            "Frequency of the reference signal source.");
+            toolTip1.SetToolTip(this.RDivUpDown,
+            @"Sets reference divide value (R).
+Double buffered by register 0.
+Register 2, bits 9:0");
+            toolTip1.SetToolTip(this.RefDoublerCheckBox,
+            @"Sets reference doubler mode (DBR). The program will also try to recalculate 
+the N and MOD values so that the output frequency does not change.
+Register 2, bit 25");
+            toolTip1.SetToolTip(this.DivideBy2CheckBox,
+            @"Sets reference divide-by-2 mode (RDIV2. The program will also try to recalculate 
+the N and MOD values so that the output frequency does not change.
+Register 2, bit 24");
+            toolTip1.SetToolTip(this.pfdFreqLabel,
+            @"Frequency at the input of the phase detector");
+            toolTip1.SetToolTip(this.LDSpeedAdjComboBox,
+            @"Lock-detect speed adjustment (LDS)
+Register 2, bit 31");
+            toolTip1.SetToolTip(this.AutoLDSpeedAdjCheckBox,
+            @"If checked, automatically sets the LD speed adjustment according to 
+the current frequency at the input of the phase detector (LDS)");
+
+            // Set up the ToolTip text for Output frequency control UI elements.
+            toolTip1.SetToolTip(this.IntNNumUpDown, 
+            @"Sets integer part (N-divider) of the feedback divider factor. All integer
+values from 16 to 65,535 are allowed for integer mode. Integer values
+from 0 to 15 are not allowed. Integer values from 19 to 4091 are allowed
+for fractional mode.
+Register 0, bits 30:15");
+            toolTip1.SetToolTip(this.FracNNumUpDown, 
+            @"Sets fractional value (FRAC). Integer values from 0 to 4095
+Register 0, bits 14:3");
+            toolTip1.SetToolTip(this.ModNumUpDown, 
+            @"Fractional modulus value (M). Integer values from 2 to 4095 are alowed.
+Double buffered by register 0.
+Register 1, bits 14:3");
+            toolTip1.SetToolTip(this.ModeIntFracComboBox, 
+            @"Int-N or Frac-N Mode Control (INT)
+Register 0, bit 31");
+            toolTip1.SetToolTip(this.ADivComboBox, 
+            @"Sets RFOUT_ output divider mode (ADIV). 
+Double buffered by register 0 when REG4DB = 1.
+Register 4, bits 22:20");
+            toolTip1.SetToolTip(this.PhasePNumericUpDown, 
+            @"Sets phase value. (P). 
+Register 1, bits 26:15");
+            toolTip1.SetToolTip(this.LDFuncComboBox, 
+            @"Sets lock-detect function (LDF) 
+Register 2, bit 8");
+            toolTip1.SetToolTip(this.AutoLDFuncCheckBox, 
+            @"If checked, automatically sets the LD function
+according to the current synthesizer mode");
+            toolTip1.SetToolTip(this.RFoutBPathComboBox, 
+            @"Sets RFOUTB output path select (BDIV).
+Register 4, bit 9");
+            toolTip1.SetToolTip(this.FBPathComboBox, 
+            @"Sets VCO to N counter feedback mode (FB).
+Register 4, bit 23");
+            toolTip1.SetToolTip(this.SigmaDeltaNoiseModeComboBox,
+            @"Sets noise mode (SDN)
+Register 2, bits 30:29");
+
+            // Set up the ToolTip text for Phase detector control UI elements.
+            toolTip1.SetToolTip(this.LDPrecisionComboBox, 
+            @"Sets lock-detect precision (LDP).
+Register 2, bit 7");
+            toolTip1.SetToolTip(this.PfdPolarity, 
+            @"Sets phase detector polarity (PDP).
+Register 2, bit 6");
+
+            // Set up the ToolTip text for Shutdown control UI elements.
+            toolTip1.SetToolTip(this.PloPowerDownCheckBox, 
+            @"Sets power-down mode (SHDN).
+Register 2, bit 5");
+            toolTip1.SetToolTip(this.RefInputShutdownCheckBox, 
+            @"Sets Shutdown Reference input mode (SDREF).
+Register 4, bit 26");
+            toolTip1.SetToolTip(this.PllShutDownCheckBox, 
+            @"Sets Shutdown PLL mode (SDPLL).
+Register 5, bit 25");
+            toolTip1.SetToolTip(this.VcoDividerShutdownCheckBox, 
+            @"Sets Shutdown VCO Divider mode (SDDIV).
+Register 4, bit 27");
+            toolTip1.SetToolTip(this.VcoLdoShutDownCheckBox, 
+            @"Sets Shutdown VCO LDO mode (SDLDO).
+Register 4, bit 28");
+            toolTip1.SetToolTip(this.VcoShutDownCheckBox, 
+            @"Sets VCO Shutdown mode (SDVCO).
+Register 4, bit 11");
+
+            // Set up the ToolTip text for VCO controls UI elements.
+            toolTip1.SetToolTip(this.AutoVcoSelectionCheckBox, 
+            @"Sets VCO auto selection shutdown mode (VAS_SHDN).
+Register 3, bit 25");
+            toolTip1.SetToolTip(this.VASTempCompCheckBox, 
+            @"Sets VCO auto selection response to temperature drift (VAS_TEMP).
+Register 3, bit 24");
+            toolTip1.SetToolTip(this.ManualVCOSelectNumericUpDown, 
+            @"Manual selection of VCO and VCO sub-band when VAS is disabled (VCO).
+Register 3, bits 31:26");
+            toolTip1.SetToolTip(this.BandSelClockDivNumericUpDown, 
+            @"Sets band select clock divider value (BS).
+Register 4, bits 25:24 and 19:12");
+            toolTip1.SetToolTip(this.MuteUntilLockDetectCheckBox, 
+            @"Sets RFOUT Mute until Lock Detect Mode (MTLD).
+Register 4, bit 10");
+            toolTip1.SetToolTip(this.DelayToPreventFlickeringCheckBox, 
+            @"Mute delay (MUTEDEL).
+Register 3, bit 17");
+            toolTip1.SetToolTip(this.ClockDividerNumericUpDown, 
+            @"Sets 12-bit clock divider value (CDIV).
+Register 3, bits 14:3");
+            toolTip1.SetToolTip(this.AutoCDIVCalcCheckBox, 
+            @"If checked, the CDIV value for the specified delay is automatically calculated.");
+            toolTip1.SetToolTip(this.DelayInputNumericUpDown, 
+            @"Output activation delay setpoint in milliseconds.");
+
+            // Set up the ToolTip text for Charge pump controls UI elements.
+            toolTip1.SetToolTip(this.RSetTextBox, 
+            @"An integer value of the resistor RSET that sets 
+the maximum current of the charge pump.");
+            toolTip1.SetToolTip(this.CPCurrentComboBox, 
+            @"Sets charge-pump current in mA (CP). 
+Double buffered by register 0.
+Register 2, bits 12:9");    
+            toolTip1.SetToolTip(this.CPLinearityComboBox, 
+            @"Sets CP linearity mode (CPL)
+Register 1, bits 30:29");
+            toolTip1.SetToolTip(this.CPTestComboBox, 
+            @"Sets charge-pump test modes (CPT)
+Register 1, bits 28:27");
+            toolTip1.SetToolTip(this.CPFastLockCheckBox, 
+            @"Sets clock divider mode for Fast-lock (CDM)
+Register 3, bits 16:15 = '01'");
+            toolTip1.SetToolTip(this.PhaseAdjustmentModeCheckbox, 
+            @"Sets clock divider mode for Phase Adjustment mode (CDM)
+Register 3, bits 16:15 = '10'");
+            toolTip1.SetToolTip(this.CPTriStateOutCheckBox, 
+            @"Sets charge-pump output high-impedance mode (TRI)
+Register 2, bit 4");
+            toolTip1.SetToolTip(this.CPCycleSlipCheckBox, 
+            @"Cycle Slip Reduction Mode
+Register 3, bit 18");
+
+            // Set up the ToolTip text for Generic controls UI elements.
+            toolTip1.SetToolTip(this.MuxPinModeCombobox, 
+            @"Sets MUX pin configuration (MUX)
+Register 2, bits 28:26");
+            toolTip1.SetToolTip(this.Reg4DoubleBufferedCheckBox, 
+            @"Sets double buffer mode (REG4DB)
+Register 2, bit 13");
+            toolTip1.SetToolTip(this.IntNAutoModeWhenF0CheckBox, 
+            @"Sets integer mode for F = 0 (F01)
+Register 5, bit 24");
+            toolTip1.SetToolTip(this.RandNCountersResetCheckBox, 
+            @"Sets counter reset mode (RST)
+Register 2, bit 3");
+
+            // Set up the ToolTip text for Output controls UI elements.
+            toolTip1.SetToolTip(this.OutAEn_ComboBox, 
+            @"Sets RFOUTA output mode (RFA_EN)
+Register 4, bit 5");
+            toolTip1.SetToolTip(this.OutBEn_ComboBox, 
+            @"Sets RFOUTB output mode (RFB_EN)
+Register 4, bit 8");
+            toolTip1.SetToolTip(this.OutAPwr_ComboBox, 
+            @"Sets RFOUTA single-ended output power. (APWR)
+Register 4, bits 7:6");
+            toolTip1.SetToolTip(this.OutBPwr_ComboBox, 
+            @"Sets RFOUTB single-ended output power. (BPWR)
+Register 4, bits 4:3");
+
+            // Set up the ToolTip text for Output frequency info UI elements.
+            toolTip1.SetToolTip(this.fVcoScreenLabel, 
+            "Frequency at the VCO output");
+            toolTip1.SetToolTip(this.fVcoLabel, 
+            "Frequency at the VCO output");
+            toolTip1.SetToolTip(this.fOutAScreenLabel, 
+            "Frequency at the RF synthesizer output A");
+            toolTip1.SetToolTip(this.fOutALabel, 
+            "Frequency at the RF synthesizer output A");
+            toolTip1.SetToolTip(this.fOutBScreenLabel, 
+            "Frequency at the RF synthesizer output B");
+            toolTip1.SetToolTip(this.fOutBLabel, 
+            "Frequency at the RF synthesizer output B");
+
+            // Set up the ToolTip text for Register 6 control UI elements.
+            toolTip1.SetToolTip(this.ADCModeComboBox, 
+            @"Sets ADC mode (ADCM)
+Register 5, bits 5:3");
+            toolTip1.SetToolTip(this.GetADCValueButton, 
+            @"Sends a command to the synthesizer module to read 
+the ADC value according to the mode set above");
+            toolTip1.SetToolTip(this.ReadedADCValueTextBox, 
+            @"Readed temperature or tuning voltage
+It depends on the set ADC mode");
+            toolTip1.SetToolTip(this.GetCurrentVCOButton, 
+            @"Sends a command to the synthesizer module 
+to read the number of the currently used VCO.");
+            toolTip1.SetToolTip(this.ReadedVCOValueTextBox, 
+            @"The number of the currently used VCO.");
+
+            // Set up the ToolTip text for Register memory control UI elements.
+            toolTip1.SetToolTip(this.R0M1, 
+            "The value of the 32-bit register 0 of memory 1 in hexadecimal");
+            toolTip1.SetToolTip(this.R1M1, 
+            "The value of the 32-bit register 1 of memory 1 in hexadecimal");
+            toolTip1.SetToolTip(this.R2M1, 
+            "The value of the 32-bit register 2 of memory 1 in hexadecimal");
+            toolTip1.SetToolTip(this.R3M1, 
+            "The value of the 32-bit register 3 of memory 1 in hexadecimal");
+            toolTip1.SetToolTip(this.R4M1, 
+            "The value of the 32-bit register 4 of memory 1 in hexadecimal");
+            toolTip1.SetToolTip(this.R5M1, 
+            "The value of the 32-bit register 5 of memory 1 in hexadecimal");
+            toolTip1.SetToolTip(this.R0M2, 
+            "The value of the 32-bit register 0 of memory 2 in hexadecimal");
+            toolTip1.SetToolTip(this.R1M2, 
+            "The value of the 32-bit register 1 of memory 2 in hexadecimal");
+            toolTip1.SetToolTip(this.R2M2, 
+            "The value of the 32-bit register 2 of memory 2 in hexadecimal");
+            toolTip1.SetToolTip(this.R3M2, 
+            "The value of the 32-bit register 3 of memory 2 in hexadecimal");
+            toolTip1.SetToolTip(this.R4M2, 
+            "The value of the 32-bit register 4 of memory 2 in hexadecimal");
+            toolTip1.SetToolTip(this.R5M2, 
+            "The value of the 32-bit register 5 of memory 2 in hexadecimal");
+            toolTip1.SetToolTip(this.R0M3, 
+            "The value of the 32-bit register 0 of memory 3 in hexadecimal");
+            toolTip1.SetToolTip(this.R1M3, 
+            "The value of the 32-bit register 1 of memory 3 in hexadecimal");
+            toolTip1.SetToolTip(this.R2M3, 
+            "The value of the 32-bit register 2 of memory 3 in hexadecimal");
+            toolTip1.SetToolTip(this.R3M3, 
+            "The value of the 32-bit register 3 of memory 3 in hexadecimal");
+            toolTip1.SetToolTip(this.R4M3, 
+            "The value of the 32-bit register 4 of memory 3 in hexadecimal");
+            toolTip1.SetToolTip(this.R5M3, 
+            "The value of the 32-bit register 5 of memory 3 in hexadecimal");
+            toolTip1.SetToolTip(this.R0M4, 
+            "The value of the 32-bit register 0 of memory 4 in hexadecimal");
+            toolTip1.SetToolTip(this.R1M4, 
+            "The value of the 32-bit register 1 of memory 4 in hexadecimal");
+            toolTip1.SetToolTip(this.R2M4, 
+            "The value of the 32-bit register 2 of memory 4 in hexadecimal");
+            toolTip1.SetToolTip(this.R3M4, 
+            "The value of the 32-bit register 3 of memory 4 in hexadecimal");
+            toolTip1.SetToolTip(this.R4M4, 
+            "The value of the 32-bit register 4 of memory 4 in hexadecimal");
+            toolTip1.SetToolTip(this.R5M4, 
+            "The value of the 32-bit register 5 of memory 4 in hexadecimal");
+
+            toolTip1.SetToolTip(this.Mem1ActOut1ShowLabel, 
+            @"Status of the first synthesizer module output for memory 1. 
+Click to activate / deactivate");
+            toolTip1.SetToolTip(this.Mem1ActOut2ShowLabel, 
+            @"Status of the second synthesizer module output for memory 1. 
+Click to activate / deactivate");
+            toolTip1.SetToolTip(this.Mem1RefShowLabel, 
+            @"Reference signal source status for memory 1. 
+Click to switch");
+            toolTip1.SetToolTip(this.Mem2ActOut1ShowLabel, 
+            @"Status of the first synthesizer module output for memory 2. 
+Click to activate / deactivate");
+            toolTip1.SetToolTip(this.Mem2ActOut2ShowLabel, 
+            @"Status of the second synthesizer module output for memory 2. 
+Click to activate / deactivate");
+            toolTip1.SetToolTip(this.Mem2RefShowLabel, 
+            @"Reference signal source status for memory 2. 
+Click to switch");
+            toolTip1.SetToolTip(this.Mem3ActOut1ShowLabel, 
+            @"Status of the first synthesizer module output for memory 3. 
+Click to activate / deactivate");
+            toolTip1.SetToolTip(this.Mem3ActOut2ShowLabel, 
+            @"Status of the second synthesizer module output for memory 3. 
+Click to activate / deactivate");
+            toolTip1.SetToolTip(this.Mem3RefShowLabel, 
+            @"Reference signal source status for memory 3. 
+Click to switch");
+            toolTip1.SetToolTip(this.Mem4ActOut1ShowLabel, 
+            @"Status of the first synthesizer module output for memory 4. 
+Click to activate / deactivate");
+            toolTip1.SetToolTip(this.Mem4ActOut2ShowLabel, 
+            @"Status of the second synthesizer module output for memory 4. 
+Click to activate / deactivate");
+            toolTip1.SetToolTip(this.Mem4RefShowLabel, 
+            @"Reference signal source status for memory 4. 
+Click to switch");
+
+            toolTip1.SetToolTip(this.Mem1Freq1ShowLabel, 
+            "Frequency that will be on output 1 for memory 1.");
+            toolTip1.SetToolTip(this.Mem1Freq2ShowLabel, 
+            "Frequency that will be on output 2 for memory 1.");
+            toolTip1.SetToolTip(this.Mem1PwrAShowLabel, 
+            "Power at output A of the MAX2871 circuit for memory 1.");
+            toolTip1.SetToolTip(this.Mem1PwrBShowLabel, 
+            "Power at output B of the MAX2871 circuit for memory 1.");
+            toolTip1.SetToolTip(this.Mem2Freq1ShowLabel, 
+            "Frequency that will be on output 1 for memory 2.");
+            toolTip1.SetToolTip(this.Mem2Freq2ShowLabel, 
+            "Frequency that will be on output 2 for memory 2.");
+            toolTip1.SetToolTip(this.Mem2PwrAShowLabel, 
+            "Power at output A of the MAX2871 circuit for memory 2.");
+            toolTip1.SetToolTip(this.Mem2PwrBShowLabel, 
+            "Power at output B of the MAX2871 circuit for memory 2.");
+            toolTip1.SetToolTip(this.Mem3Freq1ShowLabel, 
+            "Frequency that will be on output 1 for memory 3.");
+            toolTip1.SetToolTip(this.Mem3Freq2ShowLabel, 
+            "Frequency that will be on output 2 for memory 3.");
+            toolTip1.SetToolTip(this.Mem3PwrAShowLabel, 
+            "Power at output A of the MAX2871 circuit for memory 3.");
+            toolTip1.SetToolTip(this.Mem3PwrBShowLabel, 
+            "Power at output B of the MAX2871 circuit for memory 3.");
+            toolTip1.SetToolTip(this.Mem4Freq1ShowLabel, 
+            "Frequency that will be on output 1 for memory 4.");
+            toolTip1.SetToolTip(this.Mem4Freq2ShowLabel, 
+            "Frequency that will be on output 2 for memory 4.");
+            toolTip1.SetToolTip(this.Mem4PwrAShowLabel, 
+            "Power at output A of the MAX2871 circuit for memory 4.");
+            toolTip1.SetToolTip(this.Mem4PwrBShowLabel, 
+            "Power at output B of the MAX2871 circuit for memory 4.");
         }
 
         /// <summary>

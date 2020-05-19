@@ -2295,7 +2295,7 @@ namespace Synthesizer_PC_control
             this.SynthOutputsInfoGroupBox.Size = new System.Drawing.Size(520, 173);
             this.SynthOutputsInfoGroupBox.TabIndex = 1;
             this.SynthOutputsInfoGroupBox.TabStop = false;
-            this.SynthOutputsInfoGroupBox.Text = "Synthesizer Outputs Info";
+            this.SynthOutputsInfoGroupBox.Text = "Synthesizer outputs info for each memory";
             // 
             // label13
             // 
@@ -2555,7 +2555,7 @@ namespace Synthesizer_PC_control
             this.SyntModuleControlsGroupBox.Size = new System.Drawing.Size(520, 136);
             this.SyntModuleControlsGroupBox.TabIndex = 24;
             this.SyntModuleControlsGroupBox.TabStop = false;
-            this.SyntModuleControlsGroupBox.Text = "Synthesizer Module Controls";
+            this.SyntModuleControlsGroupBox.Text = "Synthesizer module controls for each memory";
             // 
             // label3
             // 
@@ -2801,7 +2801,7 @@ namespace Synthesizer_PC_control
             this.RegMemoryGroupBox.Size = new System.Drawing.Size(520, 221);
             this.RegMemoryGroupBox.TabIndex = 0;
             this.RegMemoryGroupBox.TabStop = false;
-            this.RegMemoryGroupBox.Text = "Registers Memory";
+            this.RegMemoryGroupBox.Text = "Register controls for each memory";
             // 
             // SavReg0Label
             // 
