@@ -1011,8 +1011,6 @@ memories to a file on your computer.");
         private void PortButton_Click(object sender, EventArgs e)
         {
             EnableControls(controller.SwitchPort());
-            if (controller.moduleControls.GetIntRefState())
-                RefFTextBox.Enabled = false;
             if (AutoLDSpeedAdjCheckBox.Checked)
                 LDSpeedAdjComboBox.Enabled = false;
             if (AutoLDFuncCheckBox.Checked)

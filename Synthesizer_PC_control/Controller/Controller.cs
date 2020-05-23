@@ -298,7 +298,7 @@ namespace Synthesizer_PC_control.Controllers
             else
             {
                 serialPort.SendStringSerialPort("ref int");
-                refFreq.SetRefFreqValue(10);    // sets fix 10 MHz frequency
+                refFreq.SetRefFreqValue(10);    // preset fix 10 MHz frequency
                 vcoControls.CalcBandSelClockDivValue(10);   // recalc band select clock divider
                 refFreq.SetIntRefInpEnabled(false); // disable UI element
                 moduleControls.SetIntRef(true);

@@ -140,7 +140,6 @@ namespace Synthesizer_PC_control.Model
             ui_pfdFreqShowLabel.Text = pfdFreq.ToString("0.000 000");
             ui_autoLdSpeedAdj.Checked = autoLdSpeedAdj;
             ui_LDSpeedAdj.SelectedIndex = LDSpeedAdjIndex;
-            ui_refInFreq.Enabled = intRefState;
 
             if (intRefState)
                 ui_internalRefLabel.Text = "External";
