@@ -211,11 +211,10 @@ namespace Synthesizer_PC_control.Model
             } 
             catch 
             { 
+                ClosePort(); 
                 MessageBox.Show(cannotOpenPortMsg[0], cannotOpenPortMsg[1], 
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ConsoleController.Console().Write("Warning: " + cannotOpenPortMsg[0]);
- 
-                ClosePort(); 
  
                 UpdateUiElements();
                 return false; 
@@ -232,15 +231,17 @@ namespace Synthesizer_PC_control.Model
             try {
                 port.DtrEnable = false;
                 port.RtsEnable = false;
-                port.DiscardInBuffer();
-                port.DiscardOutBuffer();
+                if (port.IsOpen) {
+                    port.DiscardInBuffer();
+                    port.DiscardOutBuffer();
+                }
                 port.Close(); 
                 port.Dispose(); 
                 port = null; 
             }
             catch
             {
-
+                ConsoleController.Console().Write("Error when closing port!");
             }
  
             UpdateUiElements(); 
