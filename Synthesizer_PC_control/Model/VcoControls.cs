@@ -125,6 +125,10 @@ namespace Synthesizer_PC_control.Model
             this.ui_DelayLabel.Text                 = delayMsValue.ToString("#### ms");
             this.ui_AutoCDIVCalc.Checked            = autoCdivCalc;
             this.ui_DelayInput.Value                = delayInput;
+            ui_AutoVcoSelection.Invalidate();
+            ui_AutoVcoSelection.Update();
+            ui_AutoVcoSelection.Refresh();
+            Application.DoEvents();
         }
 
         #region Setters
@@ -153,8 +157,8 @@ namespace Synthesizer_PC_control.Model
                     ui_VASTempCom.Enabled = false;
                 }
 
-                UpdateUiElements();
             }
+                UpdateUiElements();
         }
 
         /// <summary>

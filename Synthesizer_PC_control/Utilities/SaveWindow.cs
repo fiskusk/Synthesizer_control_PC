@@ -100,7 +100,9 @@ namespace Synthesizer_PC_control.Utilities
         /// <summary>
         /// ADC Mode index (0 - temperature mode, 1 - Tune pin)
         /// </summary>
-        public int AdcModeIndex { get; set; } 
+        public int AdcModeIndex { get; set; }
+
+        public decimal VcoFreqStep { get; set; }
 
         /// <summary>
         /// It include default values for SaveWindow
@@ -170,7 +172,8 @@ namespace Synthesizer_PC_control.Utilities
                 AutoLDFunc = true,
                 AutoCDIVFunc = true,
                 DelayInput = 20,
-                AdcModeIndex = 0
+                AdcModeIndex = 0,
+                VcoFreqStep = 1000
             };
 
             return saved;

@@ -74,6 +74,8 @@
     <Compile Include="Model\Shutdowns.cs" />
     <Compile Include="Model\VcoControls.cs" />
     <Compile Include="Model\ReadRegister.cs" />
+    <Compile Include="Model\VcoCalibration.cs" />
+    <Compile Include="Model\MyStatusStrip.cs" />
     <Compile Include="Utilities\BitOperations.cs" />
     <Compile Include="Utilities\GeneralUtilities.cs" />
     <Compile Include="Utilities\Fractions.cs" />

@@ -344,5 +344,117 @@ namespace Synthesizer_PC_control.Utilities
 
     #endregion
 
+    #region VCO Calibration
+        public static bool VcoCalibDataFileExist()
+        {
+            string fileName = GetFileNamePath(@"vcoCalibration.txt");
+            return File.Exists(fileName);
+        }
+        public static bool DeleteVcoCalibData()
+        {
+            try
+            {
+                string fileName = GetFileNamePath(@"vcoCalibration.txt");
+                File.Delete(fileName);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool SaveVcoCalibData(decimal frequency, UInt16 vco, decimal frequencyStep)
+        {
+            try
+            {
+                string fileName = GetFileNamePath(@"vcoCalibration.txt");
+
+                if (!File.Exists(fileName))
+                {
+                    // Create a file to write to.
+                    using (StreamWriter sw = File.CreateText(fileName))
+                    {
+                        sw.WriteLine("#FreqMin = \t3000\tMHz");
+                        sw.WriteLine("#FreqMax = \t6000\tMHz");
+                        sw.WriteLine("#FreqStep = \t" + frequencyStep.ToString("0.000") + "\tMHz");
+                        sw.WriteLine("#");
+                        sw.WriteLine("#Freq\t\tVCO-ID");
+                    }	
+                }
+
+                using (StreamWriter sw = File.AppendText(fileName))
+                {
+                    sw.WriteLine(frequency.ToString("0.000") + "\t" + vco.ToString());
+                }	
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool LoadVcoCalibrationData(out decimal[] calibrationData)
+        {
+            calibrationData = new decimal[0];
+            try
+            {
+                string fileName = GetFileNamePath(@"vcoCalibration.txt");
+                if (File.Exists(fileName))
+                {
+                    decimal freqMin = 0;    // MHz
+                    decimal freqMax = 0;    // MHz
+                    decimal freqStep = 0;   // MHz
+                    UInt16 headerLines = 0;
+                    int calibTableLine = 0;
+
+                    foreach (string line in File.ReadLines(fileName))
+                    {
+                        string[] separrated;
+                        if (line.Contains("#"))
+                        {
+                            headerLines++;
+                            if (line.Contains("#FreqMin"))
+                            {
+                                separrated = line.Split('\t');
+                                freqMin = Convert.ToDecimal(separrated[1]);
+                            }
+                            else if (line.Contains("#FreqMax"))
+                            {
+                                separrated = line.Split('\t');
+                                freqMax = Convert.ToDecimal(separrated[1]);
+                            }
+                            else if (line.Contains("#FreqStep"))
+                            {
+                                separrated = line.Split('\t');
+                                freqStep = Convert.ToDecimal(separrated[1]);
+                                calibrationData = new decimal[Convert.ToInt32((freqMax-freqMin)/freqStep) + 1 + 3];
+                                calibrationData[0] = freqMin;
+                                calibrationData[1] = freqMax;
+                                calibrationData[2] = freqStep;
+                            }
+                        }
+                        else 
+                        {
+                            separrated = line.Split('\t');
+                            calibrationData[calibTableLine+3] =  Convert.ToDecimal(separrated[1]);
+                            calibTableLine++;
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+    #endregion
     }
 }

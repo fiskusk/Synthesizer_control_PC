@@ -12,6 +12,7 @@ namespace Synthesizer_PC_control
         private Controller controller;
         private bool isForm1Load;
         bool windowInitialized;
+        static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
 
         public Form1()
         {
@@ -26,6 +27,29 @@ namespace Synthesizer_PC_control
             controller.LoadSavedWorkspaceData();    // load workspace data
             isForm1Load = true;
             EnableControls(false);
+
+            /* Adds the event and the event handler for the method that will 
+                process the timer event to the timer. */
+            myTimer.Tick += new EventHandler(TimerEventProcessor);
+        
+            // Sets the timer interval to 5 seconds.
+            myTimer.Interval = 2000;
+            myTimer.Start();
+        }
+
+        public void SendTemperatureQuery()
+        {
+            if (isForm1Load == true)
+                controller.serialPort.SendStringSerialPortWOLogging("mcu temp?");
+        }
+
+        // This is the method to run when the timer is raised.
+        private void TimerEventProcessor(Object myObject,
+                                                EventArgs myEventArgs) 
+        {
+            myTimer.Stop();
+            SendTemperatureQuery();
+            myTimer.Enabled = true;
         }
 
         private void InitializeToolTip()
@@ -240,7 +264,7 @@ Register 3, bit 24");
             @"Manual selection of VCO and VCO sub-band when VAS is disabled (VCO).
 Register 3, bits 31:26");
             toolTip1.SetToolTip(this.BandSelClockDivNumericUpDown, 
-            @"Sets band select clock divider value (BS).
+            @"Sets band select clock divider value (BS). BS=f_PFD/50kHz.
 Register 4, bits 25:24 and 19:12");
             toolTip1.SetToolTip(this.MuteUntilLockDetectCheckBox, 
             @"Sets RFOUT Mute until Lock Detect Mode (MTLD).
@@ -788,6 +812,8 @@ memories to a file on your computer.");
             Mem2PwrBShowLabel.Enabled   = command;
             Mem3PwrBShowLabel.Enabled   = command;
             Mem4PwrBShowLabel.Enabled   = command;
+            FreqStepTextBox.Enabled     = command;
+            PerformVcoCalibrationButton.Enabled = command;
         }
 
         /// <summary>
@@ -800,27 +826,27 @@ memories to a file on your computer.");
             try
             {
                 string text = controller.serialPort.ReadLine();     // read line of new data
-                ConsoleController.Console().Write(text);            // write actual readed data
+                if (!text.Contains("mcu temp"))
+                    ConsoleController.Console().Write(text);            // write actual readed data
                 // Displays the synthesizer locked status information into 
                 // the status strip. Also shows LedOn or LedOff picture
                 if (text == "plo locked")
                 {
-                    toolStripStatusLabel1.Text = "        plo is locked";
-                    LedOnPicBox.Visible = true;
-                    LedOffPicBox.Visible = false;
+                    controller.statusStrip.SetLockStatus(Model.MyStatusStrip.LockStatus.Locked);
 
                 }
                 else if (text == "plo isn't locked")
                 {
-                    toolStripStatusLabel1.Text = "        plo isn't locked!";
-                    LedOnPicBox.Visible = false;
-                    LedOffPicBox.Visible = true;
+                    controller.statusStrip.SetLockStatus(Model.MyStatusStrip.LockStatus.Unlocked);
                 }
                 else if (text == "plo state is not known")
                 {
-                    toolStripStatusLabel1.Text = "        plo state is not known";
-                    LedOnPicBox.Visible = false;
-                    LedOffPicBox.Visible = true;
+                    controller.statusStrip.SetLockStatus(Model.MyStatusStrip.LockStatus.Unknown);
+                }
+                else if (text.Contains("mcu temp"))
+                {
+                    string[] sepparated = text.Split(' ');
+                    controller.statusStrip.SetTemperature(sepparated[2]);
                 }
                 else
                 {
@@ -883,6 +909,7 @@ memories to a file on your computer.");
                             UInt32 reg6 = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);
                             UInt16 currentVCO = (UInt16)Utilities.BitOperations.GetNBits(reg6, 6, 3);
                             controller.readRegister.SetReadedCurrentVCO(currentVCO.ToString());
+                            controller.vcoCalibration.SetReadedCurrentVCO(currentVCO);
                             break;
                         case "register6_temp":
                              // readed temperature 
@@ -1498,5 +1525,22 @@ memories to a file on your computer.");
 
         #endregion
 
+#region Vco Calibration
+        private void PerformVcoCalibrationButton_Click(object sender, EventArgs e)
+        {
+            controller.PerformVcoCalibration();
+        }
+
+        private void FreqStepTextBox_TextChanged(object sender, EventArgs e)
+        {
+            controller.vcoCalibration.SetFrequencyStep(Convert.ToDecimal(FreqStepTextBox.Text));
+        }
+
+        #endregion
+
+        private void AbortCallibration_Click(object sender, EventArgs e)
+        {
+            controller.AbortVcoCalibration();
+        }
     }
 }

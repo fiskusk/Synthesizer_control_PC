@@ -268,6 +268,23 @@ namespace Synthesizer_PC_control
             this.MemSaveIntoFileButton = new System.Windows.Forms.Button();
             this.LoadRegMemory = new System.Windows.Forms.Button();
             this.SaveRegMemory = new System.Windows.Forms.Button();
+            this.VcoCalibrationTabPage = new System.Windows.Forms.TabPage();
+            this.CurrentVcoShowLabel = new System.Windows.Forms.Label();
+            this.ActFreqShowLabel = new System.Windows.Forms.Label();
+            this.VcoFreqMaxTextBox = new System.Windows.Forms.TextBox();
+            this.CurrentVcoLabel = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.ActFreqLabel = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.VcoFreqMaxLabel = new System.Windows.Forms.Label();
+            this.VcoFreqMinTextBox = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.VcoFreqMinLabel = new System.Windows.Forms.Label();
+            this.AbortCallibrationButton = new System.Windows.Forms.Button();
+            this.PerformVcoCalibrationButton = new System.Windows.Forms.Button();
+            this.FreqStepTextBox = new System.Windows.Forms.TextBox();
+            this.MHzLable = new System.Windows.Forms.Label();
+            this.FreqStepLabel = new System.Windows.Forms.Label();
             this.RegistersGroupBox = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -324,6 +341,7 @@ namespace Synthesizer_PC_control
             this.SynthOutputsInfoGroupBox.SuspendLayout();
             this.SyntModuleControlsGroupBox.SuspendLayout();
             this.RegMemoryGroupBox.SuspendLayout();
+            this.VcoCalibrationTabPage.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.DirectFreqContrGroupBox.SuspendLayout();
             this.SynthModuleInfoGroupBox.SuspendLayout();
@@ -646,6 +664,7 @@ namespace Synthesizer_PC_control
             // 
             this.RegistersTabControl.Controls.Add(this.RegistersPage);
             this.RegistersTabControl.Controls.Add(this.RegistersMemoryPage);
+            this.RegistersTabControl.Controls.Add(this.VcoCalibrationTabPage);
             this.RegistersTabControl.Location = new System.Drawing.Point(352, 23);
             this.RegistersTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.RegistersTabControl.Name = "RegistersTabControl";
@@ -3289,6 +3308,200 @@ namespace Synthesizer_PC_control
             this.SaveRegMemory.UseVisualStyleBackColor = true;
             this.SaveRegMemory.Click += new System.EventHandler(this.SaveRegMemory_Click);
             // 
+            // VcoCalibrationTabPage
+            // 
+            this.VcoCalibrationTabPage.Controls.Add(this.CurrentVcoShowLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.ActFreqShowLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.VcoFreqMaxTextBox);
+            this.VcoCalibrationTabPage.Controls.Add(this.CurrentVcoLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.label14);
+            this.VcoCalibrationTabPage.Controls.Add(this.ActFreqLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.label15);
+            this.VcoCalibrationTabPage.Controls.Add(this.VcoFreqMaxLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.VcoFreqMinTextBox);
+            this.VcoCalibrationTabPage.Controls.Add(this.label16);
+            this.VcoCalibrationTabPage.Controls.Add(this.VcoFreqMinLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.AbortCallibrationButton);
+            this.VcoCalibrationTabPage.Controls.Add(this.PerformVcoCalibrationButton);
+            this.VcoCalibrationTabPage.Controls.Add(this.FreqStepTextBox);
+            this.VcoCalibrationTabPage.Controls.Add(this.MHzLable);
+            this.VcoCalibrationTabPage.Controls.Add(this.FreqStepLabel);
+            this.VcoCalibrationTabPage.Location = new System.Drawing.Point(4, 25);
+            this.VcoCalibrationTabPage.Name = "VcoCalibrationTabPage";
+            this.VcoCalibrationTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.VcoCalibrationTabPage.Size = new System.Drawing.Size(709, 818);
+            this.VcoCalibrationTabPage.TabIndex = 2;
+            this.VcoCalibrationTabPage.Text = "VCO Calibration";
+            this.VcoCalibrationTabPage.UseVisualStyleBackColor = true;
+            // 
+            // CurrentVcoShowLabel
+            // 
+            this.CurrentVcoShowLabel.Location = new System.Drawing.Point(382, 427);
+            this.CurrentVcoShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CurrentVcoShowLabel.Name = "CurrentVcoShowLabel";
+            this.CurrentVcoShowLabel.Size = new System.Drawing.Size(112, 16);
+            this.CurrentVcoShowLabel.TabIndex = 32;
+            this.CurrentVcoShowLabel.Text = "-";
+            this.CurrentVcoShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ActFreqShowLabel
+            // 
+            this.ActFreqShowLabel.Location = new System.Drawing.Point(382, 404);
+            this.ActFreqShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ActFreqShowLabel.Name = "ActFreqShowLabel";
+            this.ActFreqShowLabel.Size = new System.Drawing.Size(112, 16);
+            this.ActFreqShowLabel.TabIndex = 33;
+            this.ActFreqShowLabel.Text = "-";
+            this.ActFreqShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // VcoFreqMaxTextBox
+            // 
+            this.VcoFreqMaxTextBox.BackColor = System.Drawing.Color.White;
+            this.VcoFreqMaxTextBox.Enabled = false;
+            this.VcoFreqMaxTextBox.Location = new System.Drawing.Point(385, 358);
+            this.VcoFreqMaxTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.VcoFreqMaxTextBox.MaxLength = 17;
+            this.VcoFreqMaxTextBox.Name = "VcoFreqMaxTextBox";
+            this.VcoFreqMaxTextBox.ReadOnly = true;
+            this.VcoFreqMaxTextBox.Size = new System.Drawing.Size(109, 22);
+            this.VcoFreqMaxTextBox.TabIndex = 26;
+            this.VcoFreqMaxTextBox.Text = "6000";
+            this.VcoFreqMaxTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // CurrentVcoLabel
+            // 
+            this.CurrentVcoLabel.Location = new System.Drawing.Point(169, 426);
+            this.CurrentVcoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CurrentVcoLabel.Name = "CurrentVcoLabel";
+            this.CurrentVcoLabel.Size = new System.Drawing.Size(209, 16);
+            this.CurrentVcoLabel.TabIndex = 29;
+            this.CurrentVcoLabel.Text = "Current VCO:";
+            this.CurrentVcoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(500, 403);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(40, 17);
+            this.label14.TabIndex = 27;
+            this.label14.Text = "MHz";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ActFreqLabel
+            // 
+            this.ActFreqLabel.Location = new System.Drawing.Point(169, 403);
+            this.ActFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ActFreqLabel.Name = "ActFreqLabel";
+            this.ActFreqLabel.Size = new System.Drawing.Size(209, 16);
+            this.ActFreqLabel.TabIndex = 30;
+            this.ActFreqLabel.Text = "Actual Frequency:";
+            this.ActFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label15
+            // 
+            this.label15.Location = new System.Drawing.Point(500, 361);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(40, 17);
+            this.label15.TabIndex = 28;
+            this.label15.Text = "MHz";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // VcoFreqMaxLabel
+            // 
+            this.VcoFreqMaxLabel.Location = new System.Drawing.Point(169, 361);
+            this.VcoFreqMaxLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.VcoFreqMaxLabel.Name = "VcoFreqMaxLabel";
+            this.VcoFreqMaxLabel.Size = new System.Drawing.Size(209, 16);
+            this.VcoFreqMaxLabel.TabIndex = 31;
+            this.VcoFreqMaxLabel.Text = "MAX2871 VCO Frequency Max:";
+            this.VcoFreqMaxLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // VcoFreqMinTextBox
+            // 
+            this.VcoFreqMinTextBox.BackColor = System.Drawing.Color.White;
+            this.VcoFreqMinTextBox.Enabled = false;
+            this.VcoFreqMinTextBox.Location = new System.Drawing.Point(385, 332);
+            this.VcoFreqMinTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.VcoFreqMinTextBox.MaxLength = 17;
+            this.VcoFreqMinTextBox.Name = "VcoFreqMinTextBox";
+            this.VcoFreqMinTextBox.ReadOnly = true;
+            this.VcoFreqMinTextBox.Size = new System.Drawing.Size(109, 22);
+            this.VcoFreqMinTextBox.TabIndex = 23;
+            this.VcoFreqMinTextBox.Text = "3000";
+            this.VcoFreqMinTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(500, 335);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(40, 17);
+            this.label16.TabIndex = 24;
+            this.label16.Text = "MHz";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // VcoFreqMinLabel
+            // 
+            this.VcoFreqMinLabel.Location = new System.Drawing.Point(169, 335);
+            this.VcoFreqMinLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.VcoFreqMinLabel.Name = "VcoFreqMinLabel";
+            this.VcoFreqMinLabel.Size = new System.Drawing.Size(209, 16);
+            this.VcoFreqMinLabel.TabIndex = 25;
+            this.VcoFreqMinLabel.Text = "MAX 2871 VCO Frequency Min:";
+            this.VcoFreqMinLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // AbortCallibrationButton
+            // 
+            this.AbortCallibrationButton.Enabled = false;
+            this.AbortCallibrationButton.Location = new System.Drawing.Point(385, 458);
+            this.AbortCallibrationButton.Name = "AbortCallibrationButton";
+            this.AbortCallibrationButton.Size = new System.Drawing.Size(125, 54);
+            this.AbortCallibrationButton.TabIndex = 21;
+            this.AbortCallibrationButton.Text = "Abort";
+            this.AbortCallibrationButton.UseVisualStyleBackColor = true;
+            this.AbortCallibrationButton.Click += new System.EventHandler(this.AbortCallibration_Click);
+            // 
+            // PerformVcoCalibrationButton
+            // 
+            this.PerformVcoCalibrationButton.Location = new System.Drawing.Point(204, 458);
+            this.PerformVcoCalibrationButton.Name = "PerformVcoCalibrationButton";
+            this.PerformVcoCalibrationButton.Size = new System.Drawing.Size(125, 54);
+            this.PerformVcoCalibrationButton.TabIndex = 22;
+            this.PerformVcoCalibrationButton.Text = "Perform VCO calibration";
+            this.PerformVcoCalibrationButton.UseVisualStyleBackColor = true;
+            this.PerformVcoCalibrationButton.Click += new System.EventHandler(this.PerformVcoCalibrationButton_Click);
+            // 
+            // FreqStepTextBox
+            // 
+            this.FreqStepTextBox.BackColor = System.Drawing.Color.White;
+            this.FreqStepTextBox.Location = new System.Drawing.Point(385, 306);
+            this.FreqStepTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.FreqStepTextBox.MaxLength = 17;
+            this.FreqStepTextBox.Name = "FreqStepTextBox";
+            this.FreqStepTextBox.Size = new System.Drawing.Size(109, 22);
+            this.FreqStepTextBox.TabIndex = 18;
+            this.FreqStepTextBox.Text = "1000";
+            this.FreqStepTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.FreqStepTextBox.TextChanged += new System.EventHandler(this.FreqStepTextBox_TextChanged);
+            // 
+            // MHzLable
+            // 
+            this.MHzLable.Location = new System.Drawing.Point(500, 309);
+            this.MHzLable.Name = "MHzLable";
+            this.MHzLable.Size = new System.Drawing.Size(40, 17);
+            this.MHzLable.TabIndex = 19;
+            this.MHzLable.Text = "MHz";
+            this.MHzLable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FreqStepLabel
+            // 
+            this.FreqStepLabel.Location = new System.Drawing.Point(169, 309);
+            this.FreqStepLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FreqStepLabel.Name = "FreqStepLabel";
+            this.FreqStepLabel.Size = new System.Drawing.Size(209, 16);
+            this.FreqStepLabel.TabIndex = 20;
+            this.FreqStepLabel.Text = "Frequency Calibration Step:";
+            this.FreqStepLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // RegistersGroupBox
             // 
             this.RegistersGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -3306,10 +3519,10 @@ namespace Synthesizer_PC_control
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 873);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 694);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 13, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1071, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(856, 22);
             this.statusStrip1.TabIndex = 14;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -3610,7 +3823,7 @@ namespace Synthesizer_PC_control
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1071, 895);
+            this.ClientSize = new System.Drawing.Size(856, 716);
             this.Controls.Add(this.LedOnPicBox);
             this.Controls.Add(this.LedOffPicBox);
             this.Controls.Add(this.SynthModuleInfoGroupBox);
@@ -3670,6 +3883,8 @@ namespace Synthesizer_PC_control
             this.SyntModuleControlsGroupBox.PerformLayout();
             this.RegMemoryGroupBox.ResumeLayout(false);
             this.RegMemoryGroupBox.PerformLayout();
+            this.VcoCalibrationTabPage.ResumeLayout(false);
+            this.VcoCalibrationTabPage.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.DirectFreqContrGroupBox.ResumeLayout(false);
@@ -3711,7 +3926,7 @@ namespace Synthesizer_PC_control
         public System.Windows.Forms.Button WriteR3Button;
         public System.Windows.Forms.Button WriteR4Button;
         public System.Windows.Forms.Button WriteR5Button;
-        private System.Windows.Forms.TabControl RegistersTabControl;
+        public System.Windows.Forms.TabControl RegistersTabControl;
         private System.Windows.Forms.TabPage RegistersPage;
         private System.Windows.Forms.TabPage RegistersMemoryPage;
         private System.Windows.Forms.Label SavReg3Label;
@@ -3752,7 +3967,7 @@ namespace Synthesizer_PC_control
         public System.Windows.Forms.Button SaveRegMemory;
         public System.Windows.Forms.Button LoadRegMemory;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Label RF_A_EN_Label;
         public System.Windows.Forms.ComboBox OutAEn_ComboBox;
         public System.Windows.Forms.Label RF_A_PWR_Label;
@@ -3899,8 +4114,8 @@ namespace Synthesizer_PC_control
         public CheckBox AutoCDIVCalcCheckBox;
         public NumericUpDown DelayInputNumericUpDown;
         private Label RefSignalLabel;
-        private PictureBox LedOffPicBox;
-        private PictureBox LedOnPicBox;
+        public PictureBox LedOffPicBox;
+        public PictureBox LedOnPicBox;
         public Label IntExtShowLabel;
         public Label Mem1RefShowLabel;
         public Label Mem1ActOut2ShowLabel;
@@ -3950,6 +4165,23 @@ namespace Synthesizer_PC_control
         public Label Mem2PwrAShowLabel;
         public Label Mem1PwrBShowLabel;
         public Label Mem1PwrAShowLabel;
+        public TabPage VcoCalibrationTabPage;
+        public Label CurrentVcoShowLabel;
+        public Label ActFreqShowLabel;
+        public TextBox VcoFreqMaxTextBox;
+        private Label CurrentVcoLabel;
+        private Label label14;
+        private Label ActFreqLabel;
+        private Label label15;
+        private Label VcoFreqMaxLabel;
+        public TextBox VcoFreqMinTextBox;
+        private Label label16;
+        private Label VcoFreqMinLabel;
+        public Button AbortCallibrationButton;
+        public Button PerformVcoCalibrationButton;
+        public TextBox FreqStepTextBox;
+        private Label MHzLable;
+        public Label FreqStepLabel;
     }
 }
 
