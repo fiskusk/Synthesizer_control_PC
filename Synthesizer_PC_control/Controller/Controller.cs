@@ -1620,6 +1620,7 @@ namespace Synthesizer_PC_control.Controllers
                     // this allow delete thousands number, if cursor is behind space separator
                     position = commaPosition + 4;
                 }
+                directFreqControl.SetDirectInputFreqCursorPosition(position);
             }
             else if (e.KeyCode == Keys.Space)
             {
@@ -1628,8 +1629,11 @@ namespace Synthesizer_PC_control.Controllers
             }
             else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
-                // proccess up/down keys
-                position = MyFormat.UpDownKeyIncDecFunc(sender, e.KeyCode);   // performs the action itself
+                // perform action
+                string formatedValue = "";
+                position = MyFormat.UpDownByPosition(sender.Text, out formatedValue, sender.SelectionStart, e.KeyCode == Keys.Up);   // performs the action itself
+                directFreqControl.SetDirectInputFreqCursorPosition(position);
+                directFreqControl.SetDirectInputFreqValue(formatedValue);
 
                 // procces new inc/dec value by sender name
                 if (sender.Name == "InputFreqTextBox")  
@@ -1647,8 +1651,6 @@ namespace Synthesizer_PC_control.Controllers
                 else if (sender.Name == "RefFTextBox")
                     ReferenceFrequencyValueChanged(sender.Text);
             }
-            
-            sender.SelectionStart = position; // sets new cursor position
         }
 
         /// <summary>
@@ -1659,17 +1661,21 @@ namespace Synthesizer_PC_control.Controllers
         /// <param name="e"> key event arguments </param>
         public void FreqTextBoxMouseWheelFunc(TextBox sender, MouseEventArgs e)
         {
+            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
+            handledArgs.Handled = true;     // event processed 
+
             // perform action
-            int cursorPosition = MyFormat.ScrollByPositionOfCursor(sender, e);
+            string formatedValue = "";
+            int cursorPosition = MyFormat.UpDownByPosition(sender.Text, out formatedValue, sender.SelectionStart, handledArgs.Delta > 0);
+            // sets new changed cursor position
+            directFreqControl.SetDirectInputFreqCursorPosition(cursorPosition);
+            directFreqControl.SetDirectInputFreqValue(formatedValue);
 
             // apply changes, procces new inc/dec value by sender name
             if (sender.Name == "InputFreqTextBox")
                 CalcSynthesizerRegValuesFromInpFreq(sender.Text);
             else if (sender.Name == "RefFTextBox")
                 ReferenceFrequencyValueChanged(sender.Text);
-
-            // sets new changed cursor position
-            sender.SelectionStart = cursorPosition;
         }
 
     #endregion

@@ -85,13 +85,13 @@ namespace Synthesizer_PC_control.Model
                 ui_openClosed.Text = "Open Port"; 
             } 
 
-            string selectedPortBackup = ui_avaliablePorts.Text;
+            string selectedPortBackup = selectedPort;
             
             // check if avaliable ports changed
             //if (!GeneralUtilities.CompareStringArrays((string[])ui_avaliablePorts.DataSource, avaliablePorts))
-                ui_avaliablePorts.DataSource = avaliablePorts;
-
+            ui_avaliablePorts.DataSource = avaliablePorts;
             ui_avaliablePorts.Text = selectedPortBackup;
+
         }
 
         #region Setters

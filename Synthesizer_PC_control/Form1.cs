@@ -1359,7 +1359,9 @@ memories to a file on your computer.");
 
         private void FrequencyTextBox_MouseWheel(object sender, MouseEventArgs e)
         {
+            InputFreqTextBox.TextChanged -= InputFreqTextBox_TextChanged;
             controller.FreqTextBoxMouseWheelFunc((TextBox)(sender), e);
+            InputFreqTextBox.TextChanged += InputFreqTextBox_TextChanged;
         }
 
         
