@@ -84,12 +84,14 @@ namespace Synthesizer_PC_control.Model
             { 
                 ui_openClosed.Text = "Open Port"; 
             } 
+
+            string selectedPortBackup = selectedPort;
             
             // check if avaliable ports changed
-            if (!GeneralUtilities.CompareStringArrays((string[])ui_avaliablePorts.DataSource, avaliablePorts))
-                ui_avaliablePorts.DataSource = avaliablePorts;
+            //if (!GeneralUtilities.CompareStringArrays((string[])ui_avaliablePorts.DataSource, avaliablePorts))
+            ui_avaliablePorts.DataSource = avaliablePorts;
+            ui_avaliablePorts.Text = selectedPortBackup;
 
-            ui_avaliablePorts.Text = selectedPort;
         }
 
         #region Setters
@@ -209,11 +211,10 @@ namespace Synthesizer_PC_control.Model
             } 
             catch 
             { 
+                ClosePort(); 
                 MessageBox.Show(cannotOpenPortMsg[0], cannotOpenPortMsg[1], 
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ConsoleController.Console().Write("Warning: " + cannotOpenPortMsg[0]);
- 
-                ClosePort(); 
  
                 UpdateUiElements();
                 return false; 
@@ -227,10 +228,21 @@ namespace Synthesizer_PC_control.Model
         { 
             if (port == null) 
                 return; 
- 
-            port.Close(); 
-            port.Dispose(); 
-            port = null; 
+            try {
+                port.DtrEnable = false;
+                port.RtsEnable = false;
+                if (port.IsOpen) {
+                    port.DiscardInBuffer();
+                    port.DiscardOutBuffer();
+                }
+                port.Close(); 
+                port.Dispose(); 
+                port = null; 
+            }
+            catch
+            {
+                ConsoleController.Console().Write("Error when closing port!");
+            }
  
             UpdateUiElements(); 
         } 
@@ -267,6 +279,32 @@ namespace Synthesizer_PC_control.Model
                 return ""; 
             } 
         } 
+
+        public void SendStringSerialPortWOLogging(string text)
+        {
+            if (IsPortOpen())
+            {
+                try 
+                { 
+                    dontRunHandler = true; 
+                    { 
+                        port.WriteLine(text); 
+                        while (port.ReadLine() != "OK") { } // wait for confirmation text from synthesizer module
+                    } 
+                    dontRunHandler = false; 
+
+                    //ConsoleController.Console().Write("command: '" + text + "' sended");    // print current outgoing data into console
+                } 
+                catch 
+                { 
+                    ClosePort();    // if occur error, close port and show message and print into console
+                    viewHandle.EnableControls(false);   // disable controls in UI
+                    MessageBox.Show(devDoesNotWork[0], devDoesNotWork[1], 
+                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    ConsoleController.Console().Write("Warning: " + devDoesNotWork[0]);
+                }
+            }
+        }
 
         /// <summary>
         /// Use this function to send new data into serial port

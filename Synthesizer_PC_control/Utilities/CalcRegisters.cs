@@ -1,6 +1,7 @@
 using System;
 using Synthesizer_PC_control.Model;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Diagnostics;
 
 namespace Synthesizer_PC_control.Utilities
@@ -135,7 +136,7 @@ namespace Synthesizer_PC_control.Utilities
             decimal f_start = f_input - halfRange * 0.000001M;
             Parallel.For(0, bufferLength, i =>
             {
-                //Console.WriteLine("Thread Id= {0}", Thread.CurrentThread.ManagedThreadId);
+                Console.WriteLine("Thread Id= {0}", Thread.CurrentThread.ManagedThreadId);
                 calculatedSettings[i] = CalcRegSettings(f_start + i * 0.000001M);
             });
 

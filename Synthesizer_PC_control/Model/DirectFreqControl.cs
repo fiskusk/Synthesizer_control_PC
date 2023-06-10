@@ -49,6 +49,8 @@ namespace Synthesizer_PC_control.Model
         /// </summary>
         private bool intRefState;
 
+        private int directFreqInputCursorPosition;
+
         // hold UI elements for direct frequency controls group
         private readonly TextBox ui_directFreqInput;
         private readonly Label ui_deltaFreqLabel;
@@ -96,6 +98,7 @@ namespace Synthesizer_PC_control.Model
         public void UpdateUiElements()
         {
             ui_directFreqInput.Text = directFreqInput.ToString("0.000 000");
+            ui_directFreqInput.SelectionStart = directFreqInputCursorPosition;
             ui_deltaFreqLabel.Text = deltaFreq.ToString ("+ 0.###;- 0.###;0");
             ui_calcFreq.Text = calcFreq.ToString("0.000 000 #");
             ui_freqAtOut1.Text = freqAtOut1.ToString("0.000 000 #");
@@ -166,6 +169,13 @@ namespace Synthesizer_PC_control.Model
             }
 
             this.directFreqInput = value;
+
+            UpdateUiElements();
+        }
+
+        public void SetDirectInputFreqCursorPosition(int position)
+        {
+            directFreqInputCursorPosition = position;
 
             UpdateUiElements();
         }

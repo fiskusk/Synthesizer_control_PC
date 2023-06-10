@@ -12,6 +12,8 @@ namespace Synthesizer_PC_control.Controllers
     /// </summary>
     class Controller
     {
+        private string[] manualVcoMissingCalibData = {"File with VCO calibration data was not found. If you continue with manual VCO selection, with an improperly selected VCO, this can lead to PLL instability. It suggest perform VCO calibration.\r\rSelect Yes to perform VCO calibration\r\rNo to continue switch to manual VCO selection\r\ror Cancel to continue with automatic VCO selection by MAX2871", "Missing VCO calibration data"};
+
         /// <summary>
         /// Serial comunication
         /// </summary>
@@ -91,6 +93,12 @@ namespace Synthesizer_PC_control.Controllers
         /// PLO register for read (Register 6)
         /// </summary>
         public ReadRegister readRegister;
+
+        public VcoCalibration vcoCalibration;
+
+        public MyStatusStrip statusStrip;
+
+        private bool abortCalibration = false;
 
         /// <summary>
         /// Controller constructor
@@ -225,6 +233,18 @@ namespace Synthesizer_PC_control.Controllers
             readRegister = new ReadRegister(view.ReadedVCOValueTextBox,
                                             view.ReadedADCValueTextBox,
                                             view.ADCModeComboBox);
+
+            vcoCalibration = new VcoCalibration(view.FreqStepTextBox, 
+                                                view.ActFreqShowLabel, 
+                                                view.CurrentVcoShowLabel,
+                                                view.RegistersTabControl,
+                                                view.VcoCalibrationTabPage, 
+                                                view.PerformVcoCalibrationButton,
+                                                view.AbortCallibrationButton);
+
+            statusStrip = new MyStatusStrip(view.toolStripStatusLabel1,
+                                            view.LedOnPicBox,
+                                            view.LedOffPicBox);
 
             // intialize console with RichTextBox 
             ConsoleController.InitConsole(view.ConsoleRichTextBox);
@@ -1085,6 +1105,32 @@ namespace Synthesizer_PC_control.Controllers
             {
                 serialPort.SetDisableSending(true, 40);     // disable sending
 
+                if (!FilesManager.VcoCalibDataFileExist() && value == false)
+                {
+                    DialogResult dialogResult = MessageBox.Show(manualVcoMissingCalibData[0], manualVcoMissingCalibData[1],
+                                                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    if (dialogResult == DialogResult.Cancel) {
+                        value = !value;
+                    }
+                    else if (dialogResult == DialogResult.Yes) {
+                        vcoCalibration.SetFocusToVcoCalibTab();
+                        return;
+                    }
+                }
+                else if (value == false)
+                {
+                    decimal[] calibrationData;
+                    FilesManager.LoadVcoCalibrationData(out calibrationData);
+                    decimal vcofreq = synthFreqInfo.decimal_GetVcoFreq();
+                    decimal minVcoFreq = calibrationData[0];
+                    decimal maxVcoFreq = calibrationData[1];
+                    decimal calibVcoStep = calibrationData[2];
+                    UInt16 index = Convert.ToUInt16((vcofreq-minVcoFreq)/calibVcoStep);
+                    UInt16 vcoIdentifier = Convert.ToUInt16(calibrationData[index + 3]);
+                    ManualVCOSelectValueChanged(vcoIdentifier);
+
+                }
+
                 // sets new state into register 3 bit 25
                 registers[3].SetResetOneBit(25, (BitState)Convert.ToUInt16(!value));
                 vcoControls.SetAutoVcoSelectionState(value);   // sets into model
@@ -1574,6 +1620,7 @@ namespace Synthesizer_PC_control.Controllers
                     // this allow delete thousands number, if cursor is behind space separator
                     position = commaPosition + 4;
                 }
+                directFreqControl.SetDirectInputFreqCursorPosition(position);
             }
             else if (e.KeyCode == Keys.Space)
             {
@@ -1582,8 +1629,11 @@ namespace Synthesizer_PC_control.Controllers
             }
             else if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
-                // proccess up/down keys
-                position = MyFormat.UpDownKeyIncDecFunc(sender, e.KeyCode);   // performs the action itself
+                // perform action
+                string formatedValue = "";
+                position = MyFormat.UpDownByPosition(sender.Text, out formatedValue, sender.SelectionStart, e.KeyCode == Keys.Up);   // performs the action itself
+                directFreqControl.SetDirectInputFreqCursorPosition(position);
+                directFreqControl.SetDirectInputFreqValue(formatedValue);
 
                 // procces new inc/dec value by sender name
                 if (sender.Name == "InputFreqTextBox")  
@@ -1601,8 +1651,6 @@ namespace Synthesizer_PC_control.Controllers
                 else if (sender.Name == "RefFTextBox")
                     ReferenceFrequencyValueChanged(sender.Text);
             }
-            
-            sender.SelectionStart = position; // sets new cursor position
         }
 
         /// <summary>
@@ -1613,17 +1661,21 @@ namespace Synthesizer_PC_control.Controllers
         /// <param name="e"> key event arguments </param>
         public void FreqTextBoxMouseWheelFunc(TextBox sender, MouseEventArgs e)
         {
+            HandledMouseEventArgs handledArgs = e as HandledMouseEventArgs;
+            handledArgs.Handled = true;     // event processed 
+
             // perform action
-            int cursorPosition = MyFormat.ScrollByPositionOfCursor(sender, e);
+            string formatedValue = "";
+            int cursorPosition = MyFormat.UpDownByPosition(sender.Text, out formatedValue, sender.SelectionStart, handledArgs.Delta > 0);
+            // sets new changed cursor position
+            directFreqControl.SetDirectInputFreqCursorPosition(cursorPosition);
+            directFreqControl.SetDirectInputFreqValue(formatedValue);
 
             // apply changes, procces new inc/dec value by sender name
             if (sender.Name == "InputFreqTextBox")
                 CalcSynthesizerRegValuesFromInpFreq(sender.Text);
             else if (sender.Name == "RefFTextBox")
                 ReferenceFrequencyValueChanged(sender.Text);
-
-            // sets new changed cursor position
-            sender.SelectionStart = cursorPosition;
         }
 
     #endregion
@@ -2280,6 +2332,16 @@ namespace Synthesizer_PC_control.Controllers
             }
             else
             {
+                decimal[] calibrationData;
+                if (FilesManager.LoadVcoCalibrationData(out calibrationData) && vcoControls.GetAutoVcoSelectionState() == false) {
+                    decimal minVcoFreq = calibrationData[0];
+                    decimal maxVcoFreq = calibrationData[1];
+                    decimal calibVcoStep = calibrationData[2];
+                    UInt16 index = Convert.ToUInt16((fVco-minVcoFreq)/calibVcoStep);
+                    UInt16 vcoIdentifier = Convert.ToUInt16(calibrationData[index + 3]);
+                    ManualVCOSelectValueChanged(vcoIdentifier);
+                }
+
                 // sets new frequencies into appropriate models
                 synthFreqInfo.SetOutAFreq(fOutA);
                 synthFreqInfo.SetOutBFreq(fOutB);
@@ -2847,6 +2909,8 @@ namespace Synthesizer_PC_control.Controllers
 
             LoadMemoryRegsFromFile(data);
 
+            vcoCalibration.SetFrequencyStep(data.VcoFreqStep);
+
             this.GetAllFromRegisters();
             refFreq.SetIntRefInpEnabled(!moduleControls.GetIntRefState());
         }
@@ -2875,7 +2939,8 @@ namespace Synthesizer_PC_control.Controllers
                 AutoLDFunc = outFreqControl.GetAutoLDFunctionIsChecked(),
                 AutoCDIVFunc = vcoControls.GetAutoCDiv(),
                 DelayInput = vcoControls.GetDelayInputValue(),
-                AdcModeIndex = (int)readRegister.GetAdcMode()
+                AdcModeIndex = (int)readRegister.GetAdcMode(),
+                VcoFreqStep = vcoCalibration.GetFrequencyStep()
             };
 
             for (int i = 0; i < 7; i++)
@@ -3174,10 +3239,10 @@ namespace Synthesizer_PC_control.Controllers
                     string text = "Currently registers succesfuly loaded from file: '" + test + "'";
                     ConsoleController.Console().Write(text);
 
-                    serialPort.SetDisableSending(true, 48); // disable sending
+                    serialPort.SetDisableSending(true, 51); // disable sending
                     LoadMemoryRegsFromFile(loadedData);     // load data into workspace
                     SendData();                             // send data
-                    serialPort.SetDisableSending(false, 48);// enable sending
+                    serialPort.SetDisableSending(false, 51);// enable sending
                 }
                 else
                 {
@@ -3606,5 +3671,54 @@ namespace Synthesizer_PC_control.Controllers
         }
 #endregion
     
+#region VCO Calibration Tab
+        public void AbortVcoCalibration()
+        {
+            abortCalibration = true;
+        }
+
+        public void PerformVcoCalibration()
+        {
+            abortCalibration = false;
+            vcoCalibration.EnableAbortVcoCalibrationButton(true);
+            vcoCalibration.EnablePerformVcoCalibrationButton(false);
+            FilesManager.DeleteVcoCalibData();
+            AutoVcoSelectionStateChanged(true);
+            //VASTempComStateChanged(true);
+            decimal frequencyStep = vcoCalibration.GetFrequencyStep();
+            
+            for (decimal frequency = 3000; frequency <= 6000; frequency+=frequencyStep)
+            {
+                if (abortCalibration == true) {
+                    FilesManager.DeleteVcoCalibData();
+                    abortCalibration = false;
+                    vcoCalibration.EnableAbortVcoCalibrationButton(false);
+                    vcoCalibration.EnablePerformVcoCalibrationButton(true);
+                    return;
+                }
+                CalcSynthesizerRegValuesFromInpFreq(frequency.ToString());
+                vcoCalibration.SetCurrentFrequency(frequency);
+                System.Threading.Thread.Sleep(150);
+                GetCurrentVCO();
+                string text = serialPort.ReadLine();     // read line of new data
+                string[] separrated = text.Split(' ');
+                switch (separrated[0])
+                {
+                    case "register6_vco":
+                        // readed VCO number
+                        UInt32 reg6 = UInt32.Parse(separrated[1], System.Globalization.NumberStyles.HexNumber);
+                        UInt16 currentVCO = (UInt16)Utilities.BitOperations.GetNBits(reg6, 6, 3);
+                        readRegister.SetReadedCurrentVCO(currentVCO.ToString());
+                        vcoCalibration.SetReadedCurrentVCO(currentVCO);
+                        break;
+                }
+                FilesManager.SaveVcoCalibData(vcoCalibration.GetCurrentFrequency(), vcoCalibration.GetReadedCurrentVCO(), frequencyStep);
+            }
+            abortCalibration = false;
+            vcoCalibration.EnableAbortVcoCalibrationButton(false);
+            vcoCalibration.EnablePerformVcoCalibrationButton(true);
+        }
+
+#endregion
     }
 }

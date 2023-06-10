@@ -268,6 +268,23 @@ namespace Synthesizer_PC_control
             this.MemSaveIntoFileButton = new System.Windows.Forms.Button();
             this.LoadRegMemory = new System.Windows.Forms.Button();
             this.SaveRegMemory = new System.Windows.Forms.Button();
+            this.VcoCalibrationTabPage = new System.Windows.Forms.TabPage();
+            this.CurrentVcoShowLabel = new System.Windows.Forms.Label();
+            this.ActFreqShowLabel = new System.Windows.Forms.Label();
+            this.VcoFreqMaxTextBox = new System.Windows.Forms.TextBox();
+            this.CurrentVcoLabel = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.ActFreqLabel = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.VcoFreqMaxLabel = new System.Windows.Forms.Label();
+            this.VcoFreqMinTextBox = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.VcoFreqMinLabel = new System.Windows.Forms.Label();
+            this.AbortCallibrationButton = new System.Windows.Forms.Button();
+            this.PerformVcoCalibrationButton = new System.Windows.Forms.Button();
+            this.FreqStepTextBox = new System.Windows.Forms.TextBox();
+            this.MHzLable = new System.Windows.Forms.Label();
+            this.FreqStepLabel = new System.Windows.Forms.Label();
             this.RegistersGroupBox = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -324,6 +341,7 @@ namespace Synthesizer_PC_control
             this.SynthOutputsInfoGroupBox.SuspendLayout();
             this.SyntModuleControlsGroupBox.SuspendLayout();
             this.RegMemoryGroupBox.SuspendLayout();
+            this.VcoCalibrationTabPage.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.DirectFreqContrGroupBox.SuspendLayout();
             this.SynthModuleInfoGroupBox.SuspendLayout();
@@ -334,10 +352,9 @@ namespace Synthesizer_PC_control
             // PortButton
             // 
             this.PortButton.AccessibleDescription = "";
-            this.PortButton.Location = new System.Drawing.Point(22, 11);
-            this.PortButton.Margin = new System.Windows.Forms.Padding(4);
+            this.PortButton.Location = new System.Drawing.Point(16, 9);
             this.PortButton.Name = "PortButton";
-            this.PortButton.Size = new System.Drawing.Size(100, 28);
+            this.PortButton.Size = new System.Drawing.Size(75, 23);
             this.PortButton.TabIndex = 0;
             this.PortButton.Text = "Open Port";
             this.PortButton.UseVisualStyleBackColor = true;
@@ -345,10 +362,10 @@ namespace Synthesizer_PC_control
             // 
             // Out1Button
             // 
-            this.Out1Button.Location = new System.Drawing.Point(22, 48);
-            this.Out1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Out1Button.Location = new System.Drawing.Point(16, 39);
+            this.Out1Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Out1Button.Name = "Out1Button";
-            this.Out1Button.Size = new System.Drawing.Size(100, 28);
+            this.Out1Button.Size = new System.Drawing.Size(75, 23);
             this.Out1Button.TabIndex = 3;
             this.Out1Button.Text = "Out 1 Off";
             this.Out1Button.UseVisualStyleBackColor = true;
@@ -356,10 +373,10 @@ namespace Synthesizer_PC_control
             // 
             // Out2Button
             // 
-            this.Out2Button.Location = new System.Drawing.Point(128, 48);
-            this.Out2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Out2Button.Location = new System.Drawing.Point(96, 39);
+            this.Out2Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Out2Button.Name = "Out2Button";
-            this.Out2Button.Size = new System.Drawing.Size(100, 28);
+            this.Out2Button.Size = new System.Drawing.Size(75, 23);
             this.Out2Button.TabIndex = 4;
             this.Out2Button.Text = "Out 2 Off";
             this.Out2Button.UseVisualStyleBackColor = true;
@@ -367,10 +384,10 @@ namespace Synthesizer_PC_control
             // 
             // PloInitButton
             // 
-            this.PloInitButton.Location = new System.Drawing.Point(234, 11);
-            this.PloInitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.PloInitButton.Location = new System.Drawing.Point(176, 9);
+            this.PloInitButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.PloInitButton.Name = "PloInitButton";
-            this.PloInitButton.Size = new System.Drawing.Size(100, 28);
+            this.PloInitButton.Size = new System.Drawing.Size(75, 23);
             this.PloInitButton.TabIndex = 2;
             this.PloInitButton.Text = "PLO Init";
             this.PloInitButton.UseVisualStyleBackColor = true;
@@ -380,32 +397,34 @@ namespace Synthesizer_PC_control
             // 
             this.Reg0TextBox.BackColor = System.Drawing.Color.White;
             this.Reg0TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg0TextBox.Location = new System.Drawing.Point(88, 20);
-            this.Reg0TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Reg0TextBox.Location = new System.Drawing.Point(66, 16);
+            this.Reg0TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Reg0TextBox.MaxLength = 8;
             this.Reg0TextBox.Name = "Reg0TextBox";
-            this.Reg0TextBox.Size = new System.Drawing.Size(88, 22);
+            this.Reg0TextBox.Size = new System.Drawing.Size(67, 20);
             this.Reg0TextBox.TabIndex = 0;
             this.Reg0TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg0TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg0TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
-            this.Reg0TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
+            //this.Reg0TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg0Label
             // 
             this.Reg0Label.AutoSize = true;
-            this.Reg0Label.Location = new System.Drawing.Point(9, 23);
+            this.Reg0Label.Location = new System.Drawing.Point(7, 19);
+            this.Reg0Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg0Label.Name = "Reg0Label";
-            this.Reg0Label.Size = new System.Drawing.Size(77, 17);
+            this.Reg0Label.Size = new System.Drawing.Size(58, 13);
             this.Reg0Label.TabIndex = 4;
             this.Reg0Label.Text = "Register 0:";
             // 
             // Reg1Label
             // 
             this.Reg1Label.AutoSize = true;
-            this.Reg1Label.Location = new System.Drawing.Point(9, 52);
+            this.Reg1Label.Location = new System.Drawing.Point(7, 42);
+            this.Reg1Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg1Label.Name = "Reg1Label";
-            this.Reg1Label.Size = new System.Drawing.Size(77, 17);
+            this.Reg1Label.Size = new System.Drawing.Size(58, 13);
             this.Reg1Label.TabIndex = 5;
             this.Reg1Label.Text = "Register 1:";
             // 
@@ -413,23 +432,24 @@ namespace Synthesizer_PC_control
             // 
             this.Reg1TextBox.BackColor = System.Drawing.Color.White;
             this.Reg1TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg1TextBox.Location = new System.Drawing.Point(88, 48);
-            this.Reg1TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Reg1TextBox.Location = new System.Drawing.Point(66, 39);
+            this.Reg1TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Reg1TextBox.MaxLength = 8;
             this.Reg1TextBox.Name = "Reg1TextBox";
-            this.Reg1TextBox.Size = new System.Drawing.Size(88, 22);
+            this.Reg1TextBox.Size = new System.Drawing.Size(67, 20);
             this.Reg1TextBox.TabIndex = 2;
             this.Reg1TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg1TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg1TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
-            this.Reg1TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
+            //this.Reg1TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg2Label
             // 
             this.Reg2Label.AutoSize = true;
-            this.Reg2Label.Location = new System.Drawing.Point(9, 79);
+            this.Reg2Label.Location = new System.Drawing.Point(7, 64);
+            this.Reg2Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg2Label.Name = "Reg2Label";
-            this.Reg2Label.Size = new System.Drawing.Size(77, 17);
+            this.Reg2Label.Size = new System.Drawing.Size(58, 13);
             this.Reg2Label.TabIndex = 7;
             this.Reg2Label.Text = "Register 2:";
             // 
@@ -437,23 +457,24 @@ namespace Synthesizer_PC_control
             // 
             this.Reg2TextBox.BackColor = System.Drawing.Color.White;
             this.Reg2TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg2TextBox.Location = new System.Drawing.Point(88, 76);
-            this.Reg2TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Reg2TextBox.Location = new System.Drawing.Point(66, 62);
+            this.Reg2TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Reg2TextBox.MaxLength = 8;
             this.Reg2TextBox.Name = "Reg2TextBox";
-            this.Reg2TextBox.Size = new System.Drawing.Size(88, 22);
+            this.Reg2TextBox.Size = new System.Drawing.Size(67, 20);
             this.Reg2TextBox.TabIndex = 4;
             this.Reg2TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg2TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg2TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
-            this.Reg2TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
+            //this.Reg2TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg3Label
             // 
             this.Reg3Label.AutoSize = true;
-            this.Reg3Label.Location = new System.Drawing.Point(9, 107);
+            this.Reg3Label.Location = new System.Drawing.Point(7, 87);
+            this.Reg3Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg3Label.Name = "Reg3Label";
-            this.Reg3Label.Size = new System.Drawing.Size(77, 17);
+            this.Reg3Label.Size = new System.Drawing.Size(58, 13);
             this.Reg3Label.TabIndex = 7;
             this.Reg3Label.Text = "Register 3:";
             // 
@@ -461,23 +482,24 @@ namespace Synthesizer_PC_control
             // 
             this.Reg3TextBox.BackColor = System.Drawing.Color.White;
             this.Reg3TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg3TextBox.Location = new System.Drawing.Point(88, 104);
-            this.Reg3TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Reg3TextBox.Location = new System.Drawing.Point(66, 84);
+            this.Reg3TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Reg3TextBox.MaxLength = 8;
             this.Reg3TextBox.Name = "Reg3TextBox";
-            this.Reg3TextBox.Size = new System.Drawing.Size(88, 22);
+            this.Reg3TextBox.Size = new System.Drawing.Size(67, 20);
             this.Reg3TextBox.TabIndex = 6;
             this.Reg3TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg3TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg3TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
-            this.Reg3TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
+            //this.Reg3TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg4Label
             // 
             this.Reg4Label.AutoSize = true;
-            this.Reg4Label.Location = new System.Drawing.Point(9, 133);
+            this.Reg4Label.Location = new System.Drawing.Point(7, 108);
+            this.Reg4Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg4Label.Name = "Reg4Label";
-            this.Reg4Label.Size = new System.Drawing.Size(77, 17);
+            this.Reg4Label.Size = new System.Drawing.Size(58, 13);
             this.Reg4Label.TabIndex = 7;
             this.Reg4Label.Text = "Register 4:";
             // 
@@ -485,23 +507,24 @@ namespace Synthesizer_PC_control
             // 
             this.Reg4TextBox.BackColor = System.Drawing.Color.White;
             this.Reg4TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg4TextBox.Location = new System.Drawing.Point(88, 130);
-            this.Reg4TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Reg4TextBox.Location = new System.Drawing.Point(66, 106);
+            this.Reg4TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Reg4TextBox.MaxLength = 8;
             this.Reg4TextBox.Name = "Reg4TextBox";
-            this.Reg4TextBox.Size = new System.Drawing.Size(88, 22);
+            this.Reg4TextBox.Size = new System.Drawing.Size(67, 20);
             this.Reg4TextBox.TabIndex = 8;
             this.Reg4TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg4TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg4TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
-            this.Reg4TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
+            //this.Reg4TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // Reg5Label
             // 
             this.Reg5Label.AutoSize = true;
-            this.Reg5Label.Location = new System.Drawing.Point(9, 161);
+            this.Reg5Label.Location = new System.Drawing.Point(7, 131);
+            this.Reg5Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Reg5Label.Name = "Reg5Label";
-            this.Reg5Label.Size = new System.Drawing.Size(77, 17);
+            this.Reg5Label.Size = new System.Drawing.Size(58, 13);
             this.Reg5Label.TabIndex = 7;
             this.Reg5Label.Text = "Register 5:";
             // 
@@ -509,23 +532,23 @@ namespace Synthesizer_PC_control
             // 
             this.Reg5TextBox.BackColor = System.Drawing.Color.White;
             this.Reg5TextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.Reg5TextBox.Location = new System.Drawing.Point(88, 159);
-            this.Reg5TextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Reg5TextBox.Location = new System.Drawing.Point(66, 129);
+            this.Reg5TextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Reg5TextBox.MaxLength = 8;
             this.Reg5TextBox.Name = "Reg5TextBox";
-            this.Reg5TextBox.Size = new System.Drawing.Size(88, 22);
+            this.Reg5TextBox.Size = new System.Drawing.Size(67, 20);
             this.Reg5TextBox.TabIndex = 10;
             this.Reg5TextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Reg5TextBox.TextChanged += new System.EventHandler(this.RegisterTextBox_TextChanged);
             this.Reg5TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterTextBox_KeyDown);
-            this.Reg5TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
+            //this.Reg5TextBox.LostFocus += new System.EventHandler(this.RegisterTextBox_LostFocus);
             // 
             // RefButton
             // 
-            this.RefButton.Location = new System.Drawing.Point(234, 48);
-            this.RefButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RefButton.Location = new System.Drawing.Point(176, 39);
+            this.RefButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RefButton.Name = "RefButton";
-            this.RefButton.Size = new System.Drawing.Size(100, 28);
+            this.RefButton.Size = new System.Drawing.Size(75, 23);
             this.RefButton.TabIndex = 5;
             this.RefButton.Text = "Ext Ref";
             this.RefButton.UseVisualStyleBackColor = true;
@@ -533,10 +556,10 @@ namespace Synthesizer_PC_control
             // 
             // SetAsDefaultRegButton
             // 
-            this.SetAsDefaultRegButton.Location = new System.Drawing.Point(275, 21);
-            this.SetAsDefaultRegButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SetAsDefaultRegButton.Location = new System.Drawing.Point(206, 17);
+            this.SetAsDefaultRegButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SetAsDefaultRegButton.Name = "SetAsDefaultRegButton";
-            this.SetAsDefaultRegButton.Size = new System.Drawing.Size(119, 23);
+            this.SetAsDefaultRegButton.Size = new System.Drawing.Size(89, 19);
             this.SetAsDefaultRegButton.TabIndex = 12;
             this.SetAsDefaultRegButton.Text = "Set As Def";
             this.SetAsDefaultRegButton.UseVisualStyleBackColor = true;
@@ -544,10 +567,10 @@ namespace Synthesizer_PC_control
             // 
             // ForceLoadRegButton
             // 
-            this.ForceLoadRegButton.Location = new System.Drawing.Point(275, 158);
-            this.ForceLoadRegButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ForceLoadRegButton.Location = new System.Drawing.Point(206, 128);
+            this.ForceLoadRegButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ForceLoadRegButton.Name = "ForceLoadRegButton";
-            this.ForceLoadRegButton.Size = new System.Drawing.Size(119, 23);
+            this.ForceLoadRegButton.Size = new System.Drawing.Size(89, 19);
             this.ForceLoadRegButton.TabIndex = 16;
             this.ForceLoadRegButton.Text = "Force Load All";
             this.ForceLoadRegButton.UseVisualStyleBackColor = true;
@@ -555,10 +578,10 @@ namespace Synthesizer_PC_control
             // 
             // LoadDefRegButton
             // 
-            this.LoadDefRegButton.Location = new System.Drawing.Point(275, 49);
-            this.LoadDefRegButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LoadDefRegButton.Location = new System.Drawing.Point(206, 40);
+            this.LoadDefRegButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LoadDefRegButton.Name = "LoadDefRegButton";
-            this.LoadDefRegButton.Size = new System.Drawing.Size(119, 23);
+            this.LoadDefRegButton.Size = new System.Drawing.Size(89, 19);
             this.LoadDefRegButton.TabIndex = 13;
             this.LoadDefRegButton.Text = "Load Def";
             this.LoadDefRegButton.UseVisualStyleBackColor = true;
@@ -568,20 +591,20 @@ namespace Synthesizer_PC_control
             // 
             this.AvaibleCOMsComBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AvaibleCOMsComBox.FormattingEnabled = true;
-            this.AvaibleCOMsComBox.Location = new System.Drawing.Point(129, 11);
-            this.AvaibleCOMsComBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.AvaibleCOMsComBox.Location = new System.Drawing.Point(97, 9);
+            this.AvaibleCOMsComBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AvaibleCOMsComBox.Name = "AvaibleCOMsComBox";
-            this.AvaibleCOMsComBox.Size = new System.Drawing.Size(99, 24);
+            this.AvaibleCOMsComBox.Size = new System.Drawing.Size(75, 21);
             this.AvaibleCOMsComBox.TabIndex = 1;
             this.AvaibleCOMsComBox.DropDown += new System.EventHandler(this.AvaibleCOMsComBox_DropDown);
-            this.AvaibleCOMsComBox.SelectedIndexChanged += new System.EventHandler(this.AvaibleCOMsComBox_SelectedIndexChanged);
+            this.AvaibleCOMsComBox.SelectedValueChanged += new System.EventHandler(this.AvaibleCOMsComBox_SelectedIndexChanged);
             // 
             // WriteR0Button
             // 
-            this.WriteR0Button.Location = new System.Drawing.Point(183, 20);
-            this.WriteR0Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.WriteR0Button.Location = new System.Drawing.Point(137, 16);
+            this.WriteR0Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.WriteR0Button.Name = "WriteR0Button";
-            this.WriteR0Button.Size = new System.Drawing.Size(80, 23);
+            this.WriteR0Button.Size = new System.Drawing.Size(60, 19);
             this.WriteR0Button.TabIndex = 1;
             this.WriteR0Button.Text = "Write R0";
             this.WriteR0Button.UseVisualStyleBackColor = true;
@@ -589,10 +612,10 @@ namespace Synthesizer_PC_control
             // 
             // WriteR1Button
             // 
-            this.WriteR1Button.Location = new System.Drawing.Point(183, 48);
-            this.WriteR1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.WriteR1Button.Location = new System.Drawing.Point(137, 39);
+            this.WriteR1Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.WriteR1Button.Name = "WriteR1Button";
-            this.WriteR1Button.Size = new System.Drawing.Size(80, 23);
+            this.WriteR1Button.Size = new System.Drawing.Size(60, 19);
             this.WriteR1Button.TabIndex = 3;
             this.WriteR1Button.Text = "Write R1";
             this.WriteR1Button.UseVisualStyleBackColor = true;
@@ -600,10 +623,10 @@ namespace Synthesizer_PC_control
             // 
             // WriteR2Button
             // 
-            this.WriteR2Button.Location = new System.Drawing.Point(183, 76);
-            this.WriteR2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.WriteR2Button.Location = new System.Drawing.Point(137, 62);
+            this.WriteR2Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.WriteR2Button.Name = "WriteR2Button";
-            this.WriteR2Button.Size = new System.Drawing.Size(80, 23);
+            this.WriteR2Button.Size = new System.Drawing.Size(60, 19);
             this.WriteR2Button.TabIndex = 5;
             this.WriteR2Button.Text = "Write R2";
             this.WriteR2Button.UseVisualStyleBackColor = true;
@@ -611,10 +634,10 @@ namespace Synthesizer_PC_control
             // 
             // WriteR3Button
             // 
-            this.WriteR3Button.Location = new System.Drawing.Point(183, 104);
-            this.WriteR3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.WriteR3Button.Location = new System.Drawing.Point(137, 84);
+            this.WriteR3Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.WriteR3Button.Name = "WriteR3Button";
-            this.WriteR3Button.Size = new System.Drawing.Size(80, 23);
+            this.WriteR3Button.Size = new System.Drawing.Size(60, 19);
             this.WriteR3Button.TabIndex = 7;
             this.WriteR3Button.Text = "Write R3";
             this.WriteR3Button.UseVisualStyleBackColor = true;
@@ -622,10 +645,10 @@ namespace Synthesizer_PC_control
             // 
             // WriteR4Button
             // 
-            this.WriteR4Button.Location = new System.Drawing.Point(183, 130);
-            this.WriteR4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.WriteR4Button.Location = new System.Drawing.Point(137, 106);
+            this.WriteR4Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.WriteR4Button.Name = "WriteR4Button";
-            this.WriteR4Button.Size = new System.Drawing.Size(80, 23);
+            this.WriteR4Button.Size = new System.Drawing.Size(60, 19);
             this.WriteR4Button.TabIndex = 9;
             this.WriteR4Button.Text = "Write R4";
             this.WriteR4Button.UseVisualStyleBackColor = true;
@@ -633,10 +656,10 @@ namespace Synthesizer_PC_control
             // 
             // WriteR5Button
             // 
-            this.WriteR5Button.Location = new System.Drawing.Point(183, 159);
-            this.WriteR5Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.WriteR5Button.Location = new System.Drawing.Point(137, 129);
+            this.WriteR5Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.WriteR5Button.Name = "WriteR5Button";
-            this.WriteR5Button.Size = new System.Drawing.Size(80, 23);
+            this.WriteR5Button.Size = new System.Drawing.Size(60, 19);
             this.WriteR5Button.TabIndex = 11;
             this.WriteR5Button.Text = "Write R5";
             this.WriteR5Button.UseVisualStyleBackColor = true;
@@ -646,11 +669,12 @@ namespace Synthesizer_PC_control
             // 
             this.RegistersTabControl.Controls.Add(this.RegistersPage);
             this.RegistersTabControl.Controls.Add(this.RegistersMemoryPage);
-            this.RegistersTabControl.Location = new System.Drawing.Point(352, 23);
-            this.RegistersTabControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RegistersTabControl.Controls.Add(this.VcoCalibrationTabPage);
+            this.RegistersTabControl.Location = new System.Drawing.Point(264, 19);
+            this.RegistersTabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RegistersTabControl.Name = "RegistersTabControl";
             this.RegistersTabControl.SelectedIndex = 0;
-            this.RegistersTabControl.Size = new System.Drawing.Size(717, 847);
+            this.RegistersTabControl.Size = new System.Drawing.Size(538, 688);
             this.RegistersTabControl.TabIndex = 8;
             // 
             // RegistersPage
@@ -667,11 +691,11 @@ namespace Synthesizer_PC_control
             this.RegistersPage.Controls.Add(this.OutInfoGroupBox);
             this.RegistersPage.Controls.Add(this.FreqControlGroupBox);
             this.RegistersPage.Controls.Add(this.RefFreqGroupBox);
-            this.RegistersPage.Location = new System.Drawing.Point(4, 25);
-            this.RegistersPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RegistersPage.Location = new System.Drawing.Point(4, 22);
+            this.RegistersPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RegistersPage.Name = "RegistersPage";
-            this.RegistersPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersPage.Size = new System.Drawing.Size(709, 818);
+            this.RegistersPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegistersPage.Size = new System.Drawing.Size(530, 662);
             this.RegistersPage.TabIndex = 0;
             this.RegistersPage.Text = "Direct control of registers";
             this.RegistersPage.UseVisualStyleBackColor = true;
@@ -685,9 +709,11 @@ namespace Synthesizer_PC_control
             this.groupBox1.Controls.Add(this.GetADCValueButton);
             this.groupBox1.Controls.Add(this.ADCModeComboBox);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(537, 5);
+            this.groupBox1.Location = new System.Drawing.Point(403, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(160, 187);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(120, 152);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Register 6 control";
@@ -695,31 +721,31 @@ namespace Synthesizer_PC_control
             // ReadedVCOValueTextBox
             // 
             this.ReadedVCOValueTextBox.BackColor = System.Drawing.Color.White;
-            this.ReadedVCOValueTextBox.Location = new System.Drawing.Point(13, 161);
-            this.ReadedVCOValueTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ReadedVCOValueTextBox.Location = new System.Drawing.Point(10, 131);
+            this.ReadedVCOValueTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ReadedVCOValueTextBox.MaxLength = 17;
             this.ReadedVCOValueTextBox.Name = "ReadedVCOValueTextBox";
-            this.ReadedVCOValueTextBox.Size = new System.Drawing.Size(140, 22);
+            this.ReadedVCOValueTextBox.Size = new System.Drawing.Size(106, 20);
             this.ReadedVCOValueTextBox.TabIndex = 4;
             this.ReadedVCOValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ReadedADCValueTextBox
             // 
             this.ReadedADCValueTextBox.BackColor = System.Drawing.Color.White;
-            this.ReadedADCValueTextBox.Location = new System.Drawing.Point(13, 107);
-            this.ReadedADCValueTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ReadedADCValueTextBox.Location = new System.Drawing.Point(10, 87);
+            this.ReadedADCValueTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ReadedADCValueTextBox.MaxLength = 17;
             this.ReadedADCValueTextBox.Name = "ReadedADCValueTextBox";
-            this.ReadedADCValueTextBox.Size = new System.Drawing.Size(140, 22);
+            this.ReadedADCValueTextBox.Size = new System.Drawing.Size(106, 20);
             this.ReadedADCValueTextBox.TabIndex = 2;
             this.ReadedADCValueTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // GetCurrentVCOButton
             // 
-            this.GetCurrentVCOButton.Location = new System.Drawing.Point(13, 133);
-            this.GetCurrentVCOButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.GetCurrentVCOButton.Location = new System.Drawing.Point(10, 108);
+            this.GetCurrentVCOButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.GetCurrentVCOButton.Name = "GetCurrentVCOButton";
-            this.GetCurrentVCOButton.Size = new System.Drawing.Size(141, 23);
+            this.GetCurrentVCOButton.Size = new System.Drawing.Size(106, 19);
             this.GetCurrentVCOButton.TabIndex = 3;
             this.GetCurrentVCOButton.Text = "Get current VCO";
             this.GetCurrentVCOButton.UseVisualStyleBackColor = true;
@@ -727,10 +753,10 @@ namespace Synthesizer_PC_control
             // 
             // GetADCValueButton
             // 
-            this.GetADCValueButton.Location = new System.Drawing.Point(13, 79);
-            this.GetADCValueButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.GetADCValueButton.Location = new System.Drawing.Point(10, 64);
+            this.GetADCValueButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.GetADCValueButton.Name = "GetADCValueButton";
-            this.GetADCValueButton.Size = new System.Drawing.Size(140, 23);
+            this.GetADCValueButton.Size = new System.Drawing.Size(105, 19);
             this.GetADCValueButton.TabIndex = 1;
             this.GetADCValueButton.Text = "Get ADC Value";
             this.GetADCValueButton.UseVisualStyleBackColor = true;
@@ -744,18 +770,19 @@ namespace Synthesizer_PC_control
             this.ADCModeComboBox.Items.AddRange(new object[] {
             "Temperature",
             "Tune pin"});
-            this.ADCModeComboBox.Location = new System.Drawing.Point(13, 46);
-            this.ADCModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ADCModeComboBox.Location = new System.Drawing.Point(10, 37);
+            this.ADCModeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ADCModeComboBox.Name = "ADCModeComboBox";
-            this.ADCModeComboBox.Size = new System.Drawing.Size(140, 24);
+            this.ADCModeComboBox.Size = new System.Drawing.Size(106, 21);
             this.ADCModeComboBox.TabIndex = 0;
             this.ADCModeComboBox.SelectedIndexChanged += new System.EventHandler(this.ADCModeComboBox_SelectedIndexChanged);
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(4, 26);
+            this.label6.Location = new System.Drawing.Point(3, 21);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(88, 17);
+            this.label6.Size = new System.Drawing.Size(66, 14);
             this.label6.TabIndex = 17;
             this.label6.Text = "ADC Mode:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -768,9 +795,11 @@ namespace Synthesizer_PC_control
             this.genericControlsGroupBox.Controls.Add(this.CalcCDIVCheckBox);
             this.genericControlsGroupBox.Controls.Add(this.RandNCountersResetCheckBox);
             this.genericControlsGroupBox.Controls.Add(this.IntNAutoModeWhenF0CheckBox);
-            this.genericControlsGroupBox.Location = new System.Drawing.Point(355, 596);
+            this.genericControlsGroupBox.Location = new System.Drawing.Point(266, 484);
+            this.genericControlsGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.genericControlsGroupBox.Name = "genericControlsGroupBox";
-            this.genericControlsGroupBox.Size = new System.Drawing.Size(341, 125);
+            this.genericControlsGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.genericControlsGroupBox.Size = new System.Drawing.Size(256, 102);
             this.genericControlsGroupBox.TabIndex = 9;
             this.genericControlsGroupBox.TabStop = false;
             this.genericControlsGroupBox.Text = "Generic controls";
@@ -789,18 +818,19 @@ namespace Synthesizer_PC_control
             "Analog lock detect",
             "Digital lock detect",
             "Sync Input"});
-            this.MuxPinModeCombobox.Location = new System.Drawing.Point(116, 20);
-            this.MuxPinModeCombobox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MuxPinModeCombobox.Location = new System.Drawing.Point(87, 16);
+            this.MuxPinModeCombobox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MuxPinModeCombobox.Name = "MuxPinModeCombobox";
-            this.MuxPinModeCombobox.Size = new System.Drawing.Size(160, 24);
+            this.MuxPinModeCombobox.Size = new System.Drawing.Size(121, 21);
             this.MuxPinModeCombobox.TabIndex = 0;
             this.MuxPinModeCombobox.SelectedIndexChanged += new System.EventHandler(this.MuxPinModeCombobox_SelectedIndexChanged);
             // 
             // MuxPinModeLabel
             // 
-            this.MuxPinModeLabel.Location = new System.Drawing.Point(-10, 23);
+            this.MuxPinModeLabel.Location = new System.Drawing.Point(-8, 19);
+            this.MuxPinModeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MuxPinModeLabel.Name = "MuxPinModeLabel";
-            this.MuxPinModeLabel.Size = new System.Drawing.Size(120, 17);
+            this.MuxPinModeLabel.Size = new System.Drawing.Size(90, 14);
             this.MuxPinModeLabel.TabIndex = 17;
             this.MuxPinModeLabel.Text = "Mux Pin Mode:";
             this.MuxPinModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -808,9 +838,10 @@ namespace Synthesizer_PC_control
             // Reg4DoubleBufferedCheckBox
             // 
             this.Reg4DoubleBufferedCheckBox.AutoSize = true;
-            this.Reg4DoubleBufferedCheckBox.Location = new System.Drawing.Point(12, 49);
+            this.Reg4DoubleBufferedCheckBox.Location = new System.Drawing.Point(9, 40);
+            this.Reg4DoubleBufferedCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Reg4DoubleBufferedCheckBox.Name = "Reg4DoubleBufferedCheckBox";
-            this.Reg4DoubleBufferedCheckBox.Size = new System.Drawing.Size(264, 21);
+            this.Reg4DoubleBufferedCheckBox.Size = new System.Drawing.Size(200, 17);
             this.Reg4DoubleBufferedCheckBox.TabIndex = 1;
             this.Reg4DoubleBufferedCheckBox.Text = "Register 4 double bufered with reg. 0";
             this.Reg4DoubleBufferedCheckBox.UseVisualStyleBackColor = true;
@@ -819,9 +850,10 @@ namespace Synthesizer_PC_control
             // CalcCDIVCheckBox
             // 
             this.CalcCDIVCheckBox.AutoSize = true;
-            this.CalcCDIVCheckBox.Location = new System.Drawing.Point(13, 49);
+            this.CalcCDIVCheckBox.Location = new System.Drawing.Point(10, 40);
+            this.CalcCDIVCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CalcCDIVCheckBox.Name = "CalcCDIVCheckBox";
-            this.CalcCDIVCheckBox.Size = new System.Drawing.Size(177, 21);
+            this.CalcCDIVCheckBox.Size = new System.Drawing.Size(136, 17);
             this.CalcCDIVCheckBox.TabIndex = 0;
             this.CalcCDIVCheckBox.Text = "R and N counters reset";
             this.CalcCDIVCheckBox.UseVisualStyleBackColor = true;
@@ -829,9 +861,10 @@ namespace Synthesizer_PC_control
             // RandNCountersResetCheckBox
             // 
             this.RandNCountersResetCheckBox.AutoSize = true;
-            this.RandNCountersResetCheckBox.Location = new System.Drawing.Point(12, 103);
+            this.RandNCountersResetCheckBox.Location = new System.Drawing.Point(9, 84);
+            this.RandNCountersResetCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RandNCountersResetCheckBox.Name = "RandNCountersResetCheckBox";
-            this.RandNCountersResetCheckBox.Size = new System.Drawing.Size(177, 21);
+            this.RandNCountersResetCheckBox.Size = new System.Drawing.Size(136, 17);
             this.RandNCountersResetCheckBox.TabIndex = 3;
             this.RandNCountersResetCheckBox.Text = "R and N counters reset";
             this.RandNCountersResetCheckBox.UseVisualStyleBackColor = true;
@@ -840,9 +873,10 @@ namespace Synthesizer_PC_control
             // IntNAutoModeWhenF0CheckBox
             // 
             this.IntNAutoModeWhenF0CheckBox.AutoSize = true;
-            this.IntNAutoModeWhenF0CheckBox.Location = new System.Drawing.Point(12, 76);
+            this.IntNAutoModeWhenF0CheckBox.Location = new System.Drawing.Point(9, 62);
+            this.IntNAutoModeWhenF0CheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.IntNAutoModeWhenF0CheckBox.Name = "IntNAutoModeWhenF0CheckBox";
-            this.IntNAutoModeWhenF0CheckBox.Size = new System.Drawing.Size(264, 21);
+            this.IntNAutoModeWhenF0CheckBox.Size = new System.Drawing.Size(201, 17);
             this.IntNAutoModeWhenF0CheckBox.TabIndex = 2;
             this.IntNAutoModeWhenF0CheckBox.Text = "Integer-N mode auto set, if FracN = 0";
             this.IntNAutoModeWhenF0CheckBox.UseVisualStyleBackColor = true;
@@ -856,9 +890,11 @@ namespace Synthesizer_PC_control
             this.ShutDownGroupBox.Controls.Add(this.VcoLdoShutDownCheckBox);
             this.ShutDownGroupBox.Controls.Add(this.VcoDividerShutdownCheckBox);
             this.ShutDownGroupBox.Controls.Add(this.RefInputShutdownCheckBox);
-            this.ShutDownGroupBox.Location = new System.Drawing.Point(8, 621);
+            this.ShutDownGroupBox.Location = new System.Drawing.Point(6, 505);
+            this.ShutDownGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ShutDownGroupBox.Name = "ShutDownGroupBox";
-            this.ShutDownGroupBox.Size = new System.Drawing.Size(341, 100);
+            this.ShutDownGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ShutDownGroupBox.Size = new System.Drawing.Size(256, 81);
             this.ShutDownGroupBox.TabIndex = 5;
             this.ShutDownGroupBox.TabStop = false;
             this.ShutDownGroupBox.Text = "Shutdown controls";
@@ -866,9 +902,10 @@ namespace Synthesizer_PC_control
             // PllShutDownCheckBox
             // 
             this.PllShutDownCheckBox.AutoSize = true;
-            this.PllShutDownCheckBox.Location = new System.Drawing.Point(12, 74);
+            this.PllShutDownCheckBox.Location = new System.Drawing.Point(9, 60);
+            this.PllShutDownCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.PllShutDownCheckBox.Name = "PllShutDownCheckBox";
-            this.PllShutDownCheckBox.Size = new System.Drawing.Size(55, 21);
+            this.PllShutDownCheckBox.Size = new System.Drawing.Size(45, 17);
             this.PllShutDownCheckBox.TabIndex = 4;
             this.PllShutDownCheckBox.Text = "PLL";
             this.PllShutDownCheckBox.UseVisualStyleBackColor = true;
@@ -877,9 +914,10 @@ namespace Synthesizer_PC_control
             // VcoShutDownCheckBox
             // 
             this.VcoShutDownCheckBox.AutoSize = true;
-            this.VcoShutDownCheckBox.Location = new System.Drawing.Point(194, 74);
+            this.VcoShutDownCheckBox.Location = new System.Drawing.Point(146, 60);
+            this.VcoShutDownCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.VcoShutDownCheckBox.Name = "VcoShutDownCheckBox";
-            this.VcoShutDownCheckBox.Size = new System.Drawing.Size(59, 21);
+            this.VcoShutDownCheckBox.Size = new System.Drawing.Size(48, 17);
             this.VcoShutDownCheckBox.TabIndex = 5;
             this.VcoShutDownCheckBox.Text = "VCO";
             this.VcoShutDownCheckBox.UseVisualStyleBackColor = true;
@@ -888,9 +926,10 @@ namespace Synthesizer_PC_control
             // PloPowerDownCheckBox
             // 
             this.PloPowerDownCheckBox.AutoSize = true;
-            this.PloPowerDownCheckBox.Location = new System.Drawing.Point(12, 20);
+            this.PloPowerDownCheckBox.Location = new System.Drawing.Point(9, 16);
+            this.PloPowerDownCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.PloPowerDownCheckBox.Name = "PloPowerDownCheckBox";
-            this.PloPowerDownCheckBox.Size = new System.Drawing.Size(138, 21);
+            this.PloPowerDownCheckBox.Size = new System.Drawing.Size(109, 17);
             this.PloPowerDownCheckBox.TabIndex = 0;
             this.PloPowerDownCheckBox.Text = "PLO Power down";
             this.PloPowerDownCheckBox.UseVisualStyleBackColor = true;
@@ -899,9 +938,10 @@ namespace Synthesizer_PC_control
             // VcoLdoShutDownCheckBox
             // 
             this.VcoLdoShutDownCheckBox.AutoSize = true;
-            this.VcoLdoShutDownCheckBox.Location = new System.Drawing.Point(194, 47);
+            this.VcoLdoShutDownCheckBox.Location = new System.Drawing.Point(146, 38);
+            this.VcoLdoShutDownCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.VcoLdoShutDownCheckBox.Name = "VcoLdoShutDownCheckBox";
-            this.VcoLdoShutDownCheckBox.Size = new System.Drawing.Size(92, 21);
+            this.VcoLdoShutDownCheckBox.Size = new System.Drawing.Size(73, 17);
             this.VcoLdoShutDownCheckBox.TabIndex = 3;
             this.VcoLdoShutDownCheckBox.Text = "VCO LDO";
             this.VcoLdoShutDownCheckBox.UseVisualStyleBackColor = true;
@@ -910,9 +950,10 @@ namespace Synthesizer_PC_control
             // VcoDividerShutdownCheckBox
             // 
             this.VcoDividerShutdownCheckBox.AutoSize = true;
-            this.VcoDividerShutdownCheckBox.Location = new System.Drawing.Point(194, 20);
+            this.VcoDividerShutdownCheckBox.Location = new System.Drawing.Point(146, 16);
+            this.VcoDividerShutdownCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.VcoDividerShutdownCheckBox.Name = "VcoDividerShutdownCheckBox";
-            this.VcoDividerShutdownCheckBox.Size = new System.Drawing.Size(105, 21);
+            this.VcoDividerShutdownCheckBox.Size = new System.Drawing.Size(82, 17);
             this.VcoDividerShutdownCheckBox.TabIndex = 1;
             this.VcoDividerShutdownCheckBox.Text = "VCO divider";
             this.VcoDividerShutdownCheckBox.UseVisualStyleBackColor = true;
@@ -921,9 +962,10 @@ namespace Synthesizer_PC_control
             // RefInputShutdownCheckBox
             // 
             this.RefInputShutdownCheckBox.AutoSize = true;
-            this.RefInputShutdownCheckBox.Location = new System.Drawing.Point(12, 47);
+            this.RefInputShutdownCheckBox.Location = new System.Drawing.Point(9, 38);
+            this.RefInputShutdownCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RefInputShutdownCheckBox.Name = "RefInputShutdownCheckBox";
-            this.RefInputShutdownCheckBox.Size = new System.Drawing.Size(131, 21);
+            this.RefInputShutdownCheckBox.Size = new System.Drawing.Size(102, 17);
             this.RefInputShutdownCheckBox.TabIndex = 2;
             this.RefInputShutdownCheckBox.Text = "Reference input";
             this.RefInputShutdownCheckBox.UseVisualStyleBackColor = true;
@@ -946,9 +988,11 @@ namespace Synthesizer_PC_control
             this.VcoSettingsGroupBox.Controls.Add(this.BandSelectClockDivLabel);
             this.VcoSettingsGroupBox.Controls.Add(this.label5);
             this.VcoSettingsGroupBox.Controls.Add(this.ManualVcoLabel);
-            this.VcoSettingsGroupBox.Location = new System.Drawing.Point(356, 198);
+            this.VcoSettingsGroupBox.Location = new System.Drawing.Point(267, 161);
+            this.VcoSettingsGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.VcoSettingsGroupBox.Name = "VcoSettingsGroupBox";
-            this.VcoSettingsGroupBox.Size = new System.Drawing.Size(341, 238);
+            this.VcoSettingsGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.VcoSettingsGroupBox.Size = new System.Drawing.Size(256, 193);
             this.VcoSettingsGroupBox.TabIndex = 6;
             this.VcoSettingsGroupBox.TabStop = false;
             this.VcoSettingsGroupBox.Text = "VCO settings";
@@ -957,9 +1001,10 @@ namespace Synthesizer_PC_control
             // 
             this.ShowDelayLabel.AutoSize = true;
             this.ShowDelayLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.ShowDelayLabel.Location = new System.Drawing.Point(276, 187);
+            this.ShowDelayLabel.Location = new System.Drawing.Point(207, 152);
+            this.ShowDelayLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ShowDelayLabel.Name = "ShowDelayLabel";
-            this.ShowDelayLabel.Size = new System.Drawing.Size(62, 17);
+            this.ShowDelayLabel.Size = new System.Drawing.Size(47, 13);
             this.ShowDelayLabel.TabIndex = 20;
             this.ShowDelayLabel.Text = "1000 ms";
             this.ShowDelayLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -967,27 +1012,30 @@ namespace Synthesizer_PC_control
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(285, 213);
+            this.label7.Location = new System.Drawing.Point(214, 173);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(26, 17);
+            this.label7.Size = new System.Drawing.Size(20, 13);
             this.label7.TabIndex = 20;
             this.label7.Text = "ms";
             // 
             // delayLabel
             // 
             this.delayLabel.AutoSize = true;
-            this.delayLabel.Location = new System.Drawing.Point(229, 186);
+            this.delayLabel.Location = new System.Drawing.Point(172, 151);
+            this.delayLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.delayLabel.Name = "delayLabel";
-            this.delayLabel.Size = new System.Drawing.Size(48, 17);
+            this.delayLabel.Size = new System.Drawing.Size(37, 13);
             this.delayLabel.TabIndex = 20;
             this.delayLabel.Text = "Delay:";
             // 
             // AutoCDIVCalcCheckBox
             // 
             this.AutoCDIVCalcCheckBox.AutoSize = true;
-            this.AutoCDIVCalcCheckBox.Location = new System.Drawing.Point(12, 211);
+            this.AutoCDIVCalcCheckBox.Location = new System.Drawing.Point(9, 171);
+            this.AutoCDIVCalcCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AutoCDIVCalcCheckBox.Name = "AutoCDIVCalcCheckBox";
-            this.AutoCDIVCalcCheckBox.Size = new System.Drawing.Size(188, 21);
+            this.AutoCDIVCalcCheckBox.Size = new System.Drawing.Size(147, 17);
             this.AutoCDIVCalcCheckBox.TabIndex = 7;
             this.AutoCDIVCalcCheckBox.Text = "Calc CDIV to spec. delay:";
             this.AutoCDIVCalcCheckBox.UseVisualStyleBackColor = true;
@@ -996,9 +1044,10 @@ namespace Synthesizer_PC_control
             // DelayToPreventFlickeringCheckBox
             // 
             this.DelayToPreventFlickeringCheckBox.AutoSize = true;
-            this.DelayToPreventFlickeringCheckBox.Location = new System.Drawing.Point(12, 161);
+            this.DelayToPreventFlickeringCheckBox.Location = new System.Drawing.Point(9, 131);
+            this.DelayToPreventFlickeringCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DelayToPreventFlickeringCheckBox.Name = "DelayToPreventFlickeringCheckBox";
-            this.DelayToPreventFlickeringCheckBox.Size = new System.Drawing.Size(328, 21);
+            this.DelayToPreventFlickeringCheckBox.Size = new System.Drawing.Size(252, 17);
             this.DelayToPreventFlickeringCheckBox.TabIndex = 5;
             this.DelayToPreventFlickeringCheckBox.Text = "Delay LD to MTLD function to prevent flickering";
             this.DelayToPreventFlickeringCheckBox.UseVisualStyleBackColor = true;
@@ -1007,9 +1056,10 @@ namespace Synthesizer_PC_control
             // MuteUntilLockDetectCheckBox
             // 
             this.MuteUntilLockDetectCheckBox.AutoSize = true;
-            this.MuteUntilLockDetectCheckBox.Location = new System.Drawing.Point(12, 134);
+            this.MuteUntilLockDetectCheckBox.Location = new System.Drawing.Point(9, 109);
+            this.MuteUntilLockDetectCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MuteUntilLockDetectCheckBox.Name = "MuteUntilLockDetectCheckBox";
-            this.MuteUntilLockDetectCheckBox.Size = new System.Drawing.Size(261, 21);
+            this.MuteUntilLockDetectCheckBox.Size = new System.Drawing.Size(204, 17);
             this.MuteUntilLockDetectCheckBox.TabIndex = 4;
             this.MuteUntilLockDetectCheckBox.Text = "RFOUT Mute until Lock Detect Mode";
             this.MuteUntilLockDetectCheckBox.UseVisualStyleBackColor = true;
@@ -1018,9 +1068,10 @@ namespace Synthesizer_PC_control
             // VASTempCompCheckBox
             // 
             this.VASTempCompCheckBox.AutoSize = true;
-            this.VASTempCompCheckBox.Location = new System.Drawing.Point(12, 54);
+            this.VASTempCompCheckBox.Location = new System.Drawing.Point(9, 44);
+            this.VASTempCompCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.VASTempCompCheckBox.Name = "VASTempCompCheckBox";
-            this.VASTempCompCheckBox.Size = new System.Drawing.Size(230, 21);
+            this.VASTempCompCheckBox.Size = new System.Drawing.Size(175, 17);
             this.VASTempCompCheckBox.TabIndex = 1;
             this.VASTempCompCheckBox.Text = "VAS temperature compensation";
             this.VASTempCompCheckBox.UseVisualStyleBackColor = true;
@@ -1029,9 +1080,10 @@ namespace Synthesizer_PC_control
             // AutoVcoSelectionCheckBox
             // 
             this.AutoVcoSelectionCheckBox.AutoSize = true;
-            this.AutoVcoSelectionCheckBox.Location = new System.Drawing.Point(12, 27);
+            this.AutoVcoSelectionCheckBox.Location = new System.Drawing.Point(9, 22);
+            this.AutoVcoSelectionCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.AutoVcoSelectionCheckBox.Name = "AutoVcoSelectionCheckBox";
-            this.AutoVcoSelectionCheckBox.Size = new System.Drawing.Size(185, 21);
+            this.AutoVcoSelectionCheckBox.Size = new System.Drawing.Size(143, 17);
             this.AutoVcoSelectionCheckBox.TabIndex = 0;
             this.AutoVcoSelectionCheckBox.Text = "Automatic VCO selection";
             this.AutoVcoSelectionCheckBox.UseVisualStyleBackColor = true;
@@ -1039,8 +1091,7 @@ namespace Synthesizer_PC_control
             // 
             // BandSelClockDivNumericUpDown
             // 
-            this.BandSelClockDivNumericUpDown.Location = new System.Drawing.Point(155, 105);
-            this.BandSelClockDivNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.BandSelClockDivNumericUpDown.Location = new System.Drawing.Point(116, 85);
             this.BandSelClockDivNumericUpDown.Maximum = new decimal(new int[] {
             1023,
             0,
@@ -1052,7 +1103,7 @@ namespace Synthesizer_PC_control
             0,
             0});
             this.BandSelClockDivNumericUpDown.Name = "BandSelClockDivNumericUpDown";
-            this.BandSelClockDivNumericUpDown.Size = new System.Drawing.Size(83, 22);
+            this.BandSelClockDivNumericUpDown.Size = new System.Drawing.Size(62, 20);
             this.BandSelClockDivNumericUpDown.TabIndex = 3;
             this.BandSelClockDivNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.BandSelClockDivNumericUpDown.Value = new decimal(new int[] {
@@ -1065,15 +1116,14 @@ namespace Synthesizer_PC_control
             // 
             // DelayInputNumericUpDown
             // 
-            this.DelayInputNumericUpDown.Location = new System.Drawing.Point(212, 211);
-            this.DelayInputNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.DelayInputNumericUpDown.Location = new System.Drawing.Point(159, 171);
             this.DelayInputNumericUpDown.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
             this.DelayInputNumericUpDown.Name = "DelayInputNumericUpDown";
-            this.DelayInputNumericUpDown.Size = new System.Drawing.Size(70, 22);
+            this.DelayInputNumericUpDown.Size = new System.Drawing.Size(52, 20);
             this.DelayInputNumericUpDown.TabIndex = 8;
             this.DelayInputNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.DelayInputNumericUpDown.Value = new decimal(new int[] {
@@ -1086,15 +1136,14 @@ namespace Synthesizer_PC_control
             // 
             // ClockDividerNumericUpDown
             // 
-            this.ClockDividerNumericUpDown.Location = new System.Drawing.Point(138, 185);
-            this.ClockDividerNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.ClockDividerNumericUpDown.Location = new System.Drawing.Point(104, 150);
             this.ClockDividerNumericUpDown.Maximum = new decimal(new int[] {
             4095,
             0,
             0,
             0});
             this.ClockDividerNumericUpDown.Name = "ClockDividerNumericUpDown";
-            this.ClockDividerNumericUpDown.Size = new System.Drawing.Size(83, 22);
+            this.ClockDividerNumericUpDown.Size = new System.Drawing.Size(62, 20);
             this.ClockDividerNumericUpDown.TabIndex = 6;
             this.ClockDividerNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ClockDividerNumericUpDown.Value = new decimal(new int[] {
@@ -1107,15 +1156,14 @@ namespace Synthesizer_PC_control
             // 
             // ManualVCOSelectNumericUpDown
             // 
-            this.ManualVCOSelectNumericUpDown.Location = new System.Drawing.Point(154, 79);
-            this.ManualVCOSelectNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.ManualVCOSelectNumericUpDown.Location = new System.Drawing.Point(116, 64);
             this.ManualVCOSelectNumericUpDown.Maximum = new decimal(new int[] {
             64,
             0,
             0,
             0});
             this.ManualVCOSelectNumericUpDown.Name = "ManualVCOSelectNumericUpDown";
-            this.ManualVCOSelectNumericUpDown.Size = new System.Drawing.Size(83, 22);
+            this.ManualVCOSelectNumericUpDown.Size = new System.Drawing.Size(62, 20);
             this.ManualVCOSelectNumericUpDown.TabIndex = 2;
             this.ManualVCOSelectNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ManualVCOSelectNumericUpDown.Value = new decimal(new int[] {
@@ -1128,27 +1176,30 @@ namespace Synthesizer_PC_control
             // 
             // BandSelectClockDivLabel
             // 
-            this.BandSelectClockDivLabel.Location = new System.Drawing.Point(-5, 108);
+            this.BandSelectClockDivLabel.Location = new System.Drawing.Point(-4, 88);
+            this.BandSelectClockDivLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.BandSelectClockDivLabel.Name = "BandSelectClockDivLabel";
-            this.BandSelectClockDivLabel.Size = new System.Drawing.Size(156, 17);
+            this.BandSelectClockDivLabel.Size = new System.Drawing.Size(117, 14);
             this.BandSelectClockDivLabel.TabIndex = 17;
             this.BandSelectClockDivLabel.Text = "Band-Select clock div:";
             this.BandSelectClockDivLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(-4, 187);
+            this.label5.Location = new System.Drawing.Point(-3, 152);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(139, 17);
+            this.label5.Size = new System.Drawing.Size(104, 14);
             this.label5.TabIndex = 17;
             this.label5.Text = "Clock divider value:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ManualVcoLabel
             // 
-            this.ManualVcoLabel.Location = new System.Drawing.Point(12, 81);
+            this.ManualVcoLabel.Location = new System.Drawing.Point(9, 66);
+            this.ManualVcoLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ManualVcoLabel.Name = "ManualVcoLabel";
-            this.ManualVcoLabel.Size = new System.Drawing.Size(139, 17);
+            this.ManualVcoLabel.Size = new System.Drawing.Size(104, 14);
             this.ManualVcoLabel.TabIndex = 17;
             this.ManualVcoLabel.Text = "Manual VCO select:";
             this.ManualVcoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1159,27 +1210,31 @@ namespace Synthesizer_PC_control
             this.PhaseDetectorGroupBox.Controls.Add(this.LDPrecisionLabel);
             this.PhaseDetectorGroupBox.Controls.Add(this.PfdPolarity);
             this.PhaseDetectorGroupBox.Controls.Add(this.LDPrecisionComboBox);
-            this.PhaseDetectorGroupBox.Location = new System.Drawing.Point(8, 557);
+            this.PhaseDetectorGroupBox.Location = new System.Drawing.Point(6, 453);
+            this.PhaseDetectorGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.PhaseDetectorGroupBox.Name = "PhaseDetectorGroupBox";
-            this.PhaseDetectorGroupBox.Size = new System.Drawing.Size(341, 58);
+            this.PhaseDetectorGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PhaseDetectorGroupBox.Size = new System.Drawing.Size(256, 47);
             this.PhaseDetectorGroupBox.TabIndex = 4;
             this.PhaseDetectorGroupBox.TabStop = false;
             this.PhaseDetectorGroupBox.Text = "Phase detector";
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(172, 25);
+            this.label1.Location = new System.Drawing.Point(129, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 17);
+            this.label1.Size = new System.Drawing.Size(72, 14);
             this.label1.TabIndex = 17;
             this.label1.Text = "PFD polarity:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LDPrecisionLabel
             // 
-            this.LDPrecisionLabel.Location = new System.Drawing.Point(1, 25);
+            this.LDPrecisionLabel.Location = new System.Drawing.Point(1, 20);
+            this.LDPrecisionLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LDPrecisionLabel.Name = "LDPrecisionLabel";
-            this.LDPrecisionLabel.Size = new System.Drawing.Size(96, 17);
+            this.LDPrecisionLabel.Size = new System.Drawing.Size(72, 14);
             this.LDPrecisionLabel.TabIndex = 17;
             this.LDPrecisionLabel.Text = "LD precision:";
             this.LDPrecisionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1192,10 +1247,10 @@ namespace Synthesizer_PC_control
             this.PfdPolarity.Items.AddRange(new object[] {
             "neg",
             "pos"});
-            this.PfdPolarity.Location = new System.Drawing.Point(274, 22);
-            this.PfdPolarity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.PfdPolarity.Location = new System.Drawing.Point(206, 18);
+            this.PfdPolarity.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.PfdPolarity.Name = "PfdPolarity";
-            this.PfdPolarity.Size = new System.Drawing.Size(61, 24);
+            this.PfdPolarity.Size = new System.Drawing.Size(47, 21);
             this.PfdPolarity.TabIndex = 1;
             this.PfdPolarity.SelectedIndexChanged += new System.EventHandler(this.PfdPolarity_SelectedIndexChanged);
             // 
@@ -1207,10 +1262,10 @@ namespace Synthesizer_PC_control
             this.LDPrecisionComboBox.Items.AddRange(new object[] {
             "10 ns",
             " 6  ns"});
-            this.LDPrecisionComboBox.Location = new System.Drawing.Point(103, 22);
-            this.LDPrecisionComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LDPrecisionComboBox.Location = new System.Drawing.Point(77, 18);
+            this.LDPrecisionComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LDPrecisionComboBox.Name = "LDPrecisionComboBox";
-            this.LDPrecisionComboBox.Size = new System.Drawing.Size(67, 24);
+            this.LDPrecisionComboBox.Size = new System.Drawing.Size(51, 21);
             this.LDPrecisionComboBox.TabIndex = 0;
             this.LDPrecisionComboBox.SelectedIndexChanged += new System.EventHandler(this.LDPrecisionComboBox_SelectedIndexChanged);
             // 
@@ -1239,19 +1294,21 @@ namespace Synthesizer_PC_control
             this.RegistersControlsGroupBox.Controls.Add(this.WriteR2Button);
             this.RegistersControlsGroupBox.Controls.Add(this.WriteR1Button);
             this.RegistersControlsGroupBox.Controls.Add(this.Reg1TextBox);
-            this.RegistersControlsGroupBox.Location = new System.Drawing.Point(7, 5);
+            this.RegistersControlsGroupBox.Location = new System.Drawing.Point(5, 4);
+            this.RegistersControlsGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RegistersControlsGroupBox.Name = "RegistersControlsGroupBox";
-            this.RegistersControlsGroupBox.Size = new System.Drawing.Size(400, 187);
+            this.RegistersControlsGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegistersControlsGroupBox.Size = new System.Drawing.Size(300, 152);
             this.RegistersControlsGroupBox.TabIndex = 0;
             this.RegistersControlsGroupBox.TabStop = false;
             this.RegistersControlsGroupBox.Text = "Registers controls";
             // 
             // LoadFromFileButton
             // 
-            this.LoadFromFileButton.Location = new System.Drawing.Point(275, 103);
-            this.LoadFromFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LoadFromFileButton.Location = new System.Drawing.Point(206, 84);
+            this.LoadFromFileButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LoadFromFileButton.Name = "LoadFromFileButton";
-            this.LoadFromFileButton.Size = new System.Drawing.Size(119, 23);
+            this.LoadFromFileButton.Size = new System.Drawing.Size(89, 19);
             this.LoadFromFileButton.TabIndex = 15;
             this.LoadFromFileButton.Text = "Load From File";
             this.LoadFromFileButton.UseVisualStyleBackColor = true;
@@ -1259,10 +1316,10 @@ namespace Synthesizer_PC_control
             // 
             // SaveIntoFileButton
             // 
-            this.SaveIntoFileButton.Location = new System.Drawing.Point(275, 76);
-            this.SaveIntoFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SaveIntoFileButton.Location = new System.Drawing.Point(206, 62);
+            this.SaveIntoFileButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SaveIntoFileButton.Name = "SaveIntoFileButton";
-            this.SaveIntoFileButton.Size = new System.Drawing.Size(119, 23);
+            this.SaveIntoFileButton.Size = new System.Drawing.Size(89, 19);
             this.SaveIntoFileButton.TabIndex = 14;
             this.SaveIntoFileButton.Text = "Save Into File";
             this.SaveIntoFileButton.UseVisualStyleBackColor = true;
@@ -1274,19 +1331,21 @@ namespace Synthesizer_PC_control
             this.MoveRegsIntoMemsGroupBox.Controls.Add(this.ExportIntoMem2Button);
             this.MoveRegsIntoMemsGroupBox.Controls.Add(this.ExportIntoMem3Button);
             this.MoveRegsIntoMemsGroupBox.Controls.Add(this.ExportIntoMem4Button);
-            this.MoveRegsIntoMemsGroupBox.Location = new System.Drawing.Point(413, 5);
+            this.MoveRegsIntoMemsGroupBox.Location = new System.Drawing.Point(310, 4);
+            this.MoveRegsIntoMemsGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MoveRegsIntoMemsGroupBox.Name = "MoveRegsIntoMemsGroupBox";
-            this.MoveRegsIntoMemsGroupBox.Size = new System.Drawing.Size(120, 187);
+            this.MoveRegsIntoMemsGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MoveRegsIntoMemsGroupBox.Size = new System.Drawing.Size(90, 152);
             this.MoveRegsIntoMemsGroupBox.TabIndex = 1;
             this.MoveRegsIntoMemsGroupBox.TabStop = false;
             this.MoveRegsIntoMemsGroupBox.Text = "Export currently set registers into Memory tab";
             // 
             // ExportIntoMem1Button
             // 
-            this.ExportIntoMem1Button.Location = new System.Drawing.Point(10, 72);
-            this.ExportIntoMem1Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ExportIntoMem1Button.Location = new System.Drawing.Point(8, 58);
+            this.ExportIntoMem1Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ExportIntoMem1Button.Name = "ExportIntoMem1Button";
-            this.ExportIntoMem1Button.Size = new System.Drawing.Size(99, 23);
+            this.ExportIntoMem1Button.Size = new System.Drawing.Size(74, 19);
             this.ExportIntoMem1Button.TabIndex = 9;
             this.ExportIntoMem1Button.Text = "Memory 1";
             this.ExportIntoMem1Button.UseVisualStyleBackColor = true;
@@ -1294,10 +1353,10 @@ namespace Synthesizer_PC_control
             // 
             // ExportIntoMem2Button
             // 
-            this.ExportIntoMem2Button.Location = new System.Drawing.Point(10, 100);
-            this.ExportIntoMem2Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ExportIntoMem2Button.Location = new System.Drawing.Point(8, 81);
+            this.ExportIntoMem2Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ExportIntoMem2Button.Name = "ExportIntoMem2Button";
-            this.ExportIntoMem2Button.Size = new System.Drawing.Size(99, 23);
+            this.ExportIntoMem2Button.Size = new System.Drawing.Size(74, 19);
             this.ExportIntoMem2Button.TabIndex = 9;
             this.ExportIntoMem2Button.Text = "Memory 2";
             this.ExportIntoMem2Button.UseVisualStyleBackColor = true;
@@ -1305,10 +1364,10 @@ namespace Synthesizer_PC_control
             // 
             // ExportIntoMem3Button
             // 
-            this.ExportIntoMem3Button.Location = new System.Drawing.Point(10, 128);
-            this.ExportIntoMem3Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ExportIntoMem3Button.Location = new System.Drawing.Point(8, 104);
+            this.ExportIntoMem3Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ExportIntoMem3Button.Name = "ExportIntoMem3Button";
-            this.ExportIntoMem3Button.Size = new System.Drawing.Size(99, 23);
+            this.ExportIntoMem3Button.Size = new System.Drawing.Size(74, 19);
             this.ExportIntoMem3Button.TabIndex = 9;
             this.ExportIntoMem3Button.Text = "Memory 3";
             this.ExportIntoMem3Button.UseVisualStyleBackColor = true;
@@ -1316,10 +1375,10 @@ namespace Synthesizer_PC_control
             // 
             // ExportIntoMem4Button
             // 
-            this.ExportIntoMem4Button.Location = new System.Drawing.Point(10, 156);
-            this.ExportIntoMem4Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ExportIntoMem4Button.Location = new System.Drawing.Point(8, 127);
+            this.ExportIntoMem4Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ExportIntoMem4Button.Name = "ExportIntoMem4Button";
-            this.ExportIntoMem4Button.Size = new System.Drawing.Size(99, 23);
+            this.ExportIntoMem4Button.Size = new System.Drawing.Size(74, 19);
             this.ExportIntoMem4Button.TabIndex = 9;
             this.ExportIntoMem4Button.Text = "Memory 4";
             this.ExportIntoMem4Button.UseVisualStyleBackColor = true;
@@ -1339,11 +1398,9 @@ namespace Synthesizer_PC_control
             this.ChargePumpGroupBox.Controls.Add(this.CPLinearityLabel);
             this.ChargePumpGroupBox.Controls.Add(this.RSetLabel);
             this.ChargePumpGroupBox.Controls.Add(this.CPCurrentLabel);
-            this.ChargePumpGroupBox.Location = new System.Drawing.Point(356, 442);
-            this.ChargePumpGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ChargePumpGroupBox.Location = new System.Drawing.Point(267, 359);
             this.ChargePumpGroupBox.Name = "ChargePumpGroupBox";
-            this.ChargePumpGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.ChargePumpGroupBox.Size = new System.Drawing.Size(341, 147);
+            this.ChargePumpGroupBox.Size = new System.Drawing.Size(256, 119);
             this.ChargePumpGroupBox.TabIndex = 7;
             this.ChargePumpGroupBox.TabStop = false;
             this.ChargePumpGroupBox.Text = "Charge pump";
@@ -1352,10 +1409,9 @@ namespace Synthesizer_PC_control
             // 
             this.PhaseAdjustmentModeCheckbox.AutoSize = true;
             this.PhaseAdjustmentModeCheckbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.PhaseAdjustmentModeCheckbox.Location = new System.Drawing.Point(208, 57);
-            this.PhaseAdjustmentModeCheckbox.Margin = new System.Windows.Forms.Padding(4);
+            this.PhaseAdjustmentModeCheckbox.Location = new System.Drawing.Point(156, 46);
             this.PhaseAdjustmentModeCheckbox.Name = "PhaseAdjustmentModeCheckbox";
-            this.PhaseAdjustmentModeCheckbox.Size = new System.Drawing.Size(121, 21);
+            this.PhaseAdjustmentModeCheckbox.Size = new System.Drawing.Size(94, 17);
             this.PhaseAdjustmentModeCheckbox.TabIndex = 5;
             this.PhaseAdjustmentModeCheckbox.Text = "Phase Adjust.:";
             this.PhaseAdjustmentModeCheckbox.UseVisualStyleBackColor = true;
@@ -1365,10 +1421,9 @@ namespace Synthesizer_PC_control
             // 
             this.CPCycleSlipCheckBox.AutoSize = true;
             this.CPCycleSlipCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(194, 115);
-            this.CPCycleSlipCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CPCycleSlipCheckBox.Location = new System.Drawing.Point(146, 93);
             this.CPCycleSlipCheckBox.Name = "CPCycleSlipCheckBox";
-            this.CPCycleSlipCheckBox.Size = new System.Drawing.Size(134, 21);
+            this.CPCycleSlipCheckBox.Size = new System.Drawing.Size(105, 17);
             this.CPCycleSlipCheckBox.TabIndex = 7;
             this.CPCycleSlipCheckBox.Text = "Cycle Slip Mode:";
             this.CPCycleSlipCheckBox.UseVisualStyleBackColor = true;
@@ -1379,10 +1434,9 @@ namespace Synthesizer_PC_control
             this.CPTriStateOutCheckBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.CPTriStateOutCheckBox.AutoSize = true;
             this.CPTriStateOutCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPTriStateOutCheckBox.Location = new System.Drawing.Point(205, 86);
-            this.CPTriStateOutCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CPTriStateOutCheckBox.Location = new System.Drawing.Point(151, 70);
             this.CPTriStateOutCheckBox.Name = "CPTriStateOutCheckBox";
-            this.CPTriStateOutCheckBox.Size = new System.Drawing.Size(129, 21);
+            this.CPTriStateOutCheckBox.Size = new System.Drawing.Size(99, 17);
             this.CPTriStateOutCheckBox.TabIndex = 6;
             this.CPTriStateOutCheckBox.Text = "Tristate Output:";
             this.CPTriStateOutCheckBox.UseVisualStyleBackColor = true;
@@ -1393,10 +1447,9 @@ namespace Synthesizer_PC_control
             this.CPFastLockCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CPFastLockCheckBox.AutoSize = true;
             this.CPFastLockCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CPFastLockCheckBox.Location = new System.Drawing.Point(239, 30);
-            this.CPFastLockCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.CPFastLockCheckBox.Location = new System.Drawing.Point(175, 24);
             this.CPFastLockCheckBox.Name = "CPFastLockCheckBox";
-            this.CPFastLockCheckBox.Size = new System.Drawing.Size(95, 21);
+            this.CPFastLockCheckBox.Size = new System.Drawing.Size(76, 17);
             this.CPFastLockCheckBox.TabIndex = 4;
             this.CPFastLockCheckBox.Text = "Fast Lock:";
             this.CPFastLockCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1407,11 +1460,11 @@ namespace Synthesizer_PC_control
             // 
             this.RSetTextBox.BackColor = System.Drawing.Color.White;
             this.RSetTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.RSetTextBox.Location = new System.Drawing.Point(73, 22);
-            this.RSetTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RSetTextBox.Location = new System.Drawing.Point(55, 18);
+            this.RSetTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RSetTextBox.MaxLength = 5;
             this.RSetTextBox.Name = "RSetTextBox";
-            this.RSetTextBox.Size = new System.Drawing.Size(53, 22);
+            this.RSetTextBox.Size = new System.Drawing.Size(41, 20);
             this.RSetTextBox.TabIndex = 0;
             this.RSetTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RSetTextBox.TextChanged += new System.EventHandler(this.RSetTextBox_TextChanged);
@@ -1428,10 +1481,10 @@ namespace Synthesizer_PC_control
             "Long Reset",
             "Force Source",
             "Force Sink"});
-            this.CPTestComboBox.Location = new System.Drawing.Point(73, 113);
-            this.CPTestComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CPTestComboBox.Location = new System.Drawing.Point(55, 92);
+            this.CPTestComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CPTestComboBox.Name = "CPTestComboBox";
-            this.CPTestComboBox.Size = new System.Drawing.Size(116, 24);
+            this.CPTestComboBox.Size = new System.Drawing.Size(88, 21);
             this.CPTestComboBox.TabIndex = 3;
             this.CPTestComboBox.SelectedIndexChanged += new System.EventHandler(this.CPTestComboBox_SelectedIndexChanged);
             // 
@@ -1445,18 +1498,19 @@ namespace Synthesizer_PC_control
             "10% extra",
             "20% extra",
             "30% extra"});
-            this.CPLinearityComboBox.Location = new System.Drawing.Point(73, 82);
-            this.CPLinearityComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CPLinearityComboBox.Location = new System.Drawing.Point(55, 67);
+            this.CPLinearityComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CPLinearityComboBox.Name = "CPLinearityComboBox";
-            this.CPLinearityComboBox.Size = new System.Drawing.Size(116, 24);
+            this.CPLinearityComboBox.Size = new System.Drawing.Size(88, 21);
             this.CPLinearityComboBox.TabIndex = 2;
             this.CPLinearityComboBox.SelectedIndexChanged += new System.EventHandler(this.CPLinearityComboBox_SelectedIndexChanged);
             // 
             // CPTestLabel
             // 
-            this.CPTestLabel.Location = new System.Drawing.Point(0, 117);
+            this.CPTestLabel.Location = new System.Drawing.Point(0, 95);
+            this.CPTestLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CPTestLabel.Name = "CPTestLabel";
-            this.CPTestLabel.Size = new System.Drawing.Size(68, 17);
+            this.CPTestLabel.Size = new System.Drawing.Size(51, 14);
             this.CPTestLabel.TabIndex = 17;
             this.CPTestLabel.Text = "CP Test:";
             this.CPTestLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1466,36 +1520,39 @@ namespace Synthesizer_PC_control
             this.CPCurrentComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.CPCurrentComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CPCurrentComboBox.FormattingEnabled = true;
-            this.CPCurrentComboBox.Location = new System.Drawing.Point(73, 52);
-            this.CPCurrentComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CPCurrentComboBox.Location = new System.Drawing.Point(55, 42);
+            this.CPCurrentComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CPCurrentComboBox.Name = "CPCurrentComboBox";
-            this.CPCurrentComboBox.Size = new System.Drawing.Size(116, 24);
+            this.CPCurrentComboBox.Size = new System.Drawing.Size(88, 21);
             this.CPCurrentComboBox.TabIndex = 1;
             this.CPCurrentComboBox.SelectedIndexChanged += new System.EventHandler(this.CPCurrentComboBox_SelectedIndexChanged);
             // 
             // CPLinearityLabel
             // 
-            this.CPLinearityLabel.Location = new System.Drawing.Point(0, 86);
+            this.CPLinearityLabel.Location = new System.Drawing.Point(0, 70);
+            this.CPLinearityLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CPLinearityLabel.Name = "CPLinearityLabel";
-            this.CPLinearityLabel.Size = new System.Drawing.Size(68, 17);
+            this.CPLinearityLabel.Size = new System.Drawing.Size(51, 14);
             this.CPLinearityLabel.TabIndex = 17;
             this.CPLinearityLabel.Text = "Linearity:";
             this.CPLinearityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RSetLabel
             // 
-            this.RSetLabel.Location = new System.Drawing.Point(0, 26);
+            this.RSetLabel.Location = new System.Drawing.Point(0, 21);
+            this.RSetLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RSetLabel.Name = "RSetLabel";
-            this.RSetLabel.Size = new System.Drawing.Size(68, 17);
+            this.RSetLabel.Size = new System.Drawing.Size(51, 14);
             this.RSetLabel.TabIndex = 17;
             this.RSetLabel.Text = "R set:";
             this.RSetLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // CPCurrentLabel
             // 
-            this.CPCurrentLabel.Location = new System.Drawing.Point(4, 55);
+            this.CPCurrentLabel.Location = new System.Drawing.Point(3, 45);
+            this.CPCurrentLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.CPCurrentLabel.Name = "CPCurrentLabel";
-            this.CPCurrentLabel.Size = new System.Drawing.Size(64, 17);
+            this.CPCurrentLabel.Size = new System.Drawing.Size(48, 14);
             this.CPCurrentLabel.TabIndex = 17;
             this.CPCurrentLabel.Text = "Current:";
             this.CPCurrentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1510,47 +1567,49 @@ namespace Synthesizer_PC_control
             this.OutputControlsGroupBox.Controls.Add(this.OutAEn_ComboBox);
             this.OutputControlsGroupBox.Controls.Add(this.OutAPwr_ComboBox);
             this.OutputControlsGroupBox.Controls.Add(this.OutBEn_ComboBox);
-            this.OutputControlsGroupBox.Location = new System.Drawing.Point(231, 720);
-            this.OutputControlsGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.OutputControlsGroupBox.Location = new System.Drawing.Point(173, 585);
             this.OutputControlsGroupBox.Name = "OutputControlsGroupBox";
-            this.OutputControlsGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.OutputControlsGroupBox.Size = new System.Drawing.Size(459, 75);
+            this.OutputControlsGroupBox.Size = new System.Drawing.Size(344, 61);
             this.OutputControlsGroupBox.TabIndex = 10;
             this.OutputControlsGroupBox.TabStop = false;
             this.OutputControlsGroupBox.Text = "Output Controls";
             // 
             // RF_A_EN_Label
             // 
-            this.RF_A_EN_Label.Location = new System.Drawing.Point(7, 21);
+            this.RF_A_EN_Label.Location = new System.Drawing.Point(5, 17);
+            this.RF_A_EN_Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RF_A_EN_Label.Name = "RF_A_EN_Label";
-            this.RF_A_EN_Label.Size = new System.Drawing.Size(113, 17);
+            this.RF_A_EN_Label.Size = new System.Drawing.Size(85, 14);
             this.RF_A_EN_Label.TabIndex = 7;
             this.RF_A_EN_Label.Text = "RFoutA Enable:";
             this.RF_A_EN_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RF_A_PWR_Label
             // 
-            this.RF_A_PWR_Label.Location = new System.Drawing.Point(7, 50);
+            this.RF_A_PWR_Label.Location = new System.Drawing.Point(5, 41);
+            this.RF_A_PWR_Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RF_A_PWR_Label.Name = "RF_A_PWR_Label";
-            this.RF_A_PWR_Label.Size = new System.Drawing.Size(113, 17);
+            this.RF_A_PWR_Label.Size = new System.Drawing.Size(85, 14);
             this.RF_A_PWR_Label.TabIndex = 7;
             this.RF_A_PWR_Label.Text = "RFoutA Power:";
             this.RF_A_PWR_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RF_B_EN_Label
             // 
-            this.RF_B_EN_Label.Location = new System.Drawing.Point(232, 21);
+            this.RF_B_EN_Label.Location = new System.Drawing.Point(174, 17);
+            this.RF_B_EN_Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RF_B_EN_Label.Name = "RF_B_EN_Label";
-            this.RF_B_EN_Label.Size = new System.Drawing.Size(113, 17);
+            this.RF_B_EN_Label.Size = new System.Drawing.Size(85, 14);
             this.RF_B_EN_Label.TabIndex = 7;
             this.RF_B_EN_Label.Text = "RFoutB Enable:";
             this.RF_B_EN_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RF_B_PWR_Label
             // 
-            this.RF_B_PWR_Label.Location = new System.Drawing.Point(232, 50);
+            this.RF_B_PWR_Label.Location = new System.Drawing.Point(174, 41);
+            this.RF_B_PWR_Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RF_B_PWR_Label.Name = "RF_B_PWR_Label";
-            this.RF_B_PWR_Label.Size = new System.Drawing.Size(113, 17);
+            this.RF_B_PWR_Label.Size = new System.Drawing.Size(85, 14);
             this.RF_B_PWR_Label.TabIndex = 7;
             this.RF_B_PWR_Label.Text = "RFoutB Power:";
             this.RF_B_PWR_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1565,10 +1624,10 @@ namespace Synthesizer_PC_control
             "-1 dBm",
             "+2 dBm",
             "+5 dBm"});
-            this.OutBPwr_ComboBox.Location = new System.Drawing.Point(352, 47);
-            this.OutBPwr_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.OutBPwr_ComboBox.Location = new System.Drawing.Point(264, 38);
+            this.OutBPwr_ComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.OutBPwr_ComboBox.Name = "OutBPwr_ComboBox";
-            this.OutBPwr_ComboBox.Size = new System.Drawing.Size(100, 23);
+            this.OutBPwr_ComboBox.Size = new System.Drawing.Size(76, 21);
             this.OutBPwr_ComboBox.TabIndex = 3;
             this.OutBPwr_ComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OutBPwr_ComboBox_DrawItem);
             this.OutBPwr_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutBPwr_ComboBox_SelectedIndexChanged);
@@ -1581,10 +1640,10 @@ namespace Synthesizer_PC_control
             this.OutAEn_ComboBox.Items.AddRange(new object[] {
             "0. Disabled",
             "1. Enabled"});
-            this.OutAEn_ComboBox.Location = new System.Drawing.Point(127, 18);
-            this.OutAEn_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.OutAEn_ComboBox.Location = new System.Drawing.Point(95, 15);
+            this.OutAEn_ComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.OutAEn_ComboBox.Name = "OutAEn_ComboBox";
-            this.OutAEn_ComboBox.Size = new System.Drawing.Size(100, 24);
+            this.OutAEn_ComboBox.Size = new System.Drawing.Size(76, 21);
             this.OutAEn_ComboBox.TabIndex = 0;
             this.OutAEn_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutAEn_ComboBox_SelectedIndexChanged);
             // 
@@ -1598,10 +1657,10 @@ namespace Synthesizer_PC_control
             "-1 dBm",
             "+2 dBm",
             "+5 dBm"});
-            this.OutAPwr_ComboBox.Location = new System.Drawing.Point(127, 47);
-            this.OutAPwr_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.OutAPwr_ComboBox.Location = new System.Drawing.Point(95, 38);
+            this.OutAPwr_ComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.OutAPwr_ComboBox.Name = "OutAPwr_ComboBox";
-            this.OutAPwr_ComboBox.Size = new System.Drawing.Size(100, 23);
+            this.OutAPwr_ComboBox.Size = new System.Drawing.Size(76, 21);
             this.OutAPwr_ComboBox.TabIndex = 1;
             this.OutAPwr_ComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OutAPwr_ComboBox_DrawItem);
             this.OutAPwr_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutAPwr_ComboBox_SelectedIndexChanged);
@@ -1614,10 +1673,10 @@ namespace Synthesizer_PC_control
             this.OutBEn_ComboBox.Items.AddRange(new object[] {
             "0. Disabled",
             "1. Enabled"});
-            this.OutBEn_ComboBox.Location = new System.Drawing.Point(352, 18);
-            this.OutBEn_ComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.OutBEn_ComboBox.Location = new System.Drawing.Point(264, 15);
+            this.OutBEn_ComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.OutBEn_ComboBox.Name = "OutBEn_ComboBox";
-            this.OutBEn_ComboBox.Size = new System.Drawing.Size(100, 24);
+            this.OutBEn_ComboBox.Size = new System.Drawing.Size(76, 21);
             this.OutBEn_ComboBox.TabIndex = 2;
             this.OutBEn_ComboBox.SelectedIndexChanged += new System.EventHandler(this.OutBEn_ComboBox_SelectedIndexChanged);
             // 
@@ -1632,98 +1691,93 @@ namespace Synthesizer_PC_control
             this.OutInfoGroupBox.Controls.Add(this.fOutAScreenLabel);
             this.OutInfoGroupBox.Controls.Add(this.fOutBScreenLabel);
             this.OutInfoGroupBox.Controls.Add(this.fVcoScreenLabel);
-            this.OutInfoGroupBox.Location = new System.Drawing.Point(7, 720);
-            this.OutInfoGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.OutInfoGroupBox.Location = new System.Drawing.Point(5, 585);
             this.OutInfoGroupBox.Name = "OutInfoGroupBox";
-            this.OutInfoGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.OutInfoGroupBox.Size = new System.Drawing.Size(216, 75);
+            this.OutInfoGroupBox.Size = new System.Drawing.Size(162, 61);
             this.OutInfoGroupBox.TabIndex = 24;
             this.OutInfoGroupBox.TabStop = false;
             this.OutInfoGroupBox.Text = "Output frequency info";
             // 
             // fOutALabel
             // 
-            this.fOutALabel.Location = new System.Drawing.Point(8, 36);
-            this.fOutALabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fOutALabel.Location = new System.Drawing.Point(6, 29);
             this.fOutALabel.Name = "fOutALabel";
-            this.fOutALabel.Size = new System.Drawing.Size(61, 16);
+            this.fOutALabel.Size = new System.Drawing.Size(46, 13);
             this.fOutALabel.TabIndex = 20;
             this.fOutALabel.Text = "fOUT A:";
             this.fOutALabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MHzLabel1
             // 
-            this.MHzLabel1.Location = new System.Drawing.Point(175, 34);
+            this.MHzLabel1.Location = new System.Drawing.Point(131, 28);
+            this.MHzLabel1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MHzLabel1.Name = "MHzLabel1";
-            this.MHzLabel1.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel1.Size = new System.Drawing.Size(30, 14);
             this.MHzLabel1.TabIndex = 17;
             this.MHzLabel1.Text = "MHz";
             this.MHzLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MHzLabel5
             // 
-            this.MHzLabel5.Location = new System.Drawing.Point(175, 52);
+            this.MHzLabel5.Location = new System.Drawing.Point(131, 42);
+            this.MHzLabel5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MHzLabel5.Name = "MHzLabel5";
-            this.MHzLabel5.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel5.Size = new System.Drawing.Size(30, 14);
             this.MHzLabel5.TabIndex = 17;
             this.MHzLabel5.Text = "MHz";
             this.MHzLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // fVcoLabel
             // 
-            this.fVcoLabel.Location = new System.Drawing.Point(8, 18);
-            this.fVcoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fVcoLabel.Location = new System.Drawing.Point(6, 15);
             this.fVcoLabel.Name = "fVcoLabel";
-            this.fVcoLabel.Size = new System.Drawing.Size(61, 16);
+            this.fVcoLabel.Size = new System.Drawing.Size(46, 13);
             this.fVcoLabel.TabIndex = 20;
             this.fVcoLabel.Text = "fVCO:";
             this.fVcoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MHzLabel2
             // 
-            this.MHzLabel2.Location = new System.Drawing.Point(175, 17);
+            this.MHzLabel2.Location = new System.Drawing.Point(131, 14);
+            this.MHzLabel2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MHzLabel2.Name = "MHzLabel2";
-            this.MHzLabel2.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel2.Size = new System.Drawing.Size(30, 14);
             this.MHzLabel2.TabIndex = 17;
             this.MHzLabel2.Text = "MHz";
             this.MHzLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // fOutBLabel
             // 
-            this.fOutBLabel.Location = new System.Drawing.Point(8, 53);
-            this.fOutBLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fOutBLabel.Location = new System.Drawing.Point(6, 43);
             this.fOutBLabel.Name = "fOutBLabel";
-            this.fOutBLabel.Size = new System.Drawing.Size(61, 16);
+            this.fOutBLabel.Size = new System.Drawing.Size(46, 13);
             this.fOutBLabel.TabIndex = 20;
             this.fOutBLabel.Text = "fOUT B:";
             this.fOutBLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fOutAScreenLabel
             // 
-            this.fOutAScreenLabel.Location = new System.Drawing.Point(71, 36);
-            this.fOutAScreenLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fOutAScreenLabel.Location = new System.Drawing.Point(53, 29);
             this.fOutAScreenLabel.Name = "fOutAScreenLabel";
-            this.fOutAScreenLabel.Size = new System.Drawing.Size(109, 16);
+            this.fOutAScreenLabel.Size = new System.Drawing.Size(82, 13);
             this.fOutAScreenLabel.TabIndex = 20;
             this.fOutAScreenLabel.Text = "6000.000 000 0";
             this.fOutAScreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fOutBScreenLabel
             // 
-            this.fOutBScreenLabel.Location = new System.Drawing.Point(71, 53);
-            this.fOutBScreenLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fOutBScreenLabel.Location = new System.Drawing.Point(53, 43);
             this.fOutBScreenLabel.Name = "fOutBScreenLabel";
-            this.fOutBScreenLabel.Size = new System.Drawing.Size(109, 16);
+            this.fOutBScreenLabel.Size = new System.Drawing.Size(82, 13);
             this.fOutBScreenLabel.TabIndex = 20;
             this.fOutBScreenLabel.Text = "6000.000 000 0";
             this.fOutBScreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fVcoScreenLabel
             // 
-            this.fVcoScreenLabel.Location = new System.Drawing.Point(71, 18);
-            this.fVcoScreenLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fVcoScreenLabel.Location = new System.Drawing.Point(53, 15);
             this.fVcoScreenLabel.Name = "fVcoScreenLabel";
-            this.fVcoScreenLabel.Size = new System.Drawing.Size(109, 16);
+            this.fVcoScreenLabel.Size = new System.Drawing.Size(82, 13);
             this.fVcoScreenLabel.TabIndex = 20;
             this.fVcoScreenLabel.Text = "6000.000 000 0";
             this.fVcoScreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1751,47 +1805,49 @@ namespace Synthesizer_PC_control
             this.FreqControlGroupBox.Controls.Add(this.ModNumUpDown);
             this.FreqControlGroupBox.Controls.Add(this.FracNNumUpDown);
             this.FreqControlGroupBox.Controls.Add(this.PhasePNumericUpDown);
-            this.FreqControlGroupBox.Location = new System.Drawing.Point(7, 327);
-            this.FreqControlGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.FreqControlGroupBox.Location = new System.Drawing.Point(5, 266);
             this.FreqControlGroupBox.Name = "FreqControlGroupBox";
-            this.FreqControlGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.FreqControlGroupBox.Size = new System.Drawing.Size(341, 223);
+            this.FreqControlGroupBox.Size = new System.Drawing.Size(256, 181);
             this.FreqControlGroupBox.TabIndex = 3;
             this.FreqControlGroupBox.TabStop = false;
             this.FreqControlGroupBox.Text = "Output frequency control";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(26, 166);
+            this.label2.Location = new System.Drawing.Point(20, 135);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 17);
+            this.label2.Size = new System.Drawing.Size(75, 14);
             this.label2.TabIndex = 17;
             this.label2.Text = "VCO to N FB:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RFoutBPathLabel
             // 
-            this.RFoutBPathLabel.Location = new System.Drawing.Point(26, 138);
+            this.RFoutBPathLabel.Location = new System.Drawing.Point(20, 112);
+            this.RFoutBPathLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RFoutBPathLabel.Name = "RFoutBPathLabel";
-            this.RFoutBPathLabel.Size = new System.Drawing.Size(100, 17);
+            this.RFoutBPathLabel.Size = new System.Drawing.Size(75, 14);
             this.RFoutBPathLabel.TabIndex = 17;
             this.RFoutBPathLabel.Text = "RFoutB path:";
             this.RFoutBPathLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // SDNoiseModeLabel
             // 
-            this.SDNoiseModeLabel.Location = new System.Drawing.Point(6, 194);
+            this.SDNoiseModeLabel.Location = new System.Drawing.Point(4, 158);
+            this.SDNoiseModeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SDNoiseModeLabel.Name = "SDNoiseModeLabel";
-            this.SDNoiseModeLabel.Size = new System.Drawing.Size(120, 17);
+            this.SDNoiseModeLabel.Size = new System.Drawing.Size(90, 14);
             this.SDNoiseModeLabel.TabIndex = 17;
             this.SDNoiseModeLabel.Text = "S-D noise mode:";
             this.SDNoiseModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LDfuncLabel
             // 
-            this.LDfuncLabel.Location = new System.Drawing.Point(39, 110);
+            this.LDfuncLabel.Location = new System.Drawing.Point(29, 89);
+            this.LDfuncLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LDfuncLabel.Name = "LDfuncLabel";
-            this.LDfuncLabel.Size = new System.Drawing.Size(87, 17);
+            this.LDfuncLabel.Size = new System.Drawing.Size(65, 14);
             this.LDfuncLabel.TabIndex = 17;
             this.LDfuncLabel.Text = "LD function:";
             this.LDfuncLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1810,17 +1866,19 @@ namespace Synthesizer_PC_control
             "OUTA/32",
             "OUTA/64",
             "OUTA/128"});
-            this.ADivComboBox.Location = new System.Drawing.Point(226, 50);
+            this.ADivComboBox.Location = new System.Drawing.Point(170, 41);
+            this.ADivComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ADivComboBox.Name = "ADivComboBox";
-            this.ADivComboBox.Size = new System.Drawing.Size(106, 24);
+            this.ADivComboBox.Size = new System.Drawing.Size(80, 21);
             this.ADivComboBox.TabIndex = 4;
             this.ADivComboBox.SelectedIndexChanged += new System.EventHandler(this.ADivComboBox_SelectedIndexChanged);
             // 
             // FracNLabel
             // 
-            this.FracNLabel.Location = new System.Drawing.Point(7, 53);
+            this.FracNLabel.Location = new System.Drawing.Point(5, 43);
+            this.FracNLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.FracNLabel.Name = "FracNLabel";
-            this.FracNLabel.Size = new System.Drawing.Size(52, 17);
+            this.FracNLabel.Size = new System.Drawing.Size(39, 14);
             this.FracNLabel.TabIndex = 17;
             this.FracNLabel.Text = "FracN:";
             this.FracNLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1833,10 +1891,10 @@ namespace Synthesizer_PC_control
             this.ModeIntFracComboBox.Items.AddRange(new object[] {
             "Fractional",
             "Integer"});
-            this.ModeIntFracComboBox.Location = new System.Drawing.Point(226, 21);
-            this.ModeIntFracComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ModeIntFracComboBox.Location = new System.Drawing.Point(170, 17);
+            this.ModeIntFracComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ModeIntFracComboBox.Name = "ModeIntFracComboBox";
-            this.ModeIntFracComboBox.Size = new System.Drawing.Size(106, 24);
+            this.ModeIntFracComboBox.Size = new System.Drawing.Size(80, 21);
             this.ModeIntFracComboBox.TabIndex = 3;
             this.ModeIntFracComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeIntFracComboBox_SelectedIndexChanged);
             // 
@@ -1849,10 +1907,10 @@ namespace Synthesizer_PC_control
             "Low-noise Mode",
             "Low-spur Mode 1",
             "Low-spur Mode 2"});
-            this.SigmaDeltaNoiseModeComboBox.Location = new System.Drawing.Point(132, 191);
-            this.SigmaDeltaNoiseModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SigmaDeltaNoiseModeComboBox.Location = new System.Drawing.Point(99, 155);
+            this.SigmaDeltaNoiseModeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SigmaDeltaNoiseModeComboBox.Name = "SigmaDeltaNoiseModeComboBox";
-            this.SigmaDeltaNoiseModeComboBox.Size = new System.Drawing.Size(150, 24);
+            this.SigmaDeltaNoiseModeComboBox.Size = new System.Drawing.Size(114, 21);
             this.SigmaDeltaNoiseModeComboBox.TabIndex = 10;
             this.SigmaDeltaNoiseModeComboBox.SelectedIndexChanged += new System.EventHandler(this.SDNoiseModeComboBox_SelectedIndexChanged);
             // 
@@ -1864,10 +1922,10 @@ namespace Synthesizer_PC_control
             this.FBPathComboBox.Items.AddRange(new object[] {
             "VCO divided",
             "VCO fundamental"});
-            this.FBPathComboBox.Location = new System.Drawing.Point(132, 163);
-            this.FBPathComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.FBPathComboBox.Location = new System.Drawing.Point(99, 132);
+            this.FBPathComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.FBPathComboBox.Name = "FBPathComboBox";
-            this.FBPathComboBox.Size = new System.Drawing.Size(150, 24);
+            this.FBPathComboBox.Size = new System.Drawing.Size(114, 21);
             this.FBPathComboBox.TabIndex = 9;
             this.FBPathComboBox.SelectedIndexChanged += new System.EventHandler(this.FBPathComboBox_SelectedIndexChanged);
             // 
@@ -1879,10 +1937,10 @@ namespace Synthesizer_PC_control
             this.RFoutBPathComboBox.Items.AddRange(new object[] {
             "VCO divided",
             "VCO fundamental"});
-            this.RFoutBPathComboBox.Location = new System.Drawing.Point(132, 135);
-            this.RFoutBPathComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RFoutBPathComboBox.Location = new System.Drawing.Point(99, 110);
+            this.RFoutBPathComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RFoutBPathComboBox.Name = "RFoutBPathComboBox";
-            this.RFoutBPathComboBox.Size = new System.Drawing.Size(150, 24);
+            this.RFoutBPathComboBox.Size = new System.Drawing.Size(114, 21);
             this.RFoutBPathComboBox.TabIndex = 8;
             this.RFoutBPathComboBox.SelectedIndexChanged += new System.EventHandler(this.RFoutBPathComboBox_SelectedIndexChanged);
             // 
@@ -1894,10 +1952,10 @@ namespace Synthesizer_PC_control
             this.LDFuncComboBox.Items.AddRange(new object[] {
             "Frac-N Lock-det.",
             "Int-N Lock-det."});
-            this.LDFuncComboBox.Location = new System.Drawing.Point(132, 107);
-            this.LDFuncComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LDFuncComboBox.Location = new System.Drawing.Point(99, 87);
+            this.LDFuncComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LDFuncComboBox.Name = "LDFuncComboBox";
-            this.LDFuncComboBox.Size = new System.Drawing.Size(150, 24);
+            this.LDFuncComboBox.Size = new System.Drawing.Size(114, 21);
             this.LDFuncComboBox.TabIndex = 6;
             this.LDFuncComboBox.SelectedIndexChanged += new System.EventHandler(this.LDFuncComboBox_SelectedIndexChanged);
             // 
@@ -1905,10 +1963,9 @@ namespace Synthesizer_PC_control
             // 
             this.AutoLDFuncCheckBox.AutoSize = true;
             this.AutoLDFuncCheckBox.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.AutoLDFuncCheckBox.Location = new System.Drawing.Point(3, 103);
-            this.AutoLDFuncCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.AutoLDFuncCheckBox.Location = new System.Drawing.Point(2, 84);
             this.AutoLDFuncCheckBox.Name = "AutoLDFuncCheckBox";
-            this.AutoLDFuncCheckBox.Size = new System.Drawing.Size(40, 38);
+            this.AutoLDFuncCheckBox.Size = new System.Drawing.Size(32, 31);
             this.AutoLDFuncCheckBox.TabIndex = 7;
             this.AutoLDFuncCheckBox.Text = "auto";
             this.AutoLDFuncCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1917,53 +1974,57 @@ namespace Synthesizer_PC_control
             // 
             // IntNLabel
             // 
-            this.IntNLabel.Location = new System.Drawing.Point(7, 25);
+            this.IntNLabel.Location = new System.Drawing.Point(5, 20);
+            this.IntNLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.IntNLabel.Name = "IntNLabel";
-            this.IntNLabel.Size = new System.Drawing.Size(52, 17);
+            this.IntNLabel.Size = new System.Drawing.Size(39, 14);
             this.IntNLabel.TabIndex = 17;
             this.IntNLabel.Text = "IntN:";
             this.IntNLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ModeIntFracLabel
             // 
-            this.ModeIntFracLabel.Location = new System.Drawing.Point(170, 24);
+            this.ModeIntFracLabel.Location = new System.Drawing.Point(128, 20);
+            this.ModeIntFracLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ModeIntFracLabel.Name = "ModeIntFracLabel";
-            this.ModeIntFracLabel.Size = new System.Drawing.Size(52, 17);
+            this.ModeIntFracLabel.Size = new System.Drawing.Size(39, 14);
             this.ModeIntFracLabel.TabIndex = 17;
             this.ModeIntFracLabel.Text = "Mode:";
             this.ModeIntFracLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ModLabel
             // 
-            this.ModLabel.Location = new System.Drawing.Point(7, 81);
+            this.ModLabel.Location = new System.Drawing.Point(5, 66);
+            this.ModLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ModLabel.Name = "ModLabel";
-            this.ModLabel.Size = new System.Drawing.Size(52, 17);
+            this.ModLabel.Size = new System.Drawing.Size(39, 14);
             this.ModLabel.TabIndex = 17;
             this.ModLabel.Text = "MOD:";
             this.ModLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ADivLabel
             // 
-            this.ADivLabel.Location = new System.Drawing.Point(151, 53);
+            this.ADivLabel.Location = new System.Drawing.Point(113, 43);
+            this.ADivLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ADivLabel.Name = "ADivLabel";
-            this.ADivLabel.Size = new System.Drawing.Size(71, 17);
+            this.ADivLabel.Size = new System.Drawing.Size(53, 14);
             this.ADivLabel.TabIndex = 17;
             this.ADivLabel.Text = "A Divider:";
             this.ADivLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // PhasePLabel
             // 
-            this.PhasePLabel.Location = new System.Drawing.Point(151, 81);
+            this.PhasePLabel.Location = new System.Drawing.Point(113, 66);
+            this.PhasePLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.PhasePLabel.Name = "PhasePLabel";
-            this.PhasePLabel.Size = new System.Drawing.Size(71, 17);
+            this.PhasePLabel.Size = new System.Drawing.Size(53, 14);
             this.PhasePLabel.TabIndex = 17;
             this.PhasePLabel.Text = "Phase P:";
             this.PhasePLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // IntNNumUpDown
             // 
-            this.IntNNumUpDown.Location = new System.Drawing.Point(64, 22);
-            this.IntNNumUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.IntNNumUpDown.Location = new System.Drawing.Point(48, 18);
             this.IntNNumUpDown.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -1975,7 +2036,7 @@ namespace Synthesizer_PC_control
             0,
             0});
             this.IntNNumUpDown.Name = "IntNNumUpDown";
-            this.IntNNumUpDown.Size = new System.Drawing.Size(83, 22);
+            this.IntNNumUpDown.Size = new System.Drawing.Size(62, 20);
             this.IntNNumUpDown.TabIndex = 0;
             this.IntNNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.IntNNumUpDown.Value = new decimal(new int[] {
@@ -1988,8 +2049,7 @@ namespace Synthesizer_PC_control
             // 
             // ModNumUpDown
             // 
-            this.ModNumUpDown.Location = new System.Drawing.Point(64, 79);
-            this.ModNumUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.ModNumUpDown.Location = new System.Drawing.Point(48, 64);
             this.ModNumUpDown.Maximum = new decimal(new int[] {
             4095,
             0,
@@ -2001,7 +2061,7 @@ namespace Synthesizer_PC_control
             0,
             0});
             this.ModNumUpDown.Name = "ModNumUpDown";
-            this.ModNumUpDown.Size = new System.Drawing.Size(83, 22);
+            this.ModNumUpDown.Size = new System.Drawing.Size(62, 20);
             this.ModNumUpDown.TabIndex = 2;
             this.ModNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ModNumUpDown.Value = new decimal(new int[] {
@@ -2014,15 +2074,14 @@ namespace Synthesizer_PC_control
             // 
             // FracNNumUpDown
             // 
-            this.FracNNumUpDown.Location = new System.Drawing.Point(64, 50);
-            this.FracNNumUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.FracNNumUpDown.Location = new System.Drawing.Point(48, 41);
             this.FracNNumUpDown.Maximum = new decimal(new int[] {
             4095,
             0,
             0,
             0});
             this.FracNNumUpDown.Name = "FracNNumUpDown";
-            this.FracNNumUpDown.Size = new System.Drawing.Size(83, 22);
+            this.FracNNumUpDown.Size = new System.Drawing.Size(62, 20);
             this.FracNNumUpDown.TabIndex = 1;
             this.FracNNumUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.FracNNumUpDown.ValueChanged += new System.EventHandler(this.FracNNumUpDown_ValueChanged);
@@ -2030,15 +2089,14 @@ namespace Synthesizer_PC_control
             // 
             // PhasePNumericUpDown
             // 
-            this.PhasePNumericUpDown.Location = new System.Drawing.Point(226, 79);
-            this.PhasePNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.PhasePNumericUpDown.Location = new System.Drawing.Point(170, 64);
             this.PhasePNumericUpDown.Maximum = new decimal(new int[] {
             4095,
             0,
             0,
             0});
             this.PhasePNumericUpDown.Name = "PhasePNumericUpDown";
-            this.PhasePNumericUpDown.Size = new System.Drawing.Size(83, 22);
+            this.PhasePNumericUpDown.Size = new System.Drawing.Size(62, 20);
             this.PhasePNumericUpDown.TabIndex = 5;
             this.PhasePNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.PhasePNumericUpDown.ValueChanged += new System.EventHandler(this.PhasePNumUpDown_ValueChanged);
@@ -2060,28 +2118,26 @@ namespace Synthesizer_PC_control
             this.RefFreqGroupBox.Controls.Add(this.MHzLabel4);
             this.RefFreqGroupBox.Controls.Add(this.MHzLabel3);
             this.RefFreqGroupBox.Controls.Add(this.pfdFreqLabel);
-            this.RefFreqGroupBox.Location = new System.Drawing.Point(7, 197);
-            this.RefFreqGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.RefFreqGroupBox.Location = new System.Drawing.Point(5, 160);
             this.RefFreqGroupBox.Name = "RefFreqGroupBox";
-            this.RefFreqGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.RefFreqGroupBox.Size = new System.Drawing.Size(341, 122);
+            this.RefFreqGroupBox.Size = new System.Drawing.Size(256, 99);
             this.RefFreqGroupBox.TabIndex = 2;
             this.RefFreqGroupBox.TabStop = false;
             this.RefFreqGroupBox.Text = "Reference frequency";
             // 
             // LDSpeedAdjLabel
             // 
-            this.LDSpeedAdjLabel.Location = new System.Drawing.Point(38, 90);
+            this.LDSpeedAdjLabel.Location = new System.Drawing.Point(28, 73);
+            this.LDSpeedAdjLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LDSpeedAdjLabel.Name = "LDSpeedAdjLabel";
-            this.LDSpeedAdjLabel.Size = new System.Drawing.Size(148, 17);
+            this.LDSpeedAdjLabel.Size = new System.Drawing.Size(111, 14);
             this.LDSpeedAdjLabel.TabIndex = 17;
             this.LDSpeedAdjLabel.Text = "LD speed adjustment:";
             this.LDSpeedAdjLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RDivUpDown
             // 
-            this.RDivUpDown.Location = new System.Drawing.Point(87, 55);
-            this.RDivUpDown.Margin = new System.Windows.Forms.Padding(4);
+            this.RDivUpDown.Location = new System.Drawing.Point(65, 45);
             this.RDivUpDown.Maximum = new decimal(new int[] {
             1023,
             0,
@@ -2093,7 +2149,7 @@ namespace Synthesizer_PC_control
             0,
             0});
             this.RDivUpDown.Name = "RDivUpDown";
-            this.RDivUpDown.Size = new System.Drawing.Size(83, 22);
+            this.RDivUpDown.Size = new System.Drawing.Size(62, 20);
             this.RDivUpDown.TabIndex = 1;
             this.RDivUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RDivUpDown.Value = new decimal(new int[] {
@@ -2112,10 +2168,10 @@ namespace Synthesizer_PC_control
             this.LDSpeedAdjComboBox.Items.AddRange(new object[] {
             "fPFD <= 32 MHz",
             "fPFD  >  32 MHz"});
-            this.LDSpeedAdjComboBox.Location = new System.Drawing.Point(191, 87);
-            this.LDSpeedAdjComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LDSpeedAdjComboBox.Location = new System.Drawing.Point(143, 71);
+            this.LDSpeedAdjComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LDSpeedAdjComboBox.Name = "LDSpeedAdjComboBox";
-            this.LDSpeedAdjComboBox.Size = new System.Drawing.Size(144, 24);
+            this.LDSpeedAdjComboBox.Size = new System.Drawing.Size(109, 21);
             this.LDSpeedAdjComboBox.TabIndex = 4;
             this.LDSpeedAdjComboBox.SelectedIndexChanged += new System.EventHandler(this.LDSpeedAdjComboBox_SelectedIndexChanged);
             // 
@@ -2123,11 +2179,11 @@ namespace Synthesizer_PC_control
             // 
             this.RefFTextBox.BackColor = System.Drawing.Color.White;
             this.RefFTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.RefFTextBox.Location = new System.Drawing.Point(87, 26);
-            this.RefFTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RefFTextBox.Location = new System.Drawing.Point(65, 21);
+            this.RefFTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RefFTextBox.MaxLength = 10;
             this.RefFTextBox.Name = "RefFTextBox";
-            this.RefFTextBox.Size = new System.Drawing.Size(89, 22);
+            this.RefFTextBox.Size = new System.Drawing.Size(68, 20);
             this.RefFTextBox.TabIndex = 0;
             this.RefFTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RefFTextBox.TextChanged += new System.EventHandler(this.RefFTextBox_TextChanged);
@@ -2139,10 +2195,9 @@ namespace Synthesizer_PC_control
             // 
             this.DivideBy2CheckBox.AutoSize = true;
             this.DivideBy2CheckBox.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.DivideBy2CheckBox.Location = new System.Drawing.Point(292, 14);
-            this.DivideBy2CheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.DivideBy2CheckBox.Location = new System.Drawing.Point(219, 11);
             this.DivideBy2CheckBox.Name = "DivideBy2CheckBox";
-            this.DivideBy2CheckBox.Size = new System.Drawing.Size(28, 38);
+            this.DivideBy2CheckBox.Size = new System.Drawing.Size(23, 31);
             this.DivideBy2CheckBox.TabIndex = 3;
             this.DivideBy2CheckBox.Text = "÷2";
             this.DivideBy2CheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -2153,10 +2208,9 @@ namespace Synthesizer_PC_control
             // 
             this.AutoLDSpeedAdjCheckBox.AutoSize = true;
             this.AutoLDSpeedAdjCheckBox.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.AutoLDSpeedAdjCheckBox.Location = new System.Drawing.Point(2, 81);
-            this.AutoLDSpeedAdjCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.AutoLDSpeedAdjCheckBox.Location = new System.Drawing.Point(2, 66);
             this.AutoLDSpeedAdjCheckBox.Name = "AutoLDSpeedAdjCheckBox";
-            this.AutoLDSpeedAdjCheckBox.Size = new System.Drawing.Size(40, 38);
+            this.AutoLDSpeedAdjCheckBox.Size = new System.Drawing.Size(32, 31);
             this.AutoLDSpeedAdjCheckBox.TabIndex = 5;
             this.AutoLDSpeedAdjCheckBox.Text = "auto";
             this.AutoLDSpeedAdjCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -2167,10 +2221,9 @@ namespace Synthesizer_PC_control
             // 
             this.RefDoublerCheckBox.AutoSize = true;
             this.RefDoublerCheckBox.CheckAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.RefDoublerCheckBox.Location = new System.Drawing.Point(254, 14);
-            this.RefDoublerCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.RefDoublerCheckBox.Location = new System.Drawing.Point(190, 11);
             this.RefDoublerCheckBox.Name = "RefDoublerCheckBox";
-            this.RefDoublerCheckBox.Size = new System.Drawing.Size(26, 38);
+            this.RefDoublerCheckBox.Size = new System.Drawing.Size(22, 31);
             this.RefDoublerCheckBox.TabIndex = 2;
             this.RefDoublerCheckBox.Text = "x2";
             this.RefDoublerCheckBox.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -2179,65 +2232,68 @@ namespace Synthesizer_PC_control
             // 
             // InternalLabel
             // 
-            this.InternalLabel.Location = new System.Drawing.Point(12, 15);
+            this.InternalLabel.Location = new System.Drawing.Point(9, 12);
+            this.InternalLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.InternalLabel.Name = "InternalLabel";
-            this.InternalLabel.Size = new System.Drawing.Size(69, 17);
+            this.InternalLabel.Size = new System.Drawing.Size(52, 14);
             this.InternalLabel.TabIndex = 17;
             this.InternalLabel.Text = "Internal";
             this.InternalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RefFLabel
             // 
-            this.RefFLabel.Location = new System.Drawing.Point(12, 30);
+            this.RefFLabel.Location = new System.Drawing.Point(9, 24);
+            this.RefFLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RefFLabel.Name = "RefFLabel";
-            this.RefFLabel.Size = new System.Drawing.Size(69, 17);
+            this.RefFLabel.Size = new System.Drawing.Size(52, 14);
             this.RefFLabel.TabIndex = 17;
             this.RefFLabel.Text = "Ref. freq:";
             this.RefFLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fPfdLabel
             // 
-            this.fPfdLabel.Location = new System.Drawing.Point(180, 58);
-            this.fPfdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.fPfdLabel.Location = new System.Drawing.Point(135, 47);
             this.fPfdLabel.Name = "fPfdLabel";
-            this.fPfdLabel.Size = new System.Drawing.Size(43, 16);
+            this.fPfdLabel.Size = new System.Drawing.Size(32, 13);
             this.fPfdLabel.TabIndex = 20;
             this.fPfdLabel.Text = "fPFD:";
             this.fPfdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // RDivLabel
             // 
-            this.RDivLabel.Location = new System.Drawing.Point(7, 58);
+            this.RDivLabel.Location = new System.Drawing.Point(5, 47);
+            this.RDivLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.RDivLabel.Name = "RDivLabel";
-            this.RDivLabel.Size = new System.Drawing.Size(75, 17);
+            this.RDivLabel.Size = new System.Drawing.Size(56, 14);
             this.RDivLabel.TabIndex = 17;
             this.RDivLabel.Text = "R Divider:";
             this.RDivLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MHzLabel4
             // 
-            this.MHzLabel4.Location = new System.Drawing.Point(301, 58);
+            this.MHzLabel4.Location = new System.Drawing.Point(226, 47);
+            this.MHzLabel4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MHzLabel4.Name = "MHzLabel4";
-            this.MHzLabel4.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel4.Size = new System.Drawing.Size(30, 14);
             this.MHzLabel4.TabIndex = 17;
             this.MHzLabel4.Text = "MHz";
             this.MHzLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MHzLabel3
             // 
-            this.MHzLabel3.Location = new System.Drawing.Point(183, 28);
+            this.MHzLabel3.Location = new System.Drawing.Point(137, 23);
+            this.MHzLabel3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MHzLabel3.Name = "MHzLabel3";
-            this.MHzLabel3.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel3.Size = new System.Drawing.Size(30, 14);
             this.MHzLabel3.TabIndex = 17;
             this.MHzLabel3.Text = "MHz";
             this.MHzLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pfdFreqLabel
             // 
-            this.pfdFreqLabel.Location = new System.Drawing.Point(221, 58);
-            this.pfdFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pfdFreqLabel.Location = new System.Drawing.Point(166, 47);
             this.pfdFreqLabel.Name = "pfdFreqLabel";
-            this.pfdFreqLabel.Size = new System.Drawing.Size(83, 16);
+            this.pfdFreqLabel.Size = new System.Drawing.Size(62, 13);
             this.pfdFreqLabel.TabIndex = 20;
             this.pfdFreqLabel.Text = "10.000 000";
             this.pfdFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2255,11 +2311,11 @@ namespace Synthesizer_PC_control
             this.RegistersMemoryPage.Controls.Add(this.MemSaveIntoFileButton);
             this.RegistersMemoryPage.Controls.Add(this.LoadRegMemory);
             this.RegistersMemoryPage.Controls.Add(this.SaveRegMemory);
-            this.RegistersMemoryPage.Location = new System.Drawing.Point(4, 25);
-            this.RegistersMemoryPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RegistersMemoryPage.Location = new System.Drawing.Point(4, 22);
+            this.RegistersMemoryPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RegistersMemoryPage.Name = "RegistersMemoryPage";
-            this.RegistersMemoryPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersMemoryPage.Size = new System.Drawing.Size(709, 818);
+            this.RegistersMemoryPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegistersMemoryPage.Size = new System.Drawing.Size(530, 662);
             this.RegistersMemoryPage.TabIndex = 1;
             this.RegistersMemoryPage.Text = "Registers memory";
             this.RegistersMemoryPage.UseVisualStyleBackColor = true;
@@ -2290,36 +2346,41 @@ namespace Synthesizer_PC_control
             this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem3PwrBShowLabel);
             this.SynthOutputsInfoGroupBox.Controls.Add(this.Mem4PwrBShowLabel);
             this.SynthOutputsInfoGroupBox.Controls.Add(this.MemPwrBLabel);
-            this.SynthOutputsInfoGroupBox.Location = new System.Drawing.Point(3, 374);
+            this.SynthOutputsInfoGroupBox.Location = new System.Drawing.Point(2, 304);
+            this.SynthOutputsInfoGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SynthOutputsInfoGroupBox.Name = "SynthOutputsInfoGroupBox";
-            this.SynthOutputsInfoGroupBox.Size = new System.Drawing.Size(520, 173);
+            this.SynthOutputsInfoGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SynthOutputsInfoGroupBox.Size = new System.Drawing.Size(390, 141);
             this.SynthOutputsInfoGroupBox.TabIndex = 1;
             this.SynthOutputsInfoGroupBox.TabStop = false;
             this.SynthOutputsInfoGroupBox.Text = "Synthesizer outputs info for each memory";
             // 
             // label13
             // 
-            this.label13.Location = new System.Drawing.Point(418, 29);
+            this.label13.Location = new System.Drawing.Point(314, 24);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(84, 17);
+            this.label13.Size = new System.Drawing.Size(63, 14);
             this.label13.TabIndex = 10;
             this.label13.Text = "Memory 4";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(311, 29);
+            this.label12.Location = new System.Drawing.Point(233, 24);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(84, 17);
+            this.label12.Size = new System.Drawing.Size(63, 14);
             this.label12.TabIndex = 10;
             this.label12.Text = "Memory 3";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(97, 29);
+            this.label10.Location = new System.Drawing.Point(73, 24);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(84, 17);
+            this.label10.Size = new System.Drawing.Size(63, 14);
             this.label10.TabIndex = 10;
             this.label10.Text = "Memory 1";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2327,19 +2388,19 @@ namespace Synthesizer_PC_control
             // Mem1Freq2ShowLabel
             // 
             this.Mem1Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Mem1Freq2ShowLabel.Location = new System.Drawing.Point(84, 85);
-            this.Mem1Freq2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1Freq2ShowLabel.Location = new System.Drawing.Point(63, 69);
             this.Mem1Freq2ShowLabel.Name = "Mem1Freq2ShowLabel";
-            this.Mem1Freq2ShowLabel.Size = new System.Drawing.Size(111, 16);
+            this.Mem1Freq2ShowLabel.Size = new System.Drawing.Size(83, 13);
             this.Mem1Freq2ShowLabel.TabIndex = 22;
             this.Mem1Freq2ShowLabel.Text = "12000.000 000";
             this.Mem1Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(204, 29);
+            this.label11.Location = new System.Drawing.Point(153, 24);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(84, 17);
+            this.label11.Size = new System.Drawing.Size(63, 14);
             this.label11.TabIndex = 10;
             this.label11.Text = "Memory 2";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2347,10 +2408,9 @@ namespace Synthesizer_PC_control
             // Mem1Freq1ShowLabel
             // 
             this.Mem1Freq1ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Mem1Freq1ShowLabel.Location = new System.Drawing.Point(84, 57);
-            this.Mem1Freq1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1Freq1ShowLabel.Location = new System.Drawing.Point(63, 46);
             this.Mem1Freq1ShowLabel.Name = "Mem1Freq1ShowLabel";
-            this.Mem1Freq1ShowLabel.Size = new System.Drawing.Size(111, 16);
+            this.Mem1Freq1ShowLabel.Size = new System.Drawing.Size(83, 13);
             this.Mem1Freq1ShowLabel.TabIndex = 0;
             this.Mem1Freq1ShowLabel.Text = "6000.000 000";
             this.Mem1Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2358,19 +2418,19 @@ namespace Synthesizer_PC_control
             // FreqOut2MemLabel
             // 
             this.FreqOut2MemLabel.AutoSize = true;
-            this.FreqOut2MemLabel.Location = new System.Drawing.Point(6, 85);
+            this.FreqOut2MemLabel.Location = new System.Drawing.Point(4, 69);
+            this.FreqOut2MemLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.FreqOut2MemLabel.Name = "FreqOut2MemLabel";
-            this.FreqOut2MemLabel.Size = new System.Drawing.Size(81, 17);
+            this.FreqOut2MemLabel.Size = new System.Drawing.Size(61, 13);
             this.FreqOut2MemLabel.TabIndex = 16;
             this.FreqOut2MemLabel.Text = "Freq. out 2:";
             // 
             // Mem4Freq2ShowLabel
             // 
             this.Mem4Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Mem4Freq2ShowLabel.Location = new System.Drawing.Point(405, 85);
-            this.Mem4Freq2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4Freq2ShowLabel.Location = new System.Drawing.Point(304, 69);
             this.Mem4Freq2ShowLabel.Name = "Mem4Freq2ShowLabel";
-            this.Mem4Freq2ShowLabel.Size = new System.Drawing.Size(111, 16);
+            this.Mem4Freq2ShowLabel.Size = new System.Drawing.Size(83, 13);
             this.Mem4Freq2ShowLabel.TabIndex = 22;
             this.Mem4Freq2ShowLabel.Text = "12000.000 000";
             this.Mem4Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2378,19 +2438,19 @@ namespace Synthesizer_PC_control
             // FreqOut1MemLabel
             // 
             this.FreqOut1MemLabel.AutoSize = true;
-            this.FreqOut1MemLabel.Location = new System.Drawing.Point(6, 57);
+            this.FreqOut1MemLabel.Location = new System.Drawing.Point(4, 46);
+            this.FreqOut1MemLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.FreqOut1MemLabel.Name = "FreqOut1MemLabel";
-            this.FreqOut1MemLabel.Size = new System.Drawing.Size(81, 17);
+            this.FreqOut1MemLabel.Size = new System.Drawing.Size(61, 13);
             this.FreqOut1MemLabel.TabIndex = 16;
             this.FreqOut1MemLabel.Text = "Freq. out 1:";
             // 
             // Mem4Freq1ShowLabel
             // 
             this.Mem4Freq1ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Mem4Freq1ShowLabel.Location = new System.Drawing.Point(405, 57);
-            this.Mem4Freq1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4Freq1ShowLabel.Location = new System.Drawing.Point(304, 46);
             this.Mem4Freq1ShowLabel.Name = "Mem4Freq1ShowLabel";
-            this.Mem4Freq1ShowLabel.Size = new System.Drawing.Size(111, 16);
+            this.Mem4Freq1ShowLabel.Size = new System.Drawing.Size(83, 13);
             this.Mem4Freq1ShowLabel.TabIndex = 22;
             this.Mem4Freq1ShowLabel.Text = "6000.000 000";
             this.Mem4Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2398,28 +2458,29 @@ namespace Synthesizer_PC_control
             // MemPwrALabel
             // 
             this.MemPwrALabel.AutoSize = true;
-            this.MemPwrALabel.Location = new System.Drawing.Point(11, 113);
+            this.MemPwrALabel.Location = new System.Drawing.Point(8, 92);
+            this.MemPwrALabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MemPwrALabel.Name = "MemPwrALabel";
-            this.MemPwrALabel.Size = new System.Drawing.Size(76, 17);
+            this.MemPwrALabel.Size = new System.Drawing.Size(59, 13);
             this.MemPwrALabel.TabIndex = 16;
             this.MemPwrALabel.Text = "Pwr. out A:";
             // 
             // Mem3Freq2ShowLabel
             // 
             this.Mem3Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Mem3Freq2ShowLabel.Location = new System.Drawing.Point(298, 85);
-            this.Mem3Freq2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3Freq2ShowLabel.Location = new System.Drawing.Point(224, 69);
             this.Mem3Freq2ShowLabel.Name = "Mem3Freq2ShowLabel";
-            this.Mem3Freq2ShowLabel.Size = new System.Drawing.Size(111, 16);
+            this.Mem3Freq2ShowLabel.Size = new System.Drawing.Size(83, 13);
             this.Mem3Freq2ShowLabel.TabIndex = 22;
             this.Mem3Freq2ShowLabel.Text = "12000.000 000";
             this.Mem3Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem1PwrAShowLabel
             // 
-            this.Mem1PwrAShowLabel.Location = new System.Drawing.Point(91, 113);
+            this.Mem1PwrAShowLabel.Location = new System.Drawing.Point(68, 92);
+            this.Mem1PwrAShowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem1PwrAShowLabel.Name = "Mem1PwrAShowLabel";
-            this.Mem1PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem1PwrAShowLabel.Size = new System.Drawing.Size(72, 14);
             this.Mem1PwrAShowLabel.TabIndex = 16;
             this.Mem1PwrAShowLabel.Text = "+ 5 dBm";
             this.Mem1PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2427,19 +2488,19 @@ namespace Synthesizer_PC_control
             // Mem3Freq1ShowLabel
             // 
             this.Mem3Freq1ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Mem3Freq1ShowLabel.Location = new System.Drawing.Point(298, 57);
-            this.Mem3Freq1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3Freq1ShowLabel.Location = new System.Drawing.Point(224, 46);
             this.Mem3Freq1ShowLabel.Name = "Mem3Freq1ShowLabel";
-            this.Mem3Freq1ShowLabel.Size = new System.Drawing.Size(111, 16);
+            this.Mem3Freq1ShowLabel.Size = new System.Drawing.Size(83, 13);
             this.Mem3Freq1ShowLabel.TabIndex = 22;
             this.Mem3Freq1ShowLabel.Text = "6000.000 000";
             this.Mem3Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem1PwrBShowLabel
             // 
-            this.Mem1PwrBShowLabel.Location = new System.Drawing.Point(91, 141);
+            this.Mem1PwrBShowLabel.Location = new System.Drawing.Point(68, 115);
+            this.Mem1PwrBShowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem1PwrBShowLabel.Name = "Mem1PwrBShowLabel";
-            this.Mem1PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem1PwrBShowLabel.Size = new System.Drawing.Size(72, 14);
             this.Mem1PwrBShowLabel.TabIndex = 16;
             this.Mem1PwrBShowLabel.Text = "+ 2 dBm";
             this.Mem1PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2447,19 +2508,19 @@ namespace Synthesizer_PC_control
             // Mem2Freq2ShowLabel
             // 
             this.Mem2Freq2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Mem2Freq2ShowLabel.Location = new System.Drawing.Point(191, 85);
-            this.Mem2Freq2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2Freq2ShowLabel.Location = new System.Drawing.Point(143, 69);
             this.Mem2Freq2ShowLabel.Name = "Mem2Freq2ShowLabel";
-            this.Mem2Freq2ShowLabel.Size = new System.Drawing.Size(111, 16);
+            this.Mem2Freq2ShowLabel.Size = new System.Drawing.Size(83, 13);
             this.Mem2Freq2ShowLabel.TabIndex = 22;
             this.Mem2Freq2ShowLabel.Text = "12000.000 000";
             this.Mem2Freq2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem2PwrAShowLabel
             // 
-            this.Mem2PwrAShowLabel.Location = new System.Drawing.Point(198, 113);
+            this.Mem2PwrAShowLabel.Location = new System.Drawing.Point(148, 92);
+            this.Mem2PwrAShowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem2PwrAShowLabel.Name = "Mem2PwrAShowLabel";
-            this.Mem2PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem2PwrAShowLabel.Size = new System.Drawing.Size(72, 14);
             this.Mem2PwrAShowLabel.TabIndex = 16;
             this.Mem2PwrAShowLabel.Text = "+ 5 dBm";
             this.Mem2PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2467,55 +2528,59 @@ namespace Synthesizer_PC_control
             // Mem2Freq1ShowLabel
             // 
             this.Mem2Freq1ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Mem2Freq1ShowLabel.Location = new System.Drawing.Point(191, 57);
-            this.Mem2Freq1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2Freq1ShowLabel.Location = new System.Drawing.Point(143, 46);
             this.Mem2Freq1ShowLabel.Name = "Mem2Freq1ShowLabel";
-            this.Mem2Freq1ShowLabel.Size = new System.Drawing.Size(111, 16);
+            this.Mem2Freq1ShowLabel.Size = new System.Drawing.Size(83, 13);
             this.Mem2Freq1ShowLabel.TabIndex = 22;
             this.Mem2Freq1ShowLabel.Text = "6000.000 000";
             this.Mem2Freq1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem3PwrAShowLabel
             // 
-            this.Mem3PwrAShowLabel.Location = new System.Drawing.Point(305, 113);
+            this.Mem3PwrAShowLabel.Location = new System.Drawing.Point(229, 92);
+            this.Mem3PwrAShowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem3PwrAShowLabel.Name = "Mem3PwrAShowLabel";
-            this.Mem3PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem3PwrAShowLabel.Size = new System.Drawing.Size(72, 14);
             this.Mem3PwrAShowLabel.TabIndex = 16;
             this.Mem3PwrAShowLabel.Text = "+ 5 dBm";
             this.Mem3PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem4PwrAShowLabel
             // 
-            this.Mem4PwrAShowLabel.Location = new System.Drawing.Point(412, 113);
+            this.Mem4PwrAShowLabel.Location = new System.Drawing.Point(309, 92);
+            this.Mem4PwrAShowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem4PwrAShowLabel.Name = "Mem4PwrAShowLabel";
-            this.Mem4PwrAShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem4PwrAShowLabel.Size = new System.Drawing.Size(72, 14);
             this.Mem4PwrAShowLabel.TabIndex = 16;
             this.Mem4PwrAShowLabel.Text = "+ 5 dBm";
             this.Mem4PwrAShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem2PwrBShowLabel
             // 
-            this.Mem2PwrBShowLabel.Location = new System.Drawing.Point(198, 141);
+            this.Mem2PwrBShowLabel.Location = new System.Drawing.Point(148, 115);
+            this.Mem2PwrBShowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem2PwrBShowLabel.Name = "Mem2PwrBShowLabel";
-            this.Mem2PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem2PwrBShowLabel.Size = new System.Drawing.Size(72, 14);
             this.Mem2PwrBShowLabel.TabIndex = 16;
             this.Mem2PwrBShowLabel.Text = "+ 2 dBm";
             this.Mem2PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem3PwrBShowLabel
             // 
-            this.Mem3PwrBShowLabel.Location = new System.Drawing.Point(305, 141);
+            this.Mem3PwrBShowLabel.Location = new System.Drawing.Point(229, 115);
+            this.Mem3PwrBShowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem3PwrBShowLabel.Name = "Mem3PwrBShowLabel";
-            this.Mem3PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem3PwrBShowLabel.Size = new System.Drawing.Size(72, 14);
             this.Mem3PwrBShowLabel.TabIndex = 16;
             this.Mem3PwrBShowLabel.Text = "!!!+5 dBm!!!";
             this.Mem3PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem4PwrBShowLabel
             // 
-            this.Mem4PwrBShowLabel.Location = new System.Drawing.Point(412, 141);
+            this.Mem4PwrBShowLabel.Location = new System.Drawing.Point(309, 115);
+            this.Mem4PwrBShowLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem4PwrBShowLabel.Name = "Mem4PwrBShowLabel";
-            this.Mem4PwrBShowLabel.Size = new System.Drawing.Size(96, 17);
+            this.Mem4PwrBShowLabel.Size = new System.Drawing.Size(72, 14);
             this.Mem4PwrBShowLabel.TabIndex = 16;
             this.Mem4PwrBShowLabel.Text = "+ 2 dBm";
             this.Mem4PwrBShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2523,9 +2588,10 @@ namespace Synthesizer_PC_control
             // MemPwrBLabel
             // 
             this.MemPwrBLabel.AutoSize = true;
-            this.MemPwrBLabel.Location = new System.Drawing.Point(11, 141);
+            this.MemPwrBLabel.Location = new System.Drawing.Point(8, 115);
+            this.MemPwrBLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MemPwrBLabel.Name = "MemPwrBLabel";
-            this.MemPwrBLabel.Size = new System.Drawing.Size(76, 17);
+            this.MemPwrBLabel.Size = new System.Drawing.Size(59, 13);
             this.MemPwrBLabel.TabIndex = 16;
             this.MemPwrBLabel.Text = "Pwr. out B:";
             // 
@@ -2550,45 +2616,51 @@ namespace Synthesizer_PC_control
             this.SyntModuleControlsGroupBox.Controls.Add(this.Mem4ActOut2ShowLabel);
             this.SyntModuleControlsGroupBox.Controls.Add(this.Mem2RefShowLabel);
             this.SyntModuleControlsGroupBox.Controls.Add(this.Mem1RefShowLabel);
-            this.SyntModuleControlsGroupBox.Location = new System.Drawing.Point(2, 232);
+            this.SyntModuleControlsGroupBox.Location = new System.Drawing.Point(2, 188);
+            this.SyntModuleControlsGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SyntModuleControlsGroupBox.Name = "SyntModuleControlsGroupBox";
-            this.SyntModuleControlsGroupBox.Size = new System.Drawing.Size(520, 136);
+            this.SyntModuleControlsGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SyntModuleControlsGroupBox.Size = new System.Drawing.Size(390, 110);
             this.SyntModuleControlsGroupBox.TabIndex = 24;
             this.SyntModuleControlsGroupBox.TabStop = false;
             this.SyntModuleControlsGroupBox.Text = "Synthesizer module controls for each memory";
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(418, 27);
+            this.label3.Location = new System.Drawing.Point(314, 22);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 17);
+            this.label3.Size = new System.Drawing.Size(63, 14);
             this.label3.TabIndex = 10;
             this.label3.Text = "Memory 4";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(311, 27);
+            this.label4.Location = new System.Drawing.Point(233, 22);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 17);
+            this.label4.Size = new System.Drawing.Size(63, 14);
             this.label4.TabIndex = 10;
             this.label4.Text = "Memory 3";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(204, 27);
+            this.label8.Location = new System.Drawing.Point(153, 22);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(84, 17);
+            this.label8.Size = new System.Drawing.Size(63, 14);
             this.label8.TabIndex = 10;
             this.label8.Text = "Memory 2";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(97, 27);
+            this.label9.Location = new System.Drawing.Point(73, 22);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(84, 17);
+            this.label9.Size = new System.Drawing.Size(63, 14);
             this.label9.TabIndex = 10;
             this.label9.Text = "Memory 1";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2596,10 +2668,9 @@ namespace Synthesizer_PC_control
             // Mem4ActOut1ShowLabel
             // 
             this.Mem4ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem4ActOut1ShowLabel.Location = new System.Drawing.Point(441, 55);
-            this.Mem4ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4ActOut1ShowLabel.Location = new System.Drawing.Point(331, 45);
             this.Mem4ActOut1ShowLabel.Name = "Mem4ActOut1ShowLabel";
-            this.Mem4ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem4ActOut1ShowLabel.Size = new System.Drawing.Size(29, 13);
             this.Mem4ActOut1ShowLabel.TabIndex = 20;
             this.Mem4ActOut1ShowLabel.Text = "OFF";
             this.Mem4ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2608,37 +2679,39 @@ namespace Synthesizer_PC_control
             // MemoryOutput1Label
             // 
             this.MemoryOutput1Label.AutoSize = true;
-            this.MemoryOutput1Label.Location = new System.Drawing.Point(20, 55);
+            this.MemoryOutput1Label.Location = new System.Drawing.Point(15, 45);
+            this.MemoryOutput1Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MemoryOutput1Label.Name = "MemoryOutput1Label";
-            this.MemoryOutput1Label.Size = new System.Drawing.Size(67, 17);
+            this.MemoryOutput1Label.Size = new System.Drawing.Size(51, 13);
             this.MemoryOutput1Label.TabIndex = 16;
             this.MemoryOutput1Label.Text = "Output 1:";
             // 
             // MemoryOutput2Label
             // 
             this.MemoryOutput2Label.AutoSize = true;
-            this.MemoryOutput2Label.Location = new System.Drawing.Point(20, 83);
+            this.MemoryOutput2Label.Location = new System.Drawing.Point(15, 67);
+            this.MemoryOutput2Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MemoryOutput2Label.Name = "MemoryOutput2Label";
-            this.MemoryOutput2Label.Size = new System.Drawing.Size(67, 17);
+            this.MemoryOutput2Label.Size = new System.Drawing.Size(51, 13);
             this.MemoryOutput2Label.TabIndex = 16;
             this.MemoryOutput2Label.Text = "Output 2:";
             // 
             // MemoryRefLabel
             // 
             this.MemoryRefLabel.AutoSize = true;
-            this.MemoryRefLabel.Location = new System.Drawing.Point(9, 109);
+            this.MemoryRefLabel.Location = new System.Drawing.Point(7, 89);
+            this.MemoryRefLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MemoryRefLabel.Name = "MemoryRefLabel";
-            this.MemoryRefLabel.Size = new System.Drawing.Size(78, 17);
+            this.MemoryRefLabel.Size = new System.Drawing.Size(60, 13);
             this.MemoryRefLabel.TabIndex = 16;
             this.MemoryRefLabel.Text = "Reference:";
             // 
             // Mem1ActOut1ShowLabel
             // 
             this.Mem1ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem1ActOut1ShowLabel.Location = new System.Drawing.Point(120, 55);
-            this.Mem1ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1ActOut1ShowLabel.Location = new System.Drawing.Point(90, 45);
             this.Mem1ActOut1ShowLabel.Name = "Mem1ActOut1ShowLabel";
-            this.Mem1ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem1ActOut1ShowLabel.Size = new System.Drawing.Size(29, 13);
             this.Mem1ActOut1ShowLabel.TabIndex = 0;
             this.Mem1ActOut1ShowLabel.Text = "OFF";
             this.Mem1ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2647,10 +2720,9 @@ namespace Synthesizer_PC_control
             // Mem1ActOut2ShowLabel
             // 
             this.Mem1ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem1ActOut2ShowLabel.Location = new System.Drawing.Point(120, 84);
-            this.Mem1ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1ActOut2ShowLabel.Location = new System.Drawing.Point(90, 68);
             this.Mem1ActOut2ShowLabel.Name = "Mem1ActOut2ShowLabel";
-            this.Mem1ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem1ActOut2ShowLabel.Size = new System.Drawing.Size(29, 13);
             this.Mem1ActOut2ShowLabel.TabIndex = 1;
             this.Mem1ActOut2ShowLabel.Text = "OFF";
             this.Mem1ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2659,10 +2731,9 @@ namespace Synthesizer_PC_control
             // Mem2ActOut1ShowLabel
             // 
             this.Mem2ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem2ActOut1ShowLabel.Location = new System.Drawing.Point(227, 55);
-            this.Mem2ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2ActOut1ShowLabel.Location = new System.Drawing.Point(170, 45);
             this.Mem2ActOut1ShowLabel.Name = "Mem2ActOut1ShowLabel";
-            this.Mem2ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem2ActOut1ShowLabel.Size = new System.Drawing.Size(29, 13);
             this.Mem2ActOut1ShowLabel.TabIndex = 20;
             this.Mem2ActOut1ShowLabel.Text = "OFF";
             this.Mem2ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2671,10 +2742,9 @@ namespace Synthesizer_PC_control
             // Mem3ActOut1ShowLabel
             // 
             this.Mem3ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem3ActOut1ShowLabel.Location = new System.Drawing.Point(334, 55);
-            this.Mem3ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3ActOut1ShowLabel.Location = new System.Drawing.Point(250, 45);
             this.Mem3ActOut1ShowLabel.Name = "Mem3ActOut1ShowLabel";
-            this.Mem3ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem3ActOut1ShowLabel.Size = new System.Drawing.Size(29, 13);
             this.Mem3ActOut1ShowLabel.TabIndex = 20;
             this.Mem3ActOut1ShowLabel.Text = "OFF";
             this.Mem3ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2683,10 +2753,9 @@ namespace Synthesizer_PC_control
             // Mem2ActOut2ShowLabel
             // 
             this.Mem2ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem2ActOut2ShowLabel.Location = new System.Drawing.Point(227, 84);
-            this.Mem2ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2ActOut2ShowLabel.Location = new System.Drawing.Point(170, 68);
             this.Mem2ActOut2ShowLabel.Name = "Mem2ActOut2ShowLabel";
-            this.Mem2ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem2ActOut2ShowLabel.Size = new System.Drawing.Size(29, 13);
             this.Mem2ActOut2ShowLabel.TabIndex = 20;
             this.Mem2ActOut2ShowLabel.Text = "OFF";
             this.Mem2ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2694,10 +2763,9 @@ namespace Synthesizer_PC_control
             // 
             // Mem4RefShowLabel
             // 
-            this.Mem4RefShowLabel.Location = new System.Drawing.Point(423, 108);
-            this.Mem4RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4RefShowLabel.Location = new System.Drawing.Point(317, 88);
             this.Mem4RefShowLabel.Name = "Mem4RefShowLabel";
-            this.Mem4RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem4RefShowLabel.Size = new System.Drawing.Size(56, 15);
             this.Mem4RefShowLabel.TabIndex = 20;
             this.Mem4RefShowLabel.Text = "External";
             this.Mem4RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2706,10 +2774,9 @@ namespace Synthesizer_PC_control
             // Mem3ActOut2ShowLabel
             // 
             this.Mem3ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem3ActOut2ShowLabel.Location = new System.Drawing.Point(334, 84);
-            this.Mem3ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3ActOut2ShowLabel.Location = new System.Drawing.Point(250, 68);
             this.Mem3ActOut2ShowLabel.Name = "Mem3ActOut2ShowLabel";
-            this.Mem3ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem3ActOut2ShowLabel.Size = new System.Drawing.Size(29, 13);
             this.Mem3ActOut2ShowLabel.TabIndex = 20;
             this.Mem3ActOut2ShowLabel.Text = "OFF";
             this.Mem3ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2717,10 +2784,9 @@ namespace Synthesizer_PC_control
             // 
             // Mem3RefShowLabel
             // 
-            this.Mem3RefShowLabel.Location = new System.Drawing.Point(316, 108);
-            this.Mem3RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem3RefShowLabel.Location = new System.Drawing.Point(237, 88);
             this.Mem3RefShowLabel.Name = "Mem3RefShowLabel";
-            this.Mem3RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem3RefShowLabel.Size = new System.Drawing.Size(56, 15);
             this.Mem3RefShowLabel.TabIndex = 20;
             this.Mem3RefShowLabel.Text = "External";
             this.Mem3RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2729,10 +2795,9 @@ namespace Synthesizer_PC_control
             // Mem4ActOut2ShowLabel
             // 
             this.Mem4ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.Mem4ActOut2ShowLabel.Location = new System.Drawing.Point(441, 84);
-            this.Mem4ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem4ActOut2ShowLabel.Location = new System.Drawing.Point(331, 68);
             this.Mem4ActOut2ShowLabel.Name = "Mem4ActOut2ShowLabel";
-            this.Mem4ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.Mem4ActOut2ShowLabel.Size = new System.Drawing.Size(29, 13);
             this.Mem4ActOut2ShowLabel.TabIndex = 20;
             this.Mem4ActOut2ShowLabel.Text = "OFF";
             this.Mem4ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2740,10 +2805,9 @@ namespace Synthesizer_PC_control
             // 
             // Mem2RefShowLabel
             // 
-            this.Mem2RefShowLabel.Location = new System.Drawing.Point(209, 108);
-            this.Mem2RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem2RefShowLabel.Location = new System.Drawing.Point(157, 88);
             this.Mem2RefShowLabel.Name = "Mem2RefShowLabel";
-            this.Mem2RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem2RefShowLabel.Size = new System.Drawing.Size(56, 15);
             this.Mem2RefShowLabel.TabIndex = 20;
             this.Mem2RefShowLabel.Text = "External";
             this.Mem2RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2751,10 +2815,9 @@ namespace Synthesizer_PC_control
             // 
             // Mem1RefShowLabel
             // 
-            this.Mem1RefShowLabel.Location = new System.Drawing.Point(102, 108);
-            this.Mem1RefShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Mem1RefShowLabel.Location = new System.Drawing.Point(76, 88);
             this.Mem1RefShowLabel.Name = "Mem1RefShowLabel";
-            this.Mem1RefShowLabel.Size = new System.Drawing.Size(75, 18);
+            this.Mem1RefShowLabel.Size = new System.Drawing.Size(56, 15);
             this.Mem1RefShowLabel.TabIndex = 2;
             this.Mem1RefShowLabel.Text = "External";
             this.Mem1RefShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2796,9 +2859,11 @@ namespace Synthesizer_PC_control
             this.RegMemoryGroupBox.Controls.Add(this.R0M3);
             this.RegMemoryGroupBox.Controls.Add(this.R0M1);
             this.RegMemoryGroupBox.Controls.Add(this.R0M2);
-            this.RegMemoryGroupBox.Location = new System.Drawing.Point(2, 5);
+            this.RegMemoryGroupBox.Location = new System.Drawing.Point(2, 4);
+            this.RegMemoryGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RegMemoryGroupBox.Name = "RegMemoryGroupBox";
-            this.RegMemoryGroupBox.Size = new System.Drawing.Size(520, 221);
+            this.RegMemoryGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegMemoryGroupBox.Size = new System.Drawing.Size(390, 180);
             this.RegMemoryGroupBox.TabIndex = 0;
             this.RegMemoryGroupBox.TabStop = false;
             this.RegMemoryGroupBox.Text = "Register controls for each memory";
@@ -2806,9 +2871,10 @@ namespace Synthesizer_PC_control
             // SavReg0Label
             // 
             this.SavReg0Label.AutoSize = true;
-            this.SavReg0Label.Location = new System.Drawing.Point(10, 51);
+            this.SavReg0Label.Location = new System.Drawing.Point(8, 41);
+            this.SavReg0Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SavReg0Label.Name = "SavReg0Label";
-            this.SavReg0Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg0Label.Size = new System.Drawing.Size(58, 13);
             this.SavReg0Label.TabIndex = 10;
             this.SavReg0Label.Text = "Register 0:";
             // 
@@ -2816,11 +2882,11 @@ namespace Synthesizer_PC_control
             // 
             this.R5M1.BackColor = System.Drawing.Color.White;
             this.R5M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M1.Location = new System.Drawing.Point(97, 188);
-            this.R5M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R5M1.Location = new System.Drawing.Point(73, 153);
+            this.R5M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R5M1.MaxLength = 8;
             this.R5M1.Name = "R5M1";
-            this.R5M1.Size = new System.Drawing.Size(84, 22);
+            this.R5M1.Size = new System.Drawing.Size(64, 20);
             this.R5M1.TabIndex = 5;
             this.R5M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R5M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2828,9 +2894,10 @@ namespace Synthesizer_PC_control
             // SavReg5Label
             // 
             this.SavReg5Label.AutoSize = true;
-            this.SavReg5Label.Location = new System.Drawing.Point(10, 191);
+            this.SavReg5Label.Location = new System.Drawing.Point(8, 155);
+            this.SavReg5Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SavReg5Label.Name = "SavReg5Label";
-            this.SavReg5Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg5Label.Size = new System.Drawing.Size(58, 13);
             this.SavReg5Label.TabIndex = 16;
             this.SavReg5Label.Text = "Register 5:";
             // 
@@ -2838,11 +2905,11 @@ namespace Synthesizer_PC_control
             // 
             this.R5M2.BackColor = System.Drawing.Color.White;
             this.R5M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M2.Location = new System.Drawing.Point(204, 188);
-            this.R5M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R5M2.Location = new System.Drawing.Point(153, 153);
+            this.R5M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R5M2.MaxLength = 8;
             this.R5M2.Name = "R5M2";
-            this.R5M2.Size = new System.Drawing.Size(84, 22);
+            this.R5M2.Size = new System.Drawing.Size(64, 20);
             this.R5M2.TabIndex = 11;
             this.R5M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R5M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2851,11 +2918,11 @@ namespace Synthesizer_PC_control
             // 
             this.R4M1.BackColor = System.Drawing.Color.White;
             this.R4M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M1.Location = new System.Drawing.Point(97, 160);
-            this.R4M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R4M1.Location = new System.Drawing.Point(73, 130);
+            this.R4M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R4M1.MaxLength = 8;
             this.R4M1.Name = "R4M1";
-            this.R4M1.Size = new System.Drawing.Size(84, 22);
+            this.R4M1.Size = new System.Drawing.Size(64, 20);
             this.R4M1.TabIndex = 4;
             this.R4M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R4M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2864,11 +2931,11 @@ namespace Synthesizer_PC_control
             // 
             this.R5M3.BackColor = System.Drawing.Color.White;
             this.R5M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M3.Location = new System.Drawing.Point(311, 188);
-            this.R5M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R5M3.Location = new System.Drawing.Point(233, 153);
+            this.R5M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R5M3.MaxLength = 8;
             this.R5M3.Name = "R5M3";
-            this.R5M3.Size = new System.Drawing.Size(84, 22);
+            this.R5M3.Size = new System.Drawing.Size(64, 20);
             this.R5M3.TabIndex = 17;
             this.R5M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R5M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2877,11 +2944,11 @@ namespace Synthesizer_PC_control
             // 
             this.R4M2.BackColor = System.Drawing.Color.White;
             this.R4M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M2.Location = new System.Drawing.Point(204, 160);
-            this.R4M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R4M2.Location = new System.Drawing.Point(153, 130);
+            this.R4M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R4M2.MaxLength = 8;
             this.R4M2.Name = "R4M2";
-            this.R4M2.Size = new System.Drawing.Size(84, 22);
+            this.R4M2.Size = new System.Drawing.Size(64, 20);
             this.R4M2.TabIndex = 10;
             this.R4M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R4M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2890,11 +2957,11 @@ namespace Synthesizer_PC_control
             // 
             this.R5M4.BackColor = System.Drawing.Color.White;
             this.R5M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R5M4.Location = new System.Drawing.Point(418, 188);
-            this.R5M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R5M4.Location = new System.Drawing.Point(314, 153);
+            this.R5M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R5M4.MaxLength = 8;
             this.R5M4.Name = "R5M4";
-            this.R5M4.Size = new System.Drawing.Size(84, 22);
+            this.R5M4.Size = new System.Drawing.Size(64, 20);
             this.R5M4.TabIndex = 23;
             this.R5M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R5M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2903,11 +2970,11 @@ namespace Synthesizer_PC_control
             // 
             this.R4M3.BackColor = System.Drawing.Color.White;
             this.R4M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M3.Location = new System.Drawing.Point(311, 160);
-            this.R4M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R4M3.Location = new System.Drawing.Point(233, 130);
+            this.R4M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R4M3.MaxLength = 8;
             this.R4M3.Name = "R4M3";
-            this.R4M3.Size = new System.Drawing.Size(84, 22);
+            this.R4M3.Size = new System.Drawing.Size(64, 20);
             this.R4M3.TabIndex = 16;
             this.R4M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R4M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2916,11 +2983,11 @@ namespace Synthesizer_PC_control
             // 
             this.R4M4.BackColor = System.Drawing.Color.White;
             this.R4M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R4M4.Location = new System.Drawing.Point(418, 160);
-            this.R4M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R4M4.Location = new System.Drawing.Point(314, 130);
+            this.R4M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R4M4.MaxLength = 8;
             this.R4M4.Name = "R4M4";
-            this.R4M4.Size = new System.Drawing.Size(84, 22);
+            this.R4M4.Size = new System.Drawing.Size(64, 20);
             this.R4M4.TabIndex = 22;
             this.R4M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R4M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2928,9 +2995,10 @@ namespace Synthesizer_PC_control
             // SavReg4Label
             // 
             this.SavReg4Label.AutoSize = true;
-            this.SavReg4Label.Location = new System.Drawing.Point(10, 163);
+            this.SavReg4Label.Location = new System.Drawing.Point(8, 132);
+            this.SavReg4Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SavReg4Label.Name = "SavReg4Label";
-            this.SavReg4Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg4Label.Size = new System.Drawing.Size(58, 13);
             this.SavReg4Label.TabIndex = 15;
             this.SavReg4Label.Text = "Register 4:";
             // 
@@ -2938,11 +3006,11 @@ namespace Synthesizer_PC_control
             // 
             this.R3M1.BackColor = System.Drawing.Color.White;
             this.R3M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M1.Location = new System.Drawing.Point(97, 132);
-            this.R3M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R3M1.Location = new System.Drawing.Point(73, 107);
+            this.R3M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R3M1.MaxLength = 8;
             this.R3M1.Name = "R3M1";
-            this.R3M1.Size = new System.Drawing.Size(84, 22);
+            this.R3M1.Size = new System.Drawing.Size(64, 20);
             this.R3M1.TabIndex = 3;
             this.R3M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2951,11 +3019,11 @@ namespace Synthesizer_PC_control
             // 
             this.R3M2.BackColor = System.Drawing.Color.White;
             this.R3M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M2.Location = new System.Drawing.Point(204, 132);
-            this.R3M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R3M2.Location = new System.Drawing.Point(153, 107);
+            this.R3M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R3M2.MaxLength = 8;
             this.R3M2.Name = "R3M2";
-            this.R3M2.Size = new System.Drawing.Size(84, 22);
+            this.R3M2.Size = new System.Drawing.Size(64, 20);
             this.R3M2.TabIndex = 9;
             this.R3M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2964,11 +3032,11 @@ namespace Synthesizer_PC_control
             // 
             this.R3M3.BackColor = System.Drawing.Color.White;
             this.R3M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M3.Location = new System.Drawing.Point(311, 132);
-            this.R3M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R3M3.Location = new System.Drawing.Point(233, 107);
+            this.R3M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R3M3.MaxLength = 8;
             this.R3M3.Name = "R3M3";
-            this.R3M3.Size = new System.Drawing.Size(84, 22);
+            this.R3M3.Size = new System.Drawing.Size(64, 20);
             this.R3M3.TabIndex = 15;
             this.R3M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2977,11 +3045,11 @@ namespace Synthesizer_PC_control
             // 
             this.R3M4.BackColor = System.Drawing.Color.White;
             this.R3M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R3M4.Location = new System.Drawing.Point(418, 132);
-            this.R3M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R3M4.Location = new System.Drawing.Point(314, 107);
+            this.R3M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R3M4.MaxLength = 8;
             this.R3M4.Name = "R3M4";
-            this.R3M4.Size = new System.Drawing.Size(84, 22);
+            this.R3M4.Size = new System.Drawing.Size(64, 20);
             this.R3M4.TabIndex = 21;
             this.R3M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -2990,11 +3058,11 @@ namespace Synthesizer_PC_control
             // 
             this.R2M1.BackColor = System.Drawing.Color.White;
             this.R2M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M1.Location = new System.Drawing.Point(97, 104);
-            this.R2M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R2M1.Location = new System.Drawing.Point(73, 84);
+            this.R2M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R2M1.MaxLength = 8;
             this.R2M1.Name = "R2M1";
-            this.R2M1.Size = new System.Drawing.Size(84, 22);
+            this.R2M1.Size = new System.Drawing.Size(64, 20);
             this.R2M1.TabIndex = 2;
             this.R2M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -3003,11 +3071,11 @@ namespace Synthesizer_PC_control
             // 
             this.R2M2.BackColor = System.Drawing.Color.White;
             this.R2M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M2.Location = new System.Drawing.Point(204, 104);
-            this.R2M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R2M2.Location = new System.Drawing.Point(153, 84);
+            this.R2M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R2M2.MaxLength = 8;
             this.R2M2.Name = "R2M2";
-            this.R2M2.Size = new System.Drawing.Size(84, 22);
+            this.R2M2.Size = new System.Drawing.Size(64, 20);
             this.R2M2.TabIndex = 8;
             this.R2M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -3016,11 +3084,11 @@ namespace Synthesizer_PC_control
             // 
             this.R2M3.BackColor = System.Drawing.Color.White;
             this.R2M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M3.Location = new System.Drawing.Point(311, 104);
-            this.R2M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R2M3.Location = new System.Drawing.Point(233, 84);
+            this.R2M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R2M3.MaxLength = 8;
             this.R2M3.Name = "R2M3";
-            this.R2M3.Size = new System.Drawing.Size(84, 22);
+            this.R2M3.Size = new System.Drawing.Size(64, 20);
             this.R2M3.TabIndex = 14;
             this.R2M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -3029,11 +3097,11 @@ namespace Synthesizer_PC_control
             // 
             this.R2M4.BackColor = System.Drawing.Color.White;
             this.R2M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R2M4.Location = new System.Drawing.Point(418, 104);
-            this.R2M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R2M4.Location = new System.Drawing.Point(314, 84);
+            this.R2M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R2M4.MaxLength = 8;
             this.R2M4.Name = "R2M4";
-            this.R2M4.Size = new System.Drawing.Size(84, 22);
+            this.R2M4.Size = new System.Drawing.Size(64, 20);
             this.R2M4.TabIndex = 20;
             this.R2M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -3041,9 +3109,10 @@ namespace Synthesizer_PC_control
             // SavReg2Label
             // 
             this.SavReg2Label.AutoSize = true;
-            this.SavReg2Label.Location = new System.Drawing.Point(10, 107);
+            this.SavReg2Label.Location = new System.Drawing.Point(8, 87);
+            this.SavReg2Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SavReg2Label.Name = "SavReg2Label";
-            this.SavReg2Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg2Label.Size = new System.Drawing.Size(58, 13);
             this.SavReg2Label.TabIndex = 14;
             this.SavReg2Label.Text = "Register 2:";
             // 
@@ -3051,11 +3120,11 @@ namespace Synthesizer_PC_control
             // 
             this.R1M1.BackColor = System.Drawing.Color.White;
             this.R1M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M1.Location = new System.Drawing.Point(97, 76);
-            this.R1M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R1M1.Location = new System.Drawing.Point(73, 62);
+            this.R1M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R1M1.MaxLength = 8;
             this.R1M1.Name = "R1M1";
-            this.R1M1.Size = new System.Drawing.Size(84, 22);
+            this.R1M1.Size = new System.Drawing.Size(64, 20);
             this.R1M1.TabIndex = 1;
             this.R1M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R1M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -3063,9 +3132,10 @@ namespace Synthesizer_PC_control
             // SavReg3Label
             // 
             this.SavReg3Label.AutoSize = true;
-            this.SavReg3Label.Location = new System.Drawing.Point(10, 135);
+            this.SavReg3Label.Location = new System.Drawing.Point(8, 110);
+            this.SavReg3Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SavReg3Label.Name = "SavReg3Label";
-            this.SavReg3Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg3Label.Size = new System.Drawing.Size(58, 13);
             this.SavReg3Label.TabIndex = 13;
             this.SavReg3Label.Text = "Register 3:";
             // 
@@ -3073,11 +3143,11 @@ namespace Synthesizer_PC_control
             // 
             this.R1M2.BackColor = System.Drawing.Color.White;
             this.R1M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M2.Location = new System.Drawing.Point(204, 76);
-            this.R1M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R1M2.Location = new System.Drawing.Point(153, 62);
+            this.R1M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R1M2.MaxLength = 8;
             this.R1M2.Name = "R1M2";
-            this.R1M2.Size = new System.Drawing.Size(84, 22);
+            this.R1M2.Size = new System.Drawing.Size(64, 20);
             this.R1M2.TabIndex = 7;
             this.R1M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R1M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -3086,11 +3156,11 @@ namespace Synthesizer_PC_control
             // 
             this.R1M3.BackColor = System.Drawing.Color.White;
             this.R1M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M3.Location = new System.Drawing.Point(311, 76);
-            this.R1M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R1M3.Location = new System.Drawing.Point(233, 62);
+            this.R1M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R1M3.MaxLength = 8;
             this.R1M3.Name = "R1M3";
-            this.R1M3.Size = new System.Drawing.Size(84, 22);
+            this.R1M3.Size = new System.Drawing.Size(64, 20);
             this.R1M3.TabIndex = 13;
             this.R1M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R1M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -3099,11 +3169,11 @@ namespace Synthesizer_PC_control
             // 
             this.R1M4.BackColor = System.Drawing.Color.White;
             this.R1M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R1M4.Location = new System.Drawing.Point(418, 76);
-            this.R1M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R1M4.Location = new System.Drawing.Point(314, 62);
+            this.R1M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R1M4.MaxLength = 8;
             this.R1M4.Name = "R1M4";
-            this.R1M4.Size = new System.Drawing.Size(84, 22);
+            this.R1M4.Size = new System.Drawing.Size(64, 20);
             this.R1M4.TabIndex = 19;
             this.R1M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R1M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -3111,9 +3181,10 @@ namespace Synthesizer_PC_control
             // SavReg1Label
             // 
             this.SavReg1Label.AutoSize = true;
-            this.SavReg1Label.Location = new System.Drawing.Point(10, 79);
+            this.SavReg1Label.Location = new System.Drawing.Point(8, 64);
+            this.SavReg1Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.SavReg1Label.Name = "SavReg1Label";
-            this.SavReg1Label.Size = new System.Drawing.Size(77, 17);
+            this.SavReg1Label.Size = new System.Drawing.Size(58, 13);
             this.SavReg1Label.TabIndex = 11;
             this.SavReg1Label.Text = "Register 1:";
             // 
@@ -3121,47 +3192,51 @@ namespace Synthesizer_PC_control
             // 
             this.R0M4.BackColor = System.Drawing.Color.White;
             this.R0M4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M4.Location = new System.Drawing.Point(418, 48);
-            this.R0M4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R0M4.Location = new System.Drawing.Point(314, 39);
+            this.R0M4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R0M4.MaxLength = 8;
             this.R0M4.Name = "R0M4";
-            this.R0M4.Size = new System.Drawing.Size(84, 22);
+            this.R0M4.Size = new System.Drawing.Size(64, 20);
             this.R0M4.TabIndex = 18;
             this.R0M4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0M4.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // Mem1Label
             // 
-            this.Mem1Label.Location = new System.Drawing.Point(97, 25);
+            this.Mem1Label.Location = new System.Drawing.Point(73, 20);
+            this.Mem1Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem1Label.Name = "Mem1Label";
-            this.Mem1Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem1Label.Size = new System.Drawing.Size(63, 14);
             this.Mem1Label.TabIndex = 10;
             this.Mem1Label.Text = "Memory 1";
             this.Mem1Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem2Label
             // 
-            this.Mem2Label.Location = new System.Drawing.Point(204, 25);
+            this.Mem2Label.Location = new System.Drawing.Point(153, 20);
+            this.Mem2Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem2Label.Name = "Mem2Label";
-            this.Mem2Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem2Label.Size = new System.Drawing.Size(63, 14);
             this.Mem2Label.TabIndex = 10;
             this.Mem2Label.Text = "Memory 2";
             this.Mem2Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem3Label
             // 
-            this.Mem3Label.Location = new System.Drawing.Point(311, 25);
+            this.Mem3Label.Location = new System.Drawing.Point(233, 20);
+            this.Mem3Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem3Label.Name = "Mem3Label";
-            this.Mem3Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem3Label.Size = new System.Drawing.Size(63, 14);
             this.Mem3Label.TabIndex = 10;
             this.Mem3Label.Text = "Memory 3";
             this.Mem3Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Mem4Label
             // 
-            this.Mem4Label.Location = new System.Drawing.Point(418, 25);
+            this.Mem4Label.Location = new System.Drawing.Point(314, 20);
+            this.Mem4Label.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Mem4Label.Name = "Mem4Label";
-            this.Mem4Label.Size = new System.Drawing.Size(84, 17);
+            this.Mem4Label.Size = new System.Drawing.Size(63, 14);
             this.Mem4Label.TabIndex = 10;
             this.Mem4Label.Text = "Memory 4";
             this.Mem4Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3170,11 +3245,11 @@ namespace Synthesizer_PC_control
             // 
             this.R0M3.BackColor = System.Drawing.Color.White;
             this.R0M3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M3.Location = new System.Drawing.Point(311, 48);
-            this.R0M3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R0M3.Location = new System.Drawing.Point(233, 39);
+            this.R0M3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R0M3.MaxLength = 8;
             this.R0M3.Name = "R0M3";
-            this.R0M3.Size = new System.Drawing.Size(84, 22);
+            this.R0M3.Size = new System.Drawing.Size(64, 20);
             this.R0M3.TabIndex = 12;
             this.R0M3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0M3.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -3183,11 +3258,11 @@ namespace Synthesizer_PC_control
             // 
             this.R0M1.BackColor = System.Drawing.Color.White;
             this.R0M1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M1.Location = new System.Drawing.Point(97, 48);
-            this.R0M1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R0M1.Location = new System.Drawing.Point(73, 39);
+            this.R0M1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R0M1.MaxLength = 8;
             this.R0M1.Name = "R0M1";
-            this.R0M1.Size = new System.Drawing.Size(84, 22);
+            this.R0M1.Size = new System.Drawing.Size(64, 20);
             this.R0M1.TabIndex = 0;
             this.R0M1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0M1.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
@@ -3196,20 +3271,21 @@ namespace Synthesizer_PC_control
             // 
             this.R0M2.BackColor = System.Drawing.Color.White;
             this.R0M2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.R0M2.Location = new System.Drawing.Point(204, 48);
-            this.R0M2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.R0M2.Location = new System.Drawing.Point(153, 39);
+            this.R0M2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.R0M2.MaxLength = 8;
             this.R0M2.Name = "R0M2";
-            this.R0M2.Size = new System.Drawing.Size(84, 22);
+            this.R0M2.Size = new System.Drawing.Size(64, 20);
             this.R0M2.TabIndex = 6;
             this.R0M2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0M2.TextChanged += new System.EventHandler(this.MemoryRegister_TextChanged);
             // 
             // ImportMem4Button
             // 
-            this.ImportMem4Button.Location = new System.Drawing.Point(420, 553);
+            this.ImportMem4Button.Location = new System.Drawing.Point(315, 449);
+            this.ImportMem4Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ImportMem4Button.Name = "ImportMem4Button";
-            this.ImportMem4Button.Size = new System.Drawing.Size(84, 49);
+            this.ImportMem4Button.Size = new System.Drawing.Size(63, 40);
             this.ImportMem4Button.TabIndex = 7;
             this.ImportMem4Button.Text = "Import Memory 4";
             this.ImportMem4Button.UseVisualStyleBackColor = true;
@@ -3217,9 +3293,10 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem3Button
             // 
-            this.ImportMem3Button.Location = new System.Drawing.Point(313, 553);
+            this.ImportMem3Button.Location = new System.Drawing.Point(235, 449);
+            this.ImportMem3Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ImportMem3Button.Name = "ImportMem3Button";
-            this.ImportMem3Button.Size = new System.Drawing.Size(84, 49);
+            this.ImportMem3Button.Size = new System.Drawing.Size(63, 40);
             this.ImportMem3Button.TabIndex = 6;
             this.ImportMem3Button.Text = "Import Memory 3";
             this.ImportMem3Button.UseVisualStyleBackColor = true;
@@ -3227,9 +3304,10 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem2Button
             // 
-            this.ImportMem2Button.Location = new System.Drawing.Point(206, 553);
+            this.ImportMem2Button.Location = new System.Drawing.Point(154, 449);
+            this.ImportMem2Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ImportMem2Button.Name = "ImportMem2Button";
-            this.ImportMem2Button.Size = new System.Drawing.Size(84, 49);
+            this.ImportMem2Button.Size = new System.Drawing.Size(63, 40);
             this.ImportMem2Button.TabIndex = 5;
             this.ImportMem2Button.Text = "Import Memory 2";
             this.ImportMem2Button.UseVisualStyleBackColor = true;
@@ -3237,9 +3315,10 @@ namespace Synthesizer_PC_control
             // 
             // ImportMem1Button
             // 
-            this.ImportMem1Button.Location = new System.Drawing.Point(99, 553);
+            this.ImportMem1Button.Location = new System.Drawing.Point(74, 449);
+            this.ImportMem1Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ImportMem1Button.Name = "ImportMem1Button";
-            this.ImportMem1Button.Size = new System.Drawing.Size(84, 49);
+            this.ImportMem1Button.Size = new System.Drawing.Size(63, 40);
             this.ImportMem1Button.TabIndex = 4;
             this.ImportMem1Button.Text = "Import Memory 1";
             this.ImportMem1Button.UseVisualStyleBackColor = true;
@@ -3247,10 +3326,10 @@ namespace Synthesizer_PC_control
             // 
             // MemLoadFromFileButton
             // 
-            this.MemLoadFromFileButton.Location = new System.Drawing.Point(527, 207);
-            this.MemLoadFromFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MemLoadFromFileButton.Location = new System.Drawing.Point(395, 168);
+            this.MemLoadFromFileButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MemLoadFromFileButton.Name = "MemLoadFromFileButton";
-            this.MemLoadFromFileButton.Size = new System.Drawing.Size(174, 46);
+            this.MemLoadFromFileButton.Size = new System.Drawing.Size(130, 37);
             this.MemLoadFromFileButton.TabIndex = 3;
             this.MemLoadFromFileButton.Text = "Load From File";
             this.MemLoadFromFileButton.UseVisualStyleBackColor = true;
@@ -3258,10 +3337,10 @@ namespace Synthesizer_PC_control
             // 
             // MemSaveIntoFileButton
             // 
-            this.MemSaveIntoFileButton.Location = new System.Drawing.Point(527, 157);
-            this.MemSaveIntoFileButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MemSaveIntoFileButton.Location = new System.Drawing.Point(395, 128);
+            this.MemSaveIntoFileButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MemSaveIntoFileButton.Name = "MemSaveIntoFileButton";
-            this.MemSaveIntoFileButton.Size = new System.Drawing.Size(174, 46);
+            this.MemSaveIntoFileButton.Size = new System.Drawing.Size(130, 37);
             this.MemSaveIntoFileButton.TabIndex = 2;
             this.MemSaveIntoFileButton.Text = "Save Into File";
             this.MemSaveIntoFileButton.UseVisualStyleBackColor = true;
@@ -3269,10 +3348,10 @@ namespace Synthesizer_PC_control
             // 
             // LoadRegMemory
             // 
-            this.LoadRegMemory.Location = new System.Drawing.Point(527, 87);
-            this.LoadRegMemory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LoadRegMemory.Location = new System.Drawing.Point(395, 71);
+            this.LoadRegMemory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LoadRegMemory.Name = "LoadRegMemory";
-            this.LoadRegMemory.Size = new System.Drawing.Size(174, 46);
+            this.LoadRegMemory.Size = new System.Drawing.Size(130, 37);
             this.LoadRegMemory.TabIndex = 1;
             this.LoadRegMemory.Text = "Download Memory Data From Synthesizer Memory";
             this.LoadRegMemory.UseVisualStyleBackColor = true;
@@ -3280,23 +3359,217 @@ namespace Synthesizer_PC_control
             // 
             // SaveRegMemory
             // 
-            this.SaveRegMemory.Location = new System.Drawing.Point(527, 37);
-            this.SaveRegMemory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SaveRegMemory.Location = new System.Drawing.Point(395, 30);
+            this.SaveRegMemory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SaveRegMemory.Name = "SaveRegMemory";
-            this.SaveRegMemory.Size = new System.Drawing.Size(174, 46);
+            this.SaveRegMemory.Size = new System.Drawing.Size(130, 37);
             this.SaveRegMemory.TabIndex = 0;
             this.SaveRegMemory.Text = "Upload Memory Data Into Synthesizer";
             this.SaveRegMemory.UseVisualStyleBackColor = true;
             this.SaveRegMemory.Click += new System.EventHandler(this.SaveRegMemory_Click);
             // 
+            // VcoCalibrationTabPage
+            // 
+            this.VcoCalibrationTabPage.Controls.Add(this.CurrentVcoShowLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.ActFreqShowLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.VcoFreqMaxTextBox);
+            this.VcoCalibrationTabPage.Controls.Add(this.CurrentVcoLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.label14);
+            this.VcoCalibrationTabPage.Controls.Add(this.ActFreqLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.label15);
+            this.VcoCalibrationTabPage.Controls.Add(this.VcoFreqMaxLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.VcoFreqMinTextBox);
+            this.VcoCalibrationTabPage.Controls.Add(this.label16);
+            this.VcoCalibrationTabPage.Controls.Add(this.VcoFreqMinLabel);
+            this.VcoCalibrationTabPage.Controls.Add(this.AbortCallibrationButton);
+            this.VcoCalibrationTabPage.Controls.Add(this.PerformVcoCalibrationButton);
+            this.VcoCalibrationTabPage.Controls.Add(this.FreqStepTextBox);
+            this.VcoCalibrationTabPage.Controls.Add(this.MHzLable);
+            this.VcoCalibrationTabPage.Controls.Add(this.FreqStepLabel);
+            this.VcoCalibrationTabPage.Location = new System.Drawing.Point(4, 22);
+            this.VcoCalibrationTabPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.VcoCalibrationTabPage.Name = "VcoCalibrationTabPage";
+            this.VcoCalibrationTabPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.VcoCalibrationTabPage.Size = new System.Drawing.Size(530, 662);
+            this.VcoCalibrationTabPage.TabIndex = 2;
+            this.VcoCalibrationTabPage.Text = "VCO Calibration";
+            this.VcoCalibrationTabPage.UseVisualStyleBackColor = true;
+            // 
+            // CurrentVcoShowLabel
+            // 
+            this.CurrentVcoShowLabel.Location = new System.Drawing.Point(286, 347);
+            this.CurrentVcoShowLabel.Name = "CurrentVcoShowLabel";
+            this.CurrentVcoShowLabel.Size = new System.Drawing.Size(84, 13);
+            this.CurrentVcoShowLabel.TabIndex = 32;
+            this.CurrentVcoShowLabel.Text = "-";
+            this.CurrentVcoShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ActFreqShowLabel
+            // 
+            this.ActFreqShowLabel.Location = new System.Drawing.Point(286, 328);
+            this.ActFreqShowLabel.Name = "ActFreqShowLabel";
+            this.ActFreqShowLabel.Size = new System.Drawing.Size(84, 13);
+            this.ActFreqShowLabel.TabIndex = 33;
+            this.ActFreqShowLabel.Text = "-";
+            this.ActFreqShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // VcoFreqMaxTextBox
+            // 
+            this.VcoFreqMaxTextBox.BackColor = System.Drawing.Color.White;
+            this.VcoFreqMaxTextBox.Enabled = false;
+            this.VcoFreqMaxTextBox.Location = new System.Drawing.Point(289, 291);
+            this.VcoFreqMaxTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.VcoFreqMaxTextBox.MaxLength = 17;
+            this.VcoFreqMaxTextBox.Name = "VcoFreqMaxTextBox";
+            this.VcoFreqMaxTextBox.ReadOnly = true;
+            this.VcoFreqMaxTextBox.Size = new System.Drawing.Size(83, 20);
+            this.VcoFreqMaxTextBox.TabIndex = 26;
+            this.VcoFreqMaxTextBox.Text = "6000";
+            this.VcoFreqMaxTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // CurrentVcoLabel
+            // 
+            this.CurrentVcoLabel.Location = new System.Drawing.Point(127, 346);
+            this.CurrentVcoLabel.Name = "CurrentVcoLabel";
+            this.CurrentVcoLabel.Size = new System.Drawing.Size(157, 13);
+            this.CurrentVcoLabel.TabIndex = 29;
+            this.CurrentVcoLabel.Text = "Current VCO:";
+            this.CurrentVcoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(375, 327);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(30, 14);
+            this.label14.TabIndex = 27;
+            this.label14.Text = "MHz";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ActFreqLabel
+            // 
+            this.ActFreqLabel.Location = new System.Drawing.Point(127, 327);
+            this.ActFreqLabel.Name = "ActFreqLabel";
+            this.ActFreqLabel.Size = new System.Drawing.Size(157, 13);
+            this.ActFreqLabel.TabIndex = 30;
+            this.ActFreqLabel.Text = "Actual Frequency:";
+            this.ActFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label15
+            // 
+            this.label15.Location = new System.Drawing.Point(375, 293);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(30, 14);
+            this.label15.TabIndex = 28;
+            this.label15.Text = "MHz";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // VcoFreqMaxLabel
+            // 
+            this.VcoFreqMaxLabel.Location = new System.Drawing.Point(74, 293);
+            this.VcoFreqMaxLabel.Name = "VcoFreqMaxLabel";
+            this.VcoFreqMaxLabel.Size = new System.Drawing.Size(210, 13);
+            this.VcoFreqMaxLabel.TabIndex = 31;
+            this.VcoFreqMaxLabel.Text = "MAX2871 VCO Frequency Max:";
+            this.VcoFreqMaxLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // VcoFreqMinTextBox
+            // 
+            this.VcoFreqMinTextBox.BackColor = System.Drawing.Color.White;
+            this.VcoFreqMinTextBox.Enabled = false;
+            this.VcoFreqMinTextBox.Location = new System.Drawing.Point(289, 270);
+            this.VcoFreqMinTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.VcoFreqMinTextBox.MaxLength = 17;
+            this.VcoFreqMinTextBox.Name = "VcoFreqMinTextBox";
+            this.VcoFreqMinTextBox.ReadOnly = true;
+            this.VcoFreqMinTextBox.Size = new System.Drawing.Size(83, 20);
+            this.VcoFreqMinTextBox.TabIndex = 23;
+            this.VcoFreqMinTextBox.Text = "3000";
+            this.VcoFreqMinTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(375, 272);
+            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(30, 14);
+            this.label16.TabIndex = 24;
+            this.label16.Text = "MHz";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // VcoFreqMinLabel
+            // 
+            this.VcoFreqMinLabel.Location = new System.Drawing.Point(71, 272);
+            this.VcoFreqMinLabel.Name = "VcoFreqMinLabel";
+            this.VcoFreqMinLabel.Size = new System.Drawing.Size(213, 13);
+            this.VcoFreqMinLabel.TabIndex = 25;
+            this.VcoFreqMinLabel.Text = "MAX 2871 VCO Frequency Min:";
+            this.VcoFreqMinLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // AbortCallibrationButton
+            // 
+            this.AbortCallibrationButton.Enabled = false;
+            this.AbortCallibrationButton.Location = new System.Drawing.Point(289, 372);
+            this.AbortCallibrationButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AbortCallibrationButton.Name = "AbortCallibrationButton";
+            this.AbortCallibrationButton.Size = new System.Drawing.Size(94, 44);
+            this.AbortCallibrationButton.TabIndex = 21;
+            this.AbortCallibrationButton.Text = "Abort";
+            this.AbortCallibrationButton.UseVisualStyleBackColor = true;
+            this.AbortCallibrationButton.Click += new System.EventHandler(this.AbortCallibration_Click);
+            // 
+            // PerformVcoCalibrationButton
+            // 
+            this.PerformVcoCalibrationButton.Location = new System.Drawing.Point(153, 372);
+            this.PerformVcoCalibrationButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PerformVcoCalibrationButton.Name = "PerformVcoCalibrationButton";
+            this.PerformVcoCalibrationButton.Size = new System.Drawing.Size(94, 44);
+            this.PerformVcoCalibrationButton.TabIndex = 22;
+            this.PerformVcoCalibrationButton.Text = "Perform VCO calibration";
+            this.PerformVcoCalibrationButton.UseVisualStyleBackColor = true;
+            this.PerformVcoCalibrationButton.Click += new System.EventHandler(this.PerformVcoCalibrationButton_Click);
+            // 
+            // FreqStepTextBox
+            // 
+            this.FreqStepTextBox.BackColor = System.Drawing.Color.White;
+            this.FreqStepTextBox.Location = new System.Drawing.Point(289, 249);
+            this.FreqStepTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FreqStepTextBox.MaxLength = 17;
+            this.FreqStepTextBox.Name = "FreqStepTextBox";
+            this.FreqStepTextBox.Size = new System.Drawing.Size(83, 20);
+            this.FreqStepTextBox.TabIndex = 18;
+            this.FreqStepTextBox.Text = "1000";
+            this.FreqStepTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.FreqStepTextBox.LostFocus += new System.EventHandler(this.FreqStepTextBox_LostFocus);
+            // 
+            // MHzLable
+            // 
+            this.MHzLable.Location = new System.Drawing.Point(375, 251);
+            this.MHzLable.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.MHzLable.Name = "MHzLable";
+            this.MHzLable.Size = new System.Drawing.Size(30, 14);
+            this.MHzLable.TabIndex = 19;
+            this.MHzLable.Text = "MHz";
+            this.MHzLable.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FreqStepLabel
+            // 
+            this.FreqStepLabel.Location = new System.Drawing.Point(127, 251);
+            this.FreqStepLabel.Name = "FreqStepLabel";
+            this.FreqStepLabel.Size = new System.Drawing.Size(157, 13);
+            this.FreqStepLabel.TabIndex = 20;
+            this.FreqStepLabel.Text = "Frequency Calibration Step:";
+            this.FreqStepLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // RegistersGroupBox
             // 
             this.RegistersGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.RegistersGroupBox.Location = new System.Drawing.Point(352, 4);
-            this.RegistersGroupBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RegistersGroupBox.Location = new System.Drawing.Point(264, 3);
+            this.RegistersGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RegistersGroupBox.Name = "RegistersGroupBox";
-            this.RegistersGroupBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.RegistersGroupBox.Size = new System.Drawing.Size(717, 780);
+            this.RegistersGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.RegistersGroupBox.Size = new System.Drawing.Size(538, 634);
             this.RegistersGroupBox.TabIndex = 9;
             this.RegistersGroupBox.TabStop = false;
             this.RegistersGroupBox.Text = "PLO MAX2871 Registers Settings";
@@ -3306,26 +3579,26 @@ namespace Synthesizer_PC_control
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 873);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 560);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 13, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1071, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 10, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(642, 22);
             this.statusStrip1.TabIndex = 14;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 16);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // InputFreqTextBox
             // 
             this.InputFreqTextBox.BackColor = System.Drawing.Color.White;
-            this.InputFreqTextBox.Location = new System.Drawing.Point(147, 20);
-            this.InputFreqTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.InputFreqTextBox.Location = new System.Drawing.Point(110, 16);
+            this.InputFreqTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.InputFreqTextBox.MaxLength = 17;
             this.InputFreqTextBox.Name = "InputFreqTextBox";
-            this.InputFreqTextBox.Size = new System.Drawing.Size(109, 22);
+            this.InputFreqTextBox.Size = new System.Drawing.Size(83, 20);
             this.InputFreqTextBox.TabIndex = 0;
             this.InputFreqTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.InputFreqTextBox.TextChanged += new System.EventHandler(this.InputFreqTextBox_TextChanged);
@@ -3334,48 +3607,47 @@ namespace Synthesizer_PC_control
             // 
             // MHzLabel6
             // 
-            this.MHzLabel6.Location = new System.Drawing.Point(262, 23);
+            this.MHzLabel6.Location = new System.Drawing.Point(196, 19);
+            this.MHzLabel6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MHzLabel6.Name = "MHzLabel6";
-            this.MHzLabel6.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel6.Size = new System.Drawing.Size(30, 14);
             this.MHzLabel6.TabIndex = 1;
             this.MHzLabel6.Text = "MHz";
             this.MHzLabel6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DeltaShowLabel
             // 
-            this.DeltaShowLabel.Location = new System.Drawing.Point(147, 70);
-            this.DeltaShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DeltaShowLabel.Location = new System.Drawing.Point(110, 57);
             this.DeltaShowLabel.Name = "DeltaShowLabel";
-            this.DeltaShowLabel.Size = new System.Drawing.Size(109, 16);
+            this.DeltaShowLabel.Size = new System.Drawing.Size(82, 13);
             this.DeltaShowLabel.TabIndex = 1;
             this.DeltaShowLabel.Text = "0";
             this.DeltaShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // HzLabel
             // 
-            this.HzLabel.Location = new System.Drawing.Point(262, 70);
+            this.HzLabel.Location = new System.Drawing.Point(196, 57);
+            this.HzLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.HzLabel.Name = "HzLabel";
-            this.HzLabel.Size = new System.Drawing.Size(40, 17);
+            this.HzLabel.Size = new System.Drawing.Size(30, 14);
             this.HzLabel.TabIndex = 1;
             this.HzLabel.Text = "Hz";
             this.HzLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DeltaLabel
             // 
-            this.DeltaLabel.Location = new System.Drawing.Point(2, 69);
-            this.DeltaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DeltaLabel.Location = new System.Drawing.Point(2, 56);
             this.DeltaLabel.Name = "DeltaLabel";
-            this.DeltaLabel.Size = new System.Drawing.Size(138, 18);
+            this.DeltaLabel.Size = new System.Drawing.Size(104, 15);
             this.DeltaLabel.TabIndex = 1;
             this.DeltaLabel.Text = "Delta frequency:";
             this.DeltaLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // InputFreqLabel
             // 
-            this.InputFreqLabel.Location = new System.Drawing.Point(2, 23);
-            this.InputFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.InputFreqLabel.Location = new System.Drawing.Point(2, 19);
             this.InputFreqLabel.Name = "InputFreqLabel";
-            this.InputFreqLabel.Size = new System.Drawing.Size(138, 16);
+            this.InputFreqLabel.Size = new System.Drawing.Size(104, 13);
             this.InputFreqLabel.TabIndex = 1;
             this.InputFreqLabel.Text = "Output frequency:";
             this.InputFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -3391,56 +3663,59 @@ namespace Synthesizer_PC_control
             this.DirectFreqContrGroupBox.Controls.Add(this.CalcFreqLabel);
             this.DirectFreqContrGroupBox.Controls.Add(this.DeltaLabel);
             this.DirectFreqContrGroupBox.Controls.Add(this.HzLabel);
-            this.DirectFreqContrGroupBox.Location = new System.Drawing.Point(11, 81);
+            this.DirectFreqContrGroupBox.Location = new System.Drawing.Point(8, 66);
+            this.DirectFreqContrGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DirectFreqContrGroupBox.Name = "DirectFreqContrGroupBox";
-            this.DirectFreqContrGroupBox.Size = new System.Drawing.Size(334, 95);
+            this.DirectFreqContrGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DirectFreqContrGroupBox.Size = new System.Drawing.Size(250, 77);
             this.DirectFreqContrGroupBox.TabIndex = 6;
             this.DirectFreqContrGroupBox.TabStop = false;
             this.DirectFreqContrGroupBox.Text = "Direct output frequency control";
             // 
             // MHzLabel7
             // 
-            this.MHzLabel7.Location = new System.Drawing.Point(263, 46);
+            this.MHzLabel7.Location = new System.Drawing.Point(197, 37);
+            this.MHzLabel7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MHzLabel7.Name = "MHzLabel7";
-            this.MHzLabel7.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel7.Size = new System.Drawing.Size(30, 14);
             this.MHzLabel7.TabIndex = 1;
             this.MHzLabel7.Text = "MHz";
             this.MHzLabel7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // CalcFreqShowLabel
             // 
-            this.CalcFreqShowLabel.Location = new System.Drawing.Point(147, 46);
-            this.CalcFreqShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CalcFreqShowLabel.Location = new System.Drawing.Point(110, 37);
             this.CalcFreqShowLabel.Name = "CalcFreqShowLabel";
-            this.CalcFreqShowLabel.Size = new System.Drawing.Size(109, 16);
+            this.CalcFreqShowLabel.Size = new System.Drawing.Size(82, 13);
             this.CalcFreqShowLabel.TabIndex = 1;
             this.CalcFreqShowLabel.Text = "0";
             this.CalcFreqShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CalcFreqLabel
             // 
-            this.CalcFreqLabel.Location = new System.Drawing.Point(2, 46);
-            this.CalcFreqLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CalcFreqLabel.Location = new System.Drawing.Point(2, 37);
             this.CalcFreqLabel.Name = "CalcFreqLabel";
-            this.CalcFreqLabel.Size = new System.Drawing.Size(138, 18);
+            this.CalcFreqLabel.Size = new System.Drawing.Size(104, 15);
             this.CalcFreqLabel.TabIndex = 1;
             this.CalcFreqLabel.Text = "Calculated freq.:";
             this.CalcFreqLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MHzLabel9
             // 
-            this.MHzLabel9.Location = new System.Drawing.Point(281, 89);
+            this.MHzLabel9.Location = new System.Drawing.Point(211, 72);
+            this.MHzLabel9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MHzLabel9.Name = "MHzLabel9";
-            this.MHzLabel9.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel9.Size = new System.Drawing.Size(30, 14);
             this.MHzLabel9.TabIndex = 17;
             this.MHzLabel9.Text = "MHz";
             this.MHzLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MHzLabel8
             // 
-            this.MHzLabel8.Location = new System.Drawing.Point(280, 66);
+            this.MHzLabel8.Location = new System.Drawing.Point(210, 54);
+            this.MHzLabel8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.MHzLabel8.Name = "MHzLabel8";
-            this.MHzLabel8.Size = new System.Drawing.Size(40, 17);
+            this.MHzLabel8.Size = new System.Drawing.Size(30, 14);
             this.MHzLabel8.TabIndex = 17;
             this.MHzLabel8.Text = "MHz";
             this.MHzLabel8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3448,10 +3723,9 @@ namespace Synthesizer_PC_control
             // FreqAtOut2ShowLabel
             // 
             this.FreqAtOut2ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FreqAtOut2ShowLabel.Location = new System.Drawing.Point(150, 89);
-            this.FreqAtOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FreqAtOut2ShowLabel.Location = new System.Drawing.Point(112, 72);
             this.FreqAtOut2ShowLabel.Name = "FreqAtOut2ShowLabel";
-            this.FreqAtOut2ShowLabel.Size = new System.Drawing.Size(125, 16);
+            this.FreqAtOut2ShowLabel.Size = new System.Drawing.Size(94, 13);
             this.FreqAtOut2ShowLabel.TabIndex = 20;
             this.FreqAtOut2ShowLabel.Text = "0";
             this.FreqAtOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3459,10 +3733,9 @@ namespace Synthesizer_PC_control
             // FreqAtOut1ShowLabel
             // 
             this.FreqAtOut1ShowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.FreqAtOut1ShowLabel.Location = new System.Drawing.Point(150, 66);
-            this.FreqAtOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FreqAtOut1ShowLabel.Location = new System.Drawing.Point(112, 54);
             this.FreqAtOut1ShowLabel.Name = "FreqAtOut1ShowLabel";
-            this.FreqAtOut1ShowLabel.Size = new System.Drawing.Size(125, 16);
+            this.FreqAtOut1ShowLabel.Size = new System.Drawing.Size(94, 13);
             this.FreqAtOut1ShowLabel.TabIndex = 20;
             this.FreqAtOut1ShowLabel.Text = "0";
             this.FreqAtOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3470,10 +3743,9 @@ namespace Synthesizer_PC_control
             // ActOut2ShowLabel
             // 
             this.ActOut2ShowLabel.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ActOut2ShowLabel.Location = new System.Drawing.Point(291, 23);
-            this.ActOut2ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ActOut2ShowLabel.Location = new System.Drawing.Point(218, 19);
             this.ActOut2ShowLabel.Name = "ActOut2ShowLabel";
-            this.ActOut2ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.ActOut2ShowLabel.Size = new System.Drawing.Size(29, 13);
             this.ActOut2ShowLabel.TabIndex = 1;
             this.ActOut2ShowLabel.Text = "OFF";
             this.ActOut2ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3481,10 +3753,9 @@ namespace Synthesizer_PC_control
             // 
             // FreqAtOut2Label
             // 
-            this.FreqAtOut2Label.Location = new System.Drawing.Point(5, 89);
-            this.FreqAtOut2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FreqAtOut2Label.Location = new System.Drawing.Point(4, 72);
             this.FreqAtOut2Label.Name = "FreqAtOut2Label";
-            this.FreqAtOut2Label.Size = new System.Drawing.Size(138, 18);
+            this.FreqAtOut2Label.Size = new System.Drawing.Size(104, 15);
             this.FreqAtOut2Label.TabIndex = 20;
             this.FreqAtOut2Label.Text = "Frequency at Out 2:";
             this.FreqAtOut2Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -3492,10 +3763,9 @@ namespace Synthesizer_PC_control
             // ActOut1ShowLabel
             // 
             this.ActOut1ShowLabel.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.ActOut1ShowLabel.Location = new System.Drawing.Point(127, 22);
-            this.ActOut1ShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ActOut1ShowLabel.Location = new System.Drawing.Point(95, 18);
             this.ActOut1ShowLabel.Name = "ActOut1ShowLabel";
-            this.ActOut1ShowLabel.Size = new System.Drawing.Size(39, 16);
+            this.ActOut1ShowLabel.Size = new System.Drawing.Size(29, 13);
             this.ActOut1ShowLabel.TabIndex = 0;
             this.ActOut1ShowLabel.Text = "OFF";
             this.ActOut1ShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3503,30 +3773,27 @@ namespace Synthesizer_PC_control
             // 
             // FreqAtOut1Label
             // 
-            this.FreqAtOut1Label.Location = new System.Drawing.Point(5, 66);
-            this.FreqAtOut1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.FreqAtOut1Label.Location = new System.Drawing.Point(4, 54);
             this.FreqAtOut1Label.Name = "FreqAtOut1Label";
-            this.FreqAtOut1Label.Size = new System.Drawing.Size(138, 18);
+            this.FreqAtOut1Label.Size = new System.Drawing.Size(104, 15);
             this.FreqAtOut1Label.TabIndex = 20;
             this.FreqAtOut1Label.Text = "Frequency at Out 1:";
             this.FreqAtOut1Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ActiveOut2Label
             // 
-            this.ActiveOut2Label.Location = new System.Drawing.Point(170, 21);
-            this.ActiveOut2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ActiveOut2Label.Location = new System.Drawing.Point(128, 17);
             this.ActiveOut2Label.Name = "ActiveOut2Label";
-            this.ActiveOut2Label.Size = new System.Drawing.Size(116, 18);
+            this.ActiveOut2Label.Size = new System.Drawing.Size(87, 15);
             this.ActiveOut2Label.TabIndex = 20;
             this.ActiveOut2Label.Text = "Active Output 2:";
             this.ActiveOut2Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ActiveOut1Label
             // 
-            this.ActiveOut1Label.Location = new System.Drawing.Point(7, 20);
-            this.ActiveOut1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ActiveOut1Label.Location = new System.Drawing.Point(5, 16);
             this.ActiveOut1Label.Name = "ActiveOut1Label";
-            this.ActiveOut1Label.Size = new System.Drawing.Size(113, 18);
+            this.ActiveOut1Label.Size = new System.Drawing.Size(85, 15);
             this.ActiveOut1Label.TabIndex = 20;
             this.ActiveOut1Label.Text = "Active Output 1:";
             this.ActiveOut1Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -3534,11 +3801,12 @@ namespace Synthesizer_PC_control
             // ConsoleRichTextBox
             // 
             this.ConsoleRichTextBox.HideSelection = false;
-            this.ConsoleRichTextBox.Location = new System.Drawing.Point(11, 303);
+            this.ConsoleRichTextBox.Location = new System.Drawing.Point(8, 246);
+            this.ConsoleRichTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ConsoleRichTextBox.Name = "ConsoleRichTextBox";
             this.ConsoleRichTextBox.ReadOnly = true;
             this.ConsoleRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.ConsoleRichTextBox.Size = new System.Drawing.Size(334, 563);
+            this.ConsoleRichTextBox.Size = new System.Drawing.Size(252, 458);
             this.ConsoleRichTextBox.TabIndex = 8;
             this.ConsoleRichTextBox.Text = "";
             // 
@@ -3556,19 +3824,20 @@ namespace Synthesizer_PC_control
             this.SynthModuleInfoGroupBox.Controls.Add(this.ActOut2ShowLabel);
             this.SynthModuleInfoGroupBox.Controls.Add(this.FreqAtOut1ShowLabel);
             this.SynthModuleInfoGroupBox.Controls.Add(this.FreqAtOut2ShowLabel);
-            this.SynthModuleInfoGroupBox.Location = new System.Drawing.Point(11, 182);
+            this.SynthModuleInfoGroupBox.Location = new System.Drawing.Point(8, 148);
+            this.SynthModuleInfoGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SynthModuleInfoGroupBox.Name = "SynthModuleInfoGroupBox";
-            this.SynthModuleInfoGroupBox.Size = new System.Drawing.Size(334, 115);
+            this.SynthModuleInfoGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SynthModuleInfoGroupBox.Size = new System.Drawing.Size(250, 93);
             this.SynthModuleInfoGroupBox.TabIndex = 7;
             this.SynthModuleInfoGroupBox.TabStop = false;
             this.SynthModuleInfoGroupBox.Text = "Synthesizer module info";
             // 
             // IntExtShowLabel
             // 
-            this.IntExtShowLabel.Location = new System.Drawing.Point(162, 43);
-            this.IntExtShowLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.IntExtShowLabel.Location = new System.Drawing.Point(122, 35);
             this.IntExtShowLabel.Name = "IntExtShowLabel";
-            this.IntExtShowLabel.Size = new System.Drawing.Size(106, 18);
+            this.IntExtShowLabel.Size = new System.Drawing.Size(80, 15);
             this.IntExtShowLabel.TabIndex = 2;
             this.IntExtShowLabel.Text = "External";
             this.IntExtShowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3576,10 +3845,9 @@ namespace Synthesizer_PC_control
             // 
             // RefSignalLabel
             // 
-            this.RefSignalLabel.Location = new System.Drawing.Point(5, 43);
-            this.RefSignalLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.RefSignalLabel.Location = new System.Drawing.Point(4, 35);
             this.RefSignalLabel.Name = "RefSignalLabel";
-            this.RefSignalLabel.Size = new System.Drawing.Size(138, 18);
+            this.RefSignalLabel.Size = new System.Drawing.Size(104, 15);
             this.RefSignalLabel.TabIndex = 20;
             this.RefSignalLabel.Text = "Reference Signal:";
             this.RefSignalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -3587,9 +3855,10 @@ namespace Synthesizer_PC_control
             // LedOffPicBox
             // 
             this.LedOffPicBox.Image = ((System.Drawing.Image)(resources.GetObject("LedOffPicBox.Image")));
-            this.LedOffPicBox.Location = new System.Drawing.Point(7, 876);
+            this.LedOffPicBox.Location = new System.Drawing.Point(5, 712);
+            this.LedOffPicBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LedOffPicBox.Name = "LedOffPicBox";
-            this.LedOffPicBox.Size = new System.Drawing.Size(21, 21);
+            this.LedOffPicBox.Size = new System.Drawing.Size(16, 17);
             this.LedOffPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.LedOffPicBox.TabIndex = 24;
             this.LedOffPicBox.TabStop = false;
@@ -3598,9 +3867,10 @@ namespace Synthesizer_PC_control
             // LedOnPicBox
             // 
             this.LedOnPicBox.Image = ((System.Drawing.Image)(resources.GetObject("LedOnPicBox.Image")));
-            this.LedOnPicBox.Location = new System.Drawing.Point(7, 877);
+            this.LedOnPicBox.Location = new System.Drawing.Point(5, 713);
+            this.LedOnPicBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.LedOnPicBox.Name = "LedOnPicBox";
-            this.LedOnPicBox.Size = new System.Drawing.Size(21, 21);
+            this.LedOnPicBox.Size = new System.Drawing.Size(16, 17);
             this.LedOnPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.LedOnPicBox.TabIndex = 25;
             this.LedOnPicBox.TabStop = false;
@@ -3608,9 +3878,9 @@ namespace Synthesizer_PC_control
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1071, 895);
+            this.ClientSize = new System.Drawing.Size(642, 582);
             this.Controls.Add(this.LedOnPicBox);
             this.Controls.Add(this.LedOffPicBox);
             this.Controls.Add(this.SynthModuleInfoGroupBox);
@@ -3626,7 +3896,6 @@ namespace Synthesizer_PC_control
             this.Controls.Add(this.Out1Button);
             this.Controls.Add(this.PortButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Synthesizer Control Program by OK2FKU";
@@ -3670,6 +3939,8 @@ namespace Synthesizer_PC_control
             this.SyntModuleControlsGroupBox.PerformLayout();
             this.RegMemoryGroupBox.ResumeLayout(false);
             this.RegMemoryGroupBox.PerformLayout();
+            this.VcoCalibrationTabPage.ResumeLayout(false);
+            this.VcoCalibrationTabPage.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.DirectFreqContrGroupBox.ResumeLayout(false);
@@ -3711,7 +3982,7 @@ namespace Synthesizer_PC_control
         public System.Windows.Forms.Button WriteR3Button;
         public System.Windows.Forms.Button WriteR4Button;
         public System.Windows.Forms.Button WriteR5Button;
-        private System.Windows.Forms.TabControl RegistersTabControl;
+        public System.Windows.Forms.TabControl RegistersTabControl;
         private System.Windows.Forms.TabPage RegistersPage;
         private System.Windows.Forms.TabPage RegistersMemoryPage;
         private System.Windows.Forms.Label SavReg3Label;
@@ -3752,7 +4023,7 @@ namespace Synthesizer_PC_control
         public System.Windows.Forms.Button SaveRegMemory;
         public System.Windows.Forms.Button LoadRegMemory;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Label RF_A_EN_Label;
         public System.Windows.Forms.ComboBox OutAEn_ComboBox;
         public System.Windows.Forms.Label RF_A_PWR_Label;
@@ -3899,8 +4170,8 @@ namespace Synthesizer_PC_control
         public CheckBox AutoCDIVCalcCheckBox;
         public NumericUpDown DelayInputNumericUpDown;
         private Label RefSignalLabel;
-        private PictureBox LedOffPicBox;
-        private PictureBox LedOnPicBox;
+        public PictureBox LedOffPicBox;
+        public PictureBox LedOnPicBox;
         public Label IntExtShowLabel;
         public Label Mem1RefShowLabel;
         public Label Mem1ActOut2ShowLabel;
@@ -3950,6 +4221,23 @@ namespace Synthesizer_PC_control
         public Label Mem2PwrAShowLabel;
         public Label Mem1PwrBShowLabel;
         public Label Mem1PwrAShowLabel;
+        public TabPage VcoCalibrationTabPage;
+        public Label CurrentVcoShowLabel;
+        public Label ActFreqShowLabel;
+        public TextBox VcoFreqMaxTextBox;
+        private Label CurrentVcoLabel;
+        private Label label14;
+        private Label ActFreqLabel;
+        private Label label15;
+        private Label VcoFreqMaxLabel;
+        public TextBox VcoFreqMinTextBox;
+        private Label label16;
+        private Label VcoFreqMinLabel;
+        public Button AbortCallibrationButton;
+        public Button PerformVcoCalibrationButton;
+        public TextBox FreqStepTextBox;
+        private Label MHzLable;
+        public Label FreqStepLabel;
     }
 }
 
